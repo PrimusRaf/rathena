@@ -1,0 +1,31 @@
+-- ============================================================
+--  SafaRO - Server-Account auf MD5 umstellen
+-- ------------------------------------------------------------
+--  Laeuft beim ERSTEN Start der Datenbank automatisch, weil
+--  docker-compose.yml das Verzeichnis sql-files nach
+--  /docker-entrypoint-initdb.d haengt. Der Dateiname beginnt mit
+--  "zz", damit die Anweisung nach main.sql ausgefuehrt wird.
+--
+--  Warum es diese Datei braucht:
+--
+--  Char- und Map-Server melden sich beim Login-Server mit einem
+--  eigenen Konto an - userid "s1", passwd "p1" (char_athena.conf:8,
+--  map_athena.conf:13). Angelegt wird es von main.sql:799, und zwar
+--  im Klartext.
+--
+--  Seit use_MD5_passwords: yes hasht der Login-Server auch diese
+--  Anmeldung (loginclif.cpp:411). Er vergleicht dann den Hash gegen
+--  das gespeicherte "p1", was nie passt. Im Log sieht das so aus:
+--
+--     [Notice]: Invalid password (account: 's1', ...)
+--     [Notice]: Connection of the char-server 'rAthena' REFUSED.
+--
+--  und eine Ebene weiter, wo man zuerst sucht:
+--
+--     [Warning]: Connection to Char Server lost.
+--
+--  Die Bedingung auf die Laenge macht die Anweisung wiederholbar:
+--  ein bereits gehashter Wert hat 32 Zeichen und bleibt unangetastet.
+-- ============================================================
+
+UPDATE `login` SET `user_pass` = MD5(`user_pass`) WHERE LENGTH(`user_pass`) <> 32;
