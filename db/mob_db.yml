@@ -82,10 +82,18 @@ Header:
   Type: MOB_DB
   Version: 5
 
-# Raffas_RO: mob_db_raffas_coins.yml haengt allen normalen Monstern den
+# SafaRO: mob_db_safa_coins.yml haengt allen normalen Monstern den
 # Destiny-Coin-Drop an. Der Eintrag steht bewusst als letzter, damit die
 # Drops ergaenzt und nicht ueberschrieben werden. Generierte Datei, nicht
 # von Hand pflegen.
+#
+# ACHTUNG: Diese Zeile ist die EINZIGE Verbindung zwischen der Datei und
+# dem Server. Wird sie hier vergessen, laedt der Server die 2411 Eintraege
+# nicht und es faellt kein einziger Coin - ohne dass im Spiel etwas kaputt
+# aussieht. Genau das ist bei der Umbenennung von Raffas_RO auf SafaRO
+# passiert: die Datei hiess ab dann safa_coins, hier stand weiter
+# raffas_coins. Der map-server meldet das mit einer einzigen Zeile:
+#   Failed to open MOB_DB database file from 'db/import/mob_db_..._coins.yml'
 Footer:
   Imports:
   - Path: db/pre-re/mob_db.yml
@@ -93,4 +101,4 @@ Footer:
   - Path: db/re/mob_db.yml
     Mode: Renewal
   - Path: db/import/mob_db.yml
-  - Path: db/import/mob_db_raffas_coins.yml
+  - Path: db/import/mob_db_safa_coins.yml

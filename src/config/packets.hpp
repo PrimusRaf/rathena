@@ -45,7 +45,7 @@
 	/// Comment to disable the official packet obfuscation support.
 	/// This requires PACKETVER 2011-08-17 or newer.
 	#ifndef PACKET_OBFUSCATION
-		// --- Raffas_RO: Paket-Obfuskation deaktiviert -----------------------
+		// --- SafaRO: Paket-Obfuskation deaktiviert --------------------------
 		// Der Client wird mit den WARP-Patches "Disable Map packet encryption"
 		// und "Disable Login/Char packet encryption" gepatcht, sendet also
 		// unverschluesselt. Beide Seiten muessen zusammenpassen.
