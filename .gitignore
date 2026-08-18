@@ -64,10 +64,35 @@ Thumbs.db
 /3rdparty/httplib/obj
 
 # /db/
-/db/import
+# SafaRO: rAthena sperrt /db/import komplett, weil es dort normalerweise
+# nur Kopien der leeren Vorlagen aus /db/import-tmpl erwartet. Bei uns
+# steht in einigen dieser Dateien der halbe Server - die EXP-Kurve, die
+# Custom-Items, die Sets. Ohne die Freigabe unten wuerden sie beim Commit
+# stillschweigend weggelassen, und der Server kaeme auf dem Zielsystem
+# mit rAthena-Standardwerten hoch.
+#
+# Bewusst einzeln aufgezaehlt statt pauschal: so landet eine neue
+# import-Datei nur dann im Repo, wenn sie hier eingetragen wird. Der
+# Rest des Verzeichnisses sind unveraenderte Vorlagen.
+/db/import/*
+!/db/import/exp_homun.yml
+!/db/import/item_combos.yml
+!/db/import/item_db.yml
+!/db/import/job_exp.yml
+!/db/import/mob_db_safa_coins.yml
+!/db/import/mob_item_ratio.yml
+!/db/import/quest_db.yml
+!/db/import/refine.yml
+!/db/import/refine_high.yml
+!/db/import/statpoint.yml
 
 # /conf/
-/conf/import
+# SafaRO: siehe Begruendung bei /db/import. Die uebrigen Dateien in
+# conf/import werden vom Docker-Setup ueberlagert (docker/conf/*.txt)
+# und sind hier unveraenderte Vorlagen.
+/conf/import/*
+!/conf/import/battle_conf.txt
+!/conf/import/groups.yml
 /conf/msg_conf/import
 
 # /lib
@@ -152,3 +177,7 @@ Thumbs.db
 
 # generated files
 generated
+
+# SafaRO: Sicherungskopien gehoeren nicht in den Fork
+*.bak
+*.bak[0-9]

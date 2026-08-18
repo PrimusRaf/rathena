@@ -1,0 +1,9677 @@
+# ###########################################################################
+# SafaRO - Destiny Coin bei allen Monstern
+# ###########################################################################
+#
+# Diese Datei ist GENERIERT. Nicht von Hand pflegen.
+#
+# Inhalt: fuer jedes normale Monster ein zusaetzlicher Drop-Eintrag
+#   Item: Destiny_Coin   Rate: 1000   (= 10,00 Prozent)
+#
+# WICHTIG - warum aus den 10 Prozent nicht 100 werden:
+# Der Server multipliziert jede Drop-Rate mit item_rate_common, bei uns
+# 2500 also 25x. 1000 * 25 waere 250 Prozent und wuerde auf 100 gedeckelt.
+# Deshalb steht Destiny_Coin in db/import/mob_item_ratio.yml mit Ratio 100.
+# Das ersetzt den Multiplikator fuer genau dieses Item, die Rate bleibt
+# unveraendert bei 1000 von 10000.
+#
+# NICHT enthalten:
+#   - MVPs. Die geben 5 Coins garantiert, das erledigt das Kill-Event in
+#     npc/custom/safa_shops.txt.
+#   - Truhen, Emperium, Barrikaden und WoE-Objekte.
+#
+# Der Eintrag wird ohne Index angehaengt und landet damit hinter den
+# vorhandenen Drops. Das hoechste Vorkommen sind 8 Drops, das Limit von
+# 10 (MAX_MOB_DROP) wird also nirgends erreicht.
+#
+# Generiert am 2026-08-16 fuer 2411 Monster.
+# ###########################################################################
+
+Header:
+  Type: MOB_DB
+  Version: 5
+
+Body:
+  - Id: 1001
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1002
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1004
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1005
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1007
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1008
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1009
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1010
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1011
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1012
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1013
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1014
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1015
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1016
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1018
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1019
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1020
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1023
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1024
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1025
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1026
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1028
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1029
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1030
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1031
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1032
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1033
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1034
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1035
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1036
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1037
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1040
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1041
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1042
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1044
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1045
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1047
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1048
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1049
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1050
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1051
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1052
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1053
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1054
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1055
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1056
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1057
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1058
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1060
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1061
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1062
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1063
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1064
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1065
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1066
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1067
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1068
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1069
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1070
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1071
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1072
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1073
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1074
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1076
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1077
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1078
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1079
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1080
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1081
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1082
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1083
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1084
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1085
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1088
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1089
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1090
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1091
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1092
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1093
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1094
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1095
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1096
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1097
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1098
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1099
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1100
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1101
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1102
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1103
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1104
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1105
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1106
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1107
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1108
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1109
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1110
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1111
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1113
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1114
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1116
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1117
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1118
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1119
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1120
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1121
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1122
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1123
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1124
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1125
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1126
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1127
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1128
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1129
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1130
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1131
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1132
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1133
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1134
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1135
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1136
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1137
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1138
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1139
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1140
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1141
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1142
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1143
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1144
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1145
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1146
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1148
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1149
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1151
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1152
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1153
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1154
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1155
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1156
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1158
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1160
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1161
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1162
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1163
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1164
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1165
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1166
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1167
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1169
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1170
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1174
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1175
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1176
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1177
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1178
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1179
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1180
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1182
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1183
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1184
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1185
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1186
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1188
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1189
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1191
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1192
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1193
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1194
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1195
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1196
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1197
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1198
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1199
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1200
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1201
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1202
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1203
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1204
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1205
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1206
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1207
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1208
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1209
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1211
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1212
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1213
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1214
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1215
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1216
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1219
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1220
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1221
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1229
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1230
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1231
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1232
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1234
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1235
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1236
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1237
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1238
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1239
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1240
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1241
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1242
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1243
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1244
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1245
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1246
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1247
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1248
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1249
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1250
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1253
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1254
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1255
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1256
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1257
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1258
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1259
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1260
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1261
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1262
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1263
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1264
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1265
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1266
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1267
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1268
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1269
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1270
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1271
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1273
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1274
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1275
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1276
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1277
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1278
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1279
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1280
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1281
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1282
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1283
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1285
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1286
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1287
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1288
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1289
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1290
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1291
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1292
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1293
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1294
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1295
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1296
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1297
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1298
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1299
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1300
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1301
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1302
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1303
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1304
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1305
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1306
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1307
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1308
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1309
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1310
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1311
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1313
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1314
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1315
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1316
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1317
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1318
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1319
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1320
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1321
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1322
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1323
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1364
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1365
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1366
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1367
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1368
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1369
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1370
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1371
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1372
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1374
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1375
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1376
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1377
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1378
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1379
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1380
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1381
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1382
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1383
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1384
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1385
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1386
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1387
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1388
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1390
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1391
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1392
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1393
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1394
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1395
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1396
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1397
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1398
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1400
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1401
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1402
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1403
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1404
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1405
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1406
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1408
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1409
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1410
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1412
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1413
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1415
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1416
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1417
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1419
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1420
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1421
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1422
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1423
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1424
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1425
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1426
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1427
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1428
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1429
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1430
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1431
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1432
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1433
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1434
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1435
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1436
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1437
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1438
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1439
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1440
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1441
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1442
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1443
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1444
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1445
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1446
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1447
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1448
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1449
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1450
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1451
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1452
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1453
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1454
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1455
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1456
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1457
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1458
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1459
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1460
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1461
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1462
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1463
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1464
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1465
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1466
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1467
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1468
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1469
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1470
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1471
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1472
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1473
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1474
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1475
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1476
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1477
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1478
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1479
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1480
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1481
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1482
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1483
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1484
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1485
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1486
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1487
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1488
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1489
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1490
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1491
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1493
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1494
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1495
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1497
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1498
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1499
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1500
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1503
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1504
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1505
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1506
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1507
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1508
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1509
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1510
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1512
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1513
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1514
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1515
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1516
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1517
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1519
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1520
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1521
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1522
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1523
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1524
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1525
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1526
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1527
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1528
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1529
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1530
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1531
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1532
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1533
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1534
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1535
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1536
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1537
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1538
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1539
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1540
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1541
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1542
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1543
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1544
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1545
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1546
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1547
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1548
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1549
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1550
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1551
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1552
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1553
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1554
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1555
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1556
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1557
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1558
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1559
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1560
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1561
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1562
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1563
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1564
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1565
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1566
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1567
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1568
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1569
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1570
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1571
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1572
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1573
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1574
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1575
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1576
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1577
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1578
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1579
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1580
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1581
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1582
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1584
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1585
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1586
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1587
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1588
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1589
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1590
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1591
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1592
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1593
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1594
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1595
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1596
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1597
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1598
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1599
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1600
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1601
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1602
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1603
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1604
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1605
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1606
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1607
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1608
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1609
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1610
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1611
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1612
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1613
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1614
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1615
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1616
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1617
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1618
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1619
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1620
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1621
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1622
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1624
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1625
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1626
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1627
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1628
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1629
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1631
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1632
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1633
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1634
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1635
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1636
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1637
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1638
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1639
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1640
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1641
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1642
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1643
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1644
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1645
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1652
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1653
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1654
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1655
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1656
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1657
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1659
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1660
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1661
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1662
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1663
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1664
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1665
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1666
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1667
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1668
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1669
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1670
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1671
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1672
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1673
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1674
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1675
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1676
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1677
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1678
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1679
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1680
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1681
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1682
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1683
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1684
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1686
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1687
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1689
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1690
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1691
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1692
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1693
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1694
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1695
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1696
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1697
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1698
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1699
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1700
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1701
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1702
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1703
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1704
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1705
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1706
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1707
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1709
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1710
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1711
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1712
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1713
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1714
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1715
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1716
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1717
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1718
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1720
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1721
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1722
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1723
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1724
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1725
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1726
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1727
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1728
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1729
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1730
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1731
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1733
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1735
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1736
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1737
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1738
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1739
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1740
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1741
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1742
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1743
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1744
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1745
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1746
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1747
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1748
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1749
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1750
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1752
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1753
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1754
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1755
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1756
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1757
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1758
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1759
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1760
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1761
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1762
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1763
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1764
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1765
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1769
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1770
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1771
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1772
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1773
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1774
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1775
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1776
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1777
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1778
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1780
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1781
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1782
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1783
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1784
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1786
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1787
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1788
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1789
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1790
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1791
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1792
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1793
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1794
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1795
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1796
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1797
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1799
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1800
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1801
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1802
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1803
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1804
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1805
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1806
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1807
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1808
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1809
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1810
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1811
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1812
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1814
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1815
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1816
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1818
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1819
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1820
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1821
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1822
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1823
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1824
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1825
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1826
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1827
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1828
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1829
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1830
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1831
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1833
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1834
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1835
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1836
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1837
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1838
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1839
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1840
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1841
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1842
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1843
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1844
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1846
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1847
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1848
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1849
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1850
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1851
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1852
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1853
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1854
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1855
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1856
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1857
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1858
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1859
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1860
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1861
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1862
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1863
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1864
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1865
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1866
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1867
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1868
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1869
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1870
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1872
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1873
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1875
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1877
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1878
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1879
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1880
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1881
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1882
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1883
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1884
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1886
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1887
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1888
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1889
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1890
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1891
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1892
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1893
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1894
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1895
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1896
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1897
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1898
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1899
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1900
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1901
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1902
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1903
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1904
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1907
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1908
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1916
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1918
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1919
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1920
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1921
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1922
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1923
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1924
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1925
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1926
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1927
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1928
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1929
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1930
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1931
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1932
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1933
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1934
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1935
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1936
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1937
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1947
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1948
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1949
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1950
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1951
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1952
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1953
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1954
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1958
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1959
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1960
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1961
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1962
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1963
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1964
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1965
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1966
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1967
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1968
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1969
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1970
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1971
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1972
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1973
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1974
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1975
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1976
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1977
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1978
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1979
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1981
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1982
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1983
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1984
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1985
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1986
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1987
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1988
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1989
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1990
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1991
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1992
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1993
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1994
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1995
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1997
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1998
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 1999
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2000
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2001
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2002
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2003
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2004
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2005
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2006
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2007
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2008
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2009
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2010
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2011
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2012
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2013
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2014
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2015
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2016
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2017
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2018
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2019
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2020
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2021
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2023
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2024
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2025
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2026
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2027
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2030
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2031
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2032
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2033
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2034
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2035
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2036
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2037
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2038
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2039
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2040
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2041
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2042
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2043
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2044
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2045
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2046
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2047
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2048
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2049
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2050
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2057
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2058
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2059
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2060
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2066
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2067
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2069
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2070
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2071
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2072
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2073
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2074
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2076
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2077
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2078
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2079
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2080
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2081
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2082
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2083
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2084
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2085
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2086
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2088
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2089
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2090
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2091
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2092
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2093
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2126
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2127
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2128
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2129
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2130
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2132
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2133
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2134
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2135
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2136
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2137
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2138
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2139
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2140
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2141
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2142
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2143
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2144
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2145
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2146
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2147
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2148
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2149
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2150
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2151
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2152
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2153
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2154
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2155
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2157
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2158
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2159
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2160
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2161
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2162
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2163
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2164
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2166
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2167
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2168
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2169
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2170
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2171
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2172
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2173
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2174
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2175
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2176
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2177
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2178
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2179
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2180
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2181
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2182
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2183
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2184
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2185
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2186
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2191
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2192
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2193
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2195
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2196
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2197
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2198
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2199
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2200
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2201
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2203
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2204
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2206
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2208
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2209
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2210
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2211
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2213
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2214
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2215
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2216
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2217
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2218
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2219
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2220
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2221
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2222
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2223
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2224
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2225
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2226
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2227
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2228
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2229
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2230
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2231
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2232
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2233
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2234
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2242
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2243
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2244
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2245
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2246
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2247
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2248
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2250
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2252
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2254
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2256
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2257
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2258
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2259
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2260
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2261
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2262
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2263
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2264
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2265
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2266
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2267
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2268
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2269
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2270
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2271
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2272
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2273
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2274
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2275
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2276
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2277
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2278
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2279
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2280
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2281
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2282
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2283
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2284
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2285
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2286
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2287
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2288
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2289
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2290
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2291
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2292
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2293
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2294
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2295
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2296
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2297
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2298
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2299
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2300
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2301
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2302
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2303
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2304
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2305
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2307
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2308
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2309
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2310
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2311
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2312
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2313
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2314
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2315
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2316
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2317
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2318
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2320
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2321
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2322
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2323
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2324
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2325
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2326
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2327
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2328
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2329
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2330
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2331
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2332
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2333
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2334
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2335
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2336
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2337
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2338
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2339
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2340
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2342
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2343
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2344
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2345
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2346
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2347
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2348
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2349
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2350
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2351
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2353
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2354
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2355
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2356
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2357
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2358
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2359
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2360
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2361
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2363
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2364
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2365
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2366
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2367
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2368
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2369
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2370
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2371
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2372
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2373
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2374
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2375
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2376
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2377
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2378
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2379
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2380
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2398
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2401
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2402
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2403
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2404
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2405
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2406
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2407
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2408
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2409
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2410
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2411
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2413
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2415
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2416
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2417
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2418
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2419
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2420
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2421
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2422
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2423
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2424
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2425
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2426
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2427
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2428
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2429
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2430
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2431
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2432
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2433
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2434
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2435
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2436
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2437
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2438
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2439
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2440
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2443
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2444
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2445
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2446
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2447
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2448
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2449
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2450
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2451
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2464
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2465
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2466
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2467
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2468
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2469
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2470
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2471
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2472
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2473
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2474
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2477
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2478
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2479
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2480
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2481
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2484
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2485
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2528
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2530
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2531
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2536
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2537
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2539
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2540
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2541
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2542
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2543
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2544
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2545
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2546
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2549
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2550
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2551
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2552
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2553
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2554
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2555
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2556
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2557
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2558
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2559
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2560
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2561
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2562
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2563
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2565
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2566
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2567
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2568
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2569
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2570
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2571
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2572
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2573
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2574
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2575
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2576
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2577
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2578
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2579
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2580
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2581
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2582
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2583
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2584
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2585
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2586
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2587
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2588
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2589
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2590
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2591
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2592
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2593
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2594
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2595
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2596
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2597
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2598
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2599
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2600
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2601
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2602
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2603
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2604
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2605
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2606
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2607
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2608
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2609
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2610
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2611
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2612
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2613
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2614
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2615
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2616
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2617
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2618
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2619
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2620
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2621
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2622
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2623
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2624
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2625
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2626
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2627
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2628
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2629
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2630
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2631
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2632
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2633
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2634
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2635
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2636
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2637
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2638
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2639
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2640
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2641
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2642
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2643
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2644
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2645
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2646
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2647
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2648
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2649
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2650
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2651
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2652
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2653
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2654
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2655
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2656
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2657
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2658
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2659
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2660
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2661
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2662
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2663
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2664
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2665
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2666
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2667
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2668
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2669
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2670
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2671
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2672
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2673
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2674
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2675
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2676
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2677
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2678
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2679
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2680
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2681
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2682
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2683
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2684
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2685
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2686
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2687
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2688
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2689
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2690
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2691
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2692
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2693
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2694
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2695
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2696
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2697
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2698
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2699
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2700
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2701
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2702
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2703
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2704
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2705
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2706
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2707
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2708
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2709
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2710
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2711
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2712
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2713
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2714
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2715
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2716
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2717
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2718
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2719
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2720
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2721
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2722
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2723
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2724
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2725
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2726
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2727
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2728
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2729
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2730
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2731
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2732
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2733
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2734
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2735
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2736
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2737
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2738
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2739
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2740
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2741
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2742
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2743
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2744
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2745
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2746
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2747
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2748
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2749
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2750
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2751
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2752
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2753
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2754
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2755
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2756
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2757
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2758
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2759
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2760
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2761
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2762
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2763
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2764
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2765
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2766
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2767
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2768
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2769
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2770
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2771
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2772
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2773
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2774
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2775
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2776
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2777
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2778
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2779
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2780
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2781
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2782
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2783
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2784
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2785
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2786
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2787
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2788
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2789
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2790
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2791
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2792
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2793
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2794
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2795
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2796
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2797
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2798
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2799
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2800
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2801
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2802
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2803
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2804
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2805
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2806
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2807
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2808
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2809
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2810
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2811
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2812
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2813
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2814
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2815
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2816
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2817
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2818
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2819
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2820
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2821
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2822
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2823
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2824
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2825
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2826
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2827
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2828
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2829
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2830
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2831
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2832
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2833
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2834
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2835
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2836
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2837
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2838
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2839
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2840
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2841
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2842
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2843
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2844
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2845
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2846
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2847
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2848
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2849
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2850
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2851
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2852
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2853
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2854
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2855
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2856
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2857
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2858
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2859
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2860
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2861
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2862
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2863
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2864
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2865
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2866
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2867
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2868
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2869
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2870
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2871
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2872
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2873
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2874
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2875
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2876
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2877
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2878
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2879
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2880
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2881
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2882
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2883
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2884
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2885
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2886
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2887
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2888
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2889
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2890
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2891
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2892
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2893
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2894
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2895
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2896
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2897
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2898
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2899
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2900
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2901
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2902
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2903
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2904
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2905
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2906
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2907
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2908
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2909
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2910
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2911
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2912
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2913
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2914
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2916
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2917
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2918
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2919
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2920
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2921
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2922
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2923
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2924
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2925
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2926
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2927
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2928
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2929
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2930
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2931
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2932
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2933
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2934
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2935
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2936
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2937
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2938
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2939
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2940
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2941
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2943
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2948
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2949
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2950
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2951
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2952
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2953
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2954
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2955
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2956
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2957
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2958
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2959
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2960
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2961
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2987
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2988
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2989
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2990
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2991
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2992
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2993
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2994
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2995
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2997
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2998
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 2999
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3001
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3002
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3003
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3004
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3005
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3006
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3007
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3008
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3010
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3011
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3012
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3013
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3014
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3015
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3016
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3017
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3018
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3020
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3021
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3022
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3023
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3026
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3027
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3028
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3038
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3039
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3040
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3041
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3061
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3069
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3070
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3071
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3072
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3075
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3076
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3077
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3078
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3079
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3080
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3081
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3082
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3083
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3084
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3085
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3086
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3087
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3088
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3089
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3090
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3091
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3092
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3096
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3098
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3099
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3101
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3102
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3103
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3105
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3106
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3108
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3109
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3122
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3123
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3125
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3126
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3127
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3128
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3153
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3154
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3155
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3156
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3157
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3158
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3159
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3161
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3169
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3170
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3175
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3176
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3177
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3178
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3179
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3180
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3191
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3192
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3193
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3194
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3195
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3196
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3197
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3198
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3199
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3200
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3202
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3203
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3208
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3209
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3210
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3211
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3212
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3213
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3214
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3215
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3216
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3217
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3218
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3219
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3226
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3227
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3228
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3229
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3230
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3231
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3232
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3233
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3234
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3235
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3236
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3237
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3238
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3239
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3247
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3248
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3249
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3250
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3251
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3252
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3253
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3255
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3256
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3384
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3385
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3386
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3387
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3388
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3389
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3390
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3391
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3392
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3393
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3394
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3395
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3396
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3397
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3398
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3399
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3400
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3401
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3402
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3403
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3404
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3405
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3406
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3407
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3408
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3409
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3410
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3411
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3412
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3413
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3414
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3415
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3416
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3417
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3418
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3419
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3420
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3421
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3422
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3423
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3424
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3425
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3431
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3432
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3433
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3434
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3435
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3436
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3437
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3438
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3439
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3440
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3442
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3443
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3444
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3445
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3446
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3447
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3448
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3449
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3451
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3452
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3454
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3455
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3474
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3475
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3476
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3477
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3478
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3479
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3480
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3481
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3482
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3483
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3484
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3485
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3487
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3488
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3489
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3490
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3494
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3495
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3496
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3497
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3498
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3499
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3500
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3501
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3502
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3503
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3504
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3506
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3507
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3508
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3510
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3511
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3512
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3513
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3514
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3515
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3516
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3517
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3518
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3519
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3520
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3521
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3522
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3523
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3524
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3525
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3526
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3527
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3528
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3569
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3570
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3622
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3623
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3624
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3625
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3626
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3627
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3629
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3630
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3631
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3632
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3636
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3637
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3638
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3639
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3640
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3641
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3642
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3643
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3644
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3645
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3646
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3647
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3648
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3649
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3650
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3651
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3652
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3653
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3654
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3660
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3661
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3662
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3663
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3664
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3665
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3666
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3667
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3669
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3670
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3736
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3737
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3738
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3739
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3740
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3742
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3743
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3744
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3745
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3746
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3747
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3748
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3749
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3750
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3751
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3752
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3753
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3754
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3755
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3756
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3759
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3760
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3761
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3762
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3763
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3764
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3765
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3787
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3788
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3790
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3792
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3793
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3794
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3795
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3797
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3798
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3799
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3800
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3801
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3802
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3803
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3811
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3812
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3813
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3814
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3815
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3816
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 3896
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20255
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20256
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20257
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20258
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20259
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20260
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20261
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20262
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20263
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20264
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20265
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20266
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20267
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20268
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20270
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20271
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20272
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20274
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20275
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20276
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20278
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20279
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20280
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20341
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20342
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20343
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20344
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20345
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20347
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20348
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20349
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20350
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20351
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20352
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20353
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20355
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20356
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20357
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20358
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20359
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20360
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20361
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20362
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20363
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20364
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20365
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20366
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20367
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20368
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20369
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20370
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20371
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20372
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20373
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20374
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20375
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20376
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20377
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20378
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20379
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20380
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20382
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20420
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20543
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20560
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20592
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20593
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20594
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20595
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20596
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20597
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20598
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20599
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20600
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20602
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20603
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20622
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20623
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20624
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20625
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20626
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20627
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20628
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20629
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20630
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20631
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20632
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20633
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20634
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20635
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20636
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20637
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20638
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20639
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20640
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20641
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20643
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20644
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20645
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20646
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20647
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20649
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20650
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20651
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20652
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20653
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20654
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20655
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20656
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20657
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20658
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20660
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20661
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20662
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20663
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20664
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20665
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20666
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20669
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20670
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20671
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20672
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20673
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20674
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20675
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20676
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20677
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20678
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20679
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20680
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20681
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20682
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20683
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20684
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20685
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20686
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20687
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20688
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20689
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20690
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20691
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20692
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20693
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20694
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20696
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20697
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20698
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20699
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20700
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20801
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20802
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20803
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20804
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20805
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20806
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20807
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20808
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20809
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20810
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20834
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20835
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20836
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20837
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20846
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20847
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20848
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20849
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20850
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20851
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20920
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20921
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20922
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20923
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20924
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20925
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20926
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20927
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20929
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20930
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20931
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20932
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20933
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20935
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20936
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20937
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20938
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20939
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20940
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20941
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 20942
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21064
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21065
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21066
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21067
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21068
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21069
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21070
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21071
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21072
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21073
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21074
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21075
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21076
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21077
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21078
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21079
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21080
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21081
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21082
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21083
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21084
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21085
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21086
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21087
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21088
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21292
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21293
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21294
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21295
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21296
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21297
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21298
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21299
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21300
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21302
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21303
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21304
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21305
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21306
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21307
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21308
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21309
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21310
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21311
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21312
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21313
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21315
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21318
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21319
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21320
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21321
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21322
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21323
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21324
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21377
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21378
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21386
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21387
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21388
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21389
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21390
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21391
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21392
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21393
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21394
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21866
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21867
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21868
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21869
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 21887
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22177
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22178
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22179
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22180
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22192
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22193
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22194
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22195
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22196
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22197
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22198
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22199
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22200
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22201
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22202
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22203
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22204
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22205
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22206
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22207
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22208
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22209
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22210
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22211
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22212
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22213
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22214
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22215
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22216
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22217
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22218
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22219
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22220
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22221
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22222
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22223
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22224
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22225
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22226
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22227
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22228
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22229
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22230
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22231
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22232
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22233
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22234
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22235
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22236
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22237
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22238
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22239
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22551
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22552
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22553
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22554
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22555
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22556
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22557
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22558
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22559
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22560
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22561
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22562
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22563
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22564
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22565
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22566
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22567
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22568
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22569
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22570
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22571
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22572
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22573
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22574
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22575
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22576
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22577
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22578
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22579
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22580
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22581
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22582
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22583
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22584
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22585
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22586
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22587
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22588
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22589
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22590
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22591
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22592
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22593
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22594
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22595
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22596
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22597
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22598
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22599
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22600
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22601
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22602
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22603
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22604
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22605
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22606
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22607
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22608
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22609
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22610
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22611
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22612
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22613
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22614
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22615
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22616
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22617
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22618
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22619
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22620
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22621
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22622
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22623
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22624
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22625
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22626
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22627
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22628
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22629
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22630
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22631
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22632
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22633
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22634
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22635
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22636
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22637
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22638
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22639
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22640
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22641
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22642
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22643
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22644
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22645
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22646
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22647
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22648
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22649
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22650
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22651
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22652
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22653
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22654
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22655
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22656
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22657
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22658
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22659
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22660
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22661
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22662
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22663
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22664
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22665
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22666
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22667
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000
+  - Id: 22668
+    Drops:
+      - Item: Destiny_Coin
+        Rate: 1000

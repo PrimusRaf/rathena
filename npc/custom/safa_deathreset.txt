@@ -1,0 +1,266 @@
+// ============================================================
+//  SafaRO - Die Schwellenwaechterin
+// ------------------------------------------------------------
+//  Setzt den Todes-Debuff zurueck. Der Debuff selbst steht in
+//  safa_systems.txt: death_count zaehlt die Tode, die Strafe
+//  ist death_count * 5 Prozent auf alle Kampfwerte, gedeckelt
+//  bei 90.
+//
+//  Drei Stufen, in dieser Reihenfolge:
+//    1  Material    50 bis 200 Stueck, beim Annehmen ausgewuerfelt
+//    2  Jagd        300 Alarm, Quest 70251
+//    3  Bezahlung   400 Destiny Coins
+//
+//  Beliebig wiederholbar - man stirbt ja weiter.
+//
+//  Standort 146,182 liegt noerdlich vom Supply Master, auf
+//  derselben Achse wie Coin Exchanger und Custom Merchant.
+//  Begehbarkeit gegen db/re/map_cache.dat geprueft.
+// ============================================================
+
+prontera,146,182,4	script	Threshold Warden#safa	4_F_SISTER,{
+
+	// Kein Debuff, nichts zu tun - aber die Quest laeuft womoeglich
+	// noch aus einem frueheren Anlauf. Dann trotzdem weitermachen
+	// lassen, sonst haengt der Fortschritt fest.
+	if (death_count <= 0 && dq_stufe == 0) {
+		mes "[Threshold Warden]";
+		mes "You carry nothing yet. No deaths, no debt.";
+		mes "Come back when the cycle has taken";
+		mes "something from you.";
+		close;
+	}
+
+	mes "[Threshold Warden]";
+	mes "Every death leaves a mark. Yours weighs";
+	mes "^FF0000" + (death_count * 5 > 90 ? 90 : death_count * 5) + "%^000000 on everything you do -";
+	mes "^FF0000" + death_count + "^000000 " + (death_count == 1 ? "death" : "deaths") + " in all.";
+	next;
+
+	// Jeder Zweig endet mit close, kehrt also nie zurueck. Das break
+	// steht trotzdem da: rAthena faellt ohne es in den naechsten Fall
+	// durch, und wer hier spaeter ein return einbaut, wuerde das
+	// sonst erst im Spiel merken.
+	switch (dq_stufe) {
+		case 0: callsub S_Annehmen; break;
+		case 1: callsub S_Material; break;
+		case 2: callsub S_Jagd;     break;
+		case 3: callsub S_Bezahlen; break;
+	}
+	end;
+
+
+// ------------------------------------------------------------
+//  Stufe 0 - annehmen
+// ------------------------------------------------------------
+S_Annehmen:
+	mes "[Threshold Warden]";
+	mes "The cycle can be broken. Not begged out";
+	mes "of - broken. Three things, in order.";
+	next;
+	mes "[Threshold Warden]";
+	mes "First a material, and how much of it is";
+	mes "not for me to decide. Then three hundred";
+	mes "Alarms. Then a price in coin.";
+	next;
+
+	if (select("Begin:Not now") == 2) {
+		mes "[Threshold Warden]";
+		mes "The marks will wait. They always do.";
+		close;
+	}
+
+	mes "[Threshold Warden]";
+	mes "Which will you bring?";
+	next;
+
+	.@w = select("^0000FF" + getitemname(.mat[0]) + "^000000:^0000FF" + getitemname(.mat[1]) + "^000000:Let me think");
+	if (.@w > 2) {
+		mes "[Threshold Warden]";
+		mes "Think, then. The cycle is patient.";
+		close;
+	}
+
+	set dq_item, .mat[.@w - 1];
+	// Einmal auswuerfeln und merken. rand(a,b) schliesst beide
+	// Grenzen ein - 50 und 200 sind also moeglich.
+	set dq_menge, rand(.min_menge, .max_menge);
+	set dq_stufe, 1;
+
+	mes "[Threshold Warden]";
+	mes "^0000FF" + dq_menge + " " + getitemname(dq_item) + "^000000.";
+	mes "That is what the cycle asks of you.";
+	next;
+	mes "[Threshold Warden]";
+	mes "Not a number I chose. Come back when you";
+	mes "have them.";
+	close;
+
+
+// ------------------------------------------------------------
+//  Stufe 1 - Material
+// ------------------------------------------------------------
+S_Material:
+	.@habe = countitem(dq_item);
+
+	mes "[Threshold Warden]";
+	mes "^0000FF" + getitemname(dq_item) + "^000000: " +
+	    (.@habe >= dq_menge ? "^00AA00" : "^FF0000") + .@habe + "^000000 of " + dq_menge + ".";
+
+	if (.@habe < dq_menge) {
+		next;
+		mes "[Threshold Warden]";
+		mes "Not yet.";
+		close;
+	}
+
+	next;
+	if (select("Hand them over:Keep them for now") == 2) {
+		mes "[Threshold Warden]";
+		mes "As you like.";
+		close;
+	}
+
+	// Erst pruefen, dann nehmen. Zwischen der Abfrage oben und hier
+	// kann nichts passieren - der Spieler steht im Dialog - aber die
+	// Reihenfolge kostet nichts und schuetzt vor spaeteren Umbauten.
+	if (countitem(dq_item) < dq_menge) {
+		mes "[Threshold Warden]";
+		mes "They are gone from your hands.";
+		close;
+	}
+	delitem dq_item, dq_menge;
+	set dq_stufe, 2;
+
+	// Vor dem Eintragen aufraeumen: quest_add weist eine bereits
+	// vorhandene Quest ab (quest.cpp Zeile 599). Beim zweiten
+	// Durchlauf bliebe sonst der alte, erledigte Stand stehen und
+	// Stufe 2 waere sofort geschafft.
+	if (isbegin_quest(.quest) > 0)
+		erasequest .quest;
+	setquest .quest;
+
+	mes "[Threshold Warden]";
+	mes "Taken. Now the second thing.";
+	next;
+	mes "[Threshold Warden]";
+	mes "^0000FF300 Alarms^000000. They keep time for the";
+	mes "cycle. Stop enough of them and it loses";
+	mes "count of you.";
+	next;
+	mes "[Threshold Warden]";
+	mes "Your quest log will keep score.";
+	close;
+
+
+// ------------------------------------------------------------
+//  Stufe 2 - Jagd
+// ------------------------------------------------------------
+S_Jagd:
+	// checkquest mit HUNTING: 2 heisst, alle Ziele sind erledigt.
+	// -1 waere "nicht im Log" - das kann vorkommen, wenn jemand die
+	// Quest ueber einen Reset verloren hat. Dann neu eintragen,
+	// statt den Spieler haengen zu lassen.
+	if (checkquest(.quest, HUNTING) == -1) {
+		setquest .quest;
+		mes "[Threshold Warden]";
+		mes "Your log had lost the count. It is set";
+		mes "again - from the beginning, I am afraid.";
+		close;
+	}
+
+	if (checkquest(.quest, HUNTING) != 2) {
+		mes "[Threshold Warden]";
+		mes "The Alarms still keep time. Check your";
+		mes "quest log - it counts better than I do.";
+		close;
+	}
+
+	mes "[Threshold Warden]";
+	mes "Three hundred. The ticking has stopped.";
+	next;
+	// Ganz entfernen statt auf "erledigt" setzen: die Quest gehoert
+	// nur zu Stufe 2, und der naechste Durchlauf legt sie neu an.
+	erasequest .quest;
+	set dq_stufe, 3;
+
+	mes "[Threshold Warden]";
+	mes "One thing remains, and it is the only one";
+	mes "the cycle understands: ^0000FF" + .preis + " Destiny";
+	mes "Coins^000000.";
+	next;
+	mes "[Threshold Warden]";
+	mes "Bend fate in your favour. It bends for";
+	mes "coin like everything else.";
+	close;
+
+
+// ------------------------------------------------------------
+//  Stufe 3 - bezahlen und zuruecksetzen
+// ------------------------------------------------------------
+S_Bezahlen:
+	.@habe = countitem(.coin);
+
+	mes "[Threshold Warden]";
+	mes "^0000FF" + .preis + " Destiny Coins^000000. You carry " +
+	    (.@habe >= .preis ? "^00AA00" : "^FF0000") + .@habe + "^000000.";
+
+	if (.@habe < .preis) {
+		next;
+		mes "[Threshold Warden]";
+		mes "Come back richer.";
+		close;
+	}
+
+	next;
+	if (select("Pay:Later") == 2) {
+		mes "[Threshold Warden]";
+		mes "Later, then.";
+		close;
+	}
+
+	if (countitem(.coin) < .preis) {
+		mes "[Threshold Warden]";
+		mes "The coins are gone from your hands.";
+		close;
+	}
+	delitem .coin, .preis;
+
+	.@vorher = death_count;
+	set death_count, 0;
+
+	// F_SafaRefresh setzt Geschenk und Debuff neu. Ohne diesen
+	// Aufruf bliebe die Strafe bis zum naechsten Login oder bis zur
+	// stuendlichen Auffrischung bestehen - der Spieler haette bezahlt
+	// und wuerde nichts merken.
+	callfunc "F_SafaRefresh";
+
+	// Alles zuruecksetzen, damit der naechste Durchlauf sauber
+	// beginnt und neu ausgewuerfelt wird.
+	set dq_stufe, 0;
+	set dq_item, 0;
+	set dq_menge, 0;
+
+	specialeffect2 EF_ANGEL2;
+	mes "[Threshold Warden]";
+	mes "^00AA00" + .@vorher + " " + (.@vorher == 1 ? "mark" : "marks") + " gone.^000000";
+	next;
+	mes "[Threshold Warden]";
+	mes "You are whole again. The cycle has not";
+	mes "forgiven you - it has merely lost your";
+	mes "name for a while.";
+	next;
+	mes "[Threshold Warden]";
+	mes "It will find you. Come back when it does.";
+	close;
+
+
+OnInit:
+	.coin = 30001;                    // Destiny Coin
+	.preis = 400;
+	setarray .mat[0], 1001084, 1001085;   // Blaze Stone, Cool Liquid
+	.min_menge = 50;
+	.max_menge = 200;
+	.quest = 70251;                   // 300 Alarm, siehe db/import/quest_db.yml
+	end;
+}

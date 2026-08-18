@@ -1,0 +1,311 @@
+//===== SafaRO Script =====================================
+//= The Threshold - Custom Start
+//===== Beschreibung: ========================================
+//= Neue Charaktere erwachen in der Halle von Valhalla. Der
+//= Threshold Warden erklaert den Server, laesst den Spieler
+//= sein Isekai-Geschenk waehlen - und erst diese Wahl oeffnet
+//= den Weg nach Prontera.
+//=
+//= Die Geschenke selbst (Namen, Wirkung, Beschreibung) liegen
+//= in npc/custom/safa_systems.txt. Dieser NPC ist nur die
+//= Buehne dafuer.
+//===== Hinweise: ============================================
+//= Karte: valkyrie (100x100). Startkorridor x 46-51, y 7-30.
+//= Bestehende Charaktere kommen mit @warp valkyrie 48,9 her.
+//= Spieltexte durchgehend englisch, ohne Umlaute.
+//============================================================
+
+valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
+
+	// --- Wer sein Geschenk schon hat, wird nur noch entlassen ---
+	//     Ausnahme: GMs duerfen zuruecksetzen, sonst waere Testen
+	//     nach jeder Aenderung ein neuer Charakter.
+	if (isekai_gift > 0) {
+		mes "[Threshold Warden]";
+		mes "You already carry your gift:";
+		mes "^0000FF" + callfunc("F_SafaGiftName", isekai_gift) + "^000000";
+		next;
+		if (getgroupid() >= 99) {
+			mes "[Threshold Warden]";
+			mes "^777777You are not bound by the rules";
+			mes "of this place.^000000";
+			next;
+			if (select("Leave it:^FF0000Unbind it (GM)^000000") == 2) {
+				set isekai_gift, 0;
+				callfunc "F_SafaRefresh";
+				mes "[Threshold Warden]";
+				mes "^777777The binding is undone.^000000";
+				mes "Talk to me again to choose anew.";
+				close;
+			}
+		}
+		mes "[Threshold Warden]";
+		mes "There is nothing left for you here.";
+		close2;
+		savepoint "prontera",156,191;
+		warp "prontera",156,191;
+		end;
+	}
+
+	// --- Ankunft ---
+	mes "[Threshold Warden]";
+	if (safa_start_seen == 0) {
+		mes "You are not quite here yet, soul.";
+		mes "And not quite there either.";
+		next;
+		mes "[Threshold Warden]";
+		mes "This is the Threshold. A place";
+		mes "between what you were and what";
+		mes "you are about to become.";
+		next;
+		set safa_start_seen, 1;
+	} else {
+		mes "Still here. Ask, then choose.";
+		next;
+	}
+
+	// --- Hauptmenue ---
+	while (1) {
+		mes "[Threshold Warden]";
+		mes "You may ask. But you will not leave";
+		mes "this hall until you have chosen";
+		mes "what you carry into the world.";
+		next;
+
+		.@main$ = "Where am I?:What is different in that world?:What commands do I have?:^0000FFChoose my gift^000000";
+		if (getgroupid() >= 99)
+			.@main$ = .@main$ + ":^FF0000Set test points (GM)^000000";
+
+		switch (select(.@main$)) {
+
+		case 1:
+			mes "[Threshold Warden]";
+			mes "This hall is Valhalla.";
+			mes "Here gather those whose story";
+			mes "has not been written yet.";
+			next;
+			mes "[Threshold Warden]";
+			mes "Below waits ^0000FFProntera^000000. Everything";
+			mes "begins there - and everything you";
+			mes "do from now on is counted.";
+			next;
+			break;
+
+		case 2:
+			mes "[Threshold Warden]";
+			mes "In the cities you will find helpers";
+			mes "that do not exist elsewhere:";
+			next;
+			mes "[Threshold Warden]";
+			mes "^0000FFWarper^000000 - takes you to any city";
+			mes "and any dungeon.";
+			mes "^0000FFHealer^000000 - heals you for free and";
+			mes "blesses you for twenty minutes.";
+			next;
+			mes "[Threshold Warden]";
+			mes "^0000FFJob Master^000000 - class changes without";
+			mes "the old trials. He stands beside";
+			mes "every Healer.";
+			mes "^0000FFStylist^000000 and ^0000FFCard Remover^000000 wait";
+			mes "in Prontera.";
+			next;
+			mes "[Threshold Warden]";
+			mes "One more thing, and listen well.";
+			next;
+			mes "[Threshold Warden]";
+			mes "^FF0000Death is not free here.^000000";
+			mes "Every time you fall, you lose 5% of";
+			mes "everything you are. It does not wear";
+			mes "off on its own.";
+			next;
+			break;
+
+		case 3:
+			mes "[Threshold Warden]";
+			mes "Speak these words whenever you like:";
+			next;
+			mes "[Threshold Warden]";
+			mes "^0000FF@go^000000 - a list of all cities.";
+			mes "^0000FF@commands^000000 - everything you may do.";
+			mes "^0000FF@help <word>^000000 - what a word does.";
+			next;
+			mes "[Threshold Warden]";
+			mes "^0000FF@mobinfo^000000 and ^0000FF@iteminfo^000000 will tell";
+			mes "you what a creature drops and what";
+			mes "an item is worth.";
+			next;
+			break;
+
+		case 4:
+			// --- Tier-Auswahl ---
+			.@pts = callfunc("F_SafaPoints");
+
+			mes "[Threshold Warden]";
+			mes "The gifts are sorted by weight.";
+			mes "Tier ^0000FFF^000000 is open to anyone.";
+			mes "The rest you must have earned.";
+			next;
+			mes "[Threshold Warden]";
+			mes "Every soul of your line standing at";
+			mes "level ^0000FF500^000000 is worth ^0000FF100 points^000000 to you.";
+			next;
+			mes "[Threshold Warden]";
+			mes "^FF0000Standing^000000, mind you. Erase one and its";
+			mes "weight leaves with it. The dead do not";
+			mes "vouch for you here.";
+			next;
+			mes "[Threshold Warden]";
+			mes "You carry ^0000FF" + .@pts + " points^000000, which opens";
+			mes "everything up to tier ^0000FF" + callfunc("F_SafaTierName", callfunc("F_SafaHighestTier")) + "^000000.";
+			next;
+
+			while (1) {
+				.@menu$ = "";
+				for (.@i = 0; .@i < 9; .@i++) {
+					.@req = callfunc("F_SafaTierReq", .@i);
+					if (.@pts >= .@req)
+						.@menu$ = .@menu$ + "Tier " + callfunc("F_SafaTierName", .@i) + ":";
+					else
+						.@menu$ = .@menu$ + "^777777Tier " + callfunc("F_SafaTierName", .@i) + " - " + .@req + " points^000000:";
+				}
+				.@menu$ = .@menu$ + "^777777Let me ask something else^000000";
+
+				.@t = select(.@menu$) - 1;
+				if (.@t == 9)
+					break;
+
+				if (.@pts < callfunc("F_SafaTierReq", .@t)) {
+					mes "[Threshold Warden]";
+					mes "Not yet. That tier asks for";
+					mes "^FF0000" + callfunc("F_SafaTierReq", .@t) + " points^000000, and you carry ^0000FF" + .@pts + "^000000.";
+					next;
+					continue;
+				}
+
+				// Geschenke dieses Tiers aufbauen
+				.@n = callfunc("F_SafaTierCount", .@t);
+				.@menu2$ = "";
+				for (.@i = 1; .@i <= .@n; .@i++)
+					.@menu2$ = .@menu2$ + callfunc("F_SafaGiftName", callfunc("F_SafaTierGift", .@t, .@i)) + ":";
+				.@menu2$ = .@menu2$ + "^777777Another tier^000000";
+
+				.@c = select(.@menu2$);
+				if (.@c > .@n)
+					continue;
+
+				.@pick = callfunc("F_SafaTierGift", .@t, .@c);
+
+				mes "[" + callfunc("F_SafaGiftName", .@pick) + "]";
+				mes "^777777Tier " + callfunc("F_SafaTierName", .@t) + "^000000";
+				mes " ";
+				callfunc "F_SafaGiftDesc", .@pick;
+				next;
+
+				mes "[Threshold Warden]";
+				mes "Bind ^0000FF" + callfunc("F_SafaGiftName", .@pick) + "^000000 to yourself?";
+				mes "^FF0000This cannot be undone.^000000";
+				next;
+
+				if (select("Yes, bind it:Show me something else") == 1) {
+					set isekai_gift, .@pick;
+					callfunc "F_SafaRefresh";
+					specialeffect2 EF_ANGEL2;
+
+					mes "[Threshold Warden]";
+					mes "It is done.";
+					mes "^0000FF" + callfunc("F_SafaGiftName", .@pick) + "^000000 is yours.";
+					next;
+					mes "[Threshold Warden]";
+					mes "The hall has no more use for you.";
+					mes "Go and be someone.";
+					close2;
+					savepoint "prontera",156,191;
+					warp "prontera",156,191;
+					end;
+				}
+			}
+			break;
+
+		case 5:
+			// --- Nur GM: Punktestand zum Testen ueberschreiben ---
+			//     Die echten Punkte kommen aus der Datenbank und lassen
+			//     sich nicht setzen. Dieser Wert legt sich davor.
+			mes "[Threshold Warden]";
+			mes "^777777How many points should this line";
+			mes "appear to carry?^000000";
+			mes " ";
+			mes "^7777770 puts the real count back in charge.";
+			mes "Currently overridden with: " + #isekai_debug_points + "^000000";
+			next;
+			input .@v, 0, 1500;
+			set #isekai_debug_points, .@v;
+			mes "[Threshold Warden]";
+			if (.@v == 0) {
+				mes "^777777Override removed. The database";
+				mes "decides again: " + callfunc("F_SafaPoints") + " points.^000000";
+			} else {
+				mes "^777777Override set to " + .@v + " points.";
+				mes "Highest tier: " + callfunc("F_SafaTierName", callfunc("F_SafaHighestTier")) + "^000000";
+			}
+			next;
+			break;
+		}
+	}
+}
+
+
+// Atmosphaere beim Erwachen. Loest genau einmal aus.
+valkyrie,48,9,0	script	#safa_threshold_wake	HIDDEN_WARP_NPC,4,4,{
+	end;
+
+OnTouch:
+	if (safa_erwacht) end;
+	set safa_erwacht, 1;
+	specialeffect2 EF_ANGEL2;
+	mes "^777777You open your eyes.";
+	mes "Above you: no ceiling, only light.";
+	mes "Someone is waiting for you.^000000";
+	close;
+}
+
+
+// ------------------------------------------------------------
+//  Valhalla aufraeumen
+// ------------------------------------------------------------
+//  Auf valkyrie stehen ab Werk 15 NPCs: die 13 Transzendenz-
+//  Jobmaster, die Valkyrie fuer die Wiedergeburt und ein
+//  Teleporter. Alle drei Funktionen deckt unser Job Master ab,
+//  und der Teleporter wuerde neue Spieler am Waechter vorbei
+//  aus der Halle schleusen - genau das soll nicht passieren.
+//
+//  disablenpc statt Loeschen: die Originaldateien bleiben
+//  unangetastet, git pull laeuft sauber durch, und zum
+//  Rueckgaengigmachen reicht es, diesen Block zu entfernen.
+// ------------------------------------------------------------
+
+-	script	#safa_valhalla_cleanup	-1,{
+	end;
+
+OnInit:
+	// Transzendenz-Jobmaster, Westseite der Halle
+	disablenpc "Lord Knight#Valkyrie";
+	disablenpc "High Priest#Valkyrie";
+	disablenpc "High Wizard#Valkyrie";
+	disablenpc "MasterSmith#Valkyrie";
+	disablenpc "Sniper#Valkyrie";
+	disablenpc "Assassin Cross#Valkyrie";
+
+	// Transzendenz-Jobmaster, Ostseite der Halle
+	disablenpc "Paladin#Valkyrie";
+	disablenpc "Champion#Valkyrie";
+	disablenpc "Scholar#Valkyrie";
+	disablenpc "Biochemist#Valkyrie";
+	disablenpc "Minstrel#Valkyrie";
+	disablenpc "Gypsy#Valkyrie";
+	disablenpc "Stalker#Valkyrie";
+
+	// Wiedergeburt und Transport
+	disablenpc "Valkyrie#";
+	disablenpc "Teleporter";
+	end;
+}

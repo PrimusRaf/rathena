@@ -1,0 +1,349 @@
+//===== SafaRO Script =====================================
+//= The Ironhand - Bulk-Refiner
+//===== Beschreibung: ========================================
+//= Zwei Angebote in einem Gespraech:
+//=
+//= 1. SICHER BIS +10
+//=    Bringt ein Ausruestungsstueck in einem Rutsch auf +10.
+//=    Kostet je Stufe das passende Erz und 1.000 Zeny.
+//=    Kann nicht fehlschlagen - die Refine-Tabelle steht bis
+//=    +10 ohnehin auf 100 % (db/import/refine.yml).
+//=
+//= 2. RISIKO AB +11
+//=    Kostet Destiny Ore und Zeny, beides steigend:
+//=      +11 -> 1 Erz, 10.000 Zeny
+//=      +12 -> 2 Erz, 20.000 Zeny
+//=      +13 -> 3 Erz, 30.000 Zeny  ... und so weiter
+//=    Fehlschlaege kosten das Material, aber das Stueck geht
+//=    NICHT kaputt und faellt NICHT zurueck. Deshalb wird hier
+//=    bewusst kein failedrefitem oder downrefitem verwendet.
+//=
+//= Die Erfolgschance kommt aus derselben Tabelle wie ueberall:
+//= getequippercentrefinery liest db/re/refine.yml samt Import.
+//=
+//= Spieltexte englisch, ohne Umlaute.
+//============================================================
+
+prontera,150,193,4	script	Ironhand#safa	4_M_02,{
+
+	// Erz je Ausruestungsart. Waffenstufe 0 = Ruestung.
+	function GetOre {
+		switch (getarg(0)) {
+		case 0: return 985;   // Elunium
+		case 1: return 1010;  // Phracon
+		case 2: return 1011;  // Emveretarcon
+		case 3: return 984;   // Oridecon
+		case 4: return 984;   // Oridecon
+		case 5: return 984;   // Oridecon
+		}
+		return 984;
+	}
+
+	mes "[Ironhand]";
+	mes "You bring me metal, I make it worth";
+	mes "carrying. No lectures, no ceremony.";
+	next;
+
+	while (1) {
+		mes "[Ironhand]";
+		mes "What do you want done?";
+		next;
+
+		switch (select("Take it to ^0000FF+10^000000 - safe:Push it past ^FF0000+10^000000 - risky:What do you charge?:Nothing for now")) {
+
+		// ------------------------------------------------------
+		case 3:
+			mes "[Ironhand]";
+			mes "Up to ^0000FF+10^000000, one ore and ^0000FF1,000 zeny^000000";
+			mes "for every level. Nothing can go wrong";
+			mes "there, so I do it in one go.";
+			next;
+			mes "[Ironhand]";
+			mes "Which ore depends on the piece:";
+			mes "Armor takes ^0000FFElunium^000000.";
+			mes "Level 1 weapons take ^0000FFPhracon^000000,";
+			mes "level 2 ^0000FFEmveretarcon^000000, level 3 and up";
+			mes "^0000FFOridecon^000000.";
+			next;
+			mes "[Ironhand]";
+			mes "Past +10 I need ^FF0000Destiny Ore^000000, and more";
+			mes "of it every level: one for +11, two for";
+			mes "+12, three for +13. Zeny the same way,";
+			mes "^FF000010,000^000000 per level.";
+			next;
+			mes "[Ironhand]";
+			mes "It can fail up there. But nothing";
+			mes "breaks in my hands and nothing slides";
+			mes "back down. You only lose the ore.";
+			next;
+			break;
+
+		// ------------------------------------------------------
+		case 1:
+			mes "[Ironhand]";
+			mes "Which piece?";
+			next;
+
+			.@slot = callsub(S_PickSlot);
+			if (.@slot < 1)
+				break;
+
+			.@cur = getequiprefinerycnt(.@slot);
+			if (.@cur >= 10) {
+				mes "[Ironhand]";
+				mes "That one is already at ^0000FF+" + .@cur + "^000000.";
+				mes "Nothing safe left to do with it.";
+				next;
+				break;
+			}
+
+			.@steps = 10 - .@cur;
+			.@ore = GetOre(getequipweaponlv(.@slot));
+			.@cost = .@steps * 1000;
+
+			mes "[Ironhand]";
+			mes "^0000FF" + getequipname(.@slot) + "^000000";
+			mes "From ^0000FF+" + .@cur + "^000000 to ^0000FF+10^000000, that is " + .@steps + " levels.";
+			mes " ";
+			mes "I need ^0000FF" + .@steps + "x " + getitemname(.@ore) + "^000000";
+			mes "and ^0000FF" + .@cost + " zeny^000000.";
+			next;
+
+			if (countitem(.@ore) < .@steps) {
+				mes "[Ironhand]";
+				mes "You are short on ore.";
+				mes "You have ^FF0000" + countitem(.@ore) + "^000000, I need ^0000FF" + .@steps + "^000000.";
+				next;
+				break;
+			}
+			if (Zeny < .@cost) {
+				mes "[Ironhand]";
+				mes "And the zeny?";
+				mes "You carry ^FF0000" + Zeny + "^000000.";
+				next;
+				break;
+			}
+			if (select("Do it:Not now") == 2)
+				break;
+
+			// Gegenprobe: das Stueck muss noch dasselbe sein
+			if (getequiprefinerycnt(.@slot) != .@cur || !getequipisequiped(.@slot)) {
+				mes "[Ironhand]";
+				mes "You moved something. Start over.";
+				next;
+				break;
+			}
+
+			delitem .@ore, .@steps;
+			Zeny -= .@cost;
+			successrefitem .@slot, .@steps;
+
+			mes "[Ironhand]";
+			mes "Done. ^0000FF+10^000000, and it never even";
+			mes "got warm.";
+			next;
+			break;
+
+		// ------------------------------------------------------
+		case 2:
+			mes "[Ironhand]";
+			mes "Which piece?";
+			next;
+
+			.@slot = callsub(S_PickSlot);
+			if (.@slot < 1)
+				break;
+
+			.@cur = getequiprefinerycnt(.@slot);
+			if (.@cur < 10) {
+				mes "[Ironhand]";
+				mes "Bring it to ^0000FF+10^000000 first. I do not";
+				mes "waste Destiny Ore on groundwork.";
+				next;
+				break;
+			}
+			if (.@cur >= 30) {
+				mes "[Ironhand]";
+				mes "^0000FF+30^000000. That is as far as metal goes.";
+				next;
+				break;
+			}
+
+			mes "[Ironhand]";
+			mes "^0000FF" + getequipname(.@slot) + "^000000 sits at ^0000FF+" + .@cur + "^000000.";
+			mes "How far do you want it?";
+			next;
+			input .@target, .@cur + 1, 30;
+
+			// Bester Fall: jeder Schlag sitzt
+			.@bestOre = 0;
+			.@bestZeny = 0;
+			for (.@i = .@cur + 1; .@i <= .@target; .@i++) {
+				.@bestOre = .@bestOre + (.@i - 10);
+				.@bestZeny = .@bestZeny + (.@i - 10) * 10000;
+			}
+
+			mes "[Ironhand]";
+			mes "^0000FF+" + .@cur + "^000000 to ^0000FF+" + .@target + "^000000.";
+			mes " ";
+			mes "If every swing lands - and it will not -";
+			mes "that is ^FF0000" + .@bestOre + " ore^000000 and ^FF0000" + .@bestZeny + " zeny^000000.";
+			next;
+			mes "[Ironhand]";
+			mes "I hammer until each level takes, then";
+			mes "move to the next. Every swing costs,";
+			mes "landed or not.";
+			mes " ";
+			mes "^777777I stop when you run out, when we are";
+			mes "done, or after " + .maxSwings + " swings.^000000";
+			next;
+
+			if (select("^0000FFStart hammering^000000:^777777Not today^000000") == 2) {
+				mes "[Ironhand]";
+				mes "Then stop wasting my daylight.";
+				next;
+				break;
+			}
+
+			// --- Der Durchlauf ---
+			//     close2 schliesst das Fenster, damit man den Schmied
+			//     tatsaechlich arbeiten sieht. Danach wird mit mes
+			//     wieder aufgemacht.
+			close2;
+
+			.@swings = 0;
+			.@landed = 0;
+			.@stop$ = "";
+
+			while (1) {
+				.@lvl = getequiprefinerycnt(.@slot);
+
+				if (.@lvl >= .@target) {
+					.@stop$ = "done";
+					break;
+				}
+				if (!getequipisequiped(.@slot)) {
+					.@stop$ = "gone";
+					break;
+				}
+				if (.@swings >= .maxSwings) {
+					.@stop$ = "tired";
+					break;
+				}
+
+				.@need = (.@lvl + 1) - 10;
+				.@zeny = .@need * 10000;
+
+				if (countitem(30000) < .@need) {
+					.@stop$ = "ore";
+					break;
+				}
+				if (Zeny < .@zeny) {
+					.@stop$ = "zeny";
+					break;
+				}
+
+				.@chance = getequippercentrefinery(.@slot);
+
+				delitem 30000, .@need;
+				Zeny -= .@zeny;
+				.@swings = .@swings + 1;
+
+				// Schlag
+				specialeffect2 EF_REPAIRWEAPON;
+				sleep2 .swingDelay;
+
+				if (.@chance > rand(100)) {
+					successrefitem .@slot;
+					.@landed = .@landed + 1;
+					dispbottom "[Ironhand] +" + (.@lvl + 1) + " holds.";
+					sleep2 .levelPause;
+				} else {
+					specialeffect2 EF_MAKEBLUR;
+					dispbottom "[Ironhand] The swing missed. Still +" + .@lvl + ".";
+					sleep2 .missPause;
+				}
+			}
+
+			// --- Bericht ---
+			mes "[Ironhand]";
+			mes "^0000FF+" + getequiprefinerycnt(.@slot) + "^000000 now.";
+			mes .@swings + " swings, " + .@landed + " of them landed.";
+			next;
+			mes "[Ironhand]";
+			if (.@stop$ == "done")
+				mes "That is where you wanted it. Take it.";
+			else if (.@stop$ == "ore")
+				mes "Out of Destiny Ore. Bring more.";
+			else if (.@stop$ == "zeny")
+				mes "Out of zeny. I do not work on credit.";
+			else if (.@stop$ == "gone")
+				mes "You took it off my anvil mid-swing.";
+			else
+				mes "My arm is done for now. Talk to me again.";
+			next;
+			break;
+
+		// ------------------------------------------------------
+		case 4:
+			mes "[Ironhand]";
+			mes "Then stop leaning on my anvil.";
+			close;
+		}
+	}
+	end;
+
+
+// ------------------------------------------------------------
+//  Ausruestung auswaehlen
+//  Liefert den Slot oder 0, wenn abgebrochen wurde.
+// ------------------------------------------------------------
+S_PickSlot:
+	setarray .@part[0], EQI_HEAD_TOP, EQI_ARMOR, EQI_HAND_L, EQI_HAND_R, EQI_GARMENT, EQI_SHOES, EQI_ACC_L, EQI_ACC_R, EQI_HEAD_MID, EQI_HEAD_LOW;
+	// Leere Menueeintraege werden nicht angezeigt, zaehlen aber beim
+	// Rueckgabewert mit. Dadurch passt die Auswahlnummer eins zu eins
+	// auf .@part - ohne zweite Zuordnungstabelle.
+	// Eigene Schleifenvariable .@k: .@i gehoert dem aufrufenden Teil,
+	// callsub teilt sich dessen Variablenraum.
+	.@menu$ = "";
+	.@n = 0;
+	for (.@k = 0; .@k < 10; .@k++) {
+		if (getequipisequiped(.@part[.@k]) && getequipisenableref(.@part[.@k])) {
+			.@menu$ = .@menu$ + "+" + getequiprefinerycnt(.@part[.@k]) + " " + getequipname(.@part[.@k]) + ":";
+			.@n = .@n + 1;
+		} else
+			.@menu$ = .@menu$ + ":";
+	}
+
+	if (.@n == 0) {
+		mes "[Ironhand]";
+		mes "You are not wearing anything I can";
+		mes "work on. Put it on first.";
+		next;
+		return 0;
+	}
+
+	.@pick = select(.@menu$);
+	// select liefert die Position in der Gesamtliste, nicht in .@valid
+	.@sel = .@part[.@pick - 1];
+	if (!getequipisequiped(.@sel) || !getequipisenableref(.@sel)) {
+		mes "[Ironhand]";
+		mes "Nothing there.";
+		next;
+		return 0;
+	}
+	return .@sel;
+
+OnInit:
+	// Tempo und Obergrenze des Hammer-Durchlaufs, in Millisekunden.
+	// swingDelay ist die Zeit zwischen Schlag und Ergebnis, die beiden
+	// Pausen danach trennen die Versuche voneinander.
+	.swingDelay = 500;
+	.levelPause = 700;
+	.missPause  = 300;
+
+	// Sicherheitsnetz: bei 1 % Chance auf den letzten Stufen koennte
+	// sonst ein einzelnes Gespraech eine halbe Stunde laufen.
+	.maxSwings = 300;
+	end;
+}

@@ -1,0 +1,63 @@
+//===== SafaRO Script =====================================
+//= Job Master neben jedem Healer
+//===== Beschreibung: ========================================
+//= Der Job Master stand bisher nur in Prontera. Hier stehen
+//= Duplikate an allen Healer-Standorten, jeweils zwei bis vier
+//= Felder daneben.
+//=
+//= Jede Position wurde gegen db/map_cache.dat geprueft: die Zelle
+//= ist nachweislich begehbar. Ein NPC auf einer Wandzelle waere
+//= unerreichbar.
+//=
+//= Das Original in npc/custom/jobmaster.txt bleibt unangetastet -
+//= Duplikate teilen sich dessen Skript, Aenderungen dort wirken
+//= also ueberall.
+//============================================================
+
+aldebaran,137,118,6	duplicate(Job Master)	Job Master#alde	123
+amatsu,198,79,4	duplicate(Job Master)	Job Master#ama	123
+ayothaya,205,169,6	duplicate(Job Master)	Job Master#ayo	123
+comodo,182,158,6	duplicate(Job Master)	Job Master#com	123
+einbech,55,36,6	duplicate(Job Master)	Job Master#einbe	123
+einbroch,55,202,6	duplicate(Job Master)	Job Master#einbr	123
+geffen,113,72,6	duplicate(Job Master)	Job Master#gef	123
+gonryun,154,122,6	duplicate(Job Master)	Job Master#gon	123
+hugel,91,150,6	duplicate(Job Master)	Job Master#hug	123
+jawaii,248,139,4	duplicate(Job Master)	Job Master#jaw	123
+lighthalzen,150,100,6	duplicate(Job Master)	Job Master#lhz	123
+louyang,224,103,4	duplicate(Job Master)	Job Master#lou	123
+manuk,274,144,6	duplicate(Job Master)	Job Master#man	123
+mid_camp,201,289,6	duplicate(Job Master)	Job Master#mid	123
+moc_ruins,70,164,4	duplicate(Job Master)	Job Master#moc	123
+moscovia,218,191,4	duplicate(Job Master)	Job Master#mos	123
+niflheim,214,182,5	duplicate(Job Master)	Job Master#nif	123
+payon,177,106,4	duplicate(Job Master)	Job Master#pay	123
+rachel,123,116,6	duplicate(Job Master)	Job Master#rac	123
+splendide,199,153,4	duplicate(Job Master)	Job Master#spl	123
+thor_camp,247,74,4	duplicate(Job Master)	Job Master#thor	123
+umbala,103,148,3	duplicate(Job Master)	Job Master#umb	123
+veins,215,121,4	duplicate(Job Master)	Job Master#ve	123
+xmas,141,136,4	duplicate(Job Master)	Job Master#xmas	123
+yuno,162,45,4	duplicate(Job Master)	Job Master#yuno	123
+brasilis,192,221,6	duplicate(Job Master)	Job Master#bra	123
+dewata,193,187,4	duplicate(Job Master)	Job Master#dew	123
+dicastes01,199,194,4	duplicate(Job Master)	Job Master#dic	123
+ecl_in01,43,60,4	duplicate(Job Master)	Job Master#ecl	123
+malangdo,130,114,6	duplicate(Job Master)	Job Master#mal	123
+malaya,225,204,6	duplicate(Job Master)	Job Master#ma	123
+mora,53,152,4	duplicate(Job Master)	Job Master#mora	123
+
+// --- Ohne Cache-Pruefung ---
+// Fuer diese drei Karten liefert db/map_cache.dat keinen brauchbaren
+// Eintrag (die Datei hat eine Unregelmaessigkeit, die meinen Parser
+// aus dem Tritt bringt). Die Positionen sind daher berechnet, nicht
+// verifiziert: Healer-Koordinate plus zwei Felder nach Osten, jeweils
+// mitten im Stadtzentrum.
+// Falls einer davon in einer Wand steckt: @warp hin, Koordinate
+// korrigieren, @reloadscript. Mehr passiert nicht.
+alberta,27,240,6	duplicate(Job Master)	Job Master#alb	123
+izlude,123,150,6	duplicate(Job Master)	Job Master#izl	123
+morocc,155,97,6	duplicate(Job Master)	Job Master#mor	123
+
+// 35 Duplikate
+// ausgelassen: prontera - Original steht 9 Felder daneben bei 153,193

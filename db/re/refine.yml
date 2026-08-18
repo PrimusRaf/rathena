@@ -2637,3 +2637,8 @@ Body:
                 Price: 10000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
+
+Footer:
+  Imports:
+    - Path: db/import/refine.yml
+    - Path: db/import/refine_high.yml

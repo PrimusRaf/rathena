@@ -249,6 +249,10 @@ bonus bNoCastCancel; 			Prevents casting from being interrupted when hit (does n
 bonus bNoCastCancel2;			Prevents casting from being interrupted when hit (works even in GvG)
 
 bonus bDelayrate,n;        		Increases skill delay by n%
+bonus bHomDamage,n;			SafaRO: increases the damage dealt by your own
+					homunculus by n%. Stored on the master, applied in
+					battle_calc_damage. Does NOT show in the homunculus
+					status window - it only takes effect on hit.
 bonus2 bSkillDelay,sk,t;		Increases delay of skill sk by t milliseconds
 bonus2 bSkillCooldown,sk,t;		Increases cooldown of skill sk by t milliseconds
 

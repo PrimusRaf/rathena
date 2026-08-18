@@ -741,6 +741,8 @@
 	export_constant2("bWeaponAtk",SP_WEAPON_ATK);
 	export_constant2("bWeaponDamageRate",SP_WEAPON_DAMAGE_RATE);
 	export_constant2("bDelayrate",SP_DELAYRATE);
+	// SafaRO
+	export_constant2("bHomDamage",SP_HOM_DAMAGE);
 	export_constant2("bHPDrainValueRace",SP_HP_DRAIN_VALUE_RACE);
 	export_constant2("bSPDrainValueRace",SP_SP_DRAIN_VALUE_RACE);
 	export_constant2("bIgnoreMdefRaceRate",SP_IGNORE_MDEF_RACE_RATE);

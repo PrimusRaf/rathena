@@ -1,0 +1,256 @@
+// ============================================================
+//  SafaRO - Supply Master
+// ------------------------------------------------------------
+//  Haendler fuer Ausruestung, die man nicht traegt, um zu
+//  kaempfen, sondern um schneller voranzukommen. Bezahlt wird
+//  in Destiny Coins.
+//
+//  Aufbau in zwei Ebenen: erst die Abteilung, dann der Laden.
+//  Derzeit gibt es nur "Farming" - die Ebene ist trotzdem da,
+//  damit eine zweite Abteilung spaeter nur drei Zeilen in
+//  OnInit kostet und nicht den halben NPC.
+//
+//  Standort 146,162 liegt genau zwischen Coin Exchanger
+//  (146,172) und Custom Merchant (146,152). Begehbarkeit gegen
+//  db/re/map_cache.dat geprueft.
+// ============================================================
+
+//  Waehrung, dann Item:Preis. -1 als Sprite haelt die Laeden
+//  unsichtbar; betreten wird ueber callshop.
+//
+//  Preise gestaffelt: Kopfteile 100, Koerperteile 150,
+//  Sigil 200. Das Sigil braucht man zweimal, ein volles Set
+//  kostet damit 1.150 Coins.
+-	itemshop	ExpFarm#supply	-1,30001,30050:100,30051:100,30052:100,30053:150,30054:150,30055:150,30056:200
+-	itemshop	DropFarm#supply	-1,30001,30060:100,30061:100,30062:100,30063:150,30064:150,30065:150,30066:200
+
+prontera,146,162,4	script	Supply Master#safa	4_M_04,{
+
+	mes "[Supply Master]";
+	mes "Most people here sell you something to";
+	mes "fight with. I sell what makes the fighting";
+	mes "worth more.";
+	next;
+
+	while (1) {
+		mes "[Supply Master]";
+		mes "^0000FF" + countitem(.coin) + " Destiny Coins^000000 on you.";
+		mes "Which department?";
+		next;
+
+		// Ebene 1: Abteilungen aus .kat$ bauen.
+		.@menu$ = "";
+		for (.@i = 0; .@i < getarraysize(.kat$); .@i++)
+			.@menu$ = .@menu$ + .kat$[.@i] + ":";
+		.@menu$ = .@menu$ + "How does a set work?:Leave";
+
+		.@pick = select(.@menu$);
+
+		if (.@pick == getarraysize(.kat$) + 1) {
+			callsub S_Erklaerung;
+			continue;
+		}
+		if (.@pick > getarraysize(.kat$)) {
+			mes "[Supply Master]";
+			mes "Come back when you have coins to spend.";
+			close;
+		}
+
+		.@kat = .@pick - 1;
+
+		// Die Job-Sets brauchen eine Ebene mehr - erst die Klasse,
+		// dann die Ausrichtung. Fuenfzehn Klassen mal zwei waeren in
+		// einem Menue nicht mehr zu ueberblicken.
+		if (.@kat == .jobkat) {
+			callsub S_JobSets;
+			continue;
+		}
+
+		// Ebene 2: nur die Laeden dieser Abteilung. Die Zuordnung
+		// steht in .katid, damit eine neue Abteilung keine neue
+		// Menuelogik braucht.
+		deletearray .@idx[0];
+		.@sub$ = "";
+		.@n = 0;
+		for (.@i = 0; .@i < getarraysize(.laden$); .@i++) {
+			if (.katid[.@i] != .@kat)
+				continue;
+			.@sub$ = .@sub$ + .titel$[.@i] + ":";
+			.@idx[.@n] = .@i;
+			.@n++;
+		}
+		.@sub$ = .@sub$ + "Back";
+
+		.@wahl = select(.@sub$);
+		if (.@wahl > .@n)
+			continue;
+
+		mes "[Supply Master]";
+		mes "Take what you need. Prices are in coins.";
+		close2;
+		// 1 = nur kaufen. Verkaufen waere sinnlos: der Laden zahlt
+		// in Zeny, und die Stuecke haben Sell 0.
+		callshop .laden$[.@idx[.@wahl - 1]], 1;
+		end;
+	}
+	end;
+
+S_JobSets:
+	while (1) {
+		mes "[Supply Master]";
+		mes "Sets for one class and no other. Which";
+		mes "line do you follow?";
+		next;
+
+		.@m$ = "";
+		for (.@i = 0; .@i < getarraysize(.jsklasse$); .@i++)
+			.@m$ = .@m$ + .jsklasse$[.@i] + ":";
+		.@m$ = .@m$ + "Back";
+
+		.@kl = select(.@m$) - 1;
+		if (.@kl >= getarraysize(.jsklasse$))
+			return;
+
+		// Die zwei Ausrichtungen dieser Klasse heraussuchen.
+		deletearray .@idx[0];
+		.@sub$ = "";
+		.@n = 0;
+		for (.@i = 0; .@i < getarraysize(.jsladen$); .@i++) {
+			if (.jsklid[.@i] != .@kl)
+				continue;
+			.@sub$ = .@sub$ + "^0000FF" + .jsname$[.@i] + " Set^000000:";
+			.@idx[.@n] = .@i;
+			.@n++;
+		}
+		.@sub$ = .@sub$ + "Back";
+
+		.@w = select(.@sub$);
+		if (.@w > .@n)
+			continue;
+
+		mes "[Supply Master]";
+		mes "The ^0000FF" + .jsname$[.@idx[.@w - 1]] + " Set^000000. Seven pieces,";
+		mes "and the Ring twice - eight in all.";
+		close2;
+		callshop .jsladen$[.@idx[.@w - 1]], 1;
+		end;
+	}
+	return;
+
+S_Erklaerung:
+	mes "[Supply Master]";
+	mes "Two departments, two different rules.";
+	mes "Which one?";
+	next;
+
+	if (select("^0000FFFarming^000000 sets:^0000FFJob^000000 sets") == 2)
+		goto L_Job;
+
+	mes "[Supply Master]";
+	mes "Each piece on its own adds ^0000FF50%^000000 to what";
+	mes "it was made for - experience or drops.";
+	next;
+	mes "[Supply Master]";
+	mes "There are ^0000FFeight^000000 pieces, not seven. The Sigil";
+	mes "goes in both accessory slots, so you buy";
+	mes "two of them.";
+	next;
+	mes "[Supply Master]";
+	mes "Eight pieces at fifty is ^0000FF400%^000000. Wear all";
+	mes "eight at once and that doubles again -";
+	mes "^0000FF800%^000000 in total.";
+	next;
+	mes "[Supply Master]";
+	mes "Mixing the two sets works, but you lose";
+	mes "the doubling. Half a Scholar and half a";
+	mes "Prospector is just four pieces of each.";
+	next;
+	mes "[Supply Master]";
+	mes "They take no refining and give no defense.";
+	mes "Put them on to farm, take them off to";
+	mes "fight. That is what they are.";
+	next;
+	return;
+
+L_Job:
+	mes "[Supply Master]";
+	mes "Job sets work differently. No doubling -";
+	mes "every piece simply adds its own share.";
+	next;
+	mes "[Supply Master]";
+	mes "Each one names ^0000FFthree skills^000000: one from";
+	mes "your fourth class, one from your third,";
+	mes "one from your second.";
+	next;
+	mes "[Supply Master]";
+	mes "So a set is worth something long before";
+	mes "you reach the top. That was the point.";
+	next;
+	mes "[Supply Master]";
+	mes "^0000FFEight pieces^000000 again - the Ring goes in";
+	mes "both accessory slots. Wear all eight and";
+	mes "you get ^0000FFAll Stats +40^000000 on top.";
+	next;
+	mes "[Supply Master]";
+	mes "One warning: they are bound to a class";
+	mes "line. A Knight cannot even put on the";
+	mes "Biolo set, let alone use it.";
+	next;
+	mes "[Supply Master]";
+	mes "Two directions per class. Read the pieces";
+	mes "before you buy eight of the wrong one.";
+	next;
+	return;
+
+OnInit:
+	.coin = 30001;
+
+	// Abteilungen. Reihenfolge = Reihenfolge im Menue.
+	setarray .kat$[0], "^0000FFFarming^000000 - equipment that pays for itself",
+	                   "^0000FFJob Sets^000000 - one class, two directions";
+	.jobkat = 1;   // Index der Job-Sets in .kat$
+
+	// Laeden. .katid ordnet jeden Laden einer Abteilung zu; die
+	// drei Arrays gehoeren zeilenweise zusammen.
+	setarray .laden$[0], "ExpFarm#supply", "DropFarm#supply";
+	setarray .titel$[0], "^0000FFScholar's Set^000000 - more experience",
+	                     "^0000FFProspector's Set^000000 - better drops";
+	setarray .katid[0],  0, 0;
+
+// ---- ANFANG ERZEUGT: tools/sets/bauen.py ----
+	// 15 Klassen, 30 Sets - erzeugt, nicht von Hand pflegen.
+	// .jsklid zeigt vom Set auf die Klasse in .jsklasse$.
+	setarray .jsklasse$[0], "Dragon Knight", "Meister", "Arch Mage", "Abyss Chaser";
+	setarray .jsklasse$[4], "Windhawk", "Cardinal", "Shadow Cross", "Imperial Guard";
+	setarray .jsklasse$[8], "Elemental Master", "Troubadour", "Inquisitor", "Biolo";
+	setarray .jsklasse$[12], "Sky Emperor", "Soul Ascetic", "Hyper Novice";
+
+	setarray .jsname$[0], "Dragonic", "Berserker", "Meister", "Machinist";
+	setarray .jsname$[4], "Arch Mage", "Crystal", "Abyss", "Frenzy";
+	setarray .jsname$[8], "Windhawk", "Trapper", "Cardinal", "Benediction";
+	setarray .jsname$[12], "Shadow Cross", "Dancing Blade", "Imperial", "Bulwark";
+	setarray .jsname$[16], "Elemental", "Terrain", "Troubadour", "Rhythm";
+	setarray .jsname$[20], "Inquisitor", "Judgement", "Genetic", "Tinker";
+	setarray .jsname$[24], "Sky Emperor", "Eclipse", "Soul Ascetic", "Talisman";
+	setarray .jsname$[28], "Hyper Novice", "Bowling";
+
+	setarray .jsladen$[0], "JS0#supply", "JS1#supply", "JS2#supply", "JS3#supply";
+	setarray .jsladen$[4], "JS4#supply", "JS5#supply", "JS6#supply", "JS7#supply";
+	setarray .jsladen$[8], "JS8#supply", "JS9#supply", "JS10#supply", "JS11#supply";
+	setarray .jsladen$[12], "JS12#supply", "JS13#supply", "JS14#supply", "JS15#supply";
+	setarray .jsladen$[16], "JS16#supply", "JS17#supply", "JS18#supply", "JS19#supply";
+	setarray .jsladen$[20], "JS20#supply", "JS21#supply", "JS22#supply", "JS23#supply";
+	setarray .jsladen$[24], "JS24#supply", "JS25#supply", "JS26#supply", "JS27#supply";
+	setarray .jsladen$[28], "JS28#supply", "JS29#supply";
+
+	setarray .jsklid[0], 0, 0, 1, 1;
+	setarray .jsklid[4], 2, 2, 3, 3;
+	setarray .jsklid[8], 4, 4, 5, 5;
+	setarray .jsklid[12], 6, 6, 7, 7;
+	setarray .jsklid[16], 8, 8, 9, 9;
+	setarray .jsklid[20], 10, 10, 11, 11;
+	setarray .jsklid[24], 12, 12, 13, 13;
+	setarray .jsklid[28], 14, 14;
+// ---- ENDE ERZEUGT ----
+	end;
+}

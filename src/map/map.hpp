@@ -75,7 +75,12 @@ void map_msg_reload(void);
 #define NATURAL_HEAL_INTERVAL 500
 #define MIN_FLOORITEM 2
 #define MAX_FLOORITEM START_ACCOUNT_NUM
-#define MAX_LEVEL 275
+// SafaRO: 275 -> 500.
+// Betrifft nur die Obergrenze der Engine. Welche Klasse tatsaechlich
+// wie weit kommt, steht in db/re/job_exp.yml bzw. db/import/job_exp.yml -
+// dort ist nur die Gruppe der 4th- und 4th-Expanded-Klassen auf 500
+// gesetzt, alle anderen bleiben bei 99 bzw. 200.
+#define MAX_LEVEL 500
 #define MAX_DROP_PER_MAP 48
 #define MAX_IGNORE_LIST 20 	// official is 14
 #define MAX_VENDING 12
@@ -589,7 +594,12 @@ enum _sp {
 	SP_MAGIC_SUBDEF_ELE, SP_REDUCE_DAMAGE_RETURN, SP_ADD_ITEM_SPHEAL_RATE, SP_ADD_ITEMGROUP_SPHEAL_RATE, // 2098-2101
 	SP_WEAPON_SUBSIZE, SP_ABSORB_DMG_MAXHP2, // 2102-2103
 	SP_SP_IGNORE_RES_RACE_RATE, SP_SP_IGNORE_MRES_RACE_RATE, SP_EMATK_HIDDEN, SP_SKILL_RATIO, // 2104-2107
-	SP_NON_CRIT_ATK_RATE //2108
+	SP_NON_CRIT_ATK_RATE, //2108
+
+	// SafaRO: Schaden des eigenen Homunkulus in Prozent.
+	// rAthena kennt sonst keinen Bonus, der den Homunkulus betrifft -
+	// die gesamte bonus-Familie wirkt nur auf den Spieler selbst.
+	SP_HOM_DAMAGE //2109
 };
 
 enum _look {

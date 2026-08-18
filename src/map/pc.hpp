@@ -676,6 +676,12 @@ public:
 		int16 critical_rangeatk;
 		int16 weapon_atk_rate, weapon_matk_rate;
 		int32 skill_ratio;
+		// SafaRO: Schadenszuschlag fuer den eigenen Homunkulus,
+		// gesetzt ueber "bonus bHomDamage,n;". Steht beim MEISTER,
+		// nicht beim Homunkulus - angewandt wird er in
+		// battle_calc_damage, wenn der Angreifer ein Homunkulus mit
+		// genau diesem Meister ist.
+		int32 hom_damage;
 	} bonus;
 	// zeroed vars end here.
 

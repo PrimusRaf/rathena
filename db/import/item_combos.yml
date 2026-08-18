@@ -1,0 +1,470 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2022 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Item Combo Database
+###########################################################################
+#
+# Settings
+#
+###########################################################################
+# - Combos:                 List of combo sets.
+#    - Combo:               Sequence of items to define a combo (minimum of 2 items).
+#       - <item name>       AEGIS name of the item
+#   Script                  Script to execute when one of the combos is equipped. (Default: null)
+#   Clear                   Remove the defined combos from database. (Default: false)
+###########################################################################
+
+Header:
+  Type: COMBO_DB
+  Version: 1
+
+# ==========================================================
+#  SafaRO - Set-Boni der Farming-Ausruestung
+#
+#  Die acht Einzelteile geben je +50 %, zusammen also +400 %.
+#  Ist das Set vollstaendig, kommen hier noch einmal +400 %
+#  dazu - der Wert verdoppelt sich damit auf +800 %.
+#
+#  Das Sigil steht ZWEIMAL in der Liste. pc_checkcombo in
+#  src/map/pc.cpp merkt sich zu jedem Eintrag den Inventarplatz
+#  und ueberspringt bereits verwendete; eine doppelt genannte Id
+#  verlangt deshalb wirklich zwei getragene Stuecke und nicht
+#  zweimal dasselbe.
+# ==========================================================
+
+Body:
+  - Combos:
+      - Combo:
+          - Scholars_Beret
+          - Scholars_Lens
+          - Scholars_Charm
+          - Scholars_Robe
+          - Scholars_Mantle
+          - Scholars_Boots
+          - Scholars_Sigil
+          - Scholars_Sigil    # zweites Accessoire, linke Hand
+    Script: |
+      bonus2 bExpAddRace,RC_All,400;
+
+  - Combos:
+      - Combo:
+          - Prospectors_Beret
+          - Prospectors_Lens
+          - Prospectors_Charm
+          - Prospectors_Robe
+          - Prospectors_Mantle
+          - Prospectors_Boots
+          - Prospectors_Sigil
+          - Prospectors_Sigil    # zweites Accessoire, linke Hand
+    Script: |
+      bonus2 bDropAddRace,RC_All,400;
+
+
+
+# ---- ANFANG ERZEUGT: tools/sets/bauen.py ----
+  - Combos:
+      - Combo:
+          - JS_Dragonic_Helm
+          - JS_Dragonic_Lens
+          - JS_Dragonic_Cigar
+          - JS_Dragonic_Plate
+          - JS_Dragonic_Cape
+          - JS_Dragonic_Boots
+          - JS_Dragonic_Ring
+          - JS_Dragonic_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Berserker_Helm
+          - JS_Berserker_Lens
+          - JS_Berserker_Cigar
+          - JS_Berserker_Plate
+          - JS_Berserker_Cape
+          - JS_Berserker_Boots
+          - JS_Berserker_Ring
+          - JS_Berserker_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Meister_Helm
+          - JS_Meister_Lens
+          - JS_Meister_Cigar
+          - JS_Meister_Plate
+          - JS_Meister_Cape
+          - JS_Meister_Boots
+          - JS_Meister_Ring
+          - JS_Meister_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Machinist_Helm
+          - JS_Machinist_Lens
+          - JS_Machinist_Cigar
+          - JS_Machinist_Plate
+          - JS_Machinist_Cape
+          - JS_Machinist_Boots
+          - JS_Machinist_Ring
+          - JS_Machinist_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Arch_Mage_Helm
+          - JS_Arch_Mage_Lens
+          - JS_Arch_Mage_Cigar
+          - JS_Arch_Mage_Plate
+          - JS_Arch_Mage_Cape
+          - JS_Arch_Mage_Boots
+          - JS_Arch_Mage_Ring
+          - JS_Arch_Mage_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Crystal_Helm
+          - JS_Crystal_Lens
+          - JS_Crystal_Cigar
+          - JS_Crystal_Plate
+          - JS_Crystal_Cape
+          - JS_Crystal_Boots
+          - JS_Crystal_Ring
+          - JS_Crystal_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Abyss_Helm
+          - JS_Abyss_Lens
+          - JS_Abyss_Cigar
+          - JS_Abyss_Plate
+          - JS_Abyss_Cape
+          - JS_Abyss_Boots
+          - JS_Abyss_Ring
+          - JS_Abyss_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Frenzy_Helm
+          - JS_Frenzy_Lens
+          - JS_Frenzy_Cigar
+          - JS_Frenzy_Plate
+          - JS_Frenzy_Cape
+          - JS_Frenzy_Boots
+          - JS_Frenzy_Ring
+          - JS_Frenzy_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Windhawk_Helm
+          - JS_Windhawk_Lens
+          - JS_Windhawk_Cigar
+          - JS_Windhawk_Plate
+          - JS_Windhawk_Cape
+          - JS_Windhawk_Boots
+          - JS_Windhawk_Ring
+          - JS_Windhawk_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Trapper_Helm
+          - JS_Trapper_Lens
+          - JS_Trapper_Cigar
+          - JS_Trapper_Plate
+          - JS_Trapper_Cape
+          - JS_Trapper_Boots
+          - JS_Trapper_Ring
+          - JS_Trapper_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Cardinal_Helm
+          - JS_Cardinal_Lens
+          - JS_Cardinal_Cigar
+          - JS_Cardinal_Plate
+          - JS_Cardinal_Cape
+          - JS_Cardinal_Boots
+          - JS_Cardinal_Ring
+          - JS_Cardinal_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Benediction_Helm
+          - JS_Benediction_Lens
+          - JS_Benediction_Cigar
+          - JS_Benediction_Plate
+          - JS_Benediction_Cape
+          - JS_Benediction_Boots
+          - JS_Benediction_Ring
+          - JS_Benediction_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Shadow_Cross_Helm
+          - JS_Shadow_Cross_Lens
+          - JS_Shadow_Cross_Cigar
+          - JS_Shadow_Cross_Plate
+          - JS_Shadow_Cross_Cape
+          - JS_Shadow_Cross_Boots
+          - JS_Shadow_Cross_Ring
+          - JS_Shadow_Cross_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Dancing_Blade_Helm
+          - JS_Dancing_Blade_Lens
+          - JS_Dancing_Blade_Cigar
+          - JS_Dancing_Blade_Plate
+          - JS_Dancing_Blade_Cape
+          - JS_Dancing_Blade_Boots
+          - JS_Dancing_Blade_Ring
+          - JS_Dancing_Blade_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Imperial_Helm
+          - JS_Imperial_Lens
+          - JS_Imperial_Cigar
+          - JS_Imperial_Plate
+          - JS_Imperial_Cape
+          - JS_Imperial_Boots
+          - JS_Imperial_Ring
+          - JS_Imperial_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Bulwark_Helm
+          - JS_Bulwark_Lens
+          - JS_Bulwark_Cigar
+          - JS_Bulwark_Plate
+          - JS_Bulwark_Cape
+          - JS_Bulwark_Boots
+          - JS_Bulwark_Ring
+          - JS_Bulwark_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Elemental_Helm
+          - JS_Elemental_Lens
+          - JS_Elemental_Cigar
+          - JS_Elemental_Plate
+          - JS_Elemental_Cape
+          - JS_Elemental_Boots
+          - JS_Elemental_Ring
+          - JS_Elemental_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Terrain_Helm
+          - JS_Terrain_Lens
+          - JS_Terrain_Cigar
+          - JS_Terrain_Plate
+          - JS_Terrain_Cape
+          - JS_Terrain_Boots
+          - JS_Terrain_Ring
+          - JS_Terrain_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Troubadour_Helm
+          - JS_Troubadour_Lens
+          - JS_Troubadour_Cigar
+          - JS_Troubadour_Plate
+          - JS_Troubadour_Cape
+          - JS_Troubadour_Boots
+          - JS_Troubadour_Ring
+          - JS_Troubadour_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Rhythm_Helm
+          - JS_Rhythm_Lens
+          - JS_Rhythm_Cigar
+          - JS_Rhythm_Plate
+          - JS_Rhythm_Cape
+          - JS_Rhythm_Boots
+          - JS_Rhythm_Ring
+          - JS_Rhythm_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Inquisitor_Helm
+          - JS_Inquisitor_Lens
+          - JS_Inquisitor_Cigar
+          - JS_Inquisitor_Plate
+          - JS_Inquisitor_Cape
+          - JS_Inquisitor_Boots
+          - JS_Inquisitor_Ring
+          - JS_Inquisitor_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Judgement_Helm
+          - JS_Judgement_Lens
+          - JS_Judgement_Cigar
+          - JS_Judgement_Plate
+          - JS_Judgement_Cape
+          - JS_Judgement_Boots
+          - JS_Judgement_Ring
+          - JS_Judgement_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Genetic_Helm
+          - JS_Genetic_Lens
+          - JS_Genetic_Cigar
+          - JS_Genetic_Plate
+          - JS_Genetic_Cape
+          - JS_Genetic_Boots
+          - JS_Genetic_Ring
+          - JS_Genetic_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Tinker_Helm
+          - JS_Tinker_Lens
+          - JS_Tinker_Cigar
+          - JS_Tinker_Plate
+          - JS_Tinker_Cape
+          - JS_Tinker_Boots
+          - JS_Tinker_Ring
+          - JS_Tinker_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Sky_Emperor_Helm
+          - JS_Sky_Emperor_Lens
+          - JS_Sky_Emperor_Cigar
+          - JS_Sky_Emperor_Plate
+          - JS_Sky_Emperor_Cape
+          - JS_Sky_Emperor_Boots
+          - JS_Sky_Emperor_Ring
+          - JS_Sky_Emperor_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Eclipse_Helm
+          - JS_Eclipse_Lens
+          - JS_Eclipse_Cigar
+          - JS_Eclipse_Plate
+          - JS_Eclipse_Cape
+          - JS_Eclipse_Boots
+          - JS_Eclipse_Ring
+          - JS_Eclipse_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Soul_Ascetic_Helm
+          - JS_Soul_Ascetic_Lens
+          - JS_Soul_Ascetic_Cigar
+          - JS_Soul_Ascetic_Plate
+          - JS_Soul_Ascetic_Cape
+          - JS_Soul_Ascetic_Boots
+          - JS_Soul_Ascetic_Ring
+          - JS_Soul_Ascetic_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Talisman_Helm
+          - JS_Talisman_Lens
+          - JS_Talisman_Cigar
+          - JS_Talisman_Plate
+          - JS_Talisman_Cape
+          - JS_Talisman_Boots
+          - JS_Talisman_Ring
+          - JS_Talisman_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Hyper_Novice_Helm
+          - JS_Hyper_Novice_Lens
+          - JS_Hyper_Novice_Cigar
+          - JS_Hyper_Novice_Plate
+          - JS_Hyper_Novice_Cape
+          - JS_Hyper_Novice_Boots
+          - JS_Hyper_Novice_Ring
+          - JS_Hyper_Novice_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Bowling_Helm
+          - JS_Bowling_Lens
+          - JS_Bowling_Cigar
+          - JS_Bowling_Plate
+          - JS_Bowling_Cape
+          - JS_Bowling_Boots
+          - JS_Bowling_Ring
+          - JS_Bowling_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+# ---- ENDE ERZEUGT ----

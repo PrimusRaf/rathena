@@ -1,0 +1,1132 @@
+//===== SafaRO Script =====================================
+//= Isekai-System: Tiers, Union-Punkte, Todes-Debuff
+//===== Beschreibung: ========================================
+//= Neun Tiers von F bis SSS.
+//=   F, E    allgemeine Boni, E ist die staerkere Fassung
+//=   D, C    die sechs 1st Classes
+//=   B, A    die zwoelf 2nd Classes - jeder Zweig einzeln
+//=   S, SS   die zwoelf 3rd Classes
+//=   SSS     die zwoelf 4th Classes
+//=
+//= Knight und Crusader haben getrennte Geschenke, ebenso Wizard
+//= und Sage, Priest und Monk, Blacksmith und Alchemist und so
+//= weiter. Jedes bringt den Waffenschaden des typischen
+//= Waffentyps, die Signature-Skills der Klasse und Statuswerte.
+//=
+//= UNION-PUNKTE werden nicht gespeichert, sondern live gezaehlt:
+//= 100 je existierendem Charakter des Accounts auf Level 500.
+//=
+//= Geschenk 510 (Seeker) wirkt zusaetzlich in src/map/status.cpp.
+//=
+//= IDs sind Tier*100 + Position. Die 100er-Schritte sind noetig,
+//= weil ein Tier zwoelf Geschenke hat - mit Tier*10 waeren sich
+//= Tier B Position 11 und Tier A Position 1 in die Quere gekommen.
+//============================================================
+
+function	script	F_SafaTierName	{
+	switch (getarg(0)) {
+	case 0: return "F";
+	case 1: return "E";
+	case 2: return "D";
+	case 3: return "C";
+	case 4: return "B";
+	case 5: return "A";
+	case 6: return "S";
+	case 7: return "SS";
+	case 8: return "SSS";
+	}
+	return "?";
+}
+
+function	script	F_SafaTierReq	{
+	switch (getarg(0)) {
+	case 0: return 0;
+	case 1: return 50;
+	case 2: return 150;
+	case 3: return 300;
+	case 4: return 450;
+	case 5: return 650;
+	case 6: return 850;
+	case 7: return 1050;
+	case 8: return 1200;
+	}
+	return 999999;
+}
+
+function	script	F_SafaGiftTier	{
+	switch (getarg(0)) {
+	case 1: return 0;
+	case 2: return 0;
+	case 3: return 0;
+	case 4: return 0;
+	case 101: return 1;
+	case 102: return 1;
+	case 103: return 1;
+	case 104: return 1;
+	case 201: return 2;
+	case 202: return 2;
+	case 203: return 2;
+	case 204: return 2;
+	case 205: return 2;
+	case 206: return 2;
+	case 301: return 3;
+	case 302: return 3;
+	case 303: return 3;
+	case 304: return 3;
+	case 305: return 3;
+	case 306: return 3;
+	case 401: return 4;
+	case 402: return 4;
+	case 403: return 4;
+	case 404: return 4;
+	case 405: return 4;
+	case 406: return 4;
+	case 407: return 4;
+	case 408: return 4;
+	case 409: return 4;
+	case 410: return 4;
+	case 411: return 4;
+	case 412: return 4;
+	case 501: return 5;
+	case 502: return 5;
+	case 503: return 5;
+	case 504: return 5;
+	case 505: return 5;
+	case 506: return 5;
+	case 507: return 5;
+	case 508: return 5;
+	case 509: return 5;
+	case 510: return 5;
+	case 511: return 5;
+	case 512: return 5;
+	case 601: return 6;
+	case 602: return 6;
+	case 603: return 6;
+	case 604: return 6;
+	case 605: return 6;
+	case 606: return 6;
+	case 607: return 6;
+	case 608: return 6;
+	case 609: return 6;
+	case 610: return 6;
+	case 611: return 6;
+	case 612: return 6;
+	case 701: return 7;
+	case 702: return 7;
+	case 703: return 7;
+	case 704: return 7;
+	case 705: return 7;
+	case 706: return 7;
+	case 707: return 7;
+	case 708: return 7;
+	case 709: return 7;
+	case 710: return 7;
+	case 711: return 7;
+	case 712: return 7;
+	case 801: return 8;
+	case 802: return 8;
+	case 803: return 8;
+	case 804: return 8;
+	case 805: return 8;
+	case 806: return 8;
+	case 807: return 8;
+	case 808: return 8;
+	case 809: return 8;
+	case 810: return 8;
+	case 811: return 8;
+	case 812: return 8;
+	}
+	return 0;
+}
+
+function	script	F_SafaGift	{
+	switch (getarg(0)) {
+	case 1: return "bonus2 bDropAddRace,RC_ALL,15; bonus2 bExpAddRace,RC_ALL,-10;";
+	case 2: return "bonus2 bExpAddRace,RC_ALL,15; bonus2 bDropAddRace,RC_ALL,-10;";
+	case 3: return "bonus bAtkRate,20; bonus bMaxHPrate,-10;";
+	case 4: return "bonus bMatkRate,20; bonus bMaxHPrate,-10;";
+	case 101: return "bonus2 bDropAddRace,RC_ALL,35; bonus2 bExpAddRace,RC_ALL,-10;";
+	case 102: return "bonus2 bExpAddRace,RC_ALL,35; bonus2 bDropAddRace,RC_ALL,-10;";
+	case 103: return "bonus bAtkRate,40; bonus bMaxHPrate,-10;";
+	case 104: return "bonus bMatkRate,40; bonus bMaxHPrate,-10;";
+	case 201: return "bonus2 bWeaponDamageRate,W_1HSWORD,30; bonus2 bSkillAtk,SM_BASH,30; bonus2 bSkillAtk,SM_MAGNUM,30; bonus bAllStats,5;";
+	case 202: return "bonus2 bWeaponDamageRate,W_STAFF,30; bonus2 bSkillAtk,MG_FIREBOLT,30; bonus2 bSkillAtk,MG_COLDBOLT,30; bonus2 bSkillAtk,MG_LIGHTNINGBOLT,30; bonus bAllStats,5;";
+	case 203: return "bonus2 bWeaponDamageRate,W_BOW,30; bonus2 bSkillAtk,AC_DOUBLE,30; bonus bAllStats,5;";
+	case 204: return "bonus2 bWeaponDamageRate,W_MACE,30; bonus2 bSkillAtk,AL_HEAL,30; bonus2 bSkillAtk,AL_HOLYLIGHT,30; bonus bAllStats,5;";
+	case 205: return "bonus2 bWeaponDamageRate,W_1HAXE,30; bonus2 bSkillAtk,MC_MAMMONITE,30; bonus bAllStats,5;";
+	case 206: return "bonus2 bWeaponDamageRate,W_DAGGER,30; bonus2 bSkillAtk,TF_POISON,30; bonus bAllStats,5;";
+	case 301: return "bonus2 bWeaponDamageRate,W_1HSWORD,60; bonus2 bSkillAtk,SM_BASH,60; bonus2 bSkillAtk,SM_MAGNUM,60; bonus bAllStats,10;";
+	case 302: return "bonus2 bWeaponDamageRate,W_STAFF,60; bonus2 bSkillAtk,MG_FIREBOLT,60; bonus2 bSkillAtk,MG_COLDBOLT,60; bonus2 bSkillAtk,MG_LIGHTNINGBOLT,60; bonus bAllStats,10;";
+	case 303: return "bonus2 bWeaponDamageRate,W_BOW,60; bonus2 bSkillAtk,AC_DOUBLE,60; bonus bAllStats,10;";
+	case 304: return "bonus2 bWeaponDamageRate,W_MACE,60; bonus2 bSkillAtk,AL_HEAL,60; bonus2 bSkillAtk,AL_HOLYLIGHT,60; bonus bAllStats,10;";
+	case 305: return "bonus2 bWeaponDamageRate,W_1HAXE,60; bonus2 bSkillAtk,MC_MAMMONITE,60; bonus bAllStats,10;";
+	case 306: return "bonus2 bWeaponDamageRate,W_DAGGER,60; bonus2 bSkillAtk,TF_POISON,60; bonus bAllStats,10;";
+	case 401: return "bonus2 bWeaponDamageRate,W_2HSWORD,30; bonus2 bSkillAtk,KN_BOWLINGBASH,30; bonus2 bSkillAtk,KN_PIERCE,30; bonus bAllStats,15;";
+	case 402: return "bonus2 bWeaponDamageRate,W_1HSPEAR,30; bonus2 bSkillAtk,CR_GRANDCROSS,30; bonus2 bSkillAtk,CR_SHIELDBOOMERANG,30; bonus bAllStats,15;";
+	case 403: return "bonus2 bWeaponDamageRate,W_STAFF,30; bonus2 bSkillAtk,WZ_METEOR,30; bonus2 bSkillAtk,WZ_STORMGUST,30; bonus bAllStats,15;";
+	case 404: return "bonus2 bWeaponDamageRate,W_BOOK,30; bonus2 bSkillAtk,PF_SOULBURN,30; bonus2 bSkillAtk,SA_FLAMELAUNCHER,30; bonus bAllStats,15;";
+	case 405: return "bonus2 bWeaponDamageRate,W_BOW,30; bonus2 bSkillAtk,HT_BLITZBEAT,30; bonus2 bSkillAtk,SN_SHARPSHOOTING,30; bonus bAllStats,15;";
+	case 406: return "bonus2 bWeaponDamageRate,W_MUSICAL,30; bonus2 bSkillAtk,BA_MUSICALSTRIKE,30; bonus2 bSkillAtk,DC_THROWARROW,30; bonus bAllStats,15;";
+	case 407: return "bonus2 bWeaponDamageRate,W_MACE,30; bonus2 bSkillAtk,PR_MAGNUS,30; bonus2 bSkillAtk,AL_HOLYLIGHT,30; bonus bAllStats,15;";
+	case 408: return "bonus2 bWeaponDamageRate,W_KNUCKLE,30; bonus2 bSkillAtk,MO_EXTREMITYFIST,30; bonus2 bSkillAtk,MO_FINGEROFFENSIVE,30; bonus bAllStats,15;";
+	case 409: return "bonus2 bWeaponDamageRate,W_2HAXE,30; bonus2 bSkillAtk,WS_CARTTERMINATION,30; bonus2 bSkillAtk,BS_HAMMERFALL,30; bonus bAllStats,15;";
+	case 410: return "bonus2 bWeaponDamageRate,W_1HAXE,30; bonus2 bSkillAtk,AM_ACIDTERROR,30; bonus2 bSkillAtk,AM_DEMONSTRATION,30; bonus bAllStats,15;";
+	case 411: return "bonus2 bWeaponDamageRate,W_KATAR,30; bonus2 bSkillAtk,AS_SONICBLOW,30; bonus2 bSkillAtk,AS_GRIMTOOTH,30; bonus bAllStats,15;";
+	case 412: return "bonus2 bWeaponDamageRate,W_DAGGER,30; bonus2 bSkillAtk,RG_BACKSTAP,30; bonus2 bSkillAtk,RG_RAID,30; bonus bAllStats,15;";
+	case 501: return "bonus2 bWeaponDamageRate,W_2HSWORD,60; bonus2 bSkillAtk,KN_BOWLINGBASH,60; bonus2 bSkillAtk,KN_PIERCE,60; bonus bAllStats,20;";
+	case 502: return "bonus2 bWeaponDamageRate,W_1HSPEAR,60; bonus2 bSkillAtk,CR_GRANDCROSS,60; bonus2 bSkillAtk,CR_SHIELDBOOMERANG,60; bonus bAllStats,20;";
+	case 503: return "bonus2 bWeaponDamageRate,W_STAFF,60; bonus2 bSkillAtk,WZ_METEOR,60; bonus2 bSkillAtk,WZ_STORMGUST,60; bonus bAllStats,20;";
+	case 504: return "bonus2 bWeaponDamageRate,W_BOOK,60; bonus2 bSkillAtk,PF_SOULBURN,60; bonus2 bSkillAtk,SA_FLAMELAUNCHER,60; bonus bAllStats,20;";
+	case 505: return "bonus2 bWeaponDamageRate,W_BOW,60; bonus2 bSkillAtk,HT_BLITZBEAT,60; bonus2 bSkillAtk,SN_SHARPSHOOTING,60; bonus bAllStats,20;";
+	case 506: return "bonus2 bWeaponDamageRate,W_MUSICAL,60; bonus2 bSkillAtk,BA_MUSICALSTRIKE,60; bonus2 bSkillAtk,DC_THROWARROW,60; bonus bAllStats,20;";
+	case 507: return "bonus2 bWeaponDamageRate,W_MACE,60; bonus2 bSkillAtk,PR_MAGNUS,60; bonus2 bSkillAtk,AL_HOLYLIGHT,60; bonus bAllStats,20;";
+	case 508: return "bonus2 bWeaponDamageRate,W_KNUCKLE,60; bonus2 bSkillAtk,MO_EXTREMITYFIST,60; bonus2 bSkillAtk,MO_FINGEROFFENSIVE,60; bonus bAllStats,20;";
+	case 509: return "bonus2 bWeaponDamageRate,W_2HAXE,60; bonus2 bSkillAtk,WS_CARTTERMINATION,60; bonus2 bSkillAtk,BS_HAMMERFALL,60; bonus bAllStats,20;";
+	case 510: return "bonus bAtkRate,-20; bonus bDefRate,-20;";
+	case 511: return "bonus2 bWeaponDamageRate,W_KATAR,60; bonus2 bSkillAtk,AS_SONICBLOW,60; bonus2 bSkillAtk,AS_GRIMTOOTH,60; bonus bAllStats,20;";
+	case 512: return "bonus2 bWeaponDamageRate,W_DAGGER,60; bonus2 bSkillAtk,RG_BACKSTAP,60; bonus2 bSkillAtk,RG_RAID,60; bonus bAllStats,20;";
+	case 601: return "bonus2 bWeaponDamageRate,W_2HSWORD,30; bonus2 bSkillAtk,RK_IGNITIONBREAK,30; bonus2 bSkillAtk,RK_SONICWAVE,30; bonus bAllStats,25;";
+	case 602: return "bonus2 bWeaponDamageRate,W_1HSPEAR,30; bonus2 bSkillAtk,LG_CANNONSPEAR,30; bonus2 bSkillAtk,LG_OVERBRAND,30; bonus bAllStats,25;";
+	case 603: return "bonus2 bWeaponDamageRate,W_2HSTAFF,30; bonus2 bSkillAtk,WL_SOULEXPANSION,30; bonus2 bSkillAtk,WL_CHAINLIGHTNING,30; bonus bAllStats,25;";
+	case 604: return "bonus2 bWeaponDamageRate,W_STAFF,30; bonus2 bSkillAtk,SO_PSYCHIC_WAVE,30; bonus2 bSkillAtk,SO_EARTHGRAVE,30; bonus bAllStats,25;";
+	case 605: return "bonus2 bWeaponDamageRate,W_BOW,30; bonus2 bSkillAtk,RA_ARROWSTORM,30; bonus2 bSkillAtk,RA_AIMEDBOLT,30; bonus bAllStats,25;";
+	case 606: return "bonus2 bWeaponDamageRate,W_WHIP,30; bonus2 bSkillAtk,WM_REVERBERATION,30; bonus2 bSkillAtk,WM_SEVERE_RAINSTORM,30; bonus bAllStats,25;";
+	case 607: return "bonus2 bWeaponDamageRate,W_MACE,30; bonus2 bSkillAtk,AB_ADORAMUS,30; bonus2 bSkillAtk,AB_JUDEX,30; bonus bAllStats,25;";
+	case 608: return "bonus2 bWeaponDamageRate,W_KNUCKLE,30; bonus2 bSkillAtk,SR_SKYNETBLOW,30; bonus2 bSkillAtk,SR_TIGERCANNON,30; bonus bAllStats,25;";
+	case 609: return "bonus2 bWeaponDamageRate,W_2HAXE,30; bonus2 bSkillAtk,NC_AXETORNADO,30; bonus2 bSkillAtk,NC_ARMSCANNON,30; bonus bAllStats,25;";
+	case 610: return "bonus2 bWeaponDamageRate,W_1HAXE,30; bonus2 bSkillAtk,GN_CARTCANNON,30; bonus2 bSkillAtk,GN_CRAZYWEED,30; bonus bAllStats,25;";
+	case 611: return "bonus2 bWeaponDamageRate,W_KATAR,30; bonus2 bSkillAtk,GC_CROSSIMPACT,30; bonus2 bSkillAtk,GC_ROLLINGCUTTER,30; bonus bAllStats,25;";
+	case 612: return "bonus2 bWeaponDamageRate,W_DAGGER,30; bonus2 bSkillAtk,SC_FATALMENACE,30; bonus2 bSkillAtk,SC_TRIANGLESHOT,30; bonus bAllStats,25;";
+	case 701: return "bonus2 bWeaponDamageRate,W_2HSWORD,60; bonus2 bSkillAtk,RK_IGNITIONBREAK,60; bonus2 bSkillAtk,RK_SONICWAVE,60; bonus bAllStats,30;";
+	case 702: return "bonus2 bWeaponDamageRate,W_1HSPEAR,60; bonus2 bSkillAtk,LG_CANNONSPEAR,60; bonus2 bSkillAtk,LG_OVERBRAND,60; bonus bAllStats,30;";
+	case 703: return "bonus2 bWeaponDamageRate,W_2HSTAFF,60; bonus2 bSkillAtk,WL_SOULEXPANSION,60; bonus2 bSkillAtk,WL_CHAINLIGHTNING,60; bonus bAllStats,30;";
+	case 704: return "bonus2 bWeaponDamageRate,W_STAFF,60; bonus2 bSkillAtk,SO_PSYCHIC_WAVE,60; bonus2 bSkillAtk,SO_EARTHGRAVE,60; bonus bAllStats,30;";
+	case 705: return "bonus2 bWeaponDamageRate,W_BOW,60; bonus2 bSkillAtk,RA_ARROWSTORM,60; bonus2 bSkillAtk,RA_AIMEDBOLT,60; bonus bAllStats,30;";
+	case 706: return "bonus2 bWeaponDamageRate,W_WHIP,60; bonus2 bSkillAtk,WM_REVERBERATION,60; bonus2 bSkillAtk,WM_SEVERE_RAINSTORM,60; bonus bAllStats,30;";
+	case 707: return "bonus2 bWeaponDamageRate,W_MACE,60; bonus2 bSkillAtk,AB_ADORAMUS,60; bonus2 bSkillAtk,AB_JUDEX,60; bonus bAllStats,30;";
+	case 708: return "bonus2 bWeaponDamageRate,W_KNUCKLE,60; bonus2 bSkillAtk,SR_SKYNETBLOW,60; bonus2 bSkillAtk,SR_TIGERCANNON,60; bonus bAllStats,30;";
+	case 709: return "bonus2 bWeaponDamageRate,W_2HAXE,60; bonus2 bSkillAtk,NC_AXETORNADO,60; bonus2 bSkillAtk,NC_ARMSCANNON,60; bonus bAllStats,30;";
+	case 710: return "bonus2 bWeaponDamageRate,W_1HAXE,60; bonus2 bSkillAtk,GN_CARTCANNON,60; bonus2 bSkillAtk,GN_CRAZYWEED,60; bonus bAllStats,30;";
+	case 711: return "bonus2 bWeaponDamageRate,W_KATAR,60; bonus2 bSkillAtk,GC_CROSSIMPACT,60; bonus2 bSkillAtk,GC_ROLLINGCUTTER,60; bonus bAllStats,30;";
+	case 712: return "bonus2 bWeaponDamageRate,W_DAGGER,60; bonus2 bSkillAtk,SC_FATALMENACE,60; bonus2 bSkillAtk,SC_TRIANGLESHOT,60; bonus bAllStats,30;";
+	case 801: return "bonus2 bWeaponDamageRate,W_2HSWORD,60; bonus2 bSkillAtk,DK_SERVANTWEAPON_ATK,60; bonus2 bSkillAtk,DK_DRAGONIC_AURA,60; bonus bAllStats,40;";
+	case 802: return "bonus2 bWeaponDamageRate,W_1HSPEAR,60; bonus2 bSkillAtk,IG_OVERSLASH,60; bonus2 bSkillAtk,IG_SHIELD_SHOOTING,60; bonus bAllStats,40;";
+	case 803: return "bonus2 bWeaponDamageRate,W_2HSTAFF,60; bonus2 bSkillAtk,AG_DESTRUCTIVE_HURRICANE,60; bonus2 bSkillAtk,AG_SOUL_VC_STRIKE,60; bonus bAllStats,40;";
+	case 804: return "bonus2 bWeaponDamageRate,W_2HSTAFF,60; bonus2 bSkillAtk,EM_ELEMENTAL_BUSTER_FIRE,60; bonus2 bSkillAtk,EM_DIAMOND_STORM,60; bonus bAllStats,40;";
+	case 805: return "bonus2 bWeaponDamageRate,W_BOW,60; bonus2 bSkillAtk,WH_HAWKRUSH,60; bonus2 bSkillAtk,WH_GALESTORM,60; bonus bAllStats,40;";
+	case 806: return "bonus2 bWeaponDamageRate,W_WHIP,60; bonus2 bSkillAtk,TR_ROSEBLOSSOM,60; bonus2 bSkillAtk,TR_METALIC_FURY,60; bonus bAllStats,40;";
+	case 807: return "bonus2 bWeaponDamageRate,W_MACE,60; bonus2 bSkillAtk,CD_ARBITRIUM,60; bonus2 bSkillAtk,CD_EFFLIGO,60; bonus bAllStats,40;";
+	case 808: return "bonus2 bWeaponDamageRate,W_KNUCKLE,60; bonus2 bSkillAtk,IQ_OLEUM_SANCTUM,60; bonus2 bSkillAtk,IQ_MASSIVE_F_BLASTER,60; bonus bAllStats,40;";
+	case 809: return "bonus2 bWeaponDamageRate,W_2HAXE,60; bonus2 bSkillAtk,MT_AXE_STOMP,60; bonus2 bSkillAtk,MT_SPARK_BLASTER,60; bonus bAllStats,40;";
+	case 810: return "bonus2 bWeaponDamageRate,W_1HAXE,60; bonus2 bSkillAtk,BO_ACIDIFIED_ZONE_WATER,60; bonus2 bSkillAtk,BO_EXPLOSIVE_POWDER,60; bonus bAllStats,40;";
+	case 811: return "bonus2 bWeaponDamageRate,W_KATAR,60; bonus2 bSkillAtk,SHC_SAVAGE_IMPACT,60; bonus2 bSkillAtk,SHC_ETERNAL_SLASH,60; bonus bAllStats,40;";
+	case 812: return "bonus2 bWeaponDamageRate,W_DAGGER,60; bonus2 bSkillAtk,ABC_ABYSS_DAGGER,60; bonus2 bSkillAtk,ABC_UNLUCKY_RUSH,60; bonus bAllStats,40;";
+	}
+	return "";
+}
+
+function	script	F_SafaGiftName	{
+	switch (getarg(0)) {
+	case 1: return "Gift of the Scavenger";
+	case 2: return "Gift of the Apprentice";
+	case 3: return "Gift of the Iron Grip";
+	case 4: return "Gift of the Clear Mind";
+	case 101: return "Gift of the Hoarder";
+	case 102: return "Gift of the Scholar";
+	case 103: return "Gift of the Crushing Hand";
+	case 104: return "Gift of the Deep Mind";
+	case 201: return "Gift of the Swordman Initiate";
+	case 202: return "Gift of the Mage Initiate";
+	case 203: return "Gift of the Archer Initiate";
+	case 204: return "Gift of the Acolyte Initiate";
+	case 205: return "Gift of the Merchant Initiate";
+	case 206: return "Gift of the Thief Initiate";
+	case 301: return "Gift of the Swordman Adept";
+	case 302: return "Gift of the Mage Adept";
+	case 303: return "Gift of the Archer Adept";
+	case 304: return "Gift of the Acolyte Adept";
+	case 305: return "Gift of the Merchant Adept";
+	case 306: return "Gift of the Thief Adept";
+	case 401: return "Gift of the Knight";
+	case 402: return "Gift of the Crusader";
+	case 403: return "Gift of the Wizard";
+	case 404: return "Gift of the Sage";
+	case 405: return "Gift of the Hunter";
+	case 406: return "Gift of the Bard";
+	case 407: return "Gift of the Priest";
+	case 408: return "Gift of the Monk";
+	case 409: return "Gift of the Blacksmith";
+	case 410: return "Gift of the Alchemist";
+	case 411: return "Gift of the Assassin";
+	case 412: return "Gift of the Rogue";
+	case 501: return "Gift of the Knight";
+	case 502: return "Gift of the Crusader";
+	case 503: return "Gift of the Wizard";
+	case 504: return "Gift of the Sage";
+	case 505: return "Gift of the Hunter";
+	case 506: return "Gift of the Bard";
+	case 507: return "Gift of the Priest";
+	case 508: return "Gift of the Monk";
+	case 509: return "Gift of the Blacksmith";
+	case 510: return "Gift of the Seeker";
+	case 511: return "Gift of the Assassin";
+	case 512: return "Gift of the Rogue";
+	case 601: return "Gift of the Rune Knight";
+	case 602: return "Gift of the Royal Guard";
+	case 603: return "Gift of the Warlock";
+	case 604: return "Gift of the Sorcerer";
+	case 605: return "Gift of the Ranger";
+	case 606: return "Gift of the Wanderer";
+	case 607: return "Gift of the Arch Bishop";
+	case 608: return "Gift of the Sura";
+	case 609: return "Gift of the Mechanic";
+	case 610: return "Gift of the Genetic";
+	case 611: return "Gift of the Guillotine Cross";
+	case 612: return "Gift of the Shadow Chaser";
+	case 701: return "Gift of the Rune Knight";
+	case 702: return "Gift of the Royal Guard";
+	case 703: return "Gift of the Warlock";
+	case 704: return "Gift of the Sorcerer";
+	case 705: return "Gift of the Ranger";
+	case 706: return "Gift of the Wanderer";
+	case 707: return "Gift of the Arch Bishop";
+	case 708: return "Gift of the Sura";
+	case 709: return "Gift of the Mechanic";
+	case 710: return "Gift of the Genetic";
+	case 711: return "Gift of the Guillotine Cross";
+	case 712: return "Gift of the Shadow Chaser";
+	case 801: return "Gift of the Dragon Knight";
+	case 802: return "Gift of the Imperial Guard";
+	case 803: return "Gift of the Arch Mage";
+	case 804: return "Gift of the Elemental Master";
+	case 805: return "Gift of the Windhawk";
+	case 806: return "Gift of the Troubadour";
+	case 807: return "Gift of the Cardinal";
+	case 808: return "Gift of the Inquisitor";
+	case 809: return "Gift of the Meister";
+	case 810: return "Gift of the Biolo";
+	case 811: return "Gift of the Shadow Cross";
+	case 812: return "Gift of the Abyss Chaser";
+	}
+	return "none";
+}
+
+function	script	F_SafaTierCount	{
+	switch (getarg(0)) {
+	case 0: return 4;
+	case 1: return 4;
+	case 2: return 6;
+	case 3: return 6;
+	case 4: return 12;
+	case 5: return 12;
+	case 6: return 12;
+	case 7: return 12;
+	case 8: return 12;
+	}
+	return 0;
+}
+
+function	script	F_SafaTierGift	{
+	// getarg(0) = Tier, getarg(1) = Position
+	switch (getarg(0) * 1000 + getarg(1)) {
+	case 1: return 1;
+	case 2: return 2;
+	case 3: return 3;
+	case 4: return 4;
+	case 1001: return 101;
+	case 1002: return 102;
+	case 1003: return 103;
+	case 1004: return 104;
+	case 2001: return 201;
+	case 2002: return 202;
+	case 2003: return 203;
+	case 2004: return 204;
+	case 2005: return 205;
+	case 2006: return 206;
+	case 3001: return 301;
+	case 3002: return 302;
+	case 3003: return 303;
+	case 3004: return 304;
+	case 3005: return 305;
+	case 3006: return 306;
+	case 4001: return 401;
+	case 4002: return 402;
+	case 4003: return 403;
+	case 4004: return 404;
+	case 4005: return 405;
+	case 4006: return 406;
+	case 4007: return 407;
+	case 4008: return 408;
+	case 4009: return 409;
+	case 4010: return 410;
+	case 4011: return 411;
+	case 4012: return 412;
+	case 5001: return 501;
+	case 5002: return 502;
+	case 5003: return 503;
+	case 5004: return 504;
+	case 5005: return 505;
+	case 5006: return 506;
+	case 5007: return 507;
+	case 5008: return 508;
+	case 5009: return 509;
+	case 5010: return 510;
+	case 5011: return 511;
+	case 5012: return 512;
+	case 6001: return 601;
+	case 6002: return 602;
+	case 6003: return 603;
+	case 6004: return 604;
+	case 6005: return 605;
+	case 6006: return 606;
+	case 6007: return 607;
+	case 6008: return 608;
+	case 6009: return 609;
+	case 6010: return 610;
+	case 6011: return 611;
+	case 6012: return 612;
+	case 7001: return 701;
+	case 7002: return 702;
+	case 7003: return 703;
+	case 7004: return 704;
+	case 7005: return 705;
+	case 7006: return 706;
+	case 7007: return 707;
+	case 7008: return 708;
+	case 7009: return 709;
+	case 7010: return 710;
+	case 7011: return 711;
+	case 7012: return 712;
+	case 8001: return 801;
+	case 8002: return 802;
+	case 8003: return 803;
+	case 8004: return 804;
+	case 8005: return 805;
+	case 8006: return 806;
+	case 8007: return 807;
+	case 8008: return 808;
+	case 8009: return 809;
+	case 8010: return 810;
+	case 8011: return 811;
+	case 8012: return 812;
+	}
+	return 0;
+}
+
+function	script	F_SafaGiftDesc	{
+	switch (getarg(0)) {
+	case 1:
+		mes "You notice what others walk past.";
+		mes " ";
+		mes "^00AA00Item drops +15%^000000";
+		mes "^FF0000Experience -10%^000000";
+		break;
+	case 2:
+		mes "You learn from every fight, even the";
+		mes "ones you lose.";
+		mes " ";
+		mes "^00AA00Experience +15%^000000";
+		mes "^FF0000Item drops -10%^000000";
+		break;
+	case 3:
+		mes "Your hands remember weapons they";
+		mes "never held.";
+		mes " ";
+		mes "^00AA00Physical damage +20%^000000";
+		mes "^FF0000Maximum HP -10%^000000";
+		break;
+	case 4:
+		mes "The words arrange themselves before";
+		mes "you think them.";
+		mes " ";
+		mes "^00AA00Magical damage +20%^000000";
+		mes "^FF0000Maximum HP -10%^000000";
+		break;
+	case 101:
+		mes "The ground gives up more than it should.";
+		mes " ";
+		mes "^00AA00Item drops +35%^000000";
+		mes "^FF0000Experience -10%^000000";
+		break;
+	case 102:
+		mes "Every death teaches you something,";
+		mes "including your own.";
+		mes " ";
+		mes "^00AA00Experience +35%^000000";
+		mes "^FF0000Item drops -10%^000000";
+		break;
+	case 103:
+		mes "Something in you was built for this.";
+		mes " ";
+		mes "^00AA00Physical damage +40%^000000";
+		mes "^FF0000Maximum HP -10%^000000";
+		break;
+	case 104:
+		mes "You stopped translating. You just speak.";
+		mes " ";
+		mes "^00AA00Magical damage +40%^000000";
+		mes "^FF0000Maximum HP -10%^000000";
+		break;
+	case 201:
+		mes "The path of the sword, opened.";
+		mes " ";
+		mes "^00AA00One-Handed Sword damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +5^000000";
+		break;
+	case 202:
+		mes "The path of the bolt, opened.";
+		mes " ";
+		mes "^00AA00Staff damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +5^000000";
+		break;
+	case 203:
+		mes "The path of the bow, opened.";
+		mes " ";
+		mes "^00AA00Bow damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +5^000000";
+		break;
+	case 204:
+		mes "The path of the prayer, opened.";
+		mes " ";
+		mes "^00AA00Mace damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +5^000000";
+		break;
+	case 205:
+		mes "The path of the ledger, opened.";
+		mes " ";
+		mes "^00AA00One-Handed Axe damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +5^000000";
+		break;
+	case 206:
+		mes "The path of the knife, opened.";
+		mes " ";
+		mes "^00AA00Dagger damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +5^000000";
+		break;
+	case 301:
+		mes "The path of the sword, sharpened.";
+		mes " ";
+		mes "^00AA00One-Handed Sword damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +10^000000";
+		break;
+	case 302:
+		mes "The path of the bolt, sharpened.";
+		mes " ";
+		mes "^00AA00Staff damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +10^000000";
+		break;
+	case 303:
+		mes "The path of the bow, sharpened.";
+		mes " ";
+		mes "^00AA00Bow damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +10^000000";
+		break;
+	case 304:
+		mes "The path of the prayer, sharpened.";
+		mes " ";
+		mes "^00AA00Mace damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +10^000000";
+		break;
+	case 305:
+		mes "The path of the ledger, sharpened.";
+		mes " ";
+		mes "^00AA00One-Handed Axe damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +10^000000";
+		break;
+	case 306:
+		mes "The path of the knife, sharpened.";
+		mes " ";
+		mes "^00AA00Dagger damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +10^000000";
+		break;
+	case 401:
+		mes "You were shaped for what a Knight does.";
+		mes " ";
+		mes "^00AA00Two-Handed Sword damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 402:
+		mes "You were shaped for what a Crusader does.";
+		mes " ";
+		mes "^00AA00One-Handed Spear damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 403:
+		mes "You were shaped for what a Wizard does.";
+		mes " ";
+		mes "^00AA00Staff damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 404:
+		mes "You were shaped for what a Sage does.";
+		mes " ";
+		mes "^00AA00Book damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 405:
+		mes "You were shaped for what a Hunter does.";
+		mes " ";
+		mes "^00AA00Bow damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 406:
+		mes "You were shaped for what a Bard does.";
+		mes " ";
+		mes "^00AA00Instrument damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 407:
+		mes "You were shaped for what a Priest does.";
+		mes " ";
+		mes "^00AA00Mace damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 408:
+		mes "You were shaped for what a Monk does.";
+		mes " ";
+		mes "^00AA00Knuckle damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 409:
+		mes "You were shaped for what a Blacksmith does.";
+		mes " ";
+		mes "^00AA00Two-Handed Axe damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 410:
+		mes "You were shaped for what a Alchemist does.";
+		mes " ";
+		mes "^00AA00One-Handed Axe damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 411:
+		mes "You were shaped for what a Assassin does.";
+		mes " ";
+		mes "^00AA00Katar damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 412:
+		mes "You were shaped for what a Rogue does.";
+		mes " ";
+		mes "^00AA00Dagger damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +15^000000";
+		break;
+	case 501:
+		mes "You were shaped for what a Knight does.";
+		mes " ";
+		mes "^00AA00Two-Handed Sword damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +20^000000";
+		break;
+	case 502:
+		mes "You were shaped for what a Crusader does.";
+		mes " ";
+		mes "^00AA00One-Handed Spear damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +20^000000";
+		break;
+	case 503:
+		mes "You were shaped for what a Wizard does.";
+		mes " ";
+		mes "^00AA00Staff damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +20^000000";
+		break;
+	case 504:
+		mes "You were shaped for what a Sage does.";
+		mes " ";
+		mes "^00AA00Book damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +20^000000";
+		break;
+	case 505:
+		mes "You were shaped for what a Hunter does.";
+		mes " ";
+		mes "^00AA00Bow damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +20^000000";
+		break;
+	case 506:
+		mes "You were shaped for what a Bard does.";
+		mes " ";
+		mes "^00AA00Instrument damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +20^000000";
+		break;
+	case 507:
+		mes "You were shaped for what a Priest does.";
+		mes " ";
+		mes "^00AA00Mace damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +20^000000";
+		break;
+	case 508:
+		mes "You were shaped for what a Monk does.";
+		mes " ";
+		mes "^00AA00Knuckle damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +20^000000";
+		break;
+	case 509:
+		mes "You were shaped for what a Blacksmith does.";
+		mes " ";
+		mes "^00AA00Two-Handed Axe damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +20^000000";
+		break;
+	case 510:
+		mes "You were not meant to fight alone.";
+		mes "Whatever walks at your side becomes";
+		mes "the thing people fear.";
+		mes " ";
+		mes "^00AA00Homunculus damage +50%^000000";
+		mes "^00AA00Homunculus maximum HP +20%, defense +20^000000";
+		mes "^FF0000Your own attack and defense -20%^000000";
+		break;
+	case 511:
+		mes "You were shaped for what a Assassin does.";
+		mes " ";
+		mes "^00AA00Katar damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +20^000000";
+		break;
+	case 512:
+		mes "You were shaped for what a Rogue does.";
+		mes " ";
+		mes "^00AA00Dagger damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +20^000000";
+		break;
+	case 601:
+		mes "You were shaped for what a Rune Knight does.";
+		mes " ";
+		mes "^00AA00Two-Handed Sword damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 602:
+		mes "You were shaped for what a Royal Guard does.";
+		mes " ";
+		mes "^00AA00One-Handed Spear damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 603:
+		mes "You were shaped for what a Warlock does.";
+		mes " ";
+		mes "^00AA00Two-Handed Staff damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 604:
+		mes "You were shaped for what a Sorcerer does.";
+		mes " ";
+		mes "^00AA00Staff damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 605:
+		mes "You were shaped for what a Ranger does.";
+		mes " ";
+		mes "^00AA00Bow damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 606:
+		mes "You were shaped for what a Wanderer does.";
+		mes " ";
+		mes "^00AA00Whip damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 607:
+		mes "You were shaped for what a Arch Bishop does.";
+		mes " ";
+		mes "^00AA00Mace damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 608:
+		mes "You were shaped for what a Sura does.";
+		mes " ";
+		mes "^00AA00Knuckle damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 609:
+		mes "You were shaped for what a Mechanic does.";
+		mes " ";
+		mes "^00AA00Two-Handed Axe damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 610:
+		mes "You were shaped for what a Genetic does.";
+		mes " ";
+		mes "^00AA00One-Handed Axe damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 611:
+		mes "You were shaped for what a Guillotine Cross does.";
+		mes " ";
+		mes "^00AA00Katar damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 612:
+		mes "You were shaped for what a Shadow Chaser does.";
+		mes " ";
+		mes "^00AA00Dagger damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 701:
+		mes "You were shaped for what a Rune Knight does.";
+		mes " ";
+		mes "^00AA00Two-Handed Sword damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 702:
+		mes "You were shaped for what a Royal Guard does.";
+		mes " ";
+		mes "^00AA00One-Handed Spear damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 703:
+		mes "You were shaped for what a Warlock does.";
+		mes " ";
+		mes "^00AA00Two-Handed Staff damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 704:
+		mes "You were shaped for what a Sorcerer does.";
+		mes " ";
+		mes "^00AA00Staff damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 705:
+		mes "You were shaped for what a Ranger does.";
+		mes " ";
+		mes "^00AA00Bow damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 706:
+		mes "You were shaped for what a Wanderer does.";
+		mes " ";
+		mes "^00AA00Whip damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 707:
+		mes "You were shaped for what a Arch Bishop does.";
+		mes " ";
+		mes "^00AA00Mace damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 708:
+		mes "You were shaped for what a Sura does.";
+		mes " ";
+		mes "^00AA00Knuckle damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 709:
+		mes "You were shaped for what a Mechanic does.";
+		mes " ";
+		mes "^00AA00Two-Handed Axe damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 710:
+		mes "You were shaped for what a Genetic does.";
+		mes " ";
+		mes "^00AA00One-Handed Axe damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 711:
+		mes "You were shaped for what a Guillotine Cross does.";
+		mes " ";
+		mes "^00AA00Katar damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 712:
+		mes "You were shaped for what a Shadow Chaser does.";
+		mes " ";
+		mes "^00AA00Dagger damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +30^000000";
+		break;
+	case 801:
+		mes "You were shaped for what a Dragon Knight does.";
+		mes " ";
+		mes "^00AA00Two-Handed Sword damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 802:
+		mes "You were shaped for what a Imperial Guard does.";
+		mes " ";
+		mes "^00AA00One-Handed Spear damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 803:
+		mes "You were shaped for what a Arch Mage does.";
+		mes " ";
+		mes "^00AA00Two-Handed Staff damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 804:
+		mes "You were shaped for what a Elemental Master does.";
+		mes " ";
+		mes "^00AA00Two-Handed Staff damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 805:
+		mes "You were shaped for what a Windhawk does.";
+		mes " ";
+		mes "^00AA00Bow damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 806:
+		mes "You were shaped for what a Troubadour does.";
+		mes " ";
+		mes "^00AA00Whip damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 807:
+		mes "You were shaped for what a Cardinal does.";
+		mes " ";
+		mes "^00AA00Mace damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 808:
+		mes "You were shaped for what a Inquisitor does.";
+		mes " ";
+		mes "^00AA00Knuckle damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 809:
+		mes "You were shaped for what a Meister does.";
+		mes " ";
+		mes "^00AA00Two-Handed Axe damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 810:
+		mes "You were shaped for what a Biolo does.";
+		mes " ";
+		mes "^00AA00One-Handed Axe damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 811:
+		mes "You were shaped for what a Shadow Cross does.";
+		mes " ";
+		mes "^00AA00Katar damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 812:
+		mes "You were shaped for what a Abyss Chaser does.";
+		mes " ";
+		mes "^00AA00Dagger damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	}
+	return;
+}
+
+
+// ------------------------------------------------------------
+//  Union-Punkte
+// ------------------------------------------------------------
+//  Wird bei jedem Aufruf frisch gezaehlt statt gespeichert.
+//  Damit verschwinden die Punkte eines Charakters in dem Moment,
+//  in dem er geloescht wird - Hochleveln, loeschen, Punkte
+//  behalten funktioniert also nicht.
+// ------------------------------------------------------------
+function	script	F_SafaPoints	{
+	// Testwert eines GM. Nur ueber den Threshold Warden setzbar,
+	// dort hinter einer Gruppenpruefung. 0 = aus, dann zaehlt
+	// wieder die Datenbank.
+	if (#isekai_debug_points > 0)
+		return #isekai_debug_points;
+
+	.@rows = query_sql("SELECT COUNT(*) FROM `char` WHERE `account_id` = " + getcharid(3) + " AND `base_level` >= 500", .@cnt);
+	if (.@rows < 1)
+		return 0;
+	return .@cnt * 100;
+}
+
+function	script	F_SafaHighestTier	{
+	.@p = callfunc("F_SafaPoints");
+	.@best = 0;
+	for (.@i = 0; .@i < 9; .@i++) {
+		if (.@p >= callfunc("F_SafaTierReq", .@i))
+			.@best = .@i;
+	}
+	return .@best;
+}
+
+
+// ------------------------------------------------------------
+//  Alles neu anlegen
+// ------------------------------------------------------------
+//  Zur Dauer 2000000 Sekunden (rund 23 Tage):
+//
+//  bonus_script rechnet die Sekunden in Millisekunden um. Serverseitig
+//  passen davon knapp 4,3 Milliarden in ein uint32 - der Buff selbst
+//  koennte also fast 50 Tage laufen. Zum Client geht die Restzeit aber
+//  ueber clif_status_change, und dort landet sie in einem Feld, das der
+//  Client VORZEICHENBEHAFTET liest.
+//
+//  Alles ueber 2.147.483.647 ms kippt damit ins Negative. 4294967 s
+//  wurden auf der Leitung zu -296 ms, der Client hielt den Buff fuer
+//  laengst abgelaufen und hat das Symbol gar nicht erst gezeichnet -
+//  die Boni wirkten, sichtbar war nichts.
+//
+//  Deshalb: unter 2147483 Sekunden bleiben. Die tatsaechliche Laufzeit
+//  spielt ohnehin keine Rolle, weil stuendlich und bei jedem Login neu
+//  gesetzt wird (siehe OnTimer weiter unten). haveTimeLimit = 0 in
+//  stateiconinfo.lub blendet den Countdown im Client aus.
+function	script	F_SafaRefresh	{
+	bonus_script_clear 1;
+
+	// Selbstheilung bei veralteten Nummern.
+	// Die Geschenk-IDs haben sich waehrend der Entwicklung zweimal
+	// geaendert. Ein Charakter, der noch eine alte Nummer traegt,
+	// bekaeme von F_SafaGift einen leeren String zurueck - und
+	// bonus_script lehnt leere Skripte ab ("No Script string, No
+	// Duration"). Der Buff waere also stillschweigend weg, ohne dass
+	// im Spiel irgendetwas darauf hinweist.
+	if (isekai_gift > 0 && callfunc("F_SafaGift", isekai_gift) == "") {
+		dispbottom "[System] Your gift no longer exists in this world. Speak to the Threshold Warden again.";
+		set isekai_gift, 0;
+	}
+
+	if (isekai_gift > 0)
+		bonus_script callfunc("F_SafaGift", isekai_gift), 2000000, 512, 0, EFST_KINGS_GRACE;
+
+	.@pen = death_count * 5;
+	if (.@pen > 90)
+		.@pen = 90;
+
+	if (.@pen > 0) {
+		bonus_script "bonus bAtkRate,-" + .@pen + "; " +
+		             "bonus bMatkRate,-" + .@pen + "; " +
+		             "bonus bMaxHPrate,-" + .@pen + "; " +
+		             "bonus bMaxSPrate,-" + .@pen + "; " +
+		             "bonus bDefRate,-" + .@pen + "; " +
+		             "bonus bMdefRate,-" + .@pen + "; " +
+		             "bonus bFleeRate,-" + .@pen + "; " +
+		             "bonus bHitRate,-" + .@pen + ";", 2000000, 512, 0, EFST_ALL_STAT_DOWN;
+	}
+	return;
+}
+
+
+// ------------------------------------------------------------
+//  Ereignisse
+// ------------------------------------------------------------
+-	script	#safa_core	-1,{
+	end;
+
+OnInit:
+	initnpctimer;
+	end;
+
+// Stuendlich alle eingeloggten Spieler auffrischen. addrid(0) haengt
+// jeden Online-Charakter an dieses Skript, F_SafaRefresh setzt
+// Geschenk und Debuff neu. Damit kann der Buff auch bei einer
+// Dauersitzung nicht ablaufen.
+OnTimer3600000:
+	addrid(0);
+	callfunc "F_SafaRefresh";
+	end;
+
+OnTimer3600100:
+	initnpctimer;
+	end;
+
+OnPCLoginEvent:
+	callfunc "F_SafaRefresh";
+	if (death_count > 0) {
+		.@pen = death_count * 5;
+		if (.@pen > 90) .@pen = 90;
+		dispbottom "[System] Deaths: " + death_count + ". All combat values reduced by " + .@pen + "%.";
+	}
+	if (isekai_gift == 0)
+		dispbottom "[System] You carry no gift. The Threshold Warden binds it.";
+	else
+		dispbottom "[System] Gift: " + callfunc("F_SafaGiftName", isekai_gift) + " (Tier " + callfunc("F_SafaTierName", callfunc("F_SafaGiftTier", isekai_gift)) + ")";
+	dispbottom "[Union] " + callfunc("F_SafaPoints") + " points - tier " + callfunc("F_SafaTierName", callfunc("F_SafaHighestTier")) + " unlocked.";
+	end;
+
+// Nur eine Meldung. Die Punkte selbst werden nicht gutgeschrieben,
+// sondern immer live gezaehlt.
+OnPCBaseLvUpEvent:
+	if (BaseLevel < 500) end;
+	if (isekai_maxed) end;
+	set isekai_maxed, 1;
+	specialeffect2 EF_ANGEL2;
+	announce strcharinfo(0) + " has reached level 500. The Union grows stronger.", bc_all;
+	dispbottom "[Union] This soul now carries 100 points for your line - as long as it exists.";
+	end;
+
+OnPCDieEvent:
+	.@map$ = strcharinfo(3);
+
+	if (getmapflag(.@map$, mf_pvp) || getmapflag(.@map$, mf_gvg) ||
+	    getmapflag(.@map$, mf_gvg_castle) || getmapflag(.@map$, mf_gvg_dungeon) ||
+	    getmapflag(.@map$, mf_battleground))
+		end;
+
+	set death_count, death_count + 1;
+	callfunc "F_SafaRefresh";
+
+	.@pen = death_count * 5;
+	if (.@pen > 90) .@pen = 90;
+	dispbottom "[System] Death " + death_count + ". All combat values now reduced by " + .@pen + "%.";
+	end;
+}

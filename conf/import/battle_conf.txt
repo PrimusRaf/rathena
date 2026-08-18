@@ -1,0 +1,138 @@
+// ============================================================
+//  SafaRO - Spielregeln
+// ------------------------------------------------------------
+//  Diese Datei ueberschreibt conf/battle/*.conf und wird von
+//  git nicht angefasst. Aenderungen hier sind update-sicher.
+//
+//  Uebernehmen im Spiel:  @reloadbattleconf
+//  (Ausnahmen sind unten vermerkt.)
+// ============================================================
+
+
+// ------------------------------------------------------------
+//  Obergrenzen   (Original: conf/battle/player.conf)
+// ------------------------------------------------------------
+
+// --- Statuswerte: 255 statt 130 ---
+//  Kostenrechnung (Renewal-Formel): bis 99 kostet ein Punkt 2-11,
+//  ab 100 wird es steil - 16 + 4*((wert-100)/5).
+//  Ein einzelner Wert auf 255 kostet damit 12.419 Punkte.
+//  Bei 25.000 Punkten auf Level 500 heisst das: ZWEI Werte am
+//  Anschlag, oder alle sechs gleichmaessig auf 177. Genau diese
+//  Entscheidung soll den Charakter praegen.
+max_third_parameter: 255
+max_third_trans_parameter: 255
+max_extended_parameter: 255
+max_summoner_parameter: 255
+max_fourth_parameter: 255
+
+//  1st/2nd und Transzendent bleiben bei 99 - die Klassen enden
+//  ohnehin bei Level 99 und haben gar nicht genug Punkte.
+//max_parameter: 99
+//max_trans_parameter: 99
+
+// --- Trait-Werte: 200 statt 110 ---
+//  Trait-Punkte kosten pauschal 1 pro Stufe. 6 x 200 = 1.200,
+//  und genau 1.200 gibt es auf Level 500.
+max_trait_parameter: 200
+
+// --- Angriffsgeschwindigkeit: 199 ---
+//  199 ist das vom Server erlaubte Maximum. Alle vier Varianten
+//  gesetzt, weil je nach Klasse eine andere greift: 4th und 3rd
+//  nutzen max_third_aspd, Kagerou/Oboro und Rebellion die
+//  extended-Variante, Doram die summoner-Variante.
+max_aspd: 199
+max_third_aspd: 199
+max_extended_aspd: 199
+max_summoner_aspd: 199
+
+
+// ------------------------------------------------------------
+//  Homunkulus   (Original: conf/battle/homunc.conf)
+// ------------------------------------------------------------
+
+// Wie schnell Intimacy waechst, in Prozent. Standard 100.
+// 300 = dreifaches Tempo. Betrifft Fuettern ebenso wie den
+// Intimacy-Verlust beim Tod.
+// Relevant fuer die Evolution: die braucht 91.100 Intimacy.
+homunculus_friendly_rate: 300
+
+// Anteil der EXP, den der Homunkulus von deinen Kills bekommt,
+// in Prozent. Standard 10 - der Homunkulus haengt damit dauerhaft
+// hinter dir zurueck. 30 haelt ihn auf Augenhoehe.
+homunculus_exp_gain: 30
+
+// Umbenennen erlauben. Standard: no (einmalig gesetzter Name ist fix).
+hom_rename: yes
+
+// Der normale Homunkulus bleibt bei 99 - das macht die Mutation zum
+// Homunculus S zu einer echten Entscheidung statt einer Formalie.
+homunculus_max_level: 99
+
+// Der Homunculus S zieht bis 500 mit. Die EXP-Tabelle dafuer steht in
+// db/import/exp_homun.yml.
+homunculus_S_max_level: 500
+
+// Ab wieviel Prozent HP des Besitzers der Homunkulus automatisch
+// verdampft. Standard 80 - hier belassen, das ist ein Schutzmechanismus.
+//homunculus_auto_vapor: 80
+
+// Intimacy-Schwelle fuer die Evolution. Standard 91100.
+// Nicht angetastet - mit friendly_rate 300 geht das schnell genug.
+//homunculus_evo_intimacy_need: 91100
+
+
+// ------------------------------------------------------------
+//  Raten   (Original: conf/battle/exp.conf und drops.conf)
+// ------------------------------------------------------------
+//  Angaben in Prozent: 100 = 1x, 2500 = 25x, 5000 = 50x
+
+// --- Erfahrung: 25x ---
+base_exp_rate: 2500
+job_exp_rate: 2500
+quest_exp_rate: 2500
+
+// --- Levelabzug endet bei Stufe 275 ---
+//  Ab 31 Stufen Unterschied bleiben von der Erfahrung 10 % uebrig.
+//  Das hoechste normale Monster steht auf Stufe 279, ab Stufe 296 gibt
+//  es also nichts mehr, was ohne Abzug zaehlt - bestraft wuerde etwas,
+//  wogegen der Spieler nichts tun kann. Deshalb faellt der Abzug ab 275.
+//  Betrifft nur Erfahrung; auf Beute bleibt er bestehen.
+//  0 schaltet es ab. Braucht eine neu uebersetzte map-server.
+exp_penalty_maxlevel: 275
+
+// --- Mehrere Stufen je Kill ---
+//  Die Vorgabe "no" laesst pro Kill hoechstens eine Stufe zu und stutzt
+//  den Ueberschuss auf "naechste Stufe minus 1" (pc.cpp, Zeile 8255).
+//  Bei 25-facher Erfahrung ueberschiesst schon ein Poring auf Stufe 1
+//  das Sechsfache einer Stufe - der Rest verfaellt, und Boni aus
+//  Ausruestung sind dort ueberhaupt nicht mehr zu bemerken, weil beide
+//  Faelle auf denselben gestutzten Wert fallen.
+//
+//  Die Level-Up-Anzeige leidet nicht darunter: pc_checkbaselevelup
+//  zaehlt in der Schleife nur die Stufe hoch, alles Sichtbare steht
+//  DAHINTER und laeuft genau einmal - Heilung, Statusaktualisierung,
+//  clif_misceffect (Ton und Animation) und das NPC-Ereignis.
+//  Fuer die Job-Stufen gilt dasselbe.
+multi_level_up: yes
+
+// --- Drops: 25x ---
+//  common = normale Items, heal = Heilitems, use = Verbrauchbares,
+//  equip = Ausruestung. Alle vier, sonst faellt eine Kategorie zurueck.
+item_rate_common: 2500
+item_rate_heal: 2500
+item_rate_use: 2500
+item_rate_equip: 2500
+
+//  Die zugehoerigen Obergrenzen. Ohne sie wuerde die 25x-Rate bei
+//  Items mit ohnehin hoher Basisrate abgeschnitten.
+item_rate_common_boss: 2500
+item_rate_heal_boss: 2500
+item_rate_use_boss: 2500
+item_rate_equip_boss: 2500
+
+// --- Karten: 50x ---
+//  Basisrate einer Karte liegt bei 0,01 %. Mal 50 sind das 0,5 % -
+//  immer noch selten, aber in einer Spielsitzung erreichbar.
+item_rate_card: 5000
+item_rate_card_boss: 5000

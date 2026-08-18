@@ -505,6 +505,10 @@ struct Battle_Config
 	int32 homunculus_show_growth ;	//[orn]
 	int32 homunculus_friendly_rate;
 	int32 quest_exp_rate;
+	// SafaRO: ab dieser Basisstufe entfaellt der Erfahrungsabzug
+	// fuer Levelunterschied. 0 schaltet es ab, dann bleibt alles
+	// offiziell. Begruendung siehe pc_level_penalty_mod.
+	int32 exp_penalty_maxlevel;
 	int32 autotrade_mapflag;
 	int32 at_timeout;
 	int32 homunculus_autoloot;

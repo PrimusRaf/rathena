@@ -1,0 +1,1472 @@
+# SafaRO - Refine-Stufen 11 bis 30
+#
+# ERFOLGSRATEN
+#   +11  50 %   +16  29 %   +21  20 %   +26  11 %
+#   +12  45 %   +17  26 %   +22  18 %   +27   9 %
+#   +13  40 %   +18  24 %   +23  16 %   +28   8 %
+#   +14  35 %   +19  22 %   +24  15 %   +29   6 %
+#   +15  32 %   +20  21 %   +25  13 %   +30   5 %
+#
+# Die offiziellen Werte lagen bei 8 % ab +11 und fielen auf 5 % - also
+# flach und von Anfang an brutal. Diese Kurve faellt stattdessen
+# gleichmaessig von 50 % auf 5 % und macht die unteren Stufen zu einer
+# Formalitaet, die obersten zum eigentlichen Ziel.
+#
+# ALLE RATEN SIND VIELFACHE VON 100.
+# getequippercentrefinery liefert im Skript "Rate / 100" als
+# Ganzzahl - eine Rate von 90 waere dort 0 % geworden, der Versuch
+# haette nie gelingen koennen und das Material waere trotzdem weg
+# gewesen.
+#
+# Fuer 11-20 stehen hier NUR Type und Rate: der Parser mischt pro Feld
+# ein, Preis, Material und Bruchrate bleiben also original. Wichtig ist
+# das, weil die offiziellen Refiner-NPCs weiterhin zerstoeren duerfen -
+# risikofrei ist nur der Weg ueber Ironhand, und der ruft schlicht
+# kein failedrefitem auf.
+#
+# 21-30 sind neue Stufen und deshalb vollstaendig beschrieben.
+# Braucht MAX_REFINE 30 in src/map/status.hpp.
+
+Header:
+  Type: REFINE_DB
+  Version: 2
+
+Body:
+  - Group: Armor
+    Levels:
+      - Level: 1
+        RefineLevels:
+          - Level: 11
+            Chances:
+              - Type: Normal
+                Rate: 5000
+              - Type: HD
+                Rate: 5000
+          - Level: 12
+            Chances:
+              - Type: Normal
+                Rate: 4500
+              - Type: HD
+                Rate: 4500
+          - Level: 13
+            Chances:
+              - Type: Normal
+                Rate: 4000
+              - Type: HD
+                Rate: 4000
+          - Level: 14
+            Chances:
+              - Type: Normal
+                Rate: 3500
+              - Type: HD
+                Rate: 3500
+          - Level: 15
+            Chances:
+              - Type: Normal
+                Rate: 3200
+              - Type: HD
+                Rate: 3200
+          - Level: 16
+            Chances:
+              - Type: Normal
+                Rate: 2900
+              - Type: HD
+                Rate: 2900
+          - Level: 17
+            Chances:
+              - Type: Normal
+                Rate: 2600
+              - Type: HD
+                Rate: 2600
+          - Level: 18
+            Chances:
+              - Type: Normal
+                Rate: 2400
+              - Type: HD
+                Rate: 2400
+          - Level: 19
+            Chances:
+              - Type: Normal
+                Rate: 2200
+              - Type: HD
+                Rate: 2200
+          - Level: 20
+            Chances:
+              - Type: Normal
+                Rate: 2100
+              - Type: HD
+                Rate: 2100
+          - Level: 21
+            Bonus: 6500
+            Chances:
+              - Type: Normal
+                Rate: 2000
+                Price: 100000
+                Material: Carnium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 2000
+                Price: 100000
+                Material: HD_Carnium
+                DowngradeAmount: 1
+          - Level: 22
+            Bonus: 7000
+            Chances:
+              - Type: Normal
+                Rate: 1800
+                Price: 100000
+                Material: Carnium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1800
+                Price: 100000
+                Material: HD_Carnium
+                DowngradeAmount: 1
+          - Level: 23
+            Bonus: 7500
+            Chances:
+              - Type: Normal
+                Rate: 1600
+                Price: 100000
+                Material: Carnium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1600
+                Price: 100000
+                Material: HD_Carnium
+                DowngradeAmount: 1
+          - Level: 24
+            Bonus: 8000
+            Chances:
+              - Type: Normal
+                Rate: 1500
+                Price: 100000
+                Material: Carnium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1500
+                Price: 100000
+                Material: HD_Carnium
+                DowngradeAmount: 1
+          - Level: 25
+            Bonus: 8500
+            Chances:
+              - Type: Normal
+                Rate: 1300
+                Price: 100000
+                Material: Carnium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1300
+                Price: 100000
+                Material: HD_Carnium
+                DowngradeAmount: 1
+          - Level: 26
+            Bonus: 9000
+            Chances:
+              - Type: Normal
+                Rate: 1100
+                Price: 100000
+                Material: Carnium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1100
+                Price: 100000
+                Material: HD_Carnium
+                DowngradeAmount: 1
+          - Level: 27
+            Bonus: 9500
+            Chances:
+              - Type: Normal
+                Rate: 900
+                Price: 100000
+                Material: Carnium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 900
+                Price: 100000
+                Material: HD_Carnium
+                DowngradeAmount: 1
+          - Level: 28
+            Bonus: 10000
+            Chances:
+              - Type: Normal
+                Rate: 800
+                Price: 100000
+                Material: Carnium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 800
+                Price: 100000
+                Material: HD_Carnium
+                DowngradeAmount: 1
+          - Level: 29
+            Bonus: 10500
+            Chances:
+              - Type: Normal
+                Rate: 600
+                Price: 100000
+                Material: Carnium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 600
+                Price: 100000
+                Material: HD_Carnium
+                DowngradeAmount: 1
+          - Level: 30
+            Bonus: 11000
+            Chances:
+              - Type: Normal
+                Rate: 500
+                Price: 100000
+                Material: Carnium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 500
+                Price: 100000
+                Material: HD_Carnium
+                DowngradeAmount: 1
+      - Level: 2
+        RefineLevels:
+          - Level: 11
+            Chances:
+              - Type: Normal
+                Rate: 5000
+              - Type: HD
+                Rate: 5000
+          - Level: 12
+            Chances:
+              - Type: Normal
+                Rate: 4500
+              - Type: HD
+                Rate: 4500
+          - Level: 13
+            Chances:
+              - Type: Normal
+                Rate: 4000
+              - Type: HD
+                Rate: 4000
+          - Level: 14
+            Chances:
+              - Type: Normal
+                Rate: 3500
+              - Type: HD
+                Rate: 3500
+          - Level: 15
+            Chances:
+              - Type: Normal
+                Rate: 3200
+              - Type: HD
+                Rate: 3200
+          - Level: 16
+            Chances:
+              - Type: Normal
+                Rate: 2900
+              - Type: HD
+                Rate: 2900
+          - Level: 17
+            Chances:
+              - Type: Normal
+                Rate: 2600
+              - Type: HD
+                Rate: 2600
+          - Level: 18
+            Chances:
+              - Type: Normal
+                Rate: 2400
+              - Type: HD
+                Rate: 2400
+          - Level: 19
+            Chances:
+              - Type: Normal
+                Rate: 2200
+              - Type: HD
+                Rate: 2200
+          - Level: 20
+            Chances:
+              - Type: Normal
+                Rate: 2100
+              - Type: HD
+                Rate: 2100
+          - Level: 21
+            Bonus: 7800
+            Chances:
+              - Type: Normal
+                Rate: 2000
+                Price: 100000
+                Material: Etel_Carnium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 2000
+                Price: 100000
+                Material: HD_Etel_Carnium
+                BreakingRate: 10000
+          - Level: 22
+            Bonus: 8400
+            Chances:
+              - Type: Normal
+                Rate: 1800
+                Price: 100000
+                Material: Etel_Carnium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 1800
+                Price: 100000
+                Material: HD_Etel_Carnium
+                BreakingRate: 10000
+          - Level: 23
+            Bonus: 9000
+            Chances:
+              - Type: Normal
+                Rate: 1600
+                Price: 100000
+                Material: Etel_Carnium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 1600
+                Price: 100000
+                Material: HD_Etel_Carnium
+                BreakingRate: 10000
+          - Level: 24
+            Bonus: 9600
+            Chances:
+              - Type: Normal
+                Rate: 1500
+                Price: 100000
+                Material: Etel_Carnium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 1500
+                Price: 100000
+                Material: HD_Etel_Carnium
+                BreakingRate: 10000
+          - Level: 25
+            Bonus: 10200
+            Chances:
+              - Type: Normal
+                Rate: 1300
+                Price: 100000
+                Material: Etel_Carnium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 1300
+                Price: 100000
+                Material: HD_Etel_Carnium
+                BreakingRate: 10000
+          - Level: 26
+            Bonus: 10800
+            Chances:
+              - Type: Normal
+                Rate: 1100
+                Price: 100000
+                Material: Etel_Carnium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 1100
+                Price: 100000
+                Material: HD_Etel_Carnium
+                BreakingRate: 10000
+          - Level: 27
+            Bonus: 11400
+            Chances:
+              - Type: Normal
+                Rate: 900
+                Price: 100000
+                Material: Etel_Carnium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 900
+                Price: 100000
+                Material: HD_Etel_Carnium
+                BreakingRate: 10000
+          - Level: 28
+            Bonus: 12000
+            Chances:
+              - Type: Normal
+                Rate: 800
+                Price: 100000
+                Material: Etel_Carnium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 800
+                Price: 100000
+                Material: HD_Etel_Carnium
+                BreakingRate: 10000
+          - Level: 29
+            Bonus: 12600
+            Chances:
+              - Type: Normal
+                Rate: 600
+                Price: 100000
+                Material: Etel_Carnium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 600
+                Price: 100000
+                Material: HD_Etel_Carnium
+                BreakingRate: 10000
+          - Level: 30
+            Bonus: 13200
+            Chances:
+              - Type: Normal
+                Rate: 500
+                Price: 100000
+                Material: Etel_Carnium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 500
+                Price: 100000
+                Material: HD_Etel_Carnium
+                BreakingRate: 10000
+  - Group: Weapon
+    Levels:
+      - Level: 1
+        RefineLevels:
+          - Level: 11
+            Chances:
+              - Type: Normal
+                Rate: 5000
+              - Type: HD
+                Rate: 5000
+          - Level: 12
+            Chances:
+              - Type: Normal
+                Rate: 4500
+              - Type: HD
+                Rate: 4500
+          - Level: 13
+            Chances:
+              - Type: Normal
+                Rate: 4000
+              - Type: HD
+                Rate: 4000
+          - Level: 14
+            Chances:
+              - Type: Normal
+                Rate: 3500
+              - Type: HD
+                Rate: 3500
+          - Level: 15
+            Chances:
+              - Type: Normal
+                Rate: 3200
+              - Type: HD
+                Rate: 3200
+          - Level: 16
+            Chances:
+              - Type: Normal
+                Rate: 2900
+              - Type: HD
+                Rate: 2900
+          - Level: 17
+            Chances:
+              - Type: Normal
+                Rate: 2600
+              - Type: HD
+                Rate: 2600
+          - Level: 18
+            Chances:
+              - Type: Normal
+                Rate: 2400
+              - Type: HD
+                Rate: 2400
+          - Level: 19
+            Chances:
+              - Type: Normal
+                Rate: 2200
+              - Type: HD
+                Rate: 2200
+          - Level: 20
+            Chances:
+              - Type: Normal
+                Rate: 2100
+              - Type: HD
+                Rate: 2100
+          - Level: 21
+            Bonus: 6300
+            RandomBonus: 4200
+            Chances:
+              - Type: Normal
+                Rate: 2000
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 2000
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 22
+            Bonus: 6600
+            RandomBonus: 4500
+            Chances:
+              - Type: Normal
+                Rate: 1800
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1800
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 23
+            Bonus: 6900
+            RandomBonus: 4800
+            Chances:
+              - Type: Normal
+                Rate: 1600
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1600
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 24
+            Bonus: 7200
+            RandomBonus: 5100
+            Chances:
+              - Type: Normal
+                Rate: 1500
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1500
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 25
+            Bonus: 7500
+            RandomBonus: 5400
+            Chances:
+              - Type: Normal
+                Rate: 1300
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1300
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 26
+            Bonus: 7800
+            RandomBonus: 5700
+            Chances:
+              - Type: Normal
+                Rate: 1100
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1100
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 27
+            Bonus: 8100
+            RandomBonus: 6000
+            Chances:
+              - Type: Normal
+                Rate: 900
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 900
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 28
+            Bonus: 8400
+            RandomBonus: 6300
+            Chances:
+              - Type: Normal
+                Rate: 800
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 800
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 29
+            Bonus: 8700
+            RandomBonus: 6600
+            Chances:
+              - Type: Normal
+                Rate: 600
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 600
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 30
+            Bonus: 9000
+            RandomBonus: 6900
+            Chances:
+              - Type: Normal
+                Rate: 500
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 500
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+      - Level: 2
+        RefineLevels:
+          - Level: 11
+            Chances:
+              - Type: Normal
+                Rate: 5000
+              - Type: HD
+                Rate: 5000
+          - Level: 12
+            Chances:
+              - Type: Normal
+                Rate: 4500
+              - Type: HD
+                Rate: 4500
+          - Level: 13
+            Chances:
+              - Type: Normal
+                Rate: 4000
+              - Type: HD
+                Rate: 4000
+          - Level: 14
+            Chances:
+              - Type: Normal
+                Rate: 3500
+              - Type: HD
+                Rate: 3500
+          - Level: 15
+            Chances:
+              - Type: Normal
+                Rate: 3200
+              - Type: HD
+                Rate: 3200
+          - Level: 16
+            Chances:
+              - Type: Normal
+                Rate: 2900
+              - Type: HD
+                Rate: 2900
+          - Level: 17
+            Chances:
+              - Type: Normal
+                Rate: 2600
+              - Type: HD
+                Rate: 2600
+          - Level: 18
+            Chances:
+              - Type: Normal
+                Rate: 2400
+              - Type: HD
+                Rate: 2400
+          - Level: 19
+            Chances:
+              - Type: Normal
+                Rate: 2200
+              - Type: HD
+                Rate: 2200
+          - Level: 20
+            Chances:
+              - Type: Normal
+                Rate: 2100
+              - Type: HD
+                Rate: 2100
+          - Level: 21
+            Bonus: 10500
+            RandomBonus: 7500
+            Chances:
+              - Type: Normal
+                Rate: 2000
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 2000
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 22
+            Bonus: 11000
+            RandomBonus: 8000
+            Chances:
+              - Type: Normal
+                Rate: 1800
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1800
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 23
+            Bonus: 11500
+            RandomBonus: 8500
+            Chances:
+              - Type: Normal
+                Rate: 1600
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1600
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 24
+            Bonus: 12000
+            RandomBonus: 9000
+            Chances:
+              - Type: Normal
+                Rate: 1500
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1500
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 25
+            Bonus: 12500
+            RandomBonus: 9500
+            Chances:
+              - Type: Normal
+                Rate: 1300
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1300
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 26
+            Bonus: 13000
+            RandomBonus: 10000
+            Chances:
+              - Type: Normal
+                Rate: 1100
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1100
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 27
+            Bonus: 13500
+            RandomBonus: 10500
+            Chances:
+              - Type: Normal
+                Rate: 900
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 900
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 28
+            Bonus: 14000
+            RandomBonus: 11000
+            Chances:
+              - Type: Normal
+                Rate: 800
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 800
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 29
+            Bonus: 14500
+            RandomBonus: 11500
+            Chances:
+              - Type: Normal
+                Rate: 600
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 600
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 30
+            Bonus: 15000
+            RandomBonus: 12000
+            Chances:
+              - Type: Normal
+                Rate: 500
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 500
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+      - Level: 3
+        RefineLevels:
+          - Level: 11
+            Chances:
+              - Type: Normal
+                Rate: 5000
+              - Type: HD
+                Rate: 5000
+          - Level: 12
+            Chances:
+              - Type: Normal
+                Rate: 4500
+              - Type: HD
+                Rate: 4500
+          - Level: 13
+            Chances:
+              - Type: Normal
+                Rate: 4000
+              - Type: HD
+                Rate: 4000
+          - Level: 14
+            Chances:
+              - Type: Normal
+                Rate: 3500
+              - Type: HD
+                Rate: 3500
+          - Level: 15
+            Chances:
+              - Type: Normal
+                Rate: 3200
+              - Type: HD
+                Rate: 3200
+          - Level: 16
+            Chances:
+              - Type: Normal
+                Rate: 2900
+              - Type: HD
+                Rate: 2900
+          - Level: 17
+            Chances:
+              - Type: Normal
+                Rate: 2600
+              - Type: HD
+                Rate: 2600
+          - Level: 18
+            Chances:
+              - Type: Normal
+                Rate: 2400
+              - Type: HD
+                Rate: 2400
+          - Level: 19
+            Chances:
+              - Type: Normal
+                Rate: 2200
+              - Type: HD
+                Rate: 2200
+          - Level: 20
+            Chances:
+              - Type: Normal
+                Rate: 2100
+              - Type: HD
+                Rate: 2100
+          - Level: 21
+            Bonus: 14700
+            RandomBonus: 12800
+            Chances:
+              - Type: Normal
+                Rate: 2000
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 2000
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 22
+            Bonus: 15400
+            RandomBonus: 13600
+            Chances:
+              - Type: Normal
+                Rate: 1800
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1800
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 23
+            Bonus: 16100
+            RandomBonus: 14400
+            Chances:
+              - Type: Normal
+                Rate: 1600
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1600
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 24
+            Bonus: 16800
+            RandomBonus: 15200
+            Chances:
+              - Type: Normal
+                Rate: 1500
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1500
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 25
+            Bonus: 17500
+            RandomBonus: 16000
+            Chances:
+              - Type: Normal
+                Rate: 1300
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1300
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 26
+            Bonus: 18200
+            RandomBonus: 16800
+            Chances:
+              - Type: Normal
+                Rate: 1100
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1100
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 27
+            Bonus: 18900
+            RandomBonus: 17600
+            Chances:
+              - Type: Normal
+                Rate: 900
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 900
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 28
+            Bonus: 19600
+            RandomBonus: 18400
+            Chances:
+              - Type: Normal
+                Rate: 800
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 800
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 29
+            Bonus: 20300
+            RandomBonus: 19200
+            Chances:
+              - Type: Normal
+                Rate: 600
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 600
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 30
+            Bonus: 21000
+            RandomBonus: 20000
+            Chances:
+              - Type: Normal
+                Rate: 500
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 500
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+      - Level: 4
+        RefineLevels:
+          - Level: 11
+            Chances:
+              - Type: Normal
+                Rate: 5000
+              - Type: HD
+                Rate: 5000
+          - Level: 12
+            Chances:
+              - Type: Normal
+                Rate: 4500
+              - Type: HD
+                Rate: 4500
+          - Level: 13
+            Chances:
+              - Type: Normal
+                Rate: 4000
+              - Type: HD
+                Rate: 4000
+          - Level: 14
+            Chances:
+              - Type: Normal
+                Rate: 3500
+              - Type: HD
+                Rate: 3500
+          - Level: 15
+            Chances:
+              - Type: Normal
+                Rate: 3200
+              - Type: HD
+                Rate: 3200
+          - Level: 16
+            Chances:
+              - Type: Normal
+                Rate: 2900
+              - Type: HD
+                Rate: 2900
+          - Level: 17
+            Chances:
+              - Type: Normal
+                Rate: 2600
+              - Type: HD
+                Rate: 2600
+          - Level: 18
+            Chances:
+              - Type: Normal
+                Rate: 2400
+              - Type: HD
+                Rate: 2400
+          - Level: 19
+            Chances:
+              - Type: Normal
+                Rate: 2200
+              - Type: HD
+                Rate: 2200
+          - Level: 20
+            Chances:
+              - Type: Normal
+                Rate: 2100
+              - Type: HD
+                Rate: 2100
+          - Level: 21
+            Bonus: 21000
+            RandomBonus: 23800
+            Chances:
+              - Type: Normal
+                Rate: 2000
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 2000
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 22
+            Bonus: 22000
+            RandomBonus: 25200
+            Chances:
+              - Type: Normal
+                Rate: 1800
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1800
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 23
+            Bonus: 23000
+            RandomBonus: 26600
+            Chances:
+              - Type: Normal
+                Rate: 1600
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1600
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 24
+            Bonus: 24000
+            RandomBonus: 28000
+            Chances:
+              - Type: Normal
+                Rate: 1500
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1500
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 25
+            Bonus: 25000
+            RandomBonus: 29400
+            Chances:
+              - Type: Normal
+                Rate: 1300
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1300
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 26
+            Bonus: 26000
+            RandomBonus: 30800
+            Chances:
+              - Type: Normal
+                Rate: 1100
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 1100
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 27
+            Bonus: 27000
+            RandomBonus: 32200
+            Chances:
+              - Type: Normal
+                Rate: 900
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 900
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 28
+            Bonus: 28000
+            RandomBonus: 33600
+            Chances:
+              - Type: Normal
+                Rate: 800
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 800
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 29
+            Bonus: 29000
+            RandomBonus: 35000
+            Chances:
+              - Type: Normal
+                Rate: 600
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 600
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+          - Level: 30
+            Bonus: 30000
+            RandomBonus: 36400
+            Chances:
+              - Type: Normal
+                Rate: 500
+                Price: 100000
+                Material: Bradium
+                BreakingRate: 2000
+                DowngradeAmount: 3
+              - Type: HD
+                Rate: 500
+                Price: 100000
+                Material: HD_Bradium
+                DowngradeAmount: 1
+      - Level: 5
+        RefineLevels:
+          - Level: 11
+            Chances:
+              - Type: Normal
+                Rate: 5000
+              - Type: HD
+                Rate: 5000
+          - Level: 12
+            Chances:
+              - Type: Normal
+                Rate: 4500
+              - Type: HD
+                Rate: 4500
+          - Level: 13
+            Chances:
+              - Type: Normal
+                Rate: 4000
+              - Type: HD
+                Rate: 4000
+          - Level: 14
+            Chances:
+              - Type: Normal
+                Rate: 3500
+              - Type: HD
+                Rate: 3500
+          - Level: 15
+            Chances:
+              - Type: Normal
+                Rate: 3200
+              - Type: HD
+                Rate: 3200
+          - Level: 16
+            Chances:
+              - Type: Normal
+                Rate: 2900
+              - Type: HD
+                Rate: 2900
+          - Level: 17
+            Chances:
+              - Type: Normal
+                Rate: 2600
+              - Type: HD
+                Rate: 2600
+          - Level: 18
+            Chances:
+              - Type: Normal
+                Rate: 2400
+              - Type: HD
+                Rate: 2400
+          - Level: 19
+            Chances:
+              - Type: Normal
+                Rate: 2200
+              - Type: HD
+                Rate: 2200
+          - Level: 20
+            Chances:
+              - Type: Normal
+                Rate: 2100
+              - Type: HD
+                Rate: 2100
+          - Level: 21
+            Bonus: 16800
+            Chances:
+              - Type: Normal
+                Rate: 2000
+                Price: 100000
+                Material: Etel_Bradium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 2000
+                Price: 100000
+                Material: HD_Etel_Bradium
+                BreakingRate: 10000
+          - Level: 22
+            Bonus: 17600
+            Chances:
+              - Type: Normal
+                Rate: 1800
+                Price: 100000
+                Material: Etel_Bradium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 1800
+                Price: 100000
+                Material: HD_Etel_Bradium
+                BreakingRate: 10000
+          - Level: 23
+            Bonus: 18400
+            Chances:
+              - Type: Normal
+                Rate: 1600
+                Price: 100000
+                Material: Etel_Bradium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 1600
+                Price: 100000
+                Material: HD_Etel_Bradium
+                BreakingRate: 10000
+          - Level: 24
+            Bonus: 19200
+            Chances:
+              - Type: Normal
+                Rate: 1500
+                Price: 100000
+                Material: Etel_Bradium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 1500
+                Price: 100000
+                Material: HD_Etel_Bradium
+                BreakingRate: 10000
+          - Level: 25
+            Bonus: 20000
+            Chances:
+              - Type: Normal
+                Rate: 1300
+                Price: 100000
+                Material: Etel_Bradium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 1300
+                Price: 100000
+                Material: HD_Etel_Bradium
+                BreakingRate: 10000
+          - Level: 26
+            Bonus: 20800
+            Chances:
+              - Type: Normal
+                Rate: 1100
+                Price: 100000
+                Material: Etel_Bradium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 1100
+                Price: 100000
+                Material: HD_Etel_Bradium
+                BreakingRate: 10000
+          - Level: 27
+            Bonus: 21600
+            Chances:
+              - Type: Normal
+                Rate: 900
+                Price: 100000
+                Material: Etel_Bradium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 900
+                Price: 100000
+                Material: HD_Etel_Bradium
+                BreakingRate: 10000
+          - Level: 28
+            Bonus: 22400
+            Chances:
+              - Type: Normal
+                Rate: 800
+                Price: 100000
+                Material: Etel_Bradium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 800
+                Price: 100000
+                Material: HD_Etel_Bradium
+                BreakingRate: 10000
+          - Level: 29
+            Bonus: 23200
+            Chances:
+              - Type: Normal
+                Rate: 600
+                Price: 100000
+                Material: Etel_Bradium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 600
+                Price: 100000
+                Material: HD_Etel_Bradium
+                BreakingRate: 10000
+          - Level: 30
+            Bonus: 24000
+            Chances:
+              - Type: Normal
+                Rate: 500
+                Price: 100000
+                Material: Etel_Bradium
+                BreakingRate: 10000
+              - Type: HD
+                Rate: 500
+                Price: 100000
+                Material: HD_Etel_Bradium
+                BreakingRate: 10000

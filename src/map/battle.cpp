@@ -1682,6 +1682,38 @@ int64 battle_calc_damage(block_list *src,block_list *bl,struct Damage *d,int64 d
 		&& skill_get_casttype(skill_id) == CAST_GROUND )
 		return 0;
 
+	// ------------------------------------------------------------
+	//  SafaRO: Schadenszuschlag des Meisters fuer seinen Homunkulus
+	// ------------------------------------------------------------
+	//  Gesetzt wird der Wert ueber "bonus bHomDamage,n;" auf der
+	//  Ausruestung des SPIELERS. rAthena hat sonst nichts, was den
+	//  Homunkulus von der Ausruestung des Meisters aus beeinflusst.
+	//
+	//  Warum hier und nicht in status_calc_homunculus_, wo das
+	//  Isekai-Geschenk sitzt: der Homunkulus-Status wird beim
+	//  Beschwoeren und beim Aufsteigen berechnet, nicht wenn der
+	//  Meister etwas an- oder auszieht. Fuer eine feste Gabe reicht
+	//  das, fuer Ausruestung nicht - dort braeuchte es zusaetzlich
+	//  einen Neuberechnungs-Ausloeser bei jedem Ausruestungswechsel.
+	//  battle_calc_damage laeuft dagegen bei jedem Treffer und liest
+	//  immer den aktuellen Stand.
+	//
+	//  Preis dafuer: der Zuschlag steht nicht im Statusfenster des
+	//  Homunkulus, er wirkt erst beim Zuschlagen.
+	// ------------------------------------------------------------
+	if( src->type == BL_HOM ){
+		TBL_HOM* hd = BL_CAST( BL_HOM, src );
+
+		if( hd != nullptr && hd->master != nullptr && hd->master->bonus.hom_damage != 0 ){
+			damage += damage * hd->master->bonus.hom_damage / 100;
+
+			// Ein negativer Zuschlag darf den Treffer nicht auf null
+			// bringen - null bedeutet weiter oben "kein Treffer".
+			if( damage < 1 )
+				damage = 1;
+		}
+	}
+
 	if (bl->type == BL_PC) {
 		sd=(map_session_data *)bl;
 		//Special no damage states
@@ -8624,6 +8656,9 @@ static const struct _battle_data {
 	{ "sg_miracle_skill_duration",          &battle_config.sg_miracle_skill_duration,       3600000, 0,     INT_MAX,        },
 	{ "hvan_explosion_intimate",            &battle_config.hvan_explosion_intimate,         45000,  0,      100000,         },
 	{ "quest_exp_rate",                     &battle_config.quest_exp_rate,                  100,    0,      INT_MAX,        },
+	// SafaRO: Vorgabe 0 = aus, damit sich ohne Eintrag in der
+	// Konfiguration nichts gegenueber dem Original aendert.
+	{ "exp_penalty_maxlevel",               &battle_config.exp_penalty_maxlevel,            0,      0,      INT_MAX,        },
 	{ "at_mapflag",                         &battle_config.autotrade_mapflag,               0,      0,      1,              },
 	{ "at_timeout",                         &battle_config.at_timeout,                      0,      0,      INT_MAX,        },
 	{ "homunculus_autoloot",                &battle_config.homunculus_autoloot,             0,      0,      1,              },

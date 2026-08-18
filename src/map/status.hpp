@@ -30,8 +30,11 @@ class status_change;
 /**
  * Max Refine available to your server
  **/
+// SafaRO: Renewal von 20 auf 30.
+// Die Stufen 21-30 sind in db/import/refine.yml definiert, die Stufen
+// 1-10 sind dort auf 100 % Erfolg und 0 % Bruch gesetzt.
 #ifdef RENEWAL
-#	define MAX_REFINE 20
+#	define MAX_REFINE 30
 #else
 #	define MAX_REFINE 10
 #endif

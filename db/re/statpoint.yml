@@ -657,3 +657,7 @@ Body:
   - Level: 275
     Points: 4099
     TraitPoints: 285
+
+Footer:
+  Imports:
+    - Path: db/import/statpoint.yml

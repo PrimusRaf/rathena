@@ -82,6 +82,10 @@ Header:
   Type: MOB_DB
   Version: 5
 
+# Raffas_RO: mob_db_raffas_coins.yml haengt allen normalen Monstern den
+# Destiny-Coin-Drop an. Der Eintrag steht bewusst als letzter, damit die
+# Drops ergaenzt und nicht ueberschrieben werden. Generierte Datei, nicht
+# von Hand pflegen.
 Footer:
   Imports:
   - Path: db/pre-re/mob_db.yml
@@ -89,3 +93,4 @@ Footer:
   - Path: db/re/mob_db.yml
     Mode: Renewal
   - Path: db/import/mob_db.yml
+  - Path: db/import/mob_db_raffas_coins.yml

@@ -1,0 +1,294 @@
+//===== SafaRO Script =====================================
+//= Destiny Coins - Waehrung, Haendler, Drop
+//===== Beschreibung: ========================================
+//= Destiny Coins sind die zweite Waehrung des Servers neben
+//= Zeny. Sie kommen ausschliesslich von Monstern:
+//=
+//=   normale Monster   10 % Chance auf 1 Coin
+//=   MVPs             100 % auf 5 Coins am Stueck
+//=
+//= Die 10 % stehen in db/import/mob_db_safa_coins.yml und
+//= sind gegen den 25x-Multiplikator abgesichert, siehe dort.
+//= Die MVP-Coins liegen weiter unten in diesem Skript, weil
+//= ein Drop-Eintrag immer nur ein einzelnes Stueck erzeugt -
+//= fuenf auf einmal gibt es nur ueber makeitem.
+//=
+//= Zwei NPCs geben die Coins wieder aus:
+//=
+//=   Coin Exchanger   Destiny Ore, 20 Coins das Stueck
+//=   Custom Merchant  Kopfbedeckungen, 500 bis 1000 Coins
+//=
+//===== NPC-Raster Prontera: =================================
+//= Neue NPCs stehen ab jetzt auf einer Linie bei x = 146 und
+//= ruecken in 20er-Schritten nach unten:
+//=
+//=   146,172   Coin Exchanger
+//=   146,152   Custom Merchant
+//=   146,132   frei
+//=   146,112   frei
+//=   146, 92   frei, aber eng - Kafra steht auf 146,89 und der
+//=             Briefkasten auf 146,86. Ab hier lieber auf eine
+//=             zweite Spalte ausweichen, etwa x = 152.
+//=
+//= Alle Felder gegen db/re/map_cache.dat geprueft und begehbar
+//= (Zelltyp 0). Zwischen y 92 und 180 steht auf x 143-149 sonst
+//= nichts, geprueft gegen alle 845 geladenen NPC-Dateien.
+//= Prontera ist 312 x 392 Zellen gross.
+//=
+//= Spieltexte durchgehend englisch, ohne Umlaute.
+//============================================================
+
+
+// ============================================================
+//  Coin Exchanger
+// ============================================================
+prontera,146,172,4	script	Coin Exchanger#safa	1_M_MERCHANT,{
+
+	mes "[Coin Exchanger]";
+	mes "Coins in, ore out. That is the whole";
+	mes "of my business.";
+	next;
+
+	while (1) {
+		mes "[Coin Exchanger]";
+		mes "You carry ^0000FF" + countitem(.coin) + " Destiny Coins^000000.";
+		next;
+
+		switch (select("Buy ^0000FFDestiny Ore^000000:Where do coins come from?:What is the ore for?:Nothing today")) {
+
+		// --------------------------------------------------
+		case 1:
+			mes "[Coin Exchanger]";
+			mes "^0000FF" + .price + " coins^000000 for one ore.";
+			mes "How many do you want?";
+			next;
+
+			.@max = countitem(.coin) / .price;
+			if (.@max < 1) {
+				mes "[Coin Exchanger]";
+				mes "You cannot afford a single one.";
+				mes "Go and kill something.";
+				next;
+				break;
+			}
+
+			mes "[Coin Exchanger]";
+			mes "You can afford ^0000FF" + .@max + "^000000 right now.";
+			next;
+			input .@amount, 1, .@max;
+
+			.@cost = .@amount * .price;
+
+			// Gegenprobe: zwischen input und Kauf kann sich das
+			// Inventar geaendert haben, etwa durch einen Handel.
+			if (countitem(.coin) < .@cost) {
+				mes "[Coin Exchanger]";
+				mes "Your purse got lighter while we talked.";
+				next;
+				break;
+			}
+			if (!checkweight(.ore, .@amount)) {
+				mes "[Coin Exchanger]";
+				mes "You cannot carry that much. Drop";
+				mes "something first.";
+				next;
+				break;
+			}
+
+			mes "[Coin Exchanger]";
+			mes "^0000FF" + .@amount + "x " + getitemname(.ore) + "^000000";
+			mes "for ^0000FF" + .@cost + " coins^000000.";
+			next;
+
+			if (select("Done deal:Let me think") == 2)
+				break;
+
+			delitem .coin, .@cost;
+			getitem .ore, .@amount;
+
+			mes "[Coin Exchanger]";
+			mes "Pleasure. The Ironhand is up the road";
+			mes "if you want that put to use.";
+			next;
+			break;
+
+		// --------------------------------------------------
+		case 2:
+			mes "[Coin Exchanger]";
+			mes "Everything that dies out there leaves";
+			mes "a little something behind.";
+			next;
+			mes "[Coin Exchanger]";
+			mes "^0000FFOne in ten^000000 ordinary monsters drops a";
+			mes "single coin.";
+			next;
+			mes "[Coin Exchanger]";
+			mes "^FF0000MVPs^000000 are different. They always leave";
+			mes "^FF00005 at once^000000 - no luck involved.";
+			next;
+			break;
+
+		// --------------------------------------------------
+		case 3:
+			mes "[Coin Exchanger]";
+			mes "^0000FFDestiny Ore^000000 is what the Ironhand needs";
+			mes "to push a piece past ^FF0000+10^000000.";
+			next;
+			mes "[Coin Exchanger]";
+			mes "He wants more of it every level, and";
+			mes "he keeps it whether the swing lands or";
+			mes "not. Bring plenty.";
+			next;
+			break;
+
+		// --------------------------------------------------
+		case 4:
+			mes "[Coin Exchanger]";
+			mes "Then move along.";
+			close;
+		}
+	}
+	end;
+
+OnInit:
+	.coin  = 30001;   // Destiny Coin
+	.ore   = 30000;   // Destiny Ore
+	.price = 20;      // Coins je Erz
+	end;
+}
+
+
+// ============================================================
+//  Custom Merchant
+// ------------------------------------------------------------
+//  Erst waehlt man eine Abteilung, dann oeffnet sich ein
+//  richtiges Kauffenster.
+//
+//  Die vier Abteilungen sind eigene NPCs vom Typ "itemshop" -
+//  unsichtbar (Sprite -1) und ohne festen Ort, sie werden nur
+//  ueber callshop aufgerufen. "itemshop" statt "shop", weil
+//  bezahlt wird nicht mit Zeny, sondern mit Destiny Coins: die
+//  Zahl direkt hinter dem Sprite ist die Waehrung.
+//
+//  Vorteil gegenueber der frueheren Menuefuehrung: das Fenster
+//  zeigt Symbol, Beschreibung und Werte selbst, aus
+//  itemInfo_C.lua. Es gab hier zuvor eine zweite, handgepflegte
+//  Werteliste - die stand nach der ersten Balance-Aenderung
+//  falsch da und ist deshalb ersatzlos raus.
+//
+//  Preise: 500 / 750 / 1000 fuer die drei alten Stufen,
+//  800 fuer die zehn Auren.
+//
+//  Eine neue Abteilung anlegen: itemshop-NPC dazuschreiben und
+//  seinen Namen in .laden$ eintragen, dazu die Anzeige in
+//  .titel$. Sonst nichts.
+// ============================================================
+
+//  Waehrung, dann Item:Preis. -1 als Sprite haelt sie unsichtbar.
+-	itemshop	Hats#safa	-1,30001,30010:500,30011:750,30020:750
+-	itemshop	Wings#safa	-1,30001,30012:1000
+-	itemshop	Eyes#safa	-1,30001,30021:750,30022:1000,30031:750
+-	itemshop	Auras#safa	-1,30001,30030:500,30032:1000,30033:800,30034:800,30035:800,30036:800,30037:800,30038:800,30039:800,30040:800,30041:800,30042:800
+
+prontera,146,152,4	script	Custom Merchant#safa	1_F_MERCHANT_02,{
+
+	mes "[Custom Merchant]";
+	mes "Nothing here came from a monster or a";
+	mes "smith. These were made for people who";
+	mes "arrived the way you did.";
+	next;
+
+	while (1) {
+		mes "[Custom Merchant]";
+		mes "^0000FF" + countitem(.coin) + " Destiny Coins^000000 on you.";
+		mes "Which counter?";
+		next;
+
+		// Menue aus .titel$ bauen, damit eine neue Abteilung nur
+		// an einer Stelle eingetragen werden muss.
+		.@menu$ = "";
+		for (.@i = 0; .@i < getarraysize(.titel$); .@i++)
+			.@menu$ = .@menu$ + .titel$[.@i] + ":";
+		.@menu$ = .@menu$ + "Why do these cost coins?:Leave";
+
+		.@pick = select(.@menu$);
+
+		if (.@pick <= getarraysize(.laden$)) {
+			mes "[Custom Merchant]";
+			mes "Have a look. Prices are in coins.";
+			close2;
+			// 1 = nur kaufen. Verkaufen waere hier sinnlos, der
+			// Laden zahlt in Zeny und die Stuecke haben Sell 0.
+			callshop .laden$[.@pick - 1], 1;
+			end;
+		}
+
+		if (.@pick == getarraysize(.laden$) + 1) {
+			mes "[Custom Merchant]";
+			mes "Zeny buys what everyone can buy.";
+			mes "Coins buy what you had to earn.";
+			next;
+			mes "[Custom Merchant]";
+			mes "Every piece fills a different slot, so";
+			mes "you can wear one of each at once - if";
+			mes "you can pay for all three.";
+			next;
+			mes "[Custom Merchant]";
+			mes "They also take refining, if the";
+			mes "^0000FFIronhand^000000 is in the mood.";
+			next;
+			continue;
+		}
+
+		mes "[Custom Merchant]";
+		mes "Come back richer.";
+		close;
+	}
+	end;
+
+OnInit:
+	.coin = 30001;
+
+	// Reihenfolge muss zu .titel$ passen - Eintrag n im Menue
+	// oeffnet Laden n.
+	setarray .laden$[0], "Hats#safa", "Wings#safa",
+	                     "Eyes#safa", "Auras#safa";
+	setarray .titel$[0], "^0000FFHats^000000 - crowns, halos, diadems",
+	                     "^0000FFWings^000000",
+	                     "^0000FFEyes and Face^000000 - visors and masks",
+	                     "^0000FFAuras^000000 - twelve, worn at the feet";
+	end;
+}
+
+
+// ============================================================
+//  MVP-Coins
+// ------------------------------------------------------------
+//  Ein Drop-Eintrag in der Datenbank erzeugt immer genau ein
+//  Stueck. Fuenf auf einmal gibt es nur ueber makeitem, deshalb
+//  laeuft das hier ueber das Kill-Ereignis.
+//
+//  makeitem legt die Coins als einen Stapel auf den Boden, an
+//  die Position des Spielers - dieselbe Loesung, die rAthena in
+//  doc/script_commands.txt selbst vorschlaegt, weil im Kill-
+//  Ereignis nur die Klasse des Monsters bekannt ist und nicht
+//  mehr sein Standort.
+// ============================================================
+-	script	#safa_coins	-1,{
+	end;
+
+OnNPCKillEvent:
+	if (killedrid == 0) end;
+
+	// getmonsterinfo liefert -1, wenn die Klasse unbekannt ist.
+	// Ohne diese Pruefung wuerde -1 & MD_MVP wahr ergeben und
+	// jeder Kill Coins auswerfen.
+	.@mode = getmonsterinfo(killedrid, MOB_MODE);
+	if (.@mode < 0) end;
+	if (!(.@mode & MD_MVP)) end;
+
+	getmapxy(.@map$, .@x, .@y, BL_PC);
+	makeitem 30001, 5, .@map$, .@x, .@y;
+	dispbottom "[Destiny] " + getmonsterinfo(killedrid, MOB_NAME) + " leaves 5 Destiny Coins behind.";
+	end;
+}

@@ -46,16 +46,44 @@ function Is_Baby	{
 // Checks if the player can change to fourth class.
 // Note: This does not include the level checks.
 function	Can_Change_Fourth	{
-	// To change to fourth class you need to be:
-	// * Transcendent Third Class
+	// SafaRO: hier stand eine Rechnung, die nie aufgehen konnte.
+	//
+	// Das Original verlangte eine transzendente 3rd-Klasse und fragte
+	// dann roclass(eaclass()|EAJL_FOURTH). In src/map/map.hpp leiten
+	// sich die 4th-Klassen aber von den NICHT-transzendenten ab:
+	//
+	//     MAPID_IMPERIAL_GUARD = JOBL_FOURTH|MAPID_ROYAL_GUARD
+	//     ...
+	//     MAPID_BIOLO
+	//
+	// Keine einzige der 15 4th-Klassen traegt JOBL_UPPER. Ein Creator,
+	// der ueber Genetiker (trans) kommt, hat das Bit aber gesetzt:
+	//
+	//     MAPID_GENETIC_T          0x101205
+	//     | JOBL_FOURTH          = 0x111205   <- gibt es nicht
+	//     MAPID_BIOLO              0x011205
+	//
+	// roclass lieferte also -1, und die Funktion gab false zurueck -
+	// fuer JEDE Klasse, nicht nur fuer den Creator. Der Weg zur
+	// 4th-Klasse war ueber diesen NPC gar nicht vorhanden.
+	//
+	// Deshalb: Upper-Bit ausmaskieren, bevor gerechnet wird.
 	if( !.FourthClass )
 		return false; // Fourth job change disabled
-	if( (eaclass()&(EAJL_THIRD|EAJL_UPPER)) != (EAJL_THIRD|EAJL_UPPER) )
-		return false; // Not Transcendent Third Class
 	if( eaclass()&EAJL_FOURTH )
 		return false; // Already Fourth Class
-	if( roclass(eaclass()|EAJL_FOURTH) < 0 )
+	if( !(eaclass()&EAJL_THIRD) )
+		return false; // Not Third Class yet
+	if( (eaclass()&EAJ_UPPERMASK) == EAJ_SUPER_NOVICE )
+		return false; // Hyper Novice hat weiter unten seinen eigenen Zweig
+	if( roclass((eaclass()&(~EAJL_UPPER))|EAJL_FOURTH) < 0 )
 		return false; // Job has no Fourth Class
+	// Die Wiedergeburt bleibt Pflicht - aber nur dort, wo es sie gibt.
+	// Star Emperor und Soul Reaper haben keine Trans-Fassung; mit der
+	// alten, starren Abfrage kamen genau die beiden nie bei Sky Emperor
+	// und Soul Ascetic an.
+	if( !(eaclass()&EAJL_UPPER) && roclass(eaclass()|EAJL_UPPER) >= 0 )
+		return false; // Trans-Fassung existiert, also erst wiedergeboren werden
 	return true;
 }
 
@@ -171,7 +199,9 @@ function	Job_Options	{
 	if( .@fourth_possible ) {
 		// Fourth Job change (displayed below rebirth)
 		Require_Level(.Req_Fourth[0], .Req_Fourth[1]);
-		Job_Options(.@job_opt, roclass(.@eac|EAJL_FOURTH));
+		// SafaRO: dieselbe Ausmaskierung wie in Can_Change_Fourth.
+		// Ohne sie stuende hier ein Job mit der Nummer -1 im Menue.
+		Job_Options(.@job_opt, roclass((.@eac&(~EAJL_UPPER))|EAJL_FOURTH));
 	}
 	 
 	if (.SecondExpanded && 

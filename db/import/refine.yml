@@ -1,0 +1,555 @@
+# SafaRO - Refine sicher bis +10
+#
+# Bewusst minimal: nur Type und Rate. Alles andere (Preis, Material,
+# Bruchrate) bleibt so, wie es in db/re/refine.yml steht - der Parser
+# mischt pro Eintrag ein und laesst nicht angegebene Felder unberuehrt.
+#
+# Warum nicht "BreakingRate: 0"? Weil der Parser Raten von 0 ablehnt:
+# asUInt16Rate() meldet "needs to be at least 1" und verwirft daraufhin
+# die KOMPLETTE Gruppe. Genau daran ist die erste Fassung gescheitert.
+# Noetig ist die Null ohnehin nicht - bei 100 % Erfolg kommt es nie zu
+# einem Fehlschlag, also auch nie zum Bruch.
+
+Header:
+  Type: REFINE_DB
+  Version: 2
+
+Body:
+  - Group: Armor
+    Levels:
+      - Level: 1
+        RefineLevels:
+          - Level: 1
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 2
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 3
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 4
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 5
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 6
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 7
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 8
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 9
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 10
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+      - Level: 2
+        RefineLevels:
+          - Level: 1
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 2
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 3
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 4
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 5
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 6
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 7
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 8
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 9
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 10
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+  - Group: Weapon
+    Levels:
+      - Level: 1
+        RefineLevels:
+          - Level: 1
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 2
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 3
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 4
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 5
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 6
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 7
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 8
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 9
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 10
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+      - Level: 2
+        RefineLevels:
+          - Level: 1
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 2
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 3
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 4
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 5
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 6
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 7
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 8
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 9
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 10
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+      - Level: 3
+        RefineLevels:
+          - Level: 1
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 2
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 3
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 4
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 5
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 6
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 7
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 8
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 9
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 10
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+      - Level: 4
+        RefineLevels:
+          - Level: 1
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 2
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 3
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 4
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 5
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 6
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 7
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 8
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 9
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 10
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: HD
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+      - Level: 5
+        RefineLevels:
+          - Level: 1
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 2
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 3
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 4
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 5
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 6
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 7
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 8
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 9
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000
+          - Level: 10
+            Chances:
+              - Type: Normal
+                Rate: 10000
+              - Type: Enriched
+                Rate: 10000

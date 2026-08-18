@@ -1,0 +1,325 @@
+//===== SafaRO Script =====================================
+//= Homunculus Freak
+//===== Beschreibung: ========================================
+//= Ein Wissenschaftler fuer die Alchemisten-Linie. Vier
+//= Aufgaben an einem NPC:
+//=
+//=   1  Alchemy Supplies    Zutaten fuer die Creation-Skills
+//=   2  Homunculus Supplies Futter und Zubehoer
+//=   3  Evolution Help      normal -> evolved -> Homunculus S
+//=   4  Reset               Werte neu wuerfeln
+//=
+//= Steht bei 128,211, zwei Felder neben dem Riding Creature
+//= Master (prontera,130,213) und mit derselben Blickrichtung 5.
+//=
+//= Nicht zu verwechseln mit dem "Universal Rental NPC" aus
+//= npc/custom/breeder.txt - der steht bei 124,201 und ist gar
+//= nicht geladen, in scripts_custom.conf ist er auskommentiert.
+//= Gemeint ist der offizielle aus npc/re/merchants/renters.txt.
+//=
+//===== Woher die Sortimente kommen: =========================
+//= Die 93 Positionen des Alchemie-Ladens sind NICHT von Hand
+//= gesammelt, sondern aus db/re/produce_db.txt ausgelesen:
+//= jede Zutat, die in einem Rezept von AM_PHARMACY,
+//= GN_MIX_COOKING, GN_S_PHARMACY, BO_BIONIC_PHARMACY oder
+//= AB_ANCILLA vorkommt.
+//=
+//= Zehn Zutaten fehlen bewusst - Fire Bottle, Acid Bottle,
+//= Alcohol, die drei Basistraenke und die Pflanzensamen. Die
+//= stellt ein Creator selbst her; sie hier zu verkaufen wuerde
+//= seinen eigenen Beruf untergraben.
+//=
+//= Preis -1 heisst: der Kaufpreis aus item_db.yml. Damit
+//= pflegt sich die Liste bei einem Datenbank-Update selbst.
+//=
+//===== Homunkulus-Regeln: ===================================
+//= Evolution  homevolution verlangt intern Intimacy > 91000,
+//=            also "Loyal". Dazu hier 1 Stone of Sage (7224)
+//=            und 100.000 Zeny.
+//=
+//= Mutation   hommutate verlangt einen ENTWICKELTEN Homunkulus
+//=            ab Level 99, im Embryo-Zustand (morphembryo) und
+//=            ein Strange Embryo (6415). Die Variante darf der
+//=            Spieler waehlen.
+//=
+//= Reset      homshuffle wuerfelt die Werte neu. Es setzt intern
+//=            auf Level 1 zurueck und levelt sofort wieder auf
+//=            den alten Stand hoch - Level und Skillpunkte
+//=            bleiben also, nur die Statverteilung ist neu.
+//============================================================
+
+//  Die beiden Sortimente sind eigene, unsichtbare shop-NPCs
+//  (Sprite -1) und werden nur ueber callshop geoeffnet. Preis
+//  -1 = Kaufpreis aus item_db.yml.
+//
+//  Zwei Ausnahmen mit festem Preis: Stone of Sage und Strange
+//  Embryo stehen in der Datenbank auf 0 und waeren damit
+//  geschenkt. Beide sind die Tuersteher der Entwicklung,
+//  deshalb 1.000.000 Zeny - anpassen, wenn das zu hart ist.
+
+-	shop	Alchemy#homfreak	-1,507:-1,508:-1,509:-1,510:-1,511:-1,514:-1,518:-1,522:-1,523:-1,525:-1,526:-1,528:-1,568:-1,576:-1,607:-1,608:-1,610:-1,645:-1,656:-1,678:-1,704:-1,705:-1,708:-1,713:-1,715:-1,716:-1,717:-1,905:-1,911:-1,921:-1,929:-1,950:-1,952:-1,969:-1,991:-1,998:-1,1012:-1,1017:-1,1032:-1,1033:-1,1044:-1,1050:-1,1051:-1,1057:-1,1059:-1,1061:-1,1092:-1,1093:-1,6217:-1,6244:-1,6248:-1,6249:-1,6250:-1,6251:-1,6252:-1,6253:-1,6254:-1,6255:-1,6256:-1,6257:-1,6258:-1,6259:-1,6260:-1,6261:-1,6262:-1,6284:-1,6285:-1,6360:-1,6361:-1,6362:-1,6363:-1,7033:-1,7126:-1,7127:-1,7128:-1,7129:-1,7130:-1,7131:-1,7132:-1,7133:-1,7144:-1,7182:-1,7434:-1,7453:-1,7455:-1,11022:-1,11023:-1,11024:-1,11621:-1,11622:-1,11623:-1,11624:-1,1000275:-1
+-	shop	HomSupply#homfreak	-1,537:-1,910:-1,911:-1,912:-1,6098:-1,6104:-1,6108:-1,6112:-1,6115:-1,7142:-1,7140:-1,7143:-1,7141:-1,7224:1000000,6415:1000000
+
+prontera,128,211,5	script	Homunculus Freak	4_M_ALCHE_A,{
+
+	mes "[Homunculus Freak]";
+	mes "Ah, a colleague. Or at least someone";
+	mes "who smells like a laboratory.";
+	next;
+
+	while (1) {
+		mes "[Homunculus Freak]";
+		mes "What do you need?";
+		next;
+
+		switch (select("Alchemy supplies:Homunculus supplies:"
+		              + "Evolution help:Reset my homunculus:Nothing")) {
+
+		// --------------------------------------------------
+		case 1:
+			mes "[Homunculus Freak]";
+			mes "Everything a creation skill asks for.";
+			mes "Bottles, herbs, books.";
+			close2;
+			callshop "Alchemy#homfreak", 1;
+			end;
+
+		// --------------------------------------------------
+		case 2:
+			mes "[Homunculus Freak]";
+			mes "Food for every breed, and the parts you";
+			mes "need to make one in the first place.";
+			close2;
+			callshop "HomSupply#homfreak", 1;
+			end;
+
+		// --------------------------------------------------
+		case 3:
+			callsub S_Evolve;
+			continue;
+
+		// --------------------------------------------------
+		case 4:
+			callsub S_Reset;
+			continue;
+
+		// --------------------------------------------------
+		case 5:
+			mes "[Homunculus Freak]";
+			mes "Mind the jars on your way out.";
+			close;
+		}
+	}
+	end;
+
+
+// ------------------------------------------------------------
+//  Entwicklung
+// ------------------------------------------------------------
+S_Evolve:
+	if (!gethominfo(0)) {
+		mes "[Homunculus Freak]";
+		mes "You do not have a homunculus. Call it";
+		mes "out first - I cannot work on a theory.";
+		next;
+		return;
+	}
+
+	.@class = gethominfo(1);
+	.@lv    = gethominfo(6);
+	.@int   = gethominfo(3);
+
+	// Ist es schon eine der S-Formen? Dann ist Schluss.
+	if (.@class >= MER_EIRA && .@class <= MER_ELEANOR) {
+		mes "[Homunculus Freak]";
+		mes "That one is already as far along as my";
+		mes "notes go. Be glad.";
+		next;
+		return;
+	}
+
+	// Entwickelt? Dann geht nur noch die Mutation.
+	.@evolved = (.@class >= MER_LIF_H && .@class <= MER_VANILMIRTH_H2);
+
+	mes "[Homunculus Freak]";
+	mes "^0000FF" + gethominfo(2) + "^000000, level " + .@lv + ".";
+	mes "Intimacy ^0000FF" + .@int + "^000000 of 100000.";
+	next;
+
+	if (!.@evolved) {
+		mes "[Homunculus Freak]";
+		mes "First step: ^0000FFevolution^000000.";
+		mes " ";
+		mes "I need ^0000FF1 " + getitemname(.stone) + "^000000";
+		mes "and ^0000FF" + F_InsertComma(.fee) + " zeny^000000.";
+		mes "It must also be ^0000FFLoyal^000000 to you.";
+		next;
+
+		if (.@int < .loyal) {
+			mes "[Homunculus Freak]";
+			mes "Not loyal enough. It would not survive";
+			mes "the change. Feed it, walk it, wait.";
+			next;
+			return;
+		}
+		if (countitem(.stone) < 1 || Zeny < .fee) {
+			mes "[Homunculus Freak]";
+			mes "Come back when you have both.";
+			next;
+			return;
+		}
+		if (select("Do it:Not yet") == 2)
+			return;
+
+		// Gegenprobe direkt vor der Buchung
+		if (countitem(.stone) < 1 || Zeny < .fee) {
+			mes "[Homunculus Freak]";
+			mes "Something left your bag while we talked.";
+			next;
+			return;
+		}
+		delitem .stone, 1;
+		Zeny -= .fee;
+		homevolution;
+		specialeffect2 EF_SUFFRAGIUM;
+
+		mes "[Homunculus Freak]";
+		mes "Look at it. Same creature, better idea.";
+		next;
+		return;
+	}
+
+	// --- Entwickelt: Mutation zu Homunculus S ---
+	mes "[Homunculus Freak]";
+	mes "Second step: ^0000FFHomunculus S^000000.";
+	mes " ";
+	mes "It must be ^0000FFlevel " + .maxlv + "^000000 and ^0000FFLoyal^000000,";
+	mes "and I need ^0000FF1 " + getitemname(.embryo) + "^000000.";
+	next;
+
+	if (.@lv < .maxlv) {
+		mes "[Homunculus Freak]";
+		mes "Level " + .@lv + " is not enough. It needs";
+		mes "^0000FF" + .maxlv + "^000000.";
+		next;
+		return;
+	}
+	if (.@int < .loyal) {
+		mes "[Homunculus Freak]";
+		mes "Still not Loyal. The change would tear";
+		mes "something it does not want torn.";
+		next;
+		return;
+	}
+	if (countitem(.embryo) < 1) {
+		mes "[Homunculus Freak]";
+		mes "No " + getitemname(.embryo) + ". No mutation.";
+		next;
+		return;
+	}
+
+	mes "[Homunculus Freak]";
+	mes "Which one shall it become?";
+	mes "^FF0000This cannot be undone.^000000";
+	next;
+
+	.@pick = select("Eira - support and healing:"
+	              + "Bayeri - a mount that fights:"
+	              + "Sera - poison and shields:"
+	              + "Dieter - stone and stubbornness:"
+	              + "Eleanor - fists, nothing else:"
+	              + "Let me think");
+	if (.@pick > 5)
+		return;
+
+	.@target = .sform[.@pick - 1];
+
+	mes "[Homunculus Freak]";
+	mes "^0000FF" + .sname$[.@pick - 1] + "^000000. Are you sure?";
+	next;
+	if (select("Yes:No") == 2)
+		return;
+
+	if (countitem(.embryo) < 1) {
+		mes "[Homunculus Freak]";
+		mes "The embryo is gone. Where did it go?";
+		next;
+		return;
+	}
+
+	// morphembryo setzt den Homunkulus in den Embryo-Zustand -
+	// ohne das lehnt hommutate ab.
+	morphembryo;
+	if (!hommutate(.@target)) {
+		mes "[Homunculus Freak]";
+		mes "It refused. Call it out and try again.";
+		next;
+		return;
+	}
+	specialeffect2 EF_SUFFRAGIUM;
+	mes "[Homunculus Freak]";
+	mes "There. Do not let it near my notes.";
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  Werte neu wuerfeln
+// ------------------------------------------------------------
+S_Reset:
+	if (!gethominfo(0)) {
+		mes "[Homunculus Freak]";
+		mes "Nothing to reset. You have no homunculus.";
+		next;
+		return;
+	}
+
+	mes "[Homunculus Freak]";
+	mes "I can take it apart and put it back";
+	mes "together. Same level, same skills - but";
+	mes "the stats are rolled again.";
+	next;
+	mes "[Homunculus Freak]";
+	mes "^FF0000It might come out worse.^000000";
+	mes "Fee: ^0000FF" + F_InsertComma(.resetfee) + " zeny^000000.";
+	next;
+
+	if (Zeny < .resetfee) {
+		mes "[Homunculus Freak]";
+		mes "Not enough zeny.";
+		next;
+		return;
+	}
+	if (select("Roll again:Leave it alone") == 2)
+		return;
+	if (Zeny < .resetfee) {
+		mes "[Homunculus Freak]";
+		mes "Your purse says otherwise now.";
+		next;
+		return;
+	}
+
+	Zeny -= .resetfee;
+	homshuffle;
+	specialeffect2 EF_POTION_BERSERK;
+
+	mes "[Homunculus Freak]";
+	mes "Done. Have a look and see whether that";
+	mes "was a good idea.";
+	next;
+	return;
+
+
+OnInit:
+	.stone    = 7224;      // Stone of Sage
+	.embryo   = 6415;      // Strange Embryo
+	.fee      = 100000;    // Zeny fuer die Evolution
+	.resetfee = 50000;     // Zeny fuers Neuwuerfeln
+	.maxlv    = 99;        // Mindestlevel fuer die Mutation
+	.loyal    = 91000;     // ab hier gilt der Homunkulus als Loyal;
+	                       // denselben Wert prueft homevolution intern
+
+	setarray .sform[0], MER_EIRA, MER_BAYERI, MER_SERA, MER_DIETER, MER_ELEANOR;
+	setarray .sname$[0], "Eira", "Bayeri", "Sera", "Dieter", "Eleanor";
+	end;
+}

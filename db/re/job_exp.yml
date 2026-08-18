@@ -3816,3 +3816,7 @@ Body:
         Exp: 132528619
       - Level: 60
         Exp: 999999999
+
+Footer:
+  Imports:
+    - Path: db/import/job_exp.yml

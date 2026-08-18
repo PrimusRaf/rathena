@@ -512,7 +512,13 @@ int32 hom_levelup(homun_data *hd)
 	s_homunculus &hom = hd->homunculus;
 
 	hom.level++;
-	if (!(hom.level % 3))
+	// SafaRO: Skillpunkte enden bei Level 300, also nach 100 Punkten.
+	// Der teuerste Homunkulus-Skillbaum ist Bayeri mit 75 Skillleveln,
+	// Eleanor folgt mit 71. 100 Punkte decken jeden Baum mit Reserve ab.
+	// Ohne diese Grenze gaebe es auf Level 500 rund 166 Punkte - der
+	// Homunculus S koennte alles lernen, ohne sich je entscheiden zu
+	// muessen, und die Levelstrecke 300-500 waere fuer ihn bedeutungslos.
+	if (!(hom.level % 3) && hom.level <= 300)
 		hom.skillpts++;	//1 skillpoint each 3 base level
 
 	hom.exp -= hd->exp_next;

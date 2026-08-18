@@ -4317,6 +4317,10 @@ void pc_bonus(map_session_data *sd,int32 type,int32 val)
 			if (sd->state.lr_flag != LR_FLAG_ARROW)
 				sd->bonus.delayrate -= val;
 			break;
+		case SP_HOM_DAMAGE: // SafaRO: bonus bHomDamage,n;
+			if (sd->state.lr_flag != LR_FLAG_ARROW)
+				sd->bonus.hom_damage += val;
+			break;
 		case SP_CRIT_ATK_RATE:
 			if (sd->state.lr_flag != LR_FLAG_ARROW)
 				sd->bonus.crit_atk_rate += val;
@@ -13329,6 +13333,29 @@ uint16 pc_level_penalty_mod( map_session_data* sd, e_penalty_type type, std::sha
 	}
 
 	if ((type == PENALTY_DROP && map_getmapflag(sd->m, MF_NORENEWALDROPPENALTY)) || (type == PENALTY_EXP && map_getmapflag(sd->m, MF_NORENEWALEXPPENALTY))) {
+		return 100;
+	}
+
+	// SafaRO: ab einer bestimmten Basisstufe faellt der
+	// Erfahrungsabzug fuer Levelunterschied weg.
+	//
+	// Der Abzug soll dazu bringen, mit dem eigenen Level auch das
+	// Jagdgebiet zu wechseln. Das setzt voraus, dass es ueberhaupt
+	// passende Gebiete gibt - und die enden hier. Das hoechste normale
+	// Monster in mob_db.yml steht auf Stufe 279. Ab 31 Stufen
+	// Unterschied greift in level_penalty.yml der niedrigste Wert, 10 %,
+	// und der gilt fuer jede groessere Luecke.
+	//
+	// Ein Spieler jenseits von Stufe 296 hat also nichts mehr, was ohne
+	// Abzug zaehlt: die beste Erfahrung je Kill faellt von rund 58 auf
+	// 6,3 Millionen. Bestraft wird damit nichts, was der Spieler anders
+	// machen koennte - es gibt schlicht keine Alternative.
+	//
+	// Betrifft nur Erfahrung. Die Abzuege auf Beute bleiben, sonst
+	// wuerden hochstufige Spieler die niedrigen Gebiete leerfarmen.
+	if( battle_config.exp_penalty_maxlevel > 0
+	    && ( type == PENALTY_EXP || type == PENALTY_MVP_EXP )
+	    && sd->status.base_level >= battle_config.exp_penalty_maxlevel ){
 		return 100;
 	}
 

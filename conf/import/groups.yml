@@ -1,0 +1,111 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2022 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Player Group Database
+###########################################################################
+#
+# Player Group Settings
+#
+###########################################################################
+# - Id                    Group ID.
+#   Name                  Group name.
+#   Level                 GM Level used for ranking groups. (Default: 0)
+#   LogCommands           Whether atcommands should be logged or not. (Default: false)
+#   Commands:             List of atcommands that can be used by this group. (Default: none)
+#     <atcommand name>    Whether the specified atcommand can be used by this group or not.
+#   CharCommands:         List of charcommands that can be used by this group. (Default: none)
+#     <charcommand name>  Whether the specified charcommand can be used by this group or not.
+#   Permissions:          List of permissions the group has. (Default: none)
+#     <permission name>   Whether the group has this permission or not.
+#   Inherit:              List of groups that will be inherited. (Default: none)
+#     <group name>        Whether this group will be inherited or not.
+###########################################################################
+
+Header:
+  Type: PLAYER_GROUP_DB
+  Version: 1
+
+# ---------------------------------------------------------------------------
+# SafaRO
+# ---------------------------------------------------------------------------
+# Bequemlichkeitsbefehle fuer ganz normale Accounts.
+#
+# Der Import ERGAENZT, er ersetzt nicht: was hier steht, kommt zu dem
+# hinzu, was conf/groups.yml fuer Gruppe 0 schon vergeben hat
+# (changedress und resurrect). Ein Befehl, den die Gruppe bereits
+# besitzt, ist deshalb ein Fehler und laesst den ganzen Eintrag
+# durchfallen - keiner der folgenden darf dort noch einmal auftauchen.
+#
+# Die Liste ist die von rAthena selbst fuer "Super Player" gepflegte,
+# also ihre eigene Einschaetzung, was gefahrlos ist. Dazu das Duell-
+# System und zwei Suchbefehle.
+#
+# Kurzformen sind erlaubt: alootid loest der Server auf autolootitem
+# auf, noks auf ksprotection, go auf mapmove. Deshalb steht jeder
+# Befehl nur EINMAL da - alootid und autolootitem zugleich waeren
+# derselbe Befehl zweimal und damit ein Fehler.
+#
+# Bewusst NICHT vergeben: alles, was Gegenstaende, Zeny, Level oder
+# fremde Spieler anfasst. @item, @heal, @warp, @jump, @storage,
+# @produce, @monster - die bleiben bei den GM-Gruppen.
+# ---------------------------------------------------------------------------
+
+Body:
+  - Id: 0
+    Commands:
+      # --- Auskunft ---
+      commands: true          # zeigt, was man selbst benutzen darf
+      charcommands: true
+      help: true
+      rates: true             # aktuelle EXP-, Drop- und Zeny-Raten
+      uptime: true
+      servertime: true
+      exp: true               # eigener Fortschritt zum naechsten Level
+      showexp: true
+      showzeny: true
+      showdelay: true
+      mobinfo: true           # Werte und Drops eines Monsters
+      iteminfo: true
+      whodrops: true          # welche Monster einen Gegenstand fallen lassen
+      whereis: true           # wo ein Monster vorkommt
+      mobsearch: true         # dasselbe Monster auf der aktuellen Karte
+      showmobs: true          # markiert sie auf der Minikarte
+      hominfo: true
+      homstats: true
+      jailtime: true
+
+      # --- Beim Spielen ---
+      autoloot: true          # @autoloot <Prozent>
+      alootid: true           # @alootid +<Item-ID>, gezielt
+      autoloottype: true      # nach Gegenstandsart, etwa Heilmittel
+      noks: true              # Schutz gegen Kill Stealing
+      noask: true             # weist Handels- und Gruppenanfragen ab
+      refresh: true           # holt die eigene Position neu, gegen Haenger
+      go: true                # in eine Stadt springen
+      autotrade: true         # Verkaufsstand laeuft ohne Client weiter
+      channel: true           # Chatkanaele
+      langtype: true
+      request: true           # Nachricht an das Team
+      breakguild: true        # nur die eigene, nur als Gildenmeister
+
+      # --- Duelle ---
+      duel: true
+      invite: true
+      accept: true
+      reject: true
+      leave: true

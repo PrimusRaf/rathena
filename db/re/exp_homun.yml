@@ -579,3 +579,7 @@ Body:
     Exp: 42235652288
   - Level: 274
     Exp: 43080365334
+
+Footer:
+  Imports:
+    - Path: db/import/exp_homun.yml

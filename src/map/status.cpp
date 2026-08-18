@@ -5157,6 +5157,31 @@ int32 status_calc_homunculus_(homun_data *hd, uint8 opt)
 	status->rhw.atk2 = status->str + hom.level;
 #endif
 
+	// ------------------------------------------------------------
+	//  SafaRO: Gift of the Seeker (Isekai-Geschenk Nr. 510)
+	// ------------------------------------------------------------
+	//  rAthena kennt keinen Item-Bonus, der den Homunkulus staerkt -
+	//  die gesamte bonus-Familie wirkt nur auf den Spieler selbst.
+	//  Deshalb hier direkt in der Statusberechnung des Homunkulus.
+	//
+	//  Die Abfrage laeuft ueber die permanente Charaktervariable
+	//  isekai_gift des Besitzers, dieselbe, die auch das Skript nutzt.
+	//
+	//  Zur DEF: im Renewal-Zweig wird die Basis-DEF des Homunkulus auf
+	//  0 gesetzt, ein prozentualer Aufschlag waere also wirkungslos.
+	//  Stattdessen gibt es einen festen Zuschlag.
+	// ------------------------------------------------------------
+	if( hd->master != nullptr && pc_readglobalreg( hd->master, add_str( "isekai_gift" ) ) == 510 ){
+		status->rhw.atk   = status->rhw.atk   * 150 / 100;
+		status->rhw.atk2  = status->rhw.atk2  * 150 / 100;
+		status->batk      = status->batk      * 150 / 100;
+		status->matk_min  = status->matk_min  * 150 / 100;
+		status->matk_max  = status->matk_max  * 150 / 100;
+		status->max_hp    = status->max_hp    * 120 / 100;
+		status->def       = cap_value( status->def  + 20, 0, DEFTYPE_MAX );
+		status->mdef      = cap_value( status->mdef + 20, 0, DEFTYPE_MAX );
+	}
+
 	status_calc_misc(hd, status, hom.level);
 
 	status_cpy(&hd->battle_status, status);
