@@ -169,6 +169,37 @@ item_rate_card: 5000
 item_rate_card_boss: 5000
 item_rate_card_mvp: 5000
 
+// --- Sichtfeld: 14 -> 16 ---
+//  Wie weit ein Spieler sehen kann, in Feldern. rAthenas Standard
+//  ist 14 (battle.cpp:8585). Wer weiter herauszoomt, sieht ab dort
+//  leere Flaeche - nicht weil nichts da waere, sondern weil der
+//  Server nichts mehr schickt.
+//
+//  WAS DAS KOSTET
+//  Die Flaeche waechst quadratisch, nicht linear:
+//      14 -> 29 x 29 =  841 Felder
+//      16 -> 33 x 33 = 1089 Felder     + 29 %
+//  Entsprechend mehr Objekte je Aktualisierung und Spieler, also
+//  mehr Bandbreite und mehr Rechenzeit. Bei unserer Spielerzahl
+//  ist das nichts; bei zweihundert gleichzeitig waere es eine Zahl,
+//  die man im Auge behaelt.
+//
+//  WAS SICH SONST NOCH AENDERT
+//  area_size ist nicht nur Anzeige. Mitgewachsen sind:
+//    mob.cpp:2351   Monster in AREA_SIZE+4 Feldern schalten in die
+//                   aktive KI - aus 18 werden 20 Felder
+//    mob.cpp:1959   ein Monster verliert sein Ziel erst, wenn der
+//                   Angreifer weiter als AREA_SIZE entfernt ist
+//    mob.cpp:3576   Quest- und Erfolgsfortschritt fuer Gruppen
+//                   zaehlt in diesem Umkreis
+//
+//  Die Sichtweite normaler Monster haengt NICHT daran - die steht
+//  je Monster in mob_db.yml. Der AREA_SIZE-Eintrag in mob.cpp:4626
+//  betrifft nur Klone aus @clone.
+//
+//  Zum Zurueckdrehen: Zeile loeschen, @reloadbattleconf.
+area_size: 16
+
 // --- Was @whodrops und @mobinfo anzeigen ---
 //  Ab Werk (conf/battle/gm.conf: 1) rechnen beide Befehle die
 //  Levelstrafe des ABFRAGENDEN Spielers ein. gm.conf sagt es

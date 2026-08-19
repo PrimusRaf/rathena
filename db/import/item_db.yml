@@ -598,6 +598,26 @@ Body:
       BuyingStore: false
       DeadBranch: false
       NoConsume: false
+    # Nicht an NPC-Haendler verkaufbar.
+    #
+    # "Sell: 0" allein reicht dafuer NICHT - im Gegenteil, es ist die
+    # schlimmere Variante: der Gegenstand steht im Verkaufsfenster,
+    # laesst sich anklicken und bringt null Zeny. Wer beim Aufraeumen
+    # alles markiert, ist seine Coins los und hat nichts dafuer.
+    #
+    # NoSell greift eine Stufe frueher. clif.cpp:2291 filtert beim
+    # AUFBAU der Verkaufsliste - die Coins tauchen dort gar nicht erst
+    # auf, es gibt also nichts zum Verklicken. npc.cpp:3073 prueft
+    # zusaetzlich serverseitig, falls jemand das Paket selbst baut.
+    #
+    # Bewusst NUR NoSell: Handel zwischen Spielern, Lager und Post
+    # bleiben offen. Eine Zweitwaehrung, die man nicht weitergeben
+    # kann, ist keine Waehrung.
+    #
+    # Override bleibt auf dem Standard 100 - Spielleiter ab Stufe 100
+    # koennen die Sperre umgehen, was fuer Tests gelegen kommt.
+    Trade:
+      NoSell: true
 
 # --- Kopf oben ------------------------------------------------------------
 
