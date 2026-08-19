@@ -155,7 +155,21 @@ function	zahlen	{
 //  keiner Klasse. Es ist damit das einzige wirklich universelle
 //  Angebot und steht deshalb zuerst.
 //
-//  Warg fehlt: dafuer gibt es keinen Skriptbefehl, nur den Skill.
+//  Der Warg faellt aus der Reihe. Fuer ihn gibt es keinen
+//  setwarg-Befehl - er haengt an RA_WUGMASTERY, und dieser Skill
+//  verlangt laut skill_db.yml die Wolf's_Flute (6124) mit
+//  Amount: 0. Das Stueck wird also nicht verbraucht, muss aber im
+//  Beutel liegen, sonst laesst sich der Skill gar nicht wirken.
+//
+//  Im Original bekommt man sie einmalig vom Ranger-Meister am Ende
+//  der Jobquest (npc/re/jobs/3-1/ranger.txt:1743). Wer bei uns
+//  ueber den Jobmaster zum Ranger wird, laeuft an dieser Stelle
+//  vorbei und steht danach ohne Warg da - ohne dass irgendetwas
+//  darauf hinweist, denn der Skill ist ja erlernt und sichtbar.
+//
+//  Deshalb gibt der Stablemaster sie kostenlos aus. Sie ist
+//  NoTrade, NoSell und NoStorage, also nicht weiterreichbar; es
+//  gibt keinen Grund, dafuer Geld zu verlangen.
 //============================================================
 prontera,146,142,4	script	Stablemaster#safa	4_M_JOB_KNIGHT1,{
 
@@ -187,8 +201,18 @@ prontera,146,142,4	script	Stablemaster#safa	4_M_JOB_KNIGHT1,{
 	if (!getskilllv("NC_MADOLICENCE")) .@g$ = "Mado Gear ^777777(needs Mado License)^000000";
 	else if (checkmadogear()) .@g$ = "Mado Gear ^777777(park it)^000000";
 
+	// Die Floete ist kein Reittier, sondern ein Gegenstand - sie
+	// steht trotzdem hier, weil der Warg fuer den Spieler dasselbe
+	// ist wie Falke und Peco: etwas, das mitkommt.
+	.@w$ = "Wolf Flute ^777777(free)^000000";
+	if (!getskilllv("RA_WUGMASTERY"))
+		.@w$ = "Wolf Flute ^777777(needs Warg Mastery)^000000";
+	else if (countitem(6124))
+		.@w$ = "Wolf Flute ^777777(you already carry one)^000000";
+
 	switch (select(.@m$ + ":" + .@c$ + ":" + .@f$ + ":" + .@p$ + ":" + .@d$
-	               + ":" + .@g$ + ":Why can I not take everything?:Leave")) {
+	               + ":" + .@g$ + ":" + .@w$
+	               + ":Why can I not take everything?:Leave")) {
 
 	case 1:
 		setmounting;
@@ -242,6 +266,37 @@ prontera,146,142,4	script	Stablemaster#safa	4_M_JOB_KNIGHT1,{
 		close;
 
 	case 7:
+		if (!getskilllv("RA_WUGMASTERY")) { .@fehlt$ = "Warg Mastery"; break; }
+		mes "[Stablemaster]";
+		if (countitem(6124)) {
+			mes "You have one already. They do not wear out,";
+			mes "and a second whistle calls the same wolf.";
+			close;
+		}
+		// Die Floete wiegt nichts, aber ein freier Platz muss da
+		// sein. Ohne diese Pruefung scheitert getitem stillschweigend
+		// und der Stablemaster sagt trotzdem "Here" - der Spieler
+		// stuende dann mit leeren Haenden und ohne Hinweis da.
+		if (!checkweight(6124, 1)) {
+			mes "Not with that bag, you will not.";
+			mes "Make room first - I am not stuffing it in there.";
+			close;
+		}
+		mes "Ah - a Ranger without a whistle.";
+		mes "Happens more often than it should.";
+		next;
+		getitem 6124, 1;   // Wolf's_Flute
+		mes "[Stablemaster]";
+		mes "Here. No charge - it is a piece of carved bone,";
+		mes "not a horse.";
+		next;
+		mes "[Stablemaster]";
+		mes "^777777Keep it in your bag. Warg Mastery will not work";
+		mes "without it, though nothing on your skill bar will";
+		mes "tell you so.^000000";
+		close;
+
+	case 8:
 		mes "[Stablemaster]";
 		mes "Not my rule. The mounts answer to training,";
 		mes "and training answers to your class.";
@@ -250,9 +305,14 @@ prontera,146,142,4	script	Stablemaster#safa	4_M_JOB_KNIGHT1,{
 		mes "The ^0000FFuniversal mount^000000 is the exception - anyone";
 		mes "can ride it. Everything else needs the skill";
 		mes "that goes with the animal.";
+		next;
+		mes "[Stablemaster]";
+		mes "The ^0000FFwolf^000000 is its own case. No training I can";
+		mes "give you - it answers to a whistle, and the";
+		mes "whistle you simply have to be carrying.";
 		close;
 
-	case 8:
+	case 9:
 		mes "[Stablemaster]";
 		mes "Mind the droppings on your way out.";
 		close;
