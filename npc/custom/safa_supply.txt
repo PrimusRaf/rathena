@@ -218,12 +218,13 @@ OnInit:
 	setarray .katid[0],  0, 0;
 
 // ---- ANFANG ERZEUGT: tools/sets/bauen.py ----
-	// 15 Klassen, 30 Sets - erzeugt, nicht von Hand pflegen.
+	// 18 Klassen, 36 Sets - erzeugt, nicht von Hand pflegen.
 	// .jsklid zeigt vom Set auf die Klasse in .jsklasse$.
 	setarray .jsklasse$[0], "Dragon Knight", "Meister", "Arch Mage", "Abyss Chaser";
 	setarray .jsklasse$[4], "Windhawk", "Cardinal", "Shadow Cross", "Imperial Guard";
 	setarray .jsklasse$[8], "Elemental Master", "Troubadour", "Inquisitor", "Biolo";
-	setarray .jsklasse$[12], "Sky Emperor", "Soul Ascetic", "Hyper Novice";
+	setarray .jsklasse$[12], "Sky Emperor", "Soul Ascetic", "Hyper Novice", "Shinkiro Shiranui";
+	setarray .jsklasse$[16], "Night Watch", "Spirit Handler";
 
 	setarray .jsname$[0], "Dragonic", "Berserker", "Meister", "Machinist";
 	setarray .jsname$[4], "Arch Mage", "Crystal", "Abyss", "Frenzy";
@@ -232,7 +233,8 @@ OnInit:
 	setarray .jsname$[16], "Elemental", "Terrain", "Troubadour", "Rhythm";
 	setarray .jsname$[20], "Inquisitor", "Judgement", "Genetic", "Tinker";
 	setarray .jsname$[24], "Sky Emperor", "Eclipse", "Soul Ascetic", "Talisman";
-	setarray .jsname$[28], "Hyper Novice", "Bowling";
+	setarray .jsname$[28], "Hyper Novice", "Bowling", "Kagemusha", "Shinkirou";
+	setarray .jsname$[32], "Vigilante", "Nightfall", "Chulho", "Kisul";
 
 	setarray .jsladen$[0], "JS0#supply", "JS1#supply", "JS2#supply", "JS3#supply";
 	setarray .jsladen$[4], "JS4#supply", "JS5#supply", "JS6#supply", "JS7#supply";
@@ -241,7 +243,8 @@ OnInit:
 	setarray .jsladen$[16], "JS16#supply", "JS17#supply", "JS18#supply", "JS19#supply";
 	setarray .jsladen$[20], "JS20#supply", "JS21#supply", "JS22#supply", "JS23#supply";
 	setarray .jsladen$[24], "JS24#supply", "JS25#supply", "JS26#supply", "JS27#supply";
-	setarray .jsladen$[28], "JS28#supply", "JS29#supply";
+	setarray .jsladen$[28], "JS28#supply", "JS29#supply", "JS30#supply", "JS31#supply";
+	setarray .jsladen$[32], "JS32#supply", "JS33#supply", "JS34#supply", "JS35#supply";
 
 	setarray .jsklid[0], 0, 0, 1, 1;
 	setarray .jsklid[4], 2, 2, 3, 3;
@@ -250,7 +253,8 @@ OnInit:
 	setarray .jsklid[16], 8, 8, 9, 9;
 	setarray .jsklid[20], 10, 10, 11, 11;
 	setarray .jsklid[24], 12, 12, 13, 13;
-	setarray .jsklid[28], 14, 14;
+	setarray .jsklid[28], 14, 14, 15, 15;
+	setarray .jsklid[32], 16, 16, 17, 17;
 // ---- ENDE ERZEUGT ----
 	end;
 }

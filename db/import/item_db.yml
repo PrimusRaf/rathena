@@ -1272,6 +1272,87 @@ Body:
 
 
 
+# ============================================================
+#  Pfeile: gewichtslos
+# ------------------------------------------------------------
+#  Ein Bogenschuetze schleppt Munition, alle anderen nicht. Bei
+#  0,1 Gewicht je Pfeil sind 3.000 Stueck - eine normale
+#  Abendration - 300 Gewicht. Das ist bei den meisten Klassen
+#  mehr als die gesamte Ausruestung wiegt.
+#
+#  Der Handkarren behebt das nicht: aus dem Karren laesst sich
+#  nicht schiessen, die Pfeile muessen ins Inventar.
+#
+#  Betrifft NUR Type: Ammo, SubType: Arrow. Kugeln, Kunai,
+#  Shuriken, Kanonenkugeln und Wurfwaffen behalten ihr Gewicht -
+#  siehe die Notiz am Ende dieses Blocks.
+#
+#  Ein Import-Eintrag braucht nur die Felder, die sich aendern:
+#  existiert die Id bereits, sind AegisName und Name optional
+#  (itemdb.cpp:58). Alles andere - Angriff, Element, Skript -
+#  bleibt unberuehrt.
+#
+#  IDTest_arrow (1200000) ist bewusst NICHT dabei, das ist ein
+#  Testgegenstand von rAthena.
+#
+#  Erzeugt aus db/re/item_db_etc.yml am 2026-08-19.
+# ============================================================
+  - Id: 1750
+    Weight: 0          # Arrow
+  - Id: 1751
+    Weight: 0          # Silver_Arrow
+  - Id: 1752
+    Weight: 0          # Fire_Arrow
+  - Id: 1753
+    Weight: 0          # Steel_Arrow
+  - Id: 1754
+    Weight: 0          # Crystal_Arrow
+  - Id: 1755
+    Weight: 0          # Arrow_Of_Wind
+  - Id: 1756
+    Weight: 0          # Stone_Arrow
+  - Id: 1757
+    Weight: 0          # Immatrial_Arrow
+  - Id: 1758
+    Weight: 0          # Stun_Arrow
+  - Id: 1759
+    Weight: 0          # Freezing_Arrow
+  - Id: 1760
+    Weight: 0          # Flash_Arrow
+  - Id: 1761
+    Weight: 0          # Curse_Arrow
+  - Id: 1762
+    Weight: 0          # Rusty_Arrow
+  - Id: 1763
+    Weight: 0          # Poison_Arrow
+  - Id: 1764
+    Weight: 0          # Incisive_Arrow
+  - Id: 1765
+    Weight: 0          # Oridecon_Arrow
+  - Id: 1766
+    Weight: 0          # Arrow_Of_Counter_Evil
+  - Id: 1767
+    Weight: 0          # Arrow_Of_Shadow
+  - Id: 1768
+    Weight: 0          # Sleep_Arrow
+  - Id: 1769
+    Weight: 0          # Silence_Arrow
+  - Id: 1770
+    Weight: 0          # Iron_Arrow
+  - Id: 1772
+    Weight: 0          # Holy_Arrow
+  - Id: 1773
+    Weight: 0          # Arrow_Of_Elf
+  - Id: 1774
+    Weight: 0          # Hunting_Arrow
+  - Id: 1775
+    Weight: 0          # Siege_Arrow_S
+  - Id: 1776
+    Weight: 0          # Siege_Arrow_A
+
+
+
+
 # ---- ANFANG ERZEUGT: tools/sets/bauen.py ----
 
 # --- Dragon Knight: Dragonic Set (Knight) ---
@@ -1288,7 +1369,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 452
@@ -1309,7 +1390,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -1330,7 +1411,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -1342,7 +1423,7 @@ Body:
   - Id: 30103
     AegisName: JS_Dragonic_Plate
     Name: Dragonic Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1351,7 +1432,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1371,7 +1452,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1382,7 +1463,7 @@ Body:
   - Id: 30105
     AegisName: JS_Dragonic_Boots
     Name: Dragonic Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1391,7 +1472,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1402,7 +1483,7 @@ Body:
   - Id: 30106
     AegisName: JS_Dragonic_Ring
     Name: Dragonic Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1411,7 +1492,8 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1433,7 +1515,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 452
@@ -1455,7 +1537,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -1477,7 +1559,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -1490,7 +1572,7 @@ Body:
   - Id: 30113
     AegisName: JS_Berserker_Plate
     Name: Berserker Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1499,7 +1581,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1520,7 +1602,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1532,7 +1614,7 @@ Body:
   - Id: 30115
     AegisName: JS_Berserker_Boots
     Name: Berserker Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1541,7 +1623,7 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1553,7 +1635,7 @@ Body:
   - Id: 30116
     AegisName: JS_Berserker_Ring
     Name: Berserker Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1562,7 +1644,8 @@ Body:
     Jobs:
       Knight: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1585,7 +1668,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 30
@@ -1606,7 +1689,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -1627,7 +1710,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -1639,7 +1722,7 @@ Body:
   - Id: 30123
     AegisName: JS_Meister_Plate
     Name: Meister Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1648,7 +1731,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1668,7 +1751,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1679,7 +1762,7 @@ Body:
   - Id: 30125
     AegisName: JS_Meister_Boots
     Name: Meister Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1688,7 +1771,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1699,7 +1782,7 @@ Body:
   - Id: 30126
     AegisName: JS_Meister_Ring
     Name: Meister Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1708,7 +1791,8 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1730,7 +1814,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 30
@@ -1752,7 +1836,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -1774,7 +1858,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -1787,7 +1871,7 @@ Body:
   - Id: 30133
     AegisName: JS_Machinist_Plate
     Name: Machinist Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1796,7 +1880,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1817,7 +1901,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1829,7 +1913,7 @@ Body:
   - Id: 30135
     AegisName: JS_Machinist_Boots
     Name: Machinist Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1838,7 +1922,7 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1850,7 +1934,7 @@ Body:
   - Id: 30136
     AegisName: JS_Machinist_Ring
     Name: Machinist Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1859,7 +1943,8 @@ Body:
     Jobs:
       Blacksmith: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1882,7 +1967,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 112
@@ -1904,7 +1989,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -1926,7 +2011,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -1939,7 +2024,7 @@ Body:
   - Id: 30143
     AegisName: JS_Arch_Mage_Plate
     Name: Arch Mage Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1948,7 +2033,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1969,7 +2054,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1981,7 +2066,7 @@ Body:
   - Id: 30145
     AegisName: JS_Arch_Mage_Boots
     Name: Arch Mage Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -1990,7 +2075,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2002,7 +2087,7 @@ Body:
   - Id: 30146
     AegisName: JS_Arch_Mage_Ring
     Name: Arch Mage Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2011,7 +2096,8 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2034,7 +2120,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 112
@@ -2056,7 +2142,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -2078,7 +2164,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -2091,7 +2177,7 @@ Body:
   - Id: 30153
     AegisName: JS_Crystal_Plate
     Name: Crystal Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2100,7 +2186,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2121,7 +2207,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2133,7 +2219,7 @@ Body:
   - Id: 30155
     AegisName: JS_Crystal_Boots
     Name: Crystal Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2142,7 +2228,7 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2154,7 +2240,7 @@ Body:
   - Id: 30156
     AegisName: JS_Crystal_Ring
     Name: Crystal Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2163,7 +2249,8 @@ Body:
     Jobs:
       Wizard: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2186,7 +2273,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 256
@@ -2207,7 +2294,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -2228,7 +2315,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -2240,7 +2327,7 @@ Body:
   - Id: 30163
     AegisName: JS_Abyss_Plate
     Name: Abyss Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2249,7 +2336,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2269,7 +2356,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2280,7 +2367,7 @@ Body:
   - Id: 30165
     AegisName: JS_Abyss_Boots
     Name: Abyss Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2289,7 +2376,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2300,7 +2387,7 @@ Body:
   - Id: 30166
     AegisName: JS_Abyss_Ring
     Name: Abyss Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2309,7 +2396,8 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2331,7 +2419,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 256
@@ -2353,7 +2441,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -2375,7 +2463,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -2388,7 +2476,7 @@ Body:
   - Id: 30173
     AegisName: JS_Frenzy_Plate
     Name: Frenzy Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2397,7 +2485,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2418,7 +2506,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2430,7 +2518,7 @@ Body:
   - Id: 30175
     AegisName: JS_Frenzy_Boots
     Name: Frenzy Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2439,7 +2527,7 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2451,7 +2539,7 @@ Body:
   - Id: 30176
     AegisName: JS_Frenzy_Ring
     Name: Frenzy Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2460,7 +2548,8 @@ Body:
     Jobs:
       Rogue: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2483,7 +2572,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 104
@@ -2504,7 +2593,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -2525,7 +2614,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -2537,7 +2626,7 @@ Body:
   - Id: 30183
     AegisName: JS_Windhawk_Plate
     Name: Windhawk Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2546,7 +2635,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2566,7 +2655,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2577,7 +2666,7 @@ Body:
   - Id: 30185
     AegisName: JS_Windhawk_Boots
     Name: Windhawk Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2586,7 +2675,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2597,7 +2686,7 @@ Body:
   - Id: 30186
     AegisName: JS_Windhawk_Ring
     Name: Windhawk Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2606,7 +2695,8 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2628,7 +2718,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 104
@@ -2649,7 +2739,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -2670,7 +2760,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -2682,7 +2772,7 @@ Body:
   - Id: 30193
     AegisName: JS_Trapper_Plate
     Name: Trapper Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2691,7 +2781,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2711,7 +2801,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2722,7 +2812,7 @@ Body:
   - Id: 30195
     AegisName: JS_Trapper_Boots
     Name: Trapper Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2731,7 +2821,7 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2742,7 +2832,7 @@ Body:
   - Id: 30196
     AegisName: JS_Trapper_Ring
     Name: Trapper Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2751,7 +2841,8 @@ Body:
     Jobs:
       Hunter: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2773,7 +2864,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 110
@@ -2794,7 +2885,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -2815,7 +2906,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -2827,7 +2918,7 @@ Body:
   - Id: 30203
     AegisName: JS_Cardinal_Plate
     Name: Cardinal Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2836,7 +2927,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2856,7 +2947,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2867,7 +2958,7 @@ Body:
   - Id: 30205
     AegisName: JS_Cardinal_Boots
     Name: Cardinal Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2876,7 +2967,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2887,7 +2978,7 @@ Body:
   - Id: 30206
     AegisName: JS_Cardinal_Ring
     Name: Cardinal Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2896,7 +2987,8 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -2918,7 +3010,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 110
@@ -2940,7 +3032,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -2962,7 +3054,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -2975,7 +3067,7 @@ Body:
   - Id: 30213
     AegisName: JS_Benediction_Plate
     Name: Benediction Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -2984,7 +3076,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3005,7 +3097,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3017,7 +3109,7 @@ Body:
   - Id: 30215
     AegisName: JS_Benediction_Boots
     Name: Benediction Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3026,7 +3118,7 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3038,7 +3130,7 @@ Body:
   - Id: 30216
     AegisName: JS_Benediction_Ring
     Name: Benediction Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3047,7 +3139,8 @@ Body:
     Jobs:
       Priest: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3070,7 +3163,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 121
@@ -3091,7 +3184,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -3112,7 +3205,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -3124,7 +3217,7 @@ Body:
   - Id: 30223
     AegisName: JS_Shadow_Cross_Plate
     Name: Shadow Cross Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3133,7 +3226,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3153,7 +3246,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3164,7 +3257,7 @@ Body:
   - Id: 30225
     AegisName: JS_Shadow_Cross_Boots
     Name: Shadow Cross Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3173,7 +3266,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3184,7 +3277,7 @@ Body:
   - Id: 30226
     AegisName: JS_Shadow_Cross_Ring
     Name: Shadow Cross Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3193,7 +3286,8 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3215,7 +3309,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 121
@@ -3237,7 +3331,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -3259,7 +3353,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -3272,7 +3366,7 @@ Body:
   - Id: 30233
     AegisName: JS_Dancing_Blade_Plate
     Name: Dancing Blade Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3281,7 +3375,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3302,7 +3396,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3314,7 +3408,7 @@ Body:
   - Id: 30235
     AegisName: JS_Dancing_Blade_Boots
     Name: Dancing Blade Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3323,7 +3417,7 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3335,7 +3429,7 @@ Body:
   - Id: 30236
     AegisName: JS_Dancing_Blade_Ring
     Name: Dancing Blade Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3344,7 +3438,8 @@ Body:
     Jobs:
       Assassin: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3367,7 +3462,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 991
@@ -3388,7 +3483,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -3409,7 +3504,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -3421,7 +3516,7 @@ Body:
   - Id: 30243
     AegisName: JS_Imperial_Plate
     Name: Imperial Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3430,7 +3525,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3450,7 +3545,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3461,7 +3556,7 @@ Body:
   - Id: 30245
     AegisName: JS_Imperial_Boots
     Name: Imperial Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3470,7 +3565,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3481,7 +3576,7 @@ Body:
   - Id: 30246
     AegisName: JS_Imperial_Ring
     Name: Imperial Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3490,7 +3585,8 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3512,7 +3608,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 991
@@ -3534,7 +3630,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -3556,7 +3652,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -3569,7 +3665,7 @@ Body:
   - Id: 30253
     AegisName: JS_Bulwark_Plate
     Name: Bulwark Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3578,7 +3674,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3599,7 +3695,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3611,7 +3707,7 @@ Body:
   - Id: 30255
     AegisName: JS_Bulwark_Boots
     Name: Bulwark Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3620,7 +3716,7 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3632,7 +3728,7 @@ Body:
   - Id: 30256
     AegisName: JS_Bulwark_Ring
     Name: Bulwark Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3641,7 +3737,8 @@ Body:
     Jobs:
       Crusader: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3664,7 +3761,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 438
@@ -3686,7 +3783,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -3708,7 +3805,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -3721,7 +3818,7 @@ Body:
   - Id: 30263
     AegisName: JS_Elemental_Plate
     Name: Elemental Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3730,7 +3827,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3751,7 +3848,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3763,7 +3860,7 @@ Body:
   - Id: 30265
     AegisName: JS_Elemental_Boots
     Name: Elemental Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3772,7 +3869,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3784,7 +3881,7 @@ Body:
   - Id: 30266
     AegisName: JS_Elemental_Ring
     Name: Elemental Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3793,7 +3890,8 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3816,7 +3914,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 438
@@ -3837,7 +3935,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -3858,7 +3956,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -3870,7 +3968,7 @@ Body:
   - Id: 30273
     AegisName: JS_Terrain_Plate
     Name: Terrain Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3879,7 +3977,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3899,7 +3997,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3910,7 +4008,7 @@ Body:
   - Id: 30275
     AegisName: JS_Terrain_Boots
     Name: Terrain Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3919,7 +4017,7 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3930,7 +4028,7 @@ Body:
   - Id: 30276
     AegisName: JS_Terrain_Ring
     Name: Terrain Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -3939,7 +4037,8 @@ Body:
     Jobs:
       Sage: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -3961,7 +4060,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 628
@@ -3982,7 +4081,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -4003,7 +4102,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -4015,7 +4114,7 @@ Body:
   - Id: 30283
     AegisName: JS_Troubadour_Plate
     Name: Troubadour Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4024,7 +4123,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4044,7 +4143,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4055,7 +4154,7 @@ Body:
   - Id: 30285
     AegisName: JS_Troubadour_Boots
     Name: Troubadour Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4064,7 +4163,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4075,7 +4174,7 @@ Body:
   - Id: 30286
     AegisName: JS_Troubadour_Ring
     Name: Troubadour Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4084,7 +4183,8 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4106,7 +4206,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 628
@@ -4128,7 +4228,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -4150,7 +4250,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -4163,7 +4263,7 @@ Body:
   - Id: 30293
     AegisName: JS_Rhythm_Plate
     Name: Rhythm Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4172,7 +4272,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4193,7 +4293,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4205,7 +4305,7 @@ Body:
   - Id: 30295
     AegisName: JS_Rhythm_Boots
     Name: Rhythm Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4214,7 +4314,7 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4226,7 +4326,7 @@ Body:
   - Id: 30296
     AegisName: JS_Rhythm_Ring
     Name: Rhythm Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4235,7 +4335,8 @@ Body:
     Jobs:
       BardDancer: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4258,7 +4359,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 261
@@ -4279,7 +4380,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -4300,7 +4401,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -4312,7 +4413,7 @@ Body:
   - Id: 30303
     AegisName: JS_Inquisitor_Plate
     Name: Inquisitor Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4321,7 +4422,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4341,7 +4442,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4352,7 +4453,7 @@ Body:
   - Id: 30305
     AegisName: JS_Inquisitor_Boots
     Name: Inquisitor Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4361,7 +4462,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4372,7 +4473,7 @@ Body:
   - Id: 30306
     AegisName: JS_Inquisitor_Ring
     Name: Inquisitor Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4381,7 +4482,8 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4403,7 +4505,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 261
@@ -4425,7 +4527,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -4447,7 +4549,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -4460,7 +4562,7 @@ Body:
   - Id: 30313
     AegisName: JS_Judgement_Plate
     Name: Judgement Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4469,7 +4571,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4490,7 +4592,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4502,7 +4604,7 @@ Body:
   - Id: 30315
     AegisName: JS_Judgement_Boots
     Name: Judgement Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4511,7 +4613,7 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4523,7 +4625,7 @@ Body:
   - Id: 30316
     AegisName: JS_Judgement_Ring
     Name: Judgement Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4532,7 +4634,8 @@ Body:
     Jobs:
       Monk: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4555,7 +4658,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 60
@@ -4574,7 +4677,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -4593,7 +4696,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -4603,7 +4706,7 @@ Body:
   - Id: 30323
     AegisName: JS_Genetic_Plate
     Name: Genetic Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4612,7 +4715,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4630,7 +4733,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4639,7 +4742,7 @@ Body:
   - Id: 30325
     AegisName: JS_Genetic_Boots
     Name: Genetic Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4648,7 +4751,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4657,7 +4760,7 @@ Body:
   - Id: 30326
     AegisName: JS_Genetic_Ring
     Name: Genetic Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4666,7 +4769,8 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4686,7 +4790,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 60
@@ -4708,7 +4812,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -4730,7 +4834,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -4743,7 +4847,7 @@ Body:
   - Id: 30333
     AegisName: JS_Tinker_Plate
     Name: Tinker Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4752,7 +4856,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4773,7 +4877,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4785,7 +4889,7 @@ Body:
   - Id: 30335
     AegisName: JS_Tinker_Boots
     Name: Tinker Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4794,7 +4898,7 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4806,7 +4910,7 @@ Body:
   - Id: 30336
     AegisName: JS_Tinker_Ring
     Name: Tinker Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4815,7 +4919,8 @@ Body:
     Jobs:
       Alchemist: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4838,7 +4943,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 36
@@ -4859,7 +4964,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -4880,7 +4985,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -4892,7 +4997,7 @@ Body:
   - Id: 30343
     AegisName: JS_Sky_Emperor_Plate
     Name: Sky Emperor Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4901,7 +5006,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4921,7 +5026,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4932,7 +5037,7 @@ Body:
   - Id: 30345
     AegisName: JS_Sky_Emperor_Boots
     Name: Sky Emperor Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4941,7 +5046,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4952,7 +5057,7 @@ Body:
   - Id: 30346
     AegisName: JS_Sky_Emperor_Ring
     Name: Sky Emperor Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -4961,7 +5066,8 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -4983,7 +5089,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 36
@@ -5004,7 +5110,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -5025,7 +5131,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -5037,7 +5143,7 @@ Body:
   - Id: 30353
     AegisName: JS_Eclipse_Plate
     Name: Eclipse Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5046,7 +5152,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5066,7 +5172,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5077,7 +5183,7 @@ Body:
   - Id: 30355
     AegisName: JS_Eclipse_Boots
     Name: Eclipse Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5086,7 +5192,7 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5097,7 +5203,7 @@ Body:
   - Id: 30356
     AegisName: JS_Eclipse_Ring
     Name: Eclipse Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5106,7 +5212,8 @@ Body:
     Jobs:
       Star_Gladiator: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5128,7 +5235,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 61
@@ -5149,7 +5256,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -5170,7 +5277,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -5182,7 +5289,7 @@ Body:
   - Id: 30363
     AegisName: JS_Soul_Ascetic_Plate
     Name: Soul Ascetic Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5191,7 +5298,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5211,7 +5318,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5222,7 +5329,7 @@ Body:
   - Id: 30365
     AegisName: JS_Soul_Ascetic_Boots
     Name: Soul Ascetic Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5231,7 +5338,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5242,7 +5349,7 @@ Body:
   - Id: 30366
     AegisName: JS_Soul_Ascetic_Ring
     Name: Soul Ascetic Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5251,7 +5358,8 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5273,7 +5381,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 61
@@ -5294,7 +5402,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -5315,7 +5423,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -5327,7 +5435,7 @@ Body:
   - Id: 30373
     AegisName: JS_Talisman_Plate
     Name: Talisman Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5336,7 +5444,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5356,7 +5464,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5367,7 +5475,7 @@ Body:
   - Id: 30375
     AegisName: JS_Talisman_Boots
     Name: Talisman Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5376,7 +5484,7 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5387,7 +5495,7 @@ Body:
   - Id: 30376
     AegisName: JS_Talisman_Ring
     Name: Talisman Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5396,7 +5504,8 @@ Body:
     Jobs:
       Soul_Linker: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5418,7 +5527,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 193
@@ -5439,7 +5548,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -5460,7 +5569,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -5472,7 +5581,7 @@ Body:
   - Id: 30383
     AegisName: JS_Hyper_Novice_Plate
     Name: Hyper Novice Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5481,7 +5590,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5501,7 +5610,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5512,7 +5621,7 @@ Body:
   - Id: 30385
     AegisName: JS_Hyper_Novice_Boots
     Name: Hyper Novice Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5521,7 +5630,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5532,7 +5641,7 @@ Body:
   - Id: 30386
     AegisName: JS_Hyper_Novice_Ring
     Name: Hyper Novice Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5541,7 +5650,8 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5563,7 +5673,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 193
@@ -5584,7 +5694,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 12
@@ -5605,7 +5715,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 54
@@ -5617,7 +5727,7 @@ Body:
   - Id: 30393
     AegisName: JS_Bowling_Plate
     Name: Bowling Plate
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5626,7 +5736,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5646,7 +5756,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5657,7 +5767,7 @@ Body:
   - Id: 30395
     AegisName: JS_Bowling_Boots
     Name: Bowling Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5666,7 +5776,7 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -5677,7 +5787,7 @@ Body:
   - Id: 30396
     AegisName: JS_Bowling_Ring
     Name: Bowling Ring
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 200
@@ -5686,12 +5796,917 @@ Body:
     Jobs:
       Super_Novice: true
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
       bonus2 bSkillAtk,HN_DOUBLEBOWLINGBASH,25;
       bonus2 bSkillAtk,MG_FROSTDIVER,25;
       bonus2 bSkillAtk,SM_BASH,25;
+
+# --- Shinkiro Shiranui: Kagemusha Set (Ninja, KagerouOboro) ---
+
+  - Id: 30400
+    AegisName: JS_Kagemusha_Helm
+    Name: Kagemusha Helm
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 153
+    Script: |
+      bonus2 bSkillAtk,SS_KAGEGARI,20;
+      bonus2 bSkillAtk,KO_JYUMONJIKIRI,20;
+      bonus2 bSkillAtk,NJ_KUNAI,20;
+
+  - Id: 30401
+    AegisName: JS_Kagemusha_Lens
+    Name: Kagemusha Lens
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 12
+    Script: |
+      bonus2 bSkillAtk,SS_KAGEGARI,20;
+      bonus2 bSkillAtk,KO_JYUMONJIKIRI,20;
+      bonus2 bSkillAtk,NJ_KUNAI,20;
+
+  - Id: 30402
+    AegisName: JS_Kagemusha_Cigar
+    Name: Kagemusha Cigar
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 54
+    Script: |
+      bonus2 bSkillAtk,SS_KAGEGARI,20;
+      bonus2 bSkillAtk,KO_JYUMONJIKIRI,20;
+      bonus2 bSkillAtk,NJ_KUNAI,20;
+
+  - Id: 30403
+    AegisName: JS_Kagemusha_Plate
+    Name: Kagemusha Plate
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Shadow_Armor: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SS_KAGEGARI,20;
+      bonus2 bSkillAtk,KO_JYUMONJIKIRI,20;
+      bonus2 bSkillAtk,NJ_KUNAI,20;
+
+  - Id: 30404
+    AegisName: JS_Kagemusha_Cape
+    Name: Kagemusha Cape
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Costume_Garment: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SS_KAGEGARI,20;
+      bonus2 bSkillAtk,KO_JYUMONJIKIRI,20;
+      bonus2 bSkillAtk,NJ_KUNAI,20;
+
+  - Id: 30405
+    AegisName: JS_Kagemusha_Boots
+    Name: Kagemusha Boots
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Shadow_Shoes: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SS_KAGEGARI,20;
+      bonus2 bSkillAtk,KO_JYUMONJIKIRI,20;
+      bonus2 bSkillAtk,NJ_KUNAI,20;
+
+  - Id: 30406
+    AegisName: JS_Kagemusha_Ring
+    Name: Kagemusha Ring
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SS_KAGEGARI,20;
+      bonus2 bSkillAtk,KO_JYUMONJIKIRI,20;
+      bonus2 bSkillAtk,NJ_KUNAI,20;
+
+# --- Shinkiro Shiranui: Shinkirou Set (Ninja, KagerouOboro) ---
+
+  - Id: 30410
+    AegisName: JS_Shinkirou_Helm
+    Name: Shinkirou Helm
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 153
+    Script: |
+      bonus2 bSkillAtk,SS_KAGENOMAI,25;
+      bonus2 bSkillAtk,KO_HAPPOKUNAI,25;
+      bonus2 bSkillAtk,NJ_HUUMA,25;
+
+  - Id: 30411
+    AegisName: JS_Shinkirou_Lens
+    Name: Shinkirou Lens
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 12
+    Script: |
+      bonus2 bSkillAtk,SS_KAGENOMAI,25;
+      bonus2 bSkillAtk,KO_HAPPOKUNAI,25;
+      bonus2 bSkillAtk,NJ_HUUMA,25;
+
+  - Id: 30412
+    AegisName: JS_Shinkirou_Cigar
+    Name: Shinkirou Cigar
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 54
+    Script: |
+      bonus2 bSkillAtk,SS_KAGENOMAI,25;
+      bonus2 bSkillAtk,KO_HAPPOKUNAI,25;
+      bonus2 bSkillAtk,NJ_HUUMA,25;
+
+  - Id: 30413
+    AegisName: JS_Shinkirou_Plate
+    Name: Shinkirou Plate
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Shadow_Armor: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SS_KAGENOMAI,25;
+      bonus2 bSkillAtk,KO_HAPPOKUNAI,25;
+      bonus2 bSkillAtk,NJ_HUUMA,25;
+
+  - Id: 30414
+    AegisName: JS_Shinkirou_Cape
+    Name: Shinkirou Cape
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Costume_Garment: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SS_KAGENOMAI,25;
+      bonus2 bSkillAtk,KO_HAPPOKUNAI,25;
+      bonus2 bSkillAtk,NJ_HUUMA,25;
+
+  - Id: 30415
+    AegisName: JS_Shinkirou_Boots
+    Name: Shinkirou Boots
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Shadow_Shoes: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SS_KAGENOMAI,25;
+      bonus2 bSkillAtk,KO_HAPPOKUNAI,25;
+      bonus2 bSkillAtk,NJ_HUUMA,25;
+
+  - Id: 30416
+    AegisName: JS_Shinkirou_Ring
+    Name: Shinkirou Ring
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Ninja: true
+      KagerouOboro: true
+    Locations:
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SS_KAGENOMAI,25;
+      bonus2 bSkillAtk,KO_HAPPOKUNAI,25;
+      bonus2 bSkillAtk,NJ_HUUMA,25;
+
+# --- Night Watch: Vigilante Set (Gunslinger, Rebellion) ---
+
+  - Id: 30420
+    AegisName: JS_Vigilante_Helm
+    Name: Vigilante Helm
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 159
+    Script: |
+      bonus2 bSkillAtk,NW_THE_VIGILANTE_AT_NIGHT,20;
+      bonus2 bSkillAtk,RL_MASS_SPIRAL,20;
+      bonus2 bSkillAtk,GS_TRIPLEACTION,20;
+
+  - Id: 30421
+    AegisName: JS_Vigilante_Lens
+    Name: Vigilante Lens
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 12
+    Script: |
+      bonus2 bSkillAtk,NW_THE_VIGILANTE_AT_NIGHT,20;
+      bonus2 bSkillAtk,RL_MASS_SPIRAL,20;
+      bonus2 bSkillAtk,GS_TRIPLEACTION,20;
+
+  - Id: 30422
+    AegisName: JS_Vigilante_Cigar
+    Name: Vigilante Cigar
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 54
+    Script: |
+      bonus2 bSkillAtk,NW_THE_VIGILANTE_AT_NIGHT,20;
+      bonus2 bSkillAtk,RL_MASS_SPIRAL,20;
+      bonus2 bSkillAtk,GS_TRIPLEACTION,20;
+
+  - Id: 30423
+    AegisName: JS_Vigilante_Plate
+    Name: Vigilante Plate
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Shadow_Armor: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,NW_THE_VIGILANTE_AT_NIGHT,20;
+      bonus2 bSkillAtk,RL_MASS_SPIRAL,20;
+      bonus2 bSkillAtk,GS_TRIPLEACTION,20;
+
+  - Id: 30424
+    AegisName: JS_Vigilante_Cape
+    Name: Vigilante Cape
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Costume_Garment: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,NW_THE_VIGILANTE_AT_NIGHT,20;
+      bonus2 bSkillAtk,RL_MASS_SPIRAL,20;
+      bonus2 bSkillAtk,GS_TRIPLEACTION,20;
+
+  - Id: 30425
+    AegisName: JS_Vigilante_Boots
+    Name: Vigilante Boots
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Shadow_Shoes: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,NW_THE_VIGILANTE_AT_NIGHT,20;
+      bonus2 bSkillAtk,RL_MASS_SPIRAL,20;
+      bonus2 bSkillAtk,GS_TRIPLEACTION,20;
+
+  - Id: 30426
+    AegisName: JS_Vigilante_Ring
+    Name: Vigilante Ring
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,NW_THE_VIGILANTE_AT_NIGHT,20;
+      bonus2 bSkillAtk,RL_MASS_SPIRAL,20;
+      bonus2 bSkillAtk,GS_TRIPLEACTION,20;
+
+# --- Night Watch: Nightfall Set (Gunslinger, Rebellion) ---
+
+  - Id: 30430
+    AegisName: JS_Nightfall_Helm
+    Name: Nightfall Helm
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 159
+    Script: |
+      bonus2 bSkillAtk,NW_SPIRAL_SHOOTING,25;
+      bonus2 bSkillAtk,RL_QD_SHOT,25;
+      bonus2 bSkillAtk,GS_BULLSEYE,25;
+
+  - Id: 30431
+    AegisName: JS_Nightfall_Lens
+    Name: Nightfall Lens
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 12
+    Script: |
+      bonus2 bSkillAtk,NW_SPIRAL_SHOOTING,25;
+      bonus2 bSkillAtk,RL_QD_SHOT,25;
+      bonus2 bSkillAtk,GS_BULLSEYE,25;
+
+  - Id: 30432
+    AegisName: JS_Nightfall_Cigar
+    Name: Nightfall Cigar
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 54
+    Script: |
+      bonus2 bSkillAtk,NW_SPIRAL_SHOOTING,25;
+      bonus2 bSkillAtk,RL_QD_SHOT,25;
+      bonus2 bSkillAtk,GS_BULLSEYE,25;
+
+  - Id: 30433
+    AegisName: JS_Nightfall_Plate
+    Name: Nightfall Plate
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Shadow_Armor: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,NW_SPIRAL_SHOOTING,25;
+      bonus2 bSkillAtk,RL_QD_SHOT,25;
+      bonus2 bSkillAtk,GS_BULLSEYE,25;
+
+  - Id: 30434
+    AegisName: JS_Nightfall_Cape
+    Name: Nightfall Cape
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Costume_Garment: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,NW_SPIRAL_SHOOTING,25;
+      bonus2 bSkillAtk,RL_QD_SHOT,25;
+      bonus2 bSkillAtk,GS_BULLSEYE,25;
+
+  - Id: 30435
+    AegisName: JS_Nightfall_Boots
+    Name: Nightfall Boots
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Shadow_Shoes: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,NW_SPIRAL_SHOOTING,25;
+      bonus2 bSkillAtk,RL_QD_SHOT,25;
+      bonus2 bSkillAtk,GS_BULLSEYE,25;
+
+  - Id: 30436
+    AegisName: JS_Nightfall_Ring
+    Name: Nightfall Ring
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Locations:
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,NW_SPIRAL_SHOOTING,25;
+      bonus2 bSkillAtk,RL_QD_SHOT,25;
+      bonus2 bSkillAtk,GS_BULLSEYE,25;
+
+# --- Spirit Handler: Chulho Set (Summoner, Spirit_Handler) ---
+
+  - Id: 30440
+    AegisName: JS_Chulho_Helm
+    Name: Chulho Helm
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 181
+    Script: |
+      bonus2 bSkillAtk,SH_CHUL_HO_SONIC_CLAW,20;
+      bonus2 bSkillAtk,SU_BITE,20;
+
+  - Id: 30441
+    AegisName: JS_Chulho_Lens
+    Name: Chulho Lens
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 12
+    Script: |
+      bonus2 bSkillAtk,SH_CHUL_HO_SONIC_CLAW,20;
+      bonus2 bSkillAtk,SU_BITE,20;
+
+  - Id: 30442
+    AegisName: JS_Chulho_Cigar
+    Name: Chulho Cigar
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 54
+    Script: |
+      bonus2 bSkillAtk,SH_CHUL_HO_SONIC_CLAW,20;
+      bonus2 bSkillAtk,SU_BITE,20;
+
+  - Id: 30443
+    AegisName: JS_Chulho_Plate
+    Name: Chulho Plate
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Shadow_Armor: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SH_CHUL_HO_SONIC_CLAW,20;
+      bonus2 bSkillAtk,SU_BITE,20;
+
+  - Id: 30444
+    AegisName: JS_Chulho_Cape
+    Name: Chulho Cape
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Costume_Garment: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SH_CHUL_HO_SONIC_CLAW,20;
+      bonus2 bSkillAtk,SU_BITE,20;
+
+  - Id: 30445
+    AegisName: JS_Chulho_Boots
+    Name: Chulho Boots
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Shadow_Shoes: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SH_CHUL_HO_SONIC_CLAW,20;
+      bonus2 bSkillAtk,SU_BITE,20;
+
+  - Id: 30446
+    AegisName: JS_Chulho_Ring
+    Name: Chulho Ring
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SH_CHUL_HO_SONIC_CLAW,20;
+      bonus2 bSkillAtk,SU_BITE,20;
+
+# --- Spirit Handler: Kisul Set (Summoner, Spirit_Handler) ---
+
+  - Id: 30450
+    AegisName: JS_Kisul_Helm
+    Name: Kisul Helm
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 181
+    Script: |
+      bonus2 bSkillAtk,SH_HOGOGONG_STRIKE,25;
+      bonus2 bSkillAtk,SU_SCRATCH,25;
+
+  - Id: 30451
+    AegisName: JS_Kisul_Lens
+    Name: Kisul Lens
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 12
+    Script: |
+      bonus2 bSkillAtk,SH_HOGOGONG_STRIKE,25;
+      bonus2 bSkillAtk,SU_SCRATCH,25;
+
+  - Id: 30452
+    AegisName: JS_Kisul_Cigar
+    Name: Kisul Cigar
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: false
+    View: 54
+    Script: |
+      bonus2 bSkillAtk,SH_HOGOGONG_STRIKE,25;
+      bonus2 bSkillAtk,SU_SCRATCH,25;
+
+  - Id: 30453
+    AegisName: JS_Kisul_Plate
+    Name: Kisul Plate
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Shadow_Armor: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SH_HOGOGONG_STRIKE,25;
+      bonus2 bSkillAtk,SU_SCRATCH,25;
+
+  - Id: 30454
+    AegisName: JS_Kisul_Cape
+    Name: Kisul Cape
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Costume_Garment: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SH_HOGOGONG_STRIKE,25;
+      bonus2 bSkillAtk,SU_SCRATCH,25;
+
+  - Id: 30455
+    AegisName: JS_Kisul_Boots
+    Name: Kisul Boots
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Shadow_Shoes: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SH_HOGOGONG_STRIKE,25;
+      bonus2 bSkillAtk,SU_SCRATCH,25;
+
+  - Id: 30456
+    AegisName: JS_Kisul_Ring
+    Name: Kisul Ring
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 200
+    Defense: 0
+    Slots: 1
+    Jobs:
+      Summoner: true
+      Spirit_Handler: true
+    Locations:
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      bonus2 bSkillAtk,SH_HOGOGONG_STRIKE,25;
+      bonus2 bSkillAtk,SU_SCRATCH,25;
 
 # ---- ENDE ERZEUGT ----

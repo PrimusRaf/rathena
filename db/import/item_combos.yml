@@ -76,6 +76,8 @@ Body:
 
 
 
+
+
 # ---- ANFANG ERZEUGT: tools/sets/bauen.py ----
   - Combos:
       - Combo:
@@ -464,6 +466,84 @@ Body:
           - JS_Bowling_Boots
           - JS_Bowling_Ring
           - JS_Bowling_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Kagemusha_Helm
+          - JS_Kagemusha_Lens
+          - JS_Kagemusha_Cigar
+          - JS_Kagemusha_Plate
+          - JS_Kagemusha_Cape
+          - JS_Kagemusha_Boots
+          - JS_Kagemusha_Ring
+          - JS_Kagemusha_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Shinkirou_Helm
+          - JS_Shinkirou_Lens
+          - JS_Shinkirou_Cigar
+          - JS_Shinkirou_Plate
+          - JS_Shinkirou_Cape
+          - JS_Shinkirou_Boots
+          - JS_Shinkirou_Ring
+          - JS_Shinkirou_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Vigilante_Helm
+          - JS_Vigilante_Lens
+          - JS_Vigilante_Cigar
+          - JS_Vigilante_Plate
+          - JS_Vigilante_Cape
+          - JS_Vigilante_Boots
+          - JS_Vigilante_Ring
+          - JS_Vigilante_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Nightfall_Helm
+          - JS_Nightfall_Lens
+          - JS_Nightfall_Cigar
+          - JS_Nightfall_Plate
+          - JS_Nightfall_Cape
+          - JS_Nightfall_Boots
+          - JS_Nightfall_Ring
+          - JS_Nightfall_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Chulho_Helm
+          - JS_Chulho_Lens
+          - JS_Chulho_Cigar
+          - JS_Chulho_Plate
+          - JS_Chulho_Cape
+          - JS_Chulho_Boots
+          - JS_Chulho_Ring
+          - JS_Chulho_Ring    # zweiter Ring
+    Script: |
+      bonus bAllStats,40;
+
+  - Combos:
+      - Combo:
+          - JS_Kisul_Helm
+          - JS_Kisul_Lens
+          - JS_Kisul_Cigar
+          - JS_Kisul_Plate
+          - JS_Kisul_Cape
+          - JS_Kisul_Boots
+          - JS_Kisul_Ring
+          - JS_Kisul_Ring    # zweiter Ring
     Script: |
       bonus bAllStats,40;
 
