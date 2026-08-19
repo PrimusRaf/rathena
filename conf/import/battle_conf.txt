@@ -169,6 +169,33 @@ item_rate_card: 5000
 item_rate_card_boss: 5000
 item_rate_card_mvp: 5000
 
+// --- Destiny Coins: unverkaeuflich, aber zahlbar ---
+//  Gehoert zu "Trade: NoSell" beim Destiny_Coin in
+//  db/import/item_db.yml. Ohne diese Zeile schliessen sich die
+//  beiden Dinge aus, die wir wollen.
+//
+//  Der Grund steht in npc.cpp gleich zweimal:
+//
+//    Zeile 2461  beim Bezahlen ueberspringt der itemshop jeden
+//                Stapel, den pc_can_sell_item ablehnt
+//    Zeile 2645  und derselbe Aufruf bestimmt den ANGEZEIGTEN
+//                Kontostand
+//
+//  Mit NoSell allein zeigt der Custom Merchant deshalb null Coins
+//  an und nimmt keine entgegen. Sichtbar bleibt nur das
+//  Standardfeld des Client-Fensters, das "Kafra Points" heisst -
+//  daher der irrefuehrende Eindruck, er wolle eine andere Waehrung.
+//
+//  0x2 ist genau dafuer gedacht, conf/battle/items.conf:114 sagt es
+//  woertlich: "Sell restricted items are able to be sold to
+//  Itemshops". Fuer normale Haendler (NPCTYPE_SHOP) gibt es diesen
+//  Weg NICHT - dort greift weiterhin itemdb_cansell, die Coins
+//  bleiben also aus dem Verkaufsfenster verschwunden.
+//
+//  Bewusst 0x2 und nicht mehr: 0x1 und 0x4 betreffen gebundene
+//  Gegenstaende und haben mit unserem Fall nichts zu tun.
+allow_bound_sell: 0x2
+
 // --- Sichtfeld: 14 -> 16 ---
 //  Wie weit ein Spieler sehen kann, in Feldern. rAthenas Standard
 //  ist 14 (battle.cpp:8585). Wer weiter herauszoomt, sieht ab dort
