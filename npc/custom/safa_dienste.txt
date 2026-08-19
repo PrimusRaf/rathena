@@ -1,0 +1,282 @@
+//===== SafaRO Script ========================================
+//= Dienste an der Prontera-Achse
+//===== Beschreibung: ========================================
+//= Vier NPCs neben den vorhandenen: Reset, Verleih, Kafra und
+//= ein zweiter Card Remover.
+//=
+//= STANDORTE
+//= Die bestehenden SafaRO-NPCs stehen auf der Spalte x=146 im
+//= Zehnerraster:
+//=
+//=     146,152   Custom Merchant
+//=     146,162   Supply Master
+//=     146,172   Coin Exchanger
+//=     146,182   Threshold Warden
+//=
+//= Die neuen setzen das Raster nach beiden Seiten fort. Jede
+//= Zelle wurde mit tools/karte/zelle_pruefen.py gegen
+//= db/map_cache.dat geprueft - Typ 0, also begehbarer Boden:
+//=
+//=     146,132   Wise Old Woman   (Card Remover)
+//=     146,142   Stablemaster     (Verleih)
+//=     146,192   Reset Master
+//=     146,202   Kafra Employee
+//=
+//= Nicht raten: 146,127 und 146,207 sind Wandzellen. Ein NPC
+//= darauf wird geladen und ist im Spiel unerreichbar.
+//=
+//= WAS HIER NICHT STEHT
+//= Kafra und Card Remover sind Duplikate. Sie teilen sich das
+//= Skript des Originals, Aenderungen dort wirken also hier mit.
+//= Eine eigene Fassung waere eine zweite Stelle, die man beim
+//= naechsten rAthena-Update vergisst.
+//============================================================
+
+
+//============================================================
+//  Reset Master
+//------------------------------------------------------------
+//  50.000z je Ruecksetzung, Statuswerte und Skills getrennt
+//  oder zusammen.
+//
+//  Bewusst OHNE Begrenzung der Anzahl. Das Standardskript
+//  (npc/custom/resetnpc.txt, bei uns aus) kennt ein Lebenslimit -
+//  das passt zu einem Server, auf dem ein Build eine Entscheidung
+//  fuer Monate ist. Bei 25x EXP ist ein neuer Charakter an einem
+//  Abend nachgezogen; ein Limit wuerde niemanden bremsen, sondern
+//  nur dazu fuehren, dass man den Charakter wegwirft statt ihn
+//  umzubauen.
+//
+//  Das Standardskript setzt die Reset Girl uebrigens auf
+//  prontera,150,193 - genau die Zelle, auf der Ironhand steht.
+//  Wer es je einschaltet, hat zwei NPCs uebereinander.
+//============================================================
+prontera,146,192,4	script	Reset Master#safa	4_F_TELEPORTER,{
+
+	// Lokale Funktionen muessen VOR ihrem ersten Aufruf angemeldet
+	// werden (doc/script_commands.txt:1891). Der Name darf nur
+	// Buchstaben, Ziffern und Unterstrich enthalten - ein ".@" davor
+	// waere ein Syntaxfehler, kein lokaler Gueltigkeitsbereich.
+	function zahlen;
+
+	.@preis = 50000;
+
+	mes "[Reset Master]";
+	mes "A build is a guess about how you like to play.";
+	mes "Guesses are allowed to be wrong.";
+	next;
+
+	mes "[Reset Master]";
+	mes "^0000FF" + callfunc("F_InsertComma", .@preis) + "z^000000 per reset.";
+	mes "You have " + callfunc("F_InsertComma", Zeny) + "z.";
+	next;
+
+	switch (select("Reset stats:Reset skills:Reset both:What happens to my points?:Leave")) {
+
+	case 1:
+		if (!zahlen(.@preis)) close;
+		resetstatus;
+		mes "[Reset Master]";
+		mes "Your stat points are back in your hands.";
+		mes "Spend them better this time.";
+		close;
+
+	case 2:
+		if (!zahlen(.@preis)) close;
+		resetskill;
+		mes "[Reset Master]";
+		mes "Skills unlearned. Quest skills included -";
+		mes "you will need to earn those again.";
+		close;
+
+	case 3:
+		if (!zahlen(.@preis * 2)) close;
+		resetstatus;
+		resetskill;
+		mes "[Reset Master]";
+		mes "Both done. You are the same level you were,";
+		mes "and nothing else about you is settled.";
+		close;
+
+	case 4:
+		mes "[Reset Master]";
+		mes "Nothing is lost. Your base and job level stay,";
+		mes "and you get back exactly the points you spent.";
+		next;
+		mes "[Reset Master]";
+		mes "One warning: resetting skills also removes";
+		mes "^0000FFquest skills^000000. Those are not refunded as points -";
+		mes "you have to do the quests again.";
+		close;
+
+	case 5:
+		mes "[Reset Master]";
+		mes "Come back when the doubt gets loud enough.";
+		close;
+	}
+
+// Preis einziehen. Die Pruefung sitzt hier und nicht oben, weil
+// zwischen dem Anzeigen des Preises und der Auswahl Zeit vergeht -
+// in der kann der Spieler in einem zweiten Fenster einkaufen.
+function	zahlen	{
+	if (Zeny < getarg(0)) {
+		mes "[Reset Master]";
+		mes "That is " + callfunc("F_InsertComma", getarg(0) - Zeny) + "z short.";
+		return 0;
+	}
+	Zeny -= getarg(0);
+	return 1;
+}
+}
+
+
+//============================================================
+//  Stablemaster - Verleih
+//------------------------------------------------------------
+//  WARUM DAS KEIN "UNIVERSAL RENTAL" IST
+//
+//  Die Skriptbefehle pruefen Klasse und Skill selbst, und zwar im
+//  Serverkern - nicht im Skript. Aus doc/script_commands.txt:
+//
+//    setcart      braucht MC_PUSHCART
+//    setfalcon    braucht HT_FALCON
+//    setriding    braucht KN_RIDING, und "will not work at all
+//                 if they aren't of a class which can ride"
+//    setdragon    braucht Rune Knight + RK_DRAGONTRAINING
+//    setmadogear  braucht Mechanic + NC_MADOLICENCE
+//
+//  Ein NPC, der einem Magier einen Peco gibt, laesst sich also
+//  nicht schreiben - der Aufruf laeuft ins Leere. Deshalb zeigt
+//  dieser hier nur an, wozu der Spieler berechtigt ist, und sagt
+//  bei allem anderen, was fehlt. Das ist ehrlicher als eine Liste
+//  mit Eintraegen, die nichts tun.
+//
+//  Die eine Ausnahme ist setmounting: das Cash-Reittier haengt an
+//  keiner Klasse. Es ist damit das einzige wirklich universelle
+//  Angebot und steht deshalb zuerst.
+//
+//  Warg fehlt: dafuer gibt es keinen Skriptbefehl, nur den Skill.
+//============================================================
+prontera,146,142,4	script	Stablemaster#safa	4_M_JOB_KNIGHT1,{
+
+	mes "[Stablemaster]";
+	mes "Everything here is borrowed, not sold.";
+	mes "Bring it back in one piece and we stay friends.";
+	next;
+
+	.@m$ = "Universal mount";
+	if (ismounting()) .@m$ = "Universal mount ^777777(dismount)^000000";
+
+	.@c$ = "Cart";
+	if (!getskilllv("MC_PUSHCART")) .@c$ = "Cart ^777777(needs Pushcart)^000000";
+	else if (checkcart()) .@c$ = "Cart ^777777(return it)^000000";
+
+	.@f$ = "Falcon";
+	if (!getskilllv("HT_FALCON")) .@f$ = "Falcon ^777777(needs Falcon Mastery)^000000";
+	else if (checkfalcon()) .@f$ = "Falcon ^777777(release)^000000";
+
+	.@p$ = "Riding bird";
+	if (!getskilllv("KN_RIDING")) .@p$ = "Riding bird ^777777(needs Riding)^000000";
+	else if (checkriding()) .@p$ = "Riding bird ^777777(stable it)^000000";
+
+	.@d$ = "Dragon";
+	if (!getskilllv("RK_DRAGONTRAINING")) .@d$ = "Dragon ^777777(needs Dragon Training)^000000";
+	else if (checkdragon()) .@d$ = "Dragon ^777777(stable it)^000000";
+
+	.@g$ = "Mado Gear";
+	if (!getskilllv("NC_MADOLICENCE")) .@g$ = "Mado Gear ^777777(needs Mado License)^000000";
+	else if (checkmadogear()) .@g$ = "Mado Gear ^777777(park it)^000000";
+
+	switch (select(.@m$ + ":" + .@c$ + ":" + .@f$ + ":" + .@p$ + ":" + .@d$
+	               + ":" + .@g$ + ":Why can I not take everything?:Leave")) {
+
+	case 1:
+		setmounting;
+		mes "[Stablemaster]";
+		if (ismounting()) mes "Up you go.";
+		else mes "Off you get.";
+		close;
+
+	case 2:
+		if (!getskilllv("MC_PUSHCART")) { .@fehlt$ = "Pushcart"; break; }
+		if (checkcart()) setcart 0;
+		else setcart 1;
+		mes "[Stablemaster]";
+		if (checkcart()) mes "One cart. Mind the corners.";
+		else mes "Cart returned.";
+		close;
+
+	case 3:
+		if (!getskilllv("HT_FALCON")) { .@fehlt$ = "Falcon Mastery"; break; }
+		if (checkfalcon()) setfalcon 0;
+		else setfalcon 1;
+		mes "[Stablemaster]";
+		if (checkfalcon()) mes "She likes you. That is rare.";
+		else mes "Off she goes.";
+		close;
+
+	case 4:
+		if (!getskilllv("KN_RIDING")) { .@fehlt$ = "Riding"; break; }
+		if (checkriding()) setriding 0;
+		else setriding 1;
+		mes "[Stablemaster]";
+		if (checkriding()) mes "Hold the reins, not the feathers.";
+		else mes "Back in the stable.";
+		close;
+
+	case 5:
+		if (!getskilllv("RK_DRAGONTRAINING")) { .@fehlt$ = "Dragon Training"; break; }
+		setdragon;
+		mes "[Stablemaster]";
+		if (checkdragon()) mes "Do not let it near the thatched roofs.";
+		else mes "Stabled.";
+		close;
+
+	case 6:
+		if (!getskilllv("NC_MADOLICENCE")) { .@fehlt$ = "Mado License"; break; }
+		if (checkmadogear()) setmadogear 0;
+		else setmadogear 1, MADO_ROBOT;
+		mes "[Stablemaster]";
+		if (checkmadogear()) mes "Fuel is your problem, not mine.";
+		else mes "Parked.";
+		close;
+
+	case 7:
+		mes "[Stablemaster]";
+		mes "Not my rule. The mounts answer to training,";
+		mes "and training answers to your class.";
+		next;
+		mes "[Stablemaster]";
+		mes "The ^0000FFuniversal mount^000000 is the exception - anyone";
+		mes "can ride it. Everything else needs the skill";
+		mes "that goes with the animal.";
+		close;
+
+	case 8:
+		mes "[Stablemaster]";
+		mes "Mind the droppings on your way out.";
+		close;
+	}
+
+	mes "[Stablemaster]";
+	mes "You would need ^0000FF" + .@fehlt$ + "^000000 for that.";
+	mes "Come back when you have it.";
+	close;
+}
+
+
+//============================================================
+//  Duplikate
+//------------------------------------------------------------
+//  Kafra: teilt sich das Skript der Prontera-Kafra bei 152,326.
+//  Damit gibt es Lager, Speicherpunkt und Karrenmiete, ohne eine
+//  einzige eigene Zeile - und ohne eine zweite Stelle, die bei
+//  einem rAthena-Update auseinanderlaeuft.
+//
+//  Card Remover: das Original steht als "Wise Old Woman" in
+//  prt_in,28,73 - also in einem Haus, wo es niemand findet. Der
+//  Preis (200.000z plus 25.000z je Karte, dazu Star Crumb und
+//  Yellow Gemstone) steht dort im Skript und gilt hier mit.
+//============================================================
+prontera,146,202,4	duplicate(kaf_prontera)	Kafra Employee#safa	4_F_KAFRA1
+prontera,146,132,4	duplicate(Wise Old Woman#eAcustom)	Wise Old Woman#safa	78
