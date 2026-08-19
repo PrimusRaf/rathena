@@ -1,0 +1,507 @@
+//===== SafaRO ===============================================
+//= Armstrong, der Archaeologe
+//===== Erzeugt von ==========================================
+//= tools/leveln/gebiete_bauen.py  --  NICHT von Hand pflegen.
+//= Aenderungen gehoeren ins Skript, dann neu laufen lassen.
+//===========================================================
+//
+//  WAS ER TUT
+//
+//  Armstrong liest Level, Lebenspunkte und Todesmale des
+//  Spielers und nennt ihm das ertragreichste Jagdgebiet, das
+//  er in diesem Zustand halten kann.
+//
+//  WORAUF DER RAT BERUHT
+//
+//  Die Tabelle unten ist vorgerechnet aus:
+//    npc/re/mobs/**.txt   Besatz je Karte
+//    db/re/mob_db.yml     Level, Erfahrung, Angriff, Verhalten
+//    db/re/map_cache.dat  ob die Karte existiert
+//    npc/**/warps         Weg zur naechsten Stadt
+//
+//  Ein Skript kann 2.600 Monster ueber 300 Karten nicht bei
+//  jedem Gespraech sortieren - deshalb vorgerechnet.
+//
+//  WARUM DIE LEBENSPUNKTE ENTSCHEIDEN UND NICHT DIE STATS
+//
+//  Naheliegend waere, STR/AGI/VIT gegen eine Erwartung fuer
+//  das Level zu halten. Das misst aber nur die Bauweise, nicht
+//  die Ausruestung - ein Level 80 in geschenkter Ruestung und
+//  einer in nichts haben dieselben Stats.
+//
+//  MaxHp misst beides zugleich, denn dort schlagen Ausruestung,
+//  Karten UND die Todesmale durch (bMaxHPrate in
+//  safa_systems.txt). Armstrong vergleicht deshalb den
+//  haertesten Angriff auf einer Karte mit den tatsaechlichen
+//  Lebenspunkten. Wer sich besser ausruestet, bekommt sofort
+//  einen anderen Rat.
+//
+//===========================================================
+
+prontera,163,168,4	script	Armstrong#safa	4_M_SITDOWN,{
+	mes "[Armstrong]";
+	mes "Mind the notebooks, friend. Forty years of them.";
+	mes "Every field, every cave, and every thing that lives in one. Counted, weighed, written down.";
+	next;
+	mes "[Armstrong]";
+	mes "I do not dig for gold. I dig for numbers.";
+	mes "Ask, and I will tell you where yours grow fastest.";
+	next;
+
+L_Menue:
+	switch (select("Where should I be hunting?",
+	               "Show me everything for my level.",
+	               "These death marks - what are they costing me?",
+	               "Nothing for now.")) {
+	case 1: callsub S_Rat;   break;
+	case 2: callsub S_Liste; break;
+	case 3: callsub S_Male;  break;
+	case 4:
+		mes "[Armstrong]";
+		mes "Mind your step out there.";
+		mes "The ground remembers everyone who did not.";
+		close;
+	}
+	goto L_Menue;
+
+// ------------------------------------------------------------
+//  Der eigentliche Rat
+// ------------------------------------------------------------
+S_Rat:
+	.@band = BaseLevel / 10;
+	if (.@band >= 26)
+		.@band = 26 - 1;
+
+	.@hp  = MaxHp;
+	.@tod = death_count;
+
+	// Wieviel darf ein einzelner Treffer kosten? Ein Viertel laesst
+	// sich noch weglaufen. Wer Todesmale traegt, hat weniger Luft -
+	// und MaxHp ist durch die Male ohnehin schon kleiner, der Malus
+	// wirkt also zweimal. Das ist so gewollt: gerade dann soll er
+	// vorsichtiger geschickt werden.
+	.@grenze = .@hp / 4;
+	if (.@tod >= 3) .@grenze = .@hp / 6;
+	if (.@tod >= 8) .@grenze = .@hp / 10;
+
+	// Die Baender sind nach Erfahrung geordnet, der erste Eintrag,
+	// der durchkommt, ist also der beste. Findet sich im eigenen
+	// Band nichts, geht es nach unten - das ist der Fall, wenn
+	// jemand sein Level ueberholt hat und ohne Ausruestung dasteht.
+	// --------------------------------------------------------------
+	//  Warum das in Stufen sucht und nicht in einem Durchgang
+	// --------------------------------------------------------------
+	//  Der erste Entwurf hatte zwei harte Regeln: nichts, was zu
+	//  hart zuschlaegt, und bei Todesmalen nichts Aggressives. Dann
+	//  ist er notfalls Band um Band nach unten gegangen.
+	//
+	//  Das Ergebnis war unbrauchbar. Oberhalb von 120 ist jede
+	//  ertragreiche Karte zu hundert Prozent aggressiv - ein
+	//  Spieler auf 150 mit fuenf Malen bekam die Roboterfabrik
+	//  genannt, vierzig Level unter ihm. Formal regelkonform und
+	//  als Rat wertlos.
+	//
+	//  Also: hoechstens zwei Baender nach unten, und die Aggro-
+	//  Regel ist ein Wunsch, keine Bedingung. Faellt sie weg, sagt
+	//  Armstrong es dazu - und schickt ihn zur Waechterin.
+	.@boden = .@band - 2;
+	if (.@boden < 0) .@boden = 0;
+
+	.@wahl    = -1;   // bestes offenes Gebiet
+	.@tor     = -1;   // bestes ueberhaupt, aber hinter einer Tuer
+	.@unruhig = 0;    // Ruhewunsch liess sich nicht erfuellen
+
+	for (.@streng = 0; .@streng < 2; .@streng++) {
+		for (.@b = .@band; .@b >= .@boden; .@b--) {
+			for (.@i = 0; .@i < 5; .@i++) {
+				.@k = .@b * 5 + .@i;
+				if (.karte$[.@k] == "") continue;
+				if (.wucht[.@k] > .@grenze) continue;
+				if (.@streng == 0 && .@tod >= 3 && .aggro[.@k] > 40)
+					continue;
+				if (.tor[.@k]) {
+					if (.@tor < 0) .@tor = .@k;
+				} else if (.@wahl < 0) {
+					.@wahl = .@k;
+				}
+			}
+			if (.@wahl >= 0) break;
+		}
+		if (.@wahl >= 0) break;
+		if (.@streng == 0 && .@tod >= 3) .@unruhig = 1;
+	}
+
+	// Steht wirklich nur Verschlossenes zur Wahl, dann eben das.
+	if (.@wahl < 0 && .@tor >= 0) {
+		.@wahl = .@tor;
+		.@tor  = -1;
+	}
+
+	// Immer noch nichts: jetzt doch bis ganz nach unten. Wer hier
+	// landet, ist deutlich unterausgeruestet fuer sein Level.
+	.@zurueck = 0;
+	if (.@wahl < 0) {
+		for (.@b = .@boden - 1; .@b >= 0 && .@wahl < 0; .@b--) {
+			for (.@i = 0; .@i < 5; .@i++) {
+				.@k = .@b * 5 + .@i;
+				if (.karte$[.@k] == "") continue;
+				if (.wucht[.@k] > .@grenze) continue;
+				.@wahl = .@k;
+				.@zurueck = 1;
+				break;
+			}
+		}
+	}
+
+	// Und erwaehnen lohnt nur, was auch mehr bringt.
+	if (.@tor >= 0 && .@wahl >= 0 && .exp[.@tor] <= .exp[.@wahl])
+		.@tor = -1;
+
+	// Gar nichts gefunden. Dann das Sanfteste, was es gibt - und
+	// ehrlich dazusagen, dass es eng wird.
+	.@notnagel = 0;
+	if (.@wahl < 0) {
+		.@wahl = 0;
+		for (.@i = 1; .@i < 5; .@i++)
+			if (.karte$[.@i] != "" && .wucht[.@i] < .wucht[.@wahl])
+				.@wahl = .@i;
+		.@notnagel = 1;
+	}
+
+	mes "[Armstrong]";
+	mes "Hold still. ...Mm.";
+	mes " ";
+	mes "Base level ^FFCC00" + BaseLevel + "^000000, ^FFCC00"
+	    + callfunc("F_InsertComma", .@hp) + "^000000 points of life.";
+	if (.@tod > 0)
+		mes "And ^FF6666" + .@tod + " death mark"
+		    + ((.@tod == 1) ? "" : "s") + "^000000. Those I can see from here.";
+	next;
+
+	mes "[Armstrong]";
+	if (.@notnagel)
+		mes "^FF6666Nothing out there is gentle enough for you yet.^000000 Take the quietest ground I know, and take it slowly.";
+	else if (.@zurueck)
+		mes "^FF6666You have outrun your own equipment.^000000 Your level says one thing, what you are wearing says another. Go back a way and fix that.";
+	else if (.@unruhig)
+		mes "^FF6666There is nothing quiet at your level.^000000 Everything up there comes at you on sight - and you are carrying marks.";
+	else if (.@tod >= 3)
+		mes "Carrying marks like those, you want ground that does not come to you.";
+	else
+		mes "For what you are, this is the richest ground you can hold.";
+	mes " ";
+	mes "^00CCFF" + .ort$[.@wahl] + "^000000";
+	mes "^777777" + .karte$[.@wahl] + "^000000";
+	next;
+
+	mes "[Armstrong]";
+	mes "Mostly ^FFCC00" + .mon$[.@wahl] + "^000000, level "
+	    + .lvu[.@wahl] + " to " + .lvo[.@wahl] + ".";
+	mes "About ^FFCC00" + .dichte[.@wahl] + "^000000 of them standing at any hour,";
+	mes "^FFCC00" + callfunc("F_InsertComma", .zaeh[.@wahl]) + "^000000 points of life in each.";
+	if (.aggro[.@wahl] == 0)
+		mes "^88CC88Not one of them will start a fight.^000000 They wait.";
+	else if (.aggro[.@wahl] >= 80)
+		mes "^FF6666Nearly all of them come at you on sight.^000000";
+	else
+		mes "^FFAA55Roughly " + .aggro[.@wahl] + " in a hundred come at you on sight.^000000";
+	next;
+
+	// Der abgelegte Wert ist die reine Datenbankerfahrung. Was
+	// ankommt, haengt an base_exp_rate. Die Zahl NICHT einbacken,
+	// sondern erfragen - dann folgt Armstrong der Einstellung,
+	// falls sie sich einmal aendert.
+	.@rate = getbattleflag("base_exp_rate");
+	.@pro  = .exp[.@wahl] * .@rate / 100;
+
+	mes "[Armstrong]";
+	mes "One of them is worth about ^FFCC00"
+	    + callfunc("F_InsertComma", .@pro) + "^000000 to you.";
+	if (.@pro > 0 && NextBaseExp > 0) {
+		.@kills = (NextBaseExp + .@pro - 1) / .@pro;
+		mes "Your next level wants ^FFCC00"
+		    + callfunc("F_InsertComma", NextBaseExp) + "^000000.";
+		mes " ";
+		mes "That is ^FFCC00" + callfunc("F_InsertComma", .@kills)
+		    + "^000000 of them. Give or take.";
+	} else {
+		mes "^777777There is nothing above you left to climb.^000000";
+	}
+	next;
+
+	mes "[Armstrong]";
+	if (.tor[.@wahl]) {
+		mes "^FF6666One thing.^000000 That door does not simply stand open - there is a chain of work to be done before anyone walks in.";
+		mes "If you have not done it, do it. Then the ground is yours.";
+		mes " ";
+	} else if (.@tor >= 0) {
+		mes "There is richer ground than that - ^FFCC00" + .ort$[.@tor]
+		    + "^000000, near ^FFCC00"
+		    + callfunc("F_InsertComma", .exp[.@tor] * .@rate / 100)
+		    + "^000000 a head.";
+		mes "^777777But the way in is earned, not walked. Come back when you have opened it.^000000";
+		mes " ";
+	}
+	if (.stadt$[.@wahl] != "") {
+		mes "It lies out from ^00CCFF" + .stadt$[.@wahl] + "^000000 - "
+		    + .weg[.@wahl] + " crossing"
+		    + ((.weg[.@wahl] == 1) ? "" : "s") + " out.";
+	}
+	if (.warper[.@wahl])
+		mes "The ^00CCFFWarper^000000 sets you down there directly. Save your boots.";
+	else
+		mes "^777777No Warper runs there. That one you walk.^000000";
+	if (.@unruhig) {
+		next;
+		mes "[Armstrong]";
+		mes "But you asked me where to hunt, and I will give you the honest answer instead:";
+		mes " ";
+		mes "^88CC88Have the marks taken off first.^000000 The ^88CC88Threshold Warden^000000 at ^00CCFFprontera 146, 182^000000 does it.";
+		mes "Walking in there at " + (.@tod * 5 > 90 ? 90 : .@tod * 5) + "% below yourself is not bravery. It is arithmetic.";
+	}
+	next;
+	return;
+
+// ------------------------------------------------------------
+//  Alles, was im Band steht
+// ------------------------------------------------------------
+S_Liste:
+	.@band = BaseLevel / 10;
+	if (.@band >= 26)
+		.@band = 26 - 1;
+	.@rate = getbattleflag("base_exp_rate");
+
+	mes "[Armstrong]";
+	mes "Everything in my books for your standing:";
+	mes " ";
+	for (.@i = 0; .@i < 5; .@i++) {
+		.@k = .@band * 5 + .@i;
+		if (.karte$[.@k] == "") continue;
+		mes "^00CCFF" + .ort$[.@k] + "^000000";
+		mes "  ^777777lv " + .lvu[.@k] + "-" + .lvo[.@k] + " | "
+		    + callfunc("F_InsertComma", .exp[.@k] * .@rate / 100) + " exp | "
+		    + .aggro[.@k] + "% hostile^000000";
+	}
+	next;
+	mes "[Armstrong]";
+	mes "The first is the richest. Whether you can stand in it is a different question - ask me that one properly and I will measure you.";
+	next;
+	return;
+
+// ------------------------------------------------------------
+//  Todesmale
+// ------------------------------------------------------------
+S_Male:
+	.@tod = death_count;
+	mes "[Armstrong]";
+	if (.@tod == 0) {
+		mes "Not one on you.";
+		mes "Whatever you have been doing, keep doing it.";
+		next;
+		return;
+	}
+
+	// Dieselbe Rechnung wie in safa_systems.txt: fuenf Prozent je
+	// Tod, bei neunzig ist Schluss. Wird sie dort geaendert, hier
+	// mitaendern.
+	.@pen = .@tod * 5;
+	if (.@pen > 90) .@pen = 90;
+
+	mes "^FF6666" + .@tod + "^000000 of them. Five in the hundred each, and ninety is as bad as it gets.";
+	mes " ";
+	mes "You are down ^FF6666" + .@pen + "%^000000 on all of it -";
+	mes "strike, magic, life, spirit, armour, dodge and aim.";
+	next;
+	mes "[Armstrong]";
+	mes "It is never the dying that costs you. It is the hour after.";
+	mes " ";
+	mes "The ^88CC88Threshold Warden^000000 takes them off. She stands at ^00CCFFprontera 146, 182^000000, a short walk north of here.";
+	mes "Be clean before you go back out.";
+	next;
+	return;
+
+OnInit:
+	setarray .karte$[0], "pay_fild01", "pay_fild03", "gef_fild07", "moc_fild07", "moc_fild12", "pay_fild02", "prt_fild07", "prt_fild04", "pay_fild06", "moc_fild11";
+	setarray .karte$[10], "prt_maze02", "prt_sewb4", "anthell02", "pay_fild09", "cmd_fild08", "treasure02", "ayo_fild02", "mjo_dun03", "moc_fild03", "mjo_dun02";
+	setarray .karte$[20], "moc_pryd04", "gon_fild01", "in_sphinx1", "mjolnir_07", "cmd_fild03", "in_sphinx4", "gl_sew01", "lou_fild01", "moc_fild17", "mjolnir_12";
+	setarray .karte$[30], "tha_t01", "hu_fild05", "moc_pryd06", "mosk_dun02", "ein_fild06", "ve_fild07", "teg_dun01", "ice_dun01", "ra_fild08", "tur_dun02";
+	setarray .karte$[40], "ma_fild02", "juperos_02", "gl_chyard_", "kh_dun01", "ve_fild03", "sp_rudus", "ra_san04", "man_fild03", "thor_v02", "kh_dun01";
+	setarray .karte$[50], "ba_bath", "gld_dun01_2", "gld2_pay", "bif_fild02", "bif_fild01", "lhz_dun04", "ba_lib", "ba_pw01", "lhz_dun03", "gl_cas02_";
+	setarray .karte$[60], "ba_lost", "sp_rudus2", "lhz_dun04", "lhz_dun03", "c_tower3_", "ba_2whs01", "sp_rudus3", "ba_lost", "lhz_dun03", "verus02";
+	setarray .karte$[70], "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02", "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02";
+	setarray .karte$[80], "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02", "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02";
+	setarray .karte$[90], "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02", "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02";
+	setarray .karte$[100], "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02", "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02";
+	setarray .karte$[110], "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02", "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02";
+	setarray .karte$[120], "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02", "ba_pw03", "ba_2whs02", "ba_2whs01", "lhz_dun03", "verus02";
+	setarray .ort$[0], "Payon Forest F1", "Payon Forest F3", "Geffen Field 7", "Sograt Desert F7", "Sograt Desert F12", "Payon Forest F2", "Prontera Field 7", "Prontera Field 4", "Payon Forest F6", "Sograt Desert F11";
+	setarray .ort$[10], "Labyrinth Forest F2", "Prontera Culvert F4", "Ant Hell F2", "Payon Forest F9", "Fortress Saint Darmain (East)", "Sunken Ship B2", "Ayothaya Field 2", "Mjolnir Dead Pit F3", "Sograt Desert F3", "Mjolnir Dead Pit F2";
+	setarray .ort$[20], "Inside Pyramid F4", "Gonryun Field", "Morroc Sphinx B1", "Mt.Mjolnir South Area", "Zenhai Marsh", "Morroc Sphinx B4", "Glastheim Underground Waterway B1", "Louyang Field", "Sograt Desert F17", "Mt.Mjolnir North Foothills";
+	setarray .ort$[30], "Thanatos Tower Lower Level - Museum entrance", "Hugel Abyss Lake", "Inside Pyramid B2", "Temny Forest", "Einbroch Field 6", "Veins Field 7", "Guild Underground Dungeon", "Rachel Ice Cave F1", "Ida Plane", "Turtle Island Dungeon";
+	setarray .ort$[40], "Forest", "The Ruins of Juperos F2", "Monastery Churchyard", "Robot Factory F1", "Veins Field 3", "Rudus, Experiment Waste Disposal F1", "Freya's Sacred Precinct F4", "Manuk Field 3", "Thor Volcano Dungeon", "Robot Factory F1";
+	setarray .ort$[50], "ba_bath", "Guild Dungeon Underground F2", "Corridor of the Abyss - Ancient Wind", "Bifrost Bridge", "Bifrost Bridge", "Somatology Laboratory 4th Basement", "ba_lib", "ba_pw01", "Somatology Laboratory F3", "Corridor F2";
+	setarray .ort$[60], "ba_lost", "Rudus, Experiment Waste Disposal F2", "Somatology Laboratory 4th Basement", "Somatology Laboratory F3", "Twisted Clock Tower F3", "ba_2whs01", "Rudus, Experiment Waste Disposal F3", "ba_lost", "Somatology Laboratory F3", "Research Building-WISH";
+	setarray .ort$[70], "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH", "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH";
+	setarray .ort$[80], "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH", "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH";
+	setarray .ort$[90], "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH", "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH";
+	setarray .ort$[100], "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH", "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH";
+	setarray .ort$[110], "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH", "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH";
+	setarray .ort$[120], "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH", "ba_pw03", "ba_2whs02", "ba_2whs01", "Somatology Laboratory F3", "Research Building-WISH";
+	setarray .mon$[0], "Willow", "Fabre", "Pupa", "Drops", "Picky", "Boa", "Rocker", "Ambernite", "Wormtail", "Baby Desert Wolf";
+	setarray .mon$[10], "Poporing", "Thief Bug Male", "Andre", "Horn", "Deniro", "Pirate Skeleton", "Yoyo", "Skeleton Worker", "Wolf", "Martin";
+	setarray .mon$[20], "Isis", "Dumpling Child", "Drainliar", "Savage", "Alligator", "Minorous", "Whisper", "Mi Gao", "Hode", "Dustiness";
+	setarray .mon$[30], "Rideword", "Novus", "Mimic", "Lesavka", "Holden", "Stapo", "Hunter Cecil", "Siroma", "Anacondaq", "Solider";
+	setarray .mon$[40], "Bungisngis", "Venatu", "Nightmare Wraith Dead", "Aliza", "Magmaring", "Venenum", "Echio", "Hillthrion", "Knocker", "Aliza";
+	setarray .mon$[50], "Boiled Water Phen", "Skeleton General", "Skeleton General", "Little Fatum", "Miming", "Celia", "Bookworm", "Elite Bellare", "Cecil Damon", "Nightmare Wander Man";
+	setarray .mon$[60], "Red Pitaya", "Plaga", "Celia", "Cecil Damon", "Big Bell", "Broken Cleaning Robot Ω", "Mutant Venenum", "Red Pitaya", "Cecil Damon", "Repair Robot Turbo";
+	setarray .mon$[70], "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo", "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo";
+	setarray .mon$[80], "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo", "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo";
+	setarray .mon$[90], "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo", "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo";
+	setarray .mon$[100], "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo", "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo";
+	setarray .mon$[110], "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo", "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo";
+	setarray .mon$[120], "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo", "Spell Addicted Plaga", "Broken Warehouse Manager", "Broken Cleaning Robot Ω", "Cecil Damon", "Repair Robot Turbo";
+	setarray .stadt$[0], "Payon", "Alberta", "Geffen", "Morroc", "Morroc", "Payon", "Prontera", "Prontera", "Alberta", "Morroc";
+	setarray .stadt$[10], "Al de Baran", "Prontera", "Morroc", "Payon", "Morroc", "Alberta", "Ayothaya", "Geffen", "Payon", "Geffen";
+	setarray .stadt$[20], "Morroc", "Gonryun", "Morroc", "Geffen", "Comodo", "Morroc", "Geffen", "Louyang", "Morroc", "Al de Baran";
+	setarray .stadt$[30], "Niflheim", "Hugel", "Morroc", "Moscovia", "Yuno", "Veins", "", "Rachel", "Rachel", "Alberta";
+	setarray .stadt$[40], "Malaya Port", "Yuno", "", "Al de Baran", "Veins", "Einbroch", "Rachel", "Manuk", "Veins", "Al de Baran";
+	setarray .stadt$[50], "Einbroch", "Payon", "Payon", "Mora", "Splendide", "Lighthalzen", "Einbroch", "Einbroch", "Lighthalzen", "";
+	setarray .stadt$[60], "Einbroch", "Einbroch", "Lighthalzen", "Lighthalzen", "", "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno";
+	setarray .stadt$[70], "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno", "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno";
+	setarray .stadt$[80], "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno", "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno";
+	setarray .stadt$[90], "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno", "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno";
+	setarray .stadt$[100], "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno", "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno";
+	setarray .stadt$[110], "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno", "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno";
+	setarray .stadt$[120], "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno", "Einbroch", "Einbroch", "Einbroch", "Lighthalzen", "Yuno";
+	setarray .weg[0], 1, 1, 1, 1, 1, 2, 2, 2, 2, 2;
+	setarray .weg[10], 3, 5, 5, 2, 4, 3, 2, 6, 2, 5;
+	setarray .weg[20], 5, 1, 2, 3, 3, 5, 7, 1, 3, 1;
+	setarray .weg[30], 2, 2, 5, 2, 2, 1, 0, 5, 2, 2;
+	setarray .weg[40], 2, 6, 0, 4, 3, 3, 3, 3, 5, 4;
+	setarray .weg[50], 8, 3, 3, 1, 1, 4, 8, 6, 3, 0;
+	setarray .weg[60], 9, 4, 4, 3, 0, 9, 5, 9, 3, 10;
+	setarray .weg[70], 9, 10, 9, 3, 10, 9, 10, 9, 3, 10;
+	setarray .weg[80], 9, 10, 9, 3, 10, 9, 10, 9, 3, 10;
+	setarray .weg[90], 9, 10, 9, 3, 10, 9, 10, 9, 3, 10;
+	setarray .weg[100], 9, 10, 9, 3, 10, 9, 10, 9, 3, 10;
+	setarray .weg[110], 9, 10, 9, 3, 10, 9, 10, 9, 3, 10;
+	setarray .weg[120], 9, 10, 9, 3, 10, 9, 10, 9, 3, 10;
+	setarray .exp[0], 160, 158, 155, 153, 153, 184, 178, 177, 174, 169;
+	setarray .exp[10], 345, 272, 268, 262, 255, 462, 432, 413, 360, 351;
+	setarray .exp[20], 574, 565, 541, 530, 516, 1012, 924, 848, 608, 607;
+	setarray .exp[30], 1397, 1243, 1178, 1056, 961, 1470, 1462, 1437, 1349, 1287;
+	setarray .exp[40], 2617, 2533, 2427, 1892, 1734, 4517, 3684, 3581, 3475, 1892;
+	setarray .exp[50], 12339, 11761, 11518, 4292, 4204, 24661, 22502, 19767, 16734, 8117;
+	setarray .exp[60], 50110, 49128, 24661, 16734, 13467, 106034, 68372, 50110, 16734, 16517;
+	setarray .exp[70], 197459, 132086, 106034, 16734, 16517, 197459, 132086, 106034, 16734, 16517;
+	setarray .exp[80], 197459, 132086, 106034, 16734, 16517, 197459, 132086, 106034, 16734, 16517;
+	setarray .exp[90], 197459, 132086, 106034, 16734, 16517, 197459, 132086, 106034, 16734, 16517;
+	setarray .exp[100], 197459, 132086, 106034, 16734, 16517, 197459, 132086, 106034, 16734, 16517;
+	setarray .exp[110], 197459, 132086, 106034, 16734, 16517, 197459, 132086, 106034, 16734, 16517;
+	setarray .exp[120], 197459, 132086, 106034, 16734, 16517, 197459, 132086, 106034, 16734, 16517;
+	setarray .wucht[0], 5, 5, 3, 3, 20, 9, 6, 11, 9, 8;
+	setarray .wucht[10], 33, 73, 46, 55, 40, 93, 175, 106, 97, 77;
+	setarray .wucht[20], 146, 180, 211, 181, 174, 984, 681, 366, 194, 199;
+	setarray .wucht[30], 868, 325, 744, 356, 337, 606, 827, 406, 471, 435;
+	setarray .wucht[40], 1130, 995, 1787, 700, 606, 1184, 1076, 1183, 1026, 700;
+	setarray .wucht[50], 2124, 1701, 1701, 969, 969, 3684, 1980, 2048, 3737, 2827;
+	setarray .wucht[60], 2673, 3655, 3684, 3737, 4785, 3534, 4383, 2673, 3737, 2945;
+	setarray .wucht[70], 4824, 3608, 3534, 3737, 2945, 4824, 3608, 3534, 3737, 2945;
+	setarray .wucht[80], 4824, 3608, 3534, 3737, 2945, 4824, 3608, 3534, 3737, 2945;
+	setarray .wucht[90], 4824, 3608, 3534, 3737, 2945, 4824, 3608, 3534, 3737, 2945;
+	setarray .wucht[100], 4824, 3608, 3534, 3737, 2945, 4824, 3608, 3534, 3737, 2945;
+	setarray .wucht[110], 4824, 3608, 3534, 3737, 2945, 4824, 3608, 3534, 3737, 2945;
+	setarray .wucht[120], 4824, 3608, 3534, 3737, 2945, 4824, 3608, 3534, 3737, 2945;
+	setarray .aggro[0], 0, 0, 0, 0, 0, 0, 0, 1, 0, 1;
+	setarray .aggro[10], 5, 65, 0, 10, 0, 77, 5, 92, 10, 29;
+	setarray .aggro[20], 100, 45, 100, 14, 24, 100, 100, 44, 23, 34;
+	setarray .aggro[30], 93, 89, 70, 25, 0, 42, 100, 8, 15, 29;
+	setarray .aggro[40], 86, 77, 100, 20, 32, 100, 100, 66, 23, 20;
+	setarray .aggro[50], 100, 100, 100, 89, 89, 100, 100, 100, 100, 98;
+	setarray .aggro[60], 100, 100, 100, 100, 98, 100, 100, 100, 100, 50;
+	setarray .aggro[70], 100, 100, 100, 100, 50, 100, 100, 100, 100, 50;
+	setarray .aggro[80], 100, 100, 100, 100, 50, 100, 100, 100, 100, 50;
+	setarray .aggro[90], 100, 100, 100, 100, 50, 100, 100, 100, 100, 50;
+	setarray .aggro[100], 100, 100, 100, 100, 50, 100, 100, 100, 100, 50;
+	setarray .aggro[110], 100, 100, 100, 100, 50, 100, 100, 100, 100, 50;
+	setarray .aggro[120], 100, 100, 100, 100, 50, 100, 100, 100, 100, 50;
+	setarray .lvu[0], 1, 1, 1, 2, 2, 17, 14, 13, 17, 12;
+	setarray .lvu[10], 29, 21, 24, 32, 28, 34, 38, 44, 45, 39;
+	setarray .lvu[20], 55, 60, 47, 55, 57, 58, 46, 65, 61, 62;
+	setarray .lvu[30], 56, 84, 52, 81, 1, 95, 98, 98, 95, 89;
+	setarray .lvu[40], 100, 113, 110, 100, 101, 122, 124, 123, 98, 100;
+	setarray .lvu[50], 137, 139, 139, 109, 109, 141, 141, 143, 140, 143;
+	setarray .lvu[60], 162, 164, 141, 140, 146, 175, 173, 162, 140, 158;
+	setarray .lvu[70], 192, 175, 175, 140, 158, 192, 175, 175, 140, 158;
+	setarray .lvu[80], 192, 175, 175, 140, 158, 192, 175, 175, 140, 158;
+	setarray .lvu[90], 192, 175, 175, 140, 158, 192, 175, 175, 140, 158;
+	setarray .lvu[100], 192, 175, 175, 140, 158, 192, 175, 175, 140, 158;
+	setarray .lvu[110], 192, 175, 175, 140, 158, 192, 175, 175, 140, 158;
+	setarray .lvu[120], 192, 175, 175, 140, 158, 192, 175, 175, 140, 158;
+	setarray .lvo[0], 8, 8, 6, 9, 12, 18, 15, 19, 18, 16;
+	setarray .lvo[10], 30, 47, 35, 38, 33, 48, 64, 49, 48, 47;
+	setarray .lvo[20], 59, 68, 71, 59, 59, 105, 107, 83, 63, 65;
+	setarray .lvo[30], 116, 119, 114, 87, 85, 105, 98, 98, 101, 94;
+	setarray .lvo[40], 125, 121, 143, 112, 110, 125, 128, 128, 129, 112;
+	setarray .lvo[50], 144, 141, 141, 142, 142, 142, 144, 145, 142, 151;
+	setarray .lvo[60], 166, 173, 142, 142, 163, 186, 178, 166, 142, 171;
+	setarray .lvo[70], 194, 186, 186, 142, 171, 194, 186, 186, 142, 171;
+	setarray .lvo[80], 194, 186, 186, 142, 171, 194, 186, 186, 142, 171;
+	setarray .lvo[90], 194, 186, 186, 142, 171, 194, 186, 186, 142, 171;
+	setarray .lvo[100], 194, 186, 186, 142, 171, 194, 186, 186, 142, 171;
+	setarray .lvo[110], 194, 186, 186, 142, 171, 194, 186, 186, 142, 171;
+	setarray .lvo[120], 194, 186, 186, 142, 171, 194, 186, 186, 142, 171;
+	setarray .dichte[0], 264, 213, 204, 321, 265, 213, 277, 146, 222, 318;
+	setarray .dichte[10], 42, 147, 150, 257, 235, 93, 165, 132, 226, 160;
+	setarray .dichte[20], 140, 141, 172, 243, 264, 137, 132, 127, 231, 250;
+	setarray .dichte[30], 67, 187, 118, 111, 152, 242, 137, 89, 301, 119;
+	setarray .dichte[40], 192, 318, 180, 107, 239, 90, 103, 100, 86, 107;
+	setarray .dichte[50], 300, 87, 117, 143, 150, 351, 175, 250, 309, 97;
+	setarray .dichte[60], 230, 180, 351, 309, 128, 190, 243, 230, 309, 100;
+	setarray .dichte[70], 300, 180, 190, 309, 100, 300, 180, 190, 309, 100;
+	setarray .dichte[80], 300, 180, 190, 309, 100, 300, 180, 190, 309, 100;
+	setarray .dichte[90], 300, 180, 190, 309, 100, 300, 180, 190, 309, 100;
+	setarray .dichte[100], 300, 180, 190, 309, 100, 300, 180, 190, 309, 100;
+	setarray .dichte[110], 300, 180, 190, 309, 100, 300, 180, 190, 309, 100;
+	setarray .dichte[120], 300, 180, 190, 309, 100, 300, 180, 190, 309, 100;
+	setarray .zaeh[0], 72, 60, 52, 51, 73, 207, 164, 268, 187, 116;
+	setarray .zaeh[10], 1239, 699, 577, 596, 516, 1705, 1295, 1333, 1072, 994;
+	setarray .zaeh[20], 2750, 1867, 2032, 2060, 2146, 8289, 5697, 3780, 2310, 2005;
+	setarray .zaeh[30], 9237, 7080, 8131, 5261, 4228, 8759, 10027, 10418, 8407, 7946;
+	setarray .zaeh[40], 25708, 22828, 30679, 15698, 10519, 40886, 36697, 34179, 28186, 15698;
+	setarray .zaeh[50], 136040, 198069, 194010, 69938, 68361, 296370, 247530, 286876, 253948, 112953;
+	setarray .zaeh[60], 660017, 540409, 296370, 253948, 154297, 1315480, 752099, 660017, 253948, 252218;
+	setarray .zaeh[70], 2961892, 1826967, 1315480, 253948, 252218, 2961892, 1826967, 1315480, 253948, 252218;
+	setarray .zaeh[80], 2961892, 1826967, 1315480, 253948, 252218, 2961892, 1826967, 1315480, 253948, 252218;
+	setarray .zaeh[90], 2961892, 1826967, 1315480, 253948, 252218, 2961892, 1826967, 1315480, 253948, 252218;
+	setarray .zaeh[100], 2961892, 1826967, 1315480, 253948, 252218, 2961892, 1826967, 1315480, 253948, 252218;
+	setarray .zaeh[110], 2961892, 1826967, 1315480, 253948, 252218, 2961892, 1826967, 1315480, 253948, 252218;
+	setarray .zaeh[120], 2961892, 1826967, 1315480, 253948, 252218, 2961892, 1826967, 1315480, 253948, 252218;
+	setarray .warper[0], 0, 0, 0, 1, 1, 0, 0, 0, 0, 1;
+	setarray .warper[10], 0, 1, 0, 0, 0, 0, 0, 0, 1, 0;
+	setarray .warper[20], 1, 0, 1, 0, 0, 1, 1, 0, 1, 0;
+	setarray .warper[30], 0, 0, 1, 0, 0, 0, 1, 0, 0, 0;
+	setarray .warper[40], 1, 1, 1, 0, 0, 1, 0, 0, 0, 0;
+	setarray .warper[50], 1, 1, 1, 0, 1, 1, 1, 1, 1, 1;
+	setarray .warper[60], 1, 1, 1, 1, 1, 1, 1, 1, 1, 0;
+	setarray .warper[70], 1, 1, 1, 1, 0, 1, 1, 1, 1, 0;
+	setarray .warper[80], 1, 1, 1, 1, 0, 1, 1, 1, 1, 0;
+	setarray .warper[90], 1, 1, 1, 1, 0, 1, 1, 1, 1, 0;
+	setarray .warper[100], 1, 1, 1, 1, 0, 1, 1, 1, 1, 0;
+	setarray .warper[110], 1, 1, 1, 1, 0, 1, 1, 1, 1, 0;
+	setarray .warper[120], 1, 1, 1, 1, 0, 1, 1, 1, 1, 0;
+	setarray .tor[0], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .tor[10], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .tor[20], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .tor[30], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .tor[40], 0, 0, 0, 0, 0, 1, 0, 0, 1, 0;
+	setarray .tor[50], 1, 1, 1, 0, 0, 1, 1, 1, 0, 0;
+	setarray .tor[60], 1, 1, 1, 0, 0, 1, 1, 1, 0, 0;
+	setarray .tor[70], 1, 1, 1, 0, 0, 1, 1, 1, 0, 0;
+	setarray .tor[80], 1, 1, 1, 0, 0, 1, 1, 1, 0, 0;
+	setarray .tor[90], 1, 1, 1, 0, 0, 1, 1, 1, 0, 0;
+	setarray .tor[100], 1, 1, 1, 0, 0, 1, 1, 1, 0, 0;
+	setarray .tor[110], 1, 1, 1, 0, 0, 1, 1, 1, 0, 0;
+	setarray .tor[120], 1, 1, 1, 0, 0, 1, 1, 1, 0, 0;
+	end;
+}
