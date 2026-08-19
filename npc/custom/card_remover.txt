@@ -18,7 +18,29 @@ prt_in,28,73,4	script	Wise Old Woman#eAcustom	78,{
 
 	set .zenycost,200000;    // base cost of the card remover services (in Zeny)
 	set .percardcost,25000;  // cost per card of the card remover services (in Zeny)
-	set .faildestroy,1;      // should the card remover have a chance of failure that destroys items? (1=yes, 0=no)
+
+	// --- SafaRO: Kartenentfernung ist sicher --------------------
+	// Ab Werk stehen hier zwei getrennte Fehlerquellen, und die
+	// zweite haengt NICHT an .faildestroy:
+	//
+	//     Wurf < 2    Gegenstand UND Karten zerstoert
+	//     Wurf < 8    eines von beiden zerstoert
+	//     Wurf < 10   Fehlschlag ohne Verlust, Gebuehr aber weg
+	//
+	// .faildestroy auf 0 zu setzen entfernt nur die ersten beiden.
+	// Die dritte Stufe lief bis 2026-08 weiter und kostete in einem
+	// von zehn Faellen 200.000z samt Star Crumb und Yellow Gemstone
+	// fuer nichts.
+	//
+	// Warum ganz ohne Zufall: die Gebuehr ist die Kosten-Seite, und
+	// die ist deutlich. Ein zusaetzlicher Wuerfel bestraft niemanden
+	// fuer eine Fehlentscheidung, er bestraft fuer Pech. Wer eine
+	// Karte umsetzen will, soll rechnen koennen, was es kostet.
+	//
+	// Zum Zurueckdrehen: .faildestroy auf 1, .failrate auf 10 -
+	// das ist exakt der rAthena-Standard.
+	set .faildestroy,0;      // 0 = nichts wird zerstoert
+	set .failrate,0;         // Prozent harmloser Fehlschlaege (rAthena: 10)
 
 	disable_items;
 	mes "[Wise Old Woman]";
@@ -71,19 +93,30 @@ prt_in,28,73,4	script	Wise Old Woman#eAcustom	78,{
 			mes "You do not have all the items I require to work my magic, child. Come again when you do.";
 			close;
 		}
+		// --- SafaRO: Text an die Wirklichkeit angepasst -------------
+		// Ab Werk warnt sie hier vor Zerstoerung und fragt, was einem
+		// wichtiger ist - die Antwort setzt .@failtype und entscheidet
+		// im Teilfehlschlag, was ueberlebt.
+		//
+		// Mit .faildestroy = 0 gibt es diesen Fall nicht mehr. Die
+		// Frage waere damit eine Auswahl ohne Wirkung, und die Warnung
+		// eine Unwahrheit - beides schlimmer als der alte Zustand,
+		// weil Spieler danach der Anzeige nicht mehr trauen.
+		//
+		// Die Abbrechen-Moeglichkeit bleibt: die Gebuehr wird erst
+		// nach dieser Stelle eingezogen.
+		//
+		// .@failtype bleibt ungesetzt (0) - es wird nur innerhalb von
+		// "if (.faildestroy==1)" gelesen, laeuft also ins Leere.
 		mes "[Wise Old Woman]";
-		mes "Before I begin, I must warn you--I may fail. If I do, I may destroy the cards, the item, or both. I do not give refunds. That being said, which is more important to you: The cards, or the item?";
+		mes "I have done this for forty years and never yet ruined a stone. Neither the item nor the cards will come to harm.";
+		mes "The fee, however, I keep either way. Shall I begin?";
 		next;
-		switch(select("I changed my mind about this.:The item.:The cards.")) {
+		switch(select("I changed my mind about this.:Please begin.")) {
 		case 1:
 			mes "[Wise Old Woman]";
 			mes "Very well. Return at once if you seek my services.";
 			close;
-		case 2:
-			set .@failtype,1;
-			break;
-		case 3:
-			set .@failtype,2;
 		}
 		mes "[Wise Old Woman]";
 		mes "Very well. I shall begin.";
@@ -125,7 +158,10 @@ prt_in,28,73,4	script	Wise Old Woman#eAcustom	78,{
 			}
 		}
 
-		if(.@failchance < 10) {
+		// SafaRO: .failrate statt der festen 10. rand(100) liefert
+		// 0 bis 99, bei .failrate = 0 ist die Bedingung also nie
+		// wahr und der Block wird uebersprungen.
+		if(.@failchance < .failrate) {
 			next;
 			failedremovecards .@part,3;
 			mes "[Wise Old Woman]";
