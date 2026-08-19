@@ -124,15 +124,58 @@ item_rate_heal: 2500
 item_rate_use: 2500
 item_rate_equip: 2500
 
-//  Die zugehoerigen Obergrenzen. Ohne sie wuerde die 25x-Rate bei
-//  Items mit ohnehin hoher Basisrate abgeschnitten.
+//  ACHTUNG - "_boss" heisst NICHT MVP.
+//
+//  src/map/mob.cpp:6859 unterscheidet drei Faelle:
+//
+//      bool is_mvp  = mob->get_bosstype() == BOSSTYPE_MVP;
+//      bool is_boss = mob->get_bosstype() == BOSSTYPE_MINIBOSS;
+//      ...
+//      rate_adjust = is_mvp  ? item_rate_common_mvp
+//                  : is_boss ? item_rate_common_boss
+//                            : item_rate_common;
+//
+//  "_boss" gilt also fuer MINIBOSSE. Fuer MVPs gibt es eine dritte,
+//  eigene Reihe von Einstellungen. Fehlt sie, bleibt sie auf dem
+//  rAthena-Standard 100 - also 1x, waehrend ringsum 25x laeuft.
 item_rate_common_boss: 2500
 item_rate_heal_boss: 2500
 item_rate_use_boss: 2500
 item_rate_equip_boss: 2500
 
+//  Die dritte Reihe: MVPs. Ohne diese vier Zeilen laufen ALLE
+//  MVP-Drops auf 1x, und zwar lautlos - im Spiel sieht man nur,
+//  dass nichts faellt.
+item_rate_common_mvp: 2500
+item_rate_heal_mvp: 2500
+item_rate_use_mvp: 2500
+item_rate_equip_mvp: 2500
+
+//  Und noch eine, die leicht mit den obigen verwechselt wird:
+//  item_rate_mvp betrifft die MvpDrops-Liste - die Sonderbelohnung
+//  fuer den staerksten Angreifer, nicht die normalen Drops des
+//  Monsters. Eigener Schalter, eigener Standard, ebenfalls 100.
+item_rate_mvp: 2500
+
 // --- Karten: 50x ---
 //  Basisrate einer Karte liegt bei 0,01 %. Mal 50 sind das 0,5 % -
 //  immer noch selten, aber in einer Spielsitzung erreichbar.
+//
+//  Alle drei Stufen, aus demselben Grund wie oben. Ohne die letzte
+//  Zeile fiel eine MVP-Karte weiter mit 0,01 % - nachweisbar mit
+//  "@whodrops <Karten-ID>": dort stand vor der Korrektur der
+//  ungeaenderte Basiswert.
 item_rate_card: 5000
 item_rate_card_boss: 5000
+item_rate_card_mvp: 5000
+
+// --- Truhen: BEWUSST bei 1x ---
+//  item_rate_treasure ist die einzige Drop-Rate, die wir nicht
+//  anheben. Sie betrifft die Schatztruhen der WoE-Burgen und die
+//  festen Truhen in Verliesen - Inhalte, die niemand erfarmt,
+//  sondern die zu festen Zeiten anfallen. Mit 25x waere eine
+//  einzige Burgnacht mehr wert als eine Woche Spielen.
+//
+//  Steht hier als Zeile und nicht als Auslassung, damit beim
+//  naechsten Durchsehen klar ist: entschieden, nicht vergessen.
+item_rate_treasure: 100
