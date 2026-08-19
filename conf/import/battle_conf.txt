@@ -169,6 +169,26 @@ item_rate_card: 5000
 item_rate_card_boss: 5000
 item_rate_card_mvp: 5000
 
+// --- Was @whodrops und @mobinfo anzeigen ---
+//  Ab Werk (conf/battle/gm.conf: 1) rechnen beide Befehle die
+//  Levelstrafe des ABFRAGENDEN Spielers ein. gm.conf sagt es
+//  woertlich: "display the users' real drop rate".
+//
+//  Fuer einen Spieler ist das richtig - ihn interessiert seine
+//  eigene Chance. Fuer die Serververwaltung ist es eine Falle: man
+//  prueft eine Rate, sieht die Haelfte und sucht stundenlang einen
+//  Fehler in der Konfiguration, den es nicht gibt. Genau das ist
+//  uns passiert.
+//
+//  Auf 0 zeigen beide Befehle den Wert, der wirklich in der
+//  Monsterdatenbank steht. Damit wird "@whodrops" zu einem
+//  Messwerkzeug statt zu einer Auskunft - und der Unterschied
+//  zwischen beiden ist prueffbar, statt geraten zu werden.
+//
+//  Der Code-Standard ist ohnehin 0 (battle.cpp:8711); nur die
+//  mitgelieferte gm.conf setzt 1.
+atcommand_mobinfo_type: 0
+
 // --- Truhen: BEWUSST bei 1x ---
 //  item_rate_treasure ist die einzige Drop-Rate, die wir nicht
 //  anheben. Sie betrifft die Schatztruhen der WoE-Burgen und die
