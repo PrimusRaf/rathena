@@ -154,8 +154,25 @@ S_Rat:
 	}
 
 	// Und erwaehnen lohnt nur, was auch mehr bringt.
-	if (.@tor >= 0 && .@wahl >= 0 && .exp[.@tor] <= .exp[.@wahl])
-		.@tor = -1;
+	//
+	// ACHTUNG, verschachtelt und nicht mit && verkettet:
+	// rAthena wertet && NICHT verkuerzt aus. In script.cpp:3839
+	// steht "case C_LAND: ret = (i1 && i2);" - beide Operanden sind
+	// da laengst vom Stapel geholt, also ausgerechnet. Ein
+	//
+	//     if (.@tor >= 0 && .exp[.@tor] <= .exp[.@wahl])
+	//
+	// greift deshalb auch dann auf .exp[-1] zu, wenn .@tor noch -1
+	// ist. Der Server meldet "getelementofarray: index out of range
+	// (-1)" und bricht das Gespraech ab - vor dem ersten mes, also
+	// ohne dass der Spieler ueberhaupt Text sieht. Der NPC wirkt
+	// dann schlicht kaputt.
+	if (.@tor >= 0) {
+		if (.@wahl >= 0) {
+			if (.exp[.@tor] <= .exp[.@wahl])
+				.@tor = -1;
+		}
+	}
 
 	// Gar nichts gefunden. Dann das Sanfteste, was es gibt - und
 	// ehrlich dazusagen, dass es eng wird.
