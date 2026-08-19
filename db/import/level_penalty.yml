@@ -1,0 +1,101 @@
+# ###########################################################################
+# SafaRO - Levelstrafe abgeschaltet
+# ###########################################################################
+#
+# rAthena bringt fuer Renewal eine Tabelle mit, die EXP und Drops nach dem
+# Levelunterschied zwischen Spieler und Monster verrechnet. Ab Werk:
+#
+#     Drop   ab 16 Leveln Unterschied ->  50 %
+#     Exp    ab 16 Leveln Unterschied ->  40 %
+#            bei  4 bis 15 Unterschied -> 105 bis 140 % (Bonus)
+#
+# Das ist fuer einen Server mit Basisgrenze 99 gedacht. Bei uns liegt sie
+# bei 500, und die allermeisten Monster stehen unter Level 150. Damit
+# greift die hoechste Strafstufe im Endspiel IMMER - jeder Spieler jenseits
+# von Level 165 farmt dauerhaft mit 40 % EXP und 50 % Drops.
+#
+# Das widerspricht dem, was auf der Startseite steht und was wir wollen:
+#     "Rates are flat across the board - no level brackets"
+#
+# Ohne diese Datei ist die Aussage schlicht falsch, und zwar unsichtbar:
+# im Spiel merkt man nur, dass es sich zaeher anfuehlt als 25x.
+#
+# ZUM RUECKGAENGIGMACHEN
+# Diese Datei leeren (nur Header stehen lassen). Dann gilt wieder die
+# Tabelle aus db/re/level_penalty.yml - samt des EXP-BONUS von bis zu
+# 140 % fuer Monster nahe am eigenen Level, den wir hier mit abschalten.
+# Das ist der Preis: keine Strafe, aber auch keine Belohnung dafuer,
+# gleichwertige Gegner zu suchen.
+#
+# Erzeugt aus db/re/level_penalty.yml, alle Raten auf 100.
+# ###########################################################################
+
+Header:
+  Type: PENALTY_DB
+  Version: 1
+
+Body:
+  - Type: Exp
+    LevelDifferences:
+      - Difference: 16
+        Rate: 100
+      - Difference: 15
+        Rate: 100
+      - Difference: 14
+        Rate: 100
+      - Difference: 13
+        Rate: 100
+      - Difference: 12
+        Rate: 100
+      - Difference: 11
+        Rate: 100
+      - Difference: 10
+        Rate: 100
+      - Difference: 9
+        Rate: 100
+      - Difference: 8
+        Rate: 100
+      - Difference: 7
+        Rate: 100
+      - Difference: 6
+        Rate: 100
+      - Difference: 5
+        Rate: 100
+      - Difference: 4
+        Rate: 100
+      - Difference: 3
+        Rate: 100
+      - Difference: -6
+        Rate: 100
+      - Difference: -11
+        Rate: 100
+      - Difference: -16
+        Rate: 100
+      - Difference: -21
+        Rate: 100
+      - Difference: -26
+        Rate: 100
+      - Difference: -31
+        Rate: 100
+  - Type: Drop
+    LevelDifferences:
+      - Difference: 16
+        Rate: 100
+      - Difference: 13
+        Rate: 100
+      - Difference: 10
+        Rate: 100
+      - Difference: 7
+        Rate: 100
+      - Difference: 4
+        Rate: 100
+      - Difference: -4
+        Rate: 100
+      - Difference: -7
+        Rate: 100
+      - Difference: -10
+        Rate: 100
+      - Difference: -13
+        Rate: 100
+      - Difference: -16
+        Rate: 100
