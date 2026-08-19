@@ -17,10 +17,10 @@
 //= Zelle wurde mit tools/karte/zelle_pruefen.py gegen
 //= db/map_cache.dat geprueft - Typ 0, also begehbarer Boden:
 //=
-//=     146,132   Wise Old Woman   (Card Remover)
 //=     146,142   Stablemaster     (Verleih)
 //=     146,192   Reset Master
 //=     146,202   Kafra Employee
+//=     163,174   Wise Old Woman   (Card Remover, abseits der Achse)
 //=
 //= Nicht raten: 146,127 und 146,207 sind Wandzellen. Ein NPC
 //= darauf wird geladen und ist im Spiel unerreichbar.
@@ -279,4 +279,11 @@ prontera,146,142,4	script	Stablemaster#safa	4_M_JOB_KNIGHT1,{
 //  Yellow Gemstone) steht dort im Skript und gilt hier mit.
 //============================================================
 prontera,146,202,4	duplicate(kaf_prontera)	Kafra Employee#safa	4_F_KAFRA1
-prontera,146,132,4	duplicate(Wise Old Woman#eAcustom)	Wise Old Woman#safa	78
+
+// Der Card Remover steht bewusst NICHT auf der 146er-Achse, sondern
+// bei 163,174 - naeher am Zentrum, wo die Leute ohnehin vorbeikommen.
+// Zelle gegen db/re/map_cache.dat geprueft (Typ 0, begehbar) und
+// gegen alle NPC-Dateien: kein geladener NPC steht darauf. Die
+// naechsten Nachbarn sind der Mado Gear Armorer auf 163,178 und
+// Snower auf 156,174 - beide weit genug weg.
+prontera,163,174,4	duplicate(Wise Old Woman#eAcustom)	Wise Old Woman#safa	78
