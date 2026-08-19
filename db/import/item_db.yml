@@ -630,7 +630,7 @@ Body:
     Weight: 100
     Defense: 5
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: true
     View: 2812
@@ -649,7 +649,7 @@ Body:
     Weight: 150
     Defense: 8
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: true
     View: 2813
@@ -670,7 +670,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: true
     View: 2814
@@ -694,7 +694,7 @@ Body:
     Weight: 100
     Defense: 5
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: true
     View: 2815
@@ -714,7 +714,7 @@ Body:
     Weight: 150
     Defense: 8
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: true
     View: 2816
@@ -737,7 +737,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: true
     View: 2817
@@ -763,7 +763,7 @@ Body:
     Weight: 100
     Defense: 5
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2818
@@ -782,7 +782,7 @@ Body:
     Weight: 150
     Defense: 8
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2819
@@ -804,7 +804,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2820
@@ -827,7 +827,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2821
@@ -848,7 +848,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2822
@@ -868,7 +868,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2823
@@ -890,7 +890,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2824
@@ -910,7 +910,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2825
@@ -931,7 +931,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2826
@@ -951,7 +951,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2827
@@ -972,7 +972,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2828
@@ -992,7 +992,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2829
@@ -1012,7 +1012,7 @@ Body:
     Weight: 200
     Defense: 12
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: true
     View: 2830
@@ -1040,7 +1040,7 @@ Body:
     Defense: 0
     Slots: 1
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 761
@@ -1057,7 +1057,7 @@ Body:
     Defense: 0
     Slots: 1
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 125
@@ -1074,7 +1074,7 @@ Body:
     Defense: 0
     Slots: 1
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 191
@@ -1084,14 +1084,14 @@ Body:
   - Id: 30053
     AegisName: Scholars_Robe
     Name: Scholar's Robe
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 100
     Defense: 0
     Slots: 1
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1107,7 +1107,7 @@ Body:
     Defense: 0
     Slots: 1
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1116,14 +1116,14 @@ Body:
   - Id: 30055
     AegisName: Scholars_Boots
     Name: Scholar's Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 100
     Defense: 0
     Slots: 1
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1132,14 +1132,15 @@ Body:
   - Id: 30056
     AegisName: Scholars_Sigil
     Name: Scholar's Sigil
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 100
     Defense: 0
     Slots: 1
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1162,7 +1163,7 @@ Body:
     Defense: 0
     Slots: 1
     Locations:
-      Head_Top: true
+      Costume_Head_Top: true
     EquipLevelMin: 1
     Refineable: false
     View: 761
@@ -1179,7 +1180,7 @@ Body:
     Defense: 0
     Slots: 1
     Locations:
-      Head_Mid: true
+      Costume_Head_Mid: true
     EquipLevelMin: 1
     Refineable: false
     View: 125
@@ -1196,7 +1197,7 @@ Body:
     Defense: 0
     Slots: 1
     Locations:
-      Head_Low: true
+      Costume_Head_Low: true
     EquipLevelMin: 1
     Refineable: false
     View: 191
@@ -1206,14 +1207,14 @@ Body:
   - Id: 30063
     AegisName: Prospectors_Robe
     Name: Prospector's Robe
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 100
     Defense: 0
     Slots: 1
     Locations:
-      Armor: true
+      Shadow_Armor: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1229,7 +1230,7 @@ Body:
     Defense: 0
     Slots: 1
     Locations:
-      Garment: true
+      Costume_Garment: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1238,14 +1239,14 @@ Body:
   - Id: 30065
     AegisName: Prospectors_Boots
     Name: Prospector's Boots
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 100
     Defense: 0
     Slots: 1
     Locations:
-      Shoes: true
+      Shadow_Shoes: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
@@ -1254,14 +1255,15 @@ Body:
   - Id: 30066
     AegisName: Prospectors_Sigil
     Name: Prospector's Sigil
-    Type: Armor
+    Type: Shadowgear
     Buy: 0
     Sell: 0
     Weight: 100
     Defense: 0
     Slots: 1
     Locations:
-      Both_Accessory: true
+      Shadow_Right_Accessory: true
+      Shadow_Left_Accessory: true
     EquipLevelMin: 1
     Refineable: false
     Script: |
