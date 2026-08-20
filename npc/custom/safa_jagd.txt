@@ -63,35 +63,48 @@ OnGM:
 			dispbottom "[Jagd] Es laeuft gerade keine.";
 			end;
 		}
-		// NICHT getunitdata als Ausdruck abfragen. Die Dokumentation
-		// sagt "returns -1 if the given GID does not exist", aber der
-		// Quelltext legt nur in genau diesem Fehlerfall etwas auf den
-		// Stapel (script.cpp, BUILDIN getunitdata: script_pushint nur
-		// vor dem ersten return, danach nie). Im Erfolgsfall fehlt der
-		// Wert - der Vergleich greift dann daneben und bricht das
-		// ganze Label ab. Genau daran sind wo und hin gestorben.
+
+		// --- Stufenweise, mit Absicht -----------------------------
+		//  Zuerst kommt das, was immer geht: Karte, Sprung, Restzeit
+		//  und die Nummer der Einheit. Erst danach das, was schief
+		//  gehen kann.
 		//
-		// unitexists macht es richtig: es legt in BEIDEN Faellen
-		// etwas ab.
-		if (!unitexists($jagd_gid)) {
-			dispbottom "[Jagd] Karte " + .karte$[$jagd_pos]
-			           + ", aber das Monster ist nicht mehr da "
-			           + "(GID " + $jagd_gid + ").";
-			end;
-		}
-		getunitdata $jagd_gid, .@d;
-		if (.@was$ == "hin") {
-			warp .karte$[$jagd_pos], .@d[UMOB_X], .@d[UMOB_Y];
-			end;
-		}
-		// Restzeit bis zum Sprung. getnpctimer(0) zaehlt hoch.
+		//  Der Grund steht in der Vorgeschichte: der Befehl hat
+		//  zwischendurch KOMMENTARLOS gar nichts getan, weil ein
+		//  Vergleich das Label abgebrochen hat. Eine Ausgabe, die
+		//  erst am Ende kommt, ist in so einem Fall wertlos - man
+		//  sieht nur Stille und weiss nicht, wo sie anfaengt.
+		// ----------------------------------------------------------
 		.@rest = (900000 - getnpctimer(0)) / 1000;
 		dispbottom "[Jagd] " + .karte$[$jagd_pos]
-		           + " " + .@d[UMOB_X] + "," + .@d[UMOB_Y]
 		           + "  |  Sprung " + $jagd_spruenge
-		           + ", naechster in " + (.@rest / 60) + "m "
-		           + (.@rest % 60) + "s";
-		dispbottom "[Jagd] Mit @jagd hin springst du direkt hin.";
+		           + "  |  naechster in " + (.@rest / 60) + "m "
+		           + (.@rest % 60) + "s"
+		           + "  |  GID " + $jagd_gid;
+
+		if ($jagd_gid == 0) {
+			dispbottom "[Jagd] Keine Einheitennummer gemerkt - die "
+			           + "Jagd lief schon, bevor es die gab. "
+			           + "@jagd stop und neu starten.";
+			end;
+		}
+		if (!unitexists($jagd_gid)) {
+			dispbottom "[Jagd] Die Einheit gibt es nicht mehr. "
+			           + "@jagd stop und neu starten.";
+			end;
+		}
+
+		// getunitdata NUR als Befehl, nie als Ausdruck: es legt im
+		// Erfolgsfall nichts auf den Stapel (script.cpp, BUILDIN
+		// getunitdata - script_pushint steht nur vor dem ersten
+		// return). Genau daran ist dieser Block schon einmal
+		// gestorben.
+		getunitdata $jagd_gid, .@d;
+		dispbottom "[Jagd] Genau: " + .karte$[$jagd_pos] + " "
+		           + .@d[UMOB_X] + "," + .@d[UMOB_Y];
+
+		if (.@was$ == "hin")
+			warp .karte$[$jagd_pos], .@d[UMOB_X], .@d[UMOB_Y];
 		end;
 	}
 
