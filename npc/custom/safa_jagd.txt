@@ -63,16 +63,23 @@ OnGM:
 			dispbottom "[Jagd] Es laeuft gerade keine.";
 			end;
 		}
-		// getunitdata fuellt die Reihe mit den UMOB_-Werten als Index
-		// und gibt -1 zurueck, wenn es die GID nicht mehr gibt. Das
-		// kann vorkommen: gestorben, weggeraeumt, Serverneustart
-		// zwischen Sprung und Abfrage.
-		if (getunitdata($jagd_gid, .@d) < 0) {
+		// NICHT getunitdata als Ausdruck abfragen. Die Dokumentation
+		// sagt "returns -1 if the given GID does not exist", aber der
+		// Quelltext legt nur in genau diesem Fehlerfall etwas auf den
+		// Stapel (script.cpp, BUILDIN getunitdata: script_pushint nur
+		// vor dem ersten return, danach nie). Im Erfolgsfall fehlt der
+		// Wert - der Vergleich greift dann daneben und bricht das
+		// ganze Label ab. Genau daran sind wo und hin gestorben.
+		//
+		// unitexists macht es richtig: es legt in BEIDEN Faellen
+		// etwas ab.
+		if (!unitexists($jagd_gid)) {
 			dispbottom "[Jagd] Karte " + .karte$[$jagd_pos]
 			           + ", aber das Monster ist nicht mehr da "
 			           + "(GID " + $jagd_gid + ").";
 			end;
 		}
+		getunitdata $jagd_gid, .@d;
 		if (.@was$ == "hin") {
 			warp .karte$[$jagd_pos], .@d[UMOB_X], .@d[UMOB_Y];
 			end;
