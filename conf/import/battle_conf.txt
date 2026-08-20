@@ -94,6 +94,11 @@ homunculus_S_max_level: 500
 // die Uebergabe also nicht zusaetzlich.
 homunculus_autoloot: yes
 
+// Dasselbe fuer Soeldner. In mob.cpp:2594 haengen beide an derselben
+// Bedingung, aber an getrennten Schaltern - einer allein wuerde also
+// nur die halbe Ueberraschung beseitigen.
+mercenary_autoloot: yes
+
 
 // ------------------------------------------------------------
 //  Raten   (Original: conf/battle/exp.conf und drops.conf)
