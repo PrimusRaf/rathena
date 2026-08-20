@@ -15,7 +15,8 @@
 //    @jagd          startet, oder sagt wo es steht
 //    @jagd stop     bricht ab
 //    @jagd hinweis  wiederholt den letzten Hinweis
-//    @jagd wo       verraet dem GM die Karte
+//    @jagd wo       Karte, genaue Koordinaten, Restzeit
+//    @jagd hin      warpt dich direkt zu ihm
 //
 //  WARUM DER ZUSTAND IN $-VARIABLEN STEHT
 //
@@ -57,13 +58,33 @@ OnGM:
 		end;
 	}
 
-	if (.@was$ == "wo") {
+	if (.@was$ == "wo" || .@was$ == "hin") {
 		if (!$jagd_laeuft) {
 			dispbottom "[Jagd] Es laeuft gerade keine.";
 			end;
 		}
-		dispbottom "[Jagd] Karte: " + .karte$[$jagd_pos]
-		           + "  (Sprung " + $jagd_spruenge + ")";
+		// getunitdata fuellt die Reihe mit den UMOB_-Werten als Index
+		// und gibt -1 zurueck, wenn es die GID nicht mehr gibt. Das
+		// kann vorkommen: gestorben, weggeraeumt, Serverneustart
+		// zwischen Sprung und Abfrage.
+		if (getunitdata($jagd_gid, .@d) < 0) {
+			dispbottom "[Jagd] Karte " + .karte$[$jagd_pos]
+			           + ", aber das Monster ist nicht mehr da "
+			           + "(GID " + $jagd_gid + ").";
+			end;
+		}
+		if (.@was$ == "hin") {
+			warp .karte$[$jagd_pos], .@d[UMOB_X], .@d[UMOB_Y];
+			end;
+		}
+		// Restzeit bis zum Sprung. getnpctimer(0) zaehlt hoch.
+		.@rest = (900000 - getnpctimer(0)) / 1000;
+		dispbottom "[Jagd] " + .karte$[$jagd_pos]
+		           + " " + .@d[UMOB_X] + "," + .@d[UMOB_Y]
+		           + "  |  Sprung " + $jagd_spruenge
+		           + ", naechster in " + (.@rest / 60) + "m "
+		           + (.@rest % 60) + "s";
+		dispbottom "[Jagd] Mit @jagd hin springst du direkt hin.";
 		end;
 	}
 
@@ -119,6 +140,10 @@ S_Setzen:
 
 	monster .karte$[$jagd_pos], -1, -1, "Something That Slipped Through", 2248, 1,
 	        "safa_jagd::OnKill";
+	// 'monster' gibt nichts zurueck, sondern legt die Nummern der
+	// erzeugten Einheiten in $@mobid ab (script.cpp, BUILDIN monster).
+	// Ohne die koennte @jagd wo nur die Karte nennen.
+	set $jagd_gid, $@mobid[0];
 
 	set $jagd_hinweis$, callsub(S_Hinweis, $jagd_pos);
 	announce $jagd_hinweis$, bc_all, 0x00CCFF;
@@ -278,6 +303,7 @@ OnInit:
 	if ($jagd_laeuft) {
 		monster .karte$[$jagd_pos], -1, -1, "Something That Slipped Through", 2248, 1,
 		        "safa_jagd::OnKill";
+		set $jagd_gid, $@mobid[0];
 		announce "It is still out there.", bc_all, 0xFFCC00;
 		initnpctimer;
 	}
