@@ -81,6 +81,19 @@ homunculus_S_max_level: 500
 // Nicht angetastet - mit friendly_rate 300 geht das schnell genug.
 //homunculus_evo_intimacy_need: 91100
 
+// Autoloot auch dann, wenn der Homunkulus den toedlichen Schlag
+// gefuehrt hat. Standard: no.
+//
+// Ohne das faellt Beute aus Homunkulus-Kills auf den Boden, waehrend
+// sie bei eigenen Kills direkt in den Beutel wandert. Fuer den
+// Spieler sieht das nach einem Fehler aus - er hat Autoloot ja an -
+// und er merkt es meist erst, wenn die Sachen schon verschwunden
+// sind.
+//
+// hom_idle_no_share steht auf no (Vorgabe), Untaetigkeit blockiert
+// die Uebergabe also nicht zusaetzlich.
+homunculus_autoloot: yes
+
 
 // ------------------------------------------------------------
 //  Raten   (Original: conf/battle/exp.conf und drops.conf)
