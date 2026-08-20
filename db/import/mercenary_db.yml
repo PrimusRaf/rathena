@@ -18,15 +18,15 @@ Body:
     Level: 20
     Hp: 500
     Sp: 100
-    Attack: 47
-    Attack2: 75
+    Attack: 99
+    Attack2: 119
     Defense: 10
     MagicDefense: 5
     Str: 10
     Agi: 10
     Vit: 10
     Int: 5
-    Dex: 10
+    Dex: 51
     Luk: 5
     AttackRange: 1
     SkillRange: 10
@@ -54,17 +54,17 @@ Body:
     AegisName: MER_SWORDMAN02
     Name: Sword Mercenary
     Level: 40
-    Hp: 1068
+    Hp: 2670
     Sp: 150
-    Attack: 212
-    Attack2: 339
+    Attack: 471
+    Attack2: 566
     Defense: 18
     MagicDefense: 9
     Str: 18
-    Agi: 16
+    Agi: 25
     Vit: 17
     Int: 7
-    Dex: 17
+    Dex: 73
     Luk: 8
     AttackRange: 1
     SkillRange: 10
@@ -92,17 +92,17 @@ Body:
     AegisName: MER_SWORDMAN03
     Name: Sword Mercenary
     Level: 60
-    Hp: 2232
+    Hp: 5580
     Sp: 200
-    Attack: 356
-    Attack2: 571
+    Attack: 819
+    Attack2: 983
     Defense: 26
     MagicDefense: 13
     Str: 26
-    Agi: 22
+    Agi: 42
     Vit: 24
     Int: 9
-    Dex: 24
+    Dex: 83
     Luk: 11
     AttackRange: 1
     SkillRange: 10
@@ -130,17 +130,17 @@ Body:
     AegisName: MER_SWORDMAN04
     Name: Sword Mercenary
     Level: 80
-    Hp: 3984
+    Hp: 9960
     Sp: 250
-    Attack: 886
-    Attack2: 1418
+    Attack: 2085
+    Attack2: 2503
     Defense: 34
     MagicDefense: 17
     Str: 34
-    Agi: 28
+    Agi: 73
     Vit: 31
     Int: 11
-    Dex: 31
+    Dex: 87
     Luk: 14
     AttackRange: 1
     SkillRange: 10
@@ -168,17 +168,17 @@ Body:
     AegisName: MER_SWORDMAN05
     Name: Sword Mercenary
     Level: 100
-    Hp: 6132
+    Hp: 15330
     Sp: 300
-    Attack: 1819
-    Attack2: 2911
+    Attack: 4328
+    Attack2: 5194
     Defense: 42
     MagicDefense: 21
     Str: 42
-    Agi: 34
+    Agi: 83
     Vit: 38
     Int: 13
-    Dex: 38
+    Dex: 101
     Luk: 17
     AttackRange: 1
     SkillRange: 10
@@ -206,17 +206,17 @@ Body:
     AegisName: MER_SWORDMAN06
     Name: Sword Mercenary
     Level: 120
-    Hp: 10320
+    Hp: 25800
     Sp: 350
-    Attack: 5118
-    Attack2: 8190
+    Attack: 12484
+    Attack2: 14981
     Defense: 50
     MagicDefense: 25
     Str: 50
-    Agi: 40
+    Agi: 97
     Vit: 45
     Int: 15
-    Dex: 45
+    Dex: 106
     Luk: 20
     AttackRange: 1
     SkillRange: 10
@@ -244,17 +244,17 @@ Body:
     AegisName: MER_SWORDMAN07
     Name: Sword Mercenary
     Level: 140
-    Hp: 16896
+    Hp: 42240
     Sp: 400
-    Attack: 20324
-    Attack2: 32519
+    Attack: 51305
+    Attack2: 61566
     Defense: 58
     MagicDefense: 29
     Str: 58
-    Agi: 46
+    Agi: 105
     Vit: 52
     Int: 17
-    Dex: 52
+    Dex: 122
     Luk: 23
     AttackRange: 1
     SkillRange: 10
@@ -282,17 +282,17 @@ Body:
     AegisName: MER_SWORDMAN08
     Name: Sword Mercenary
     Level: 160
-    Hp: 24612
+    Hp: 61530
     Sp: 450
-    Attack: 36938
-    Attack2: 59101
+    Attack: 65535
+    Attack2: 65535
     Defense: 66
     MagicDefense: 33
     Str: 66
-    Agi: 52
+    Agi: 119
     Vit: 59
     Int: 19
-    Dex: 59
+    Dex: 135
     Luk: 26
     AttackRange: 1
     SkillRange: 10
@@ -302,8 +302,8 @@ Body:
     Element: Neutral
     ElementLevel: 1
     WalkSpeed: 130
-    AttackDelay: 790
-    AttackMotion: 500
+    AttackDelay: 528
+    AttackMotion: 200
     DamageMotion: 300
     Skills:
       - Name: MS_BASH
@@ -320,17 +320,17 @@ Body:
     AegisName: MER_SWORDMAN09
     Name: Sword Mercenary
     Level: 180
-    Hp: 38220
+    Hp: 95550
     Sp: 500
-    Attack: 152966
-    Attack2: 244745
+    Attack: 65535
+    Attack2: 65535
     Defense: 74
     MagicDefense: 37
     Str: 74
-    Agi: 58
+    Agi: 134
     Vit: 66
     Int: 21
-    Dex: 66
+    Dex: 147
     Luk: 29
     AttackRange: 1
     SkillRange: 10
@@ -340,8 +340,8 @@ Body:
     Element: Neutral
     ElementLevel: 1
     WalkSpeed: 130
-    AttackDelay: 760
-    AttackMotion: 500
+    AttackDelay: 200
+    AttackMotion: 200
     DamageMotion: 300
     Skills:
       - Name: MS_BASH
@@ -358,17 +358,17 @@ Body:
     AegisName: MER_SWORDMAN10
     Name: Sword Mercenary
     Level: 200
-    Hp: 45456
+    Hp: 113640
     Sp: 550
-    Attack: 301787
-    Attack2: 482859
+    Attack: 65535
+    Attack2: 65535
     Defense: 82
     MagicDefense: 41
     Str: 82
-    Agi: 64
+    Agi: 120
     Vit: 73
     Int: 23
-    Dex: 73
+    Dex: 151
     Luk: 32
     AttackRange: 1
     SkillRange: 10
@@ -378,8 +378,8 @@ Body:
     Element: Neutral
     ElementLevel: 1
     WalkSpeed: 130
-    AttackDelay: 730
-    AttackMotion: 500
+    AttackDelay: 200
+    AttackMotion: 200
     DamageMotion: 300
     Skills:
       - Name: MS_BASH
