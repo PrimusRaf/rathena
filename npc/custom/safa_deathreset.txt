@@ -264,3 +264,99 @@ OnInit:
 	.quest = 70251;                   // 300 Alarm, siehe db/import/quest_db.yml
 	end;
 }
+
+
+// ============================================================
+//  Dieselbe Aufgabe ohne Umweg
+// ------------------------------------------------------------
+//  Die Waechterin in Prontera verlangt drei Stufen: Material,
+//  Jagd, Bezahlung. Das ist als Beschaeftigung gedacht - aber wer
+//  nur weiterspielen will, soll nicht erst eine Questreihe
+//  abarbeiten muessen, um seine eigenen Werte zurueckzubekommen.
+//
+//  Diese Fassung nimmt 1.000 Zeny und sonst nichts.
+//
+//  Warum kein duplicate(): das Original ist eine Zustandsmaschine
+//  ueber dq_stufe. Ein Duplikat waere derselbe Ablauf an einem
+//  zweiten Ort, nicht der kuerzere. Gemeinsam ist beiden nur der
+//  Kern - death_count auf 0 und F_SafaRefresh - und der sind zwei
+//  Zeilen.
+//
+//  dq_stufe wird hier bewusst NICHT angefasst. Wer in Prontera
+//  mitten in der Questreihe steckt, behaelt seinen Fortschritt;
+//  die dortige Eingangspruefung laesst ihn mit dq_stufe > 0
+//  ohnehin weitermachen. Ein Zuruecksetzen von hier aus wuerde ihm
+//  nur die halbe Kette wegnehmen.
+//
+//  Standort: veins 206,54. Begehbar laut db/re/map_cache.dat
+//  (Typ 0). Der Job-Quest-Ausloeser bei 206,56 hat Reichweite
+//  1,1 und deckt damit die Zeilen 55 bis 57 ab - hier steht
+//  nichts im Weg.
+// ============================================================
+
+veins,206,54,4	script	Threshold Warden#safa_veins	4_F_SISTER,{
+
+	if (death_count <= 0) {
+		mes "[Threshold Warden]";
+		mes "Nothing clings to you. No deaths, no debt.";
+		mes "Keep it that way as long as you can.";
+		close;
+	}
+
+	.@pen = death_count * 5;
+	if (.@pen > 90)
+		.@pen = 90;
+
+	mes "[Threshold Warden]";
+	mes "^FF0000" + death_count + "^000000 "
+	    + (death_count == 1 ? "mark" : "marks") + " on you.";
+	mes "That is ^FF0000" + .@pen + "%^000000 off everything you do -";
+	mes "strike, magic, life, spirit, armour, dodge and aim.";
+	next;
+
+	mes "[Threshold Warden]";
+	mes "My sister in Prontera will ask you for errands.";
+	mes "She has the patience for it. I do not.";
+	mes " ";
+	mes "^FFCC00" + callfunc("F_InsertComma", .preis)
+	    + " Zeny^000000, and the cycle forgets your name.";
+	next;
+
+	if (select("Pay " + callfunc("F_InsertComma", .preis)
+	           + " Zeny:Not now") == 2) {
+		mes "[Threshold Warden]";
+		mes "Then carry them a while longer.";
+		close;
+	}
+
+	// Zwischen Anzeige und Zahlung kann sich das Vermoegen geaendert
+	// haben - der Spieler kann waehrenddessen im Laden gewesen sein.
+	if (Zeny < .preis) {
+		mes "[Threshold Warden]";
+		mes "You do not have it. Come back when you do.";
+		close;
+	}
+	Zeny -= .preis;
+
+	.@vorher = death_count;
+	set death_count, 0;
+
+	// Ohne diesen Aufruf bliebe die Strafe bis zum naechsten Login
+	// stehen: der Spieler haette bezahlt und wuerde nichts merken.
+	// Dieselbe Falle wie beim Original, siehe oben.
+	callfunc "F_SafaRefresh";
+
+	specialeffect2 EF_ANGEL2;
+	mes "[Threshold Warden]";
+	mes "^00AA00" + .@vorher + " " + (.@vorher == 1 ? "mark" : "marks")
+	    + " gone.^000000";
+	next;
+	mes "[Threshold Warden]";
+	mes "Cheaply bought. It always is, here.";
+	mes "Go on, then - it will find you again.";
+	close;
+
+OnInit:
+	.preis = 1000;
+	end;
+}
