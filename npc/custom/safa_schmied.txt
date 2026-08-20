@@ -86,14 +86,17 @@ S_Sockel:
 	.@teil = .@wahl[.@k];
 	.@id = getequipid(.@teil);
 
-	// Passendes Paar suchen.
-	.@idx = -1;
-	for (.@i = 0; .@i < getarraysize(.von); .@i++) {
-		if (.von[.@i] == .@id) {
-			.@idx = .@i;
-			break;
-		}
-	}
+	// Passendes Paar suchen - mit inarray, NICHT mit einer Schleife.
+	//
+	// Der erste Entwurf lief hier per for ueber alle Eintraege. Bei
+	// 423 Paaren ging das gut; mit den 4-Slot-Fassungen sind es 6.600,
+	// und rAthena bricht bei 2.048 Spruengen ab (script.cpp:4420,
+	// Grenze script_config.check_gotocount). Im Log stand dann nur
+	// "script:run_script_main: infinity loop !" - und der Spieler sah
+	// gar nichts, weil das Gespraech mitten im Suchen endete.
+	//
+	// inarray sucht in C und verbraucht keinen einzigen Sprung.
+	.@idx = inarray(.von[0], .@id);
 	if (.@idx < 0) {
 		mes "[Master Artisan]";
 		mes "^FF6666That one has no wider version.^000000";
