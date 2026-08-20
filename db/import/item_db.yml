@@ -6769,8 +6769,31 @@ Body:
       Shoes: true
       Right_Accessory: true
       Left_Accessory: true
+    # Nur fuer die Serverleitung. Es gibt keine Bezugsquelle - weder
+    # Monster noch Haendler noch Quest -, sie entsteht ausschliesslich
+    # ueber @item.
+    #
+    # Die Sperren sind trotzdem noetig, denn @item legt sie in einen
+    # ganz normalen Beutel. Ohne sie genuegt ein Fehlgriff beim
+    # Aufraeumen, und das staerkste Stueck des Servers liegt auf dem
+    # Boden von Prontera.
+    #
+    # itemdb_isrestricted (itemdb.cpp:3315) laeuft beim Handeln ueber
+    # die Kartenplaetze des Traegers. Eine gesperrte Karte sperrt
+    # damit auch das Ausruestungsstueck, in dem sie steckt - genau so
+    # soll es sein.
+    #
+    # Das eigene Lager bleibt offen, das Gildenlager nicht: ersteres
+    # sieht nur der Besitzer, letzteres die halbe Gilde.
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
     Flags:
-      BuyingStore: true
       DropEffect: CLIENT
     Script: |
       .@loc = getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_LOCATIONS);
