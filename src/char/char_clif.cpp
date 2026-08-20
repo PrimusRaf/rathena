@@ -714,8 +714,25 @@ bool chclif_parse_char_delete2_accept( int32 fd, char_session_data& sd ){
 	birthdate[7] = p->birthdate[5];
 	birthdate[8] = '\0';
 
-	// Only check for birthdate
-	if( !chclif_delchar_check( &sd, birthdate, CHAR_DEL_BIRTHDATE ) ){
+	// SafaRO: char_del_option beachten, statt fest auf das Geburtsdatum
+	// zu pruefen.
+	//
+	// Hier stand "Only check for birthdate" und darunter fest
+	// CHAR_DEL_BIRTHDATE. char_del_option aus char_athena.conf wurde auf
+	// diesem Weg also gar nicht gelesen - wer die Abfrage abstellen
+	// wollte, konnte in der Konfiguration drehen, soviel er mochte.
+	//
+	// Der andere Loeschweg (chclif_parse_delchar, Paket 0x1fb) liest die
+	// Einstellung sehr wohl. Zwei Wege, zwei Verhalten, ein Schalter -
+	// das ist die eigentliche Ungereimtheit, die wir hier geradeziehen.
+	//
+	// Bei char_del_option 0 faellt die Pruefung ganz weg. Das
+	// Eingabefeld zeigt der Client trotzdem, denn das Paket
+	// CH_DELETE_CHAR3 hat das Feld birthdate[6] fest im Aufbau
+	// (common/packets.hpp:496) - es ist dann nur noch eine Formalitaet,
+	// und es geht jede Eingabe.
+	if( charserv_config.char_config.char_del_option != 0 &&
+	    !chclif_delchar_check( &sd, birthdate, charserv_config.char_config.char_del_option ) ){
 		chclif_char_delete2_accept_ack( fd, char_id, 5 );
 
 		return true;
@@ -1362,7 +1379,14 @@ bool chclif_parse_delchar( int fd, struct char_session_data& sd ){
 	ShowInfo(CL_RED "Request Char Deletion: " CL_GREEN "%u (%u)" CL_RESET "\n", sd.account_id, cid);
 	safestrncpy( email, p->key, sizeof( email ) );
 
-	if (!chclif_delchar_check(&sd, email, charserv_config.char_config.char_del_option)) {
+	// SafaRO: 0 heisst "keine Pruefung", nicht "nichts passt".
+	//
+	// chclif_delchar_check gibt bei Flag 0 false zurueck - beide Zweige
+	// darin verlangen ein gesetztes Bit. Ohne die Abfrage hier waere
+	// char_del_option 0 also das Gegenteil dessen, wonach es aussieht:
+	// jedes Loeschen abgelehnt statt jedes durchgelassen.
+	if( charserv_config.char_config.char_del_option != 0 &&
+	    !chclif_delchar_check(&sd, email, charserv_config.char_config.char_del_option)) {
 		chclif_refuse_delchar(fd,0); // 00 = Incorrect Email address
 		return true;
 	}
