@@ -1,0 +1,106 @@
+//===== SafaRO Script =====================================
+//= Das Startpaket
+//===== Beschreibung: ========================================
+//= Was jeder Charakter einmal mitbekommt. Ausgegeben vom
+//= Threshold Warden (npc/custom/safa_start.txt), direkt
+//= nachdem das Isekai-Geschenk gebunden wurde.
+//=
+//= INHALT
+//=   1x  Sword Mercenary Contract   (30501)  eigener Soeldner
+//=   5x  Battle Manual & Bubble Gum (22979)  je 30 Min +50% EXP
+//=                                           und +100% Drop
+//=   1x  Threshold Knife            (30502)  4 Slots, +5 alle Werte
+//=   1x  Traveler's Backpack        (30503)  +10% Tempo, +5000 Gewicht
+//=  10x  Inventory Expansion Coupon (25793)  100 -> 200 Plaetze
+//=
+//= EINMAL JE CHARAKTER, nicht je Konto. Zweitcharaktere
+//= bekommen ihr eigenes Paket - und weil alles am Charakter
+//= gebunden ist, laesst sich daraus nichts zusammentragen.
+//=
+//= WARUM ALLES GEBUNDEN IST
+//= getitembound mit BOUND_CHAR (4). Das sperrt mehr als die
+//= Trade-Flags im item_db:
+//=   trade.cpp:399    kein Handel
+//=   pc.cpp:11370     kein Ablegen
+//=   storage.cpp:259  kein Lager - auch nicht das eigene,
+//=                    denn geprueft wird bound > BOUND_ACCOUNT
+//=   pc.cpp:6611      kein Karren
+//=   vending.cpp:347  kein Verkaufsstand
+//= Verkaufen an NPC-Laeden ist ebenfalls dicht, weil unser
+//= allow_bound_sell auf 0x2 steht und nicht auf 0x4
+//= (conf/battle/items.conf Zeile 115).
+//=
+//= Das heisst auch: der Rucksack kann nicht ins Lager gelegt
+//= und einem anderen eigenen Charakter gegeben werden. Das ist
+//= die Absicht, aber es faellt frueher oder spaeter jemandem
+//= auf - deshalb steht es so auch in der Beschreibung im Spiel.
+//=
+//= DIE ZEHN GUTSCHEINE
+//= Jeder gibt +10 Plaetze (clif.cpp:23069, fest verdrahtet).
+//= Basis sind 100 (mmo.hpp:45), Obergrenze 200 (mmo.hpp:57).
+//= Zehn Stueck schoepfen sie also genau aus; ein elfter waere
+//= wirkungslos. Eingeloest werden sie vom Spieler ueber die
+//= Schaltflaeche im Inventarfenster, nicht von uns.
+//===== Hinweise: ============================================
+//= Spieltexte englisch, ohne Umlaute.
+//============================================================
+
+//  Gibt 1 zurueck, wenn ausgegeben wurde, sonst 0.
+//  Meldet dem Spieler selbst, warum es nicht ging.
+function	script	F_SafaStartpaket	{
+
+	if (safa_startpaket) {
+		dispbottom "[System] You have already received your starting kit.";
+		return 0;
+	}
+
+	// Platz und Gewicht vorher pruefen. Ohne das faellt bei vollem
+	// Beutel ein Teil des Pakets stillschweigend auf den Boden -
+	// und weil alles gebunden ist, verschwindet es dort sofort
+	// (items.conf: undroppable items werden vernichtet).
+	//
+	// Fuenf Plaetze werden gebraucht: Rolle, Manuals als ein
+	// Stapel, Knife, Rucksack, Gutscheine als ein Stapel.
+	if (checkweight(30501,1,22979,5,30502,1,30503,1,25793,10) == 0) {
+		dispbottom "[System] Not enough room. Free up five inventory slots and some weight, then talk to me again.";
+		return 0;
+	}
+
+	getitembound 30501, 1, Bound_Char;
+	getitembound 22979, 5, Bound_Char;
+	getitembound 30502, 1, Bound_Char;
+	getitembound 30503, 1, Bound_Char;
+	getitembound 25793, 10, Bound_Char;
+
+	set safa_startpaket, 1;
+	specialeffect2 EF_ANGEL2;
+
+	dispbottom "[System] Starting kit received. Everything in it is bound to this character.";
+	return 1;
+}
+
+
+//  Die Aufzaehlung fuer den Waechter. Steht hier, damit Inhalt
+//  und Beschreibung nicht auseinanderlaufen koennen.
+function	script	F_SafaStartpaketText	{
+	mes "^0000FFSword Mercenary Contract^000000";
+	mes "A fighter who grows with you, to level 200.";
+	mes " ";
+	mes "^0000FFThreshold Knife^000000";
+	mes "All stats + 5. Four card slots.";
+	mes " ";
+	mes "^0000FFTraveler's Backpack^000000";
+	mes "Movement speed + 10%, weight limit + 5000.";
+	mes " ";
+	mes "^0000FF5x Battle Manual and Bubble Gum^000000";
+	mes "Half an hour each of +50% experience";
+	mes "and doubled drops.";
+	mes " ";
+	mes "^0000FF10x Inventory Expansion Coupon^000000";
+	mes "Your bag, from 100 slots to 200.";
+	mes " ";
+	mes "^FF0000All of it is bound to this character.^000000";
+	mes "^777777It cannot be traded, dropped, sold or stored -";
+	mes "not even in your own storage.^000000";
+	return;
+}

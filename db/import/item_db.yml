@@ -6890,3 +6890,98 @@ Body:
       NoConsume: true
     Script: |
       callfunc "F_SafaSoeldner";
+
+# ====================================================================
+#  STARTPAKET
+# ====================================================================
+#  Zwei eigene Stuecke. Beide werden mit getitembound(...,BOUND_CHAR)
+#  ausgegeben und haengen damit am Charakter: kein Handel, kein
+#  Ablegen, kein Lager - auch nicht das eigene (storage.cpp:259 prueft
+#  bound > BOUND_ACCOUNT). Die Trade-Flags hier sind der zweite Riegel,
+#  fuer den Fall, dass irgendwann jemand ein Stueck ohne Bindung
+#  erzeugt.
+#
+#  Ressourcennamen sind die der amtlichen Vorbilder - Knife (1201) und
+#  Adventurer's Backpack (2576). Damit haben beide Symbol, Bodensprite
+#  und beim Rucksack ueber View 2 auch ein getragenes Aussehen, ohne
+#  dass wir eine einzige Grafik mitliefern.
+# ====================================================================
+
+  - Id: 30502
+    AegisName: Safa_Threshold_Knife
+    Name: Threshold Knife
+    Type: Weapon
+    SubType: Dagger
+    Buy: 0
+    Weight: 400
+    Attack: 17
+    Range: 1
+    Slots: 4
+    Jobs:
+      All: true
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 1
+    EquipLevelMin: 1
+    Refineable: true
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bAllStats,5;
+
+# --------------------------------------------------------------------
+#  WARUM bSpeedRate UND NICHT bSpeedAddRate
+#
+#  Beide machen schneller - das Vorzeichen wird in pc.cpp:3964 beim
+#  Setzen umgedreht, ein positives n im Skript ist also richtig.
+#  Der Unterschied liegt im Zusammenspiel:
+#
+#    bSpeedAddRate   stapelt (pc.cpp:3968, "-=")
+#    bSpeedRate      stapelt NICHT (pc.cpp:3966, "min")
+#
+#  Gestapelt koennte ein Startgeschenk spaeter mit richtiger
+#  Ausruestung zusammenlaufen und Richtung Untergrenze druecken
+#  (status.cpp:8230 kappt bei 40). Mit bSpeedRate gewinnt schlicht der
+#  groesste Einzelwert, der Rucksack wird also spaeter still
+#  ueberholt statt aufzuaddieren. Das ist auch, was die amtlichen
+#  Stuecke tun: 67 Items nutzen bSpeedRate, kein einziges
+#  bSpeedAddRate.
+#
+#  ZU ERWARTEN IST WENIGER, ALS DIE ZAHL VERSPRICHT
+#  status.cpp:8224 nimmt das Maximum aus allen Beschleunigern, nicht
+#  die Summe. Solange Increase Agi laeuft (25 %), sind die 10 % hier
+#  wirkungslos. Sie zaehlen fuer alle, die gerade keinen Agi-Puffer
+#  haben - also genau am Anfang.
+# --------------------------------------------------------------------
+
+  - Id: 30503
+    AegisName: Safa_Traveler_Pack
+    Name: Traveler's Backpack
+    Type: Armor
+    Buy: 0
+    Weight: 200
+    Defense: 10
+    Slots: 4
+    Locations:
+      Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bSpeedRate,10;
+      bonus bAddMaxWeight,50000;

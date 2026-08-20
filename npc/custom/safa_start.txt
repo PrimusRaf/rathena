@@ -39,6 +39,28 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 				close;
 			}
 		}
+		// --- Startpaket nachholen ---
+		//     Fuer alle, die ihr Geschenk gewaehlt haben, bevor es das
+		//     Paket gab - und fuer jeden, bei dem die Platzpruefung
+		//     beim ersten Versuch fehlgeschlagen ist. safa_startpaket
+		//     ist eine Charaktervariable, es bleibt also bei einmal.
+		if (safa_startpaket == 0) {
+			mes "[Threshold Warden]";
+			mes "You left without your provisions.";
+			mes "Careless. Here.";
+			next;
+			callfunc "F_SafaStartpaketText";
+			next;
+			if (callfunc("F_SafaStartpaket") == 0) {
+				mes "[Threshold Warden]";
+				mes "Come back when you can carry it.";
+				close;
+			}
+			// Kein next hier: das Fenster ist durch das next oben
+			// schon leer, und F_SafaStartpaket schreibt kein mes.
+			// Ein zweites next zeigte eine leere Seite zum Wegklicken.
+		}
+
 		mes "[Threshold Warden]";
 		mes "There is nothing left for you here.";
 		close2;
@@ -215,6 +237,20 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 					mes "It is done.";
 					mes "^0000FF" + callfunc("F_SafaGiftName", .@pick) + "^000000 is yours.";
 					next;
+
+					// --- Startpaket ---
+					//     Erst hier, nicht beim Betreten der Halle: wer
+					//     sein Geschenk noch nicht gewaehlt hat, soll den
+					//     Beutel nicht schon voll haben, wenn die
+					//     Platzpruefung laeuft.
+					mes "[Threshold Warden]";
+					mes "One more thing. Nobody walks out";
+					mes "of here empty-handed.";
+					next;
+					callfunc "F_SafaStartpaketText";
+					next;
+					callfunc "F_SafaStartpaket";
+
 					mes "[Threshold Warden]";
 					mes "The hall has no more use for you.";
 					mes "Go and be someone.";
