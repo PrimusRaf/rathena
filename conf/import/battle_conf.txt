@@ -214,36 +214,65 @@ item_rate_card_mvp: 5000
 //  Gegenstaende und haben mit unserem Fall nichts zu tun.
 allow_bound_sell: 0x2
 
-// --- Sichtfeld: 14 -> 16 ---
+// --- Sichtfeld: 14 -> 16 -> 20 ---
 //  Wie weit ein Spieler sehen kann, in Feldern. rAthenas Standard
 //  ist 14 (battle.cpp:8585). Wer weiter herauszoomt, sieht ab dort
 //  leere Flaeche - nicht weil nichts da waere, sondern weil der
 //  Server nichts mehr schickt.
 //
+//  Auf 20 gezogen, weil der Client den WARP-Patch ZoomMax bekommt.
+//  Beides gehoert zusammen: der Zoom entscheidet, wie weit man
+//  BLICKEN kann, area_size, wie weit tatsaechlich etwas zu sehen ist.
+//  Nur das eine anzuheben liefert entweder eine enge Kamera oder
+//  einen leeren Rand.
+//
 //  WAS DAS KOSTET
 //  Die Flaeche waechst quadratisch, nicht linear:
 //      14 -> 29 x 29 =  841 Felder
-//      16 -> 33 x 33 = 1089 Felder     + 29 %
+//      16 -> 33 x 33 = 1089 Felder     + 29 % gegenueber 14
+//      20 -> 41 x 41 = 1681 Felder     + 54 % gegenueber 16
+//                                      + 100 % gegenueber 14
 //  Entsprechend mehr Objekte je Aktualisierung und Spieler, also
 //  mehr Bandbreite und mehr Rechenzeit. Bei unserer Spielerzahl
 //  ist das nichts; bei zweihundert gleichzeitig waere es eine Zahl,
-//  die man im Auge behaelt.
+//  die man im Auge behaelt. Der Wert ist mit @reloadbattleconf im
+//  laufenden Betrieb aenderbar - runterdrehen geht also sofort.
 //
 //  WAS SICH SONST NOCH AENDERT
-//  area_size ist nicht nur Anzeige. Mitgewachsen sind:
+//  area_size ist nicht nur Anzeige. Durchgesehen wurden alle
+//  Fundstellen von AREA_SIZE in src/map. Mitgewachsen sind:
+//
 //    mob.cpp:2351   Monster in AREA_SIZE+4 Feldern schalten in die
-//                   aktive KI - aus 18 werden 20 Felder
+//                   aktive KI - aus 20 werden 24 Felder
 //    mob.cpp:1959   ein Monster verliert sein Ziel erst, wenn der
 //                   Angreifer weiter als AREA_SIZE entfernt ist
 //    mob.cpp:3576   Quest- und Erfolgsfortschritt fuer Gruppen
 //                   zaehlt in diesem Umkreis
+//    unit.cpp:408   Homunkulus und Tier werden erst ab AREA_SIZE
+//        und 410   zum Besitzer zurueckgeholt. Der Soeldner NICHT:
+//                   der haengt an MAX_MER_DISTANCE, einer Konstanten.
+//    battle.cpp     Ziele jenseits von AREA_SIZE werden grundsaetzlich
+//        :8268      abgelehnt, unabhaengig von der Reichweite
+//    status.cpp     die Standard-Sichtweite beim Aufdecken von
+//        :2304      Verstecktem - gilt fuer alles ausser Monster
+//                   und Tiere, die eigene Werte haben
+//    skill.cpp:228  Fertigkeiten mit negativem SplashArea nehmen
+//                   AREA_SIZE als Radius. Das sind 28 Stueck, fast
+//                   alles Gruppenpuffer: Adrenaline Rush,
+//                   Overthrust, Wind Walk, Assumptio und die
+//                   Wanderer-Lieder. Die reichen jetzt weiter -
+//                   ebenso aber Frost Joker und Scream.
+//    itemdb.cpp:302 die Obergrenze, auf die Waffenreichweiten
+//                   gekappt werden
+//    vending.cpp    Abstand, aus dem Laeden und Ankaufsladen
+//    buyingstore    bedient werden koennen
 //
 //  Die Sichtweite normaler Monster haengt NICHT daran - die steht
 //  je Monster in mob_db.yml. Der AREA_SIZE-Eintrag in mob.cpp:4626
-//  betrifft nur Klone aus @clone.
+//  steht in mob_clone_spawn und betrifft nur Klone aus @clone.
 //
 //  Zum Zurueckdrehen: Zeile loeschen, @reloadbattleconf.
-area_size: 16
+area_size: 20
 
 // --- Was @whodrops und @mobinfo anzeigen ---
 //  Ab Werk (conf/battle/gm.conf: 1) rechnen beide Befehle die
