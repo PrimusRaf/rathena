@@ -6712,3 +6712,123 @@ Body:
       bonus2 bSkillAtk,SU_SCRATCH,25;
 
 # ---- ENDE ERZEUGT ----
+
+# ====================================================================
+#  GM FluffyRaffi Card
+# --------------------------------------------------------------------
+#  Eine Karte, die in jedem Platz etwas anderes tut und sich selbst
+#  zaehlt. Beides braucht Erklaerung.
+#
+#  WOHER SIE WEISS, WO SIE STECKT
+#
+#  getequipid(EQI_COMPOUND_ON) liefert im Kartenskript die Id des
+#  Traegers. Dessen Ausruestungsmaske sagt dann, ob das ein Hut, eine
+#  Waffe oder ein Schuh ist. So machen es auch offizielle Karten, die
+#  je nach Waffentyp anders wirken.
+#
+#  WARUM DIE ZAHLEN NICHT SIND, WAS SIE SCHEINEN
+#
+#  status.cpp:4115 laeuft ueber alle vier Kartenplaetze und fuehrt
+#  JEDES Kartenskript einzeln aus. Vier gleiche Karten heisst also:
+#  dieses Skript laeuft viermal, jedes Mal mit demselben Wissen. Ein
+#  "die erste gibt 10, jede weitere 2" laesst sich so nicht schreiben -
+#  kein Durchlauf kann wissen, ob er der erste ist.
+#
+#  Also andersherum: jeder Durchlauf zaehlt, wie viele Kopien im
+#  selben Stueck stecken, und gibt ein Viertel, ein Drittel, die
+#  Haelfte oder alles. Die Tabellen unten sind deshalb Werte JE
+#  DURCHLAUF; was am Ende herauskommt, ist Wert mal Anzahl:
+#
+#    Hut, alle Stats        1 Karte 10 | 2 Karten 12 | 3 Karten 15 | 4 Karten 16
+#    Waffe, ATK             30 | 36 | 39 | 44 Prozent
+#    Waffe, Lebensentzug     5 |  6 |  6 |  8 Prozent
+#    Ruestung, Max HP       20 | 24 | 27 | 32 Prozent
+#    Ruestung, DEF und MDEF 10 | 12 | 15 | 16 Prozent
+#    Umhang, alle Elemente  10 | 12 | 15 | 16 Prozent
+#    Schuhe, Flucht         25 | 36 | 45 | 56
+#    Schuhe, Treffer       100 |126 |150 |176
+#    Schmuck, Mystery Powder 3,0 | 5,0 | 6,9 | 8,8 Prozent
+#
+#  Die Summe muss durch die Anzahl teilbar sein, sonst schluckt die
+#  Ganzzahlrechnung den Rest. Deshalb weichen einzelne Werte um eins
+#  von der Vorgabe ab - bei drei Karten meistens.
+# ====================================================================
+  - Id: 30500
+    AegisName: GM_FluffyRaffi_Card
+    Name: GM FluffyRaffi Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Head_Top: true
+      Head_Mid: true
+      Head_Low: true
+      Armor: true
+      Right_Hand: true
+      Garment: true
+      Shoes: true
+      Right_Accessory: true
+      Left_Accessory: true
+    Flags:
+      BuyingStore: true
+      DropEffect: CLIENT
+    Script: |
+      .@loc = getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_LOCATIONS);
+      .@p = -1;
+      if (.@loc & EQP_HEAD_TOP)      .@p = EQI_HEAD_TOP;
+      else if (.@loc & EQP_HEAD_MID) .@p = EQI_HEAD_MID;
+      else if (.@loc & EQP_HEAD_LOW) .@p = EQI_HEAD_LOW;
+      else if (.@loc & EQP_HAND_R)   .@p = EQI_HAND_R;
+      else if (.@loc & EQP_ARMOR)    .@p = EQI_ARMOR;
+      else if (.@loc & EQP_GARMENT)  .@p = EQI_GARMENT;
+      else if (.@loc & EQP_SHOES)    .@p = EQI_SHOES;
+      else if (.@loc & EQP_ACC_R) {
+         .@p = EQI_ACC_R;
+         if (getequipid(EQI_ACC_R) != getequipid(EQI_COMPOUND_ON))
+            .@p = EQI_ACC_L;
+      }
+      if (.@p >= 0) {
+         .@n = 0;
+         for (.@i = 0; .@i < 4; .@i++)
+            if (getequipcardid(.@p, .@i) == 30500) .@n++;
+         if (.@n < 1) .@n = 1;
+         if (.@n > 4) .@n = 4;
+
+         if (.@p == EQI_HEAD_TOP || .@p == EQI_HEAD_MID || .@p == EQI_HEAD_LOW) {
+            setarray .@w[1], 10, 6, 5, 4;
+            bonus bAllStats, .@w[.@n];
+         }
+         else if (.@p == EQI_HAND_R) {
+            setarray .@a[1], 30, 18, 13, 11;
+            setarray .@d[1], 5, 3, 2, 2;
+            bonus bAtkRate, .@a[.@n];
+            bonus2 bHPDrainRate, 1000, .@d[.@n];
+         }
+         else if (.@p == EQI_ARMOR) {
+            setarray .@h[1], 20, 12, 9, 8;
+            setarray .@v[1], 10, 6, 5, 4;
+            bonus bMaxHPrate, .@h[.@n];
+            bonus bDefRate, .@v[.@n];
+            bonus bMdefRate, .@v[.@n];
+         }
+         else if (.@p == EQI_GARMENT) {
+            setarray .@e[1], 10, 6, 5, 4;
+            bonus2 bSubEle, Ele_All, .@e[.@n];
+         }
+         else if (.@p == EQI_SHOES) {
+            setarray .@f[1], 25, 18, 15, 14;
+            setarray .@t[1], 100, 63, 50, 44;
+            bonus bFlee, .@f[.@n];
+            bonus bHit, .@t[.@n];
+         }
+         else {
+            // skill setzt die Stufe, es summiert sich nicht -
+            // mehrere Karten aendern daran also nichts.
+            skill "TF_DOUBLE", 5;
+            setarray .@b[1], 100, 50, 33, 25;
+            setarray .@m[1], 30, 25, 23, 22;
+            bonus3 bAutoSpell, "AL_INCAGI", 10, .@b[.@n];
+            bonus3 bAutoSpell, "AL_BLESSING", 10, .@b[.@n];
+            bonus3 bAutoSpell, "BO_MYSTERY_POWDER", 5, .@m[.@n];
+         }
+      }
