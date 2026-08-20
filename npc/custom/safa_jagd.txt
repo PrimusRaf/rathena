@@ -100,8 +100,26 @@ OnGM:
 		// return). Genau daran ist dieser Block schon einmal
 		// gestorben.
 		getunitdata $jagd_gid, .@d;
+
+		// Mit LEERZEICHEN zwischen den Koordinaten, nicht mit Komma.
+		// @warp parst so (atcommand.cpp:607):
+		//
+		//   sscanf(message, "%15s %6hd %6hd", ...) < 3 &&
+		//   sscanf(message, "%15[^,],%6hd,%6hd", ...) < 1
+		//
+		// Bei "karte 195,145" liefert der erste Versuch nur zwei
+		// Felder, also greift der zweite - und der schneidet am
+		// ersten Komma. Der Kartenname wird dadurch zu "karte 195",
+		// und die Antwort lautet "Map not found." Die Karte ist voll
+		// in Ordnung, nur die Schreibweise nicht.
+		//
+		// Deshalb steht hier eine Zeile, die sich unveraendert
+		// einfuegen laesst.
 		dispbottom "[Jagd] Genau: " + .karte$[$jagd_pos] + " "
-		           + .@d[UMOB_X] + "," + .@d[UMOB_Y];
+		           + .@d[UMOB_X] + " " + .@d[UMOB_Y];
+		dispbottom "[Jagd] @jagd hin   -   oder   @warp "
+		           + .karte$[$jagd_pos] + " "
+		           + .@d[UMOB_X] + " " + .@d[UMOB_Y];
 
 		if (.@was$ == "hin")
 			warp .karte$[$jagd_pos], .@d[UMOB_X], .@d[UMOB_Y];
