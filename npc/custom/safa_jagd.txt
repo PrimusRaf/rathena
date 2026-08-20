@@ -204,34 +204,54 @@ S_Aufraeumen:
 S_Hinweis:
 	.@i = getarg(0);
 
+	// --- Staedte -----------------------------------------------
+	//  Sie haben kein Levelband und keine eigenen Monster. Mit der
+	//  Gegend allein waren sie der vageste Fall ueberhaupt - deshalb
+	//  kommt hier das dazu, was vor ihren Toren lebt.
 	if (.stadtkarte[.@i]) {
-		// Beide Staedte-Hinweise nennen die Gegend. "Irgendeine
-		// Stadt" waere bei 33 Staedten in einer Viertelstunde nicht
-		// zu schaffen - und ein Hinweis, dem niemand nachgehen kann,
-		// ist keiner.
-		switch (rand(2)) {
-		case 0:
-			return "It has mixed in with people, somewhere in "
-			       + .gegend$[.@i] + ".";
-		default:
-			return "There are walls around it, and a Kafra inside. "
-			       + "Look in " + .gegend$[.@i] + ".";
-		}
+		.@t$ = "It has mixed in with people, somewhere in "
+		       + .gegend$[.@i] + ".";
+		if (.mob$[.@i] != "")
+			.@t$ = .@t$ + " Outside the gates, " + .mob$[.@i]
+			       + " roam.";
+		return .@t$;
 	}
 
-	switch (rand(4)) {
-	case 0:
-		return "It is " + .weg[.@i] + " crossing"
-		       + ((.weg[.@i] == 1) ? "" : "s") + " out from "
-		       + .stadt$[.@i] + ".";
-	case 1:
-		return "Where it sits, hunters between level " + .lvmin[.@i]
-		       + " and " + .lvmax[.@i] + " make their living.";
-	case 2:
-		return "It shares the ground with " + .mob$[.@i] + ".";
-	default:
-		return "Somewhere in " + .gegend$[.@i] + ", out in the open.";
+	// --- Felder: ZWEI verschiedene Hinweise ---------------------
+	//  Nachgemessen ueber alle 148 Verstecke, wie viele auf denselben
+	//  Hinweis passen:
+	//
+	//      Uebergaenge     Median 1, schlimmster Fall  6
+	//      Levelband       Median 1, schlimmster Fall  5
+	//      Nachbarmonster  Median 1, schlimmster Fall  4
+	//      Gegend          Median 5, schlimmster Fall 37
+	//
+	//  Ein einzelner Hinweis laesst also bis zu sechs Karten offen,
+	//  die Gegend sogar 37 - damit ist in einer Viertelstunde nichts
+	//  anzufangen. Je zwei davon zusammen lassen hoechstens noch zwei
+	//  Karten uebrig, meistens genau eine.
+	//
+	//  Die Gegend faellt fuer Felder ganz raus. Sie klingt gut und
+	//  sagt nichts.
+	.@a = rand(3);
+	.@b = (.@a + 1 + rand(2)) % 3;   // sicher verschieden von .@a
+
+	.@t$ = "";
+	for (.@n = 0; .@n < 2; .@n++) {
+		.@k = (.@n == 0) ? .@a : .@b;
+		if (.@k == 0)
+			.@s$ = "It is " + .weg[.@i] + " crossing"
+			       + ((.weg[.@i] == 1) ? "" : "s") + " out from "
+			       + .stadt$[.@i] + ".";
+		else if (.@k == 1)
+			.@s$ = "Hunters between level " + .lvmin[.@i]
+			       + " and " + .lvmax[.@i]
+			       + " make their living there.";
+		else
+			.@s$ = "It shares the ground with " + .mob$[.@i] + ".";
+		.@t$ = .@t$ + ((.@n == 0) ? "" : " ") + .@s$;
 	}
+	return .@t$;
 
 
 // ------------------------------------------------------------
@@ -315,8 +335,8 @@ OnInit:
 	setarray .lvmax[100], 37, 18, 29, 18, 38, 59, 19, 6, 30, 38, 19, 21, 6, 15, 6, 55, 34, 66, 103, 101;
 	setarray .lvmax[120], 103, 107, 108, 101, 95, 120, 109, 120, 68, 67, 76, 72, 105, 105, 110, 105, 105, 72, 73, 83;
 	setarray .lvmax[140], 83, 83, 81, 83, 80, 81, 80, 73;
-	setarray .mob$[0], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "";
-	setarray .mob$[20], "", "", "", "", "", "", "", "", "", "", "", "", "", "Karakasa", "Smokie", "Yoyo", "Miming", "Little Fatum", "Grove", "Seal";
+	setarray .mob$[0], "Fabre", "Geographer", "Karakasa", "Smokie", "", "Grove", "Rafflesia Alnoldi", "Centipede", "Menblatt", "Porcellio", "Venomous", "Chonchon", "Dumpling Child", "Shellfish", "", "", "Rafflesia", "Mi Gao", "", "Tikbalang";
+	setarray .mob$[20], "Bradium Golem", "Little Fatum", "Drops", "Side Winder", "Loli Ruri", "Willow", "Poring", "Roween", "Miming", "Wild Rose", "Stapo", "Marin", "Harpy", "Karakasa", "Smokie", "Yoyo", "Miming", "Little Fatum", "Grove", "Seal";
 	setarray .mob$[40], "Alligator", "Sea Otter", "Golem", "Raggler", "Deniro", "Metaller", "Rafflesia Alnoldi", "Centipede", "Dolomedes", "Menblatt", "Teddy Bear", "Venomous", "Noxious", "Holden", "Metaling", "Metaling", "Porcellio", "Chonchon", "Roda Frog", "Coco";
 	setarray .mob$[60], "Orc Lady", "Mandragora", "Creamy", "Petite", "Pupa", "Petite", "Coco", "Orc Warrior", "Goblin", "Dumpling Child", "Novus", "Novus", "Novus", "Novus", "Shellfish", "Rafflesia", "Stem Worm", "Breeze", "Mi Gao", "Tikbalang";
 	setarray .mob$[80], "Bungisngis", "Nepenthes", "Bradium Golem", "Hillthrion", "Muka", "Peco Peco", "Wolf", "Drops", "Baby Desert Wolf", "Picky", "Steel Chonchon", "Sandman", "Hode", "Scorpion", "Side Winder", "Disguise", "Loli Ruri", "Willow", "Boa", "Fabre";
