@@ -1,0 +1,285 @@
+//===== SafaRO Script =====================================
+//= Die Jagd
+//===== Erzeugt von ==========================================
+//= tools/jagd/bauen.py  --  NICHT von Hand pflegen.
+//===========================================================
+//
+//  Ein GM startet mit @jagd. Irgendwo in der Welt erscheint
+//  ein Golden Poring mit EINEM Lebenspunkt. Alle 15 Minuten
+//  springt er weiter, und jedes Mal geht ein Hinweis an alle.
+//
+//  Wer ihn findet, hat ihn. Ein Lebenspunkt heisst: Level
+//  spielt keine Rolle, nur Suchen zaehlt.
+//
+//  BEFEHLE (nur GM)
+//    @jagd          startet, oder sagt wo es steht
+//    @jagd stop     bricht ab
+//    @jagd hinweis  wiederholt den letzten Hinweis
+//    @jagd wo       verraet dem GM die Karte
+//
+//  WARUM DER ZUSTAND IN $-VARIABLEN STEHT
+//
+//  $ ist serverweit UND dauerhaft. Die Jagd endet nicht von
+//  selbst, sie kann also einen Neustart erleben. Mit
+//  gewoehnlichen NPC-Variablen waere sie danach spurlos weg -
+//  der Poring aber auch, und niemand haette je erfahren, was
+//  aus ihm wurde. OnInit setzt sie deshalb fort.
+//
+//  WARUM DAS MONSTER 2248 IST
+//
+//  Der Golden Poring kommt auf unserem Server nirgends vor
+//  (nachgesehen ueber alle Spawn-Dateien) und der Client kennt
+//  sein Sprite. Eine frei erfundene Nummer kennt er nicht und
+//  wuerde beim Erscheinen eine Fehlermeldung werfen. Seine
+//  Werte - 1 HP, kein Angriff, keine Erfahrung - stehen in
+//  db/import/mob_db.yml.
+//===========================================================
+
+-	script	safa_jagd	-1,{
+	end;
+
+// ------------------------------------------------------------
+//  @jagd
+// ------------------------------------------------------------
+OnGM:
+	.@was$ = "";
+	if (.@atcmd_numparameters > 0)
+		.@was$ = .@atcmd_parameters$[0];
+
+	if (.@was$ == "stop") {
+		if (!$jagd_laeuft) {
+			dispbottom "[Jagd] Es laeuft gerade keine.";
+			end;
+		}
+		callsub S_Aufraeumen;
+		set $jagd_laeuft, 0;
+		announce "The hunt is called off. It slipped away.", bc_all, 0xFFCC00;
+		end;
+	}
+
+	if (.@was$ == "wo") {
+		if (!$jagd_laeuft) {
+			dispbottom "[Jagd] Es laeuft gerade keine.";
+			end;
+		}
+		dispbottom "[Jagd] Karte: " + .karte$[$jagd_pos]
+		           + "  (Sprung " + $jagd_spruenge + ")";
+		end;
+	}
+
+	if (.@was$ == "hinweis") {
+		if (!$jagd_laeuft) {
+			dispbottom "[Jagd] Es laeuft gerade keine.";
+			end;
+		}
+		announce $jagd_hinweis$, bc_all, 0x00CCFF;
+		end;
+	}
+
+	if ($jagd_laeuft) {
+		dispbottom "[Jagd] Laeuft bereits - Sprung " + $jagd_spruenge
+		           + ". Mit @jagd stop abbrechen.";
+		end;
+	}
+
+	set $jagd_laeuft, 1;
+	set $jagd_spruenge, 0;
+	announce "Something came through the Threshold that should not have. "
+	         + "It is hiding. Find it.", bc_all, 0xFFCC00;
+	callsub S_Setzen;
+	initnpctimer;
+	end;
+
+
+// ------------------------------------------------------------
+//  Sprung
+// ------------------------------------------------------------
+OnTimer900000:
+	stopnpctimer;
+	if (!$jagd_laeuft)
+		end;
+	callsub S_Aufraeumen;
+	announce "It moved.", bc_all, 0xFFCC00;
+	callsub S_Setzen;
+	initnpctimer;
+	end;
+
+
+// ------------------------------------------------------------
+//  Neues Versteck suchen, setzen, Hinweis geben
+// ------------------------------------------------------------
+S_Setzen:
+	// Nicht zweimal hintereinander dieselbe Karte - das sieht nach
+	// einem Fehler aus, auch wenn es keiner waere.
+	.@neu = rand(.anzahl);
+	if (.@neu == $jagd_pos)
+		.@neu = (.@neu + 1) % .anzahl;
+	set $jagd_pos, .@neu;
+	set $jagd_spruenge, $jagd_spruenge + 1;
+
+	monster .karte$[$jagd_pos], -1, -1, "Something That Slipped Through", 2248, 1,
+	        "safa_jagd::OnKill";
+
+	set $jagd_hinweis$, callsub(S_Hinweis, $jagd_pos);
+	announce $jagd_hinweis$, bc_all, 0x00CCFF;
+	return;
+
+
+S_Aufraeumen:
+	killmonster .karte$[$jagd_pos], "safa_jagd::OnKill";
+	return;
+
+
+// ------------------------------------------------------------
+//  Ein Hinweis, nie der Kartenname
+// ------------------------------------------------------------
+//  Staedte haben kein Levelband und keine Monster - fuer sie
+//  bleiben zwei der vier Arten uebrig. Deshalb die Fallunter-
+//  scheidung, statt einfach aus vier zu wuerfeln und bei einer
+//  Stadt einen leeren Satz zu erzeugen.
+// ------------------------------------------------------------
+S_Hinweis:
+	.@i = getarg(0);
+
+	if (.stadtkarte[.@i]) {
+		// Beide Staedte-Hinweise nennen die Gegend. "Irgendeine
+		// Stadt" waere bei 33 Staedten in einer Viertelstunde nicht
+		// zu schaffen - und ein Hinweis, dem niemand nachgehen kann,
+		// ist keiner.
+		switch (rand(2)) {
+		case 0:
+			return "It has mixed in with people, somewhere in "
+			       + .gegend$[.@i] + ".";
+		default:
+			return "There are walls around it, and a Kafra inside. "
+			       + "Look in " + .gegend$[.@i] + ".";
+		}
+	}
+
+	switch (rand(4)) {
+	case 0:
+		return "It is " + .weg[.@i] + " crossing"
+		       + ((.weg[.@i] == 1) ? "" : "s") + " out from "
+		       + .stadt$[.@i] + ".";
+	case 1:
+		return "Where it sits, hunters between level " + .lvmin[.@i]
+		       + " and " + .lvmax[.@i] + " make their living.";
+	case 2:
+		return "It shares the ground with " + .mob$[.@i] + ".";
+	default:
+		return "Somewhere in " + .gegend$[.@i] + ", out in the open.";
+	}
+
+
+// ------------------------------------------------------------
+//  Gefangen
+// ------------------------------------------------------------
+OnKill:
+	if (!$jagd_laeuft)
+		end;
+	set $jagd_laeuft, 0;
+	stopnpctimer;
+
+	.@name$ = strcharinfo(0);
+	announce .@name$ + " caught it, after " + $jagd_spruenge
+	         + " hiding places. Everyone online shares the reward.",
+	         bc_all, 0xFFCC00;
+
+	// Der Faenger zuerst, solange nur er angehaengt ist.
+	getitem 30001, 200;
+
+	// Danach alle. addrid haengt die uebrigen an, ohne den Faenger
+	// abzuhaengen - der Rest des Skripts laeuft je Spieler einmal,
+	// er bekommt seine 20 also zusaetzlich.
+	addrid(0);
+	getitem 30001, 20;
+	sc_start SC_EXPBOOST, 1800000, 50;
+	dispbottom "[Jagd] " + .@name$ + " hat es gefangen. "
+	           + "20 Muenzen und "
+	           + "50% Erfahrung fuer die naechste halbe Stunde.";
+	end;
+
+
+// ------------------------------------------------------------
+OnInit:
+	bindatcmd "jagd", "safa_jagd::OnGM", 99, 99;
+
+	setarray .karte$[0], "alberta", "aldebaran", "amatsu", "ayothaya", "brasilis", "comodo", "dewata", "dicastes01", "eclage", "einbech", "einbroch", "geffen", "gonryun", "hugel", "izlude", "lasagna", "lighthalzen", "louyang", "malangdo", "malaya";
+	setarray .karte$[20], "manuk", "mora", "morocc", "moscovia", "niflheim", "payon", "prontera", "rachel", "splendide", "umbala", "veins", "xmas", "yuno", "ama_fild01", "ayo_fild01", "ayo_fild02", "bif_fild01", "bif_fild02", "cmd_fild01", "cmd_fild02";
+	setarray .karte$[40], "cmd_fild03", "cmd_fild04", "cmd_fild06", "cmd_fild07", "cmd_fild08", "cmd_fild09", "dew_fild01", "dic_fild01", "dic_fild02", "ecl_fild01", "ein_fild03", "ein_fild04", "ein_fild05", "ein_fild06", "ein_fild07", "ein_fild08", "ein_fild09", "gef_fild00", "gef_fild01", "gef_fild02";
+	setarray .karte$[60], "gef_fild03", "gef_fild04", "gef_fild05", "gef_fild06", "gef_fild07", "gef_fild08", "gef_fild09", "gef_fild10", "gef_fild11", "gon_fild01", "hu_fild01", "hu_fild02", "hu_fild04", "hu_fild05", "hu_fild06", "lhz_fild01", "lhz_fild02", "lhz_fild03", "lou_fild01", "ma_fild01";
+	setarray .karte$[80], "ma_fild02", "man_fild01", "man_fild02", "man_fild03", "moc_fild01", "moc_fild02", "moc_fild03", "moc_fild07", "moc_fild11", "moc_fild12", "moc_fild13", "moc_fild16", "moc_fild17", "moc_fild18", "mosk_fild02", "nif_fild01", "nif_fild02", "pay_fild01", "pay_fild02", "pay_fild03";
+	setarray .karte$[100], "pay_fild04", "pay_fild06", "pay_fild07", "pay_fild08", "pay_fild09", "pay_fild10", "prt_fild00", "prt_fild01", "prt_fild02", "prt_fild03", "prt_fild04", "prt_fild05", "prt_fild06", "prt_fild07", "prt_fild08", "prt_fild09", "prt_fild10", "prt_fild11", "ra_fild01", "ra_fild03";
+	setarray .karte$[120], "ra_fild04", "ra_fild05", "ra_fild06", "ra_fild08", "ra_fild12", "spl_fild01", "spl_fild02", "spl_fild03", "um_fild01", "um_fild02", "um_fild03", "um_fild04", "ve_fild01", "ve_fild02", "ve_fild03", "ve_fild04", "ve_fild07", "xmas_fild01", "yuno_fild01", "yuno_fild02";
+	setarray .karte$[140], "yuno_fild03", "yuno_fild04", "yuno_fild06", "yuno_fild07", "yuno_fild08", "yuno_fild09", "yuno_fild11", "yuno_fild12";
+	setarray .stadt$[0], "Alberta", "Al de Baran", "Amatsu", "Ayothaya", "Brasilis", "Comodo", "Dewata", "El Dicastes", "Eclage", "Einbech", "Einbroch", "Geffen", "Gonryun", "Hugel", "Izlude", "Lasagna", "Lighthalzen", "Louyang", "Malangdo Island", "Malaya Port";
+	setarray .stadt$[20], "Manuk", "Mora", "Morroc", "Moscovia", "Niflheim", "Payon", "Prontera", "Rachel", "Splendide", "Umbala", "Veins", "Lutie", "Yuno", "Amatsu", "Ayothaya", "Ayothaya", "Splendide", "Mora", "Comodo", "Comodo";
+	setarray .stadt$[40], "Comodo", "Comodo", "Morroc", "Morroc", "Morroc", "Morroc", "Dewata", "El Dicastes", "El Dicastes", "Eclage", "Einbroch", "Einbroch", "Einbroch", "Yuno", "Yuno", "Einbroch", "Einbech", "Geffen", "Prontera", "Prontera";
+	setarray .stadt$[60], "Prontera", "Geffen", "Geffen", "Geffen", "Geffen", "Geffen", "Geffen", "Geffen", "Geffen", "Gonryun", "Yuno", "Hugel", "Hugel", "Hugel", "Hugel", "Lighthalzen", "Lighthalzen", "Einbroch", "Louyang", "Malaya Port";
+	setarray .stadt$[80], "Malaya Port", "Manuk", "Manuk", "Manuk", "Prontera", "Payon", "Payon", "Morroc", "Morroc", "Morroc", "Payon", "Morroc", "Morroc", "Morroc", "Moscovia", "Umbala", "Niflheim", "Payon", "Payon", "Alberta";
+	setarray .stadt$[100], "Prontera", "Alberta", "Payon", "Payon", "Payon", "Payon", "Geffen", "Prontera", "Prontera", "Prontera", "Prontera", "Prontera", "Prontera", "Prontera", "Prontera", "Prontera", "Prontera", "Prontera", "Rachel", "Rachel";
+	setarray .stadt$[120], "Rachel", "Lighthalzen", "Lighthalzen", "Rachel", "Rachel", "Splendide", "Splendide", "Splendide", "Comodo", "Umbala", "Comodo", "Umbala", "Rachel", "Rachel", "Veins", "Veins", "Veins", "Lutie", "Al de Baran", "Yuno";
+	setarray .stadt$[140], "Yuno", "Yuno", "Yuno", "Yuno", "Al de Baran", "Al de Baran", "Al de Baran", "Al de Baran";
+	setarray .weg[0], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .weg[20], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 1, 2, 3;
+	setarray .weg[40], 3, 4, 5, 4, 4, 3, 1, 1, 2, 1, 2, 1, 2, 2, 3, 1, 1, 1, 3, 3;
+	setarray .weg[60], 4, 1, 2, 3, 1, 2, 3, 4, 5, 1, 4, 4, 3, 2, 1, 1, 2, 2, 1, 1;
+	setarray .weg[80], 2, 2, 1, 3, 2, 2, 2, 1, 2, 1, 3, 4, 3, 2, 2, 2, 1, 1, 2, 1;
+	setarray .weg[100], 3, 2, 2, 1, 2, 3, 2, 3, 2, 3, 2, 1, 1, 2, 1, 3, 4, 5, 4, 4;
+	setarray .weg[120], 3, 3, 2, 2, 1, 2, 1, 2, 2, 2, 3, 1, 2, 1, 3, 2, 1, 1, 1, 3;
+	setarray .weg[140], 2, 1, 3, 3, 3, 2, 3, 2;
+	setarray .gegend$[0], "the Rune-Midgarts Kingdom", "the northern reaches", "the far East", "the far East", "distant shores", "the southern coast", "distant shores", "the world beyond", "the world beyond", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Rune-Midgarts Kingdom", "the far East", "the Schwartzvalt Republic", "the Rune-Midgarts Kingdom", "distant shores", "the Schwartzvalt Republic", "the far East", "distant shores", "distant shores";
+	setarray .gegend$[20], "the world beyond", "the world beyond", "the Sograt desert", "the far East", "the land of the dead", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Arunafeltz States", "the world beyond", "the deep jungle", "the Arunafeltz States", "the eternal winter", "the Schwartzvalt Republic", "the far East", "the far East", "the far East", "the world beyond", "the world beyond", "the southern coast", "the southern coast";
+	setarray .gegend$[40], "the southern coast", "the southern coast", "the Sograt desert", "the Sograt desert", "the Sograt desert", "the Sograt desert", "distant shores", "the world beyond", "the world beyond", "the world beyond", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom";
+	setarray .gegend$[60], "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the far East", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the far East", "distant shores";
+	setarray .gegend$[80], "distant shores", "the world beyond", "the world beyond", "the world beyond", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Sograt desert", "the Sograt desert", "the Sograt desert", "the Rune-Midgarts Kingdom", "the Sograt desert", "the Sograt desert", "the Sograt desert", "the far East", "the deep jungle", "the land of the dead", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom";
+	setarray .gegend$[100], "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Rune-Midgarts Kingdom", "the Arunafeltz States", "the Arunafeltz States";
+	setarray .gegend$[120], "the Arunafeltz States", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Arunafeltz States", "the Arunafeltz States", "the world beyond", "the world beyond", "the world beyond", "the southern coast", "the deep jungle", "the southern coast", "the deep jungle", "the Arunafeltz States", "the Arunafeltz States", "the Arunafeltz States", "the Arunafeltz States", "the Arunafeltz States", "the eternal winter", "the northern reaches", "the Schwartzvalt Republic";
+	setarray .gegend$[140], "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the Schwartzvalt Republic", "the northern reaches", "the northern reaches", "the northern reaches", "the northern reaches";
+	setarray .lvmin[0], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .lvmin[20], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34, 29, 38, 109, 109, 55, 45;
+	setarray .lvmin[40], 57, 45, 55, 43, 28, 31, 75, 118, 125, 141, 1, 1, 87, 1, 1, 1, 1, 1, 13, 30;
+	setarray .lvmin[60], 43, 3, 20, 65, 1, 59, 13, 43, 44, 60, 84, 73, 73, 84, 1, 1, 1, 81, 65, 100;
+	setarray .lvmin[80], 100, 114, 125, 123, 7, 7, 45, 2, 12, 2, 1, 61, 61, 12, 65, 100, 101, 1, 17, 1;
+	setarray .lvmin[100], 1, 17, 21, 17, 32, 55, 13, 1, 21, 30, 13, 11, 1, 14, 1, 53, 30, 44, 14, 95;
+	setarray .lvmin[120], 95, 101, 101, 95, 14, 113, 105, 109, 1, 48, 64, 1, 1, 101, 101, 101, 95, 37, 1, 75;
+	setarray .lvmin[140], 1, 1, 1, 1, 1, 1, 1, 65;
+	setarray .lvmax[0], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .lvmax[20], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 83, 38, 64, 142, 142, 59, 50;
+	setarray .lvmax[40], 59, 50, 61, 50, 33, 55, 80, 132, 132, 143, 91, 91, 91, 85, 85, 85, 85, 6, 19, 38;
+	setarray .lvmax[60], 45, 13, 23, 86, 6, 79, 38, 45, 49, 68, 90, 119, 119, 119, 50, 86, 92, 92, 83, 115;
+	setarray .lvmax[80], 125, 118, 133, 128, 25, 25, 48, 9, 16, 12, 53, 63, 63, 16, 75, 108, 110, 8, 18, 8;
+	setarray .lvmax[100], 37, 18, 29, 18, 38, 59, 19, 6, 30, 38, 19, 21, 6, 15, 6, 55, 34, 66, 103, 101;
+	setarray .lvmax[120], 103, 107, 108, 101, 95, 120, 109, 120, 68, 67, 76, 72, 105, 105, 110, 105, 105, 72, 73, 83;
+	setarray .lvmax[140], 83, 83, 81, 83, 80, 81, 80, 73;
+	setarray .mob$[0], "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "";
+	setarray .mob$[20], "", "", "", "", "", "", "", "", "", "", "", "", "", "Karakasa", "Smokie", "Yoyo", "Miming", "Little Fatum", "Grove", "Seal";
+	setarray .mob$[40], "Alligator", "Sea Otter", "Golem", "Raggler", "Deniro", "Metaller", "Rafflesia Alnoldi", "Centipede", "Dolomedes", "Menblatt", "Teddy Bear", "Venomous", "Noxious", "Holden", "Metaling", "Metaling", "Porcellio", "Chonchon", "Roda Frog", "Coco";
+	setarray .mob$[60], "Orc Lady", "Mandragora", "Creamy", "Petite", "Pupa", "Petite", "Coco", "Orc Warrior", "Goblin", "Dumpling Child", "Novus", "Novus", "Novus", "Novus", "Shellfish", "Rafflesia", "Stem Worm", "Breeze", "Mi Gao", "Tikbalang";
+	setarray .mob$[80], "Bungisngis", "Nepenthes", "Bradium Golem", "Hillthrion", "Muka", "Peco Peco", "Wolf", "Drops", "Baby Desert Wolf", "Picky", "Steel Chonchon", "Sandman", "Hode", "Scorpion", "Side Winder", "Disguise", "Loli Ruri", "Willow", "Boa", "Fabre";
+	setarray .mob$[100], "Poporing", "Wormtail", "Bigfoot", "Spore", "Horn", "Greatest General", "Roda Frog", "Lunatic", "Stainer", "Yoyo", "Ambernite", "Hornet", "Fabre", "Rocker", "Poring", "Magnolia", "Elder Willow", "Goblin", "Desert Wolf", "Hill Wind";
+	setarray .mob$[120], "Hill Wind", "Kobold", "Kobold", "Anacondaq", "Roween", "Dark Pinguicula", "Pinguicula", "Luciola Vespa", "Dryad", "Wootan Fighter", "Parasite", "Wild Rose", "Stapo", "Drosera", "Magmaring", "Muscipular", "Stapo", "Marin", "Geographer", "Sleeper";
+	setarray .mob$[140], "Harpy", "Harpy", "Sleeper", "Goat", "Grand Peco", "Grand Peco", "Goat", "Geographer";
+	setarray .stadtkarte[0], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .stadtkarte[20], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0;
+	setarray .stadtkarte[40], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .stadtkarte[60], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .stadtkarte[80], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .stadtkarte[100], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .stadtkarte[120], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .stadtkarte[140], 0, 0, 0, 0, 0, 0, 0, 0;
+
+	.anzahl = getarraysize(.karte$);
+
+	// Nach einem Neustart weitermachen. Der Poring von vorher ist mit
+	// dem Server verschwunden, also wird er neu gesetzt - am selben
+	// Ort, damit ein Hinweis, den jemand gerade verfolgt, gueltig
+	// bleibt.
+	if ($jagd_laeuft) {
+		monster .karte$[$jagd_pos], -1, -1, "Something That Slipped Through", 2248, 1,
+		        "safa_jagd::OnKill";
+		announce "It is still out there.", bc_all, 0xFFCC00;
+		initnpctimer;
+	}
+	end;
+}
