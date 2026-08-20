@@ -72,11 +72,26 @@ OnPCBaseLvUpEvent:
 		end;
 	}
 
-	// Nur tauschen, wenn er ueberhaupt draussen ist - sonst
-	// wuerde ein Levelaufstieg ihn ungefragt herbeirufen.
-	if (getmercinfo(0) <= 0)
+	// Ohne Vertrag geht hier gar nichts. Wer die Rolle nicht hat -
+	// weil er sie nie bekam oder sie auf 201 eingezogen wurde -,
+	// soll auch keinen geschenkt bekommen.
+	if (countitem(30501) < 1)
 		end;
+
 	.@soll = callfunc("F_SafaSoeldnerStufe");
+
+	// Steht keiner da, wird gerufen. Der erste Entwurf ist hier
+	// ausgestiegen, um niemanden ungefragt zu behelligen - in der
+	// Praxis heisst das aber, dass der Aufstieg genau dann
+	// ausbleibt, wenn er gerade gefallen ist. Und fallen tut er
+	// oft: mercenary_dead loescht ihn endgueltig
+	// (mercenary.cpp:444), es gibt kein Wiederbeleben.
+	if (getmercinfo(0) <= 0) {
+		mercenary_create .@soll, 2147483647;
+		dispbottom "[Mercenary] \"You called?\"";
+		end;
+	}
+
 	if (getmercinfo(1) == .@soll)
 		end;
 
