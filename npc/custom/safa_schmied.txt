@@ -1,0 +1,439 @@
+//===== SafaRO ===============================================
+//= Der Meisterhandwerker - Sockel und Verzauberung
+//===== Erzeugt von ==========================================
+//= tools/schmied/bauen.py  --  NICHT von Hand pflegen.
+//===========================================================
+//
+//  ZWEI DIENSTE, ZWEI GANZ VERSCHIEDENE MECHANIKEN
+//
+//  Sockel: die Slotzahl haengt an der Item-ID, nicht am
+//  einzelnen Exemplar - auch der Client liest sie aus seiner
+//  eigenen Tabelle. Ein Slot laesst sich deshalb nicht
+//  "aufschalten". Der NPC tauscht das Stueck gegen dieselbe
+//  Ausfuehrung mit mehr Slots, sofern es sie gibt. Die Paare
+//  unten sind abgeleitet, nicht getippt.
+//
+//  Rund 3 Prozent der Ausruestung hat eine solche Variante.
+//  Fuer den Rest lehnt er ab und sagt auch, warum.
+//
+//  Verzauberung: setrandomoption schreibt Optionen direkt auf
+//  das getragene Teil. Kein Tausch, kein Fehlschlag - und es
+//  geht auch auf Kostuem- und Schattenteilen, wo Karten
+//  grundsaetzlich nicht hineinpassen (pc.cpp:5632).
+//
+//  WAS BEIM TAUSCH ERHALTEN BLEIBT
+//
+//  Der Verfeinerungsgrad wird uebernommen. Karten und bereits
+//  gesetzte Optionen NICHT - deshalb nimmt der NPC solche
+//  Stuecke gar nicht erst an, statt sie stillschweigend zu
+//  verschlucken. Das offizielle Skript macht an dieser Stelle
+//  das Gegenteil: es loescht und wuerfelt dazu noch.
+//
+//===========================================================
+
+prontera,163,164,4	script	Master Artisan#safa	4_M_ALCHE_A,{
+	mes "[Master Artisan]";
+	mes "Armstrong sends me the ones who know where to go.";
+	mes "I am for the ones who know what they want to wear.";
+	next;
+
+L_Menue:
+	switch (select("Widen a socket - " + callfunc("F_InsertComma", .je_slot) + "z per slot",
+	               "Enchant a piece - " + callfunc("F_InsertComma", .enchant) + "z",
+	               "What can you not do?",
+	               "Nothing today.")) {
+	case 1: callsub S_Sockel;  break;
+	case 2: callsub S_Zauber;  break;
+	case 3: callsub S_Grenzen; break;
+	case 4:
+		mes "[Master Artisan]";
+		mes "Come back when something of yours needs opening up.";
+		close;
+	}
+	goto L_Menue;
+
+// ------------------------------------------------------------
+//  Sockel
+// ------------------------------------------------------------
+S_Sockel:
+	// Nur normale Plaetze. Kostuem und Schatten stehen bewusst nicht
+	// zur Wahl - dort passt ohnehin keine Karte hinein.
+	setarray .@platz[0], EQI_HEAD_TOP, EQI_HEAD_MID, EQI_HEAD_LOW,
+	                     EQI_ARMOR, EQI_HAND_R, EQI_HAND_L,
+	                     EQI_GARMENT, EQI_SHOES, EQI_ACC_R, EQI_ACC_L;
+	.@n = 0;
+	.@liste$ = "";
+	for (.@i = 0; .@i < getarraysize(.@platz); .@i++) {
+		if (getequipisequiped(.@platz[.@i])) {
+			.@wahl[.@n] = .@platz[.@i];
+			.@liste$ = .@liste$ + getequipname(.@platz[.@i]) + ":";
+			.@n++;
+		}
+	}
+	if (.@n == 0) {
+		mes "[Master Artisan]";
+		mes "You are wearing nothing I can work on.";
+		next;
+		return;
+	}
+
+	mes "[Master Artisan]";
+	mes "Which one?";
+	next;
+	.@k = select(.@liste$ + "Never mind") - 1;
+	if (.@k >= .@n)
+		return;
+	.@teil = .@wahl[.@k];
+	.@id = getequipid(.@teil);
+
+	// Passendes Paar suchen.
+	.@idx = -1;
+	for (.@i = 0; .@i < getarraysize(.von); .@i++) {
+		if (.von[.@i] == .@id) {
+			.@idx = .@i;
+			break;
+		}
+	}
+	if (.@idx < 0) {
+		mes "[Master Artisan]";
+		mes "^FF6666That one has no wider version.^000000";
+		mes " ";
+		mes "I do not carve new holes - I trade the piece for the same piece with more of them. If the smiths never made such a version, there is nothing for me to trade with.";
+		next;
+		return;
+	}
+
+	// Karten und Optionen koennen wir nicht mitnehmen. Also gar nicht
+	// erst anfangen, statt sie hinterher verschwinden zu lassen.
+	if (getequipcardcnt(.@teil) > 0) {
+		mes "[Master Artisan]";
+		mes "^FF6666There are cards in it.^000000";
+		mes "The trade would leave them behind, and I will not do that to you. Have them taken out first - the ^00CCFFSafari Specialist^000000 at ^00CCFFprontera 163, 174^000000 does it without risk.";
+		next;
+		return;
+	}
+	.@opt = 0;
+	for (.@i = 0; .@i < 5; .@i++) {
+		if (getequiprandomoption(.@teil, .@i, ROA_ID) > 0)
+			.@opt++;
+	}
+	if (.@opt > 0) {
+		mes "[Master Artisan]";
+		mes "^FF6666That piece is already enchanted.^000000";
+		mes "The enchantment sits on this exact piece, not on its name. Trade it away and the work is gone. Sockets first, enchantment second - that is the order.";
+		next;
+		return;
+	}
+
+	.@plus = .nach_slots[.@idx] - .vor_slots[.@idx];
+	.@preis = .@plus * .je_slot;
+	.@ref = getequiprefinerycnt(.@teil);
+
+	mes "[Master Artisan]";
+	mes "^00CCFF" + getequipname(.@teil) + "^000000";
+	mes " ";
+	mes "Slots: ^FFCC00" + .vor_slots[.@idx] + "^000000 -> ^FFCC00" + .nach_slots[.@idx] + "^000000";
+	mes "Refine ^FFCC00+" + .@ref + "^000000 comes across with it.";
+	mes " ";
+	mes "^FFCC00" + callfunc("F_InsertComma", .@preis) + " Zeny^000000 for " + .@plus + " slot" + ((.@plus == 1) ? "" : "s") + ".";
+	next;
+	if (select("Do it:Leave it alone") == 2)
+		return;
+	if (Zeny < .@preis) {
+		mes "[Master Artisan]";
+		mes "Not with what you are carrying.";
+		next;
+		return;
+	}
+
+	// Erst vom Koerper nehmen, dann tauschen. delitem2 wuerde ein
+	// getragenes Stueck zwar auch finden, aber der Client behielte
+	// bis zum naechsten Statuslauf die alten Boni im Fenster.
+	unequip .@teil;
+	delitem2 .@id, 1, 1, .@ref, 0, 0, 0, 0, 0;
+	getitem2 .nach[.@idx], 1, 1, .@ref, 0, 0, 0, 0, 0;
+	Zeny -= .@preis;
+
+	specialeffect2 EF_REPAIRWEAPON;
+	mes "[Master Artisan]";
+	mes "Done. ^00AA00" + .@plus + " more slot" + ((.@plus == 1) ? "" : "s") + "^000000, and the refine held.";
+	mes "It is in your bag, not on your back - put it on yourself, I do not dress people.";
+	next;
+	return;
+
+// ------------------------------------------------------------
+//  Verzauberung
+// ------------------------------------------------------------
+S_Zauber:
+	// Hier sind Kostuem und Schatten ausdruecklich dabei. Das ist der
+	// einzige Weg, unsere eigenen Stuecke aufzuwerten - Karten passen
+	// dort nie hinein.
+	setarray .@platz[0], EQI_HEAD_TOP, EQI_HEAD_MID, EQI_HEAD_LOW,
+	                     EQI_ARMOR, EQI_HAND_R, EQI_HAND_L,
+	                     EQI_GARMENT, EQI_SHOES, EQI_ACC_R, EQI_ACC_L,
+	                     EQI_COSTUME_HEAD_TOP, EQI_COSTUME_HEAD_MID,
+	                     EQI_COSTUME_HEAD_LOW, EQI_COSTUME_GARMENT,
+	                     EQI_SHADOW_ARMOR, EQI_SHADOW_WEAPON,
+	                     EQI_SHADOW_SHIELD, EQI_SHADOW_SHOES,
+	                     EQI_SHADOW_ACC_R, EQI_SHADOW_ACC_L;
+	.@n = 0;
+	.@liste$ = "";
+	for (.@i = 0; .@i < getarraysize(.@platz); .@i++) {
+		if (getequipisequiped(.@platz[.@i])) {
+			.@wahl[.@n] = .@platz[.@i];
+			.@liste$ = .@liste$ + getequipname(.@platz[.@i]) + ":";
+			.@n++;
+		}
+	}
+	if (.@n == 0) {
+		mes "[Master Artisan]";
+		mes "Put something on first.";
+		next;
+		return;
+	}
+
+	mes "[Master Artisan]";
+	mes "Which piece?";
+	next;
+	.@k = select(.@liste$ + "Never mind") - 1;
+	if (.@k >= .@n)
+		return;
+	.@teil = .@wahl[.@k];
+
+	// Freien Platz suchen. Fuenf sind das Hoechste, was ein Stueck
+	// tragen kann (MAX_ITEM_RDM_OPT in mmo.hpp).
+	.@frei = -1;
+	for (.@i = 0; .@i < 5; .@i++) {
+		if (getequiprandomoption(.@teil, .@i, ROA_ID) == 0) {
+			.@frei = .@i;
+			break;
+		}
+	}
+	if (.@frei < 0) {
+		mes "[Master Artisan]";
+		mes "^FF6666Five enchantments already.^000000 That is all a thing will hold before it stops being itself.";
+		next;
+		return;
+	}
+
+	mes "[Master Artisan]";
+	mes "^00CCFF" + getequipname(.@teil) + "^000000, slot " + (.@frei + 1) + " of 5.";
+	mes " ";
+	mes "Pick what it should carry. ^FFCC00" + callfunc("F_InsertComma", .enchant) + " Zeny^000000.";
+	mes "^777777It always takes. How strongly is not mine to decide.^000000";
+	next;
+	.@o = select(.menue$) - 1;
+	if (.@o >= getarraysize(.opt_id))
+		return;
+
+	mes "[Master Artisan]";
+	mes "^00CCFF" + .opt_name$[.@o] + "^000000, somewhere between ^FFCC00"
+	    + .opt_von[.@o] + "^000000 and ^FFCC00" + .opt_bis[.@o] + "^000000.";
+	next;
+	if (select("Pay " + callfunc("F_InsertComma", .enchant) + " Zeny:Not yet") == 2)
+		return;
+	if (Zeny < .enchant) {
+		mes "[Master Artisan]";
+		mes "Not with what you are carrying.";
+		next;
+		return;
+	}
+
+	// Zwischen Anzeige und Zahlung kann das Stueck vom Koerper
+	// verschwunden sein - der Spieler kann inzwischen umgezogen haben.
+	if (getequipisequiped(.@teil) == 0) {
+		mes "[Master Artisan]";
+		mes "You took it off. Put it back on and ask again.";
+		next;
+		return;
+	}
+
+	Zeny -= .enchant;
+	.@wert = rand(.opt_von[.@o], .opt_bis[.@o]);
+	setrandomoption(.@teil, .@frei, .opt_id[.@o], .@wert, 0);
+
+	specialeffect2 EF_REFINEOK;
+	mes "[Master Artisan]";
+	mes "^00AA00" + .opt_name$[.@o] + " +" + .@wert + "^000000.";
+	if (.@wert >= .opt_bis[.@o])
+		mes "As high as it goes. You will not do better than that.";
+	else if (.@wert <= .opt_von[.@o])
+		mes "The low end. The stone decides, not me.";
+	next;
+	return;
+
+// ------------------------------------------------------------
+//  Was nicht geht, und warum
+// ------------------------------------------------------------
+S_Grenzen:
+	mes "[Master Artisan]";
+	mes "I cannot carve a hole into a thing that was forged without one.";
+	mes " ";
+	mes "What I do is trade: your piece for the same piece, made with more slots. If the smiths of old never made that version, there is nothing to trade for - and no amount of your money changes that.";
+	next;
+	mes "[Master Artisan]";
+	mes "^777777About one piece in thirty has such a version. Mostly the old blades and armours.^000000";
+	next;
+	mes "[Master Artisan]";
+	mes "Enchantment is a different craft. That one I can put on anything you wear - ^00CCFFincluding costume and shadow pieces^000000, which take no cards at all.";
+	mes " ";
+	mes "For those, it is the only way to make them worth anything.";
+	next;
+	return;
+
+OnInit:
+	.je_slot = 10000;
+	.enchant = 50000;
+
+	setarray .von[0], 1101, 1103, 1104, 1106, 1107, 1109, 1110, 1112, 1113, 1116, 1118, 1119;
+	setarray .von[12], 1121, 1122, 1124, 1126, 1129, 1131, 1133, 1135, 1140, 1146, 1148, 1151;
+	setarray .von[24], 1153, 1154, 1156, 1157, 1159, 1160, 1163, 1164, 1166, 1167, 1168, 1169;
+	setarray .von[36], 1188, 1191, 1201, 1203, 1204, 1206, 1207, 1209, 1210, 1212, 1213, 1215;
+	setarray .von[48], 1216, 1218, 1219, 1221, 1222, 1224, 1225, 1232, 1236, 1239, 1245, 1250;
+	setarray .von[60], 1252, 1254, 1256, 1257, 1258, 1259, 1261, 1269, 1271, 1301, 1303, 1304;
+	setarray .von[72], 1305, 1351, 1353, 1354, 1356, 1357, 1359, 1360, 1362, 1370, 1384, 1385;
+	setarray .von[84], 1401, 1403, 1404, 1406, 1407, 1409, 1413, 1414, 1421, 1451, 1453, 1454;
+	setarray .von[96], 1456, 1457, 1459, 1460, 1462, 1463, 1465, 1466, 1468, 1474, 1477, 1501;
+	setarray .von[108], 1503, 1504, 1506, 1507, 1510, 1513, 1516, 1519, 1522, 1523, 1524, 1527;
+	setarray .von[120], 1528, 1541, 1548, 1553, 1554, 1556, 1559, 1601, 1603, 1604, 1606, 1607;
+	setarray .von[132], 1609, 1610, 1612, 1615, 1617, 1619, 1621, 1625, 1626, 1629, 1648, 1701;
+	setarray .von[144], 1703, 1704, 1706, 1707, 1709, 1710, 1712, 1713, 1714, 1718, 1722, 1730;
+	setarray .von[156], 1731, 1732, 1733, 1734, 1801, 1803, 1805, 1807, 1809, 1811, 1814, 1833;
+	setarray .von[168], 1901, 1903, 1905, 1907, 1909, 1911, 1918, 1950, 1952, 1954, 1956, 1958;
+	setarray .von[180], 1960, 1970, 2001, 2101, 2103, 2105, 2107, 2109, 2111, 2117, 2119, 2184;
+	setarray .von[192], 2201, 2203, 2206, 2208, 2216, 2220, 2222, 2224, 2226, 2228, 2230, 2232;
+	setarray .von[204], 2234, 2235, 2243, 2244, 2246, 2251, 2256, 2258, 2260, 2264, 2278, 2286;
+	setarray .von[216], 2287, 2291, 2295, 2296, 2299, 2301, 2303, 2307, 2309, 2312, 2314, 2316;
+	setarray .von[228], 2321, 2323, 2325, 2327, 2328, 2330, 2332, 2334, 2335, 2337, 2339, 2341;
+	setarray .von[240], 2343, 2354, 2401, 2403, 2405, 2407, 2408, 2409, 2411, 2418, 2425, 2426;
+	setarray .von[252], 2450, 2501, 2503, 2505, 2507, 2509, 2522, 2529, 2609, 2619, 2648, 2650;
+	setarray .von[264], 2651, 2655, 2677, 2717, 2744, 2917, 2918, 2919, 2920, 2921, 2922, 5012;
+	setarray .von[276], 5016, 5017, 5022, 5040, 5043, 5046, 5053, 5068, 5074, 5086, 5092, 5094;
+	setarray .von[288], 5104, 5112, 5114, 5283, 5325, 5374, 5389, 5490, 5592, 5864, 5918, 5920;
+	setarray .von[300], 13001, 13002, 13003, 13007, 13010, 13012, 13014, 13028, 13039, 13100, 13102, 13104;
+	setarray .von[312], 13122, 13151, 13158, 13160, 13163, 13165, 13168, 13194, 13195, 13198, 13301, 13438;
+	setarray .von[324], 15033, 15053, 15948, 15949, 18599, 18672, 18813, 19109, 19117, 19135, 19177, 19312;
+	setarray .von[336], 19443, 19445, 19451, 20717, 22000, 22001, 22002, 22003, 22004, 22005, 22017, 22031;
+	setarray .von[348], 22032, 22050, 22052, 22058, 22107, 22111, 22112, 22120, 22138, 28201, 28315, 28317;
+	setarray .von[360], 32295, 400001, 400113, 410002, 410012, 410014, 410016, 410025, 410027, 410057, 410064, 410066;
+	setarray .von[372], 410079, 410085, 410088, 410091, 410093, 410096, 410109, 410119, 410124, 410139, 410141, 410158;
+	setarray .von[384], 410185, 410210, 410232, 410243, 410284, 410322, 410332, 410334, 410336, 410340, 410344, 410346;
+	setarray .von[396], 436000, 436001, 436002, 470006, 470025, 470027, 470034, 470036, 470058, 470060, 470062, 470078;
+	setarray .von[408], 470080, 470082, 470084, 470089, 470091, 470158, 470159, 470160, 470161, 470162, 470163, 490035;
+	setarray .von[420], 490142, 490380, 490544;
+	setarray .nach[0], 1102, 1102, 1105, 1105, 1108, 1108, 1111, 1111, 1115, 1117, 1117, 1120;
+	setarray .nach[12], 1120, 1125, 13437, 1127, 1149, 13436, 13435, 13400, 13447, 1147, 13446, 1152;
+	setarray .nach[24], 1152, 1155, 1155, 1158, 1158, 1162, 1172, 21003, 1180, 1178, 1171, 1179;
+	setarray .nach[36], 21024, 21004, 1202, 1202, 1205, 1205, 1208, 1208, 1211, 1211, 1214, 1214;
+	setarray .nach[48], 1217, 1217, 1220, 1220, 1226, 13031, 13032, 13033, 13018, 13016, 1246, 1251;
+	setarray .nach[60], 1253, 1255, 1275, 1276, 1277, 1278, 1266, 1297, 1295, 1302, 1302, 1309;
+	setarray .nach[72], 1300, 1352, 1352, 1355, 1355, 1358, 1358, 1361, 1361, 1371, 28114, 1397;
+	setarray .nach[84], 1402, 1402, 1405, 1405, 1408, 1408, 1418, 1449, 1440, 1452, 1452, 1455;
+	setarray .nach[96], 1455, 1458, 1458, 1461, 1461, 1464, 1464, 1476, 1481, 1480, 1479, 1502;
+	setarray .nach[108], 1502, 1505, 1505, 1509, 1512, 1515, 1518, 1521, 1532, 1538, 1539, 16024;
+	setarray .nach[120], 1540, 16022, 16056, 1568, 1569, 1571, 1589, 1602, 1602, 1605, 1605, 1608;
+	setarray .nach[132], 1608, 1611, 1611, 1662, 1618, 1620, 1622, 1666, 1665, 1675, 1663, 1702;
+	setarray .nach[144], 1702, 1705, 1705, 1708, 1708, 1711, 1711, 1715, 1716, 1726, 1727, 18137;
+	setarray .nach[156], 18138, 18139, 18140, 18115, 1802, 1804, 1806, 1808, 1810, 1812, 1816, 1841;
+	setarray .nach[168], 1902, 1904, 1906, 1908, 1910, 1912, 1922, 1951, 1953, 1955, 1957, 1959;
+	setarray .nach[180], 1961, 1976, 2017, 2102, 2104, 2106, 2108, 2121, 2128, 2118, 2120, 28915;
+	setarray .nach[192], 2202, 2204, 5888, 2209, 2217, 2221, 2223, 2225, 2227, 2229, 2231, 2233;
+	setarray .nach[204], 5164, 5165, 19093, 5348, 5159, 5158, 5160, 5161, 18591, 5167, 19094, 18507;
+	setarray .nach[216], 5350, 19132, 19089, 19088, 5157, 2302, 2304, 2308, 2310, 2313, 2315, 2317;
+	setarray .nach[228], 2322, 2324, 2326, 2373, 2329, 2331, 2333, 2372, 2336, 2359, 2371, 2342;
+	setarray .nach[240], 2360, 15170, 2402, 2404, 2406, 2494, 22105, 2432, 2412, 2489, 2434, 2486;
+	setarray .nach[252], 2487, 2502, 2504, 2506, 2525, 20813, 2523, 2530, 2715, 2671, 2902, 2900;
+	setarray .nach[264], 2901, 28388, 28432, 2971, 28431, 2923, 2924, 2925, 2926, 2927, 2928, 5347;
+	setarray .nach[276], 5349, 5162, 5353, 18607, 19091, 5168, 5166, 18519, 18518, 19090, 5093, 5095;
+	setarray .nach[288], 18609, 5119, 5120, 19129, 19086, 18724, 19087, 19180, 19085, 19126, 410004, 22100;
+	setarray .nach[300], 13030, 13019, 13004, 13008, 13011, 13013, 13015, 28716, 13082, 13101, 13103, 13105;
+	setarray .nach[312], 13124, 13152, 13159, 13161, 13164, 13166, 13169, 13196, 13190, 13199, 13302, 13448;
+	setarray .nach[324], 15034, 15056, 15950, 15951, 18603, 18673, 19181, 19110, 19118, 19136, 19178, 19313;
+	setarray .nach[336], 19444, 19446, 19452, 20718, 22006, 22009, 22010, 22007, 22008, 22011, 22091, 22092;
+	setarray .nach[348], 22093, 22094, 22095, 22097, 22113, 22117, 22118, 22225, 22221, 28202, 28316, 28318;
+	setarray .nach[360], 32296, 400002, 400114, 410003, 410013, 410015, 410017, 410026, 410028, 410058, 410065, 410067;
+	setarray .nach[372], 410080, 410084, 410089, 410092, 410094, 410097, 410110, 410120, 410125, 410140, 410142, 410159;
+	setarray .nach[384], 410186, 410211, 410233, 410244, 410285, 410323, 410333, 410335, 410337, 410341, 410345, 410347;
+	setarray .nach[396], 436005, 436004, 436003, 470007, 470026, 470028, 470035, 470037, 470059, 470061, 470063, 470079;
+	setarray .nach[408], 470081, 470083, 470085, 470090, 470092, 470166, 470167, 470168, 470164, 470165, 470169, 490036;
+	setarray .nach[420], 490143, 490381, 490545;
+	setarray .vor_slots[0], 3, 0, 3, 0, 3, 0, 2, 0, 2, 3, 0, 1;
+	setarray .vor_slots[12], 0, 2, 0, 2, 0, 0, 0, 0, 0, 1, 1, 2;
+	setarray .vor_slots[24], 0, 2, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[36], 1, 0, 3, 0, 3, 0, 3, 0, 2, 0, 2, 0;
+	setarray .vor_slots[48], 2, 0, 2, 0, 1, 0, 0, 0, 0, 0, 1, 2;
+	setarray .vor_slots[60], 1, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0, 0;
+	setarray .vor_slots[72], 0, 3, 0, 2, 0, 1, 0, 1, 0, 0, 2, 0;
+	setarray .vor_slots[84], 3, 0, 3, 0, 3, 0, 0, 0, 1, 2, 0, 2;
+	setarray .vor_slots[96], 0, 1, 0, 2, 0, 1, 0, 0, 0, 0, 0, 3;
+	setarray .vor_slots[108], 0, 3, 0, 2, 2, 1, 0, 2, 0, 0, 1, 0;
+	setarray .vor_slots[120], 0, 0, 2, 0, 0, 0, 0, 3, 0, 2, 0, 2;
+	setarray .vor_slots[132], 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 3;
+	setarray .vor_slots[144], 0, 3, 0, 2, 0, 2, 0, 1, 1, 0, 0, 1;
+	setarray .vor_slots[156], 1, 1, 1, 0, 3, 2, 2, 0, 1, 1, 0, 2;
+	setarray .vor_slots[168], 3, 2, 2, 0, 1, 1, 0, 3, 2, 2, 0, 1;
+	setarray .vor_slots[180], 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[192], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[204], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[216], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[228], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[240], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[252], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[264], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[276], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[288], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[300], 0, 0, 1, 0, 2, 1, 0, 1, 2, 1, 1, 1;
+	setarray .vor_slots[312], 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 3, 2;
+	setarray .vor_slots[324], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[336], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[348], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[360], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[372], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[384], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[396], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[408], 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0;
+	setarray .vor_slots[420], 0, 0, 0;
+	setarray .nach_slots[0], 4, 4, 4, 4, 4, 4, 3, 3, 3, 4, 4, 2;
+	setarray .nach_slots[12], 2, 3, 4, 3, 2, 3, 3, 1, 2, 2, 3, 3;
+	setarray .nach_slots[24], 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1;
+	setarray .nach_slots[36], 3, 2, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3;
+	setarray .nach_slots[48], 3, 3, 3, 3, 2, 3, 3, 1, 1, 2, 2, 3;
+	setarray .nach_slots[60], 2, 1, 3, 3, 3, 3, 1, 2, 3, 4, 4, 4;
+	setarray .nach_slots[72], 3, 4, 4, 3, 3, 2, 2, 2, 2, 1, 3, 2;
+	setarray .nach_slots[84], 4, 4, 4, 4, 4, 4, 2, 3, 3, 3, 3, 3;
+	setarray .nach_slots[96], 3, 2, 2, 3, 3, 2, 2, 1, 3, 2, 1, 4;
+	setarray .nach_slots[108], 4, 4, 4, 3, 3, 2, 1, 3, 2, 2, 2, 2;
+	setarray .nach_slots[120], 1, 2, 3, 3, 3, 3, 2, 4, 4, 3, 3, 3;
+	setarray .nach_slots[132], 3, 2, 2, 2, 1, 1, 2, 2, 2, 3, 2, 4;
+	setarray .nach_slots[144], 4, 4, 4, 3, 3, 3, 3, 2, 2, 1, 1, 2;
+	setarray .nach_slots[156], 2, 2, 2, 1, 4, 3, 3, 1, 2, 2, 1, 3;
+	setarray .nach_slots[168], 4, 3, 3, 1, 2, 2, 2, 4, 3, 3, 1, 2;
+	setarray .nach_slots[180], 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[192], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[204], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[216], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[228], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[240], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[252], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[264], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[276], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[288], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[300], 2, 1, 2, 1, 3, 2, 1, 3, 3, 2, 2, 2;
+	setarray .nach_slots[312], 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 4, 3;
+	setarray .nach_slots[324], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[336], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[348], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[360], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[372], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[384], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[396], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[408], 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1;
+	setarray .nach_slots[420], 1, 1, 1;
+
+	setarray .opt_id[0], 3, 4, 5, 6, 7, 8, 1, 2, 17, 14, 16, 24;
+	setarray .opt_name$[0], "STR", "AGI", "VIT", "INT", "DEX", "LUK", "Max HP", "Max SP", "ATK", "MATK in percent", "Attack speed in percent", "Critical";
+	setarray .opt_von[0], 1, 1, 1, 1, 1, 1, 100, 20, 5, 1, 1, 1;
+	setarray .opt_bis[0], 5, 5, 5, 5, 5, 5, 800, 150, 25, 5, 3, 5;
+	.menue$ = "STR:AGI:VIT:INT:DEX:LUK:Max HP:Max SP:ATK:MATK in percent:Attack speed in percent:Critical:Never mind";
+	end;
+}
