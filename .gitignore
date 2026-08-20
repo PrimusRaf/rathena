@@ -81,6 +81,7 @@ Thumbs.db
 !/db/import/item_db_slots4.yml
 !/db/import/job_exp.yml
 !/db/import/level_penalty.yml
+!/db/import/mercenary_db.yml
 !/db/import/mob_db_safa_coins.yml
 !/db/import/mob_item_ratio.yml
 !/db/import/quest_db.yml

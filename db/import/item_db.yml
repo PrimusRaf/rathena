@@ -6855,3 +6855,38 @@ Body:
             bonus3 bAutoSpell, "BO_MYSTERY_POWDER", 5, .@m[.@n];
          }
       }
+
+# ====================================================================
+#  Vertrag des Schwertsoeldners  (Starterpaket)
+# --------------------------------------------------------------------
+#  Ruft den Soeldner in der Stufe, die zum Level des Spielers passt.
+#  Die Tabelle dazu steht in db/import/mercenary_db.yml, die Logik in
+#  npc/custom/safa_soeldner.txt.
+#
+#  NoConsume: die Rolle bleibt liegen. Ein Soeldner, der einmal
+#  verloren geht, waere sonst fuer immer weg - und das Starterpaket
+#  damit stillschweigend entwertet. Eingezogen wird sie erst auf
+#  Level 201, und zwar vom NPC.
+#
+#  Der Ressourcenname ist der der amtlichen Schwertsoeldner-Rollen.
+#  Damit hat das Stueck Symbol, Bodensprite und Kartenruecken, ohne
+#  dass wir eine einzige Datei mitliefern muessen.
+# ====================================================================
+  - Id: 30501
+    AegisName: Safa_Sword_Contract
+    Name: Sword Mercenary Contract
+    Type: Usable
+    Buy: 0
+    Weight: 10
+    Trade:
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Flags:
+      NoConsume: true
+    Script: |
+      callfunc "F_SafaSoeldner";

@@ -1,0 +1,89 @@
+//===== SafaRO ===============================================
+//= Der Starter-Soeldner
+//===== Erzeugt von ==========================================
+//= tools/soeldner/bauen.py  --  NICHT von Hand pflegen.
+//===========================================================
+//
+//  Ein Schwertsoeldner, der von Level 1 bis 200 mitwaechst.
+//  Zehn Stufen zu je zwanzig Leveln, Ids 6037 bis 6046.
+//
+//  DREI DINGE PASSIEREN HIER
+//
+//  1. Die Rolle (Item 30501) ruft ihn. Sie wird NICHT
+//     verbraucht (Flags: NoConsume) - er darf also verloren
+//     gehen, ohne dass der Starter damit wertlos wird.
+//
+//  2. Bei jedem Levelaufstieg wird geprueft, ob eine neue
+//     Stufe faellig ist. Ist sie es und steht er gerade
+//     draussen, wird er still ausgetauscht.
+//
+//  3. Ab Level 201 ist Schluss: der Soeldner geht, die Rolle
+//     wird eingezogen.
+//
+//  getmercinfo nimmt Zahlen, keine Konstanten:
+//  0 ist die Soeldner-Id, 1 die Klasse. Siehe
+//  doc/script_commands.txt bei *getmercinfo.
+//
+//  WARUM DER VERTRAG NICHT EWIG LAEUFT
+//
+//  mercenary_create nimmt die Dauer als int32 in Millisekunden
+//  (script.cpp:20732). Mehr als rund 24,8 Tage gehen nicht.
+//  Weil die Rolle bleibt, faellt das nicht auf - wer ihn
+//  verliert, ruft ihn neu.
+//===========================================================
+
+//  Von der Rolle aufgerufen. Gibt 1 zurueck, wenn gerufen wurde.
+function	script	F_SafaSoeldner	{
+	if (BaseLevel > 200) {
+		dispbottom "[Mercenary] The contract ended at level 200.";
+		return 0;
+	}
+	if (getmercinfo(0) > 0) {
+		dispbottom "[Mercenary] One is already at your side.";
+		return 0;
+	}
+	.@stufe = callfunc("F_SafaSoeldnerStufe");
+	mercenary_create .@stufe, 2147483647;
+	return 1;
+}
+
+//  Spielerlevel -> Soeldner-Id. Level 1-20 die erste Stufe,
+//  21-40 die zweite, und so fort.
+function	script	F_SafaSoeldnerStufe	{
+	.@t = (BaseLevel - 1) / 20;
+	if (.@t < 0) .@t = 0;
+	if (.@t > 10 - 1) .@t = 10 - 1;
+	return 6037 + .@t;
+}
+
+-	script	#safa_soeldner	-1,{
+	end;
+
+OnPCBaseLvUpEvent:
+	// Ab hier ist er weg, und zwar endgueltig.
+	if (BaseLevel > 200) {
+		if (getmercinfo(0) > 0)
+			mercenary_delete;
+		if (countitem(30501) > 0) {
+			delitem 30501, countitem(30501);
+			dispbottom "[Mercenary] \"Two hundred levels. That was the deal.\"";
+			dispbottom "[Mercenary] He salutes, and is gone.";
+		}
+		end;
+	}
+
+	// Nur tauschen, wenn er ueberhaupt draussen ist - sonst
+	// wuerde ein Levelaufstieg ihn ungefragt herbeirufen.
+	if (getmercinfo(0) <= 0)
+		end;
+	.@soll = callfunc("F_SafaSoeldnerStufe");
+	if (getmercinfo(1) == .@soll)
+		end;
+
+	// Reihenfolge: erst weg, dann neu. Umgekehrt lehnt
+	// mercenary_create ab, weil schon einer da ist.
+	mercenary_delete;
+	mercenary_create .@soll, 2147483647;
+	dispbottom "[Mercenary] \"Better gear. Let us keep going.\"";
+	end;
+}
