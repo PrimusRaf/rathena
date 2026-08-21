@@ -40,12 +40,14 @@ prontera,163,164,4	script	Master Artisan#safa	4_M_ALCHE_A,{
 L_Menue:
 	switch (select("Widen a socket - " + callfunc("F_InsertComma", .je_slot) + "z per slot",
 	               "Enchant a piece - " + callfunc("F_InsertComma", .enchant) + "z",
+	               "Strip an enchantment - " + callfunc("F_InsertComma", .loesen) + "z",
 	               "What can you not do?",
 	               "Nothing today.")) {
 	case 1: callsub S_Sockel;  break;
 	case 2: callsub S_Zauber;  break;
-	case 3: callsub S_Grenzen; break;
-	case 4:
+	case 3: callsub S_Loesen;  break;
+	case 4: callsub S_Grenzen; break;
+	case 5:
 		mes "[Master Artisan]";
 		mes "Come back when something of yours needs opening up.";
 		close;
@@ -266,6 +268,141 @@ S_Zauber:
 	return;
 
 // ------------------------------------------------------------
+//  Verzauberung wieder loesen
+// ------------------------------------------------------------
+//  Ein leerer Optionsplatz ist im Gegenstand die Id 0. Schreiben
+//  liess sich diese 0 lange nicht: setrandomoption weist jede Id
+//  ab, die nicht in der Datenbank steht, und die amtliche faengt
+//  bei 1 an. Deshalb legt db/import/item_randomopt_db.yml eine
+//  Option 0 an, deren Skript nichts tut - erst damit ist der leere
+//  Zustand nicht nur lesbar, sondern auch herstellbar.
+// ------------------------------------------------------------
+S_Loesen:
+	setarray .@platz[0], EQI_HEAD_TOP, EQI_HEAD_MID, EQI_HEAD_LOW,
+	                     EQI_ARMOR, EQI_HAND_R, EQI_HAND_L,
+	                     EQI_GARMENT, EQI_SHOES, EQI_ACC_R, EQI_ACC_L,
+	                     EQI_COSTUME_HEAD_TOP, EQI_COSTUME_HEAD_MID,
+	                     EQI_COSTUME_HEAD_LOW, EQI_COSTUME_GARMENT,
+	                     EQI_SHADOW_ARMOR, EQI_SHADOW_WEAPON,
+	                     EQI_SHADOW_SHIELD, EQI_SHADOW_SHOES,
+	                     EQI_SHADOW_ACC_R, EQI_SHADOW_ACC_L;
+
+	// Nur Stuecke anbieten, die ueberhaupt etwas tragen - sonst
+	// waehlt man sich durch zwanzig Zeilen zu der Auskunft, dass
+	// dort nichts zu holen ist.
+	.@n = 0;
+	.@liste$ = "";
+	for (.@i = 0; .@i < getarraysize(.@platz); .@i++) {
+		if (getequipisequiped(.@platz[.@i]) == 0)
+			continue;
+		.@hat = 0;
+		for (.@j = 0; .@j < 5; .@j++)
+			if (getequiprandomoption(.@platz[.@i], .@j, ROA_ID) > 0)
+				.@hat = .@hat + 1;
+		if (.@hat == 0)
+			continue;
+		.@wahl[.@n] = .@platz[.@i];
+		.@liste$ = .@liste$ + getequipname(.@platz[.@i])
+		           + " (" + .@hat + ")" + ":";
+		.@n++;
+	}
+	if (.@n == 0) {
+		mes "[Master Artisan]";
+		mes "Nothing you are wearing carries an enchantment.";
+		mes "Nothing to take off, then.";
+		next;
+		return;
+	}
+
+	mes "[Master Artisan]";
+	mes "Taking one off is easier than putting it on.";
+	mes "^FF6666It does not come back^000000 - I keep the stone.";
+	next;
+	.@k = select(.@liste$ + "Never mind") - 1;
+	if (.@k >= .@n)
+		return;
+	.@teil = .@wahl[.@k];
+
+	// Die belegten Plaetze auflisten, mit dem, was drin steht.
+	.@m = 0;
+	.@menue$ = "";
+	for (.@j = 0; .@j < 5; .@j++) {
+		.@id = getequiprandomoption(.@teil, .@j, ROA_ID);
+		if (.@id <= 0)
+			continue;
+		.@idx[.@m] = .@j;
+		.@menue$ = .@menue$ + callsub(S_OptName, .@id) + " +"
+		           + getequiprandomoption(.@teil, .@j, ROA_VALUE) + ":";
+		.@m++;
+	}
+
+	mes "[Master Artisan]";
+	mes "^00CCFF" + getequipname(.@teil) + "^000000";
+	mes "Which one goes?";
+	mes "^FFCC00" + callfunc("F_InsertComma", .loesen) + " Zeny^000000 each.";
+	next;
+	.@c = select(.@menue$ + "^FF6666All " + .@m + " of them^000000:Never mind") - 1;
+	if (.@c > .@m)
+		return;
+
+	.@wieviel = (.@c == .@m) ? .@m : 1;
+	.@kosten = .loesen * .@wieviel;
+	if (Zeny < .@kosten) {
+		mes "[Master Artisan]";
+		mes "That would be " + callfunc("F_InsertComma", .@kosten)
+		    + " Zeny. Not with what you are carrying.";
+		next;
+		return;
+	}
+
+	// Wie beim Verzaubern: zwischen Anzeige und Zahlung kann das
+	// Stueck vom Koerper verschwunden sein.
+	if (getequipisequiped(.@teil) == 0) {
+		mes "[Master Artisan]";
+		mes "You took it off. Put it back on and ask again.";
+		next;
+		return;
+	}
+
+	Zeny -= .@kosten;
+
+	if (.@c == .@m) {
+		// Von hinten nach vorn. setrandomoption schreibt an einen
+		// festen Platz, die Nummern verschieben sich also nicht -
+		// aber die Reihenfolge kostet nichts und macht die Absicht
+		// unmissverstaendlich.
+		for (.@j = 4; .@j >= 0; .@j--)
+			if (getequiprandomoption(.@teil, .@j, ROA_ID) > 0)
+				setrandomoption(.@teil, .@j, 0, 0, 0);
+		specialeffect2 EF_REFINEOK;
+		mes "[Master Artisan]";
+		mes "^00AA00All " + .@m + " taken off.^000000";
+		mes "The piece is bare again.";
+	} else {
+		setrandomoption(.@teil, .@idx[.@c], 0, 0, 0);
+		specialeffect2 EF_REFINEOK;
+		mes "[Master Artisan]";
+		mes "^00AA00Gone.^000000 The slot is free.";
+	}
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  Name einer Option, auch wenn wir sie nicht anbieten
+// ------------------------------------------------------------
+//  Ein Stueck kann Verzauberungen aus Beute tragen, die in unserer
+//  Auswahl gar nicht vorkommen. Ohne diesen Rueckfall staende dort
+//  eine leere Zeile, und niemand wuesste, was er da wegnimmt.
+S_OptName:
+	.@gesucht = getarg(0);
+	for (.@x = 0; .@x < getarraysize(.opt_id); .@x++)
+		if (.opt_id[.@x] == .@gesucht)
+			return .opt_name$[.@x];
+	return "Enchantment #" + .@gesucht;
+
+
+// ------------------------------------------------------------
 //  Was nicht geht, und warum
 // ------------------------------------------------------------
 S_Grenzen:
@@ -287,6 +424,7 @@ S_Grenzen:
 OnInit:
 	.je_slot = 10000;
 	.enchant = 50000;
+	.loesen  = 10000;
 
 	setarray .von[0], 1100, 1101, 1103, 1104, 1106, 1107, 1109, 1110, 1111, 1112, 1113, 1114;
 	setarray .von[12], 1115, 1116, 1118, 1119, 1120, 1121, 1122, 1123, 1124, 1125, 1126, 1127;
@@ -2491,8 +2629,8 @@ OnInit:
 
 	setarray .opt_id[0], 3, 4, 5, 6, 7, 8, 1, 2, 17, 14, 15, 24;
 	setarray .opt_name$[0], "STR", "AGI", "VIT", "INT", "DEX", "LUK", "Max HP", "Max SP", "ATK", "MATK in percent", "ASPD", "Critical";
-	setarray .opt_von[0], 1, 1, 1, 1, 1, 1, 100, 20, 5, 1, 1, 1;
-	setarray .opt_bis[0], 5, 5, 5, 5, 5, 5, 800, 150, 25, 5, 3, 5;
+	setarray .opt_von[0], 1, 1, 1, 1, 1, 1, 2000, 400, 1, 1, 1, 1;
+	setarray .opt_bis[0], 100, 100, 100, 100, 100, 100, 16000, 3000, 100, 20, 3, 20;
 	.menue$ = "STR:AGI:VIT:INT:DEX:LUK:Max HP:Max SP:ATK:MATK in percent:ASPD:Critical:Never mind";
 	end;
 }

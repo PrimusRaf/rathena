@@ -79,6 +79,7 @@ Thumbs.db
 !/db/import/item_combos.yml
 !/db/import/item_db.yml
 !/db/import/item_db_slots4.yml
+!/db/import/item_randomopt_db.yml
 !/db/import/job_exp.yml
 !/db/import/level_penalty.yml
 !/db/import/mercenary_db.yml

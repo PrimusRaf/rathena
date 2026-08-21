@@ -1,0 +1,70 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2021 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Item Random Option Database
+###########################################################################
+#
+# Item Random Option Settings
+#
+###########################################################################
+# - Id          Item Random Option ID matching the ID defined in enumvar.lub in the client.
+#   Option      Item Random Option constant.
+#   Script      Bonus script used for option.
+###########################################################################
+
+Header:
+  Type: RANDOM_OPTION_DB
+  Version: 1
+
+# ====================================================================
+#  SafaRO - "keine Verzauberung" als eigene Option
+# ====================================================================
+#  Damit der Master Artisan Verzauberungen wieder ENTFERNEN kann.
+#
+#  DAS PROBLEM
+#
+#  Ein Gegenstand speichert einen leeren Optionsplatz als Id 0
+#  (mmo.hpp, struct s_item_randomoption). Genau danach sucht auch
+#  unser Skript, wenn es einen freien Platz braucht.
+#
+#  Nur laesst sich diese 0 nicht schreiben: setrandomoption schlaegt
+#  jede Id ab, die nicht in der Datenbank steht (script.cpp,
+#  BUILDIN setrandomoption, "Random option ID %d does not exists"),
+#  und die amtliche Datenbank faengt bei 1 an. Der leere Zustand war
+#  also lesbar, aber nicht herstellbar.
+#
+#  DIE LOESUNG
+#
+#  Ein Eintrag mit Id 0 und einem Skript, das nichts tut. Damit wird
+#  setrandomoption(...,0,0,0) angenommen, der Platz steht danach
+#  wieder auf 0 - und die Suche nach freien Plaetzen findet ihn
+#  ohne jede weitere Aenderung.
+#
+#  Der Client zeigt fuer Id 0 nichts an; das ist bei ihm seit jeher
+#  der leere Zustand.
+#
+#  bonus bMaxHP,0 statt eines leeren Skripts: der Parser will hier
+#  etwas Gueltiges sehen, und ein Bonus von null ist nachweislich
+#  wirkungslos.
+# ====================================================================
+
+Body:
+  - Id: 0
+    Option: VAR_NOTHING
+    Script: |
+      bonus bMaxHP,0;
