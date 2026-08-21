@@ -135,6 +135,36 @@ function	script	F_SafaGiftTier	{
 	case 810: return 8;
 	case 811: return 8;
 	case 812: return 8;
+	case 207: return 2;
+	case 208: return 2;
+	case 209: return 2;
+	case 210: return 2;
+	case 211: return 2;
+	case 307: return 3;
+	case 308: return 3;
+	case 309: return 3;
+	case 310: return 3;
+	case 311: return 3;
+	case 413: return 4;
+	case 414: return 4;
+	case 415: return 4;
+	case 416: return 4;
+	case 417: return 4;
+	case 513: return 5;
+	case 514: return 5;
+	case 515: return 5;
+	case 516: return 5;
+	case 517: return 5;
+	case 613: return 6;
+	case 614: return 6;
+	case 713: return 7;
+	case 714: return 7;
+	case 813: return 8;
+	case 814: return 8;
+	case 815: return 8;
+	case 816: return 8;
+	case 817: return 8;
+	case 818: return 8;
 	}
 	return 0;
 }
@@ -161,66 +191,96 @@ function	script	F_SafaGift	{
 	case 304: return "bonus2 bWeaponDamageRate,W_MACE,60; bonus2 bSkillAtk,AL_HEAL,60; bonus2 bSkillAtk,AL_HOLYLIGHT,60; bonus bAllStats,16;";
 	case 305: return "bonus2 bWeaponDamageRate,W_1HAXE,60; bonus2 bSkillAtk,MC_MAMMONITE,60; bonus bAllStats,16;";
 	case 306: return "bonus2 bWeaponDamageRate,W_DAGGER,60; bonus2 bSkillAtk,TF_POISON,60; bonus bAllStats,16;";
-	case 401: return "bonus2 bWeaponDamageRate,W_2HSWORD,75; bonus2 bSkillAtk,KN_BOWLINGBASH,75; bonus2 bSkillAtk,KN_PIERCE,75; bonus bAllStats,25;";
-	case 402: return "bonus2 bWeaponDamageRate,W_1HSPEAR,75; bonus2 bSkillAtk,CR_GRANDCROSS,75; bonus2 bSkillAtk,CR_SHIELDBOOMERANG,75; bonus bAllStats,25;";
+	case 401: return "bonus2 bWeaponDamageRate,W_2HSPEAR,75; bonus2 bWeaponDamageRate,W_2HSWORD,75; bonus2 bSkillAtk,KN_BOWLINGBASH,75; bonus2 bSkillAtk,KN_PIERCE,75; bonus bAllStats,25;";
+	case 402: return "bonus2 bWeaponDamageRate,W_1HSWORD,75; bonus2 bWeaponDamageRate,W_1HSPEAR,75; bonus2 bSkillAtk,CR_GRANDCROSS,75; bonus2 bSkillAtk,CR_SHIELDBOOMERANG,75; bonus bAllStats,25;";
 	case 403: return "bonus2 bWeaponDamageRate,W_STAFF,75; bonus2 bSkillAtk,WZ_METEOR,75; bonus2 bSkillAtk,WZ_STORMGUST,75; bonus bAllStats,25;";
-	case 404: return "bonus2 bWeaponDamageRate,W_BOOK,75; bonus2 bSkillAtk,PF_SOULBURN,75; bonus2 bSkillAtk,SA_FLAMELAUNCHER,75; bonus bAllStats,25;";
+	case 404: return "bonus2 bWeaponDamageRate,W_STAFF,75; bonus2 bWeaponDamageRate,W_BOOK,75; bonus2 bSkillAtk,PF_SOULBURN,75; bonus2 bSkillAtk,SA_FLAMELAUNCHER,75; bonus bAllStats,25;";
 	case 405: return "bonus2 bWeaponDamageRate,W_BOW,75; bonus2 bSkillAtk,HT_BLITZBEAT,75; bonus2 bSkillAtk,SN_SHARPSHOOTING,75; bonus bAllStats,25;";
-	case 406: return "bonus2 bWeaponDamageRate,W_MUSICAL,75; bonus2 bSkillAtk,BA_MUSICALSTRIKE,75; bonus2 bSkillAtk,DC_THROWARROW,75; bonus bAllStats,25;";
+	case 406: return "bonus2 bWeaponDamageRate,W_WHIP,75; bonus2 bWeaponDamageRate,W_MUSICAL,75; bonus2 bSkillAtk,BA_MUSICALSTRIKE,75; bonus2 bSkillAtk,DC_THROWARROW,75; bonus bAllStats,25;";
 	case 407: return "bonus2 bWeaponDamageRate,W_MACE,75; bonus2 bSkillAtk,PR_MAGNUS,75; bonus2 bSkillAtk,AL_HOLYLIGHT,75; bonus bAllStats,25;";
 	case 408: return "bonus2 bWeaponDamageRate,W_KNUCKLE,75; bonus2 bSkillAtk,MO_EXTREMITYFIST,75; bonus2 bSkillAtk,MO_FINGEROFFENSIVE,75; bonus bAllStats,25;";
 	case 409: return "bonus2 bWeaponDamageRate,W_2HAXE,75; bonus2 bSkillAtk,WS_CARTTERMINATION,75; bonus2 bSkillAtk,BS_HAMMERFALL,75; bonus bAllStats,25;";
 	case 410: return "bonus2 bWeaponDamageRate,W_1HAXE,75; bonus2 bSkillAtk,AM_ACIDTERROR,75; bonus2 bSkillAtk,AM_DEMONSTRATION,75; bonus bAllStats,25;";
 	case 411: return "bonus2 bWeaponDamageRate,W_KATAR,75; bonus2 bSkillAtk,AS_SONICBLOW,75; bonus2 bSkillAtk,AS_GRIMTOOTH,75; bonus bAllStats,25;";
 	case 412: return "bonus2 bWeaponDamageRate,W_DAGGER,75; bonus2 bSkillAtk,RG_BACKSTAP,75; bonus2 bSkillAtk,RG_RAID,75; bonus bAllStats,25;";
-	case 501: return "bonus2 bWeaponDamageRate,W_2HSWORD,150; bonus2 bSkillAtk,KN_BOWLINGBASH,150; bonus2 bSkillAtk,KN_PIERCE,150; bonus bAllStats,40;";
-	case 502: return "bonus2 bWeaponDamageRate,W_1HSPEAR,150; bonus2 bSkillAtk,CR_GRANDCROSS,150; bonus2 bSkillAtk,CR_SHIELDBOOMERANG,150; bonus bAllStats,40;";
+	case 501: return "bonus2 bWeaponDamageRate,W_2HSPEAR,150; bonus2 bWeaponDamageRate,W_2HSWORD,150; bonus2 bSkillAtk,KN_BOWLINGBASH,150; bonus2 bSkillAtk,KN_PIERCE,150; bonus bAllStats,40;";
+	case 502: return "bonus2 bWeaponDamageRate,W_1HSWORD,150; bonus2 bWeaponDamageRate,W_1HSPEAR,150; bonus2 bSkillAtk,CR_GRANDCROSS,150; bonus2 bSkillAtk,CR_SHIELDBOOMERANG,150; bonus bAllStats,40;";
 	case 503: return "bonus2 bWeaponDamageRate,W_STAFF,150; bonus2 bSkillAtk,WZ_METEOR,150; bonus2 bSkillAtk,WZ_STORMGUST,150; bonus bAllStats,40;";
-	case 504: return "bonus2 bWeaponDamageRate,W_BOOK,150; bonus2 bSkillAtk,PF_SOULBURN,150; bonus2 bSkillAtk,SA_FLAMELAUNCHER,150; bonus bAllStats,40;";
+	case 504: return "bonus2 bWeaponDamageRate,W_STAFF,150; bonus2 bWeaponDamageRate,W_BOOK,150; bonus2 bSkillAtk,PF_SOULBURN,150; bonus2 bSkillAtk,SA_FLAMELAUNCHER,150; bonus bAllStats,40;";
 	case 505: return "bonus2 bWeaponDamageRate,W_BOW,150; bonus2 bSkillAtk,HT_BLITZBEAT,150; bonus2 bSkillAtk,SN_SHARPSHOOTING,150; bonus bAllStats,40;";
-	case 506: return "bonus2 bWeaponDamageRate,W_MUSICAL,150; bonus2 bSkillAtk,BA_MUSICALSTRIKE,150; bonus2 bSkillAtk,DC_THROWARROW,150; bonus bAllStats,40;";
+	case 506: return "bonus2 bWeaponDamageRate,W_WHIP,150; bonus2 bWeaponDamageRate,W_MUSICAL,150; bonus2 bSkillAtk,BA_MUSICALSTRIKE,150; bonus2 bSkillAtk,DC_THROWARROW,150; bonus bAllStats,40;";
 	case 507: return "bonus2 bWeaponDamageRate,W_MACE,150; bonus2 bSkillAtk,PR_MAGNUS,150; bonus2 bSkillAtk,AL_HOLYLIGHT,150; bonus bAllStats,40;";
 	case 508: return "bonus2 bWeaponDamageRate,W_KNUCKLE,150; bonus2 bSkillAtk,MO_EXTREMITYFIST,150; bonus2 bSkillAtk,MO_FINGEROFFENSIVE,150; bonus bAllStats,40;";
 	case 509: return "bonus2 bWeaponDamageRate,W_2HAXE,150; bonus2 bSkillAtk,WS_CARTTERMINATION,150; bonus2 bSkillAtk,BS_HAMMERFALL,150; bonus bAllStats,40;";
 	case 510: return "bonus bAtkRate,-20; bonus bDefRate,-20;";
 	case 511: return "bonus2 bWeaponDamageRate,W_KATAR,150; bonus2 bSkillAtk,AS_SONICBLOW,150; bonus2 bSkillAtk,AS_GRIMTOOTH,150; bonus bAllStats,40;";
 	case 512: return "bonus2 bWeaponDamageRate,W_DAGGER,150; bonus2 bSkillAtk,RG_BACKSTAP,150; bonus2 bSkillAtk,RG_RAID,150; bonus bAllStats,40;";
-	case 601: return "bonus2 bWeaponDamageRate,W_2HSWORD,300; bonus2 bSkillAtk,RK_IGNITIONBREAK,300; bonus2 bSkillAtk,RK_SONICWAVE,300; bonus bAllStats,60;";
-	case 602: return "bonus2 bWeaponDamageRate,W_1HSPEAR,300; bonus2 bSkillAtk,LG_CANNONSPEAR,300; bonus2 bSkillAtk,LG_OVERBRAND,300; bonus bAllStats,60;";
+	case 601: return "bonus2 bWeaponDamageRate,W_2HSPEAR,300; bonus2 bWeaponDamageRate,W_2HSWORD,300; bonus2 bSkillAtk,RK_IGNITIONBREAK,300; bonus2 bSkillAtk,RK_SONICWAVE,300; bonus bAllStats,60;";
+	case 602: return "bonus2 bWeaponDamageRate,W_1HSWORD,300; bonus2 bWeaponDamageRate,W_1HSPEAR,300; bonus2 bSkillAtk,LG_CANNONSPEAR,300; bonus2 bSkillAtk,LG_OVERBRAND,300; bonus bAllStats,60;";
 	case 603: return "bonus2 bWeaponDamageRate,W_2HSTAFF,300; bonus2 bSkillAtk,WL_SOULEXPANSION,300; bonus2 bSkillAtk,WL_CHAINLIGHTNING,300; bonus bAllStats,60;";
 	case 604: return "bonus2 bWeaponDamageRate,W_STAFF,300; bonus2 bSkillAtk,SO_PSYCHIC_WAVE,300; bonus2 bSkillAtk,SO_EARTHGRAVE,300; bonus bAllStats,60;";
 	case 605: return "bonus2 bWeaponDamageRate,W_BOW,300; bonus2 bSkillAtk,RA_ARROWSTORM,300; bonus2 bSkillAtk,RA_AIMEDBOLT,300; bonus bAllStats,60;";
-	case 606: return "bonus2 bWeaponDamageRate,W_WHIP,300; bonus2 bSkillAtk,WM_REVERBERATION,300; bonus2 bSkillAtk,WM_SEVERE_RAINSTORM,300; bonus bAllStats,60;";
+	case 606: return "bonus2 bWeaponDamageRate,W_MUSICAL,300; bonus2 bWeaponDamageRate,W_WHIP,300; bonus2 bSkillAtk,WM_REVERBERATION,300; bonus2 bSkillAtk,WM_SEVERE_RAINSTORM,300; bonus bAllStats,60;";
 	case 607: return "bonus2 bWeaponDamageRate,W_MACE,300; bonus2 bSkillAtk,AB_ADORAMUS,300; bonus2 bSkillAtk,AB_JUDEX,300; bonus bAllStats,60;";
 	case 608: return "bonus2 bWeaponDamageRate,W_KNUCKLE,300; bonus2 bSkillAtk,SR_SKYNETBLOW,300; bonus2 bSkillAtk,SR_TIGERCANNON,300; bonus bAllStats,60;";
 	case 609: return "bonus2 bWeaponDamageRate,W_2HAXE,300; bonus2 bSkillAtk,NC_AXETORNADO,300; bonus2 bSkillAtk,NC_ARMSCANNON,300; bonus bAllStats,60;";
 	case 610: return "bonus2 bWeaponDamageRate,W_1HAXE,300; bonus2 bSkillAtk,GN_CARTCANNON,300; bonus2 bSkillAtk,GN_CRAZYWEED,300; bonus bAllStats,60;";
 	case 611: return "bonus2 bWeaponDamageRate,W_KATAR,300; bonus2 bSkillAtk,GC_CROSSIMPACT,300; bonus2 bSkillAtk,GC_ROLLINGCUTTER,300; bonus bAllStats,60;";
 	case 612: return "bonus2 bWeaponDamageRate,W_DAGGER,300; bonus2 bSkillAtk,SC_FATALMENACE,300; bonus2 bSkillAtk,SC_TRIANGLESHOT,300; bonus bAllStats,60;";
-	case 701: return "bonus2 bWeaponDamageRate,W_2HSWORD,600; bonus2 bSkillAtk,RK_IGNITIONBREAK,600; bonus2 bSkillAtk,RK_SONICWAVE,600; bonus bAllStats,85;";
-	case 702: return "bonus2 bWeaponDamageRate,W_1HSPEAR,600; bonus2 bSkillAtk,LG_CANNONSPEAR,600; bonus2 bSkillAtk,LG_OVERBRAND,600; bonus bAllStats,85;";
+	case 701: return "bonus2 bWeaponDamageRate,W_2HSPEAR,600; bonus2 bWeaponDamageRate,W_2HSWORD,600; bonus2 bSkillAtk,RK_IGNITIONBREAK,600; bonus2 bSkillAtk,RK_SONICWAVE,600; bonus bAllStats,85;";
+	case 702: return "bonus2 bWeaponDamageRate,W_1HSWORD,600; bonus2 bWeaponDamageRate,W_1HSPEAR,600; bonus2 bSkillAtk,LG_CANNONSPEAR,600; bonus2 bSkillAtk,LG_OVERBRAND,600; bonus bAllStats,85;";
 	case 703: return "bonus2 bWeaponDamageRate,W_2HSTAFF,600; bonus2 bSkillAtk,WL_SOULEXPANSION,600; bonus2 bSkillAtk,WL_CHAINLIGHTNING,600; bonus bAllStats,85;";
 	case 704: return "bonus2 bWeaponDamageRate,W_STAFF,600; bonus2 bSkillAtk,SO_PSYCHIC_WAVE,600; bonus2 bSkillAtk,SO_EARTHGRAVE,600; bonus bAllStats,85;";
 	case 705: return "bonus2 bWeaponDamageRate,W_BOW,600; bonus2 bSkillAtk,RA_ARROWSTORM,600; bonus2 bSkillAtk,RA_AIMEDBOLT,600; bonus bAllStats,85;";
-	case 706: return "bonus2 bWeaponDamageRate,W_WHIP,600; bonus2 bSkillAtk,WM_REVERBERATION,600; bonus2 bSkillAtk,WM_SEVERE_RAINSTORM,600; bonus bAllStats,85;";
+	case 706: return "bonus2 bWeaponDamageRate,W_MUSICAL,600; bonus2 bWeaponDamageRate,W_WHIP,600; bonus2 bSkillAtk,WM_REVERBERATION,600; bonus2 bSkillAtk,WM_SEVERE_RAINSTORM,600; bonus bAllStats,85;";
 	case 707: return "bonus2 bWeaponDamageRate,W_MACE,600; bonus2 bSkillAtk,AB_ADORAMUS,600; bonus2 bSkillAtk,AB_JUDEX,600; bonus bAllStats,85;";
 	case 708: return "bonus2 bWeaponDamageRate,W_KNUCKLE,600; bonus2 bSkillAtk,SR_SKYNETBLOW,600; bonus2 bSkillAtk,SR_TIGERCANNON,600; bonus bAllStats,85;";
 	case 709: return "bonus2 bWeaponDamageRate,W_2HAXE,600; bonus2 bSkillAtk,NC_AXETORNADO,600; bonus2 bSkillAtk,NC_ARMSCANNON,600; bonus bAllStats,85;";
 	case 710: return "bonus2 bWeaponDamageRate,W_1HAXE,600; bonus2 bSkillAtk,GN_CARTCANNON,600; bonus2 bSkillAtk,GN_CRAZYWEED,600; bonus bAllStats,85;";
 	case 711: return "bonus2 bWeaponDamageRate,W_KATAR,600; bonus2 bSkillAtk,GC_CROSSIMPACT,600; bonus2 bSkillAtk,GC_ROLLINGCUTTER,600; bonus bAllStats,85;";
 	case 712: return "bonus2 bWeaponDamageRate,W_DAGGER,600; bonus2 bSkillAtk,SC_FATALMENACE,600; bonus2 bSkillAtk,SC_TRIANGLESHOT,600; bonus bAllStats,85;";
-	case 801: return "bonus2 bWeaponDamageRate,W_2HSWORD,1200; bonus2 bSkillAtk,DK_SERVANTWEAPON_ATK,1200; bonus2 bSkillAtk,DK_DRAGONIC_AURA,1200; bonus bAllStats,120;";
-	case 802: return "bonus2 bWeaponDamageRate,W_1HSPEAR,1200; bonus2 bSkillAtk,IG_OVERSLASH,1200; bonus2 bSkillAtk,IG_SHIELD_SHOOTING,1200; bonus bAllStats,120;";
+	case 801: return "bonus2 bWeaponDamageRate,W_2HSPEAR,1200; bonus2 bWeaponDamageRate,W_2HSWORD,1200; bonus2 bSkillAtk,DK_SERVANTWEAPON_ATK,1200; bonus2 bSkillAtk,DK_DRAGONIC_AURA,1200; bonus bAllStats,120;";
+	case 802: return "bonus2 bWeaponDamageRate,W_1HSWORD,1200; bonus2 bWeaponDamageRate,W_1HSPEAR,1200; bonus2 bSkillAtk,IG_OVERSLASH,1200; bonus2 bSkillAtk,IG_SHIELD_SHOOTING,1200; bonus bAllStats,120;";
 	case 803: return "bonus2 bWeaponDamageRate,W_2HSTAFF,1200; bonus2 bSkillAtk,AG_DESTRUCTIVE_HURRICANE,1200; bonus2 bSkillAtk,AG_SOUL_VC_STRIKE,1200; bonus bAllStats,120;";
 	case 804: return "bonus2 bWeaponDamageRate,W_2HSTAFF,1200; bonus2 bSkillAtk,EM_ELEMENTAL_BUSTER_FIRE,1200; bonus2 bSkillAtk,EM_DIAMOND_STORM,1200; bonus bAllStats,120;";
 	case 805: return "bonus2 bWeaponDamageRate,W_BOW,1200; bonus2 bSkillAtk,WH_HAWKRUSH,1200; bonus2 bSkillAtk,WH_GALESTORM,1200; bonus bAllStats,120;";
-	case 806: return "bonus2 bWeaponDamageRate,W_WHIP,1200; bonus2 bSkillAtk,TR_ROSEBLOSSOM,1200; bonus2 bSkillAtk,TR_METALIC_FURY,1200; bonus bAllStats,120;";
+	case 806: return "bonus2 bWeaponDamageRate,W_MUSICAL,1200; bonus2 bWeaponDamageRate,W_WHIP,1200; bonus2 bSkillAtk,TR_ROSEBLOSSOM,1200; bonus2 bSkillAtk,TR_METALIC_FURY,1200; bonus bAllStats,120;";
 	case 807: return "bonus2 bWeaponDamageRate,W_MACE,1200; bonus2 bSkillAtk,CD_ARBITRIUM,1200; bonus2 bSkillAtk,CD_EFFLIGO,1200; bonus bAllStats,120;";
 	case 808: return "bonus2 bWeaponDamageRate,W_KNUCKLE,1200; bonus2 bSkillAtk,IQ_OLEUM_SANCTUM,1200; bonus2 bSkillAtk,IQ_MASSIVE_F_BLASTER,1200; bonus bAllStats,120;";
 	case 809: return "bonus2 bWeaponDamageRate,W_2HAXE,1200; bonus2 bSkillAtk,MT_AXE_STOMP,1200; bonus2 bSkillAtk,MT_SPARK_BLASTER,1200; bonus bAllStats,120;";
 	case 810: return "bonus2 bWeaponDamageRate,W_1HAXE,1200; bonus2 bSkillAtk,BO_ACIDIFIED_ZONE_WATER,1200; bonus2 bSkillAtk,BO_EXPLOSIVE_POWDER,1200; bonus bAllStats,120;";
 	case 811: return "bonus2 bWeaponDamageRate,W_KATAR,1200; bonus2 bSkillAtk,SHC_SAVAGE_IMPACT,1200; bonus2 bSkillAtk,SHC_ETERNAL_SLASH,1200; bonus bAllStats,120;";
 	case 812: return "bonus2 bWeaponDamageRate,W_DAGGER,1200; bonus2 bSkillAtk,ABC_ABYSS_DAGGER,1200; bonus2 bSkillAtk,ABC_UNLUCKY_RUSH,1200; bonus bAllStats,120;";
+	case 207: return "bonus2 bWeaponDamageRate,W_FIST,30; bonus2 bSkillAtk,TK_STORMKICK,30; bonus2 bSkillAtk,TK_DOWNKICK,30; bonus bAllStats,8;";
+	case 208: return "bonus2 bWeaponDamageRate,W_HUUMA,30; bonus2 bWeaponDamageRate,W_DAGGER,30; bonus2 bSkillAtk,NJ_SYURIKEN,30; bonus2 bSkillAtk,NJ_HUUMA,30; bonus bAllStats,8;";
+	case 209: return "bonus2 bWeaponDamageRate,W_REVOLVER,30; bonus2 bSkillAtk,GS_TRIPLEACTION,30; bonus2 bSkillAtk,GS_BULLSEYE,30; bonus bAllStats,8;";
+	case 210: return "bonus2 bWeaponDamageRate,W_1HSWORD,30; bonus2 bWeaponDamageRate,W_STAFF,30; bonus2 bSkillAtk,SM_BASH,30; bonus2 bSkillAtk,MG_FIREBOLT,30; bonus bAllStats,8;";
+	case 211: return "bonus2 bWeaponDamageRate,W_STAFF,30; bonus2 bSkillAtk,SU_BITE,30; bonus2 bSkillAtk,SU_SCRATCH,30; bonus bAllStats,8;";
+	case 307: return "bonus2 bWeaponDamageRate,W_FIST,60; bonus2 bSkillAtk,TK_STORMKICK,60; bonus2 bSkillAtk,TK_DOWNKICK,60; bonus bAllStats,16;";
+	case 308: return "bonus2 bWeaponDamageRate,W_HUUMA,60; bonus2 bWeaponDamageRate,W_DAGGER,60; bonus2 bSkillAtk,NJ_SYURIKEN,60; bonus2 bSkillAtk,NJ_HUUMA,60; bonus bAllStats,16;";
+	case 309: return "bonus2 bWeaponDamageRate,W_REVOLVER,60; bonus2 bSkillAtk,GS_TRIPLEACTION,60; bonus2 bSkillAtk,GS_BULLSEYE,60; bonus bAllStats,16;";
+	case 310: return "bonus2 bWeaponDamageRate,W_1HSWORD,60; bonus2 bWeaponDamageRate,W_STAFF,60; bonus2 bSkillAtk,SM_BASH,60; bonus2 bSkillAtk,MG_FIREBOLT,60; bonus bAllStats,16;";
+	case 311: return "bonus2 bWeaponDamageRate,W_STAFF,60; bonus2 bSkillAtk,SU_BITE,60; bonus2 bSkillAtk,SU_SCRATCH,60; bonus bAllStats,16;";
+	case 413: return "bonus2 bWeaponDamageRate,W_FIST,75; bonus2 bSkillAtk,TK_JUMPKICK,75; bonus2 bSkillAtk,SG_HATE,75; bonus bAllStats,25;";
+	case 414: return "bonus2 bWeaponDamageRate,W_STAFF,75; bonus2 bSkillAtk,SL_SMA,75; bonus2 bSkillAtk,SL_STIN,75; bonus bAllStats,25;";
+	case 415: return "bonus2 bWeaponDamageRate,W_HUUMA,75; bonus2 bWeaponDamageRate,W_DAGGER,75; bonus2 bSkillAtk,KO_JYUMONJIKIRI,75; bonus2 bSkillAtk,KO_SETSUDAN,75; bonus bAllStats,25;";
+	case 416: return "bonus2 bWeaponDamageRate,W_RIFLE,75; bonus2 bWeaponDamageRate,W_GATLING,75; bonus2 bSkillAtk,RL_MASS_SPIRAL,75; bonus2 bSkillAtk,RL_S_STORM,75; bonus bAllStats,25;";
+	case 417: return "bonus2 bWeaponDamageRate,W_1HSWORD,75; bonus2 bWeaponDamageRate,W_STAFF,75; bonus2 bSkillAtk,SM_BASH,75; bonus2 bSkillAtk,MG_FIREBOLT,75; bonus bAllStats,25;";
+	case 513: return "bonus2 bWeaponDamageRate,W_FIST,150; bonus2 bSkillAtk,TK_JUMPKICK,150; bonus2 bSkillAtk,SG_HATE,150; bonus bAllStats,40;";
+	case 514: return "bonus2 bWeaponDamageRate,W_STAFF,150; bonus2 bSkillAtk,SL_SMA,150; bonus2 bSkillAtk,SL_STIN,150; bonus bAllStats,40;";
+	case 515: return "bonus2 bWeaponDamageRate,W_HUUMA,150; bonus2 bWeaponDamageRate,W_DAGGER,150; bonus2 bSkillAtk,KO_JYUMONJIKIRI,150; bonus2 bSkillAtk,KO_SETSUDAN,150; bonus bAllStats,40;";
+	case 516: return "bonus2 bWeaponDamageRate,W_RIFLE,150; bonus2 bWeaponDamageRate,W_GATLING,150; bonus2 bSkillAtk,RL_MASS_SPIRAL,150; bonus2 bSkillAtk,RL_S_STORM,150; bonus bAllStats,40;";
+	case 517: return "bonus2 bWeaponDamageRate,W_1HSWORD,150; bonus2 bWeaponDamageRate,W_STAFF,150; bonus2 bSkillAtk,SM_BASH,150; bonus2 bSkillAtk,MG_FIREBOLT,150; bonus bAllStats,40;";
+	case 613: return "bonus2 bWeaponDamageRate,W_FIST,300; bonus2 bSkillAtk,SJ_PROMINENCEKICK,300; bonus2 bSkillAtk,SJ_NOVAEXPLOSING,300; bonus bAllStats,60;";
+	case 614: return "bonus2 bWeaponDamageRate,W_STAFF,300; bonus2 bSkillAtk,SP_SPA,300; bonus2 bSkillAtk,SP_SHA,300; bonus bAllStats,60;";
+	case 713: return "bonus2 bWeaponDamageRate,W_FIST,600; bonus2 bSkillAtk,SJ_PROMINENCEKICK,600; bonus2 bSkillAtk,SJ_NOVAEXPLOSING,600; bonus bAllStats,85;";
+	case 714: return "bonus2 bWeaponDamageRate,W_STAFF,600; bonus2 bSkillAtk,SP_SPA,600; bonus2 bSkillAtk,SP_SHA,600; bonus bAllStats,85;";
+	case 813: return "bonus2 bWeaponDamageRate,W_FIST,1200; bonus2 bSkillAtk,SKE_RISING_SUN,1200; bonus2 bSkillAtk,SKE_STAR_BURST,1200; bonus bAllStats,120;";
+	case 814: return "bonus2 bWeaponDamageRate,W_STAFF,1200; bonus2 bSkillAtk,SOA_TALISMAN_OF_BLUE_DRAGON,1200; bonus2 bSkillAtk,SOA_TALISMAN_OF_RED_PHOENIX,1200; bonus bAllStats,120;";
+	case 815: return "bonus2 bWeaponDamageRate,W_HUUMA,1200; bonus2 bWeaponDamageRate,W_DAGGER,1200; bonus2 bSkillAtk,SS_KINRYUUHOU,1200; bonus2 bSkillAtk,SS_SEKIENHOU,1200; bonus bAllStats,120;";
+	case 816: return "bonus2 bWeaponDamageRate,W_RIFLE,1200; bonus2 bWeaponDamageRate,W_GATLING,1200; bonus2 bSkillAtk,NW_SPIRAL_SHOOTING,1200; bonus2 bSkillAtk,NW_WILD_SHOT,1200; bonus bAllStats,120;";
+	case 817: return "bonus2 bWeaponDamageRate,W_1HSWORD,1200; bonus2 bWeaponDamageRate,W_STAFF,1200; bonus2 bSkillAtk,HN_DOUBLEBOWLINGBASH,1200; bonus2 bSkillAtk,HN_MEGA_SONIC_BLOW,1200; bonus bAllStats,120;";
+	case 818: return "bonus2 bWeaponDamageRate,W_STAFF,1200; bonus2 bSkillAtk,SH_CHUL_HO_SONIC_CLAW,1200; bonus2 bSkillAtk,SH_HYUN_ROK_CANNON,1200; bonus bAllStats,120;";
 	}
 	return "";
 }
@@ -307,6 +367,36 @@ function	script	F_SafaGiftName	{
 	case 810: return "Gift of the Biolo";
 	case 811: return "Gift of the Shadow Cross";
 	case 812: return "Gift of the Abyss Chaser";
+	case 207: return "Gift of the Taekwon Initiate";
+	case 208: return "Gift of the Ninja Initiate";
+	case 209: return "Gift of the Gunslinger Initiate";
+	case 210: return "Gift of the Super Novice Initiate";
+	case 211: return "Gift of the Doram Initiate";
+	case 307: return "Gift of the Taekwon Adept";
+	case 308: return "Gift of the Ninja Adept";
+	case 309: return "Gift of the Gunslinger Adept";
+	case 310: return "Gift of the Super Novice Adept";
+	case 311: return "Gift of the Doram Adept";
+	case 413: return "Gift of the Star Gladiator";
+	case 414: return "Gift of the Soul Linker";
+	case 415: return "Gift of the Kagerou";
+	case 416: return "Gift of the Rebellion";
+	case 417: return "Gift of the Expanded Novice";
+	case 513: return "Gift of the Star Gladiator";
+	case 514: return "Gift of the Soul Linker";
+	case 515: return "Gift of the Kagerou";
+	case 516: return "Gift of the Rebellion";
+	case 517: return "Gift of the Expanded Novice";
+	case 613: return "Gift of the Star Emperor";
+	case 614: return "Gift of the Soul Reaper";
+	case 713: return "Gift of the Star Emperor";
+	case 714: return "Gift of the Soul Reaper";
+	case 813: return "Gift of the Sky Emperor";
+	case 814: return "Gift of the Soul Ascetic";
+	case 815: return "Gift of the Shinkiro";
+	case 816: return "Gift of the Night Watch";
+	case 817: return "Gift of the Hyper Novice";
+	case 818: return "Gift of the Spirit Handler";
 	}
 	return "none";
 }
@@ -315,13 +405,13 @@ function	script	F_SafaTierCount	{
 	switch (getarg(0)) {
 	case 0: return 4;
 	case 1: return 4;
-	case 2: return 6;
-	case 3: return 6;
-	case 4: return 12;
-	case 5: return 12;
-	case 6: return 12;
-	case 7: return 12;
-	case 8: return 12;
+	case 2: return 11;
+	case 3: return 11;
+	case 4: return 17;
+	case 5: return 17;
+	case 6: return 14;
+	case 7: return 14;
+	case 8: return 18;
 	}
 	return 0;
 }
@@ -409,6 +499,36 @@ function	script	F_SafaTierGift	{
 	case 8010: return 810;
 	case 8011: return 811;
 	case 8012: return 812;
+	case 2007: return 207;
+	case 2008: return 208;
+	case 2009: return 209;
+	case 2010: return 210;
+	case 2011: return 211;
+	case 3007: return 307;
+	case 3008: return 308;
+	case 3009: return 309;
+	case 3010: return 310;
+	case 3011: return 311;
+	case 4013: return 413;
+	case 4014: return 414;
+	case 4015: return 415;
+	case 4016: return 416;
+	case 4017: return 417;
+	case 5013: return 513;
+	case 5014: return 514;
+	case 5015: return 515;
+	case 5016: return 516;
+	case 5017: return 517;
+	case 6013: return 613;
+	case 6014: return 614;
+	case 7013: return 713;
+	case 7014: return 714;
+	case 8013: return 813;
+	case 8014: return 814;
+	case 8015: return 815;
+	case 8016: return 816;
+	case 8017: return 817;
+	case 8018: return 818;
 	}
 	return 0;
 }
@@ -555,6 +675,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Knight does.";
 		mes " ";
 		mes "^00AA00Two-Handed Sword damage +75%^000000";
+		mes "^00AA00Two-Handed Spear damage +75%^000000";
 		mes "^00AA00Signature skills +75%^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
@@ -562,6 +683,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Crusader does.";
 		mes " ";
 		mes "^00AA00One-Handed Spear damage +75%^000000";
+		mes "^00AA00One-Handed Sword damage +75%^000000";
 		mes "^00AA00Signature skills +75%^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
@@ -576,6 +698,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Sage does.";
 		mes " ";
 		mes "^00AA00Book damage +75%^000000";
+		mes "^00AA00Staff damage +75%^000000";
 		mes "^00AA00Signature skills +75%^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
@@ -590,6 +713,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Bard does.";
 		mes " ";
 		mes "^00AA00Instrument damage +75%^000000";
+		mes "^00AA00Whip damage +75%^000000";
 		mes "^00AA00Signature skills +75%^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
@@ -639,6 +763,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Knight does.";
 		mes " ";
 		mes "^00AA00Two-Handed Sword damage +150%^000000";
+		mes "^00AA00Two-Handed Spear damage +150%^000000";
 		mes "^00AA00Signature skills +150%^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
@@ -646,6 +771,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Crusader does.";
 		mes " ";
 		mes "^00AA00One-Handed Spear damage +150%^000000";
+		mes "^00AA00One-Handed Sword damage +150%^000000";
 		mes "^00AA00Signature skills +150%^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
@@ -660,6 +786,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Sage does.";
 		mes " ";
 		mes "^00AA00Book damage +150%^000000";
+		mes "^00AA00Staff damage +150%^000000";
 		mes "^00AA00Signature skills +150%^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
@@ -674,6 +801,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Bard does.";
 		mes " ";
 		mes "^00AA00Instrument damage +150%^000000";
+		mes "^00AA00Whip damage +150%^000000";
 		mes "^00AA00Signature skills +150%^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
@@ -725,6 +853,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Rune Knight does.";
 		mes " ";
 		mes "^00AA00Two-Handed Sword damage +300%^000000";
+		mes "^00AA00Two-Handed Spear damage +300%^000000";
 		mes "^00AA00Signature skills +300%^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
@@ -732,6 +861,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Royal Guard does.";
 		mes " ";
 		mes "^00AA00One-Handed Spear damage +300%^000000";
+		mes "^00AA00One-Handed Sword damage +300%^000000";
 		mes "^00AA00Signature skills +300%^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
@@ -760,6 +890,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Wanderer does.";
 		mes " ";
 		mes "^00AA00Whip damage +300%^000000";
+		mes "^00AA00Instrument damage +300%^000000";
 		mes "^00AA00Signature skills +300%^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
@@ -809,6 +940,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Rune Knight does.";
 		mes " ";
 		mes "^00AA00Two-Handed Sword damage +600%^000000";
+		mes "^00AA00Two-Handed Spear damage +600%^000000";
 		mes "^00AA00Signature skills +600%^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
@@ -816,6 +948,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Royal Guard does.";
 		mes " ";
 		mes "^00AA00One-Handed Spear damage +600%^000000";
+		mes "^00AA00One-Handed Sword damage +600%^000000";
 		mes "^00AA00Signature skills +600%^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
@@ -844,6 +977,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Wanderer does.";
 		mes " ";
 		mes "^00AA00Whip damage +600%^000000";
+		mes "^00AA00Instrument damage +600%^000000";
 		mes "^00AA00Signature skills +600%^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
@@ -893,6 +1027,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Dragon Knight does.";
 		mes " ";
 		mes "^00AA00Two-Handed Sword damage +1200%^000000";
+		mes "^00AA00Two-Handed Spear damage +1200%^000000";
 		mes "^00AA00Signature skills +1200%^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
@@ -900,6 +1035,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Imperial Guard does.";
 		mes " ";
 		mes "^00AA00One-Handed Spear damage +1200%^000000";
+		mes "^00AA00One-Handed Sword damage +1200%^000000";
 		mes "^00AA00Signature skills +1200%^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
@@ -928,6 +1064,7 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Troubadour does.";
 		mes " ";
 		mes "^00AA00Whip damage +1200%^000000";
+		mes "^00AA00Instrument damage +1200%^000000";
 		mes "^00AA00Signature skills +1200%^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
@@ -970,6 +1107,229 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Abyss Chaser does.";
 		mes " ";
 		mes "^00AA00Dagger damage +1200%^000000";
+		mes "^00AA00Signature skills +1200%^000000";
+		mes "^00AA00All stats +120^000000";
+		break;
+	case 207:
+		mes "Your body learned to fight before your hands did.";
+		mes " ";
+		mes "^00AA00Bare-handed damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +8^000000";
+		break;
+	case 208:
+		mes "You were taught to be somewhere else by the time it lands.";
+		mes " ";
+		mes "^00AA00Huuma Shuriken damage +30%^000000";
+		mes "^00AA00Dagger damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +8^000000";
+		break;
+	case 209:
+		mes "The trigger was familiar the first time you touched it.";
+		mes " ";
+		mes "^00AA00Revolver damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +8^000000";
+		break;
+	case 210:
+		mes "You never chose. That turned out to be the choice.";
+		mes " ";
+		mes "^00AA00One-Handed Sword damage +30%^000000";
+		mes "^00AA00Staff damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +8^000000";
+		break;
+	case 211:
+		mes "You came through as something smaller, and quicker.";
+		mes " ";
+		mes "^00AA00Staff damage +30%^000000";
+		mes "^00AA00Signature skills +30%^000000";
+		mes "^00AA00All stats +8^000000";
+		break;
+	case 307:
+		mes "Your body learned to fight before your hands did.";
+		mes " ";
+		mes "^00AA00Bare-handed damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +16^000000";
+		break;
+	case 308:
+		mes "You were taught to be somewhere else by the time it lands.";
+		mes " ";
+		mes "^00AA00Huuma Shuriken damage +60%^000000";
+		mes "^00AA00Dagger damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +16^000000";
+		break;
+	case 309:
+		mes "The trigger was familiar the first time you touched it.";
+		mes " ";
+		mes "^00AA00Revolver damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +16^000000";
+		break;
+	case 310:
+		mes "You never chose. That turned out to be the choice.";
+		mes " ";
+		mes "^00AA00One-Handed Sword damage +60%^000000";
+		mes "^00AA00Staff damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +16^000000";
+		break;
+	case 311:
+		mes "You came through as something smaller, and quicker.";
+		mes " ";
+		mes "^00AA00Staff damage +60%^000000";
+		mes "^00AA00Signature skills +60%^000000";
+		mes "^00AA00All stats +16^000000";
+		break;
+	case 413:
+		mes "The sun, the moon and the stars answer when you move.";
+		mes " ";
+		mes "^00AA00Bare-handed damage +75%^000000";
+		mes "^00AA00Signature skills +75%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 414:
+		mes "You reach past the body and touch what drives it.";
+		mes " ";
+		mes "^00AA00Staff damage +75%^000000";
+		mes "^00AA00Signature skills +75%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 415:
+		mes "Shadow and paper, and a blade between them.";
+		mes " ";
+		mes "^00AA00Huuma Shuriken damage +75%^000000";
+		mes "^00AA00Dagger damage +75%^000000";
+		mes "^00AA00Signature skills +75%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 416:
+		mes "One against many was never a problem you recognised.";
+		mes " ";
+		mes "^00AA00Rifle damage +75%^000000";
+		mes "^00AA00Gatling Gun damage +75%^000000";
+		mes "^00AA00Signature skills +75%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 417:
+		mes "Still no specialty. Still standing.";
+		mes " ";
+		mes "^00AA00One-Handed Sword damage +75%^000000";
+		mes "^00AA00Staff damage +75%^000000";
+		mes "^00AA00Signature skills +75%^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 513:
+		mes "The sun, the moon and the stars answer when you move.";
+		mes " ";
+		mes "^00AA00Bare-handed damage +150%^000000";
+		mes "^00AA00Signature skills +150%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 514:
+		mes "You reach past the body and touch what drives it.";
+		mes " ";
+		mes "^00AA00Staff damage +150%^000000";
+		mes "^00AA00Signature skills +150%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 515:
+		mes "Shadow and paper, and a blade between them.";
+		mes " ";
+		mes "^00AA00Huuma Shuriken damage +150%^000000";
+		mes "^00AA00Dagger damage +150%^000000";
+		mes "^00AA00Signature skills +150%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 516:
+		mes "One against many was never a problem you recognised.";
+		mes " ";
+		mes "^00AA00Rifle damage +150%^000000";
+		mes "^00AA00Gatling Gun damage +150%^000000";
+		mes "^00AA00Signature skills +150%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 517:
+		mes "Still no specialty. Still standing.";
+		mes " ";
+		mes "^00AA00One-Handed Sword damage +150%^000000";
+		mes "^00AA00Staff damage +150%^000000";
+		mes "^00AA00Signature skills +150%^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 613:
+		mes "The sky moved for you, and did not ask why.";
+		mes " ";
+		mes "^00AA00Bare-handed damage +300%^000000";
+		mes "^00AA00Signature skills +300%^000000";
+		mes "^00AA00All stats +60^000000";
+		break;
+	case 614:
+		mes "What you take is not measured in blood.";
+		mes " ";
+		mes "^00AA00Staff damage +300%^000000";
+		mes "^00AA00Signature skills +300%^000000";
+		mes "^00AA00All stats +60^000000";
+		break;
+	case 713:
+		mes "The sky moved for you, and did not ask why.";
+		mes " ";
+		mes "^00AA00Bare-handed damage +600%^000000";
+		mes "^00AA00Signature skills +600%^000000";
+		mes "^00AA00All stats +85^000000";
+		break;
+	case 714:
+		mes "What you take is not measured in blood.";
+		mes " ";
+		mes "^00AA00Staff damage +600%^000000";
+		mes "^00AA00Signature skills +600%^000000";
+		mes "^00AA00All stats +85^000000";
+		break;
+	case 813:
+		mes "Sunrise and starfall obey the same hand now.";
+		mes " ";
+		mes "^00AA00Bare-handed damage +1200%^000000";
+		mes "^00AA00Signature skills +1200%^000000";
+		mes "^00AA00All stats +120^000000";
+		break;
+	case 814:
+		mes "Four talismans, four directions, one will.";
+		mes " ";
+		mes "^00AA00Staff damage +1200%^000000";
+		mes "^00AA00Signature skills +1200%^000000";
+		mes "^00AA00All stats +120^000000";
+		break;
+	case 815:
+		mes "The mirage strikes before the body arrives.";
+		mes " ";
+		mes "^00AA00Huuma Shuriken damage +1200%^000000";
+		mes "^00AA00Dagger damage +1200%^000000";
+		mes "^00AA00Signature skills +1200%^000000";
+		mes "^00AA00All stats +120^000000";
+		break;
+	case 816:
+		mes "One bullet, kept for the thing worth spending it on.";
+		mes " ";
+		mes "^00AA00Rifle damage +1200%^000000";
+		mes "^00AA00Gatling Gun damage +1200%^000000";
+		mes "^00AA00Signature skills +1200%^000000";
+		mes "^00AA00All stats +120^000000";
+		break;
+	case 817:
+		mes "Everyone else picked a path. You took all of them.";
+		mes " ";
+		mes "^00AA00One-Handed Sword damage +1200%^000000";
+		mes "^00AA00Staff damage +1200%^000000";
+		mes "^00AA00Signature skills +1200%^000000";
+		mes "^00AA00All stats +120^000000";
+		break;
+	case 818:
+		mes "Two spirits walk with you and neither is tame.";
+		mes " ";
+		mes "^00AA00Staff damage +1200%^000000";
 		mes "^00AA00Signature skills +1200%^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
