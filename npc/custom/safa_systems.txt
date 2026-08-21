@@ -591,84 +591,96 @@ function	script	F_SafaGiftDesc	{
 		mes "The path of the sword, opened.";
 		mes " ";
 		mes "^00AA00One-Handed Sword damage +30%^000000";
-		mes "^00AA00Signature skills +30%^000000";
+		mes "^0088FFSignature skills +30%^000000";
+		mes "^777777Bash, Magnum Break^000000";
 		mes "^00AA00All stats +8^000000";
 		break;
 	case 202:
 		mes "The path of the bolt, opened.";
 		mes " ";
 		mes "^00AA00Staff damage +30%^000000";
-		mes "^00AA00Signature skills +30%^000000";
+		mes "^0088FFSignature skills +30%^000000";
+		mes "^777777Fire Bolt, Cold Bolt, Lightning Bolt^000000";
 		mes "^00AA00All stats +8^000000";
 		break;
 	case 203:
 		mes "The path of the bow, opened.";
 		mes " ";
 		mes "^00AA00Bow damage +30%^000000";
-		mes "^00AA00Signature skills +30%^000000";
+		mes "^0088FFSignature skills +30%^000000";
+		mes "^777777Double Strafe^000000";
 		mes "^00AA00All stats +8^000000";
 		break;
 	case 204:
 		mes "The path of the prayer, opened.";
 		mes " ";
 		mes "^00AA00Mace damage +30%^000000";
-		mes "^00AA00Signature skills +30%^000000";
+		mes "^0088FFSignature skills +30%^000000";
+		mes "^777777Heal, Holy Light^000000";
 		mes "^00AA00All stats +8^000000";
 		break;
 	case 205:
 		mes "The path of the ledger, opened.";
 		mes " ";
 		mes "^00AA00One-Handed Axe damage +30%^000000";
-		mes "^00AA00Signature skills +30%^000000";
+		mes "^0088FFSignature skills +30%^000000";
+		mes "^777777Mammonite^000000";
 		mes "^00AA00All stats +8^000000";
 		break;
 	case 206:
 		mes "The path of the knife, opened.";
 		mes " ";
 		mes "^00AA00Dagger damage +30%^000000";
-		mes "^00AA00Signature skills +30%^000000";
+		mes "^0088FFSignature skills +30%^000000";
+		mes "^777777Envenom^000000";
 		mes "^00AA00All stats +8^000000";
 		break;
 	case 301:
 		mes "The path of the sword, sharpened.";
 		mes " ";
 		mes "^00AA00One-Handed Sword damage +60%^000000";
-		mes "^00AA00Signature skills +60%^000000";
+		mes "^0088FFSignature skills +60%^000000";
+		mes "^777777Bash, Magnum Break^000000";
 		mes "^00AA00All stats +16^000000";
 		break;
 	case 302:
 		mes "The path of the bolt, sharpened.";
 		mes " ";
 		mes "^00AA00Staff damage +60%^000000";
-		mes "^00AA00Signature skills +60%^000000";
+		mes "^0088FFSignature skills +60%^000000";
+		mes "^777777Fire Bolt, Cold Bolt, Lightning Bolt^000000";
 		mes "^00AA00All stats +16^000000";
 		break;
 	case 303:
 		mes "The path of the bow, sharpened.";
 		mes " ";
 		mes "^00AA00Bow damage +60%^000000";
-		mes "^00AA00Signature skills +60%^000000";
+		mes "^0088FFSignature skills +60%^000000";
+		mes "^777777Double Strafe^000000";
 		mes "^00AA00All stats +16^000000";
 		break;
 	case 304:
 		mes "The path of the prayer, sharpened.";
 		mes " ";
 		mes "^00AA00Mace damage +60%^000000";
-		mes "^00AA00Signature skills +60%^000000";
+		mes "^0088FFSignature skills +60%^000000";
+		mes "^777777Heal, Holy Light^000000";
 		mes "^00AA00All stats +16^000000";
 		break;
 	case 305:
 		mes "The path of the ledger, sharpened.";
 		mes " ";
 		mes "^00AA00One-Handed Axe damage +60%^000000";
-		mes "^00AA00Signature skills +60%^000000";
+		mes "^0088FFSignature skills +60%^000000";
+		mes "^777777Mammonite^000000";
 		mes "^00AA00All stats +16^000000";
 		break;
 	case 306:
 		mes "The path of the knife, sharpened.";
 		mes " ";
 		mes "^00AA00Dagger damage +60%^000000";
-		mes "^00AA00Signature skills +60%^000000";
+		mes "^0088FFSignature skills +60%^000000";
+		mes "^777777Envenom^000000";
 		mes "^00AA00All stats +16^000000";
 		break;
 	case 401:
@@ -676,7 +688,8 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Two-Handed Sword damage +75%^000000";
 		mes "^00AA00Two-Handed Spear damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Bowling Bash, Pierce^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 402:
@@ -684,14 +697,16 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00One-Handed Spear damage +75%^000000";
 		mes "^00AA00One-Handed Sword damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Grand Cross, Shield Boomerang^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 403:
 		mes "You were shaped for what a Wizard does.";
 		mes " ";
 		mes "^00AA00Staff damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Meteor Storm, Storm Gust^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 404:
@@ -699,14 +714,16 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Book damage +75%^000000";
 		mes "^00AA00Staff damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Soul Siphon, Endow Blaze^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 405:
 		mes "You were shaped for what a Hunter does.";
 		mes " ";
 		mes "^00AA00Bow damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Blitz Beat, Focused Arrow Strike^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 406:
@@ -714,49 +731,56 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Instrument damage +75%^000000";
 		mes "^00AA00Whip damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Melody Strike, Slinging Arrow^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 407:
 		mes "You were shaped for what a Priest does.";
 		mes " ";
 		mes "^00AA00Mace damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Magnus Exorcismus, Holy Light^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 408:
 		mes "You were shaped for what a Monk does.";
 		mes " ";
 		mes "^00AA00Knuckle damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Asura Strike, Throw Spirit Sphere^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 409:
 		mes "You were shaped for what a Blacksmith does.";
 		mes " ";
 		mes "^00AA00Two-Handed Axe damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Cart Termination, Hammer Fall^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 410:
 		mes "You were shaped for what a Alchemist does.";
 		mes " ";
 		mes "^00AA00One-Handed Axe damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Acid Terror, Bomb^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 411:
 		mes "You were shaped for what a Assassin does.";
 		mes " ";
 		mes "^00AA00Katar damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Sonic Blow, Grimtooth^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 412:
 		mes "You were shaped for what a Rogue does.";
 		mes " ";
 		mes "^00AA00Dagger damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Back Stab, Sightless Mind^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 501:
@@ -764,7 +788,8 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Two-Handed Sword damage +150%^000000";
 		mes "^00AA00Two-Handed Spear damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Bowling Bash, Pierce^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 502:
@@ -772,14 +797,16 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00One-Handed Spear damage +150%^000000";
 		mes "^00AA00One-Handed Sword damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Grand Cross, Shield Boomerang^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 503:
 		mes "You were shaped for what a Wizard does.";
 		mes " ";
 		mes "^00AA00Staff damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Meteor Storm, Storm Gust^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 504:
@@ -787,14 +814,16 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Book damage +150%^000000";
 		mes "^00AA00Staff damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Soul Siphon, Endow Blaze^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 505:
 		mes "You were shaped for what a Hunter does.";
 		mes " ";
 		mes "^00AA00Bow damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Blitz Beat, Focused Arrow Strike^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 506:
@@ -802,28 +831,32 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Instrument damage +150%^000000";
 		mes "^00AA00Whip damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Melody Strike, Slinging Arrow^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 507:
 		mes "You were shaped for what a Priest does.";
 		mes " ";
 		mes "^00AA00Mace damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Magnus Exorcismus, Holy Light^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 508:
 		mes "You were shaped for what a Monk does.";
 		mes " ";
 		mes "^00AA00Knuckle damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Asura Strike, Throw Spirit Sphere^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 509:
 		mes "You were shaped for what a Blacksmith does.";
 		mes " ";
 		mes "^00AA00Two-Handed Axe damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Cart Termination, Hammer Fall^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 510:
@@ -839,14 +872,16 @@ function	script	F_SafaGiftDesc	{
 		mes "You were shaped for what a Assassin does.";
 		mes " ";
 		mes "^00AA00Katar damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Sonic Blow, Grimtooth^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 512:
 		mes "You were shaped for what a Rogue does.";
 		mes " ";
 		mes "^00AA00Dagger damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Back Stab, Sightless Mind^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 601:
@@ -854,7 +889,8 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Two-Handed Sword damage +300%^000000";
 		mes "^00AA00Two-Handed Spear damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Ignition Break, Sonic Wave^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 602:
@@ -862,28 +898,32 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00One-Handed Spear damage +300%^000000";
 		mes "^00AA00One-Handed Sword damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Cannon Spear, Over Brand^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 603:
 		mes "You were shaped for what a Warlock does.";
 		mes " ";
 		mes "^00AA00Two-Handed Staff damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Soul Expansion, Chain Lightning^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 604:
 		mes "You were shaped for what a Sorcerer does.";
 		mes " ";
 		mes "^00AA00Staff damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Psychic Wave, Earth Grave^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 605:
 		mes "You were shaped for what a Ranger does.";
 		mes " ";
 		mes "^00AA00Bow damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Arrow Storm, Aimed Bolt^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 606:
@@ -891,49 +931,56 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Whip damage +300%^000000";
 		mes "^00AA00Instrument damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Reverberation, Severe Rainstorm^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 607:
 		mes "You were shaped for what a Arch Bishop does.";
 		mes " ";
 		mes "^00AA00Mace damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Adoramus, Judex^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 608:
 		mes "You were shaped for what a Sura does.";
 		mes " ";
 		mes "^00AA00Knuckle damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Sky Net Blow, Tiger Cannon^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 609:
 		mes "You were shaped for what a Mechanic does.";
 		mes " ";
 		mes "^00AA00Two-Handed Axe damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Axe Tornado, Arm Cannon^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 610:
 		mes "You were shaped for what a Genetic does.";
 		mes " ";
 		mes "^00AA00One-Handed Axe damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Cart Cannon, Crazy Weed^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 611:
 		mes "You were shaped for what a Guillotine Cross does.";
 		mes " ";
 		mes "^00AA00Katar damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Cross Impact, Rolling Cutter^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 612:
 		mes "You were shaped for what a Shadow Chaser does.";
 		mes " ";
 		mes "^00AA00Dagger damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Fatal Menace, Triangle Shot^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 701:
@@ -941,7 +988,8 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Two-Handed Sword damage +600%^000000";
 		mes "^00AA00Two-Handed Spear damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Ignition Break, Sonic Wave^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 702:
@@ -949,28 +997,32 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00One-Handed Spear damage +600%^000000";
 		mes "^00AA00One-Handed Sword damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Cannon Spear, Over Brand^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 703:
 		mes "You were shaped for what a Warlock does.";
 		mes " ";
 		mes "^00AA00Two-Handed Staff damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Soul Expansion, Chain Lightning^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 704:
 		mes "You were shaped for what a Sorcerer does.";
 		mes " ";
 		mes "^00AA00Staff damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Psychic Wave, Earth Grave^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 705:
 		mes "You were shaped for what a Ranger does.";
 		mes " ";
 		mes "^00AA00Bow damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Arrow Storm, Aimed Bolt^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 706:
@@ -978,49 +1030,56 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Whip damage +600%^000000";
 		mes "^00AA00Instrument damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Reverberation, Severe Rainstorm^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 707:
 		mes "You were shaped for what a Arch Bishop does.";
 		mes " ";
 		mes "^00AA00Mace damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Adoramus, Judex^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 708:
 		mes "You were shaped for what a Sura does.";
 		mes " ";
 		mes "^00AA00Knuckle damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Sky Net Blow, Tiger Cannon^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 709:
 		mes "You were shaped for what a Mechanic does.";
 		mes " ";
 		mes "^00AA00Two-Handed Axe damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Axe Tornado, Arm Cannon^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 710:
 		mes "You were shaped for what a Genetic does.";
 		mes " ";
 		mes "^00AA00One-Handed Axe damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Cart Cannon, Crazy Weed^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 711:
 		mes "You were shaped for what a Guillotine Cross does.";
 		mes " ";
 		mes "^00AA00Katar damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Cross Impact, Rolling Cutter^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 712:
 		mes "You were shaped for what a Shadow Chaser does.";
 		mes " ";
 		mes "^00AA00Dagger damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Fatal Menace, Triangle Shot^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 801:
@@ -1028,7 +1087,8 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Two-Handed Sword damage +1200%^000000";
 		mes "^00AA00Two-Handed Spear damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Servant Weapon Attack, Dragonic Aura^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 802:
@@ -1036,28 +1096,32 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00One-Handed Spear damage +1200%^000000";
 		mes "^00AA00One-Handed Sword damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Overslash, Shield Shooting^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 803:
 		mes "You were shaped for what a Arch Mage does.";
 		mes " ";
 		mes "^00AA00Two-Handed Staff damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Destructive Hurricane, Soul Vulcan Strike^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 804:
 		mes "You were shaped for what a Elemental Master does.";
 		mes " ";
 		mes "^00AA00Two-Handed Staff damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Elemental Buster Fire, Diamond Storm^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 805:
 		mes "You were shaped for what a Windhawk does.";
 		mes " ";
 		mes "^00AA00Bow damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Hawk Rush, Gale Storm^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 806:
@@ -1065,56 +1129,64 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Whip damage +1200%^000000";
 		mes "^00AA00Instrument damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Rose Blossom, Metallic Fury^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 807:
 		mes "You were shaped for what a Cardinal does.";
 		mes " ";
 		mes "^00AA00Mace damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Arbitrium, Effligo^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 808:
 		mes "You were shaped for what a Inquisitor does.";
 		mes " ";
 		mes "^00AA00Knuckle damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Oleum Sanctum, Massive Flame Blaster^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 809:
 		mes "You were shaped for what a Meister does.";
 		mes " ";
 		mes "^00AA00Two-Handed Axe damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Axe Stomp, Spark Blaster^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 810:
 		mes "You were shaped for what a Biolo does.";
 		mes " ";
 		mes "^00AA00One-Handed Axe damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Acidified Zone Water, Explosive Powder^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 811:
 		mes "You were shaped for what a Shadow Cross does.";
 		mes " ";
 		mes "^00AA00Katar damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Savage Impact, Eternal Slash^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 812:
 		mes "You were shaped for what a Abyss Chaser does.";
 		mes " ";
 		mes "^00AA00Dagger damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Abyss Dagger, Unlucky Rush^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 207:
 		mes "Your body learned to fight before your hands did.";
 		mes " ";
 		mes "^00AA00Bare-handed damage +30%^000000";
-		mes "^00AA00Signature skills +30%^000000";
+		mes "^0088FFSignature skills +30%^000000";
+		mes "^777777Tornado Kick, Heel Drop^000000";
 		mes "^00AA00All stats +8^000000";
 		break;
 	case 208:
@@ -1122,14 +1194,16 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Huuma Shuriken damage +30%^000000";
 		mes "^00AA00Dagger damage +30%^000000";
-		mes "^00AA00Signature skills +30%^000000";
+		mes "^0088FFSignature skills +30%^000000";
+		mes "^777777Throw Shuriken, Throw Huuma Shuriken^000000";
 		mes "^00AA00All stats +8^000000";
 		break;
 	case 209:
 		mes "The trigger was familiar the first time you touched it.";
 		mes " ";
 		mes "^00AA00Revolver damage +30%^000000";
-		mes "^00AA00Signature skills +30%^000000";
+		mes "^0088FFSignature skills +30%^000000";
+		mes "^777777Triple Action, Bulls Eye^000000";
 		mes "^00AA00All stats +8^000000";
 		break;
 	case 210:
@@ -1137,21 +1211,24 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00One-Handed Sword damage +30%^000000";
 		mes "^00AA00Staff damage +30%^000000";
-		mes "^00AA00Signature skills +30%^000000";
+		mes "^0088FFSignature skills +30%^000000";
+		mes "^777777Bash, Fire Bolt^000000";
 		mes "^00AA00All stats +8^000000";
 		break;
 	case 211:
 		mes "You came through as something smaller, and quicker.";
 		mes " ";
 		mes "^00AA00Staff damage +30%^000000";
-		mes "^00AA00Signature skills +30%^000000";
+		mes "^0088FFSignature skills +30%^000000";
+		mes "^777777Bite, Scratch^000000";
 		mes "^00AA00All stats +8^000000";
 		break;
 	case 307:
 		mes "Your body learned to fight before your hands did.";
 		mes " ";
 		mes "^00AA00Bare-handed damage +60%^000000";
-		mes "^00AA00Signature skills +60%^000000";
+		mes "^0088FFSignature skills +60%^000000";
+		mes "^777777Tornado Kick, Heel Drop^000000";
 		mes "^00AA00All stats +16^000000";
 		break;
 	case 308:
@@ -1159,14 +1236,16 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Huuma Shuriken damage +60%^000000";
 		mes "^00AA00Dagger damage +60%^000000";
-		mes "^00AA00Signature skills +60%^000000";
+		mes "^0088FFSignature skills +60%^000000";
+		mes "^777777Throw Shuriken, Throw Huuma Shuriken^000000";
 		mes "^00AA00All stats +16^000000";
 		break;
 	case 309:
 		mes "The trigger was familiar the first time you touched it.";
 		mes " ";
 		mes "^00AA00Revolver damage +60%^000000";
-		mes "^00AA00Signature skills +60%^000000";
+		mes "^0088FFSignature skills +60%^000000";
+		mes "^777777Triple Action, Bulls Eye^000000";
 		mes "^00AA00All stats +16^000000";
 		break;
 	case 310:
@@ -1174,28 +1253,32 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00One-Handed Sword damage +60%^000000";
 		mes "^00AA00Staff damage +60%^000000";
-		mes "^00AA00Signature skills +60%^000000";
+		mes "^0088FFSignature skills +60%^000000";
+		mes "^777777Bash, Fire Bolt^000000";
 		mes "^00AA00All stats +16^000000";
 		break;
 	case 311:
 		mes "You came through as something smaller, and quicker.";
 		mes " ";
 		mes "^00AA00Staff damage +60%^000000";
-		mes "^00AA00Signature skills +60%^000000";
+		mes "^0088FFSignature skills +60%^000000";
+		mes "^777777Bite, Scratch^000000";
 		mes "^00AA00All stats +16^000000";
 		break;
 	case 413:
 		mes "The sun, the moon and the stars answer when you move.";
 		mes " ";
 		mes "^00AA00Bare-handed damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Flying Kick, Hatred of the Sun Moon and Stars^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 414:
 		mes "You reach past the body and touch what drives it.";
 		mes " ";
 		mes "^00AA00Staff damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Esma, Estin^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 415:
@@ -1203,7 +1286,8 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Huuma Shuriken damage +75%^000000";
 		mes "^00AA00Dagger damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Cross Slash, Soul Cutter^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 416:
@@ -1211,7 +1295,8 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Rifle damage +75%^000000";
 		mes "^00AA00Gatling Gun damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Mass Spiral, Shatter Storm^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 417:
@@ -1219,21 +1304,24 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00One-Handed Sword damage +75%^000000";
 		mes "^00AA00Staff damage +75%^000000";
-		mes "^00AA00Signature skills +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Bash, Fire Bolt^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 513:
 		mes "The sun, the moon and the stars answer when you move.";
 		mes " ";
 		mes "^00AA00Bare-handed damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Flying Kick, Hatred of the Sun Moon and Stars^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 514:
 		mes "You reach past the body and touch what drives it.";
 		mes " ";
 		mes "^00AA00Staff damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Esma, Estin^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 515:
@@ -1241,7 +1329,8 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Huuma Shuriken damage +150%^000000";
 		mes "^00AA00Dagger damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Cross Slash, Soul Cutter^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 516:
@@ -1249,7 +1338,8 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Rifle damage +150%^000000";
 		mes "^00AA00Gatling Gun damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Mass Spiral, Shatter Storm^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 517:
@@ -1257,49 +1347,56 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00One-Handed Sword damage +150%^000000";
 		mes "^00AA00Staff damage +150%^000000";
-		mes "^00AA00Signature skills +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Bash, Fire Bolt^000000";
 		mes "^00AA00All stats +40^000000";
 		break;
 	case 613:
 		mes "The sky moved for you, and did not ask why.";
 		mes " ";
 		mes "^00AA00Bare-handed damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Prominence Kick, Nova Explosion^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 614:
 		mes "What you take is not measured in blood.";
 		mes " ";
 		mes "^00AA00Staff damage +300%^000000";
-		mes "^00AA00Signature skills +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Espa, Esha^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 713:
 		mes "The sky moved for you, and did not ask why.";
 		mes " ";
 		mes "^00AA00Bare-handed damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Prominence Kick, Nova Explosion^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 714:
 		mes "What you take is not measured in blood.";
 		mes " ";
 		mes "^00AA00Staff damage +600%^000000";
-		mes "^00AA00Signature skills +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Espa, Esha^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 813:
 		mes "Sunrise and starfall obey the same hand now.";
 		mes " ";
 		mes "^00AA00Bare-handed damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Rising Sun, Star Burst^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 814:
 		mes "Four talismans, four directions, one will.";
 		mes " ";
 		mes "^00AA00Staff damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Talisman Of Blue Dragon, Talisman Of Red Phoenix^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 815:
@@ -1307,7 +1404,8 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Huuma Shuriken damage +1200%^000000";
 		mes "^00AA00Dagger damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Golden Dragon Cannon, Red Flame Cannon^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 816:
@@ -1315,7 +1413,8 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00Rifle damage +1200%^000000";
 		mes "^00AA00Gatling Gun damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Spiral Shooting, Wild Shot^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 817:
@@ -1323,14 +1422,16 @@ function	script	F_SafaGiftDesc	{
 		mes " ";
 		mes "^00AA00One-Handed Sword damage +1200%^000000";
 		mes "^00AA00Staff damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Double Bowling Bash, Mega Sonic Blow^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 818:
 		mes "Two spirits walk with you and neither is tame.";
 		mes " ";
 		mes "^00AA00Staff damage +1200%^000000";
-		mes "^00AA00Signature skills +1200%^000000";
+		mes "^0088FFSignature skills +1200%^000000";
+		mes "^777777Chulho Sonic Claw, Hyunrok Cannon^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	}
