@@ -1,0 +1,342 @@
+//===== SafaRO Script =====================================
+//= Versorgungslaeden der Klassenlinien
+//===== Erzeugt von ==========================================
+//= tools/laeden/bauen.py  --  NICHT von Hand pflegen.
+//===========================================================
+//
+//  Vorbild ist der Homunculus Freak (safa_homunculus.txt): ein
+//  sichtbarer Haendler und dahinter ein unsichtbarer shop-NPC
+//  (Sprite -1), geoeffnet ueber callshop.
+//
+//  WOHER DIE SORTIMENTE KOMMEN
+//
+//  Nicht von Hand gesammelt, sondern aus drei Quellen gezogen:
+//
+//    skill_db.yml   Requires.ItemCost - was eine Fertigkeit beim
+//                   Wirken verbraucht
+//    produce_db.txt Zutaten der Rezepte, ueber RequireSkill der
+//                   Linie zugeordnet
+//    item_db_etc    Type: Ammo, ueber den SubTyp zugeordnet
+//
+//  Preis -1 heisst: Kaufpreis aus item_db.yml. Damit pflegt sich
+//  jede Liste bei einem Datenbank-Update von selbst.
+//
+//  WER FEHLT UND WARUM
+//
+//  Der Alchemist - fuer den gibt es den Homunculus Freak.
+//  Moench und Taekwon - beide verbrauchen nachweislich nichts.
+//  Linien unter drei Posten - ein Laden mit einem Artikel ist
+//  kein Laden.
+//===========================================================
+
+-	shop	ForgeSupplieSkills	-1,7137:-1
+-	shop	ForgeSupplieCrafting	-1,718:-1,719:-1,720:-1,722:-1,723:-1,724:-1,726:-1,727:-1,728:-1,729:-1,730:-1,733:-1,909:-1,913:-1,920:-1,922:-1,923:-1,957:-1,958:-1,963:-1,968:-1,984:-1,990:-1,991:-1,992:-1,993:-1,998:-1,999:-1,1001:-1,1002:-1,1003:-1
+-	shop	GearSupplierSkills	-1,612:-1,615:-1,998:-1,999:-1,2139:-1,2807:-1,6145:-1,6146:-1,6147:-1,6186:-1,6360:-1,6361:-1,6362:-1,6363:-1,7054:-1,12392:-1,12393:-1,12394:-1,1000289:-1,1000290:-1,1000352:-1
+-	shop	GearSupplierCrafting	-1,612:-1,615:-1,6146:-1,1000352:-1
+-	shop	GearSupplierAmmo	-1,18000:-1,18001:-1,18002:-1,18003:-1,18004:-1,18005:-1,18006:-1,18007:-1,18008:-1,18009:-1
+-	shop	FletcherSkills	-1,1065:-1,6124:-1,6360:-1,6361:-1,6362:-1,6363:-1,7940:-1,1000311:-1
+-	shop	FletcherAmmo	-1,1750:-1,1751:-1,1752:-1,1753:-1,1754:-1,1755:-1,1756:-1,1757:-1,1758:-1,1759:-1,1760:-1,1761:-1,1762:-1,1763:-1,1764:-1,1765:-1,1766:-1,1767:-1,1768:-1,1769:-1,1770:-1,1772:-1,1773:-1,1774:-1,1775:-1,1776:-1,1200000:-1
+-	shop	PoisonerSkills	-1,716:-1,6128:-1
+-	shop	PoisonerCrafting	-1,509:-1,510:-1,511:-1,657:-1,709:-1,713:-1,937:-1,939:-1,950:-1,952:-1,957:-1,972:-1,7003:-1,7033:-1,7134:-1,7155:-1,7565:-1,7931:-1,7932:-1,7933:-1,7934:-1,7935:-1,7936:-1,7937:-1
+-	shop	PoisonerAmmo	-1,1771:-1
+-	shop	ScholarSupplSkills	-1,715:-1,717:-1,990:-1,991:-1,992:-1,993:-1,994:-1,995:-1,996:-1,997:-1,1025:-1,6360:-1,6361:-1,6362:-1,6363:-1,12114:-1,12115:-1,12116:-1,12117:-1,1000291:-1,1000292:-1,1000293:-1,1000294:-1,1000295:-1
+-	shop	ScholarSupplCrafting	-1,990:-1,991:-1,992:-1,993:-1,7433:-1
+-	shop	GemstoneTradSkills	-1,715:-1,716:-1,717:-1
+-	shop	AcolyteSupplSkills	-1,523:-1,717:-1,12333:-1
+-	shop	AcolyteSupplCrafting	-1,713:-1,717:-1
+-	shop	SquireSkills	-1,523:-1,545:-1,546:-1,547:-1,905:-1,921:-1,7135:-1,7136:-1,7139:-1
+-	shop	SquireCrafting	-1,518:-1,716:-1,969:-1,1034:-1,1035:-1,1048:-1,1096:-1,7002:-1,7030:-1,7069:-1,7097:-1,7099:-1,7123:-1,7210:-1,7221:-1,7938:-1,7939:-1
+-	shop	GunRunnerSkills	-1,7663:-1,7664:-1,7665:-1,7940:-1,25187:-1,1000564:-1
+-	shop	GunRunnerAmmo	-1,13200:-1,13201:-1,13202:-1,13203:-1,13204:-1,13205:-1,13206:-1,13207:-1,13208:-1,13210:-1,13211:-1,13212:-1,13213:-1,13214:-1,13215:-1,13216:-1,13217:-1,13218:-1,13219:-1,13220:-1,13221:-1,13222:-1,13223:-1,13224:-1,13225:-1,13226:-1,13227:-1,13228:-1,13229:-1,13230:-1,13231:-1,13232:-1
+-	shop	ShadowMerchaSkills	-1,6493:-1,6512:-1,6513:-1,6514:-1,6515:-1,7521:-1,7522:-1,7523:-1,7524:-1,13294:-1,1000565:-1,1000566:-1,1000567:-1,1000568:-1,1000569:-1
+-	shop	ShadowMerchaAmmo	-1,13250:-1,13251:-1,13252:-1,13253:-1,13254:-1,13255:-1,13256:-1,13257:-1,13258:-1,13259:-1,13291:-1,13292:-1,13293:-1,13294:-1,13295:-1,1220001:-1,1220002:-1,1220003:-1,1220004:-1
+-	shop	HerbalistSkills	-1,970:-1,6210:-1,6211:-1,6212:-1,6213:-1,6214:-1,6215:-1,6216:-1,6217:-1,7135:-1,7136:-1,7137:-1,1000276:-1,1000277:-1,1000278:-1,1000279:-1,1000280:-1,1000281:-1
+-	shop	HerbalistCrafting	-1,504:-1,507:-1,508:-1,509:-1,510:-1,511:-1,514:-1,518:-1,522:-1,523:-1,525:-1,526:-1,528:-1,568:-1,576:-1,607:-1,608:-1,610:-1,645:-1,656:-1,678:-1,705:-1,713:-1,735:-1,736:-1,737:-1,738:-1,739:-1,740:-1,741:-1,742:-1,743:-1,744:-1,745:-1,746:-1,747:-1,748:-1,749:-1,750:-1,751:-1,752:-1,753:-1,754:-1,902:-1,903:-1,904:-1,905:-1,906:-1,907:-1,908:-1,909:-1,910:-1,911:-1,912:-1,913:-1,914:-1,915:-1,916:-1,917:-1,918:-1,919:-1,920:-1,921:-1,922:-1,923:-1,924:-1,925:-1,926:-1,928:-1,929:-1,930:-1,931:-1,932:-1,934:-1,935:-1,936:-1,937:-1,938:-1,939:-1,940:-1,941:-1,942:-1,943:-1,944:-1,945:-1,946:-1,947:-1,948:-1,949:-1,950:-1,951:-1,952:-1,953:-1,954:-1,955:-1,956:-1,957:-1,965:-1,966:-1,969:-1,970:-1,972:-1,991:-1,998:-1,1015:-1,1017:-1,1018:-1,1023:-1,1028:-1,1029:-1,1031:-1,1032:-1,1033:-1,1036:-1,1039:-1,1044:-1,1047:-1,1048:-1,1052:-1,1054:-1,1055:-1,1057:-1,1059:-1,1060:-1,1062:-1,1063:-1,1092:-1,1093:-1,1119:-1,1304:-1,2101:-1,6210:-1,6211:-1,6217:-1,6244:-1,6248:-1,6249:-1,6250:-1,6251:-1,6252:-1,6253:-1,6254:-1,6255:-1,6256:-1,6257:-1,6258:-1,6259:-1,6260:-1,6261:-1,6262:-1,6284:-1,6285:-1,6297:-1,6360:-1,6361:-1,6362:-1,6363:-1,7033:-1,7066:-1,7135:-1,7136:-1,7137:-1,7139:-1,7166:-1,7182:-1,7200:-1,7453:-1,7455:-1,7752:-1,7753:-1,11022:-1,11023:-1,11024:-1,11621:-1,11622:-1,11623:-1,11624:-1,12417:-1,12418:-1,12419:-1,12420:-1,12421:-1,12422:-1,12423:-1,12424:-1,12425:-1,12426:-1,12427:-1,12428:-1,12436:-1,12437:-1,12475:-1,1000275:-1
+-	shop	HerbalistAmmo	-1,13260:-1,13261:-1,13262:-1,13263:-1,13264:-1,13265:-1,13266:-1,13267:-1,13268:-1,13269:-1,13270:-1,13271:-1,13272:-1,13273:-1,13274:-1,13275:-1,13276:-1,13277:-1,13278:-1,13279:-1,13280:-1,13281:-1,13282:-1,13283:-1,13284:-1,13285:-1,13286:-1,13287:-1,13288:-1,13289:-1,13290:-1
+-	shop	FenceSkills	-1,716:-1,6120:-1,6121:-1,6122:-1,6123:-1,7049:-1,7940:-1
+-	shop	BeastKeeperSkills	-1,515:-1,567:-1,11602:-1
+-	shop	BardicSuppliSkills	-1,6144:-1,11513:-1
+-	shop	SoulSupplierSkills	-1,1000563:-1
+
+prontera,146,132,4	script	Forge Supplier#safa	4_M_02,{
+	mes "[Forge Supplier]";
+	mes "Ore, coal, and the patience to hit it until it behaves.";
+	next;
+	switch (select("What my skills burn (1):What my recipes need (31):Not today")) {
+	case 1:
+		close2;
+		callshop "ForgeSupplieSkills", 1;
+		end;
+	case 2:
+		close2;
+		callshop "ForgeSupplieCrafting", 1;
+		end;
+	default:
+		mes "[Forge Supplier]";
+		mes "Another time, then.";
+		close;
+	}
+}
+
+prontera,146,122,4	script	Gear Supplier#safa	4_M_REPAIR,{
+	mes "[Gear Supplier]";
+	mes "Fuel, plates, cannonballs. Nothing here is subtle.";
+	next;
+	switch (select("What my skills burn (21):What my recipes need (4):Ammunition (10):Not today")) {
+	case 1:
+		close2;
+		callshop "GearSupplierSkills", 1;
+		end;
+	case 2:
+		close2;
+		callshop "GearSupplierCrafting", 1;
+		end;
+	case 3:
+		close2;
+		callshop "GearSupplierAmmo", 1;
+		end;
+	default:
+		mes "[Gear Supplier]";
+		mes "Another time, then.";
+		close;
+	}
+}
+
+prontera,146,112,4	script	Fletcher#safa	4_F_HUWOMAN,{
+	mes "[Fletcher]";
+	mes "Arrows by the quiver, and everything a trap wants to be.";
+	next;
+	switch (select("What my skills burn (8):Ammunition (27):Not today")) {
+	case 1:
+		close2;
+		callshop "FletcherSkills", 1;
+		end;
+	case 2:
+		close2;
+		callshop "FletcherAmmo", 1;
+		end;
+	default:
+		mes "[Fletcher]";
+		mes "Another time, then.";
+		close;
+	}
+}
+
+prontera,149,132,4	script	Poisoner#safa	4_M_KID2,{
+	mes "[Poisoner]";
+	mes "You did not buy this from me, and we never spoke.";
+	next;
+	switch (select("What my skills burn (2):What my recipes need (24):Ammunition (1):Not today")) {
+	case 1:
+		close2;
+		callshop "PoisonerSkills", 1;
+		end;
+	case 2:
+		close2;
+		callshop "PoisonerCrafting", 1;
+		end;
+	case 3:
+		close2;
+		callshop "PoisonerAmmo", 1;
+		end;
+	default:
+		mes "[Poisoner]";
+		mes "Another time, then.";
+		close;
+	}
+}
+
+prontera,149,122,4	script	Scholar Supplier#safa	4_M_SAGE_C,{
+	mes "[Scholar Supplier]";
+	mes "Every element has a price. Mine are reasonable.";
+	next;
+	switch (select("What my skills burn (24):What my recipes need (5):Not today")) {
+	case 1:
+		close2;
+		callshop "ScholarSupplSkills", 1;
+		end;
+	case 2:
+		close2;
+		callshop "ScholarSupplCrafting", 1;
+		end;
+	default:
+		mes "[Scholar Supplier]";
+		mes "Another time, then.";
+		close;
+	}
+}
+
+prontera,149,112,4	script	Gemstone Trader#safa	4_F_02,{
+	mes "[Gemstone Trader]";
+	mes "Red, yellow, blue. Magic is a surprisingly literal trade.";
+	next;
+	if (select("Show me what you have:Not today") == 2) {
+		mes "[Gemstone Trader]";
+		mes "Another time, then.";
+		close;
+	}
+	close2;
+	callshop "GemstoneTradSkills", 1;
+	end;
+}
+
+prontera,152,132,4	script	Acolyte Supplier#safa	4_F_SISTER,{
+	mes "[Acolyte Supplier]";
+	mes "Holy water and blue gemstones. The rest is faith.";
+	next;
+	switch (select("What my skills burn (3):What my recipes need (2):Not today")) {
+	case 1:
+		close2;
+		callshop "AcolyteSupplSkills", 1;
+		end;
+	case 2:
+		close2;
+		callshop "AcolyteSupplCrafting", 1;
+		end;
+	default:
+		mes "[Acolyte Supplier]";
+		mes "Another time, then.";
+		close;
+	}
+}
+
+prontera,152,122,4	script	Squire#safa	4_M_JOB_KNIGHT1,{
+	mes "[Squire]";
+	mes "Runes and steel. Bring the arm, I bring the rest.";
+	next;
+	switch (select("What my skills burn (9):What my recipes need (17):Not today")) {
+	case 1:
+		close2;
+		callshop "SquireSkills", 1;
+		end;
+	case 2:
+		close2;
+		callshop "SquireCrafting", 1;
+		end;
+	default:
+		mes "[Squire]";
+		mes "Another time, then.";
+		close;
+	}
+}
+
+prontera,152,112,4	script	Gun Runner#safa	4_M_GUNSLINGER,{
+	mes "[Gun Runner]";
+	mes "Lead, powder, and no questions about either.";
+	next;
+	switch (select("What my skills burn (6):Ammunition (32):Not today")) {
+	case 1:
+		close2;
+		callshop "GunRunnerSkills", 1;
+		end;
+	case 2:
+		close2;
+		callshop "GunRunnerAmmo", 1;
+		end;
+	default:
+		mes "[Gun Runner]";
+		mes "Another time, then.";
+		close;
+	}
+}
+
+prontera,155,132,4	script	Shadow Merchant#safa	4_M_NFDEADMAN,{
+	mes "[Shadow Merchant]";
+	mes "Paper, steel, and things that leave before they arrive.";
+	next;
+	switch (select("What my skills burn (15):Ammunition (19):Not today")) {
+	case 1:
+		close2;
+		callshop "ShadowMerchaSkills", 1;
+		end;
+	case 2:
+		close2;
+		callshop "ShadowMerchaAmmo", 1;
+		end;
+	default:
+		mes "[Shadow Merchant]";
+		mes "Another time, then.";
+		close;
+	}
+}
+
+prontera,155,122,4	script	Herbalist#safa	4_F_ALCHE,{
+	mes "[Herbalist]";
+	mes "Seeds, mushrooms, and a bomb that used to be an apple.";
+	next;
+	switch (select("What my skills burn (18):What my recipes need (193):Ammunition (31):Not today")) {
+	case 1:
+		close2;
+		callshop "HerbalistSkills", 1;
+		end;
+	case 2:
+		close2;
+		callshop "HerbalistCrafting", 1;
+		end;
+	case 3:
+		close2;
+		callshop "HerbalistAmmo", 1;
+		end;
+	default:
+		mes "[Herbalist]";
+		mes "Another time, then.";
+		close;
+	}
+}
+
+prontera,155,112,4	script	Fence#safa	4_M_ROGUE,{
+	mes "[Fence]";
+	mes "Everything here fell off something. Do not ask what.";
+	next;
+	if (select("Show me what you have:Not today") == 2) {
+		mes "[Fence]";
+		mes "Another time, then.";
+		close;
+	}
+	close2;
+	callshop "FenceSkills", 1;
+	end;
+}
+
+prontera,158,132,4	script	Beast Keeper#safa	4_CAT,{
+	mes "[Beast Keeper]";
+	mes "Fish, shrimp, and the odd stick. They know what they want.";
+	next;
+	if (select("Show me what you have:Not today") == 2) {
+		mes "[Beast Keeper]";
+		mes "Another time, then.";
+		close;
+	}
+	close2;
+	callshop "BeastKeeperSkills", 1;
+	end;
+}
+
+prontera,158,122,4	script	Bardic Supplier#safa	4_M_BARD,{
+	mes "[Bardic Supplier]";
+	mes "Strings, reeds, and a whip that never touched a horse.";
+	next;
+	if (select("Show me what you have:Not today") == 2) {
+		mes "[Bardic Supplier]";
+		mes "Another time, then.";
+		close;
+	}
+	close2;
+	callshop "BardicSuppliSkills", 1;
+	end;
+}
+
+prontera,158,112,4	script	Soul Supplier#safa	4_M_SOULREAPER,{
+	mes "[Soul Supplier]";
+	mes "Charms for the parts of a person that are not the body.";
+	next;
+	if (select("Show me what you have:Not today") == 2) {
+		mes "[Soul Supplier]";
+		mes "Another time, then.";
+		close;
+	}
+	close2;
+	callshop "SoulSupplierSkills", 1;
+	end;
+}
+
