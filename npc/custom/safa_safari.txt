@@ -1,0 +1,160 @@
+// ============================================================
+//  Wild Safari - The hunt begins
+// ------------------------------------------------------------
+//  Das Jagdmaterial und der Ausruester.
+//
+//  Die 40 Ausruestungsstuecke selbst stehen in
+//  db/import/item_db.yml, die Set-Effekte in item_combos.yml -
+//  beide erzeugt von tools/safari/bauen.py.
+//
+//  WOHER DAS MATERIAL KOMMT
+//
+//  Safari Trophy (30504) faellt bei Monstern der Rasse Brute ab
+//  Stufe 150. Kein neuer Drop-Eintrag je Monster, sondern eine
+//  Pruefung beim Toeten - dasselbe Verfahren wie bei den Destiny
+//  Coins und den Episoden-Materialien.
+//
+//  Nachgezaehlt in db/re/mob_db.yml: 32 Arten erfuellen die
+//  Bedingung, davon stehen 21 tatsaechlich auf Karten; die
+//  uebrigen elf gibt es nur in Instanzen. Sie verteilen sich auf
+//  15 Karten, und darunter sind genau die Episoden-Karten:
+//
+//      gw_fild01/02, oz_dun01/02      Episode 18
+//      amicitia1/2, sp_rudus2/3       Episode 17.1
+//      ra_fild10/11                   Rachel
+//      ein_dun03, mag_dun03, ant_d02_i, tur_d03_i, tur_d04_i
+//
+//  Das ist kein Zufall, sondern der Grund fuer die Wahl: die
+//  Safari findet dort statt, wo ohnehin die staerksten Tiere
+//  stehen. Wer jagt, kommt an den Episoden-Materialien vorbei
+//  und umgekehrt.
+//
+//  WARUM BRUTE UND NICHT ALLES
+//
+//  "Wild Safari" waere ein leeres Wort, wenn man das Set durch
+//  das Erschlagen von Untoten in Glast Heim bekaeme. Brute sind
+//  die Tiere. Dass alle drei Linien zusaetzlich einen
+//  Schadensbonus gegen Brute tragen, schliesst den Kreis: das
+//  Set macht die Jagd leichter, die es selbst finanziert.
+//
+//  DIE PREISE
+//
+//  100 Trophaeen je Ruestungsteil, 150 je Waffe. Ein Vollset
+//  kostet damit 750 Stueck, bei 50 Prozent Fallwahrscheinlichkeit
+//  also rund 1500 Tiere. Fuer ein Set dieser Staerke ist das
+//  eine ueberschaubare, aber ernstzunehmende Strecke.
+// ============================================================
+
+
+// ------------------------------------------------------------
+//  Die drei Laeden
+// ------------------------------------------------------------
+//  Unsichtbar (Sprite -1) und ohne Ort, sie werden nur ueber
+//  callshop geoeffnet. "itemshop" statt "shop", weil nicht mit
+//  Zeny bezahlt wird, sondern mit Item 30504 - die Zahl direkt
+//  hinter dem Sprite ist die Waehrung.
+-	itemshop	SafariFangbearer#safa	-1,30504,30510:100,30511:100,30512:100,30513:100,30514:100,30515:100,30516:150,30517:150,30518:150,30519:150,30520:150,30521:150,30522:150,30523:150,30524:150,30525:150,30526:150
+-	itemshop	SafariLongsight#safa	-1,30504,30530:100,30531:100,30532:100,30533:100,30534:100,30535:100,30536:150,30537:150,30538:150,30539:150,30540:150,30541:150,30542:150,30543:150
+-	itemshop	SafariMirage#safa	-1,30504,30550:100,30551:100,30552:100,30553:100,30554:100,30555:100,30556:150,30557:150,30558:150
+
+
+// ------------------------------------------------------------
+//  Der Ausruester
+// ------------------------------------------------------------
+//  Steht am Ende der Reihe mit den Episoden-Tauschstellen. Sollte
+//  das Feld belegt oder unbegehbar sein, ist nur diese eine Zeile
+//  zu aendern - alles andere haengt nicht am Ort.
+prontera,134,180,4	script	Safari Outfitter#safa	4_M_ORIENT01,{
+
+	mes "[Safari Outfitter]";
+	mes "Three ways to take an animal down.";
+	mes "Get close, stay far, or make it come";
+	mes "to you.";
+	next;
+
+	while (1) {
+		mes "[Safari Outfitter]";
+		mes "You carry ^0000FF" + countitem(.mat) + " " + getitemname(.mat) + "^000000.";
+		next;
+
+		switch (select(
+			"^0000FFFangbearer^000000 - claw and tooth, up close",
+			"^0000FFLongsight^000000 - bow, gun and the long view",
+			"^0000FFMirage^000000 - for those who call instead",
+			"Where do trophies come from?",
+			"What does a full set cost?",
+			"Nothing today")) {
+
+		case 1: close2; callshop "SafariFangbearer#safa", 1; end;
+		case 2: close2; callshop "SafariLongsight#safa", 1; end;
+		case 3: close2; callshop "SafariMirage#safa", 1; end;
+
+		case 4:
+			mes "[Safari Outfitter]";
+			mes "From beasts. ^0000FFBrute^000000 blood, nothing";
+			mes "else - and only the grown ones,";
+			mes "^0000FFlevel 150^000000 and up.";
+			next;
+			mes "[Safari Outfitter]";
+			mes "One in two leaves a trophy. The grey";
+			mes "wolf forest, the Oz labyrinth and the";
+			mes "chimera dens are thick with them.";
+			next;
+			break;
+
+		case 5:
+			mes "[Safari Outfitter]";
+			mes "^0000FF100^000000 for a piece of gear, ^0000FF150^000000 for a";
+			mes "weapon. Seven pieces makes ^0000FF750^000000.";
+			next;
+			mes "[Safari Outfitter]";
+			mes "Wear two and the set starts to work.";
+			mes "Four, six, and all seven each add";
+			mes "something. The last one is worth it.";
+			next;
+			mes "[Safari Outfitter]";
+			mes "Every line carries a weapon for every";
+			mes "hand. Nobody sits this one out.";
+			next;
+			break;
+
+		case 6:
+			mes "[Safari Outfitter]";
+			mes "The animals will still be there.";
+			close;
+		}
+	}
+	end;
+
+OnInit:
+	.mat = 30504;
+	end;
+}
+
+
+// ------------------------------------------------------------
+//  Der Drop
+// ------------------------------------------------------------
+-	script	#safa_safari	-1,{
+	end;
+
+OnNPCKillEvent:
+	if (killedrid == 0) end;
+
+	// Reihenfolge ist Absicht: die Rasse trennt am schaerfsten
+	// aus. Dieses Ereignis feuert bei JEDEM Kill auf dem ganzen
+	// Server, und was hier steht, laeuft millionenfach.
+	//
+	// getmonsterinfo liefert -1 bei unbekannter Klasse. Ohne die
+	// erste Pruefung wuerde -1 durchgehen und jeder Kill zaehlen -
+	// derselbe Fehler, den wir bei den MVP-Coins vermieden haben.
+	.@race = getmonsterinfo(killedrid, MOB_RACE);
+	if (.@race != RC_BRUTE) end;
+	if (getmonsterinfo(killedrid, MOB_LV) < 150) end;
+
+	if (rand(10000) >= 5000) end;
+
+	getmapxy(.@map$, .@x, .@y, BL_PC);
+	makeitem 30504, 1, .@map$, .@x, .@y;
+	end;
+}
