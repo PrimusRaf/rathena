@@ -59,8 +59,22 @@
 //  nachliefert, kann die Abteilung ersatzlos wieder raus.
 // ============================================================
 
+//  DIE PREISE
+//
+//  Sie sind an der Kartenausbeute geeicht, nicht frei gegriffen.
+//  Auf den Episodenkarten faellt ein Material bei 20 Prozent der
+//  Kills; Destiny Coins fallen bei 10 Prozent, dafuer ueberall.
+//  Bei 1 Coid je Stueck ist der Ladenweg also etwa doppelt so
+//  muehsam wie das Farmen am richtigen Ort - der Laden ist die
+//  Ausweichmoeglichkeit, nicht die Abkuerzung.
+//
+//  Cor Core und Mysterious Component kosten mehr, weil von ihnen
+//  nur 1 bis 20 je Tausch gebraucht werden statt 300 bis 2250.
+//  Ein Grace-Teil kostet so rund 100 Coins, ein Gray-Wolf-Teil
+//  rund 350 - beides in derselben Groessenordnung.
+//
 //  Waehrung 30001 (Destiny Coin), dann Item:Preis.
--	itemshop	Frontier#safa	-1,30001,1000608:10,1001618:10
+-	itemshop	Frontier#safa	-1,30001,25669:5,25723:5,1000103:1,1000104:1,1000405:1,1000608:1,1001618:1
 
 prontera,146,172,4	script	Coin Exchanger#safa	1_M_MERCHANT,{
 
@@ -135,14 +149,19 @@ prontera,146,172,4	script	Coin Exchanger#safa	1_M_MERCHANT,{
 		// --------------------------------------------------
 		case 2:
 			mes "[Coin Exchanger]";
-			mes "Two of the far provinces have nothing";
-			mes "living in them. No hunter has ever";
-			mes "brought me anything from there.";
+			mes "The far provinces pay in their own";
+			mes "coin. Amethyst, soapstone, ration";
+			mes "tickets - I keep a crate of each.";
 			next;
 			mes "[Coin Exchanger]";
-			mes "So I trade for it instead. ^0000FFSnow Flowers^000000";
-			mes "out of Issgard, ^0000FFWigner Tickets^000000 out of";
-			mes "the fishing coast. ^0000FF10 coins^000000 each.";
+			mes "Cheaper to go and dig it up yourself.";
+			mes "This is for the days you would rather";
+			mes "not walk that far.";
+			next;
+			mes "[Coin Exchanger]";
+			mes "The exchange clerks are up the road,";
+			mes "one per province. They take these off";
+			mes "your hands.";
 			close2;
 			// 1 = nur kaufen. Verkaufen waere sinnlos: der Laden
 			// zahlt in Zeny, und wer die Stuecke braucht, bringt

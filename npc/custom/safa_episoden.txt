@@ -81,7 +81,6 @@ OnNPCKillEvent:
 	if (.@ep == 171)      setarray .@gabe[0], 25723, 25669;
 	else if (.@ep == 172) setarray .@gabe[0], 1000103, 1000104;
 	else if (.@ep == 18)  setarray .@gabe[0], 1000405;
-	else if (.@ep == 20)  setarray .@gabe[0], 1001217;
 	else end;
 
 	makeitem .@gabe[rand(getarraysize(.@gabe))], 1, .@map$, .@x, .@y;
@@ -99,16 +98,228 @@ OnInit:
 	//  17.1 Illusion            Cor Core, Mysterious Component
 	//  17.2 Sage's Legacy       Varmeal Ticket, Magical Igni Stone
 	//  18   Direction of Prayer Amethyst Fragment
-	//  20   The Immortal        Sacred Cat Whiskers
+	//
+	//  EPISODE 20 STEHT BEWUSST NICHT HIER
+	//
+	//  for_dun01/02 war zwischenzeitlich drin, mit den Sacred Cat
+	//  Whiskers. Das war falsch: die Tauschtabelle der Episode 20
+	//  (npc/re/merchants/barters/garden_of_time.yml) verlangt gar
+	//  keine Cat Whiskers, sondern Contaminated Magic, Temporal
+	//  Crystals und die vier Jahreszeiten-Energien - und die
+	//  fallen bei den for_dun-Monstern laengst von selbst.
+	//
+	//  Episode 20 ist also bereits vollstaendig; es fehlte nur ein
+	//  NPC, der die Tabelle oeffnet. Der steht weiter unten.
 	setarray .karte$[0],
 		"sp_rudus","sp_rudus2","sp_rudus3","sp_rudus4","amicitia1","amicitia2",
 		"ba_maison","ba_lost","ba_pw01","ba_pw02","ba_pw03","ba_2whs01","ba_2whs02","ba_bath","ba_lib",
-		"gw_fild01","gw_fild02","oz_dun01","oz_dun02",
-		"for_dun01","for_dun02";
+		"gw_fild01","gw_fild02","oz_dun01","oz_dun02";
 	setarray .ep[0],
 		171,171,171,171,171,171,
 		172,172,172,172,172,172,172,172,172,
-		18,18,18,18,
-		20,20;
+		18,18,18,18;
 	end;
+}
+
+
+// ============================================================
+//  Die Tauschstellen an der Prontera-Achse
+// ------------------------------------------------------------
+//  Sechs NPCs, einer je Episode, an den vorgegebenen Feldern.
+//
+//  WARUM SIE NICHTS SELBST ANBIETEN
+//
+//  Die Tauschtabellen gibt es schon - rAthena pflegt sie in
+//  npc/re/merchants/barters/*.yml. Ein eigener Laden waere eine
+//  zweite, handgepflegte Kopie, die nach der ersten Aenderung
+//  falsch dasteht. Deshalb rufen diese NPCs die amtlichen
+//  Tabellen ueber callshop auf und pflegen selbst gar nichts.
+//
+//  ZWEI TABELLEN WAREN BISHER UNERREICHBAR
+//
+//  Nachgesehen, welcher NPC welche Tabelle oeffnet: fuer
+//  barter_auto_equip_1, barter_auto_equip_2 und die fuenf
+//  barter_t_garden_* gibt es auf dem ganzen Server KEINEN.
+//  rAthena liefert die Tabellen mit, aber niemanden, der sie
+//  aufmacht. Die zehn Aufwertungen der Episode 17.2 und die
+//  gesamte Episode 20 waren damit tot. Hier sind sie erreichbar.
+//
+//  ZU DEN SPRITES
+//
+//  Alle sechs sind aus Originalen dieser Episoden uebernommen,
+//  die ich im Quelltext gelesen habe - keine geratenen Namen.
+//  Ein erfundenes Sprite laesst den NPC unsichtbar werden.
+// ============================================================
+
+
+// ------------------------------------------------------------
+//  Episode 17.1 - Illusion
+// ------------------------------------------------------------
+//  Als Duplikat statt als eigenes Skript: das Original waehlt
+//  den Laden nach Klasse aus (shop_ext171_JOB_RUNE_KNIGHT und so
+//  weiter, 18 Stueck). Diese Zuordnung nachzubauen hiesse, 80
+//  Zeilen rAthena-Logik zu kopieren, die beim naechsten neuen
+//  Job veraltet. Das Duplikat teilt sich das Skript und bleibt
+//  damit automatisch richtig.
+//
+//  Original: sp_cor,136,156 in
+//  npc/re/merchants/enchan_illusion_17_1.txt
+//
+//  Nicht mit dabei ist der "Butterfly Merchant" von sp_cor, der
+//  nur das Teleport-Fluegelchen verkauft - ein Gegenstand.
+prontera,135,170,4	duplicate(Grace Operator#ext162)	Episode 17.1 Exchange#safa	4_M_REPAIR
+
+
+// ------------------------------------------------------------
+//  Episode 17.2 - Sage's Legacy
+// ------------------------------------------------------------
+//  MD_ASSISTANT sieht nach einem Fehler aus, ist aber keiner:
+//  das ist kein NPC-Sprite aus src/map/npc.hpp, sondern ein
+//  MONSTER aus db/re/mob_db.yml. rAthena laesst Monsternamen als
+//  NPC-Sprite zu, und das amtliche Original - Spiera auf ba_in01
+//  in npc/re/merchants/enchan_sage_legacy_17_2.txt - benutzt
+//  genau diesen Namen. Bitte nicht gegen ein JT_-Sprite tauschen.
+prontera,137,170,4	script	Episode 17.2 Exchange#safa	MD_ASSISTANT,{
+
+	mes "[Episode 17.2 Exchange]";
+	mes "Varmundt's mansion. I deal in";
+	mes "^0000FFMagical Soapstone^000000 and";
+	mes "^0000FFBarmil Tickets^000000.";
+	next;
+
+	switch (select(
+		"Automatic Modules - 51 kinds, 300 soapstone each",
+		"Automatic equipment - armor, wings, legs",
+		"Automatic equipment - boosters and battle chips",
+		"Mansion teleport wing",
+		"Little Headdress",
+		"Nothing today")) {
+
+	case 1: close2; callshop "barter_EP17_2_EP", 1; end;
+
+	// Diese beiden verlangen zusaetzlich das Illusionsteil, das
+	// aufgewertet werden soll - Illusion_Armor_A wird zu
+	// Auto_Armor_A. Ohne das Teil zeigt das Fenster den Eintrag
+	// zwar an, der Kauf schlaegt aber fehl.
+	case 2: close2; callshop "barter_auto_equip_1", 1; end;
+	case 3: close2; callshop "barter_auto_equip_2", 1; end;
+
+	case 4: close2; callshop "barter_Teleport_Ep17_02", 1; end;
+	case 5: close2; callshop "barter_Ep_17_2_C_Admin_Acc", 1; end;
+	}
+
+	mes "[Episode 17.2 Exchange]";
+	mes "The mansion keeps its hours.";
+	close;
+}
+
+
+// ------------------------------------------------------------
+//  Episode 18 - Direction of Prayer
+// ------------------------------------------------------------
+prontera,139,172,4	script	Episode 18 Exchange#safa	4_EP18_GW_WOMAN01,{
+
+	mes "[Episode 18 Exchange]";
+	mes "The Grey Wolf village trades in";
+	mes "^0000FFAmethyst Fragments^000000. Nothing else";
+	mes "interests us.";
+	next;
+
+	switch (select(
+		"Gray Wolf equipment - ten pieces",
+		"Refinement box +7",
+		"Refinement boxes +7 and +9",
+		"Nothing today")) {
+
+	case 1: close2; callshop "barter_ep18_1", 1; end;
+	case 2: close2; callshop "barter_ep18_2", 1; end;
+	case 3: close2; callshop "barter_ep18_3", 1; end;
+	}
+
+	mes "[Episode 18 Exchange]";
+	mes "Then the forest keeps them.";
+	close;
+}
+
+
+// ------------------------------------------------------------
+//  Episode 19 - Issgard
+// ------------------------------------------------------------
+//  Steht hier ohne Ware, und das mit Absicht. Es gibt fuer diese
+//  Episode keine Tauschtabelle - weder bei uns noch bei rAthena.
+//  Ein NPC, der das offen sagt, ist besser als eine Luecke in der
+//  Reihe, vor der die Spieler raten.
+prontera,139,174,4	script	Episode 19 Exchange#safa	4_EP18_GW_MAN01,{
+
+	mes "[Episode 19 Exchange]";
+	mes "I was sent ahead to open a counter";
+	mes "for Issgard. There is nothing to put";
+	mes "on it.";
+	next;
+	mes "[Episode 19 Exchange]";
+	mes "The snow fields have no creatures on";
+	mes "them yet, and no clerk up north will";
+	mes "take a ^0000FFSnow Flower^000000 for anything.";
+	next;
+	mes "[Episode 19 Exchange]";
+	mes "When that changes, I will be here.";
+	close;
+}
+
+
+// ------------------------------------------------------------
+//  Episode 20 - The Immortal / Garden of Time
+// ------------------------------------------------------------
+//  Diese Episode war die Ueberraschung: sie ist vollstaendig da.
+//  for_dun01 und for_dun02 haben je 16 Monsterarten, und deren
+//  Drops - Contaminated Magic, Temporal Crystals, die vier
+//  Jahreszeiten-Energien - sind genau das, was garden_of_time.yml
+//  verlangt. Es fehlte nur dieser NPC.
+prontera,138,176,4	script	Episode 20 Exchange#safa	4_M_ORIENT01,{
+
+	mes "[Episode 20 Exchange]";
+	mes "The Garden of Time pays in its own";
+	mes "seasons. Bring what falls in";
+	mes "^0000FFfor_dun01^000000 and ^0000FFfor_dun02^000000.";
+	next;
+
+	switch (select(
+		"Elemental energies - fire, water, wind, earth",
+		"Seasonal energies - spring, summer, autumn, winter",
+		"Scrolls, keys and crystals",
+		"Signets of Circulation",
+		"Manteaus of the Mystical Beast",
+		"Nothing today")) {
+
+	case 1: close2; callshop "barter_t_garden_1", 1; end;
+	case 2: close2; callshop "barter_t_garden_2", 1; end;
+	case 3: close2; callshop "barter_t_garden_3", 1; end;
+	case 4: close2; callshop "barter_t_garden_4", 1; end;
+	case 5: close2; callshop "barter_t_garden_5", 1; end;
+	}
+
+	mes "[Episode 20 Exchange]";
+	mes "Time is patient. So am I.";
+	close;
+}
+
+
+// ------------------------------------------------------------
+//  Episode 21 - Age of Heroes
+// ------------------------------------------------------------
+//  Wie Episode 19: keine Tauschtabelle vorhanden.
+prontera,136,178,4	script	Episode 21 Exchange#safa	4_EP17_MASTER_A,{
+
+	mes "[Episode 21 Exchange]";
+	mes "The fishing coast sent me down with a";
+	mes "ledger and no goods.";
+	next;
+	mes "[Episode 21 Exchange]";
+	mes "Their fields stand empty, and the";
+	mes "^0000FFWigner Tickets^000000 buy nothing anywhere.";
+	mes "A ticket for a boat that has no port.";
+	next;
+	mes "[Episode 21 Exchange]";
+	mes "Ask me again in a later version.";
+	close;
 }
