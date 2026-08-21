@@ -1,0 +1,63 @@
+//===== SafaRO Script =====================================
+//= Episode 18 - Bevoelkerung und Kartendrop
+//===== Erzeugt von ==========================================
+//= tools/ep18/bauen.py  --  NICHT von Hand pflegen.
+//===========================================================
+//
+//  Episode 18 war halb da: quests_18.txt ist geladen und seine
+//  drei Tauschlaeden verlangen Ep18_Amethyst_Fragment - aber die
+//  acht Karten der Episode hatten bei rAthena NICHT EINE
+//  Spawn-Zeile, und der Splitter fiel nirgends.
+//
+//  Die Monster dagegen stehen laengst in mob_db: 20920 bis 20928,
+//  Level 227 bis 245, eine zusammenhaengende Gruppe ohne Vorkommen.
+//  Hier bekommen sie eines.
+//
+//  WARUM DER DROP NICHT IN mob_db STEHT
+//
+//  Drops haengen am Monster, nicht an der Karte. In mob_db
+//  eingetragen wuerde der Splitter ueberall fallen, wo das Monster
+//  vorkommt. Deshalb OnNPCKillEvent mit Kartenpruefung - dasselbe
+//  Verfahren wie bei den Destiny Coins in safa_shops.txt.
+//===========================================================
+
+ra_fild10,0,0,0,0	monster	Amitera	20924,16,5000,0,0
+ra_fild10,0,0,0,0	monster	Litus	20925,16,5000,0,0
+ra_fild11,0,0,0,0	monster	Litus	20925,45,5000,0,0
+ra_fild11,0,0,0,0	monster	Fillia	20926,45,5000,0,0
+gw_fild01,0,0,0,0	monster	Fillia	20926,41,5000,0,0
+gw_fild01,0,0,0,0	monster	Vanilaqus	20927,41,5000,0,0
+gw_fild02,0,0,0,0	monster	Vanilaqus	20927,32,5000,0,0
+gw_fild02,0,0,0,0	monster	Lavaeter	20920,32,5000,0,0
+oz_dun01,0,0,0,0	monster	Lavaeter	20920,10,5000,0,0
+oz_dun01,0,0,0,0	monster	Fulgor	20921,10,5000,0,0
+oz_dun02,0,0,0,0	monster	Fulgor	20921,15,5000,0,0
+oz_dun02,0,0,0,0	monster	Napeo	20922,15,5000,0,0
+ra_temin,0,0,0,0	monster	Napeo	20922,14,5000,0,0
+ra_temin,0,0,0,0	monster	Galensis	20923,14,5000,0,0
+ra_temple,0,0,0,0	monster	Galensis	20923,12,5000,0,0
+ra_temple,0,0,0,0	monster	The One	20928,12,5000,0,0
+
+// ------------------------------------------------------------
+//  Kartendrop: Amethyst-Splitter
+// ------------------------------------------------------------
+-	script	#safa_ep18	-1,{
+	end;
+
+OnNPCKillEvent:
+	if (killedrid == 0) end;
+
+	getmapxy(.@map$, .@x, .@y, BL_PC);
+	// inarray statt einer Kette von Vergleichen: das Ereignis
+	// feuert bei JEDEM Kill auf dem ganzen Server, also auch bei
+	// jedem Poring. Was hier steht, laeuft millionenfach.
+	if (inarray(.karte$[0], .@map$) < 0) end;
+
+	if (rand(10000) >= 2000) end;
+	makeitem 1000405, 1, .@map$, .@x, .@y;
+	end;
+
+OnInit:
+	setarray .karte$[0], "ra_fild10","ra_fild11","gw_fild01","gw_fild02","oz_dun01","oz_dun02","ra_temin","ra_temple";
+	end;
+}
