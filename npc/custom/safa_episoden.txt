@@ -1,0 +1,114 @@
+// ============================================================
+//  SafaRO - Kartendrops fuer die Episoden-Materialien
+// ============================================================
+//
+//  WAS DIESE DATEI ERSETZT
+//
+//  Vorgaenger war npc/custom/safa_ep18.txt. Die Datei ging von
+//  einer falschen Annahme aus: sie hat behauptet, die Karten der
+//  Episode 18 haetten keine Monster, und hat deshalb 370 Einheiten
+//  der Monster 20920-20928 auf gw_fild, oz_dun, ra_fild10/11 und
+//  die Rachel-Tempelkarten gesetzt.
+//
+//  Beides war falsch, nachgeprueft gegen ratemyserver.net und
+//  gegen unsere eigenen Dateien:
+//
+//    1. gw_fild01/02 und oz_dun01/02 SIND bevoelkert. Die Spawns
+//       stehen in npc/re/mobs/fields/gw_fild.txt und
+//       npc/re/mobs/dungeons/oz_dun.txt, sind ueber
+//       npc/re/scripts_monsters.conf geladen, und stimmen Zeile
+//       fuer Zeile mit RMS ueberein (gw_fild01: Ashhopper 50,
+//       Ashring 70, Grey Wolf 35 - identisch).
+//
+//    2. Die Monster 20920-20928 gehoeren nicht zu Episode 18.
+//       Es sind die Chimaeren von amicitia1/2, wo sie bereits
+//       stehen. RMS fuehrt amicitia unter Episode 17.1.
+//
+//  Die alte Datei hat also korrekt bevoelkerte Karten ein zweites
+//  Mal bevoelkert, mit Monstern einer anderen Episode. Sie ist
+//  ersatzlos entfallen; hier bleibt nur der Kartendrop.
+//
+//  WARUM DER DROP UEBER EIN KILL-EREIGNIS LAEUFT
+//
+//  Drops haengen bei rAthena am MONSTER, nicht an der Karte.
+//  Traegt man den Splitter in mob_db ein, faellt er ueberall, wo
+//  das Monster vorkommt. Ein echter Kartendrop braucht deshalb
+//  OnNPCKillEvent mit einer Kartenpruefung - dasselbe Verfahren,
+//  mit dem in safa_shops.txt die Destiny Coins bei MVPs fallen.
+//
+//  WARUM DAS UEBERHAUPT NOETIG IST
+//
+//  Nachgesehen in db/re/mob_db.yml: KEIN EINZIGES Monster auf dem
+//  Server laesst eines dieser sechs Materialien fallen. Amtlich
+//  kommen sie aus Instanzen und Quests, nicht von Feldmonstern.
+//  Wer die Tauschlaeden benutzen will, hat ohne diese Datei nur
+//  den Instanzweg.
+//
+//  WAS HIER FEHLT: EPISODE 19 UND 21
+//
+//  Episode 19 (Issgard, Schneeblueten) und die Feldkarten der
+//  Episode 21 (jor_albe, jor_crk, jor_tmple1) sind auf dem Server
+//  vollstaendig leer - keine einzige Spawn-Zeile. Das ist kein
+//  Versehen von uns: RMS meldet fuer alle 18 Issgard-Karten
+//  woertlich "No monster on this map", und markiert jor_tmple1
+//  als "(placeholder)". Es gibt dort schlicht nichts zu toeten,
+//  also kann es auch keinen Kartendrop geben.
+//
+// ============================================================
+
+
+-	script	#safa_episoden	-1,{
+	end;
+
+OnNPCKillEvent:
+	if (killedrid == 0) end;
+
+	getmapxy(.@map$, .@x, .@y, BL_PC);
+
+	// inarray statt einer Kette von Vergleichen: das Ereignis
+	// feuert bei JEDEM Kill auf dem ganzen Server, also auch bei
+	// jedem Poring. Was hier steht, laeuft millionenfach. Die
+	// Kartenpruefung steht deshalb ganz vorn und bricht sofort ab.
+	.@i = inarray(.karte$[0], .@map$);
+	if (.@i < 0) end;
+
+	if (rand(10000) >= .chance) end;
+
+	// Zwei Episoden haben zwei Materialien. Statt beide zu geben
+	// wird eines davon gezogen - sonst waere die Ausbeute dort
+	// doppelt so hoch wie in Episode 18 und 20.
+	.@ep = .ep[.@i];
+	if (.@ep == 171)      setarray .@gabe[0], 25723, 25669;
+	else if (.@ep == 172) setarray .@gabe[0], 1000103, 1000104;
+	else if (.@ep == 18)  setarray .@gabe[0], 1000405;
+	else if (.@ep == 20)  setarray .@gabe[0], 1001217;
+	else end;
+
+	makeitem .@gabe[rand(getarraysize(.@gabe))], 1, .@map$, .@x, .@y;
+	end;
+
+OnInit:
+	// 2000 von 10000, also 20 Prozent je Kill. Bewusst hoch: die
+	// Tauschlaeden dieser Episoden verlangen dreistellige Mengen,
+	// und wir wollen den Fortschritt oeffnen, nicht simulieren.
+	.chance = 2000;
+
+	// Karte -> Episode. Nur Karten, die nachweislich Monster
+	// haben; geprueft gegen npc/re/mobs und gegen RMS.
+	//
+	//  17.1 Illusion            Cor Core, Mysterious Component
+	//  17.2 Sage's Legacy       Varmeal Ticket, Magical Igni Stone
+	//  18   Direction of Prayer Amethyst Fragment
+	//  20   The Immortal        Sacred Cat Whiskers
+	setarray .karte$[0],
+		"sp_rudus","sp_rudus2","sp_rudus3","sp_rudus4","amicitia1","amicitia2",
+		"ba_maison","ba_lost","ba_pw01","ba_pw02","ba_pw03","ba_2whs01","ba_2whs02","ba_bath","ba_lib",
+		"gw_fild01","gw_fild02","oz_dun01","oz_dun02",
+		"for_dun01","for_dun02";
+	setarray .ep[0],
+		171,171,171,171,171,171,
+		172,172,172,172,172,172,172,172,172,
+		18,18,18,18,
+		20,20;
+	end;
+}

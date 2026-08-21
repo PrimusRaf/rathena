@@ -41,7 +41,27 @@
 
 // ============================================================
 //  Coin Exchanger
+// ------------------------------------------------------------
+//  Zweite Abteilung seit dem Episoden-Durchgang: die Materialien
+//  der Episoden 19 und 21.
+//
+//  WARUM DIESE BEIDEN HIER STEHEN UND NICHT AUF EINER KARTE
+//
+//  Die uebrigen Episoden-Materialien fallen seit safa_episoden.txt
+//  auf ihren eigenen Karten. Fuer 19 und 21 geht das nicht: die
+//  Karten sind leer. Nicht bei uns falsch eingerichtet, sondern
+//  ueberall - ratemyserver.net meldet fuer alle 18 Issgard-Karten
+//  woertlich "No monster on this map", und jor_tmple1 steht dort
+//  als "(placeholder)". Wo nichts lebt, faellt nichts.
+//
+//  Statt eine Bevoelkerung zu erfinden, die es amtlich nicht gibt,
+//  laufen diese zwei ueber Coins. Sobald rAthena die Spawns
+//  nachliefert, kann die Abteilung ersatzlos wieder raus.
 // ============================================================
+
+//  Waehrung 30001 (Destiny Coin), dann Item:Preis.
+-	itemshop	Frontier#safa	-1,30001,1000608:10,1001618:10
+
 prontera,146,172,4	script	Coin Exchanger#safa	1_M_MERCHANT,{
 
 	mes "[Coin Exchanger]";
@@ -54,7 +74,7 @@ prontera,146,172,4	script	Coin Exchanger#safa	1_M_MERCHANT,{
 		mes "You carry ^0000FF" + countitem(.coin) + " Destiny Coins^000000.";
 		next;
 
-		switch (select("Buy ^0000FFDestiny Ore^000000:Where do coins come from?:What is the ore for?:Nothing today")) {
+		switch (select("Buy ^0000FFDestiny Ore^000000:Buy ^0000FFepisode materials^000000:Where do coins come from?:What is the ore for?:Nothing today")) {
 
 		// --------------------------------------------------
 		case 1:
@@ -115,6 +135,24 @@ prontera,146,172,4	script	Coin Exchanger#safa	1_M_MERCHANT,{
 		// --------------------------------------------------
 		case 2:
 			mes "[Coin Exchanger]";
+			mes "Two of the far provinces have nothing";
+			mes "living in them. No hunter has ever";
+			mes "brought me anything from there.";
+			next;
+			mes "[Coin Exchanger]";
+			mes "So I trade for it instead. ^0000FFSnow Flowers^000000";
+			mes "out of Issgard, ^0000FFWigner Tickets^000000 out of";
+			mes "the fishing coast. ^0000FF10 coins^000000 each.";
+			close2;
+			// 1 = nur kaufen. Verkaufen waere sinnlos: der Laden
+			// zahlt in Zeny, und wer die Stuecke braucht, bringt
+			// sie ohnehin nicht zurueck.
+			callshop "Frontier#safa", 1;
+			end;
+
+		// --------------------------------------------------
+		case 3:
+			mes "[Coin Exchanger]";
 			mes "Everything that dies out there leaves";
 			mes "a little something behind.";
 			next;
@@ -129,7 +167,7 @@ prontera,146,172,4	script	Coin Exchanger#safa	1_M_MERCHANT,{
 			break;
 
 		// --------------------------------------------------
-		case 3:
+		case 4:
 			mes "[Coin Exchanger]";
 			mes "^0000FFDestiny Ore^000000 is what the Ironhand needs";
 			mes "to push a piece past ^FF0000+10^000000.";
@@ -142,7 +180,7 @@ prontera,146,172,4	script	Coin Exchanger#safa	1_M_MERCHANT,{
 			break;
 
 		// --------------------------------------------------
-		case 4:
+		case 5:
 			mes "[Coin Exchanger]";
 			mes "Then move along.";
 			close;
