@@ -1,0 +1,278 @@
+// ============================================================
+//  SafaRO - Clans steigen auf
+// ============================================================
+//
+//  WARUM DAS NOETIG WAR
+//
+//  Ein Clan gibt ab Werk +30 Max HP, +10 Max SP und +1 auf zwei
+//  Statuswerte. Das steht fest verdrahtet im C++ und laesst sich
+//  nicht einstellen:
+//
+//      src/map/status.cpp:3178   bonus += 30    (Max HP)
+//      src/map/status.cpp:3336   bonus += 10    (Max SP)
+//      src/map/status.cpp:6824   str += 1
+//
+//  Eine Stufe gibt es dort nicht. Der Eindruck, die Clans blieben
+//  auf Stufe 1 stehen, trifft also zu - sie haben nie eine gehabt.
+//
+//  DIESE DATEI AENDERT KEIN C++
+//
+//  Der amtliche Bonus bleibt, wie er ist. Obendrauf kommt ein
+//  zweiter, der mit der Clanstufe waechst und ueber bonus_script
+//  am Spieler haengt. Kein Neubau, kein Client-Update.
+//
+//  WIE DER AUFSTIEG VERDIENT WIRD
+//
+//  Nur MVPs zaehlen. Ein Clan kann sich also nicht durch stures
+//  Porings-Klopfen hocharbeiten - es braucht Verabredung. Das
+//  passt zu einem System, dessen Belohnung allen gemeinsam gehoert.
+//
+//  Die Schwelle fuer Stufe n ist 10 * n * n Bosse INSGESAMT:
+//
+//      Stufe   1    2    3    4    5    6    7    8    9   10
+//      MVPs   10   40   90  160  250  360  490  640  810 1000
+//
+//  Quadratisch und nicht exponentiell: die erste Stufe kommt am
+//  ersten Abend, die zehnte ist ein Ziel fuer Monate - aber ein
+//  erreichbares. Eine Verdopplung je Stufe waere nach Stufe 6
+//  unerreichbar geworden.
+//
+//  WELCHER CLAN WAS BEKOMMT
+//
+//  Jeder bekommt dieselben zwei Grundboni und drei eigene. Die
+//  eigenen folgen dem, wofuer der Clan im Spiel steht:
+//
+//    Swordman    Mauer      HP-Anteil, Allelement-Resistenz, DEF
+//    Arcwand     Formel     MATK, kuerzere variable Zauberzeit, SP
+//    Golden Mace Segen      Heilkraft, Rassenresistenz, SP-Regen
+//    Crossbow    Abstand    Fernkampfschaden, Flee, Perfect Dodge
+//
+//  Der Schwerpunkt auf Verteidigung bei zwei der vier ist Absicht.
+//  Auf diesem Server verstaerkt bisher alles den Angriff - die
+//  Isekai-Boni bis +1200 Prozent, die hundert Verzauberungsplaetze
+//  des Master Artisan. Widerstand gibt keines dieser Systeme.
+//  Der Clan ist das Gegengewicht, und damit ein Grund, einem
+//  beizutreten.
+//
+//  DER FUENFTE CLAN FEHLT
+//
+//  db/const.yml kennt JUMPINGCLAN mit Wert 5, aber sql-files/main.sql
+//  legt nur die Clans 1 bis 4 an. Ohne Zeile in der Datenbank kann
+//  ihm niemand beitreten. Deshalb behandeln wir hier vier. Kommt er
+//  je dazu, braucht es hier einen weiteren case und einen Eintrag
+//  in .name$.
+// ============================================================
+
+
+// ------------------------------------------------------------
+//  Stufe aus Punkten
+// ------------------------------------------------------------
+//  Rueckwaerts gezaehlt, damit die erste zutreffende Schwelle
+//  gleich die hoechste ist. Zehn Durchlaeufe, kein Wurzelziehen -
+//  rAthena rechnet nur mit ganzen Zahlen, und eine Wurzel aus
+//  Ganzzahlen haette an den Schwellen gerundet und damit genau
+//  dort danebengelegen, wo es darauf ankommt.
+function	script	F_SafaClanStufe	{
+	.@p = getarg(0);
+	for (.@n = 10; .@n > 0; .@n--)
+		if (.@p >= 10 * .@n * .@n)
+			return .@n;
+	return 0;
+}
+
+
+// ------------------------------------------------------------
+//  Punkte, die bis zur naechsten Stufe fehlen
+// ------------------------------------------------------------
+function	script	F_SafaClanRest	{
+	.@p = getarg(0);
+	.@s = callfunc("F_SafaClanStufe", .@p);
+	if (.@s >= 10)
+		return 0;
+	return 10 * (.@s + 1) * (.@s + 1) - .@p;
+}
+
+
+// ------------------------------------------------------------
+//  Den Bonus an den Spieler haengen
+// ------------------------------------------------------------
+//  bonus_script und nicht sc_start: die Clan-Statuszustaende
+//  SC_SWORDCLAN und Geschwister haben ihre Werte im C++ stehen,
+//  ein eigener Wert laesst sich ihnen nicht mitgeben.
+//
+//  Flag 1536 = BSF_PERMANENT (0x200) + BSF_FORCE_REPLACE (0x400):
+//    PERMANENT      ueberlebt ein sc_end SC_ALL
+//    FORCE_REPLACE  ersetzt einen vorhandenen Eintrag, statt einen
+//                   zweiten danebenzustellen
+//
+//  WARUM DIE STUFE NICHT IM TEXT STEHT
+//
+//  Der naheliegende Weg waere, die Werte auszurechnen und als Zahlen
+//  in den Text zu schreiben. Der geht schief, und zwar still.
+//
+//  pc.cpp:15094 erkennt ein Duplikat ueber strcmpi - also nur bei
+//  WORTGLEICHEM Text. Steigt der Clan auf, aendert sich der Text,
+//  das Duplikat wird nicht erkannt, FORCE_REPLACE greift nicht, und
+//  der alte Eintrag laeuft zwoelf Tage danebenher. Die Boni aller
+//  bisherigen Stufen wuerden sich addieren.
+//
+//  Aufraeumen hilft nicht: bonus_script_clear kennt keine Auswahl,
+//  es loescht ALLE Bonus-Skripte - und safa_systems.txt haengt die
+//  Isekai-Geschenke ebenfalls darueber an. Wir wuerden sie
+//  mitwischen.
+//
+//  Deshalb steht im Text nur die RECHENVORSCHRIFT, und die Zahlen
+//  kommen aus zwei Charaktervariablen. Der Text ist damit fuer alle
+//  Spieler und alle Zeiten derselbe: es gibt immer genau einen
+//  Eintrag, und FORCE_REPLACE hat nichts mehr zu tun.
+//
+//      cl_t   Clan, 1 bis 4     cl_s   Stufe, 0 bis 10
+//
+//  Die kurzen Namen sind kein Geschmack, sondern Notwendigkeit:
+//  MAX_BONUS_SCRIPT_LENGTH ist 512 Zeichen (common/mmo.hpp:422),
+//  und die vier Zweige zusammen liegen mit langen Namen darueber.
+//
+//  Ein Nebeneffekt, der uns entgegenkommt: bei cl_s = 0 sind alle
+//  Werte null. Ein Spieler ohne Clan traegt also einen wirkungslosen
+//  Eintrag - kein Sonderfall noetig.
+//
+//  DAMIT EINE AENDERUNG ANKOMMT
+//
+//  Bonus-Skripte werden bei der Statusberechnung ausgefuehrt. Wird
+//  cl_s groesser, merkt das niemand, bis neu gerechnet wird - und
+//  script.cpp:23897 ruft status_calc_pc nur beim NEUEN Eintrag, auf
+//  dem Duplikat-Pfad nicht. Deshalb steht hier recalculatestat.
+//
+//  Die Dauer von einer Million Sekunden sind knapp zwoelf Tage.
+//  Eine unendliche gibt es nicht: script.cpp:23876 rechnet
+//  dur = 1000 * abs(...) in eine uint32, was bei rund 49 Tagen
+//  ueberlaeuft. Beim Anmelden wird ohnehin neu gesetzt.
+function	script	F_SafaClanBonus	{
+	.@c = getcharid(5);
+
+	cl_t = (.@c >= 1 && .@c <= 4) ? .@c : 0;
+	cl_s = cl_t ? callfunc("F_SafaClanStufe", $clan_mvp[cl_t]) : 0;
+
+	bonus_script "bonus bMaxHP,200*cl_s;bonus bMaxSP,50*cl_s;"
+	           + "if(cl_t==1){bonus bMaxHPrate,cl_s;bonus2 bSubEle,Ele_All,cl_s;bonus bDef,20*cl_s;}"
+	           + "if(cl_t==2){bonus bMatkRate,2*cl_s;bonus bVariableCastrate,-2*cl_s;bonus bMaxSPrate,2*cl_s;}"
+	           + "if(cl_t==3){bonus bHealPower,2*cl_s;bonus2 bSubRace,RC_ALL,cl_s;bonus bSPrecovRate,5*cl_s;}"
+	           + "if(cl_t==4){bonus bLongAtkRate,2*cl_s;bonus bFlee,5*cl_s;bonus bFlee2,2*cl_s;}",
+	           1000000, 1536;
+
+	// Wirkt auch dann, wenn der Eintrag schon stand und nur cl_s
+	// sich geaendert hat.
+	recalculatestat;
+	return;
+}
+
+
+// ------------------------------------------------------------
+//  Der Zaehler
+// ------------------------------------------------------------
+-	script	#safa_clan	-1,{
+	end;
+
+OnNPCKillEvent:
+	if (killedrid == 0) end;
+
+	// getmonsterinfo liefert -1 bei unbekannter Klasse. Ohne diese
+	// Pruefung waere -1 & MD_MVP wahr, und jeder Kill zaehlte -
+	// derselbe Fehler, den wir bei den MVP-Coins vermieden haben.
+	.@mode = getmonsterinfo(killedrid, MOB_MODE);
+	if (.@mode < 0) end;
+	if (!(.@mode & MD_MVP)) end;
+
+	.@c = getcharid(5);
+	if (.@c < 1 || .@c > 4) end;
+
+	.@vorher = callfunc("F_SafaClanStufe", $clan_mvp[.@c]);
+	$clan_mvp[.@c] = $clan_mvp[.@c] + 1;
+	.@jetzt = callfunc("F_SafaClanStufe", $clan_mvp[.@c]);
+
+	// Eigener Anteil, nur zur Anzeige. Steht am Charakter, nicht
+	// am Konto: wer den Boss legt, hat ihn gelegt.
+	clan_beitrag = clan_beitrag + 1;
+
+	dispbottom "[Clan] " + getmonsterinfo(killedrid, MOB_NAME)
+	         + " counts. " + $clan_mvp[.@c] + " for the clan, "
+	         + clan_beitrag + " by you.";
+
+	if (.@jetzt > .@vorher) {
+		announce "[" + .name$[.@c] + "] has reached clan level "
+		       + .@jetzt + "!", bc_all;
+		donpcevent "#safa_clan::OnAuffrischen";
+	}
+	end;
+
+// Nach einem Aufstieg bekommen alle, die gerade online sind, den
+// neuen Bonus sofort - nicht erst beim naechsten Anmelden.
+//
+// addrid(0) haengt jeden angemeldeten Spieler an und fuehrt den
+// Rest einmal je Spieler aus. F_SafaClanBonus prueft selbst, ob
+// derjenige ueberhaupt in einem Clan ist.
+OnAuffrischen:
+	addrid(0);
+	callfunc "F_SafaClanBonus";
+	end;
+
+OnPCLoginEvent:
+	callfunc "F_SafaClanBonus";
+	end;
+
+OnInit:
+	setarray .name$[1], "Swordman Clan", "Arcwand Clan",
+	                    "Golden Mace Clan", "Crossbow Clan";
+
+	// @clan statt eines NPCs: so braucht es keine Koordinate, und
+	// die Auskunft ist von ueberall zu haben.
+	bindatcmd "clan", "#safa_clan::OnStand", 0, 99;
+	end;
+
+OnStand:
+	.@c = getcharid(5);
+	if (.@c < 1 || .@c > 4) {
+		dispbottom "[Clan] You are not in a clan. The clan masters"
+		         + " stand in Prontera, Geffen and Payon.";
+		end;
+	}
+
+	.@p = $clan_mvp[.@c];
+	.@s = callfunc("F_SafaClanStufe", .@p);
+	.@r = callfunc("F_SafaClanRest", .@p);
+
+	dispbottom "=== " + .name$[.@c] + " ===";
+	dispbottom "Level " + .@s + " of 10   -   " + .@p + " MVPs felled";
+	if (.@s >= 10)
+		dispbottom "Highest level reached.";
+	else
+		dispbottom .@r + " more MVPs until level " + (.@s + 1) + ".";
+	dispbottom "Your own share: " + clan_beitrag + ".";
+
+	if (.@s < 1) {
+		dispbottom "No bonus yet - the first level needs 10 MVPs.";
+		end;
+	}
+
+	dispbottom "Your bonus at this level:";
+	dispbottom "  Max HP +" + (200 * .@s) + ",  Max SP +" + (50 * .@s);
+	switch (.@c) {
+	case 1:
+		dispbottom "  Max HP +" + .@s + "%,  all elements -" + .@s
+		         + "%,  DEF +" + (20 * .@s);
+		break;
+	case 2:
+		dispbottom "  MATK +" + (2 * .@s) + "%,  variable cast -"
+		         + (2 * .@s) + "%,  Max SP +" + (2 * .@s) + "%";
+		break;
+	case 3:
+		dispbottom "  Heal +" + (2 * .@s) + "%,  all races -" + .@s
+		         + "%,  SP recovery +" + (5 * .@s) + "%";
+		break;
+	case 4:
+		dispbottom "  Ranged +" + (2 * .@s) + "%,  Flee +" + (5 * .@s)
+		         + ",  Perfect Dodge +" + (2 * .@s);
+		break;
+	}
+	end;
+}
