@@ -61,10 +61,10 @@
 // ------------------------------------------------------------
 //  Der Ausruester
 // ------------------------------------------------------------
-//  Steht am Ende der Reihe mit den Episoden-Tauschstellen. Sollte
-//  das Feld belegt oder unbegehbar sein, ist nur diese eine Zeile
-//  zu aendern - alles andere haengt nicht am Ort.
-prontera,134,180,4	script	Safari Outfitter#safa	4_M_ORIENT01,{
+//  Steht am Ende der Reihe mit den Episoden-Tauschstellen. Die
+//  Koordinate kommt von Raffael - 134,180 war mein Vorschlag und
+//  passte nicht.
+prontera,136,180,4	script	Safari Outfitter#safa	4_M_ORIENT01,{
 
 	mes "[Safari Outfitter]";
 	mes "Three ways to take an animal down.";

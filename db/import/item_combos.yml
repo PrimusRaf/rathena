@@ -551,7 +551,7 @@ Body:
 
 # ==========================================================
 #  Wild Safari - The hunt begins
-#  Erzeugt von tools/safari/bauen.py - nicht von Hand aendern.
+#  Erzeugt von tools/safari/db_schreiben.py - nicht von Hand aendern.
 # ==========================================================
 
   - Combos:

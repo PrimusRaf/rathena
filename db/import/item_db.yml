@@ -6988,7 +6988,7 @@ Body:
 
 # ==========================================================
 #  Wild Safari - The hunt begins
-#  Erzeugt von tools/safari/bauen.py - nicht von Hand aendern.
+#  Erzeugt von tools/safari/db_schreiben.py - nicht von Hand aendern.
 # ==========================================================
 
   - Id: 30510
@@ -7117,6 +7117,30 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Alchemist: true
+      Archer: true
+      Assassin: true
+      BardDancer: true
+      Blacksmith: true
+      Crusader: true
+      Gunslinger: true
+      Hunter: true
+      KagerouOboro: true
+      Knight: true
+      Mage: true
+      Merchant: true
+      Ninja: true
+      Novice: true
+      Rebellion: true
+      Rogue: true
+      Sage: true
+      SoulLinker: true
+      StarGladiator: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
+      Wizard: true
     Script: |
       bonus bCritAtkRate,30;
       bonus bStr,20;
@@ -7137,6 +7161,18 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Novice: true
+      Rogue: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
     Script: |
       bonus bCritAtkRate,30;
       bonus bStr,20;
@@ -7157,6 +7193,13 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Alchemist: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Swordman: true
     Script: |
       bonus bCritAtkRate,30;
       bonus bStr,20;
@@ -7177,6 +7220,10 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Crusader: true
+      Knight: true
+      Swordman: true
     Script: |
       bonus bCritAtkRate,30;
       bonus bStr,20;
@@ -7197,6 +7244,10 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Crusader: true
+      Knight: true
+      Swordman: true
     Script: |
       bonus bCritAtkRate,30;
       bonus bStr,20;
@@ -7217,6 +7268,18 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Novice: true
+      Rogue: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
     Script: |
       bonus bCritAtkRate,30;
       bonus bStr,20;
@@ -7237,6 +7300,15 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      SuperNovice: true
+      Swordman: true
     Script: |
       bonus bCritAtkRate,30;
       bonus bStr,20;
@@ -7257,6 +7329,23 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Acolyte: true
+      Alchemist: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Mage: true
+      Merchant: true
+      Monk: true
+      Novice: true
+      Priest: true
+      Sage: true
+      StarGladiator: true
+      SuperNovice: true
+      Swordman: true
+      Taekwon: true
+      Wizard: true
     Script: |
       bonus bCritAtkRate,30;
       bonus bStr,20;
@@ -7277,6 +7366,8 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Assassin: true
     Script: |
       bonus bCritAtkRate,30;
       bonus bStr,20;
@@ -7297,6 +7388,9 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Monk: true
+      Priest: true
     Script: |
       bonus bCritAtkRate,30;
       bonus bStr,20;
@@ -7317,6 +7411,9 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      KagerouOboro: true
+      Ninja: true
     Script: |
       bonus bCritAtkRate,30;
       bonus bStr,20;
@@ -7448,6 +7545,12 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Archer: true
+      BardDancer: true
+      Hunter: true
+      Rogue: true
+      Thief: true
     Script: |
       bonus bLongAtkRate,30;
       bonus bDex,20;
@@ -7468,6 +7571,9 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
     Script: |
       bonus bLongAtkRate,30;
       bonus bDex,20;
@@ -7488,6 +7594,9 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
     Script: |
       bonus bLongAtkRate,30;
       bonus bDex,20;
@@ -7508,6 +7617,9 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
     Script: |
       bonus bLongAtkRate,30;
       bonus bDex,20;
@@ -7528,6 +7640,9 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
     Script: |
       bonus bLongAtkRate,30;
       bonus bDex,20;
@@ -7548,6 +7663,9 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
     Script: |
       bonus bLongAtkRate,30;
       bonus bDex,20;
@@ -7568,6 +7686,8 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      BardDancer: true
     Script: |
       bonus bLongAtkRate,30;
       bonus bDex,20;
@@ -7588,6 +7708,8 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      BardDancer: true
     Script: |
       bonus bLongAtkRate,30;
       bonus bDex,20;
@@ -7720,6 +7842,18 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Acolyte: true
+      Mage: true
+      Monk: true
+      Novice: true
+      Priest: true
+      Sage: true
+      SoulLinker: true
+      Spirit_Handler: true
+      Summoner: true
+      SuperNovice: true
+      Wizard: true
     Script: |
       bonus bMatkRate,25;
       bonus bInt,20;
@@ -7740,6 +7874,16 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Acolyte: true
+      Mage: true
+      Monk: true
+      Novice: true
+      Priest: true
+      Sage: true
+      SoulLinker: true
+      SuperNovice: true
+      Wizard: true
     Script: |
       bonus bMatkRate,25;
       bonus bInt,20;
@@ -7760,14 +7904,16 @@ Body:
     WeaponLevel: 5
     EquipLevelMin: 190
     Refineable: true
+    Jobs:
+      Archer: true
+      Priest: true
+      Sage: true
+      StarGladiator: true
+      Taekwon: true
     Script: |
       bonus bMatkRate,25;
       bonus bInt,20;
 
-# ----------------------------------------------------------
-#  Das Jagdmaterial. Faellt bei Brute-Monstern ab Stufe 150,
-#  siehe npc/custom/safa_safari.txt.
-# ----------------------------------------------------------
   - Id: 30504
     AegisName: Safari_Trophy
     Name: Safari Trophy
