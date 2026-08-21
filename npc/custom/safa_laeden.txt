@@ -58,7 +58,7 @@
 -	shop	BardicSuppliSkills	-1,6144:-1,11513:-1
 -	shop	SoulSupplierSkills	-1,1000563:-1
 
-prontera,146,132,4	script	Forge Supplier#safa	4_M_02,{
+prontera,139,225,4	script	Forge Supplier#safa	4_M_02,{
 	mes "[Forge Supplier]";
 	mes "Ore, coal, and the patience to hit it until it behaves.";
 	next;
@@ -78,7 +78,7 @@ prontera,146,132,4	script	Forge Supplier#safa	4_M_02,{
 	}
 }
 
-prontera,146,122,4	script	Gear Supplier#safa	4_M_REPAIR,{
+prontera,141,227,4	script	Gear Supplier#safa	4_M_REPAIR,{
 	mes "[Gear Supplier]";
 	mes "Fuel, plates, cannonballs. Nothing here is subtle.";
 	next;
@@ -102,7 +102,7 @@ prontera,146,122,4	script	Gear Supplier#safa	4_M_REPAIR,{
 	}
 }
 
-prontera,146,112,4	script	Fletcher#safa	4_F_HUWOMAN,{
+prontera,143,229,4	script	Fletcher#safa	4_F_HUWOMAN,{
 	mes "[Fletcher]";
 	mes "Arrows by the quiver, and everything a trap wants to be.";
 	next;
@@ -122,7 +122,7 @@ prontera,146,112,4	script	Fletcher#safa	4_F_HUWOMAN,{
 	}
 }
 
-prontera,149,132,4	script	Poisoner#safa	4_M_KID2,{
+prontera,145,231,4	script	Poisoner#safa	4_M_KID2,{
 	mes "[Poisoner]";
 	mes "You did not buy this from me, and we never spoke.";
 	next;
@@ -146,7 +146,7 @@ prontera,149,132,4	script	Poisoner#safa	4_M_KID2,{
 	}
 }
 
-prontera,149,122,4	script	Scholar Supplier#safa	4_M_SAGE_C,{
+prontera,147,233,4	script	Scholar Supplier#safa	4_M_SAGE_C,{
 	mes "[Scholar Supplier]";
 	mes "Every element has a price. Mine are reasonable.";
 	next;
@@ -166,7 +166,7 @@ prontera,149,122,4	script	Scholar Supplier#safa	4_M_SAGE_C,{
 	}
 }
 
-prontera,149,112,4	script	Gemstone Trader#safa	4_F_02,{
+prontera,149,233,4	script	Gemstone Trader#safa	4_F_02,{
 	mes "[Gemstone Trader]";
 	mes "Red, yellow, blue. Magic is a surprisingly literal trade.";
 	next;
@@ -180,7 +180,7 @@ prontera,149,112,4	script	Gemstone Trader#safa	4_F_02,{
 	end;
 }
 
-prontera,152,132,4	script	Acolyte Supplier#safa	4_F_SISTER,{
+prontera,151,233,4	script	Acolyte Supplier#safa	4_F_SISTER,{
 	mes "[Acolyte Supplier]";
 	mes "Holy water and blue gemstones. The rest is faith.";
 	next;
@@ -200,7 +200,7 @@ prontera,152,132,4	script	Acolyte Supplier#safa	4_F_SISTER,{
 	}
 }
 
-prontera,152,122,4	script	Squire#safa	4_M_JOB_KNIGHT1,{
+prontera,153,233,4	script	Squire#safa	4_M_JOB_KNIGHT1,{
 	mes "[Squire]";
 	mes "Runes and steel. Bring the arm, I bring the rest.";
 	next;
@@ -220,7 +220,7 @@ prontera,152,122,4	script	Squire#safa	4_M_JOB_KNIGHT1,{
 	}
 }
 
-prontera,152,112,4	script	Gun Runner#safa	4_M_GUNSLINGER,{
+prontera,155,233,4	script	Gun Runner#safa	4_M_GUNSLINGER,{
 	mes "[Gun Runner]";
 	mes "Lead, powder, and no questions about either.";
 	next;
@@ -240,7 +240,7 @@ prontera,152,112,4	script	Gun Runner#safa	4_M_GUNSLINGER,{
 	}
 }
 
-prontera,155,132,4	script	Shadow Merchant#safa	4_M_NFDEADMAN,{
+prontera,157,233,4	script	Shadow Merchant#safa	4_M_NFDEADMAN,{
 	mes "[Shadow Merchant]";
 	mes "Paper, steel, and things that leave before they arrive.";
 	next;
@@ -260,7 +260,7 @@ prontera,155,132,4	script	Shadow Merchant#safa	4_M_NFDEADMAN,{
 	}
 }
 
-prontera,155,122,4	script	Herbalist#safa	4_F_ALCHE,{
+prontera,159,233,4	script	Herbalist#safa	4_F_ALCHE,{
 	mes "[Herbalist]";
 	mes "Seeds, mushrooms, and a bomb that used to be an apple.";
 	next;
@@ -284,7 +284,7 @@ prontera,155,122,4	script	Herbalist#safa	4_F_ALCHE,{
 	}
 }
 
-prontera,155,112,4	script	Fence#safa	4_M_ROGUE,{
+prontera,161,233,4	script	Fence#safa	4_M_ROGUE,{
 	mes "[Fence]";
 	mes "Everything here fell off something. Do not ask what.";
 	next;
@@ -298,7 +298,7 @@ prontera,155,112,4	script	Fence#safa	4_M_ROGUE,{
 	end;
 }
 
-prontera,158,132,4	script	Beast Keeper#safa	4_CAT,{
+prontera,163,233,4	script	Beast Keeper#safa	4_CAT,{
 	mes "[Beast Keeper]";
 	mes "Fish, shrimp, and the odd stick. They know what they want.";
 	next;
@@ -312,7 +312,7 @@ prontera,158,132,4	script	Beast Keeper#safa	4_CAT,{
 	end;
 }
 
-prontera,158,122,4	script	Bardic Supplier#safa	4_M_BARD,{
+prontera,166,230,4	script	Bardic Supplier#safa	4_M_BARD,{
 	mes "[Bardic Supplier]";
 	mes "Strings, reeds, and a whip that never touched a horse.";
 	next;
@@ -326,7 +326,7 @@ prontera,158,122,4	script	Bardic Supplier#safa	4_M_BARD,{
 	end;
 }
 
-prontera,158,112,4	script	Soul Supplier#safa	4_M_SOULREAPER,{
+prontera,170,226,4	script	Soul Supplier#safa	4_M_SOULREAPER,{
 	mes "[Soul Supplier]";
 	mes "Charms for the parts of a person that are not the body.";
 	next;
