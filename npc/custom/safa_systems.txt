@@ -54,120 +54,23 @@ function	script	F_SafaTierReq	{
 }
 
 function	script	F_SafaGiftTier	{
-	switch (getarg(0)) {
-	case 1: return 0;
-	case 2: return 0;
-	case 3: return 0;
-	case 4: return 0;
-	case 101: return 1;
-	case 102: return 1;
-	case 103: return 1;
-	case 104: return 1;
-	case 201: return 2;
-	case 202: return 2;
-	case 203: return 2;
-	case 204: return 2;
-	case 205: return 2;
-	case 206: return 2;
-	case 301: return 3;
-	case 302: return 3;
-	case 303: return 3;
-	case 304: return 3;
-	case 305: return 3;
-	case 306: return 3;
-	case 401: return 4;
-	case 402: return 4;
-	case 403: return 4;
-	case 404: return 4;
-	case 405: return 4;
-	case 406: return 4;
-	case 407: return 4;
-	case 408: return 4;
-	case 409: return 4;
-	case 410: return 4;
-	case 411: return 4;
-	case 412: return 4;
-	case 501: return 5;
-	case 502: return 5;
-	case 503: return 5;
-	case 504: return 5;
-	case 505: return 5;
-	case 506: return 5;
-	case 507: return 5;
-	case 508: return 5;
-	case 509: return 5;
-	case 510: return 5;
-	case 511: return 5;
-	case 512: return 5;
-	case 601: return 6;
-	case 602: return 6;
-	case 603: return 6;
-	case 604: return 6;
-	case 605: return 6;
-	case 606: return 6;
-	case 607: return 6;
-	case 608: return 6;
-	case 609: return 6;
-	case 610: return 6;
-	case 611: return 6;
-	case 612: return 6;
-	case 701: return 7;
-	case 702: return 7;
-	case 703: return 7;
-	case 704: return 7;
-	case 705: return 7;
-	case 706: return 7;
-	case 707: return 7;
-	case 708: return 7;
-	case 709: return 7;
-	case 710: return 7;
-	case 711: return 7;
-	case 712: return 7;
-	case 801: return 8;
-	case 802: return 8;
-	case 803: return 8;
-	case 804: return 8;
-	case 805: return 8;
-	case 806: return 8;
-	case 807: return 8;
-	case 808: return 8;
-	case 809: return 8;
-	case 810: return 8;
-	case 811: return 8;
-	case 812: return 8;
-	case 207: return 2;
-	case 208: return 2;
-	case 209: return 2;
-	case 210: return 2;
-	case 211: return 2;
-	case 307: return 3;
-	case 308: return 3;
-	case 309: return 3;
-	case 310: return 3;
-	case 311: return 3;
-	case 413: return 4;
-	case 414: return 4;
-	case 415: return 4;
-	case 416: return 4;
-	case 417: return 4;
-	case 513: return 5;
-	case 514: return 5;
-	case 515: return 5;
-	case 516: return 5;
-	case 517: return 5;
-	case 613: return 6;
-	case 614: return 6;
-	case 713: return 7;
-	case 714: return 7;
-	case 813: return 8;
-	case 814: return 8;
-	case 815: return 8;
-	case 816: return 8;
-	case 817: return 8;
-	case 818: return 8;
-	}
-	return 0;
+	// Frueher 110 einzelne Faelle. Das war nicht nur laenger, es war
+	// gefaehrlich: rAthena uebersetzt jedes "case" in
+	//
+	//     if (WERT != $@__SWx_VAL) goto __SWx_<naechster>;
+	//
+	// (script.cpp, parse_syntax bei 'case'). Ein switch ist also eine
+	// Kette von goto - und goto zaehlt gegen check_gotocount, das bei
+	// 2048 abbricht. Beim Aufbau des SSS-Menues kamen so ueber
+	// dreitausend Spruenge zusammen und der Waechter blieb stumm
+	// stehen: Text im Fenster, kein Next-Knopf.
+	//
+	// Die 110 Faelle rechneten ausnahmslos dasselbe wie diese Zeile -
+	// nachgeprueft, keine einzige Abweichung. Die Ids sind seit jeher
+	// Tier*100 + Position, siehe Kopf der Datei.
+	return (getarg(0) < 100) ? 0 : getarg(0) / 100;
 }
+
 
 function	script	F_SafaGift	{
 	switch (getarg(0)) {
@@ -418,120 +321,13 @@ function	script	F_SafaTierCount	{
 
 function	script	F_SafaTierGift	{
 	// getarg(0) = Tier, getarg(1) = Position
-	switch (getarg(0) * 1000 + getarg(1)) {
-	case 1: return 1;
-	case 2: return 2;
-	case 3: return 3;
-	case 4: return 4;
-	case 1001: return 101;
-	case 1002: return 102;
-	case 1003: return 103;
-	case 1004: return 104;
-	case 2001: return 201;
-	case 2002: return 202;
-	case 2003: return 203;
-	case 2004: return 204;
-	case 2005: return 205;
-	case 2006: return 206;
-	case 3001: return 301;
-	case 3002: return 302;
-	case 3003: return 303;
-	case 3004: return 304;
-	case 3005: return 305;
-	case 3006: return 306;
-	case 4001: return 401;
-	case 4002: return 402;
-	case 4003: return 403;
-	case 4004: return 404;
-	case 4005: return 405;
-	case 4006: return 406;
-	case 4007: return 407;
-	case 4008: return 408;
-	case 4009: return 409;
-	case 4010: return 410;
-	case 4011: return 411;
-	case 4012: return 412;
-	case 5001: return 501;
-	case 5002: return 502;
-	case 5003: return 503;
-	case 5004: return 504;
-	case 5005: return 505;
-	case 5006: return 506;
-	case 5007: return 507;
-	case 5008: return 508;
-	case 5009: return 509;
-	case 5010: return 510;
-	case 5011: return 511;
-	case 5012: return 512;
-	case 6001: return 601;
-	case 6002: return 602;
-	case 6003: return 603;
-	case 6004: return 604;
-	case 6005: return 605;
-	case 6006: return 606;
-	case 6007: return 607;
-	case 6008: return 608;
-	case 6009: return 609;
-	case 6010: return 610;
-	case 6011: return 611;
-	case 6012: return 612;
-	case 7001: return 701;
-	case 7002: return 702;
-	case 7003: return 703;
-	case 7004: return 704;
-	case 7005: return 705;
-	case 7006: return 706;
-	case 7007: return 707;
-	case 7008: return 708;
-	case 7009: return 709;
-	case 7010: return 710;
-	case 7011: return 711;
-	case 7012: return 712;
-	case 8001: return 801;
-	case 8002: return 802;
-	case 8003: return 803;
-	case 8004: return 804;
-	case 8005: return 805;
-	case 8006: return 806;
-	case 8007: return 807;
-	case 8008: return 808;
-	case 8009: return 809;
-	case 8010: return 810;
-	case 8011: return 811;
-	case 8012: return 812;
-	case 2007: return 207;
-	case 2008: return 208;
-	case 2009: return 209;
-	case 2010: return 210;
-	case 2011: return 211;
-	case 3007: return 307;
-	case 3008: return 308;
-	case 3009: return 309;
-	case 3010: return 310;
-	case 3011: return 311;
-	case 4013: return 413;
-	case 4014: return 414;
-	case 4015: return 415;
-	case 4016: return 416;
-	case 4017: return 417;
-	case 5013: return 513;
-	case 5014: return 514;
-	case 5015: return 515;
-	case 5016: return 516;
-	case 5017: return 517;
-	case 6013: return 613;
-	case 6014: return 614;
-	case 7013: return 713;
-	case 7014: return 714;
-	case 8013: return 813;
-	case 8014: return 814;
-	case 8015: return 815;
-	case 8016: return 816;
-	case 8017: return 817;
-	case 8018: return 818;
-	}
-	return 0;
+	//
+	// Ebenfalls 110 Faelle, die alle nur diese Formel nachbildeten.
+	// Zum Warum siehe F_SafaGiftTier - dieselbe Sprungkette, und in
+	// der Menueschleife wurde sie je Eintrag einmal durchlaufen.
+	return getarg(0) * 100 + getarg(1);
 }
+
 
 function	script	F_SafaGiftDesc	{
 	switch (getarg(0)) {

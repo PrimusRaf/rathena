@@ -183,6 +183,7 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 
 			while (1) {
 				.@menu$ = "";
+				freeloop(1);
 				for (.@i = 0; .@i < 9; .@i++) {
 					.@req = callfunc("F_SafaTierReq", .@i);
 					if (.@pts >= .@req)
@@ -190,6 +191,7 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 					else
 						.@menu$ = .@menu$ + "^777777Tier " + callfunc("F_SafaTierName", .@i) + " - " + .@req + " points^000000:";
 				}
+				freeloop(0);
 				.@menu$ = .@menu$ + "^777777Let me ask something else^000000";
 
 				.@t = select(.@menu$) - 1;
@@ -205,10 +207,27 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 				}
 
 				// Geschenke dieses Tiers aufbauen
+				//
+				// freeloop, und zwar nicht aus Bequemlichkeit.
+				// rAthena uebersetzt jedes "case" eines switch in ein
+				// goto (script.cpp, parse_syntax), und goto zaehlt
+				// gegen check_gotocount - Abbruch bei 2048. Bei 110
+				// Geschenken kostet ein Aufruf von F_SafaGiftName
+				// schon bis zu 110 Spruenge; mal achtzehn Eintraege
+				// in Tier SSS wird es eng.
+				//
+				// Genau daran ist der Waechter gestorben: Text im
+				// Fenster, kein Next-Knopf, und im Protokoll
+				// "run_script_main: infinity loop". Die Schleife ist
+				// nachweislich endlich - sie laeuft .@n Mal - also
+				// ist das Abschalten der Schleifenwache hier richtig
+				// und nicht bloss bequem.
+				freeloop(1);
 				.@n = callfunc("F_SafaTierCount", .@t);
 				.@menu2$ = "";
 				for (.@i = 1; .@i <= .@n; .@i++)
 					.@menu2$ = .@menu2$ + callfunc("F_SafaGiftName", callfunc("F_SafaTierGift", .@t, .@i)) + ":";
+				freeloop(0);
 				.@menu2$ = .@menu2$ + "^777777Another tier^000000";
 
 				.@c = select(.@menu2$);
