@@ -157,6 +157,52 @@ Body:
     Modes:
       CanMove: true
 
+# ----------------------------------------------------------
+#  PowerUP Poring - das Monster des geheimen Level-Raums
+# ----------------------------------------------------------
+#  Ueberschreibt E_PORING (1973), eine Event-Variante, die auf
+#  dem ganzen Server nirgends vorkommt. Eine NEUE Nummer waere
+#  falsch: der Client sucht das Sprite ueber die Monster-Id, und
+#  eine ihm unbekannte Nummer bliebe unsichtbar. Dieselbe
+#  Ueberlegung wie beim Golden Poring der Jagd.
+#
+#  Ein Trefferpunkt, kein Angriff, keine Erfahrung, keine Drops.
+#  Die Belohnung kommt aus dem Skript - siehe
+#  npc/custom/safa_levelraum.txt.
+# ----------------------------------------------------------
+  - Id: 1973
+    AegisName: POWERUP_PORING
+    Name: PowerUP Poring
+    Level: 1
+    Hp: 1
+    Sp: 1
+    BaseExp: 0
+    JobExp: 0
+    Attack: 0
+    Attack2: 0
+    Defense: 0
+    MagicDefense: 0
+    Str: 1
+    Agi: 1
+    Vit: 1
+    Int: 1
+    Dex: 1
+    Luk: 1
+    AttackRange: 1
+    SkillRange: 1
+    ChaseRange: 1
+    Size: Small
+    Race: Plant
+    Element: Neutral
+    ElementLevel: 1
+    WalkSpeed: 200
+    AttackDelay: 1000
+    AttackMotion: 1000
+    DamageMotion: 500
+    Ai: 01
+    Modes:
+      CanMove: true
+
 #Body:
 # eAthena Dev Team
 #=============================================================

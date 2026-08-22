@@ -1,0 +1,184 @@
+// ============================================================
+//  SafaRO - Der geheime Level-Raum
+// ============================================================
+//
+//  Ein NPC in gef_tower nimmt 1000 Destiny Coins und schickt in
+//  eine Arena voller PowerUP Porings. Jeder erlegte Poring gibt
+//  eine Basisstufe UND eine Jobstufe.
+//
+//  WO DER RAUM LIEGT
+//
+//  2025arena1. Ausgewaehlt, weil die Karte auf dem ganzen Server
+//  weder einen Spawn noch einen NPC hat - nachgezaehlt: von 1295
+//  Karten sind 440 voellig leer, und diese ist eine davon. Eine
+//  Arena passt ausserdem zum Zweck.
+//
+//  Die begehbare Flaeche liegt zwischen x 107..248 und y 124..187,
+//  1647 Zellen. Alle hier benutzten Koordinaten sind gegen
+//  db/map_cache.dat geprueft, keine geraten.
+//
+//  WIE DIE STUFEN VERGEBEN WERDEN
+//
+//  Ueber setparam auf BaseLevel und JobLevel. Das ist nicht bloss
+//  eine Zahl - pc.cpp:10422 vergibt dabei die Status- und
+//  Traitpunkte fuer jede uebersprungene Stufe, pc.cpp:10442 die
+//  Fertigkeitspunkte, und beide klemmen von selbst am Maximum.
+//  Wer schon oben ist, bekommt also nichts doppelt.
+//
+//  WARUM NICHT UEBER ERFAHRUNG
+//
+//  getexp waere von den EXP-Raten des Servers abhaengig und
+//  muesste bei jeder Aenderung der Kurve nachgezogen werden.
+//  "Eine Stufe je Poring" bleibt eine Stufe je Poring.
+//
+//  DIE MONSTER
+//
+//  PowerUP Poring, Id 1973 - eine ueberschriebene Event-Variante,
+//  siehe db/import/mob_db.yml. Ein Trefferpunkt, kein Angriff,
+//  keine Erfahrung. Der Kampf ist nicht der Punkt.
+// ============================================================
+
+
+// ------------------------------------------------------------
+//  Der Eingang
+// ------------------------------------------------------------
+//  gef_tower 52,104 - die Koordinate kommt von Raffael und ist
+//  gegen den Kartencache geprueft: begehbar.
+gef_tower,52,104,4	script	Mysterious Ranger	4_M_ORIENT01,{
+
+	mes "[Mysterious Ranger]";
+	mes "You found me. Most people walk past";
+	mes "this spot for years.";
+	next;
+
+	mes "[Mysterious Ranger]";
+	mes "There is a place where the small";
+	mes "round ones gather. Kill one and you";
+	mes "come back stronger. Kill a hundred";
+	mes "and you come back a different person.";
+	next;
+
+	mes "[Mysterious Ranger]";
+	mes "The way in costs ^0000FF" + .preis + " " + getitemname(.muenze) + "^000000.";
+	mes "You carry ^0000FF" + countitem(.muenze) + "^000000.";
+	next;
+
+	if (select("Pay and enter:Not today") == 2) {
+		mes "[Mysterious Ranger]";
+		mes "The spot will still be here.";
+		close;
+	}
+
+	// Gegenprobe unmittelbar vor dem Abbuchen: zwischen der Anzeige
+	// oben und dieser Zeile kann ein Handel stattgefunden haben.
+	if (countitem(.muenze) < .preis) {
+		mes "[Mysterious Ranger]";
+		mes "^FF6666You cannot pay.^000000";
+		close;
+	}
+
+	delitem .muenze, .preis;
+
+	mes "[Mysterious Ranger]";
+	mes "Go on then. Mind the exit - it is the";
+	mes "only way back that does not cost you";
+	mes "another thousand.";
+	close2;
+	warp .raum$, 152, 145;
+	end;
+
+OnInit:
+	.muenze = 30001;   // Destiny Coin
+	.preis  = 1000;
+	.raum$  = "2025arena1";
+	end;
+}
+
+
+// ------------------------------------------------------------
+//  Der Ausgang
+// ------------------------------------------------------------
+//  Ein Feld neben dem Ankunftspunkt, ebenfalls geprueft begehbar.
+//  Ohne ihn kaeme man nur mit einem Schmetterlingsfluegel heraus -
+//  und wer keinen dabei hat, saesse fest.
+2025arena1,151,145,4	script	Way Out#safa_lvl	4_M_ORIENT01,{
+	mes "[Way Out]";
+	mes "Had enough?";
+	next;
+	if (select("Take me back:Stay") == 2) {
+		mes "[Way Out]";
+		mes "Then keep going.";
+		close;
+	}
+	close2;
+	warp "SavePoint", 0, 0;
+	end;
+}
+
+
+// ------------------------------------------------------------
+//  Die Bewohner
+// ------------------------------------------------------------
+//  0,0,0,0 heisst "irgendwo auf der Karte" - rAthena sucht sich
+//  begehbare Zellen selbst. Bei 1647 freien Zellen verteilt sich
+//  das gut, ohne dass ich 60 Koordinaten von Hand pruefen muss.
+//
+//  Nachwachszeit 3 Sekunden: der Raum soll voll bleiben, das ist
+//  ja der Zweck.
+2025arena1,0,0,0,0	monster	PowerUP Poring	1973,60,3000,0,0
+
+
+// ------------------------------------------------------------
+//  Kartenregeln
+// ------------------------------------------------------------
+//  nosave mit SavePoint: wer sich im Raum abmeldet, steht beim
+//  naechsten Anmelden an seinem Speicherpunkt und nicht hier.
+//  Sonst haette man einen Dauerplatz, fuer den man einmal bezahlt.
+//
+//  noteleport steht bewusst NICHT hier. Der Schmetterlingsfluegel
+//  soll funktionieren - er ist der zweite Ausgang, falls jemand
+//  den NPC nicht findet.
+2025arena1	mapflag	nosave	SavePoint
+2025arena1	mapflag	nomemo
+2025arena1	mapflag	nowarpto
+2025arena1	mapflag	nobranch
+2025arena1	mapflag	noicewall
+2025arena1	mapflag	nopenalty
+
+
+// ------------------------------------------------------------
+//  Die Belohnung
+// ------------------------------------------------------------
+-	script	#safa_levelraum	-1,{
+	end;
+
+OnNPCKillEvent:
+	if (killedrid != 1973) end;
+
+	// Die Kartenpruefung ist die eigentliche Sicherung. Das Monster
+	// kommt zwar nur hier vor, aber ein GM kann es ueberall
+	// beschwoeren - und dann waere die Stufe anderswo zu holen.
+	getmapxy(.@karte$, .@x, .@y, BL_PC);
+	if (.@karte$ != "2025arena1") end;
+
+	.@b = BaseLevel;
+	.@j = JobLevel;
+
+	// setparam klemmt selbst am Maximum (pc.cpp:10423 und 10443).
+	// Der Vergleich davor und danach dient nur der Rueckmeldung -
+	// ohne ihn wuesste niemand, warum sich nichts mehr tut.
+	set BaseLevel, .@b + 1;
+	set JobLevel, .@j + 1;
+
+	.@db = BaseLevel - .@b;
+	.@dj = JobLevel - .@j;
+
+	if (.@db == 0 && .@dj == 0) {
+		dispbottom "[Level Room] Base and job level are both at maximum.";
+		end;
+	}
+
+	dispbottom "[Level Room] Base " + BaseLevel + " (+" + .@db + "), "
+	         + "Job " + JobLevel + " (+" + .@dj + ").";
+	end;
+}
