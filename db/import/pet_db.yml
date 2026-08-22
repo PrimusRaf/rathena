@@ -1,0 +1,158 @@
+# ==========================================================
+#  SafaRO - Zaehmen gelingt immer
+# ==========================================================
+#  ERZEUGT von tools/pets/bauen.py - nicht von Hand pflegen.
+#
+#  Wer ein Zaehmitem benutzt, soll das Tier bekommen. Die Sammlerei
+#  besteht dann darin, das Item und das Tier zu finden, nicht darin,
+#  denselben Versuch zwanzigmal zu wiederholen.
+#
+#  CaptureRate 10000 und nicht der Multiplikator pet_catch_rate:
+#  dessen Rechnung in pet.cpp:1339 multipliziert vor der Division in
+#  einem int32 und laeuft bei grossen Faktoren ueber. Eine negative
+#  Zahl laesst rnd_chance immer fehlschlagen - der Fang waere dann
+#  unmoeglich statt sicher.
+#
+#  Aufgenommen sind nur Tiere mit einem Zaehmitem. Wer keines hat,
+#  ist nicht zum Fangen gedacht und bleibt, wie er ist.
+# ==========================================================
+
+Header:
+  Type: PET_DB
+  Version: 1
+
+Body:
+  - Mob: ALICE
+    CaptureRate: 10000
+  - Mob: BACSOJIN_
+    CaptureRate: 10000
+  - Mob: BAPHOMET_
+    CaptureRate: 10000
+  - Mob: BON_GUN
+    CaptureRate: 10000
+  - Mob: CHONCHON
+    CaptureRate: 10000
+  - Mob: CHUNG_E
+    CaptureRate: 10000
+  - Mob: CHUNG_E_
+    CaptureRate: 10000
+  - Mob: CIVIL_SERVANT
+    CaptureRate: 10000
+  - Mob: DARK_PRIEST
+    CaptureRate: 10000
+  - Mob: DELETER_
+    CaptureRate: 10000
+  - Mob: DESERT_WOLF_B
+    CaptureRate: 10000
+  - Mob: DEVIRUCHI
+    CaptureRate: 10000
+  - Mob: DIABOLIC
+    CaptureRate: 10000
+  - Mob: DIABOLIC2
+    CaptureRate: 10000
+  - Mob: DOKEBI
+    CaptureRate: 10000
+  - Mob: DROPS
+    CaptureRate: 10000
+  - Mob: DULLAHAN
+    CaptureRate: 10000
+  - Mob: EVENT_RICECAKE
+    CaptureRate: 10000
+  - Mob: E_CRAMP
+    CaptureRate: 10000
+  - Mob: E_HYDRA
+    CaptureRate: 10000
+  - Mob: FARMILIAR
+    CaptureRate: 10000
+  - Mob: GOBLINE_XMAS
+    CaptureRate: 10000
+  - Mob: GOBLIN_1
+    CaptureRate: 10000
+  - Mob: GOBLIN_2
+    CaptureRate: 10000
+  - Mob: GOBLIN_4
+    CaptureRate: 10000
+  - Mob: GOBLIN_LEADER
+    CaptureRate: 10000
+  - Mob: GOLEM
+    CaptureRate: 10000
+  - Mob: GREMLIN
+    CaptureRate: 10000
+  - Mob: HUNTER_FLY
+    CaptureRate: 10000
+  - Mob: IMP
+    CaptureRate: 10000
+  - Mob: INCUBUS
+    CaptureRate: 10000
+  - Mob: ISIS
+    CaptureRate: 10000
+  - Mob: LEAF_CAT
+    CaptureRate: 10000
+  - Mob: LITTLE_PORING
+    CaptureRate: 10000
+  - Mob: LOLI_RURI
+    CaptureRate: 10000
+  - Mob: LUNATIC
+    CaptureRate: 10000
+  - Mob: MARIN
+    CaptureRate: 10000
+  - Mob: MARIONETTE
+    CaptureRate: 10000
+  - Mob: MEDUSA
+    CaptureRate: 10000
+  - Mob: MIYABI_NINGYO
+    CaptureRate: 10000
+  - Mob: MUMMY
+    CaptureRate: 10000
+  - Mob: MUNAK
+    CaptureRate: 10000
+  - Mob: NIGHTMARE_TERROR
+    CaptureRate: 10000
+  - Mob: NINE_TAIL
+    CaptureRate: 10000
+  - Mob: ORK_WARRIOR
+    CaptureRate: 10000
+  - Mob: PECOPECO
+    CaptureRate: 10000
+  - Mob: PETIT
+    CaptureRate: 10000
+  - Mob: PICKY
+    CaptureRate: 10000
+  - Mob: POISON_SPORE
+    CaptureRate: 10000
+  - Mob: POPORING
+    CaptureRate: 10000
+  - Mob: PORING
+    CaptureRate: 10000
+  - Mob: ROCKER
+    CaptureRate: 10000
+  - Mob: SAVAGE_BABE
+    CaptureRate: 10000
+  - Mob: SHINOBI
+    CaptureRate: 10000
+  - Mob: SMOKIE
+    CaptureRate: 10000
+  - Mob: SOHEE
+    CaptureRate: 10000
+  - Mob: SPORE
+    CaptureRate: 10000
+  - Mob: STEEL_CHONCHON
+    CaptureRate: 10000
+  - Mob: STONE_SHOOTER
+    CaptureRate: 10000
+  - Mob: SUCCUBUS
+    CaptureRate: 10000
+  - Mob: TEDDY_BEAR
+    CaptureRate: 10000
+  - Mob: TIKBALANG
+    CaptureRate: 10000
+  - Mob: WANDER_MAN
+    CaptureRate: 10000
+  - Mob: WHISPER
+    CaptureRate: 10000
+  - Mob: WICKED_NYMPH
+    CaptureRate: 10000
+  - Mob: YOYO
+    CaptureRate: 10000
+  - Mob: ZHERLTHSH
+    CaptureRate: 10000

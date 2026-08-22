@@ -32,7 +32,9 @@
 //  der einzige.
 // ============================================================
 
-valkyrie,44,81,4	script	GM Workbench#safa	4_M_ALCHE_A,{
+// Koordinate von Raffael, im Spiel abgelesen. Geprueft: begehbar,
+// und der naechste NPC steht drei Felder weiter auf 48,86.
+valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 
 	if (getgroupid() < .stufe) {
 		mes "[GM Workbench]";
