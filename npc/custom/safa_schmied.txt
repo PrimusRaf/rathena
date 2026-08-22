@@ -65,7 +65,18 @@ S_Sockel:
 	                     EQI_GARMENT, EQI_SHOES, EQI_ACC_R, EQI_ACC_L;
 	.@n = 0;
 	.@liste$ = "";
-	for (.@i = 0; .@i < getarraysize(.@platz); .@i++) {
+		// ACHTUNG, getarraysize taugt hier NICHT.
+	//
+	// EQI_ACC_L hat den Wert 0 (pc.hpp:75), und rAthena behandelt
+	// 0 als Leerwert: script_array_remove_member entfernt eine
+	// Zelle, sobald sie auf 0 gesetzt wird. Steht die Null am
+	// ENDE der Liste, meldet getarraysize eine zu kleine Zahl -
+	// und der linke Ring war nie waehlbar, weil die Schleife ihn
+	// gar nicht erreichte.
+	//
+	// Deshalb die feste Anzahl. Wer die Liste oben aendert, muss
+	// sie hier mitaendern.
+	for (.@i = 0; .@i < 10; .@i++) {
 		if (getequipisequiped(.@platz[.@i])) {
 			.@wahl[.@n] = .@platz[.@i];
 			.@liste$ = .@liste$ + getequipname(.@platz[.@i]) + ":";
@@ -183,7 +194,18 @@ S_Zauber:
 	                     EQI_SHADOW_ACC_R, EQI_SHADOW_ACC_L;
 	.@n = 0;
 	.@liste$ = "";
-	for (.@i = 0; .@i < getarraysize(.@platz); .@i++) {
+		// ACHTUNG, getarraysize taugt hier NICHT.
+	//
+	// EQI_ACC_L hat den Wert 0 (pc.hpp:75), und rAthena behandelt
+	// 0 als Leerwert: script_array_remove_member entfernt eine
+	// Zelle, sobald sie auf 0 gesetzt wird. Steht die Null am
+	// ENDE der Liste, meldet getarraysize eine zu kleine Zahl -
+	// und der linke Ring war nie waehlbar, weil die Schleife ihn
+	// gar nicht erreichte.
+	//
+	// Deshalb die feste Anzahl. Wer die Liste oben aendert, muss
+	// sie hier mitaendern.
+	for (.@i = 0; .@i < 20; .@i++) {
 		if (getequipisequiped(.@platz[.@i])) {
 			.@wahl[.@n] = .@platz[.@i];
 			.@liste$ = .@liste$ + getequipname(.@platz[.@i]) + ":";
@@ -292,7 +314,18 @@ S_Loesen:
 	// dort nichts zu holen ist.
 	.@n = 0;
 	.@liste$ = "";
-	for (.@i = 0; .@i < getarraysize(.@platz); .@i++) {
+		// ACHTUNG, getarraysize taugt hier NICHT.
+	//
+	// EQI_ACC_L hat den Wert 0 (pc.hpp:75), und rAthena behandelt
+	// 0 als Leerwert: script_array_remove_member entfernt eine
+	// Zelle, sobald sie auf 0 gesetzt wird. Steht die Null am
+	// ENDE der Liste, meldet getarraysize eine zu kleine Zahl -
+	// und der linke Ring war nie waehlbar, weil die Schleife ihn
+	// gar nicht erreichte.
+	//
+	// Deshalb die feste Anzahl. Wer die Liste oben aendert, muss
+	// sie hier mitaendern.
+	for (.@i = 0; .@i < 20; .@i++) {
 		if (getequipisequiped(.@platz[.@i]) == 0)
 			continue;
 		.@hat = 0;
