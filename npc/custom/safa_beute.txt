@@ -1,0 +1,55 @@
+// ============================================================
+//  SafaRO - Beute vergeben, mit Ruecksicht auf Autoloot
+// ============================================================
+//
+//  DAS PROBLEM
+//
+//  Autoloot wirkt nicht auf alles, was auf dem Boden landet, sondern
+//  ausschliesslich auf die Drops des getoeteten Monsters. Die Pruefung
+//  steht in mob.cpp:2592, mitten in mob_item_drop - also in der
+//  Verteilung der Monster-Drop-Tabelle.
+//
+//  Was ein Skript mit makeitem hinlegt, geht diesen Weg nie. Es landet
+//  ueber map_addflooritem direkt auf dem Boden, und der Spieler muss es
+//  aufheben, egal was er eingestellt hat.
+//
+//  Betroffen war alles, was wir selbst vergeben:
+//
+//      Safari Trophy        npc/custom/safa_safari.txt
+//      Episoden-Materialien npc/custom/safa_episoden.txt
+//      MVP Destiny Coins    npc/custom/safa_shops.txt
+//
+//  DIE LOESUNG
+//
+//  has_autoloot() liefert die Einstellung des Spielers (0 heisst aus).
+//  Ist sie an, geben wir den Gegenstand direkt - sonst legen wir ihn
+//  hin wie bisher. Damit verhaelt sich unsere Beute so, wie der
+//  Spieler es von Monster-Drops kennt.
+//
+//  WARUM NICHT IMMER DIREKT GEBEN
+//
+//  Weil es eine Einstellung ist. Wer Autoloot bewusst aus hat, will
+//  entscheiden, was er aufhebt - meist wegen des Gewichts. Ihm etwas
+//  in die Tasche zu zwingen waere dieselbe Bevormundung, nur andersherum.
+//
+//  DAS GEWICHT
+//
+//  checkweight vor getitem. Ohne die Pruefung schlaegt getitem bei
+//  vollem Beutel fehl, und die Beute ist ersatzlos weg - sie liegt ja
+//  auch nicht auf dem Boden. Passt sie nicht, faellt sie hin; dann
+//  sieht der Spieler wenigstens, dass es etwas gab.
+// ============================================================
+
+function	script	F_SafaBeute	{
+	.@id = getarg(0);
+	.@n  = getarg(1, 1);
+
+	if (has_autoloot() > 0 && checkweight(.@id, .@n)) {
+		getitem .@id, .@n;
+		return;
+	}
+
+	getmapxy(.@map$, .@x, .@y, BL_PC);
+	makeitem .@id, .@n, .@map$, .@x, .@y;
+	return;
+}

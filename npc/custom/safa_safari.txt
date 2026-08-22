@@ -154,7 +154,9 @@ OnNPCKillEvent:
 
 	if (rand(10000) >= 5000) end;
 
-	getmapxy(.@map$, .@x, .@y, BL_PC);
-	makeitem 30504, 1, .@map$, .@x, .@y;
+	// Ueber F_SafaBeute und nicht direkt ueber makeitem: Autoloot
+	// wirkt nur auf Monster-Drops (mob.cpp:2592), nicht auf das, was
+	// ein Skript hinlegt. Die Funktion holt das nach.
+	callfunc "F_SafaBeute", 30504, 1;
 	end;
 }

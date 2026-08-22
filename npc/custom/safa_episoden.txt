@@ -83,7 +83,9 @@ OnNPCKillEvent:
 	else if (.@ep == 18)  setarray .@gabe[0], 1000405;
 	else end;
 
-	makeitem .@gabe[rand(getarraysize(.@gabe))], 1, .@map$, .@x, .@y;
+	// Ueber F_SafaBeute: Autoloot wirkt nur auf Monster-Drops
+	// (mob.cpp:2592), nicht auf per Skript hingelegte Gegenstaende.
+	callfunc "F_SafaBeute", .@gabe[rand(getarraysize(.@gabe))], 1;
 	end;
 
 OnInit:

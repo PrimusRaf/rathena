@@ -344,8 +344,10 @@ OnNPCKillEvent:
 	if (.@mode < 0) end;
 	if (!(.@mode & MD_MVP)) end;
 
-	getmapxy(.@map$, .@x, .@y, BL_PC);
-	makeitem 30001, 5, .@map$, .@x, .@y;
+	// Ueber F_SafaBeute: Autoloot wirkt nur auf Monster-Drops
+	// (mob.cpp:2592), nicht auf per Skript hingelegte Gegenstaende.
+	// Wer Autoloot an hat, bekommt die fuenf Coins jetzt direkt.
+	callfunc "F_SafaBeute", 30001, 5;
 	dispbottom "[Destiny] " + getmonsterinfo(killedrid, MOB_NAME) + " leaves 5 Destiny Coins behind.";
 	end;
 }
