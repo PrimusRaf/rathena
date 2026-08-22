@@ -89,25 +89,52 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 
 	if (.@was & 1) {
 		mes "[GM Workbench]";
-		mes "Which option? The ones the Artisan uses:";
+		mes "The ones the Artisan uses:";
 		mes " ";
 		mes "  ^0000FF17^000000 ATK        ^0000FF14^000000 MATK in percent";
 		mes "  ^0000FF 1^000000 Max HP     ^0000FF 2^000000 Max SP";
 		mes "  ^0000FF 3^000000 STR  ^0000FF4^000000 AGI  ^0000FF5^000000 VIT";
 		mes "  ^0000FF 6^000000 INT  ^0000FF7^000000 DEX  ^0000FF8^000000 LUK";
 		mes "  ^0000FF15^000000 ASPD       ^0000FF24^000000 Critical";
+		mes " ";
+		mes "^777777Values are stored as int16 - 32767 is the ceiling.^000000";
 		next;
-		input .@id, 1, 255;
 
-		mes "[GM Workbench]";
-		mes "Which value?";
-		mes "^777777The value is stored as int16 - 32767 is the ceiling.^000000";
-		next;
-		input .@wert, 1, 32767;
+		if (select("All five the same:Five different ones") == 1) {
+			input .@id, 1, 255;
+			input .@wert, 1, 32767;
 
-		// Alle fuenf Plaetze. Index laeuft von 0 bis 4.
-		for (.@i = 0; .@i < 5; .@i++)
-			setrandomoption(.@teil, .@i, .@id, .@wert, 0);
+			// Alle fuenf Plaetze. Index laeuft von 0 bis 4.
+			for (.@i = 0; .@i < 5; .@i++)
+				setrandomoption(.@teil, .@i, .@id, .@wert, 0);
+
+			.@zeile$ = "id " + .@id + ", value " + .@wert + " on all five";
+		} else {
+			// Platz fuer Platz. Id 0 laesst einen Platz leer - dafuer
+			// haben wir in db/import/item_randomopt_db.yml eigens
+			// einen Eintrag VAR_NOTHING angelegt, weil
+			// setrandomoption jede unbekannte Id ablehnt und die
+			// amtliche Datenbank erst bei 1 beginnt.
+			.@zeile$ = "";
+			for (.@i = 0; .@i < 5; .@i++) {
+				mes "[GM Workbench]";
+				mes "Slot ^0000FF" + (.@i + 1) + "^000000 of 5.";
+				mes "^7777770 leaves this slot empty.^000000";
+				next;
+				input .@id, 0, 255;
+
+				if (.@id == 0) {
+					setrandomoption(.@teil, .@i, 0, 0, 0);
+					.@zeile$ = .@zeile$ + (.@i + 1) + ": empty  ";
+					continue;
+				}
+
+				input .@wert, 1, 32767;
+				setrandomoption(.@teil, .@i, .@id, .@wert, 0);
+				.@zeile$ = .@zeile$ + (.@i + 1) + ": " + .@id
+				         + "/" + .@wert + "  ";
+			}
+		}
 
 		// setrandomoption schreibt in den Gegenstand, rechnet die
 		// Werte aber nicht selbst neu. Ohne das merkt der Charakter
@@ -130,10 +157,32 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 	mes "^0000FF" + getequipname(.@teil) + "^000000";
 	mes "Refine: ^0000FF+" + getequiprefinerycnt(.@teil) + "^000000";
 	if (.@was & 1)
-		mes "Five options set to ^0000FFid " + .@id + ", value " + .@wert + "^000000.";
+		mes "Options: ^0000FF" + .@zeile$ + "^000000";
 	close;
 
 OnInit:
-	.stufe = 99;   // ab dieser Gruppenstufe bedienbar
+	.stufe = 99;   // ab dieser Gruppenstufe sicht- und bedienbar
+	end;
+
+// ------------------------------------------------------------
+//  Unsichtbar fuer alle ausser GM
+// ------------------------------------------------------------
+//  cloakonnpcself verbirgt den NPC fuer GENAU DIESEN Spieler.
+//  Der Zustand steht in sd->cloaked_npc (npc.cpp:1007), also je
+//  Sitzung und je Charakter - nicht am NPC selbst. Deshalb muss
+//  es bei jeder Anmeldung neu gesetzt werden.
+//
+//  disablenpc waere falsch: das schaltet ihn fuer ALLE ab, auch
+//  fuer uns.
+//
+//  Voreinstellung ist sichtbar - die Liste beginnt leer. Wer
+//  kein GM ist, bekommt ihn hier weggeblendet; GMs lassen wir in
+//  Ruhe und sehen ihn dadurch.
+//
+//  Mehrere NPCs duerfen OnPCLoginEvent haben, rAthena ruft sie
+//  alle auf. safa_clan.txt benutzt es ebenfalls.
+OnPCLoginEvent:
+	if (getgroupid() < .stufe)
+		cloakonnpcself "GM Workbench#safa";
 	end;
 }
