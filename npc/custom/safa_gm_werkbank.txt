@@ -1,0 +1,137 @@
+// ============================================================
+//  SafaRO - GM-Werkbank
+// ============================================================
+//
+//  Setzt alle fuenf Zufallsoptionen eines getragenen Stuecks auf
+//  einen festen Wert und wertet auf Wunsch bis +30 auf.
+//
+//  WOZU
+//
+//  Fuer Testgegenstaende gibt es keinen GM-Befehl. Die Liste in
+//  atcommand.cpp kennt @item, @refine, @refineui und @itembound -
+//  nichts davon setzt Zufallsoptionen. Der einzige Weg dorthin ist
+//  setrandomoption, und das ist ein Skriptbefehl.
+//
+//  Ueber den Master Artisan kaeme man auch hin, aber dessen Werte
+//  sind zufaellig aus einer Spanne. Bis fuenfmal die 100 faellt,
+//  verzaubert man lange. Hier steht, was man eintippt.
+//
+//  GRENZEN, ALLE NACHGESCHLAGEN
+//
+//    MAX_ITEM_RDM_OPT  5      common/mmo.hpp:113
+//    MAX_REFINE        30     map/status.hpp:37, von uns gesetzt
+//    Wertebereich      int16  s_item_randomoption in mmo.hpp
+//
+//  Mehr als fuenf Optionen gibt es also nicht, und ueber 32767
+//  laeuft der Wert ueber.
+//
+//  NUR FUER GM
+//
+//  Gruppenstufe 99. Der NPC steht in valkyrie, wo ohnehin kein
+//  Spieler hinkommt - die Pruefung ist der zweite Riegel, nicht
+//  der einzige.
+// ============================================================
+
+valkyrie,44,81,4	script	GM Workbench#safa	4_M_ALCHE_A,{
+
+	if (getgroupid() < .stufe) {
+		mes "[GM Workbench]";
+		mes "This bench is not for you.";
+		close;
+	}
+
+	mes "[GM Workbench]";
+	mes "Which piece?";
+	next;
+
+	// ACHTUNG: feste Anzahl, NICHT getarraysize.
+	//
+	// EQI_ACC_L hat den Wert 0 (pc.hpp:75), und rAthena entfernt eine
+	// Array-Zelle, sobald sie auf 0 gesetzt wird. Steht die Null am
+	// Ende, meldet getarraysize eine zu kleine Zahl und der linke
+	// Ring fehlt in der Liste. Genau dieser Fehler hat beim Master
+	// Artisan monatelang gesteckt.
+	setarray .@platz[0], EQI_HEAD_TOP, EQI_HEAD_MID, EQI_HEAD_LOW,
+	                     EQI_ARMOR, EQI_HAND_R, EQI_HAND_L,
+	                     EQI_GARMENT, EQI_SHOES, EQI_ACC_R, EQI_ACC_L;
+	.@n = 0;
+	.@liste$ = "";
+	for (.@i = 0; .@i < 10; .@i++) {
+		if (getequipisequiped(.@platz[.@i])) {
+			.@wahl[.@n] = .@platz[.@i];
+			.@liste$ = .@liste$ + getequipname(.@platz[.@i]) + ":";
+			.@n++;
+		}
+	}
+	if (.@n == 0) {
+		mes "[GM Workbench]";
+		mes "You are wearing nothing.";
+		close;
+	}
+
+	.@k = select(.@liste$ + "Never mind") - 1;
+	if (.@k >= .@n)
+		close;
+	.@teil = .@wahl[.@k];
+
+	mes "[GM Workbench]";
+	mes "^0000FF" + getequipname(.@teil) + "^000000";
+	next;
+
+	switch (select("Set all five options:Refine to +30:Both:Never mind")) {
+	case 1: .@was = 1; break;
+	case 2: .@was = 2; break;
+	case 3: .@was = 3; break;
+	case 4: close;
+	}
+
+	if (.@was & 1) {
+		mes "[GM Workbench]";
+		mes "Which option? The ones the Artisan uses:";
+		mes " ";
+		mes "  ^0000FF17^000000 ATK        ^0000FF14^000000 MATK in percent";
+		mes "  ^0000FF 1^000000 Max HP     ^0000FF 2^000000 Max SP";
+		mes "  ^0000FF 3^000000 STR  ^0000FF4^000000 AGI  ^0000FF5^000000 VIT";
+		mes "  ^0000FF 6^000000 INT  ^0000FF7^000000 DEX  ^0000FF8^000000 LUK";
+		mes "  ^0000FF15^000000 ASPD       ^0000FF24^000000 Critical";
+		next;
+		input .@id, 1, 255;
+
+		mes "[GM Workbench]";
+		mes "Which value?";
+		mes "^777777The value is stored as int16 - 32767 is the ceiling.^000000";
+		next;
+		input .@wert, 1, 32767;
+
+		// Alle fuenf Plaetze. Index laeuft von 0 bis 4.
+		for (.@i = 0; .@i < 5; .@i++)
+			setrandomoption(.@teil, .@i, .@id, .@wert, 0);
+
+		// setrandomoption schreibt in den Gegenstand, rechnet die
+		// Werte aber nicht selbst neu. Ohne das merkt der Charakter
+		// die Aenderung erst beim naechsten Ab- und Anlegen.
+		recalculatestat;
+	}
+
+	if (.@was & 2) {
+		// @refine rechnet relativ, dieser Befehl absolut. Von einem
+		// bereits aufgewerteten Stueck aus waere ein "+30" sonst zu
+		// viel - deshalb die Differenz.
+		.@ist = getequiprefinerycnt(.@teil);
+		if (.@ist < 30)
+			successrefitem .@teil, 30 - .@ist;
+	}
+
+	mes "[GM Workbench]";
+	mes "Done.";
+	mes " ";
+	mes "^0000FF" + getequipname(.@teil) + "^000000";
+	mes "Refine: ^0000FF+" + getequiprefinerycnt(.@teil) + "^000000";
+	if (.@was & 1)
+		mes "Five options set to ^0000FFid " + .@id + ", value " + .@wert + "^000000.";
+	close;
+
+OnInit:
+	.stufe = 99;   // ab dieser Gruppenstufe bedienbar
+	end;
+}
