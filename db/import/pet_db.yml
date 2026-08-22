@@ -24,135 +24,805 @@ Header:
 Body:
   - Mob: ALICE
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: BACSOJIN_
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: BAPHOMET_
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: BON_GUN
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WZ_METEOR",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,50;
+      }
   - Mob: CHONCHON
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: CHUNG_E
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: CHUNG_E_
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: CIVIL_SERVANT
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: DARK_PRIEST
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WZ_METEOR",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,50;
+      }
   - Mob: DELETER_
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
   - Mob: DESERT_WOLF_B
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
   - Mob: DEVIRUCHI
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: DIABOLIC
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: DIABOLIC2
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: DOKEBI
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: DROPS
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
   - Mob: DULLAHAN
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WZ_METEOR",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,50;
+      }
   - Mob: EVENT_RICECAKE
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: E_CRAMP
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"TF_POISON",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_CURE",1,50;
+      }
   - Mob: E_HYDRA
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
   - Mob: FARMILIAR
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: GOBLINE_XMAS
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: GOBLIN_1
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: GOBLIN_2
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
   - Mob: GOBLIN_4
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
   - Mob: GOBLIN_LEADER
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: GOLEM
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: GREMLIN
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: HUNTER_FLY
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: IMP
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
   - Mob: INCUBUS
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: ISIS
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: LEAF_CAT
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
   - Mob: LITTLE_PORING
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
   - Mob: LOLI_RURI
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: LUNATIC
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: MARIN
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
   - Mob: MARIONETTE
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_NAPALMBEAT",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_QUAGMIRE",5,50;
+      }
   - Mob: MEDUSA
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: MIYABI_NINGYO
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: MUMMY
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WZ_METEOR",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,50;
+      }
   - Mob: MUNAK
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WZ_METEOR",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,50;
+      }
   - Mob: NIGHTMARE_TERROR
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: NINE_TAIL
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
   - Mob: ORK_WARRIOR
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
   - Mob: PECOPECO
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
   - Mob: PETIT
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
   - Mob: PICKY
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
   - Mob: POISON_SPORE
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"TF_POISON",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_CURE",1,50;
+      }
   - Mob: POPORING
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"TF_POISON",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_CURE",1,50;
+      }
   - Mob: PORING
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
   - Mob: ROCKER
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
   - Mob: SAVAGE_BABE
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
   - Mob: SHINOBI
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: SMOKIE
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
   - Mob: SOHEE
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
   - Mob: SPORE
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
   - Mob: STEEL_CHONCHON
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: STONE_SHOOTER
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
   - Mob: SUCCUBUS
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: TEDDY_BEAR
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: TIKBALANG
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: WANDER_MAN
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: WHISPER
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_NAPALMBEAT",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_QUAGMIRE",5,50;
+      }
   - Mob: WICKED_NYMPH
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: YOYO
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
   - Mob: ZHERLTHSH
     CaptureRate: 10000
+    Script: |
+      .@f = getpetinfo(3);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= 900) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
