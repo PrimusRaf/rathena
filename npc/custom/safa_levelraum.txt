@@ -33,9 +33,14 @@
 //
 //  DIE MONSTER
 //
-//  PowerUP Poring, Id 1973 - eine ueberschriebene Event-Variante,
+//  PowerUP Poring, Id 1847 - eine ueberschriebene Event-Variante,
 //  siehe db/import/mob_db.yml. Ein Trefferpunkt, kein Angriff,
 //  keine Erfahrung. Der Kampf ist nicht der Punkt.
+//
+//  Er laesst ein Card Album fallen (25 Prozent) und gibt 10.000
+//  Zeny je Kill. Das Zeny kommt aus dem Skript, weil Monster in
+//  rAthena kein Zeny fallen lassen koennen - es gibt schlicht kein
+//  Feld dafuer in mob_db.
 // ============================================================
 
 
@@ -125,7 +130,7 @@ OnInit:
 //
 //  Nachwachszeit 3 Sekunden: der Raum soll voll bleiben, das ist
 //  ja der Zweck.
-2025arena1,0,0,0,0	monster	PowerUP Poring	1973,60,3000,0,0
+2025arena1,0,0,0,0	monster	PowerUP Poring	1847,60,3000,0,0
 
 
 // ------------------------------------------------------------
@@ -152,14 +157,23 @@ OnInit:
 -	script	#safa_levelraum	-1,{
 	end;
 
+OnInit:
+	.zeny = 10000;
+	end;
+
 OnNPCKillEvent:
-	if (killedrid != 1973) end;
+	if (killedrid != 1847) end;
 
 	// Die Kartenpruefung ist die eigentliche Sicherung. Das Monster
 	// kommt zwar nur hier vor, aber ein GM kann es ueberall
 	// beschwoeren - und dann waere die Stufe anderswo zu holen.
 	getmapxy(.@karte$, .@x, .@y, BL_PC);
 	if (.@karte$ != "2025arena1") end;
+
+	// Zeny zuerst: es gibt es auch dann, wenn beide Stufen schon
+	// am Maximum stehen. Sonst waere der Raum ab Hoechststufe
+	// voellig wertlos.
+	Zeny += .zeny;
 
 	.@b = BaseLevel;
 	.@j = JobLevel;
@@ -174,11 +188,13 @@ OnNPCKillEvent:
 	.@dj = JobLevel - .@j;
 
 	if (.@db == 0 && .@dj == 0) {
-		dispbottom "[Level Room] Base and job level are both at maximum.";
+		dispbottom "[Level Room] Both levels at maximum. +"
+		         + .zeny + " Zeny.";
 		end;
 	}
 
 	dispbottom "[Level Room] Base " + BaseLevel + " (+" + .@db + "), "
-	         + "Job " + JobLevel + " (+" + .@dj + ").";
+	         + "Job " + JobLevel + " (+" + .@dj + "), +"
+	         + .zeny + " Zeny.";
 	end;
 }

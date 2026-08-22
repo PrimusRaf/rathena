@@ -160,17 +160,27 @@ Body:
 # ----------------------------------------------------------
 #  PowerUP Poring - das Monster des geheimen Level-Raums
 # ----------------------------------------------------------
-#  Ueberschreibt E_PORING (1973), eine Event-Variante, die auf
-#  dem ganzen Server nirgends vorkommt. Eine NEUE Nummer waere
-#  falsch: der Client sucht das Sprite ueber die Monster-Id, und
-#  eine ihm unbekannte Nummer bliebe unsichtbar. Dieselbe
-#  Ueberlegung wie beim Golden Poring der Jagd.
+#  Ueberschreibt EVENT_PORING (1847). Bewusst diese Nummer und
+#  nicht E_PORING (1973), mit dem der Raum zuerst lief:
 #
-#  Ein Trefferpunkt, kein Angriff, keine Erfahrung, keine Drops.
-#  Die Belohnung kommt aus dem Skript - siehe
-#  npc/custom/safa_levelraum.txt.
+#  1973 bringt fuenf amtliche Drops mit - Gift Box, Old Blue Box,
+#  Old Violet Box, Card Album und Jellopy. Eine Ueberschreibung
+#  kann Drops nur ERSETZEN, nicht entfernen: parseDropNode in
+#  mob.cpp:4844 haengt an oder ueberschreibt einen Index, loeschen
+#  geht nicht. Man haette vier tote Eintraege mit Rate 0 stehen
+#  lassen muessen.
+#
+#  1847 hat gar keine Drops. Damit steht hier genau das, was
+#  gewollt ist - und nichts, was jemand spaeter suchen muss.
+#
+#  Eine neue Nummer ginge nicht: der Client sucht das Sprite ueber
+#  die Monster-Id, eine ihm unbekannte bliebe unsichtbar.
+#
+#  Die 10.000 Zeny je Kill sind KEIN Drop - Monster koennen in
+#  rAthena kein Zeny fallen lassen. Sie kommen aus dem Skript,
+#  siehe npc/custom/safa_levelraum.txt.
 # ----------------------------------------------------------
-  - Id: 1973
+  - Id: 1847
     AegisName: POWERUP_PORING
     Name: PowerUP Poring
     Level: 1
@@ -202,6 +212,9 @@ Body:
     Ai: 01
     Modes:
       CanMove: true
+    Drops:
+      - Item: Old_Card_Album
+        Rate: 2500
 
 #Body:
 # eAthena Dev Team
