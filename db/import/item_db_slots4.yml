@@ -110451,6 +110451,929 @@ Body:
       if (.@r>=11) {
          autobonus "{ bonus bInt,150; bonus2 bHPRegenRate,-100,1000; bonus2 bSPRegenRate,-100,1000; bonus2 bSkillCooldown,\"SO_DIAMONDDUST\",-4500; bonus2 bSkillCooldown,\"SO_EARTHGRAVE\",-4500; }",40,10000,BF_MAGIC;
       }
+  - Id: 46557
+    AegisName: Safari_F_Mask_S4
+    Name: Fangbearer Mask
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 300
+    Defense: 60
+    Slots: 4
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    View: 181
+    Script: |
+      bonus bStr,15;
+      bonus bAspdRate,10;
+      bonus2 bAddRace,RC_Brute,30;
+
+  - Id: 46558
+    AegisName: Safari_F_Hide_S4
+    Name: Fangbearer Hide
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 1200
+    Defense: 200
+    Slots: 4
+    Locations:
+      Armor: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    Script: |
+      bonus bBaseAtk,450+50*(getrefine()/2);
+      if (getrefine()>=7) bonus bAspdRate,25;
+
+  - Id: 46559
+    AegisName: Safari_F_Pelt_S4
+    Name: Fangbearer Pelt
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Defense: 120
+    Slots: 4
+    Locations:
+      Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    Script: |
+      bonus bMaxHP,9000+500*(getrefine()/2);
+      if (getrefine()>=7) bonus bAspdRate,15;
+
+  - Id: 46560
+    AegisName: Safari_F_Treads_S4
+    Name: Fangbearer Treads
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 600
+    Defense: 100
+    Slots: 4
+    Locations:
+      Shoes: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    Script: |
+      bonus bMaxHPrate,15;
+      bonus bFlee,50;
+
+  - Id: 46561
+    AegisName: Safari_F_Claw_S4
+    Name: Fangbearer Claw
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 100
+    Defense: 0
+    Slots: 4
+    Locations:
+      Right_Accessory: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: false
+    Script: |
+      bonus bAtkRate,25;
+      bonus bCritAtkRate,15;
+
+  - Id: 46562
+    AegisName: Safari_F_Tooth_S4
+    Name: Fangbearer Tooth
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 100
+    Defense: 0
+    Slots: 4
+    Locations:
+      Left_Accessory: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: false
+    Script: |
+      bonus bAtkRate,25;
+      bonus bCritical,30;
+
+  - Id: 46563
+    AegisName: Safari_F_Dagger_S4
+    Name: Fangbearer Dagger
+    Type: Weapon
+    SubType: Dagger
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Attack: 320
+    Range: 1
+    Slots: 4
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Alchemist: true
+      Archer: true
+      Assassin: true
+      BardDancer: true
+      Blacksmith: true
+      Crusader: true
+      Gunslinger: true
+      Hunter: true
+      KagerouOboro: true
+      Knight: true
+      Mage: true
+      Merchant: true
+      Ninja: true
+      Novice: true
+      Rebellion: true
+      Rogue: true
+      Sage: true
+      SoulLinker: true
+      StarGladiator: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
+      Wizard: true
+    Script: |
+      bonus bCritAtkRate,30;
+      bonus bStr,20;
+
+  - Id: 46564
+    AegisName: Safari_F_1hSword_S4
+    Name: Fangbearer 1hSword
+    Type: Weapon
+    SubType: 1hSword
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Attack: 320
+    Range: 1
+    Slots: 4
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Novice: true
+      Rogue: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
+    Script: |
+      bonus bCritAtkRate,30;
+      bonus bStr,20;
+
+  - Id: 46565
+    AegisName: Safari_F_2hSword_S4
+    Name: Fangbearer 2hSword
+    Type: Weapon
+    SubType: 2hSword
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 1
+    Slots: 4
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Alchemist: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Swordman: true
+    Script: |
+      bonus bCritAtkRate,30;
+      bonus bStr,20;
+
+  - Id: 46566
+    AegisName: Safari_F_1hSpear_S4
+    Name: Fangbearer 1hSpear
+    Type: Weapon
+    SubType: 1hSpear
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Attack: 320
+    Range: 3
+    Slots: 4
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Crusader: true
+      Knight: true
+      Swordman: true
+    Script: |
+      bonus bCritAtkRate,30;
+      bonus bStr,20;
+
+  - Id: 46567
+    AegisName: Safari_F_2hSpear_S4
+    Name: Fangbearer 2hSpear
+    Type: Weapon
+    SubType: 2hSpear
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 3
+    Slots: 4
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Crusader: true
+      Knight: true
+      Swordman: true
+    Script: |
+      bonus bCritAtkRate,30;
+      bonus bStr,20;
+
+  - Id: 46568
+    AegisName: Safari_F_1hAxe_S4
+    Name: Fangbearer 1hAxe
+    Type: Weapon
+    SubType: 1hAxe
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Attack: 320
+    Range: 1
+    Slots: 4
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      Novice: true
+      Rogue: true
+      SuperNovice: true
+      Swordman: true
+      Thief: true
+    Script: |
+      bonus bCritAtkRate,30;
+      bonus bStr,20;
+
+  - Id: 46569
+    AegisName: Safari_F_2hAxe_S4
+    Name: Fangbearer 2hAxe
+    Type: Weapon
+    SubType: 2hAxe
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 1
+    Slots: 4
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      SuperNovice: true
+      Swordman: true
+    Script: |
+      bonus bCritAtkRate,30;
+      bonus bStr,20;
+
+  - Id: 46570
+    AegisName: Safari_F_Mace_S4
+    Name: Fangbearer Mace
+    Type: Weapon
+    SubType: Mace
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Attack: 320
+    Range: 1
+    Slots: 4
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Acolyte: true
+      Alchemist: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Mage: true
+      Merchant: true
+      Monk: true
+      Novice: true
+      Priest: true
+      Sage: true
+      StarGladiator: true
+      SuperNovice: true
+      Swordman: true
+      Taekwon: true
+      Wizard: true
+    Script: |
+      bonus bCritAtkRate,30;
+      bonus bStr,20;
+
+  - Id: 46571
+    AegisName: Safari_F_Katar_S4
+    Name: Fangbearer Katar
+    Type: Weapon
+    SubType: Katar
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 1
+    Slots: 4
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Assassin: true
+    Script: |
+      bonus bCritAtkRate,30;
+      bonus bStr,20;
+
+  - Id: 46572
+    AegisName: Safari_F_Knuckle_S4
+    Name: Fangbearer Knuckle
+    Type: Weapon
+    SubType: Knuckle
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Attack: 320
+    Range: 1
+    Slots: 4
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Monk: true
+      Priest: true
+    Script: |
+      bonus bCritAtkRate,30;
+      bonus bStr,20;
+
+  - Id: 46573
+    AegisName: Safari_F_Huuma_S4
+    Name: Fangbearer Huuma
+    Type: Weapon
+    SubType: Huuma
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 1
+    Slots: 4
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      KagerouOboro: true
+      Ninja: true
+    Script: |
+      bonus bCritAtkRate,30;
+      bonus bStr,20;
+
+  - Id: 46574
+    AegisName: Safari_L_Visor_S4
+    Name: Longsight Visor
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 300
+    Defense: 60
+    Slots: 4
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    View: 389
+    Script: |
+      bonus bDex,15;
+      bonus bLongAtkRate,10;
+      bonus2 bAddRace,RC_Brute,30;
+
+  - Id: 46575
+    AegisName: Safari_L_Coat_S4
+    Name: Longsight Coat
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 1200
+    Defense: 200
+    Slots: 4
+    Locations:
+      Armor: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    Script: |
+      bonus bBaseAtk,400+45*(getrefine()/2);
+      if (getrefine()>=7) bonus bLongAtkRate,25;
+
+  - Id: 46576
+    AegisName: Safari_L_Cloak_S4
+    Name: Longsight Cloak
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Defense: 120
+    Slots: 4
+    Locations:
+      Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    Script: |
+      bonus bMaxHP,8000+450*(getrefine()/2);
+      if (getrefine()>=7) bonus bFlee2,20;
+
+  - Id: 46577
+    AegisName: Safari_L_Boots_S4
+    Name: Longsight Boots
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 600
+    Defense: 100
+    Slots: 4
+    Locations:
+      Shoes: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    Script: |
+      bonus bMaxHPrate,12;
+      bonus bFlee,70;
+      bonus bFlee2,10;
+
+  - Id: 46578
+    AegisName: Safari_L_Ring_S4
+    Name: Longsight Ring
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 100
+    Defense: 0
+    Slots: 4
+    Locations:
+      Right_Accessory: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: false
+    Script: |
+      bonus bLongAtkRate,25;
+      bonus bDex,20;
+
+  - Id: 46579
+    AegisName: Safari_L_Lens_S4
+    Name: Longsight Lens
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 100
+    Defense: 0
+    Slots: 4
+    Locations:
+      Left_Accessory: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: false
+    Script: |
+      bonus bAtkRate,20;
+      bonus2 bAddSize,Size_All,20;
+
+  - Id: 46580
+    AegisName: Safari_L_Bow_S4
+    Name: Longsight Bow
+    Type: Weapon
+    SubType: Bow
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 5
+    Slots: 4
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Archer: true
+      BardDancer: true
+      Hunter: true
+      Rogue: true
+      Thief: true
+    Script: |
+      bonus bLongAtkRate,30;
+      bonus bDex,20;
+
+  - Id: 46581
+    AegisName: Safari_L_Revolver_S4
+    Name: Longsight Revolver
+    Type: Weapon
+    SubType: Revolver
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Attack: 320
+    Range: 7
+    Slots: 4
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Script: |
+      bonus bLongAtkRate,30;
+      bonus bDex,20;
+
+  - Id: 46582
+    AegisName: Safari_L_Rifle_S4
+    Name: Longsight Rifle
+    Type: Weapon
+    SubType: Rifle
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 9
+    Slots: 4
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Script: |
+      bonus bLongAtkRate,30;
+      bonus bDex,20;
+
+  - Id: 46583
+    AegisName: Safari_L_Gatling_S4
+    Name: Longsight Gatling
+    Type: Weapon
+    SubType: Gatling
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 9
+    Slots: 4
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Script: |
+      bonus bLongAtkRate,30;
+      bonus bDex,20;
+
+  - Id: 46584
+    AegisName: Safari_L_Shotgun_S4
+    Name: Longsight Shotgun
+    Type: Weapon
+    SubType: Shotgun
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 9
+    Slots: 4
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Script: |
+      bonus bLongAtkRate,30;
+      bonus bDex,20;
+
+  - Id: 46585
+    AegisName: Safari_L_Grenade_S4
+    Name: Longsight Grenade
+    Type: Weapon
+    SubType: Grenade
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 9
+    Slots: 4
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Gunslinger: true
+      Rebellion: true
+    Script: |
+      bonus bLongAtkRate,30;
+      bonus bDex,20;
+
+  - Id: 46586
+    AegisName: Safari_L_Musical_S4
+    Name: Longsight Musical
+    Type: Weapon
+    SubType: Musical
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Attack: 320
+    Range: 1
+    Slots: 4
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      BardDancer: true
+    Script: |
+      bonus bLongAtkRate,30;
+      bonus bDex,20;
+
+  - Id: 46587
+    AegisName: Safari_L_Whip_S4
+    Name: Longsight Whip
+    Type: Weapon
+    SubType: Whip
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Attack: 320
+    Range: 2
+    Slots: 4
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      BardDancer: true
+    Script: |
+      bonus bLongAtkRate,30;
+      bonus bDex,20;
+
+  - Id: 46588
+    AegisName: Safari_M_Crown_S4
+    Name: Mirage Crown
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 300
+    Defense: 60
+    Slots: 4
+    Locations:
+      Head_Top: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    View: 45
+    Script: |
+      bonus bInt,15;
+      bonus bMatkRate,10;
+      bonus2 bMagicAddRace,RC_Brute,30;
+
+  - Id: 46589
+    AegisName: Safari_M_Robe_S4
+    Name: Mirage Robe
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 1200
+    Defense: 180
+    Slots: 4
+    Locations:
+      Armor: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    Script: |
+      bonus bMatk,400+45*(getrefine()/2);
+      if (getrefine()>=7) bonus bMatkRate,25;
+
+  - Id: 46590
+    AegisName: Safari_M_Shroud_S4
+    Name: Mirage Shroud
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Defense: 110
+    Slots: 4
+    Locations:
+      Garment: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    Script: |
+      bonus bMaxHP,7000+400*(getrefine()/2);
+      bonus bMaxSPrate,15;
+      if (getrefine()>=7) bonus bVariableCastrate,-20;
+
+  - Id: 46591
+    AegisName: Safari_M_Sandals_S4
+    Name: Mirage Sandals
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 600
+    Defense: 90
+    Slots: 4
+    Locations:
+      Shoes: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: true
+    Script: |
+      bonus bMaxSPrate,20;
+      bonus bSPrecovRate,50;
+      if (getrefine()>=7) bonus bFixedCastrate,-50;
+
+  - Id: 46592
+    AegisName: Safari_M_Charm_S4
+    Name: Mirage Charm
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 100
+    Defense: 0
+    Slots: 4
+    Locations:
+      Right_Accessory: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: false
+    Script: |
+      bonus bMatkRate,25;
+      bonus bInt,20;
+
+  - Id: 46593
+    AegisName: Safari_M_Eye_S4
+    Name: Mirage Eye
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 100
+    Defense: 0
+    Slots: 4
+    Locations:
+      Left_Accessory: true
+    ArmorLevel: 1
+    EquipLevelMin: 190
+    Refineable: false
+    Script: |
+      bonus bMatkRate,20;
+      bonus2 bMagicAtkEle,Ele_All,15;
+
+  - Id: 46594
+    AegisName: Safari_M_Staff_S4
+    Name: Mirage Staff
+    Type: Weapon
+    SubType: Staff
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Attack: 320
+    Range: 1
+    Slots: 4
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Acolyte: true
+      Mage: true
+      Monk: true
+      Novice: true
+      Priest: true
+      Sage: true
+      SoulLinker: true
+      Spirit_Handler: true
+      Summoner: true
+      SuperNovice: true
+      Wizard: true
+    Script: |
+      bonus bMatkRate,25;
+      bonus bInt,20;
+
+  - Id: 46595
+    AegisName: Safari_M_2hStaff_S4
+    Name: Mirage 2hStaff
+    Type: Weapon
+    SubType: 2hStaff
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 1
+    Slots: 4
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Acolyte: true
+      Mage: true
+      Monk: true
+      Novice: true
+      Priest: true
+      Sage: true
+      SoulLinker: true
+      SuperNovice: true
+      Wizard: true
+    Script: |
+      bonus bMatkRate,25;
+      bonus bInt,20;
+
+  - Id: 46596
+    AegisName: Safari_M_Book_S4
+    Name: Mirage Book
+    Type: Weapon
+    SubType: Book
+    Buy: 0
+    Sell: 0
+    Weight: 900
+    Attack: 320
+    Range: 1
+    Slots: 4
+    Locations:
+      Right_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Archer: true
+      Priest: true
+      Sage: true
+      StarGladiator: true
+      Taekwon: true
+    Script: |
+      bonus bMatkRate,25;
+      bonus bInt,20;
+
   - Id: 44752
     AegisName: Blue_Spear_S4
     Name: Blue Spear
