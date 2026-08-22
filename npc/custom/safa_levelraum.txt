@@ -68,6 +68,17 @@ gef_tower,52,104,4	script	Mysterious Ranger	4_M_ORIENT01,{
 	mes "You carry ^0000FF" + countitem(.muenze) + "^000000.";
 	next;
 
+	// Warnung statt Pruefung: die Hoechststufe haengt an der Klasse
+	// und steht in job_db, ein Skript kommt nicht sauber daran. Wer
+	// schon oben ist, fliegt beim ersten Poring wieder hinaus -
+	// besser, er weiss es vorher.
+	mes "[Mysterious Ranger]";
+	mes "^FF6666One warning.^000000 The place only has";
+	mes "something for those who can still";
+	mes "grow. Stand there at your ceiling and";
+	mes "it puts you back outside.";
+	next;
+
 	if (select("Pay and enter:Not today") == 2) {
 		mes "[Mysterious Ranger]";
 		mes "The spot will still be here.";
@@ -170,11 +181,6 @@ OnNPCKillEvent:
 	getmapxy(.@karte$, .@x, .@y, BL_PC);
 	if (.@karte$ != "2025arena1") end;
 
-	// Zeny zuerst: es gibt es auch dann, wenn beide Stufen schon
-	// am Maximum stehen. Sonst waere der Raum ab Hoechststufe
-	// voellig wertlos.
-	Zeny += .zeny;
-
 	.@b = BaseLevel;
 	.@j = JobLevel;
 
@@ -187,11 +193,29 @@ OnNPCKillEvent:
 	.@db = BaseLevel - .@b;
 	.@dj = JobLevel - .@j;
 
+	// Beide Stufen am Maximum: der Raum hat seinen Zweck erfuellt
+	// und wirft hinaus.
+	//
+	// Ohne das waere er eine Zeny-Quelle: 10.000 je Poring, bei drei
+	// Sekunden Nachwachszeit und sechzig Stueck auf der Karte. Wer
+	// oben angekommen ist, haette hier den mit Abstand
+	// eintraeglichsten Platz des Servers - und die einmaligen 1000
+	// Coins waeren nach einer Minute wieder drin.
+	//
+	// Kein Zeny in diesem Zweig, sonst zaehlte der letzte Kill noch
+	// mit und man koennte im Wechsel toeten und neu betreten.
 	if (.@db == 0 && .@dj == 0) {
-		dispbottom "[Level Room] Both levels at maximum. +"
-		         + .zeny + " Zeny.";
+		// Ohne sleep2: das wuerde das Ereignis anhalten und den
+		// Spieler dabei angehaengt lassen. Meldet er sich in der
+		// Pause ab, laeuft der Rest ins Leere. Die Meldungen kommen
+		// auch so an, der Sprung ist nur unmittelbarer.
+		dispbottom "[Level Room] Base and job level are at maximum.";
+		dispbottom "[Level Room] Nothing left for you here.";
+		warp "SavePoint", 0, 0;
 		end;
 	}
+
+	Zeny += .zeny;
 
 	dispbottom "[Level Room] Base " + BaseLevel + " (+" + .@db + "), "
 	         + "Job " + JobLevel + " (+" + .@dj + "), +"
