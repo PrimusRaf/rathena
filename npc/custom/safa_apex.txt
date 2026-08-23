@@ -474,13 +474,25 @@ OnWecken:
 	//  Damit haelt der Apex Druck, ohne zu einem Schlag zu
 	//  toeten - und die halbierte Heilung ab Phase 3 wird zu
 	//  einem Problem statt zu einer Verzierung.
+	// getunitdata GIBT NICHTS ZURUECK, es fuellt ein Feld -
+	// doc/script_commands.txt:8885. Ein Aufruf der Form
+	// getunitdata(gid, UMOB_X) meldet im Log "Error in argument"
+	// und bricht das Skript ab. Genau daran ist das Wildlife-
+	// System haengengeblieben, bevor es hier auffiel.
+	getunitdata .@gid, .@d;
+
 	setunitdata .@gid, UMOB_ATKMIN, .atk_min;
 	setunitdata .@gid, UMOB_ATKMAX, .atk_max;
-	setunitdata .@gid, UMOB_DEF,    getunitdata(.@gid, UMOB_DEF) + 200;
-	setunitdata .@gid, UMOB_MDEF,   getunitdata(.@gid, UMOB_MDEF) + 200;
+	setunitdata .@gid, UMOB_DEF,    .@d[UMOB_DEF] + 200;
+	setunitdata .@gid, UMOB_MDEF,   .@d[UMOB_MDEF] + 200;
 	setunitdata .@gid, UMOB_LEVEL,  500;
+
+	// MD_CANATTACK ist ein eigenes Flag (mmo.hpp:249). Ohne es
+	// will das Tier angreifen und kann es nicht.
 	setunitdata .@gid, UMOB_MODE,
-	            getunitdata(.@gid, UMOB_MODE) | MD_AGGRESSIVE | MD_CANMOVE;
+	            .@d[UMOB_MODE]
+	            | MD_CANMOVE | MD_CANATTACK | MD_AGGRESSIVE
+	            | MD_ANGRY | MD_CHANGECHASE | MD_CHANGETARGETMELEE;
 
 	announce "A cairn stone has been turned over. " + .@name$
 	         + " is awake, and it is not going back down quietly.",
@@ -602,8 +614,9 @@ S_Totems:
 		// Ganzes (script.cpp:19455). Ein blankes Zuweisen wuerde
 		// alles andere loeschen, was der Guardian Stone
 		// mitbringt.
+		getunitdata .@g, .@dt;
 		setunitdata .@g, UMOB_MODE,
-		            getunitdata(.@g, UMOB_MODE)
+		            .@dt[UMOB_MODE]
 		            | MD_IGNOREMELEE | MD_IGNOREMAGIC
 		            | MD_IGNORERANGED | MD_IGNOREMISC;
 	}
@@ -716,7 +729,8 @@ OnTimer1000:
 		end;
 	}
 
-	.@hp  = getunitdata($@apex_gid, UMOB_HP);
+	getunitdata $@apex_gid, .@ad;
+	.@hp  = .@ad[UMOB_HP];
 	.@pct = .@hp * 100 / $@apex_maxhp;
 
 	if ($@apex_totems > 0) callsub S_Totemschaden;
@@ -829,7 +843,8 @@ S_Totemschaden:
 			continue;
 		}
 
-		.@jetzt = getunitdata(.@g, UMOB_HP);
+		getunitdata .@g, .@td;
+		.@jetzt = .@td[UMOB_HP];
 		.@treffer = $@tot_hp[.@k] - .@jetzt;
 		if (.@treffer <= 0) {
 			$@tot_hp[.@k] = .@jetzt;

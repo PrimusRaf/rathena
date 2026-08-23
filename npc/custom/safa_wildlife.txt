@@ -331,9 +331,21 @@ S_Rudel:
 			dispbottom "  FEHLER: monster hat keine Spielnummer geliefert.";
 		return;
 	}
+	// getunitdata GIBT NICHTS ZURUECK - es fuellt ein Feld.
+	// doc/script_commands.txt:8885: getunitdata <GID>,<arrayname>.
+	// Der Wert steht danach unter dem Index der UMOB-Konstante.
+	//
+	// Das war der Fehler, an dem das ganze System haengengeblieben
+	// ist: jeder Aufruf der Form getunitdata(gid, UMOB_X) hat im
+	// Log "Error in argument! Please give a variable to store
+	// values in" gemeldet, nichts geliefert - und das Skript an
+	// dieser Stelle abgebrochen. Deshalb blieb das Tier bei seinen
+	// Grundwerten, blieb harmlos und bekam nie Helfer.
+	getunitdata .@gid, .@d;
+
 	if (.@laut)
 		dispbottom "  Gespawnt, Spielnummer " + .@gid
-		           + ", Modus vorher " + getunitdata(.@gid, UMOB_MODE);
+		           + ", Modus vorher " + .@d[UMOB_MODE];
 
 	// --- Werte anheben ---------------------------------------
 	//  Der HP-Faktor ist absichtlich degressiv. Vierzigfach ist
@@ -342,7 +354,7 @@ S_Rudel:
 	//  umwirft, bevor der Aufraeumtimer greift. Ein Rudel, das
 	//  man nicht toeten KANN, ist keine Schwierigkeit, sondern
 	//  eine Sperre.
-	.@hp = getunitdata(.@gid, UMOB_MAXHP);
+	.@hp = .@d[UMOB_MAXHP];
 	.@f = .hp_faktor;
 	if (.@hp > 1000000)     .@f = .hp_faktor / 5;
 	else if (.@hp > 100000) .@f = .hp_faktor / 2;
@@ -351,18 +363,12 @@ S_Rudel:
 	setunitdata .@gid, UMOB_MAXHP, .@hp;
 	setunitdata .@gid, UMOB_HP,    .@hp;
 	if (.@laut)
-		dispbottom "  HP gesetzt auf " + .@hp + ", gelesen "
-		           + getunitdata(.@gid, UMOB_MAXHP);
-	setunitdata .@gid, UMOB_ATKMIN,
-	            getunitdata(.@gid, UMOB_ATKMIN) * .atk_faktor;
-	setunitdata .@gid, UMOB_ATKMAX,
-	            getunitdata(.@gid, UMOB_ATKMAX) * .atk_faktor;
-	setunitdata .@gid, UMOB_DEF,
-	            getunitdata(.@gid, UMOB_DEF) + .def_plus;
-	setunitdata .@gid, UMOB_MDEF,
-	            getunitdata(.@gid, UMOB_MDEF) + .def_plus;
-	setunitdata .@gid, UMOB_LEVEL,
-	            getunitdata(.@gid, UMOB_LEVEL) + .lv_plus;
+		dispbottom "  HP gesetzt auf " + .@hp;
+	setunitdata .@gid, UMOB_ATKMIN, .@d[UMOB_ATKMIN] * .atk_faktor;
+	setunitdata .@gid, UMOB_ATKMAX, .@d[UMOB_ATKMAX] * .atk_faktor;
+	setunitdata .@gid, UMOB_DEF,    .@d[UMOB_DEF] + .def_plus;
+	setunitdata .@gid, UMOB_MDEF,   .@d[UMOB_MDEF] + .def_plus;
+	setunitdata .@gid, UMOB_LEVEL,  .@d[UMOB_LEVEL] + .lv_plus;
 
 	// --- Angriffsverhalten -----------------------------------
 	//  MD_AGGRESSIVE allein reicht NICHT, und das war der Fehler
@@ -385,7 +391,7 @@ S_Rudel:
 	//  ODER statt setzen: was das Tier von Haus aus mitbringt -
 	//  Looter, Detector, Elementarimmunitaeten - soll bleiben.
 	setunitdata .@gid, UMOB_MODE,
-	            getunitdata(.@gid, UMOB_MODE)
+	            .@d[UMOB_MODE]
 	            | MD_CANMOVE | MD_CANATTACK | MD_AGGRESSIVE
 	            | MD_ANGRY | MD_CHANGECHASE | MD_CHANGETARGETMELEE;
 
@@ -410,14 +416,14 @@ S_Rudel:
 		unitattack .@gid, .@ziel, 1;
 
 	if (.@laut) {
-		.@m = getunitdata(.@gid, UMOB_MODE);
-		dispbottom "  Modus jetzt " + .@m
-		           + "  CANATTACK=" + ((.@m & MD_CANATTACK) ? 1 : 0)
-		           + " AGGRESSIVE=" + ((.@m & MD_AGGRESSIVE) ? 1 : 0)
-		           + " CANMOVE=" + ((.@m & MD_CANMOVE) ? 1 : 0);
-		dispbottom "  Angriff " + getunitdata(.@gid, UMOB_ATKMIN)
-		           + " bis " + getunitdata(.@gid, UMOB_ATKMAX)
-		           + ", Stufe " + getunitdata(.@gid, UMOB_LEVEL);
+		getunitdata .@gid, .@n;
+		dispbottom "  Modus jetzt " + .@n[UMOB_MODE]
+		           + "  CANATTACK=" + ((.@n[UMOB_MODE] & MD_CANATTACK) ? 1 : 0)
+		           + " AGGRESSIVE=" + ((.@n[UMOB_MODE] & MD_AGGRESSIVE) ? 1 : 0)
+		           + " CANMOVE=" + ((.@n[UMOB_MODE] & MD_CANMOVE) ? 1 : 0);
+		dispbottom "  Angriff " + .@n[UMOB_ATKMIN] + " bis "
+		           + .@n[UMOB_ATKMAX] + ", HP " + .@n[UMOB_MAXHP]
+		           + ", Stufe " + .@n[UMOB_LEVEL];
 	}
 
 	// --- Das Rudel -------------------------------------------
@@ -441,11 +447,12 @@ S_Rudel:
 		.@sg = $@mobid[0];
 		if (!.@sg) continue;
 
-		.@shp = getunitdata(.@sg, UMOB_MAXHP) * .helfer_hp;
+		getunitdata .@sg, .@dh;
+		.@shp = .@dh[UMOB_MAXHP] * .helfer_hp;
 		setunitdata .@sg, UMOB_MAXHP, .@shp;
 		setunitdata .@sg, UMOB_HP,    .@shp;
 		setunitdata .@sg, UMOB_MODE,
-		            getunitdata(.@sg, UMOB_MODE)
+		            .@dh[UMOB_MODE]
 		            | MD_CANMOVE | MD_CANATTACK | MD_AGGRESSIVE
 		            | MD_ANGRY | MD_CHANGECHASE | MD_CHANGETARGETMELEE;
 		if (.@ziel)
@@ -596,8 +603,9 @@ OnTimer60000:
 		// irgendetwas im Server die Werte eines Monsters neu aus
 		// der Datenbank rechnet, waere das Tier sonst still
 		// wieder harmlos - und man saehe nur, dass es dasteht.
+		getunitdata $@wild_gid[.@s], .@dt;
 		setunitdata $@wild_gid[.@s], UMOB_MODE,
-		            getunitdata($@wild_gid[.@s], UMOB_MODE)
+		            .@dt[UMOB_MODE]
 		            | MD_CANMOVE | MD_CANATTACK | MD_AGGRESSIVE
 		            | MD_ANGRY | MD_CHANGECHASE | MD_CHANGETARGETMELEE;
 
