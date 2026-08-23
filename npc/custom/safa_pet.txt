@@ -1,0 +1,103 @@
+// ============================================================
+//  SafaRO - @petfeed
+// ============================================================
+//
+//  Schaltet das Selbstfuettern des mitgefuehrten Tieres um.
+//
+//      @petfeed        umschalten
+//      @petfeed on     einschalten
+//      @petfeed off    ausschalten
+//
+//  WARUM ES DIESEN BEFEHL GIBT
+//
+//  Das Selbstfuettern ist serverseitig an und jedes zaehmbare Tier
+//  darf es:
+//
+//      conf/battle/feature.conf:97   feature.petautofeed: on
+//      conf/battle/feature.conf:101  feature.pet_autofeed_rate: 89
+//      conf/battle/pet.conf:101      pet_autofeed_always: yes
+//      db/import/pet_db.yml          AllowAutoFeed: true, 67 Tiere
+//
+//  Der Schalter selbst liegt aber allein im Client. Er sendet 0x2d8
+//  mit CONFIG_PET_AUTOFEED, und erst clif_parse_configuration
+//  (clif.cpp:17740) setzt pet.autofeed. Unser Client - 2025-07-16
+//  Ragexe, WARP-gebaut - zeichnet das Haekchen im Tierfenster nicht.
+//
+//  Der Server sendet den Zustand durchaus: clif_pet_autofeed_status
+//  (clif.cpp:8386) schickt Paket 0x2d9 beim Schluepfen und bei jedem
+//  Kartenwechsel. Das Paket ist seit PACKETVER 20070227 angemeldet
+//  (clif_packetdb.hpp:920), unser Server laeuft auf 20211103. Es
+//  kommt an, der Client stellt es nur nicht dar.
+//
+//  Also von der anderen Seite: drei eigene Skriptbefehle in
+//  src/custom/script.inc, hier an einen Chatbefehl gehaengt. Damit
+//  ist die Oberflaeche des Clients gleichgueltig.
+//
+//  BEDINGUNG
+//
+//  src/custom/script.inc und script_def.inc muessen einkompiliert
+//  sein. Der Map-Server startet sonst zwar, meldet aber beim Laden
+//  "buildin function not found" und der Befehl tut nichts.
+// ============================================================
+
+-	script	#safa_pet	-1,{
+	end;
+
+OnInit:
+	// Gruppenstufe 0: fuer alle. Es ist eine Bequemlichkeit, keine
+	// Macht - genau wie @autopot in npc/custom/etc/autopot.txt.
+	//
+	// Gebundene Befehle werden ueber die GRUPPENSTUFE geprueft
+	// (atcommand.cpp:12053), nicht ueber die Befehlsliste in
+	// conf/import/groups.yml. Unsere Gruppe 0 hat Stufe 0, dort ist
+	// also nichts nachzutragen.
+	bindatcmd "petfeed", "#safa_pet::OnBefehl", 0, 99;
+	end;
+
+OnBefehl:
+	if (getpetinfo(PETINFO_ID) == 0) {
+		dispbottom "[Pet] You have no pet with you.";
+		end;
+	}
+
+	// Unterscheidung zwischen "aus" und "geht nicht". Ohne sie
+	// bekaeme jemand mit einem nicht selbstfuetternden Tier die
+	// Meldung "switched on" und wuerde sich wundern, warum nichts
+	// passiert.
+	if (petautofeedallowed() == 0) {
+		dispbottom "[Pet] This pet cannot feed itself.";
+		end;
+	}
+
+	.@ist = getpetautofeed();
+
+	if (.@atcmd_numparameters > 0) {
+		.@w$ = .@atcmd_parameters$[0];
+		if (.@w$ == "on" || .@w$ == "1")
+			.@soll = 1;
+		else if (.@w$ == "off" || .@w$ == "0")
+			.@soll = 0;
+		else {
+			dispbottom "[Pet] Use @petfeed, @petfeed on or @petfeed off.";
+			end;
+		}
+	} else
+		.@soll = .@ist ? 0 : 1;
+
+	if (setpetautofeed(.@soll) == 0) {
+		dispbottom "[Pet] Auto-feed could not be changed.";
+		end;
+	}
+
+	if (.@soll) {
+		dispbottom "[Pet] Auto-feed is ^0000FFON^000000.";
+		// Der Hinweis auf das Futter gehoert dazu: pet_food
+		// (pet.cpp:1652) nimmt es aus dem Inventar, und ohne Vorrat
+		// hungert das Tier weiter - lautlos bis auf eine Meldung.
+		dispbottom "[Pet] It eats " + getitemname(getpetinfo(PETINFO_FOODID))
+		         + " from your bag. You carry "
+		         + countitem(getpetinfo(PETINFO_FOODID)) + ".";
+	} else
+		dispbottom "[Pet] Auto-feed is ^777777OFF^000000.";
+	end;
+}

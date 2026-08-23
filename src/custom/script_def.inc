@@ -9,3 +9,14 @@
  **/
 
 //BUILDIN_DEF(example,""),
+
+// --- SafaRO: Selbstfuettern der Tiere, siehe src/custom/script.inc ---
+//
+// "i?" - Schalter, dahinter wahlweise eine char_id.
+// "?"  - nur wahlweise eine char_id.
+//
+// Die Rumpffunktionen stehen in script.inc; script.cpp bindet beide
+// Dateien ein (Zeile 27878 und 28657).
+BUILDIN_DEF(setpetautofeed,"i?"),
+BUILDIN_DEF(getpetautofeed,"?"),
+BUILDIN_DEF(petautofeedallowed,"?"),
