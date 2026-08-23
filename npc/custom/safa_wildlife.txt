@@ -81,7 +81,7 @@
 //  gleich wieder an der Spielersperre und am Rudeldeckel weg.
 OnNPCKillEvent:
 	if (killedrid == 0) end;
-	if ($@wild_aktiv >= .max) end;
+	if (callsub(S_Aktiv) >= .max) end;
 	if (gettimetick(2) < @wild_cd) end;
 	if (rand(10000) >= .chance) end;
 
@@ -160,8 +160,7 @@ OnGM:
 			$@wild_karte$[.@k] = "";
 			$@wild_alter[.@k] = 0;
 		}
-		$@wild_aktiv = 0;
-		dispbottom "[Wildlife] Alle Rudel entfernt, Zaehler auf 0.";
+		dispbottom "[Wildlife] Alle Rudel entfernt.";
 		end;
 	}
 
@@ -194,18 +193,18 @@ OnGM:
 
 		// S_Rudel steigt aus, wenn kein Platz frei ist. Das
 		// merkt man sonst nicht - es passiert schlicht nichts.
-		.@vorher = $@wild_aktiv;
+		.@vorher = callsub(S_Aktiv);
 		// Letztes Argument 1: S_Rudel berichtet, was es tut.
 		callsub S_Rudel, .@map$, .@x, .@y, .@basis, .@i, 1;
 
-		if ($@wild_aktiv == .@vorher) {
+		if (callsub(S_Aktiv) == .@vorher) {
 			dispbottom "[Wildlife] Nichts passiert. Alle " + .max
 			           + " Plaetze belegt - erst \"@wild aus\".";
 			end;
 		}
 		dispbottom "[Wildlife] Erzwungen: "
 		           + getmonsterinfo(.@basis, MOB_NAME)
-		           + ". Aktive Rudel jetzt " + $@wild_aktiv + ".";
+		           + ". Aktive Rudel jetzt " + callsub(S_Aktiv) + ".";
 		end;
 	}
 
@@ -223,8 +222,9 @@ OnGM:
 	dispbottom "  Chance: " + .chance + " von 10000 ("
 	           + (.chance / 100) + "," + (.chance % 100)
 	           + " Prozent) je Kill";
-	dispbottom "  Rudel aktiv: " + $@wild_aktiv + " von " + .max
-	           + (($@wild_aktiv >= .max) ? "  <-- DECKEL ERREICHT, nichts Neues" : "");
+	.@a = callsub(S_Aktiv);
+	dispbottom "  Rudel aktiv: " + .@a + " von " + .max
+	           + ((.@a >= .max) ? "  <-- DECKEL ERREICHT, nichts Neues" : "");
 
 	.@rest = @wild_cd - gettimetick(2);
 	dispbottom "  Deine Sperre: "
@@ -235,11 +235,41 @@ OnGM:
 
 	for (.@k = 0; .@k < .max; .@k++) {
 		if (!$@wild_gid[.@k]) continue;
-		dispbottom "   Platz " + .@k + ": " + $@wild_karte$[.@k]
-		           + ", " + $@wild_alter[.@k] + " Minuten"
-		           + (unitexists($@wild_gid[.@k]) ? "" : "  <-- Tier weg, Platz wird beim naechsten Takt frei");
+		dispbottom "   Platz " + .@k + ": Nr " + $@wild_gid[.@k] + " auf "
+		           + $@wild_karte$[.@k] + ", " + $@wild_alter[.@k] + " Min"
+		           + (unitexists($@wild_gid[.@k]) ? "  lebt" : "  <-- Tier weg, zaehlt nicht mehr mit");
 	}
 	end;
+
+
+// ------------------------------------------------------------
+//  Wieviele Rudel stehen gerade wirklich
+// ------------------------------------------------------------
+//  GEZAEHLT, NICHT MITGESCHRIEBEN - und das ist der Punkt.
+//
+//  Vorher lief hier ein Zaehler $@wild_aktiv mit: eins hoch beim
+//  Aufstellen, eins runter beim Tod, eins runter im Aufraeumtakt.
+//  Drei Stellen, die alle stimmen mussten.
+//
+//  Stimmte eine davon einmal nicht - ein Anfuehrer, den kein
+//  Spieler erlegt hat, ein @killmonster von aussen, ein
+//  Serverzustand zwischen zwei Reloads -, dann stand der Zaehler
+//  zu hoch. Und weil er zu hoch stand, sperrte die allererste
+//  Pruefung im Ausloeser jeden weiteren Spawn. Fuer immer.
+//
+//  Das Fiese daran: $@-Variablen ueberleben @reloadscript. Ein
+//  einmal verklemmter Zaehler blieb also verklemmt, egal wie oft
+//  man die Datei neu lud - nur ein Serverneustart half. Von
+//  aussen sah es aus, als griffe das Skript gar nicht.
+//
+//  Jetzt gibt es keinen Zaehler mehr. Gezaehlt wird, was
+//  tatsaechlich noch lebt. Das kann nicht auseinanderlaufen.
+S_Aktiv:
+	.@n = 0;
+	for (.@z = 0; .@z < .max; .@z++)
+		if ($@wild_gid[.@z] && unitexists($@wild_gid[.@z]))
+			.@n++;
+	return .@n;
 
 
 // ------------------------------------------------------------
@@ -358,6 +388,26 @@ S_Rudel:
 	            | MD_CANMOVE | MD_CANATTACK | MD_AGGRESSIVE
 	            | MD_ANGRY | MD_CHANGECHASE | MD_CHANGETARGETMELEE;
 
+	// --- Und dann der Befehl -----------------------------------
+	//  Die Mode-Flags sagen dem Tier, dass es angreifen DARF.
+	//  Sie sagen ihm nicht, dass es JETZT anfangen soll - das
+	//  entscheidet die Monster-KI im naechsten Takt, und ob sie
+	//  einen Spieler ueberhaupt bemerkt, haengt an Sichtweite,
+	//  Reizschwelle und daran, in welcher KI-Liste das Tier
+	//  gerade steckt.
+	//
+	//  unitattack ueberspringt das alles: es setzt das Ziel
+	//  direkt. Der zweite Parameter 1 heisst "dranbleiben", nicht
+	//  einmal zuschlagen.
+	//
+	//  Ausloeser ist immer ein Spieler - entweder der, der etwas
+	//  erlegt hat, oder der GM mit @wild los. Ohne angehaengten
+	//  Spieler waere getcharid(3) null; die Pruefung faengt das
+	//  ab, statt einen Fehler ins Log zu schreiben.
+	.@ziel = getcharid(3);
+	if (.@ziel)
+		unitattack .@gid, .@ziel, 1;
+
 	if (.@laut) {
 		.@m = getunitdata(.@gid, UMOB_MODE);
 		dispbottom "  Modus jetzt " + .@m
@@ -392,10 +442,15 @@ S_Rudel:
 		            getunitdata(.@sg, UMOB_MODE)
 		            | MD_CANMOVE | MD_CANATTACK | MD_AGGRESSIVE
 		            | MD_ANGRY | MD_CHANGECHASE | MD_CHANGETARGETMELEE;
+		if (.@ziel)
+			unitattack .@sg, .@ziel, 1;
 		.@gebaut++;
 	}
-	if (.@laut)
+	if (.@laut) {
 		dispbottom "  Helfer gestellt: " + .@gebaut + " von " + .helfer;
+		dispbottom "  Angriffsbefehl auf Spielernummer " + .@ziel
+		           + (.@ziel ? "" : "  <-- kein Spieler angehaengt!");
+	}
 
 	// --- Buchfuehrung ----------------------------------------
 	//  $@ ist serverweit und NICHT dauerhaft - genau richtig:
@@ -407,7 +462,6 @@ S_Rudel:
 	$@wild_gid[.@s]    = .@gid;
 	$@wild_karte$[.@s] = .@map$;
 	$@wild_alter[.@s]  = 0;
-	$@wild_aktiv++;
 
 	mapannounce .@map$,
 	    "The ground shifts. A " + .@name$ + " has come up, and it is not alone.",
@@ -431,7 +485,6 @@ OnWildTot:
 		$@wild_gid[.@s]    = 0;
 		$@wild_karte$[.@s] = "";
 		$@wild_alter[.@s]  = 0;
-		if ($@wild_aktiv > 0) $@wild_aktiv--;
 	}
 
 	// Ohne den Anfuehrer loest sich das Rudel auf. killmonster
@@ -530,9 +583,17 @@ OnTimer60000:
 			$@wild_gid[.@s]    = 0;
 			$@wild_karte$[.@s] = "";
 			$@wild_alter[.@s]  = 0;
-			if ($@wild_aktiv > 0) $@wild_aktiv--;
 			continue;
 		}
+
+		// Den Angriffsmodus jede Minute nachziehen. Wenn
+		// irgendetwas im Server die Werte eines Monsters neu aus
+		// der Datenbank rechnet, waere das Tier sonst still
+		// wieder harmlos - und man saehe nur, dass es dasteht.
+		setunitdata $@wild_gid[.@s], UMOB_MODE,
+		            getunitdata($@wild_gid[.@s], UMOB_MODE)
+		            | MD_CANMOVE | MD_CANATTACK | MD_AGGRESSIVE
+		            | MD_ANGRY | MD_CHANGECHASE | MD_CHANGETARGETMELEE;
 
 		$@wild_alter[.@s]++;
 		if ($@wild_alter[.@s] < .leben) continue;
@@ -553,7 +614,6 @@ OnTimer60000:
 		$@wild_gid[.@s]    = 0;
 		$@wild_karte$[.@s] = "";
 		$@wild_alter[.@s]  = 0;
-		if ($@wild_aktiv > 0) $@wild_aktiv--;
 	}
 	setnpctimer 0;
 	end;
@@ -613,7 +673,6 @@ OnInit:
 		$@wild_karte$[.@s] = "";
 		$@wild_alter[.@s]  = 0;
 	}
-	$@wild_aktiv = 0;
 
 	// --- Karte -> Arten --------------------------------------
 	//  .karte$   Kartennamen, alphabetisch (310 Stueck)
