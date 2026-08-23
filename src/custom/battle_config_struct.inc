@@ -12,3 +12,8 @@
  *	 <datatype> name;
  **/
 
+// --- SafaRO ---------------------------------------------------
+// Darf der Client das Selbstfuettern des Tieres umschalten?
+// Begruendung in conf/import/battle_conf.txt und in clif.cpp an der
+// Stelle CONFIG_PET_AUTOFEED.
+int32 pet_autofeed_client_toggle;

@@ -339,3 +339,25 @@ item_rate_treasure: 100
 //  (pet.cpp:242). Das Tier wuerde bei jeder Mahlzeit Vertrautheit
 //  verlieren statt gewinnen.
 feature.pet_autofeed_rate: 25
+
+// --- Der Client darf das Selbstfuettern NICHT umschalten ---
+//  Eigener Schalter, kein rAthena-Standard. Angelegt in
+//  src/custom/battle_config_struct.inc und _init.inc, geprueft wird
+//  er in clif.cpp bei CONFIG_PET_AUTOFEED.
+//
+//  Warum: unser Client zeichnet das Haekchen im Tierfenster gar
+//  nicht, schickt seinen Zustand aber bei jedem Kartenwechsel mit -
+//  und der ist damit immer AUS. Das ueber @petfeed eingeschaltete
+//  Selbstfuettern ging deshalb bei jedem Kartenwechsel wieder aus.
+//
+//  Dass genau das die Ursache war, laesst sich belegen: pet.autofeed
+//  wird im ganzen Map-Server an EINER Stelle geschrieben, naemlich
+//  clif.cpp:17745 in der Verarbeitung dieses Pakets. Kein Timer und
+//  kein Speichervorgang fasst das Feld sonst an.
+//
+//  Mit 0 hoert der Server auf, dem Client hier zu glauben.
+//  Geschaltet wird allein ueber @petfeed.
+//
+//  Sollte je ein Client zum Einsatz kommen, der das Haekchen
+//  darstellt: hier auf 1, @reloadbattleconf, fertig.
+pet_autofeed_client_toggle: 0

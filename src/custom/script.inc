@@ -84,6 +84,14 @@ BUILDIN_FUNC(setpetautofeed)
 
 	sd->pd->pet.autofeed = script_getnum(st, 2) != 0;
 
+	// Sofort wegschreiben, nicht erst beim naechsten Speicheranlass.
+	// pet.autofeed steht in struct s_pet und geht mit dem ganzen
+	// Datensatz an den Char-Server (intif.cpp:147). Ohne diese Zeile
+	// haengt es davon ab, ob der Charakter vor dem Abmelden noch
+	// gespeichert wird - und der Schalter waere mal dauerhaft, mal
+	// nicht.
+	intif_save_petdata(sd->status.account_id, &sd->pd->pet);
+
 	// Den Client trotzdem unterrichten. Zeichnet er das Haekchen
 	// nicht, schadet es nicht; zeichnet er es doch, stimmt es.
 	clif_pet_autofeed_status(sd, true);

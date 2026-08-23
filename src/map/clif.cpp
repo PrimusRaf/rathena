@@ -17737,6 +17737,28 @@ void clif_parse_configuration( int32 fd, map_session_data* sd ){
 			sd->status.disable_call = flag;
 			break;
 		case CONFIG_PET_AUTOFEED:
+			// --- SafaRO ---------------------------------------------
+			// Unser Client (2025-07-16 Ragexe, WARP) zeichnet das
+			// Haekchen im Tierfenster nicht, schickt bei jedem
+			// Kartenwechsel aber trotzdem diesen Zustand - und der ist
+			// dann natuerlich AUS. Ergebnis: das ueber @petfeed
+			// eingeschaltete Selbstfuettern ging bei jeder Karte
+			// wieder aus.
+			//
+			// Nachgeprueft, dass es wirklich hier passiert: pet.autofeed
+			// wird im ganzen Map-Server an genau einer Stelle
+			// geschrieben, naemlich der Zeile unten. Kein Timer, kein
+			// Speichervorgang, nichts sonst fasst das Feld an.
+			//
+			// Mit pet_autofeed_client_toggle: 0 hoert der Server auf,
+			// dem Client hier zu glauben. Geschaltet wird dann allein
+			// ueber @petfeed (npc/custom/safa_pet.txt und
+			// src/custom/script.inc).
+			if( !battle_config.pet_autofeed_client_toggle ){
+				return;
+			}
+			// --- Ende SafaRO ----------------------------------------
+
 			// Player can not click this if he does not have a pet
 			if( sd->pd == nullptr || !battle_config.feature_pet_autofeed || !sd->pd->get_pet_db()->allow_autofeed ){
 				return;
