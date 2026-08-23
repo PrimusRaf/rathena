@@ -36,7 +36,7 @@ rachel,123,116,6	duplicate(Job Master)	Job Master#rac	123
 splendide,199,153,4	duplicate(Job Master)	Job Master#spl	123
 thor_camp,247,74,4	duplicate(Job Master)	Job Master#thor	123
 umbala,103,148,3	duplicate(Job Master)	Job Master#umb	123
-veins,215,121,4	duplicate(Job Master)	Job Master#ve	123
+veins,208,110,4	duplicate(Job Master)	Job Master#ve	123
 xmas,141,136,4	duplicate(Job Master)	Job Master#xmas	123
 yuno,162,45,4	duplicate(Job Master)	Job Master#yuno	123
 brasilis,192,221,6	duplicate(Job Master)	Job Master#bra	123

@@ -61,11 +61,14 @@
 // ------------------------------------------------------------
 //  Der Ausruester
 // ------------------------------------------------------------
-//  Steht am Ende der Reihe mit den Episoden-Tauschstellen. Die
-//  Koordinate war in Prontera 136,180 - von Raffael, nachdem
-//  mein Vorschlag 134,180 nicht passte. Seit Episode 22 steht er
-//  auf veins 219,129, am oestlichen Ende derselben Reihe.
-veins,219,129,4	script	Safari Outfitter#safa	4_M_ORIENT01,{
+//  veins 193,120 - Koordinate von Raffael, im Spiel abgelesen.
+//
+//  Er ist bewusst NICHT mit den Episoden-Tauschstellen nach
+//  Norden gezogen, obwohl er in Prontera in derselben Reihe
+//  stand. Er gehoert zur Safari, nicht zu den Episoden, und man
+//  braucht ihn oefter als eine Tauschstelle - deshalb bleibt er
+//  in Reichweite des Ankunftsplatzes.
+veins,193,120,4	script	Safari Outfitter#safa	4_M_ORIENT01,{
 
 	mes "[Safari Outfitter]";
 	mes "Three ways to take an animal down.";

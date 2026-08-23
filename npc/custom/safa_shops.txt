@@ -19,11 +19,10 @@
 //=   Custom Merchant  Kopfbedeckungen, 500 bis 1000 Coins
 //=
 //===== NPC-Raster Veins: ====================================
-//= Seit Episode 22 ist Veins die Hauptstadt. Beide Haendler
-//= stehen in der Dienstezeile auf y = 125, im Achterraster:
+//= Seit Episode 22 ist Veins die Hauptstadt.
 //=
-//=   214,125   Coin Exchanger
-//=   198,125   Custom Merchant
+//=   214,125   Coin Exchanger    Dienstezeile
+//=   195,118   Custom Merchant   abgesetzt, Koordinate von Raffael
 //=
 //= Der vollstaendige Plan des Quartiers - alle vier Reihen und
 //= wie die Koordinaten geprueft wurden - steht EINMAL, im Kopf
@@ -246,7 +245,7 @@ OnInit:
 -	itemshop	Eyes#safa	-1,30001,30021:750,30022:1000,30031:750
 -	itemshop	Auras#safa	-1,30001,30030:500,30032:1000,30033:800,30034:800,30035:800,30036:800,30037:800,30038:800,30039:800,30040:800,30041:800,30042:800
 
-veins,198,125,4	script	Custom Merchant#safa	1_F_MERCHANT_02,{
+veins,195,118,4	script	Custom Merchant#safa	1_F_MERCHANT_02,{
 
 	mes "[Custom Merchant]";
 	mes "Nothing here came from a monster or a";

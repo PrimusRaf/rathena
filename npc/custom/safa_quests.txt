@@ -94,13 +94,16 @@
 //
 //  STANDORT
 //
-//  veins 226,121. Beginn der Questreihe im Veins-Quartier;
-//  weitere Questgeber ruecken auf y=121 im Viererraster nach
-//  Osten nach (230, 234, 238). Zelle geprueft mit
+//  veins 212,134. Beginn der Questreihe; The Cairn steht auf
+//  216,134 und das Hunter's Ledger auf 220,134. Weitere
+//  Questgeber ruecken auf y=134 im Viererraster nach Osten nach
+//  (224, 228, 232).
+//
+//  Koordinaten von Raffael, im Spiel abgelesen. Geprueft mit
 //  tools/karte/hauptstadt_veins.py: begehbar, erreichbar, frei.
 // ============================================================
 
-veins,226,121,4	script	Grey Wolf Elder#safa	4_EP18_GW_MAN01,{
+veins,212,134,4	script	Grey Wolf Elder#safa	4_EP18_GW_MAN01,{
 
 	mes "[Grey Wolf Elder]";
 	if (hq_stufe == 0 && !hq_offen) {

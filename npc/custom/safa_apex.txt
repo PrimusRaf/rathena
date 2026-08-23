@@ -179,11 +179,12 @@
 // ============================================================
 //  Der Cairn - Eintritt zur Jagd
 // ------------------------------------------------------------
-//  veins 230,121, zweiter Platz der Questreihe. Geprueft mit
+//  veins 216,134, zweiter Platz der Questreihe. Der Grey Wolf
+//  Elder steht auf 212,134, das Ledger auf 220,134. Geprueft mit
 //  tools/karte/hauptstadt_veins.py.
 // ============================================================
 
-veins,230,121,4	script	The Cairn#safa	4_EP18_GW_WOMAN01,{
+veins,216,134,4	script	The Cairn#safa	4_EP18_GW_WOMAN01,{
 
 	mes "[The Cairn]";
 	mes "Stones piled by people who are all dead";
@@ -1129,7 +1130,7 @@ OnInit:
 //    led_w0/1/2    Startwerte der Zaehler beim Annehmen
 // ============================================================
 
-veins,234,121,4	script	Hunter's Ledger#safa	4_M_ORIENT01,{
+veins,220,134,4	script	Hunter's Ledger#safa	4_M_ORIENT01,{
 
 	if (BaseLevel < .min_lv) {
 		mes "[Hunter's Ledger]";

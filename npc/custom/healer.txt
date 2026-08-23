@@ -78,7 +78,7 @@ rachel,125,116,6	duplicate(Healer)	Healer#rac	909
 splendide,201,153,4	duplicate(Healer)	Healer#spl	909
 thor_camp,249,74,4	duplicate(Healer)	Healer#thor	909
 umbala,105,148,3	duplicate(Healer)	Healer#umb	909
-veins,217,121,4	duplicate(Healer)	Healer#ve	909
+veins,208,112,4	duplicate(Healer)	Healer#ve	909
 xmas,143,136,4	duplicate(Healer)	Healer#xmas	909
 yuno,164,45,4	duplicate(Healer)	Healer#yuno	909
 
