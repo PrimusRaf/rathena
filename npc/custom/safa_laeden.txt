@@ -44,6 +44,7 @@
 -	shop	GemstoneTradSkills	-1,715:-1,716:-1,717:-1
 -	shop	AcolyteSupplSkills	-1,523:-1,717:-1,12333:450
 -	shop	AcolyteSupplCrafting	-1,713:-1,717:-1
+-	shop	SquireReady	-1,12725:-1,12726:-1,12727:-1,12728:-1,12729:-1,12730:-1,12731:-1,12732:-1,12733:-1,22540:-1
 -	shop	SquireCrafting	-1,518:-1,716:-1,969:-1,1034:-1,1035:-1,1048:-1,1096:-1,7002:-1,7030:-1,7069:-1,7097:-1,7099:-1,7123:-1,7210:-1,7221:-1,7938:-1,7939:-1
 -	shop	TemplarSupplSkills	-1,523:-1,545:-1,546:-1,547:-1,905:-1,921:-1,7135:-1,7136:-1,7139:-1
 -	shop	GunRunnerSkills	-1,7663:-1,7664:-1,7665:-1,7940:-1,25187:-1,1000564:-1
@@ -204,14 +205,20 @@ prontera,153,233,4	script	Squire#safa	4_M_JOB_KNIGHT1,{
 	mes "[Squire]";
 	mes "Runes and steel. Bring the arm, I bring the rest.";
 	next;
-	if (select("Show me what you have:Not today") == 2) {
+	switch (select("Runes (10):What my recipes need (17):Not today")) {
+	case 1:
+		close2;
+		callshop "SquireReady", 1;
+		end;
+	case 2:
+		close2;
+		callshop "SquireCrafting", 1;
+		end;
+	default:
 		mes "[Squire]";
 		mes "Another time, then.";
 		close;
 	}
-	close2;
-	callshop "SquireCrafting", 1;
-	end;
 }
 
 prontera,165,233,4	script	Templar Supplier#safa	4_M_CRU_KNT,{
