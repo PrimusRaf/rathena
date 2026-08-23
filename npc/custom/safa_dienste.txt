@@ -31,11 +31,22 @@
 //=     206  Supply Master       214  Coin Exchanger
 //=     222  Reset Master        230  Kafra Employee
 //=
-//= y=129  EPISODEN UND SAFARI, alle fuenf Felder
-//=     189  Episode 17.1        194  Episode 17.2
-//=     199  Episode 18          204  Episode 19
-//=     209  Episode 20          214  Episode 21
+//= y=129  SAFARI
 //=     219  Safari Outfitter
+//=
+//= DIE EPISODEN, noerdlich des Platzes
+//=     182,90  Episode 17.1     198,90  Episode 20
+//=     184,92  Episode 17.2     196,88  Episode 21
+//=     186,94  Episode 18
+//=     188,96  Episode 19
+//=
+//=     Vier als Treppe nach Nordwesten, zwei abgesetzt daneben.
+//=     Koordinaten von Raffael, im Spiel abgelesen - derselbe
+//=     Grund wie beim Basar, siehe unten.
+//=
+//=     Der Safari Outfitter bleibt am Platz: er gehoert zur
+//=     Safari, nicht zu den Episoden, und wird oefter gebraucht
+//=     als eine Tauschstelle.
 //=
 //= DER BASAR, sechzehn Klassenlaeden im Sueden
 //=
