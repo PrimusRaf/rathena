@@ -332,7 +332,8 @@ S_Rudel:
 		return;
 	}
 	if (.@laut)
-		dispbottom "  Gespawnt, Spielnummer " + .@gid;
+		dispbottom "  Gespawnt, Spielnummer " + .@gid
+		           + ", Modus vorher " + getunitdata(.@gid, UMOB_MODE);
 
 	// --- Werte anheben ---------------------------------------
 	//  Der HP-Faktor ist absichtlich degressiv. Vierzigfach ist
@@ -426,8 +427,13 @@ S_Rudel:
 	//  haerter zuschlaegt als sein Namensvetter daneben.
 	.@a = .von[.@i];
 	.@n = .anz[.@i];
+	if (.@laut)
+		dispbottom "  Rudelquelle: Index " + .@i + ", .von=" + .@a
+		           + ", .anz=" + .@n + ", .helfer=" + .helfer;
 	for (.@k = 0; .@k < .helfer; .@k++) {
 		.@art = .art[.@a + rand(.@n)];
+		if (.@laut)
+			dispbottom "   Helfer " + (.@k + 1) + ": Art " + .@art;
 
 		monster .@map$, .@x, .@y,
 		        "Wildlife " + getmonsterinfo(.@art, MOB_NAME),
