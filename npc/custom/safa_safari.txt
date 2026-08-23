@@ -62,9 +62,10 @@
 //  Der Ausruester
 // ------------------------------------------------------------
 //  Steht am Ende der Reihe mit den Episoden-Tauschstellen. Die
-//  Koordinate kommt von Raffael - 134,180 war mein Vorschlag und
-//  passte nicht.
-prontera,136,180,4	script	Safari Outfitter#safa	4_M_ORIENT01,{
+//  Koordinate war in Prontera 136,180 - von Raffael, nachdem
+//  mein Vorschlag 134,180 nicht passte. Seit Episode 22 steht er
+//  auf veins 219,129, am oestlichen Ende derselben Reihe.
+veins,219,129,4	script	Safari Outfitter#safa	4_M_ORIENT01,{
 
 	mes "[Safari Outfitter]";
 	mes "Three ways to take an animal down.";

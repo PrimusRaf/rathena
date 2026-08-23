@@ -47,9 +47,9 @@
 // ------------------------------------------------------------
 //  Der Haendler
 // ------------------------------------------------------------
-//  prontera 167,178 - gegen db/map_cache.dat geprueft: begehbar.
+//  veins 184,126 - gegen db/map_cache.dat geprueft: begehbar.
 
-prontera,167,178,4	script	Pet Caretaker#safa	4_M_DOGTRAVELER,{
+veins,184,126,2	script	Pet Caretaker#safa	4_M_DOGTRAVELER,{
 
 	mes "[Pet Caretaker]";
 	mes "Every one of them eats something";

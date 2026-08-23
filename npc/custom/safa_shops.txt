@@ -18,22 +18,21 @@
 //=   Coin Exchanger   Destiny Ore, 20 Coins das Stueck
 //=   Custom Merchant  Kopfbedeckungen, 500 bis 1000 Coins
 //=
-//===== NPC-Raster Prontera: =================================
-//= Neue NPCs stehen ab jetzt auf einer Linie bei x = 146 und
-//= ruecken in 20er-Schritten nach unten:
+//===== NPC-Raster Veins: ====================================
+//= Seit Episode 22 ist Veins die Hauptstadt. Beide Haendler
+//= stehen in der Dienstezeile auf y = 125, im Achterraster:
 //=
-//=   146,172   Coin Exchanger
-//=   146,152   Custom Merchant
-//=   146,132   frei
-//=   146,112   frei
-//=   146, 92   frei, aber eng - Kafra steht auf 146,89 und der
-//=             Briefkasten auf 146,86. Ab hier lieber auf eine
-//=             zweite Spalte ausweichen, etwa x = 152.
+//=   214,125   Coin Exchanger
+//=   198,125   Custom Merchant
 //=
-//= Alle Felder gegen db/re/map_cache.dat geprueft und begehbar
-//= (Zelltyp 0). Zwischen y 92 und 180 steht auf x 143-149 sonst
-//= nichts, geprueft gegen alle 845 geladenen NPC-Dateien.
-//= Prontera ist 312 x 392 Zellen gross.
+//= Der vollstaendige Plan des Quartiers - alle vier Reihen und
+//= wie die Koordinaten geprueft wurden - steht EINMAL, im Kopf
+//= von npc/custom/safa_dienste.txt. Bitte nicht hier ein
+//= zweites Mal pflegen; genau daran ist das Prontera-Raster
+//= zuletzt veraltet.
+//=
+//= Frei in derselben Zeile sind 238 und 246. Weiter oestlich
+//= wird es eng: bei 227,127 steht Ivory.
 //=
 //= Spieltexte durchgehend englisch, ohne Umlaute.
 //============================================================
@@ -76,7 +75,7 @@
 //  Waehrung 30001 (Destiny Coin), dann Item:Preis.
 -	itemshop	Frontier#safa	-1,30001,25669:5,25723:5,1000103:1,1000104:1,1000405:1,1000608:1,1001618:1
 
-prontera,146,172,4	script	Coin Exchanger#safa	1_M_MERCHANT,{
+veins,214,125,4	script	Coin Exchanger#safa	1_M_MERCHANT,{
 
 	mes "[Coin Exchanger]";
 	mes "Coins in, ore out. That is the whole";
@@ -247,7 +246,7 @@ OnInit:
 -	itemshop	Eyes#safa	-1,30001,30021:750,30022:1000,30031:750
 -	itemshop	Auras#safa	-1,30001,30030:500,30032:1000,30033:800,30034:800,30035:800,30036:800,30037:800,30038:800,30039:800,30040:800,30041:800,30042:800
 
-prontera,146,152,4	script	Custom Merchant#safa	1_F_MERCHANT_02,{
+veins,198,125,4	script	Custom Merchant#safa	1_F_MERCHANT_02,{
 
 	mes "[Custom Merchant]";
 	mes "Nothing here came from a monster or a";

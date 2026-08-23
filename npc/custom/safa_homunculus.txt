@@ -9,8 +9,11 @@
 //=   3  Evolution Help      normal -> evolved -> Homunculus S
 //=   4  Reset               Werte neu wuerfeln
 //=
-//= Steht bei 128,211, zwei Felder neben dem Riding Creature
-//= Master (prontera,130,213) und mit derselben Blickrichtung 5.
+//= Steht seit Episode 22 auf veins 184,123, am unteren Ende der
+//= Handwerkerspalte. Der Riding Creature Master, neben dem er in
+//= Prontera stand (prontera,130,213), ist dort geblieben - er
+//= gehoert rAthena, nicht uns. Die Nachbarschaft war ohnehin nur
+//= thematisch: beide vermieten etwas, das mitlaeuft.
 //=
 //= Nicht zu verwechseln mit dem "Universal Rental NPC" aus
 //= npc/custom/breeder.txt - der steht bei 124,201 und ist gar
@@ -60,7 +63,7 @@
 -	shop	Alchemy#homfreak	-1,507:-1,508:-1,509:-1,510:-1,511:-1,514:-1,518:-1,522:-1,523:-1,525:-1,526:-1,528:-1,568:-1,576:-1,607:-1,608:-1,610:-1,645:-1,656:-1,678:-1,704:-1,705:-1,708:-1,713:-1,715:-1,716:-1,717:-1,905:-1,911:-1,921:-1,929:-1,950:-1,952:-1,969:-1,991:-1,998:-1,1012:-1,1017:-1,1032:-1,1033:-1,1044:-1,1050:-1,1051:-1,1057:-1,1059:-1,1061:-1,1092:-1,1093:-1,6217:-1,6244:-1,6248:-1,6249:-1,6250:-1,6251:-1,6252:-1,6253:-1,6254:-1,6255:-1,6256:-1,6257:-1,6258:-1,6259:-1,6260:-1,6261:-1,6262:-1,6284:-1,6285:-1,6360:-1,6361:-1,6362:-1,6363:-1,7033:-1,7126:-1,7127:-1,7128:-1,7129:-1,7130:-1,7131:-1,7132:-1,7133:-1,7144:-1,7182:-1,7434:-1,7453:-1,7455:-1,11022:-1,11023:-1,11024:-1,11621:-1,11622:-1,11623:-1,11624:-1,1000275:-1
 -	shop	HomSupply#homfreak	-1,537:-1,910:-1,911:-1,912:-1,6098:-1,6104:-1,6108:-1,6112:-1,6115:-1,7142:-1,7140:-1,7143:-1,7141:-1,7224:1000000,6415:1000000
 
-prontera,128,211,5	script	Homunculus Freak	4_M_ALCHE_A,{
+veins,184,123,2	script	Homunculus Freak	4_M_ALCHE_A,{
 
 	mes "[Homunculus Freak]";
 	mes "Ah, a colleague. Or at least someone";

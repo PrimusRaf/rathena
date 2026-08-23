@@ -1397,6 +1397,13 @@ function	script	F_SafaRefresh	{
 		             "bonus bFleeRate,-" + .@pen + "; " +
 		             "bonus bHitRate,-" + .@pen + ";", 2000000, 512, 0, EFST_ALL_STAT_DOWN;
 	}
+
+	// Die Apex-Arena hat hier nichts stehen, und das ist eine
+	// bewusste Entscheidung: ihre Totem-Abstufung laeuft ueber
+	// UMOB_DAMAGETAKEN am Apex selbst, nicht ueber einen
+	// bonus_script am Spieler. Siehe npc/custom/safa_apex.txt,
+	// S_Skalierung. Wer beides baute, wuerde den Abzug zweimal
+	// anwenden - aus 20 Prozent wuerden 4.
 	return;
 }
 

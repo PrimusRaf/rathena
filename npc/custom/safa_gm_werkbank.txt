@@ -88,52 +88,62 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 	}
 
 	if (.@was & 1) {
-		mes "[GM Workbench]";
-		mes "The ones the Artisan uses:";
-		mes " ";
-		mes "  ^0000FF17^000000 ATK        ^0000FF14^000000 MATK in percent";
-		mes "  ^0000FF 1^000000 Max HP     ^0000FF 2^000000 Max SP";
-		mes "  ^0000FF 3^000000 STR  ^0000FF4^000000 AGI  ^0000FF5^000000 VIT";
-		mes "  ^0000FF 6^000000 INT  ^0000FF7^000000 DEX  ^0000FF8^000000 LUK";
-		mes "  ^0000FF15^000000 ASPD       ^0000FF24^000000 Critical";
-		mes " ";
-		mes "^777777Values are stored as int16 - 32767 is the ceiling.^000000";
-		next;
+		.@einzeln = select("All five the same:Five different ones") - 1;
+		.@zeile$ = "";
 
-		if (select("All five the same:Five different ones") == 1) {
-			input .@id, 1, 255;
+		// Ein Durchlauf bei "alle gleich", fuenf bei "verschieden".
+		.@bis = .@einzeln ? 5 : 1;
+
+		for (.@i = 0; .@i < .@bis; .@i++) {
+
+			// KEIN next vor input.
+			//
+			// next leert das Fenster, und der Eingabekasten steht
+			// dann vor leerem Grund - genau deshalb war die Liste
+			// beim Tippen nicht mehr zu sehen. Ohne next bleibt der
+			// Text stehen, waehrend der Kasten darueber liegt.
+			mes "[GM Workbench]";
+			if (.@einzeln)
+				mes "Slot ^0000FF" + (.@i + 1) + "^000000 of 5 - which option?";
+			else
+				mes "Which option for all five slots?";
+			mes " ";
+			for (.@z = 0; .@z < 5; .@z++)
+				mes .hilfe$[.@z];
+			mes " ";
+			if (.@einzeln)
+				mes "^7777770 leaves this slot empty.^000000";
+			input .@id, (.@einzeln ? 0 : 1), 255;
+
+			// Id 0 laesst einen Platz leer. Dafuer haben wir in
+			// db/import/item_randomopt_db.yml eigens einen Eintrag
+			// VAR_NOTHING angelegt: setrandomoption lehnt jede
+			// unbekannte Id ab, und die amtliche Datenbank beginnt
+			// erst bei 1.
+			if (.@id == 0) {
+				setrandomoption(.@teil, .@i, 0, 0, 0);
+				.@zeile$ = .@zeile$ + (.@i + 1) + ": empty  ";
+				next;
+				continue;
+			}
+
+			// Zweite Frage, getrennt von der ersten - und die
+			// gewaehlte Id steht dabei vor Augen.
+			mes " ";
+			mes "Option ^0000FF" + .@id + "^000000 - which value?";
+			mes "^777777Stored as int16, so 32767 is the ceiling.^000000";
 			input .@wert, 1, 32767;
 
-			// Alle fuenf Plaetze. Index laeuft von 0 bis 4.
-			for (.@i = 0; .@i < 5; .@i++)
-				setrandomoption(.@teil, .@i, .@id, .@wert, 0);
-
-			.@zeile$ = "id " + .@id + ", value " + .@wert + " on all five";
-		} else {
-			// Platz fuer Platz. Id 0 laesst einen Platz leer - dafuer
-			// haben wir in db/import/item_randomopt_db.yml eigens
-			// einen Eintrag VAR_NOTHING angelegt, weil
-			// setrandomoption jede unbekannte Id ablehnt und die
-			// amtliche Datenbank erst bei 1 beginnt.
-			.@zeile$ = "";
-			for (.@i = 0; .@i < 5; .@i++) {
-				mes "[GM Workbench]";
-				mes "Slot ^0000FF" + (.@i + 1) + "^000000 of 5.";
-				mes "^7777770 leaves this slot empty.^000000";
-				next;
-				input .@id, 0, 255;
-
-				if (.@id == 0) {
-					setrandomoption(.@teil, .@i, 0, 0, 0);
-					.@zeile$ = .@zeile$ + (.@i + 1) + ": empty  ";
-					continue;
-				}
-
-				input .@wert, 1, 32767;
+			if (.@einzeln) {
 				setrandomoption(.@teil, .@i, .@id, .@wert, 0);
 				.@zeile$ = .@zeile$ + (.@i + 1) + ": " + .@id
 				         + "/" + .@wert + "  ";
+			} else {
+				for (.@z = 0; .@z < 5; .@z++)
+					setrandomoption(.@teil, .@z, .@id, .@wert, 0);
+				.@zeile$ = "id " + .@id + ", value " + .@wert + " on all five";
 			}
+			next;
 		}
 
 		// setrandomoption schreibt in den Gegenstand, rechnet die
@@ -162,6 +172,16 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 
 OnInit:
 	.stufe = 99;   // ab dieser Gruppenstufe sicht- und bedienbar
+
+	// Die Optionsliste steht einmal hier statt dreimal im Ablauf.
+	// Es sind dieselben zwoelf, die der Master Artisan vergibt -
+	// siehe tools/schmied/bauen.py, OPTIONEN.
+	setarray .hilfe$[0],
+		"  ^0000FF17^000000 ATK          ^0000FF14^000000 MATK in percent",
+		"  ^0000FF 1^000000 Max HP       ^0000FF 2^000000 Max SP",
+		"  ^0000FF 3^000000 STR   ^0000FF4^000000 AGI   ^0000FF5^000000 VIT",
+		"  ^0000FF 6^000000 INT   ^0000FF7^000000 DEX   ^0000FF8^000000 LUK",
+		"  ^0000FF15^000000 ASPD         ^0000FF24^000000 Critical";
 	end;
 
 // ------------------------------------------------------------

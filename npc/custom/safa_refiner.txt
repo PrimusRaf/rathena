@@ -24,7 +24,7 @@
 //= Spieltexte englisch, ohne Umlaute.
 //============================================================
 
-prontera,150,193,4	script	Ironhand#safa	4_M_02,{
+veins,211,121,4	script	Ironhand#safa	4_M_02,{
 
 	// Erz je Ausruestungsart. Waffenstufe 0 = Ruestung.
 	function GetOre {

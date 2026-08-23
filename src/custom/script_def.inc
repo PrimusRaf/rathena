@@ -20,3 +20,10 @@
 BUILDIN_DEF(setpetautofeed,"i?"),
 BUILDIN_DEF(getpetautofeed,"?"),
 BUILDIN_DEF(petautofeedallowed,"?"),
+
+// --- SafaRO: Sonne, Mond und Stern einzeln, siehe script.inc ---
+//
+// rAthenas resetfeel loescht alle drei zugleich. Diese beiden fassen
+// je eine Zuweisung an und koennen sie auch anzeigen.
+BUILDIN_DEF(resetfeelone,"i?"),
+BUILDIN_DEF(getfeelmap,"i?"),

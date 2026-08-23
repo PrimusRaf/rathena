@@ -69,3 +69,75 @@ Body:
     Targets:
       - Mob: ALARM
         Count: 300
+
+# ==========================================================
+#  SafaRO - Episode 22: The Hunt
+# ----------------------------------------------------------
+#  Die Kette des Grey Wolf Elder, npc/custom/safa_quests.txt.
+#  Sechs Stufen von Level 20 bis 300.
+#
+#  ID-BEREICH
+#
+#  70260 bis 70265. Die hoechste amtliche Quest-Id in
+#  db/re/quest_db.yml ist 62238 - nachgezaehlt, nicht
+#  geschaetzt. Der 70er-Bereich ist damit frei, und 70251
+#  liegt schon dort.
+#
+#  WARUM VIER DER SECHS UEBER "RACE" LAUFEN
+#
+#  Das Questsystem kann seit Version 3 auf Rasse und
+#  Monsterlevel zaehlen statt auf einzelne Monsternamen
+#  (Race, MinLevel). Damit zaehlt jedes Tier ab der
+#  geforderten Stufe, egal wo es steht - der Spieler bekommt
+#  keine Marschroute vorgeschrieben, sondern ein Ziel.
+#  rAthena macht es bei seinen eigenen "Warrior Discipline"-
+#  Quests genauso.
+#
+#  "Id: 1" ist dabei Pflicht: ohne diesen Index behandelt der
+#  Parser den Eintrag als Monsterziel ohne Monster und
+#  verwirft ihn.
+#
+#  ZWEI QUESTS HABEN ABSICHTLICH KEIN ZIEL
+#
+#  70263 und 70265 zaehlen erlegte Wildlife-Anfuehrer. Das
+#  kann das Questsystem nicht - ein Wildlife ist kein eigener
+#  Monstertyp, sondern ein aufgewertetes gewoehnliches Tier
+#  (siehe npc/custom/safa_wildlife.txt). Gezaehlt wird deshalb
+#  in der Charaktervariable wild_erlegt, und der Eintrag hier
+#  dient nur dem Questfenster.
+#
+#  JEDE ID BRAUCHT AUSSERDEM eine Zeile in
+#  client/data/questid2display.txt, sonst bricht der Client
+#  beim Oeffnen des Questfensters ab. Steht dort.
+# ==========================================================
+  - Id: 70260
+    Title: The First Track
+    Targets:
+      - Id: 1
+        Count: 50
+        Race: Brute
+  - Id: 70261
+    Title: The Hunt
+    Targets:
+      - Id: 1
+        Count: 120
+        Race: Brute
+        MinLevel: 30
+  - Id: 70262
+    Title: Teeth and Claw
+    Targets:
+      - Id: 1
+        Count: 200
+        Race: Brute
+        MinLevel: 70
+  - Id: 70263
+    Title: What Walks With Them
+  - Id: 70264
+    Title: The Grown Ones
+    Targets:
+      - Id: 1
+        Count: 250
+        Race: Brute
+        MinLevel: 150
+  - Id: 70265
+    Title: The Chieftain's Due

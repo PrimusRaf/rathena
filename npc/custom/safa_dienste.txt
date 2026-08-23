@@ -1,35 +1,90 @@
 //===== SafaRO Script ========================================
-//= Dienste an der Prontera-Achse
+//= Dienste im Veins-Quartier
 //===== Beschreibung: ========================================
 //= Vier NPCs neben den vorhandenen: Reset, Verleih, Kafra und
 //= ein zweiter Card Remover.
 //=
-//= STANDORTE
-//= Die bestehenden SafaRO-NPCs stehen auf der Spalte x=146 im
-//= Zehnerraster:
+//= ------------------------------------------------------------
+//= DAS VEINS-QUARTIER - hier steht der ganze Plan
+//= ------------------------------------------------------------
+//= Mit Episode 22 ist Veins die Hauptstadt. Saemtliche eigenen
+//= NPCs sind aus Prontera hierher gezogen; Prontera behaelt nur
+//= noch, was rAthena selbst dort hinstellt.
 //=
-//=     146,152   Custom Merchant
-//=     146,162   Supply Master
-//=     146,172   Coin Exchanger
-//=     146,182   Threshold Warden
+//= WARUM DIE PRONTERA-ACHSE NICHT MITKOMMEN KONNTE
 //=
-//= Die neuen setzen das Raster nach beiden Seiten fort. Jede
-//= Zelle wurde mit tools/karte/zelle_pruefen.py gegen
-//= db/map_cache.dat geprueft - Typ 0, also begehbarer Boden:
+//= In Prontera standen die Dienste auf einer SPALTE (x=146) im
+//= Zehnerraster, weil dort 60 Felder Nord-Sued frei sind. Veins
+//= ist andersherum gebaut: eine Schlucht, breit und flach. Die
+//= zusammenhaengende freie Flaeche in der Stadtmitte misst rund
+//= 77 Zellen in x, aber nur 17 in y. Eine Spalte mit sieben
+//= Eintraegen im Zehnerraster braeuchte 61 - sie passt schlicht
+//= nicht.
 //=
-//=     146,142   Stablemaster     (Verleih)
-//=     146,192   Reset Master
-//=     146,202   Kafra Employee
-//=     163,174   Wise Old Woman   (Card Remover, abseits der Achse)
+//= Aus der Achse wurden deshalb ZEILEN. Das ist kein Notbehelf:
+//= der Spieler kommt ueber den Warper bei 214,123 an und blickt
+//= von dort auf drei waagerechte Reihen, statt eine Spalte
+//= entlanglaufen zu muessen.
 //=
-//= Nicht raten: 146,127 und 146,207 sind Wandzellen. Ein NPC
-//= darauf wird geladen und ist im Spiel unerreichbar.
+//= y=125  DIENSTE, alle acht Felder
+//=     190  Stablemaster        198  Custom Merchant
+//=     206  Supply Master       214  Coin Exchanger
+//=     222  Reset Master        230  Kafra Employee
+//=
+//= y=129  EPISODEN UND SAFARI, alle fuenf Felder
+//=     189  Episode 17.1        194  Episode 17.2
+//=     199  Episode 18          204  Episode 19
+//=     209  Episode 20          214  Episode 21
+//=     219  Safari Outfitter
+//=
+//= y=133  BASARZEILE, sechzehn Klassenlaeden, alle zwei Felder
+//=     200 bis 230, Reihenfolge wie in tools/laeden/bauen.py
+//=     Sie stehen mit dem Ruecken zur Felswand: y=134 ist ab
+//=     x=224 Fels, und der Rest der Reihe hat oben ohnehin
+//=     nichts. Davor, auf y=132, ist alles frei - man laeuft
+//=     die Zeile also von Sueden ab wie einen Markt.
+//=
+//= x=184  HANDWERKERSPALTE, senkrecht am Westrand des Platzes
+//=     135  Master Artisan      132  Armstrong
+//=     129  Wise Old Woman      126  Pet Caretaker
+//=     123  Homunculus Freak
+//=     Blickrichtung 2 (Osten), damit sie zum Platz schauen.
+//=
+//= EINZELN, weil sie inhaltlich woanders hingehoeren
+//=     211,121  Ironhand        neben dem Job Master (215,121),
+//=                              genau wie in Prontera
+//=     206, 54  Threshold Warden (Questreihe)
+//=     wolfvill 190,124  Threshold Warden (Losung)
+//=
+//= WIE DIE KOORDINATEN ENTSTANDEN SIND
+//=
+//= Nicht geraten und nicht abgezaehlt, sondern gerechnet:
+//= tools/karte/hauptstadt_veins.py haelt den Plan und prueft
+//= jede der 35 Zellen gegen db/map_cache.dat auf
+//=
+//=   begehbar        Zelltyp weder 1 (Wand) noch 5 (Abgrund)
+//=   erreichbar      Flutfuellung vom Warper-Ziel 216,123 aus;
+//=                   eine freie Zelle IN einem Gebaeude nuetzt
+//=                   niemandem, und das sieht man einer
+//=                   Koordinate nicht an
+//=   frei            gegen alle 85 fremden NPC- und Warp-Zellen
+//=                   auf veins aus dem gesamten npc-Baum
+//=   nicht eingekeilt  mindestens zwei freie Nachbarzellen
+//=
+//= Das Skript laeuft ohne Argumente und meldet jede Abweichung.
+//= Wer hier etwas verschiebt, traegt es dort ein und laesst es
+//= laufen, statt im Spiel nachzusehen.
 //=
 //= WAS HIER NICHT STEHT
-//= Kafra und Card Remover sind Duplikate. Sie teilen sich das
-//= Skript des Originals, Aenderungen dort wirken also hier mit.
-//= Eine eigene Fassung waere eine zweite Stelle, die man beim
+//= Der Card Remover ist ein Duplikat und teilt sich das Skript
+//= seines Originals; Aenderungen dort wirken hier mit. Eine
+//= eigene Fassung waere eine zweite Stelle, die man beim
 //= naechsten rAthena-Update vergisst.
+//=
+//= Die Kafra war bis Episode 22 ebenfalls eines und ist es jetzt
+//= nicht mehr. Der Grund steht bei ihr - kurz: ein Duplikat der
+//= Prontera-Kafra haette in Veins den Speicherpunkt nach
+//= Prontera gesetzt.
 //============================================================
 
 
@@ -48,10 +103,13 @@
 //  umzubauen.
 //
 //  Das Standardskript setzt die Reset Girl uebrigens auf
-//  prontera,150,193 - genau die Zelle, auf der Ironhand steht.
-//  Wer es je einschaltet, hat zwei NPCs uebereinander.
+//  prontera,150,193 - die Zelle, auf der bis Episode 22 Ironhand
+//  stand. Seit dem Umzug nach Veins ist sie frei, die Warnung
+//  gilt also nicht mehr. Sie bleibt trotzdem stehen: wer je
+//  ueberlegt, Ironhand zurueckzuholen, soll wissen, warum genau
+//  diese Zelle keine gute Idee ist.
 //============================================================
-prontera,146,192,4	script	Reset Master#safa	4_F_TELEPORTER,{
+veins,222,125,4	script	Reset Master#safa	4_F_TELEPORTER,{
 
 	// Lokale Funktionen muessen VOR ihrem ersten Aufruf angemeldet
 	// werden (doc/script_commands.txt:1891). Der Name darf nur
@@ -171,7 +229,7 @@ function	zahlen	{
 //  NoTrade, NoSell und NoStorage, also nicht weiterreichbar; es
 //  gibt keinen Grund, dafuer Geld zu verlangen.
 //============================================================
-prontera,146,142,4	script	Stablemaster#safa	4_M_JOB_KNIGHT1,{
+veins,190,125,4	script	Stablemaster#safa	4_M_JOB_KNIGHT1,{
 
 	mes "[Stablemaster]";
 	mes "Everything here is borrowed, not sold.";
@@ -326,24 +384,73 @@ prontera,146,142,4	script	Stablemaster#safa	4_M_JOB_KNIGHT1,{
 
 
 //============================================================
-//  Duplikate
+//  Die Kafra
 //------------------------------------------------------------
-//  Kafra: teilt sich das Skript der Prontera-Kafra bei 152,326.
-//  Damit gibt es Lager, Speicherpunkt und Karrenmiete, ohne eine
-//  einzige eigene Zeile - und ohne eine zweite Stelle, die bei
-//  einem rAthena-Update auseinanderlaeuft.
+//  WARUM DAS SEIT EPISODE 22 KEIN DUPLIKAT MEHR IST
 //
-//  Card Remover: das Original steht als "Wise Old Woman" in
-//  prt_in,28,73 - also in einem Haus, wo es niemand findet. Der
-//  Preis (200.000z plus 25.000z je Karte, dazu Star Crumb und
-//  Yellow Gemstone) steht dort im Skript und gilt hier mit.
+//  Bis zum Umzug stand hier duplicate(kaf_prontera). Das war in
+//  Prontera richtig und in Veins ein Fehler, denn ein Duplikat
+//  teilt sich den GESAMTEN Skriptkoerper des Originals - und in
+//  dem steht (npc/kafras/kafras.txt:244):
+//
+//      savepoint "prontera",157,327,1,1;
+//
+//  Die Kafra haette in Veins also den Speicherpunkt nach
+//  Prontera gesetzt. Der Spieler klickt "Save", bekommt die
+//  Bestaetigung "in the city of Prontera" zu lesen, ueberliest
+//  sie - und steht beim naechsten Tod am anderen Ende der Welt.
+//  Ein Fehler, der erst auffaellt, wenn er weh tut.
+//
+//  Deshalb hier eine eigene Fassung. Sie ruft dieselben drei
+//  amtlichen Funktionen auf wie jede Stadt-Kafra, es ist also
+//  keine nachgebaute Kopie: Lager, Karren und Preise bleiben
+//  automatisch richtig, wenn rAthena daran etwas aendert. Eigen
+//  sind nur die drei Zeilen, die ortsgebunden sind.
+//
+//  WARUM MENUE 3 UND NICHT 0
+//
+//  0 ist das volle Menue samt Teleportdienst. Dessen Zielliste
+//  in functions_kafras.txt kennt Veins gar nicht - die Stadt hat
+//  ihren eigenen Teleporter, die "Kafra Teleportation" auf
+//  196,133. Menue 3 ist die uebliche Fassung ohne Teleport:
+//  Speichern, Lager, Karren, Auskunft.
+//
+//  VEINS HATTE VORHER GAR KEINE LAGER-KAFRA
+//
+//  Nachgesehen in npc/kafras: auf veins steht nur Teleportdienst
+//  (196,133) und Zonda (198,133), dazu das Gildenlager auf
+//  205,130. Ein Lager fuer den einzelnen Spieler gab es hier
+//  nicht. Mit der Hauptstadt kommt es jetzt dazu.
+//
+//  Preise wie in Prontera: 40z Lager, 800z Karren.
 //============================================================
-prontera,146,202,4	duplicate(kaf_prontera)	Kafra Employee#safa	4_F_KAFRA1
+veins,230,125,4	script	Kafra Employee#safa	4_F_KAFRA1,{
+	cutin "kafra_01",2;
+	callfunc "F_KafSet";
+	mes "[Kafra Employee]";
+	mes "Welcome to Veins.";
+	mes "The Kafra Corporation";
+	mes "keeps an office even at";
+	mes "the edge of the desert.";
+	mes "How may I help you?";
+	callfunc "F_Kafra",5,3,0,40,800;
+	savepoint "veins",210,123,1,1;
+	callfunc "F_KafEnd",0,1,"in the city of Veins";
+}
 
-// Der Card Remover steht bewusst NICHT auf der 146er-Achse, sondern
-// bei 163,174 - naeher am Zentrum, wo die Leute ohnehin vorbeikommen.
-// Zelle gegen db/re/map_cache.dat geprueft (Typ 0, begehbar) und
-// gegen alle NPC-Dateien: kein geladener NPC steht darauf. Die
-// naechsten Nachbarn sind der Mado Gear Armorer auf 163,178 und
-// Snower auf 156,174 - beide weit genug weg.
-prontera,163,174,4	duplicate(Wise Old Woman#eAcustom)	Wise Old Woman#safa	78
+// Card Remover, seit Episode 22 auf veins 184,129 - in der
+// Handwerkerspalte, zwischen Armstrong (184,132) und dem Pet
+// Caretaker (184,126). Er steht dort statt in der Dienstezeile, weil
+// er thematisch zum Handwerk gehoert: Karten heraustrennen ist naeher
+// am Master Artisan als an der Kafra.
+//
+// Das Original bleibt, wo rAthena es hingestellt hat - als "Wise Old
+// Woman" in prt_in,28,73, also in einem Haus in Prontera, wo es
+// niemand findet. Genau deshalb gibt es dieses Duplikat. Der Preis
+// (200.000z plus 25.000z je Karte, dazu Star Crumb und Yellow
+// Gemstone) steht im Original und gilt hier mit.
+//
+// ACHTUNG BEI DER LADEREIHENFOLGE: safa_dienste.txt muss in
+// scripts_custom.conf nach card_remover.txt stehen, sonst findet das
+// duplicate() sein Original nicht.
+veins,184,129,2	duplicate(Wise Old Woman#eAcustom)	Wise Old Woman#safa	78

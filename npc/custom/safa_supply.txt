@@ -10,9 +10,11 @@
 //  damit eine zweite Abteilung spaeter nur drei Zeilen in
 //  OnInit kostet und nicht den halben NPC.
 //
-//  Standort 146,162 liegt genau zwischen Coin Exchanger
-//  (146,172) und Custom Merchant (146,152). Begehbarkeit gegen
-//  db/re/map_cache.dat geprueft.
+//  Standort veins 206,125 - dritter Platz der Dienstezeile,
+//  zwischen Custom Merchant (198,125) und Coin Exchanger
+//  (214,125). Dieselbe Nachbarschaft wie vorher in Prontera,
+//  nur waagerecht statt senkrecht. Der Plan des Quartiers steht
+//  im Kopf von npc/custom/safa_dienste.txt.
 // ============================================================
 
 //  Waehrung, dann Item:Preis. -1 als Sprite haelt die Laeden
@@ -24,7 +26,7 @@
 -	itemshop	ExpFarm#supply	-1,30001,30050:100,30051:100,30052:100,30053:150,30054:150,30055:150,30056:200
 -	itemshop	DropFarm#supply	-1,30001,30060:100,30061:100,30062:100,30063:150,30064:150,30065:150,30066:200
 
-prontera,146,162,4	script	Supply Master#safa	4_M_04,{
+veins,206,125,4	script	Supply Master#safa	4_M_04,{
 
 	mes "[Supply Master]";
 	mes "Most people here sell you something to";

@@ -31,7 +31,7 @@
 //
 //===========================================================
 
-prontera,163,164,4	script	Master Artisan#safa	4_M_ALCHE_A,{
+veins,184,135,2	script	Master Artisan#safa	4_M_ALCHE_A,{
 	mes "[Master Artisan]";
 	mes "Armstrong sends me the ones who know where to go.";
 	mes "I am for the ones who know what they want to wear.";
@@ -124,7 +124,7 @@ S_Sockel:
 	if (getequipcardcnt(.@teil) > 0) {
 		mes "[Master Artisan]";
 		mes "^FF6666There are cards in it.^000000";
-		mes "The trade would leave them behind, and I will not do that to you. Have them taken out first - the ^00CCFFSafari Specialist^000000 at ^00CCFFprontera 163, 174^000000 does it without risk.";
+		mes "The trade would leave them behind, and I will not do that to you. Have them taken out first - the ^00CCFFSafari Specialist^000000 at ^00CCFFveins 184, 129^000000 does it without risk.";
 		next;
 		return;
 	}

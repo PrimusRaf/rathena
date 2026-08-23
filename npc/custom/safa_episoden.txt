@@ -125,9 +125,15 @@ OnInit:
 
 
 // ============================================================
-//  Die Tauschstellen an der Prontera-Achse
+//  Die Tauschstellen im Veins-Quartier
 // ------------------------------------------------------------
-//  Sechs NPCs, einer je Episode, an den vorgegebenen Feldern.
+//  Sechs NPCs, einer je Episode, auf y=129 im Fuenferraster von
+//  189 bis 214. Rechts daneben, auf 219, steht der Safari
+//  Outfitter aus safa_safari.txt - die Reihe gehoert zusammen
+//  und war auch in Prontera schon eine.
+//
+//  Der Plan des ganzen Quartiers steht im Kopf von
+//  npc/custom/safa_dienste.txt.
 //
 //  WARUM SIE NICHTS SELBST ANBIETEN
 //
@@ -169,7 +175,7 @@ OnInit:
 //
 //  Nicht mit dabei ist der "Butterfly Merchant" von sp_cor, der
 //  nur das Teleport-Fluegelchen verkauft - ein Gegenstand.
-prontera,135,170,4	duplicate(Grace Operator#ext162)	Episode 17.1 Exchange#safa	4_M_REPAIR
+veins,189,129,4	duplicate(Grace Operator#ext162)	Episode 17.1 Exchange#safa	4_M_REPAIR
 
 
 // ------------------------------------------------------------
@@ -181,7 +187,7 @@ prontera,135,170,4	duplicate(Grace Operator#ext162)	Episode 17.1 Exchange#safa	4
 //  NPC-Sprite zu, und das amtliche Original - Spiera auf ba_in01
 //  in npc/re/merchants/enchan_sage_legacy_17_2.txt - benutzt
 //  genau diesen Namen. Bitte nicht gegen ein JT_-Sprite tauschen.
-prontera,137,170,4	script	Episode 17.2 Exchange#safa	MD_ASSISTANT,{
+veins,194,129,4	script	Episode 17.2 Exchange#safa	MD_ASSISTANT,{
 
 	mes "[Episode 17.2 Exchange]";
 	mes "Varmundt's mansion. I deal in";
@@ -219,7 +225,7 @@ prontera,137,170,4	script	Episode 17.2 Exchange#safa	MD_ASSISTANT,{
 // ------------------------------------------------------------
 //  Episode 18 - Direction of Prayer
 // ------------------------------------------------------------
-prontera,139,172,4	script	Episode 18 Exchange#safa	4_EP18_GW_WOMAN01,{
+veins,199,129,4	script	Episode 18 Exchange#safa	4_EP18_GW_WOMAN01,{
 
 	mes "[Episode 18 Exchange]";
 	mes "The Grey Wolf village trades in";
@@ -251,7 +257,7 @@ prontera,139,172,4	script	Episode 18 Exchange#safa	4_EP18_GW_WOMAN01,{
 //  Episode keine Tauschtabelle - weder bei uns noch bei rAthena.
 //  Ein NPC, der das offen sagt, ist besser als eine Luecke in der
 //  Reihe, vor der die Spieler raten.
-prontera,139,174,4	script	Episode 19 Exchange#safa	4_EP18_GW_MAN01,{
+veins,204,129,4	script	Episode 19 Exchange#safa	4_EP18_GW_MAN01,{
 
 	mes "[Episode 19 Exchange]";
 	mes "I was sent ahead to open a counter";
@@ -277,7 +283,7 @@ prontera,139,174,4	script	Episode 19 Exchange#safa	4_EP18_GW_MAN01,{
 //  Drops - Contaminated Magic, Temporal Crystals, die vier
 //  Jahreszeiten-Energien - sind genau das, was garden_of_time.yml
 //  verlangt. Es fehlte nur dieser NPC.
-prontera,138,176,4	script	Episode 20 Exchange#safa	4_M_ORIENT01,{
+veins,209,129,4	script	Episode 20 Exchange#safa	4_M_ORIENT01,{
 
 	mes "[Episode 20 Exchange]";
 	mes "The Garden of Time pays in its own";
@@ -310,7 +316,7 @@ prontera,138,176,4	script	Episode 20 Exchange#safa	4_M_ORIENT01,{
 //  Episode 21 - Age of Heroes
 // ------------------------------------------------------------
 //  Wie Episode 19: keine Tauschtabelle vorhanden.
-prontera,136,178,4	script	Episode 21 Exchange#safa	4_EP17_MASTER_A,{
+veins,214,129,4	script	Episode 21 Exchange#safa	4_EP17_MASTER_A,{
 
 	mes "[Episode 21 Exchange]";
 	mes "The fishing coast sent me down with a";

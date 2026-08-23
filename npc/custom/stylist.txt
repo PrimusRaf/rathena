@@ -12,8 +12,18 @@
 //= 1.0 Initial script.
 //= 1.1 Switched to 'getbattleflag', credits to Saithis. [Euphy]
 //============================================================
+//= SafaRO, Episode 22: von prontera 170,180 nach veins 238,125
+//= gezogen. Er ist der einzige der uebernommenen rAthena-Customs
+//= ohne Duplikate in anderen Staedten - Warper, Healer, Job
+//= Master und Card Remover stehen ohnehin in jeder Stadt und
+//= brauchten deshalb keinen Umzug.
+//=
+//= 238,125 setzt die Dienstezeile nach Osten fort, hinter der
+//= Kafra bei 230,125. Zelle geprueft: begehbar, erreichbar,
+//= frei. Siehe npc/custom/safa_dienste.txt.
+//============================================================
 
-prontera,170,180,1	script	Stylist#custom_stylist	122,{
+veins,238,125,4	script	Stylist#custom_stylist	122,{
 	setarray .@Styles[1],
 		getbattleflag("max_cloth_color"),
 		getbattleflag("max_hair_style"),

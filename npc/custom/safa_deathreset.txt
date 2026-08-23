@@ -13,12 +13,26 @@
 //
 //  Beliebig wiederholbar - man stirbt ja weiter.
 //
-//  Standort 146,182 liegt noerdlich vom Supply Master, auf
-//  derselben Achse wie Coin Exchanger und Custom Merchant.
-//  Begehbarkeit gegen db/re/map_cache.dat geprueft.
+//  STANDORT: VEINS, NICHT MEHR PRONTERA
+//
+//  Mit Episode 22 wird Veins die Hauptstadt. Die Waechterin
+//  zieht deshalb auf veins 206,54 - den Platz, auf dem bis
+//  hierher ihre kuerzere Schwester stand. Die geht ihrerseits
+//  weiter nach wolfvill, siehe unten.
+//
+//  Die Prontera-Achse verliert damit ihren Eintrag bei
+//  146,182. Die Zelle bleibt frei; wer dort spaeter etwas
+//  hinstellt, hat freie Bahn. Der Kopfkommentar in
+//  safa_dienste.txt ist entsprechend nachgezogen.
+//
+//  veins 206,54 ist Typ 0, also trockener begehbarer Boden -
+//  geprueft mit tools/karte/zelle_pruefen.py gegen
+//  db/map_cache.dat. Der Job-Quest-Ausloeser bei 206,56 hat
+//  Reichweite 1,1 und deckt die Zeilen 55 bis 57 ab; auf 54
+//  steht ihr nichts im Weg.
 // ============================================================
 
-prontera,146,182,4	script	Threshold Warden#safa	4_F_SISTER,{
+veins,206,54,4	script	Threshold Warden#safa	4_F_SISTER,{
 
 	// Kein Debuff, nichts zu tun - aber die Quest laeuft womoeglich
 	// noch aus einem frueheren Anlauf. Dann trotzdem weitermachen
@@ -267,14 +281,45 @@ OnInit:
 
 
 // ============================================================
-//  Dieselbe Aufgabe ohne Umweg
+//  Dieselbe Aufgabe ohne Umweg - jetzt hinter einer Losung
 // ------------------------------------------------------------
-//  Die Waechterin in Prontera verlangt drei Stufen: Material,
+//  Die Waechterin in Veins verlangt drei Stufen: Material,
 //  Jagd, Bezahlung. Das ist als Beschaeftigung gedacht - aber wer
 //  nur weiterspielen will, soll nicht erst eine Questreihe
 //  abarbeiten muessen, um seine eigenen Werte zurueckzubekommen.
 //
-//  Diese Fassung nimmt 1.000 Zeny und sonst nichts.
+//  WAS SICH MIT EPISODE 22 AENDERT
+//
+//  Bisher nahm diese Fassung 1.000 Zeny und stand mitten in der
+//  Stadt. Beides war zu bequem: 1.000 Zeny sind auf diesem Server
+//  kein Preis, sondern eine Formalitaet, und wer sie zahlen wollte,
+//  brauchte dafuer drei Schritte zu gehen.
+//
+//  Jetzt kostet sie gar nichts mehr - und ist trotzdem teurer.
+//  Sie steht in wolfvill, dem Doerfchen der Grauen Woelfe, und
+//  bedient nur, wer die Losung kennt. Die Losung erfaehrt man
+//  ausschliesslich innerhalb der Episode.
+//
+//  Damit ist der kurze Weg kein Geldproblem mehr, sondern ein
+//  Wissensproblem. Zeny hat auf einem 25x-Server jeder; die
+//  Losung hat nur, wer gespielt hat. Und weil Wissen sich unter
+//  Spielern verbreitet, ist das kein Riegel fuer immer, sondern
+//  ein Vorsprung fuer die Ersten - genau das, was eine Episode
+//  am Anfang braucht.
+//
+//  WARUM SIE DIE LOSUNG NUR EINMAL HOEREN WILL
+//
+//  Wer sie richtig gesagt hat, bekommt ep22_losung gesetzt und
+//  wird danach ohne Abfrage bedient. Man stirbt auf diesem Server
+//  oft; die Losung bei jedem Besuch neu zu tippen waere Reibung
+//  ohne Spielwert. Soll sie doch jedes Mal gefragt werden, faellt
+//  genau eine Zeile weg - die Pruefung auf ep22_losung ganz unten.
+//
+//  WARUM GROSS- UND KLEINSCHREIBUNG EGAL IST
+//
+//  Die Losung wird ueber strtolower verglichen. Ein Passwort, das
+//  an einer Umschalttaste scheitert, bestraft nicht Unwissen,
+//  sondern Tippen - und der Spieler sieht nicht, woran es lag.
 //
 //  Warum kein duplicate(): das Original ist eine Zustandsmaschine
 //  ueber dq_stufe. Ein Duplikat waere derselbe Ablauf an einem
@@ -282,19 +327,24 @@ OnInit:
 //  Kern - death_count auf 0 und F_SafaRefresh - und der sind zwei
 //  Zeilen.
 //
-//  dq_stufe wird hier bewusst NICHT angefasst. Wer in Prontera
+//  dq_stufe wird hier bewusst NICHT angefasst. Wer in Veins
 //  mitten in der Questreihe steckt, behaelt seinen Fortschritt;
 //  die dortige Eingangspruefung laesst ihn mit dq_stufe > 0
 //  ohnehin weitermachen. Ein Zuruecksetzen von hier aus wuerde ihm
 //  nur die halbe Kette wegnehmen.
 //
-//  Standort: veins 206,54. Begehbar laut db/re/map_cache.dat
-//  (Typ 0). Der Job-Quest-Ausloeser bei 206,56 hat Reichweite
-//  1,1 und deckt damit die Zeilen 55 bis 57 ab - hier steht
-//  nichts im Weg.
+//  Standort: wolfvill 190,124. Die Koordinate kommt von Raffael
+//  und ist mit tools/karte/zelle_pruefen.py gegen
+//  db/map_cache.dat geprueft: begehbar.
+//
+//  Zum Zelltyp, damit sich niemand daran stoert: die Zelle ist
+//  Typ 3, also "Wasser, begehbar". Das ist auf dieser Karte der
+//  Normalfall und kein Fehlgriff - wolfvill hat 23.474 Zellen vom
+//  Typ 3 und die naechste trockene Typ-0-Zelle liegt 50 Felder
+//  entfernt. Das gesamte begehbare Dorf ist so ausgezeichnet.
 // ============================================================
 
-veins,206,54,4	script	Threshold Warden#safa_veins	4_F_SISTER,{
+wolfvill,190,124,4	script	Threshold Warden#safa_wolf	4_F_SISTER,{
 
 	if (death_count <= 0) {
 		mes "[Threshold Warden]";
@@ -315,35 +365,92 @@ veins,206,54,4	script	Threshold Warden#safa_veins	4_F_SISTER,{
 	next;
 
 	mes "[Threshold Warden]";
-	mes "My sister in Prontera will ask you for errands.";
+	mes "My sister in Veins will ask you for errands.";
 	mes "She has the patience for it. I do not.";
 	mes " ";
-	mes "^FFCC00" + callfunc("F_InsertComma", .preis)
-	    + " Zeny^000000, and the cycle forgets your name.";
+	mes "I take no coin. I have no use for it out";
+	mes "here.";
 	next;
 
-	if (select("Pay " + callfunc("F_InsertComma", .preis)
-	           + " Zeny:Not now") == 2) {
-		mes "[Threshold Warden]";
-		mes "Then carry them a while longer.";
-		close;
-	}
+	// Wer die Losung schon einmal gesagt hat, sagt sie nicht
+	// wieder. Siehe Kopfkommentar: diese eine Bedingung ist der
+	// Unterschied zwischen "einmal lernen" und "jedes Mal tippen".
+	if (!ep22_losung) {
 
-	// Zwischen Anzeige und Zahlung kann sich das Vermoegen geaendert
-	// haben - der Spieler kann waehrenddessen im Laden gewesen sein.
-	if (Zeny < .preis) {
 		mes "[Threshold Warden]";
-		mes "You do not have it. Come back when you do.";
-		close;
+		mes "What I take is a ^FFCC00word^000000. One word, and";
+		mes "you only hear it out there - from the ones";
+		mes "who go into the tall grass and come back.";
+		next;
+
+		if (select("Give the word:Not now") == 2) {
+			mes "[Threshold Warden]";
+			mes "Then carry them a while longer.";
+			close;
+		}
+
+		mes "[Threshold Warden]";
+		mes "Quietly.";
+		next;
+
+		// Der Rueckgabewert von input ist hier ohne Belang: bei
+		// Zeichenketten meldet er nur Laengenverstoesse, und eine
+		// Laenge geben wir nicht vor. Die leere Eingabe faellt
+		// ohnehin durch den Vergleich unten.
+		input .@wort$;
+
+		// strtolower auf beiden Seiten: siehe Kopfkommentar. Der
+		// Vergleich toleriert die Umschalttaste, sonst nichts -
+		// Leerzeichen und Tippfehler gehen weiterhin durch.
+		if (strtolower(.@wort$) != strtolower(.losung$)) {
+			mes "[Threshold Warden]";
+			mes "^FF0000That is not it.^000000";
+			next;
+			mes "[Threshold Warden]";
+			mes "I am not going to tell you whether you";
+			mes "were close. Go back out and listen.";
+			close;
+		}
+
+		// Permanente Charaktervariable - ueberlebt Logout und
+		// Serverneustart. Absichtlich nicht account-weit: die
+		// Losung gehoert dem, der sie sich verdient hat.
+		set ep22_losung, 1;
+
+		mes "[Threshold Warden]";
+		mes "^00AA00That is it.^000000";
+		next;
+		mes "[Threshold Warden]";
+		mes "You will not have to say it to me again.";
+		mes "Say it to no one who has not earned it.";
+		next;
+
+	} else {
+
+		// Die Rueckfrage fuer die Wissenden. Ohne sie waere das
+		// blosse Ansprechen der Waechterin bereits die Handlung -
+		// wer nur nachsehen will, wieviele Male er traegt, haette
+		// sie beim Zumachen des Fensters schon verloren. Der
+		// Unwissende bekommt seine Rueckfrage weiter oben, im
+		// "Give the word", und braucht diese hier nicht doppelt.
+		mes "[Threshold Warden]";
+		mes "You have said the word before. It still";
+		mes "holds.";
+		next;
+
+		if (select("Take them off:Not now") == 2) {
+			mes "[Threshold Warden]";
+			mes "Then carry them a while longer.";
+			close;
+		}
 	}
-	Zeny -= .preis;
 
 	.@vorher = death_count;
 	set death_count, 0;
 
 	// Ohne diesen Aufruf bliebe die Strafe bis zum naechsten Login
-	// stehen: der Spieler haette bezahlt und wuerde nichts merken.
-	// Dieselbe Falle wie beim Original, siehe oben.
+	// stehen: der Spieler haette die Losung gesagt und wuerde nichts
+	// merken. Dieselbe Falle wie beim Original, siehe oben.
 	callfunc "F_SafaRefresh";
 
 	specialeffect2 EF_ANGEL2;
@@ -352,11 +459,17 @@ veins,206,54,4	script	Threshold Warden#safa_veins	4_F_SISTER,{
 	    + " gone.^000000";
 	next;
 	mes "[Threshold Warden]";
-	mes "Cheaply bought. It always is, here.";
+	mes "No charge. The word was the charge, and";
+	mes "somebody out there paid for it once.";
 	mes "Go on, then - it will find you again.";
 	close;
 
 OnInit:
-	.preis = 1000;
+	// Die Losung steht genau hier und nirgends sonst. Wird sie je
+	// geaendert, aendert sich das Spiel an einer Stelle - und alle,
+	// die ep22_losung schon gesetzt haben, merken davon nichts.
+	// Soll eine Aenderung auch die Wissenden wieder abfragen, muss
+	// die Variable mitgezaehlt werden (ep22_losung == 2 und so fort).
+	.losung$ = "Hunter";
 	end;
 }

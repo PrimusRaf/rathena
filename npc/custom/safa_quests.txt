@@ -1,0 +1,519 @@
+// ============================================================
+//  SafaRO - Episode 22: The Hunt
+// ------------------------------------------------------------
+//  Der Grey Wolf Elder und seine sechs Quests.
+//
+//  WOZU DIESE DATEI DA IST
+//
+//  Bisher gab es auf diesem Server keine einzige eigene Quest.
+//  Es gab NPCs, die etwas verkaufen, etwas zuruecksetzen oder
+//  etwas erklaeren - aber nichts, was jemandem sagt: geh raus
+//  und tu das, und dann komm wieder. Das ist die Luecke.
+//
+//  DIE KETTE
+//
+//   #  Id     Titel                  ab Level  Aufgabe
+//   1  70260  The First Track            20    50 Brute
+//   2  70261  The Hunt                   40   120 Brute ab Stufe 30
+//   3  70262  Teeth and Claw             90   200 Brute ab Stufe 70
+//   4  70263  What Walks With Them      140     3 Wildlife-Anfuehrer
+//   5  70264  The Grown Ones            200   250 Brute ab Stufe 150
+//   6  70265  The Chieftain's Due       300    12 Anfuehrer + 400 Trophaeen
+//
+//  WARUM DIE LEVELSTUFEN SO LIEGEN
+//
+//  Jede Stufe verlangt Tiere, die es auf dieser Levelstufe auch
+//  wirklich zu jagen gibt. Das ist nicht selbstverstaendlich -
+//  eine Quest "toete 250 Tiere ab Stufe 150" ab Level 20 waere
+//  formal erfuellbar und in der Sache eine Zumutung.
+//
+//  Die Zuordnung ist gegen Armstrongs Gebietstabelle geprueft
+//  (tools/leveln/gebiete_bauen.py): auf jeder Stufe steht
+//  mindestens ein empfohlenes Jagdgebiet mit genug Brute-Besatz
+//  zur Verfuegung.
+//
+//  Stufe 6 verlangt ausserdem 400 Safari-Trophaeen. Das ist
+//  bewusst mehr als die Haelfte eines Vollsets (750) - wer sie
+//  abgibt, entscheidet sich gegen ein Ruestungsteil. Genau
+//  diese Entscheidung soll die letzte Stufe sein.
+//
+//  DIE BELOHNUNG WIRD NICHT IN ZAHLEN ANGEGEBEN
+//
+//  Sondern in PROZENT EINER STUFE, ueber NextBaseExp und
+//  NextJobExp. Der Grund: auf einem Server, der bis Level 500
+//  geht, ist jede feste Zahl entweder auf Level 30 absurd viel
+//  oder auf Level 400 wertlos. Ein Viertel Level ist auf beiden
+//  Stufen dasselbe Versprechen.
+//
+//  Zur Umrechnung, weil sie auf den ersten Blick falsch
+//  aussieht: getexp laeuft ueber quest_exp_rate, und die steht
+//  bei uns auf 2500 (conf/import/battle_conf.txt). Der Server
+//  multipliziert also nach. Deshalb wird vorher geteilt:
+//
+//      getexp NextBaseExp / quest_exp_rate * Prozent
+//
+//  ergibt nach der Multiplikation genau NextBaseExp * Prozent
+//  / 100. Die Rate wird zur Laufzeit gelesen, nicht
+//  hineingeschrieben - wer sie aendert, muss hier nichts
+//  nachziehen.
+//
+//  Zuerst teilen und dann malnehmen ist auch gegen Ueberlauf
+//  die richtige Reihenfolge: NextBaseExp geht auf den oberen
+//  Stufen in die Milliarden.
+//
+//  WO DAS PASSWORT FAELLT
+//
+//  In der Geschichte zu Stufe 2, S_Geschichte weiter unten. Der
+//  Elder nennt den Titel des alten Haeuptlings, und dieser
+//  Titel ist das Wort, das die Threshold Warden in wolfvill
+//  hoeren will (npc/custom/safa_deathreset.txt).
+//
+//  Das Wort ist NICHT farbig hervorgehoben. Wer die Geschichte
+//  liest, findet es; wer durchklickt, nicht. Genau das ist der
+//  Zweck. Damit niemand dauerhaft ausgesperrt bleibt, erzaehlt
+//  der Elder sie jederzeit wieder, kostenlos und ohne
+//  Bedingung, sobald Stufe 2 einmal angenommen wurde.
+//
+//  Der Elder setzt ep22_losung NICHT. Wer das Wort kennt, muss
+//  es bei der Waechterin selbst eintippen - sonst waere es kein
+//  Wort, sondern ein Haken.
+//
+//  VARIABLEN
+//
+//    hq_stufe     abgeschlossene Stufen, 0 bis 6
+//    hq_offen     Id der angenommenen, noch offenen Quest
+//    hq_wild      Stand von wild_erlegt beim Annehmen
+//    wild_erlegt  erlegte Wildlife-Anfuehrer, lebenslang,
+//                 hochgezaehlt in npc/custom/safa_wildlife.txt
+//
+//  hq_wild ist der Grund, warum wild_erlegt lebenslang laeuft
+//  und nicht je Quest zurueckgesetzt wird: der Vergleich mit
+//  dem Startwert zaehlt nur, was NACH dem Annehmen passiert
+//  ist, und ein lebenslanger Zaehler laesst sich spaeter noch
+//  fuer anderes verwenden.
+//
+//  STANDORT
+//
+//  veins 226,121. Beginn der Questreihe im Veins-Quartier;
+//  weitere Questgeber ruecken auf y=121 im Viererraster nach
+//  Osten nach (230, 234, 238). Zelle geprueft mit
+//  tools/karte/hauptstadt_veins.py: begehbar, erreichbar, frei.
+// ============================================================
+
+veins,226,121,4	script	Grey Wolf Elder#safa	4_EP18_GW_MAN01,{
+
+	mes "[Grey Wolf Elder]";
+	if (hq_stufe == 0 && !hq_offen) {
+		mes "You walk like somebody who came here on";
+		mes "purpose. Most people pass through Veins.";
+		next;
+		mes "[Grey Wolf Elder]";
+		mes "I am from the wolf village, up north. We";
+		mes "keep the old counting there - how many";
+		mes "went out, how many came back.";
+	} else {
+		mes "Back already. Sit, if you want.";
+		mes "The ground is warm.";
+	}
+	next;
+
+	while (1) {
+		mes "[Grey Wolf Elder]";
+		mes "^777777Completed: " + hq_stufe + " of 6^000000";
+
+		// Die offene Quest ist immer die der aktuellen Stufe -
+		// die Kette laesst nie zwei gleichzeitig zu. Deshalb
+		// reicht hq_stufe als Index; einen zweiten Zeiger
+		// mitzufuehren waere eine zweite Stelle, die
+		// auseinanderlaufen kann.
+		if (hq_offen)
+			mes "^777777Open: " + .titel$[hq_stufe] + "^000000";
+		next;
+
+		// Der zweite Punkt ist leer, solange die Geschichte
+		// noch nicht erzaehlt wurde. Leere Eintraege werden
+		// nicht angezeigt, verschieben die Nummerierung aber
+		// NICHT - doc/script_commands.txt:1606 sagt das
+		// ausdruecklich zu. Deshalb bleibt "Wildlife" bei 3.
+		.@w = select(
+			(hq_offen ? "Report on what I am doing" : "What would you have me do?"),
+			(hq_stufe >= 1 || hq_offen == 70261 ? "Tell me about the Hunt again" : ""),
+			"What is a Wildlife pack?",
+			"Nothing today");
+
+		switch (.@w) {
+		case 1:
+			if (hq_offen) callsub S_Abgeben;
+			else          callsub S_Annehmen;
+			break;
+		case 2:
+			callsub S_Geschichte;
+			break;
+		case 3:
+			callsub S_Wildlife;
+			break;
+		case 4:
+			mes "[Grey Wolf Elder]";
+			mes "Then go carefully. The animals are";
+			mes "counting too.";
+			close;
+		}
+	}
+	end;
+
+
+// ------------------------------------------------------------
+//  Annehmen
+// ------------------------------------------------------------
+S_Annehmen:
+	if (hq_stufe >= 6) {
+		mes "[Grey Wolf Elder]";
+		mes "Nothing. You have done all of it.";
+		next;
+		mes "[Grey Wolf Elder]";
+		mes "The counting is finished, and it came out";
+		mes "in your favour. That is rarer than you";
+		mes "think.";
+		next;
+		return;
+	}
+
+	.@i = hq_stufe;
+
+	if (BaseLevel < .stufe[.@i]) {
+		mes "[Grey Wolf Elder]";
+		mes "Not yet. What comes next needs ^FF0000level "
+		    + .stufe[.@i] + "^000000, and you are ^FF0000"
+		    + BaseLevel + "^000000.";
+		next;
+		mes "[Grey Wolf Elder]";
+		mes "I am not being careful with you. I am";
+		mes "being careful with the animals - a hunter";
+		mes "who dies out there leaves a mess.";
+		next;
+		return;
+	}
+
+	mes "[Grey Wolf Elder]";
+	mes "^FFCC00" + .titel$[.@i] + "^000000";
+	mes " ";
+	mes .aufgabe$[.@i];
+	next;
+
+	mes "[Grey Wolf Elder]";
+	mes "It pays ^0000FF" + .exp_pct[.@i] + "%^000000 of a level, the";
+	mes "same again in job experience, and ^FFCC00"
+	    + callfunc("F_InsertComma", .zeny[.@i]) + "z^000000.";
+	if (.beute[.@i] > 0) {
+		if (.@i == 5)
+			mes "On top of that ^0000FF" + .beute[.@i] + " "
+			    + getitemname(.coin) + "^000000.";
+		else
+			mes "On top of that ^0000FF" + .beute[.@i] + " "
+			    + getitemname(.mat) + "^000000.";
+	}
+	next;
+
+	if (select("Take it:Not now") == 2) {
+		mes "[Grey Wolf Elder]";
+		mes "The animals will still be there.";
+		next;
+		return;
+	}
+
+	// Die Geschichte gehoert zum Annehmen von Stufe 2 und wird
+	// erzaehlt, BEVOR die Quest im Log steht. Wer sie hier
+	// wegklickt, bekommt sie ueber den Menuepunkt wieder - der
+	// schaltet sich mit hq_offen == 70261 frei.
+	hq_offen = .quest[.@i];
+	hq_wild  = wild_erlegt;
+	setquest .quest[.@i];
+
+	if (.@i == 1) {
+		next;
+		callsub S_Geschichte;
+	}
+
+	mes "[Grey Wolf Elder]";
+	mes "Then it is written down. Come back when it";
+	mes "is done.";
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  Abgeben
+// ------------------------------------------------------------
+S_Abgeben:
+	.@i = hq_stufe;
+
+	// --- Die beiden Wildlife-Stufen --------------------------
+	//  Sie haben kein Questziel in der Datenbank, weil ein
+	//  Wildlife kein eigener Monstertyp ist. Gezaehlt wird ueber
+	//  die Differenz zum Stand beim Annehmen.
+	if (.wild[.@i] > 0) {
+		.@habe = wild_erlegt - hq_wild;
+		if (.@habe < 0) .@habe = 0;   // falls jemand zurueckgesetzt hat
+
+		mes "[Grey Wolf Elder]";
+		mes "Pack leaders: ^0000FF" + .@habe + " of "
+		    + .wild[.@i] + "^000000.";
+
+		if (.@habe < .wild[.@i]) {
+			next;
+			mes "[Grey Wolf Elder]";
+			mes "They come up where the ground is already";
+			mes "busy. Keep killing, and one will stand up";
+			mes "out of the middle of it.";
+			next;
+			return;
+		}
+		next;
+	} else {
+		// --- Die vier Jagdstufen -----------------------------
+		//  checkquest(...,HUNTING) liefert 2, wenn alle Ziele
+		//  erreicht sind. Den Zwischenstand zeigt der Client
+		//  selbst im Questfenster - ihn hier nachzubauen hiesse,
+		//  dieselbe Zahl zweimal zu pflegen.
+		if (checkquest(hq_offen, HUNTING) != 2) {
+			mes "[Grey Wolf Elder]";
+			mes "Not finished. Your quest log knows the";
+			mes "exact number better than I do.";
+			next;
+			mes "[Grey Wolf Elder]";
+			mes .aufgabe$[.@i];
+			next;
+			return;
+		}
+	}
+
+	// --- Die Trophaeen der letzten Stufe ---------------------
+	if (.abgabe[.@i] > 0) {
+		mes "[Grey Wolf Elder]";
+		mes "And the price. ^FFCC00" + .abgabe[.@i] + " "
+		    + getitemname(.mat) + "^000000.";
+		mes "You carry ^0000FF" + countitem(.mat) + "^000000.";
+		next;
+
+		if (countitem(.mat) < .abgabe[.@i]) {
+			mes "[Grey Wolf Elder]";
+			mes "Come back with them. I know what I am";
+			mes "asking - that is most of a full set of";
+			mes "gear, and you will feel it.";
+			next;
+			return;
+		}
+
+		if (select("Hand them over:Keep them a while longer") == 2) {
+			mes "[Grey Wolf Elder]";
+			mes "Then keep them. Wanting them is not a";
+			mes "failing.";
+			next;
+			return;
+		}
+
+		// Erst hier abziehen, nicht bei der Anzeige: zwischen
+		// beidem liegt ein Fenster, in dem der Spieler handeln
+		// kann.
+		if (countitem(.mat) < .abgabe[.@i]) {
+			mes "[Grey Wolf Elder]";
+			mes "They are gone from your bag. Come back.";
+			next;
+			return;
+		}
+		delitem .mat, .abgabe[.@i];
+	}
+
+	// --- Auszahlen -------------------------------------------
+	//  Erst malnehmen, dann teilen. Umgekehrt waere es auf den
+	//  unteren Stufen spuerbar falsch: NextBaseExp ist auf
+	//  Level 20 rund 9.100, geteilt durch 2500 sind das 3, und
+	//  aus 25 Prozent wuerden durch die Abschneiderei 20.
+	//
+	//  Ueberlaufen kann dabei nichts. Der Skriptkern rechnet in
+	//  64 Bit (script.cpp:3832, op_2num nimmt int64), und der
+	//  groesste Wert der Kurve ist 5.076.247.182 fuer Level 499
+	//  aus db/import/job_exp.yml - mal 60 sind das 3 * 10^11 und
+	//  damit weit unter der Grenze.
+	//
+	//  Die Zahl an sich waere in 32 Bit uebrigens schon vor der
+	//  Multiplikation zu gross: 5,07 Milliarden passen nicht in
+	//  einen int. Auf diesem Server MUSS also 64-Bit gerechnet
+	//  werden, und das tut er.
+	//
+	//  quest_exp_rate wird gelesen statt hineingeschrieben. Sie
+	//  steht bei uns auf 2500 wie base_exp_rate
+	//  (conf/import/battle_conf.txt); der Server multipliziert
+	//  bei getexp also nach, und deshalb muss hier vorher
+	//  geteilt werden. Wer die Rate aendert, muss nichts
+	//  nachziehen.
+	.@rate = getbattleflag("quest_exp_rate");
+	if (.@rate < 1) .@rate = 100;
+
+	//  Die Rechnung, einmal nachvollzogen:
+	//    getexp X gibt dem Spieler   X * rate / 100
+	//    gewuenscht ist              NextBaseExp * pct / 100
+	//    also muss X sein            NextBaseExp * pct / rate
+	.@b = NextBaseExp * .exp_pct[.@i] / .@rate;
+	.@j = NextJobExp  * .exp_pct[.@i] / .@rate;
+	if (.@b < 1) .@b = 1;
+	if (.@j < 1) .@j = 1;
+	getexp .@b, .@j;
+
+	Zeny += .zeny[.@i];
+
+	if (.beute[.@i] > 0) {
+		if (.@i == 5) getitem .coin, .beute[.@i];
+		else          getitem .mat,  .beute[.@i];
+	}
+
+	completequest hq_offen;
+	hq_offen = 0;
+	hq_stufe = .@i + 1;
+
+	specialeffect2 EF_ANGEL2;
+	mes "[Grey Wolf Elder]";
+	mes "^00AA00" + .titel$[.@i] + " - done.^000000";
+	next;
+	mes "[Grey Wolf Elder]";
+	mes .lob$[.@i];
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  Die Geschichte - hier faellt das Wort
+// ------------------------------------------------------------
+//  Sechs Seiten. Das Wort steht auf der fuenften, in einem
+//  gewoehnlichen Satz und ohne Farbe.
+//
+//  Bitte beim Umschreiben darauf achten: es muss "Hunter"
+//  bleiben, sonst passt es nicht mehr zu .losung$ in
+//  npc/custom/safa_deathreset.txt. Wer es dort aendert, aendert
+//  es hier mit.
+S_Geschichte:
+	mes "[Grey Wolf Elder]";
+	mes "Long before the wolf village had a name, it";
+	mes "had a bad winter. Three of them, back to";
+	mes "back.";
+	next;
+
+	mes "[Grey Wolf Elder]";
+	mes "The herds went somewhere else and did not";
+	mes "come back. What stayed behind was the sort";
+	mes "of thing you do not hunt - you avoid it,";
+	mes "and you teach your children to avoid it.";
+	next;
+
+	mes "[Grey Wolf Elder]";
+	mes "Our chieftain went out anyway. Alone the";
+	mes "first time, because nobody would go with";
+	mes "him, and that is the honest part of the";
+	mes "story.";
+	next;
+
+	mes "[Grey Wolf Elder]";
+	mes "He brought back something with a spine as";
+	mes "long as a boat. Then something that had";
+	mes "been eating the boats. He did it through";
+	mes "three winters, and the village ate.";
+	next;
+
+	mes "[Grey Wolf Elder]";
+	mes "When he died we found we had stopped using";
+	mes "his name years before. Nobody remembered";
+	mes "it. What we called him was the plain word";
+	mes "for what he did, and the word was Hunter.";
+	next;
+
+	mes "[Grey Wolf Elder]";
+	mes "That is the whole telling. It is not a";
+	mes "song and it does not rhyme. We keep it";
+	mes "because the winters come back.";
+	next;
+
+	mes "[Grey Wolf Elder]";
+	mes "Say it to the right person one day and it";
+	mes "will be worth more than the meat was.";
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  Auskunft ueber die Rudel
+// ------------------------------------------------------------
+S_Wildlife:
+	mes "[Grey Wolf Elder]";
+	mes "Something changed out there. You kill an";
+	mes "animal, and now and then the ground gives";
+	mes "you a bigger one of the same kind.";
+	next;
+	mes "[Grey Wolf Elder]";
+	mes "^0000FFWildlife^000000, we call them. Same beast, wrong";
+	mes "size. It hits harder, it takes far longer";
+	mes "to put down, and it does not come alone -";
+	mes "whatever else lives on that ground comes";
+	mes "with it.";
+	next;
+	mes "[Grey Wolf Elder]";
+	mes "They do not wait around. Leave one standing";
+	mes "and the pack moves on within the half hour.";
+	next;
+	mes "[Grey Wolf Elder]";
+	mes "Bring the leader down and the rest scatter.";
+	mes "The animals pay in ^0000FF" + getitemname(.mat)
+	    + "^000000; everything";
+	mes "else pays in ^0000FF" + getitemname(.coin) + "^000000.";
+	next;
+	mes "[Grey Wolf Elder]";
+	mes "You have taken ^0000FF" + wild_erlegt + "^000000 leaders so far.";
+	next;
+	return;
+
+
+OnInit:
+	.mat  = 30504;    // Safari Trophy, siehe safa_safari.txt
+	.coin = 30001;    // Destiny Coin, siehe safa_shops.txt
+
+	setarray .quest[0],   70260, 70261, 70262, 70263, 70264, 70265;
+	setarray .stufe[0],      20,    40,    90,   140,   200,   300;
+	setarray .exp_pct[0],    25,    35,    40,    45,    50,    60;
+	setarray .zeny[0],    40000,120000,400000,800000,2000000,5000000;
+
+	// Trophaeen als Belohnung - ausser auf der letzten Stufe,
+	// die in Destiny Coins zahlt. Sie verlangt ja Trophaeen;
+	// sie mit denselben zu belohnen waere ein Kreis.
+	setarray .beute[0],       3,    10,    25,    40,    80,   250;
+
+	// Erlegte Wildlife-Anfuehrer, 0 heisst: gewoehnliche
+	// Jagdquest ueber das Questsystem.
+	setarray .wild[0],        0,     0,     0,     3,     0,    12;
+
+	// Abzugebende Trophaeen.
+	setarray .abgabe[0],      0,     0,     0,     0,     0,   400;
+
+	setarray .titel$[0],
+		"The First Track",
+		"The Hunt",
+		"Teeth and Claw",
+		"What Walks With Them",
+		"The Grown Ones",
+		"The Chieftain's Due";
+
+	setarray .aufgabe$[0],
+		"Fifty animals. Any animals, any size. I want to see whether you can find them at all.",
+		"A hundred and twenty, and none of them young - level thirty and up.",
+		"Two hundred grown animals, level seventy and up. They will not run from you now.",
+		"Three Wildlife pack leaders. Not the pack - the one in the middle of it.",
+		"Two hundred and fifty full-grown animals, level one hundred and fifty and up. The ones the outfitter takes trophies from.",
+		"Twelve pack leaders, and four hundred trophies handed to me.";
+
+	setarray .lob$[0],
+		"You found them. That is the whole of it, and most people cannot.",
+		"Now you have earned the telling. Ask me for it whenever you like - and listen to the end of it.",
+		"You are not chasing them any more. They are deciding whether to come at you.",
+		"You went at the middle of a pack on purpose. The chieftain did that too, the first time.",
+		"Two hundred and fifty grown animals. The village would have eaten all winter on that.",
+		"That is what he paid. Not the killing - the giving away of what the killing was worth.";
+	end;
+}

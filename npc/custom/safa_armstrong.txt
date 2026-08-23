@@ -38,7 +38,7 @@
 //
 //===========================================================
 
-prontera,163,168,4	script	Armstrong#safa	4_M_SITDOWN,{
+veins,184,132,2	script	Armstrong#safa	4_M_SITDOWN,{
 	mes "[Armstrong]";
 	mes "Mind the notebooks, friend. Forty years of them.";
 	mes "Every field, every cave, and every thing that lives in one. Counted, weighed, written down.";
@@ -273,7 +273,7 @@ S_Rat:
 		mes "[Armstrong]";
 		mes "But you asked me where to hunt, and I will give you the honest answer instead:";
 		mes " ";
-		mes "^88CC88Have the marks taken off first.^000000 The ^88CC88Threshold Warden^000000 at ^00CCFFprontera 146, 182^000000 does it.";
+		mes "^88CC88Have the marks taken off first.^000000 The ^88CC88Threshold Warden^000000 at ^00CCFFveins 206, 54^000000 does it.";
 		mes "Walking in there at " + (.@tod * 5 > 90 ? 90 : .@tod * 5) + "% below yourself is not bravery. It is arithmetic.";
 	}
 	next;
@@ -332,7 +332,7 @@ S_Male:
 	mes "[Armstrong]";
 	mes "It is never the dying that costs you. It is the hour after.";
 	mes " ";
-	mes "The ^88CC88Threshold Warden^000000 takes them off. She stands at ^00CCFFprontera 146, 182^000000, a short walk north of here.";
+	mes "The ^88CC88Threshold Warden^000000 takes them off. She moved to ^00CCFFveins 206, 54^000000 - the Warper will put you at her door.";
 	mes "Be clean before you go back out.";
 	next;
 	return;

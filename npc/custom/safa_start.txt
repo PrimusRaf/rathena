@@ -4,7 +4,7 @@
 //= Neue Charaktere erwachen in der Halle von Valhalla. Der
 //= Threshold Warden erklaert den Server, laesst den Spieler
 //= sein Isekai-Geschenk waehlen - und erst diese Wahl oeffnet
-//= den Weg nach Prontera.
+//= den Weg nach Veins - der Hauptstadt seit Episode 22.
 //=
 //= Die Geschenke selbst (Namen, Wirkung, Beschreibung) liegen
 //= in npc/custom/safa_systems.txt. Dieser NPC ist nur die
@@ -64,8 +64,8 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 		mes "[Threshold Warden]";
 		mes "There is nothing left for you here.";
 		close2;
-		savepoint "prontera",156,191;
-		warp "prontera",156,191;
+		savepoint "veins",210,123;
+		warp "veins",210,123;
 		end;
 	}
 
@@ -107,7 +107,7 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 			mes "has not been written yet.";
 			next;
 			mes "[Threshold Warden]";
-			mes "Below waits ^0000FFProntera^000000. Everything";
+			mes "Below waits ^0000FFVeins^000000. Everything";
 			mes "begins there - and everything you";
 			mes "do from now on is counted.";
 			next;
@@ -129,7 +129,7 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 			mes "the old trials. He stands beside";
 			mes "every Healer.";
 			mes "^0000FFStylist^000000 and ^0000FFCard Remover^000000 wait";
-			mes "in Prontera.";
+			mes "in Veins, with all the rest.";
 			next;
 			mes "[Threshold Warden]";
 			mes "One more thing, and listen well.";
@@ -274,8 +274,8 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 					mes "The hall has no more use for you.";
 					mes "Go and be someone.";
 					close2;
-					savepoint "prontera",156,191;
-					warp "prontera",156,191;
+					savepoint "veins",210,123;
+					warp "veins",210,123;
 					end;
 				}
 			}

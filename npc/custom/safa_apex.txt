@@ -1,0 +1,1267 @@
+// ============================================================
+//  SafaRO - Episode 22: Apex
+//  "The Ones He Left"
+// ------------------------------------------------------------
+//  Die Tiere, die der alte Chieftain NICHT erlegt hat, und die
+//  wiederholbaren Auftraege fuer alle, die mit Level und
+//  Ausruestung durch sind.
+//
+//
+//  DAS PROBLEM, DAS DIESE DATEI LOEST
+//
+//  Auf diesem Server gibt es Charaktere, die 100 Millionen
+//  Schaden je Treffer machen. Gegen die hilft keine
+//  Lebenspunktwand: ein Gegner mit zehn Milliarden HP ist kein
+//  schwerer Kampf, sondern ein laenger dauernder. Nach dem
+//  dritten Mal ist er Arbeit.
+//
+//  Deshalb greift der Apex nicht die Zahl an, sondern das, was
+//  hinter ihr fehlt. Vier Hebel, und keiner davon ist "mehr HP":
+//
+//  1. DIE TOTEMS.  Der Kern des Kampfes. Fuenf Guardian Stones
+//     stehen um den Apex, und wie viel Schaden er ueberhaupt
+//     annimmt, haengt allein daran, wie viele davon noch
+//     stehen:
+//
+//         5 Totems   kein Schaden
+//         4 Totems   20 Prozent
+//         3 Totems   40 Prozent
+//         2 Totems   60 Prozent
+//         1 Totem    80 Prozent
+//         0 Totems   voller Schaden
+//
+//     Die Totems selbst tragen vier Mode-Flags:
+//
+//         MD_IGNOREMELEE | MD_IGNOREMAGIC
+//         MD_IGNORERANGED | MD_IGNOREMISC
+//
+//     Das ist in rAthena der "Pflanzen"-Zustand.
+//     is_infinite_defense() in battle.cpp:2922 prueft genau
+//     diese vier, und wo sie greifen, wird die gesamte
+//     Schadensrechnung uebersprungen: jeder Treffer macht
+//     EXAKT 1. Die vier zusammen decken Nahkampf, Fernkampf,
+//     Magie und Sonstiges ab - es bleibt kein Weg offen.
+//
+//     Damit ist die Lebenspunktzahl eines Totems eine
+//     TREFFERZAHL, und der Rest der Ausruestung faellt aus der
+//     Gleichung. Wer 100 Millionen Schaden macht, braucht genau
+//     so viele Treffer wie jemand mit zwei. Zum ersten Mal auf
+//     diesem Server zaehlt etwas anderes als die grosse Zahl:
+//     Angriffsgeschwindigkeit, Mehrfachtreffer, Flaechen-
+//     fertigkeiten - und wie viele Leute mitgekommen sind.
+//
+//  2. DIE RUECKGABE.  In angekuendigten Fenstern legt der Apex
+//     SC_MAXPAIN an und gibt einen Teil des erlittenen Treffers
+//     an den Angreifer zurueck - bei Waffen- UND bei
+//     Magieschaden (battle.cpp:5382 und skill.cpp:2884).
+//
+//     WIE VIEL DAS WIRKLICH IST
+//
+//     Wichtig, weil man sich hier leicht verrechnet:
+//     battle_do_reflect liest wd->damage, und das ist der Wert
+//     NACH battle_calc_damage - also nach DamageTaken
+//     (battle.cpp:2082) und nach dem Totem-Debuff. Die Rueckgabe
+//     haengt nicht am rohen Schlag, sondern an dem, was beim
+//     Apex tatsaechlich ankommt.
+//
+//     Das macht die Rueckgabe von selbst zur Kehrseite der
+//     Totems: bei vier stehenden Steinen kommt ein Fuenftel an
+//     und ein Fuenftel kommt zurueck. Bei null Steinen kommt
+//     alles an - und alles davon zurueck.
+//
+//     Ausweichen geht nicht: NPC_MAXPAIN_ATK traegt im skill_db
+//     IgnoreDefense, IgnoreDefCard, IgnoreElement und
+//     IgnoreFlee. Ruestung, Karten, Element und Flucht sind
+//     wirkungslos, es kommt flach an.
+//
+//     ACHTUNG, DAS IST DER GEFAEHRLICHE PUNKT
+//
+//     Steht keine Wand mehr, sind zehn Prozent von hundert
+//     Millionen zehn Millionen - das Neunfache des
+//     Lebenspunktdeckels von 1,1 Millionen
+//     (conf/battle/player.conf:100). Im Fenster ist ein einziger
+//     grosser Schlag dann toedlich, ohne Ausnahme.
+//
+//     Genau so ist es gemeint: vier Sekunden Vorwarnung, danach
+//     Finger weg. Und es ist selbstregelnd - wer kleiner
+//     zuschlaegt, bekommt weniger zurueck und ueberlebt.
+//
+//  3. NPC_CRITICALWOUND.  Ab 40 Prozent halbiert der Apex die
+//     Heilung seiner Gegner. Das trifft @autopot ins Herz - und
+//     @autopot ist auf diesem Server ausdruecklich erlaubt
+//     (siehe npc/scripts_custom.conf). Hier ist es zum ersten
+//     Mal nicht genug.
+//
+//
+//  DER ABLAUF
+//
+//    Start        die Wand steht, Apex unantastbar
+//    jedes Totem  er nimmt 20 Prozentpunkte mehr Schaden an
+//    Wand faellt  voller Schaden, Rueckgabefenster beginnen
+//    40 %         er heilt sich und halbiert eure Heilung
+//    15 %         Enrage: doppelter Angriff, kuerzere Pausen
+//
+//
+//  AUF WIE VIELE SPIELER DAS AUSGELEGT IST
+//
+//  Auf drei. Der Server hat zehn bis zwoelf aktive Leute, eine
+//  Verabredung zu dritt ist realistisch, eine zu zwoelft nicht.
+//  Drei sollen es schaffen; zwoelf sollen deutlich schneller
+//  fertig sein, aber nichts anderes tun muessen.
+//
+//  Die Rechnung dazu steht bei S_Totems. Sie enthaelt eine
+//  Annahme ueber Treffer je Sekunde, und die gehoert nach dem
+//  ersten Durchlauf nachgeschaerft.
+//
+//
+//  WARUM DAS ALLES OHNE C++ GEHT
+//
+//  Weil rAthena Monsterwerte zur Laufzeit aendern laesst.
+//  setunitdata schreibt HP, Angriff, DEF, Tempo, Immunitaet und
+//  DamageTaken auf ein bereits stehendes Tier, sc_start nimmt
+//  seit langem eine GID entgegen und setzt Statusaenderungen
+//  also auch auf Monster.
+//
+//  Damit braucht der Apex - wie Wildlife - KEINE eigene
+//  Monster-Id, keinen Eintrag in mob_db und kein Client-Update.
+//  Er ist ein amtliches Tier unter neuem Namen mit neuen Werten.
+//  Der Grund steht ausfuehrlich im Kopf von
+//  npc/custom/safa_wildlife.txt: der Client sucht Sprites ueber
+//  die Monsternummer, eine erfundene bliebe unsichtbar.
+//
+//
+//  DIE ARENA
+//
+//  2025arena2. Ausgewaehlt wie seinerzeit 2025arena1 fuer den
+//  Levelraum: von 1296 Karten sind 372 voellig leer - kein
+//  Spawn, kein NPC, kein Warp - und diese ist eine davon.
+//  Nachgezaehlt gegen den gesamten npc-Baum.
+//
+//  Sie hat 4.540 begehbare Zellen in EINEM zusammenhaengenden
+//  Stueck, x 36-163 und y 38-121. Alle hier benutzten
+//  Koordinaten sind gegen db/map_cache.dat geprueft.
+//
+//    99,91   Eingang und Ausgang
+//    99,67   der Apex
+//    91,71 / 107,71 / 91,87 / 107,87 / 99,83   die fuenf Totems
+//
+//  Vier stehen in den Ecken um den Apex, das fuenfte in der
+//  Mitte zwischen ihm und dem Eingang. Bewusst weit
+//  auseinander: wer die Wand schnell brechen will, muss sich
+//  aufteilen - und wer sich aufteilt, steht allein da, wenn der
+//  Apex sich das naechste Ziel sucht.
+//
+//  Die Mitte liegt auf 99,83 und nicht auf dem geometrischen
+//  Mittelpunkt 99,79: der ist Zelltyp 5, also Abgrund. Geprueft,
+//  nicht geschaetzt.
+//
+//
+//  WER MITMACHEN DARF
+//
+//  Ab Level 400. Der Erste bezahlt und eroeffnet die Jagd; alle
+//  anderen duerfen danach kostenlos hinein, solange sie laeuft.
+//  Das ist Absicht: es macht Gruppen zur guenstigsten Loesung,
+//  ohne dass hier eine Zeile Partylogik steht.
+//
+//  Es laeuft immer nur EINE Jagd auf dem ganzen Server.
+//
+//
+//  VARIABLEN
+//
+//    apex_erlegt   erlegte Apex, lebenslang, je Charakter
+//    $@apex_*      Zustand der laufenden Jagd, serverweit und
+//                  nur bis zum Neustart - genau richtig, denn
+//                  ueber 'monster' gesetzte Tiere ueberleben
+//                  einen Neustart ohnehin nicht
+// ============================================================
+
+
+// ============================================================
+//  Der Cairn - Eintritt zur Jagd
+// ------------------------------------------------------------
+//  veins 230,121, zweiter Platz der Questreihe. Geprueft mit
+//  tools/karte/hauptstadt_veins.py.
+// ============================================================
+
+veins,230,121,4	script	The Cairn#safa	4_EP18_GW_WOMAN01,{
+
+	mes "[The Cairn]";
+	mes "Stones piled by people who are all dead";
+	mes "now. One for every animal the chieftain";
+	mes "could not bring down.";
+	next;
+
+	while (1) {
+		mes "[The Cairn]";
+		if ($@apex_gid && unitexists($@apex_gid)) {
+			mes "^FF0000A hunt is running.^000000 " + $@apex_name$;
+			mes "is standing, and somebody is already";
+			mes "out there with it.";
+		} else {
+			mes "Nothing is awake. It costs to change that.";
+		}
+		mes " ";
+		mes "^777777You have brought down " + apex_erlegt
+		    + " of them.^000000";
+		next;
+
+		switch (select(
+			"Wake one - " + callfunc("F_InsertComma", .preis_coin) + " "
+			    + getitemname(.coin) + " and " + .preis_mat + " "
+			    + getitemname(.mat),
+			"Join the hunt that is running",
+			"What am I walking into?",
+			"Not today")) {
+
+		case 1: callsub S_Wecken;  break;
+		case 2: callsub S_Beitreten; break;
+		case 3: callsub S_Warnung; break;
+		case 4:
+			mes "[The Cairn]";
+			mes "Sensible. Most of the stones here belong";
+			mes "to people who were not.";
+			close;
+		}
+	}
+	end;
+
+
+// ------------------------------------------------------------
+S_Wecken:
+	if ($@apex_gid && unitexists($@apex_gid)) {
+		mes "[The Cairn]";
+		mes "One is already up. Two at once has been";
+		mes "tried, once, and that is why the village";
+		mes "moved.";
+		next;
+		return;
+	}
+
+	if (BaseLevel < .min_lv) {
+		mes "[The Cairn]";
+		mes "^FF0000Level " + .min_lv + "^000000 to wake one. You are ^FF0000"
+		    + BaseLevel + "^000000.";
+		next;
+		mes "[The Cairn]";
+		mes "This is not a wall put up to annoy you.";
+		mes "Below that, the thing kills you before you";
+		mes "have understood what it does.";
+		next;
+		return;
+	}
+
+	if (countitem(.coin) < .preis_coin || countitem(.mat) < .preis_mat) {
+		mes "[The Cairn]";
+		mes "You are short. It takes ^FFCC00"
+		    + callfunc("F_InsertComma", .preis_coin) + " "
+		    + getitemname(.coin) + "^000000 and ^FFCC00" + .preis_mat + " "
+		    + getitemname(.mat) + "^000000.";
+		mes "You carry ^0000FF" + countitem(.coin) + "^000000 and ^0000FF"
+		    + countitem(.mat) + "^000000.";
+		next;
+		return;
+	}
+
+	mes "[The Cairn]";
+	mes "Once it is up, the price is spent whether";
+	mes "you win or not. Twenty minutes, then it";
+	mes "loses interest and goes back down.";
+	next;
+
+	if (select("Wake it:Think about it a while longer") == 2) {
+		mes "[The Cairn]";
+		mes "The stones are patient.";
+		next;
+		return;
+	}
+
+	// Zwischen Anzeige und Zahlung liegt ein Fenster, in dem der
+	// Spieler handeln kann - deshalb hier noch einmal.
+	if (countitem(.coin) < .preis_coin || countitem(.mat) < .preis_mat) {
+		mes "[The Cairn]";
+		mes "It is gone from your bag. Come back.";
+		next;
+		return;
+	}
+	delitem .coin, .preis_coin;
+	delitem .mat,  .preis_mat;
+
+	// donpcevent statt callsub: das Aufstellen gehoert dem
+	// Steuer-NPC und darf nicht an diesem Spieler haengen. Haenge
+	// es an ihm, endete der Kampf, sobald er sich ausloggt.
+	donpcevent "safa_apex::OnWecken";
+
+	mes "[The Cairn]";
+	mes "^FF0000It heard you.^000000";
+	close2;
+	warp .arena$, 99, 91;
+	end;
+
+
+// ------------------------------------------------------------
+S_Beitreten:
+	if (!$@apex_gid || !unitexists($@apex_gid)) {
+		mes "[The Cairn]";
+		mes "There is nothing to join. Wake one";
+		mes "yourself, or wait for somebody braver.";
+		next;
+		return;
+	}
+
+	if (BaseLevel < .min_lv) {
+		mes "[The Cairn]";
+		mes "^FF0000Level " + .min_lv + "^000000, same as for waking it.";
+		mes "Dying in somebody else's hunt helps";
+		mes "nobody.";
+		next;
+		return;
+	}
+
+	mes "[The Cairn]";
+	mes "Go on then. It costs you nothing - whoever";
+	mes "woke it already paid, and they will be glad";
+	mes "of the help.";
+	close2;
+	warp .arena$, 99, 91;
+	end;
+
+
+// ------------------------------------------------------------
+S_Warnung:
+	mes "[The Cairn]";
+	mes "Listen properly, because this one is not";
+	mes "like the others.";
+	next;
+	mes "[The Cairn]";
+	mes "^FFCC00Five stones come up with it^000000, and while";
+	mes "they stand you cannot touch the beast at";
+	mes "all. Each one still standing takes a fifth";
+	mes "of your strength as well.";
+	next;
+	mes "[The Cairn]";
+	mes "Do not bring your big numbers to the";
+	mes "stones. They take ^FFCC00a hundred^000000 a hit and not";
+	mes "a scrap more - from you, from me, from";
+	mes "anybody. A million each, so count it out.";
+	next;
+	mes "[The Cairn]";
+	mes "So it is not about how hard you swing. It";
+	mes "is about ^FFCC00how often^000000, and how many of you";
+	mes "there are. Four stand at the corners and";
+	mes "one in the middle. Spread out or be slow.";
+	next;
+	mes "[The Cairn]";
+	mes "Once the stones are down it starts";
+	mes "^FF0000bristling^000000, and this is";
+	mes "the part that kills people.";
+	next;
+	mes "[The Cairn]";
+	mes "Every so often the hide along its back comes";
+	mes "up. You get a shout four seconds before. For";
+	mes "as long as it is up, ^FF0000every wound you open";
+	mes "opens on you instead^000000.";
+	next;
+	mes "[The Cairn]";
+	mes "Armour does not help. Cards do not help.";
+	mes "Element does not help, and you cannot dodge";
+	mes "it. The only thing that works is ^FFCC00stopping^000000.";
+	next;
+	mes "[The Cairn]";
+	mes "And it is fair, in its way: it hands back";
+	mes "what you handed it. Somebody hitting small";
+	mes "walks away from it. The hardest hitter in";
+	mes "the party is the one it kills.";
+	next;
+
+	mes "[The Cairn]";
+	mes "At ^FFCC00four in ten^000000 it starts closing its own";
+	mes "wounds, and it makes yours slow to close.";
+	mes "Potions stop being an answer.";
+	next;
+	mes "[The Cairn]";
+	mes "Under ^FFCC00one and a half in ten^000000 it stops being";
+	mes "careful. The gaps between the bristling get";
+	mes "shorter and the bristling lasts longer.";
+	next;
+	mes "[The Cairn]";
+	mes "Bring it down and everyone still standing";
+	mes "in there is paid. Everyone.";
+	next;
+	return;
+
+
+OnInit:
+	.coin      = 30001;   // Destiny Coin
+	.mat       = 30504;   // Safari Trophy
+	.preis_coin = 500;
+	.preis_mat  = 200;
+	.min_lv     = 400;
+	.arena$     = "2025arena2";
+	end;
+}
+
+
+// ============================================================
+//  Der Ausgang
+// ============================================================
+2025arena2,99,91,4	script	Way Out#safa_apex	4_M_ORIENT01,{
+	mes "[Way Out]";
+	mes "Back to Veins?";
+	next;
+	if (select("Yes:No") == 2) {
+		mes "[Way Out]";
+		mes "Then turn around.";
+		close;
+	}
+	close2;
+	warp "veins", 228, 123;
+	end;
+}
+
+
+// ============================================================
+//  Die Steuerung
+// ============================================================
+
+-	script	safa_apex	-1,{
+	end;
+
+
+// ------------------------------------------------------------
+//  Aufstellen
+// ------------------------------------------------------------
+OnWecken:
+	if ($@apex_gid && unitexists($@apex_gid)) end;
+
+	// Sicherheitshalber aufraeumen: ein abgebrochener Durchgang
+	// koennte Totems zurueckgelassen haben.
+	killmonster .arena$, "safa_apex::OnTotem";
+	killmonster .arena$, "safa_apex::OnApexTot";
+
+	.@i = rand(getarraysize(.tier));
+	.@basis = .tier[.@i];
+	.@name$ = "Apex " + getmonsterinfo(.@basis, MOB_NAME);
+
+	monster .arena$, 99, 67, .@name$, .@basis, 1, "safa_apex::OnApexTot";
+	.@gid = $@mobid[0];
+	if (!.@gid) end;
+
+	$@apex_gid   = .@gid;
+	$@apex_basis = .@basis;
+	$@apex_name$ = .@name$;
+	$@apex_maxhp = .hp;
+	$@apex_phase = 1;
+	$@apex_tick  = 0;
+	$@apex_heilt = 0;
+	$@apex_str       = 0;
+	$@apex_str_stand = 0;
+
+	setunitdata .@gid, UMOB_MAXHP, .hp;
+	setunitdata .@gid, UMOB_HP,    .hp;
+
+	// --- Der Angriff wird GESETZT, nicht vervielfacht ---------
+	//  Die sechs Vorlagen liegen zwischen 1.800 (Infinite Eddga)
+	//  und 12.871 (R001-Bestia) Grundangriff. Ein gemeinsamer
+	//  Faktor macht daraus einen Apex, der je nach Wuerfelwurf
+	//  siebenmal so hart zuschlaegt wie ein anderer - und die
+	//  Vorlage soll das AUSSEHEN bestimmen, nicht die
+	//  Schwierigkeit. Also ein fester Wert fuer alle.
+	//
+	//  Die Hoehe ist am Deckel gemessen, nicht an den Vorlagen:
+	//  bei 1,1 Millionen Lebenspunkten sind 200.000 vor Abzuegen
+	//  rund ein Fuenftel, nach DEF und RES deutlich weniger.
+	//  Damit haelt der Apex Druck, ohne zu einem Schlag zu
+	//  toeten - und die halbierte Heilung ab Phase 3 wird zu
+	//  einem Problem statt zu einer Verzierung.
+	setunitdata .@gid, UMOB_ATKMIN, .atk_min;
+	setunitdata .@gid, UMOB_ATKMAX, .atk_max;
+	setunitdata .@gid, UMOB_DEF,    getunitdata(.@gid, UMOB_DEF) + 200;
+	setunitdata .@gid, UMOB_MDEF,   getunitdata(.@gid, UMOB_MDEF) + 200;
+	setunitdata .@gid, UMOB_LEVEL,  500;
+	setunitdata .@gid, UMOB_MODE,
+	            getunitdata(.@gid, UMOB_MODE) | MD_AGGRESSIVE | MD_CANMOVE;
+
+	announce "A cairn stone has been turned over. " + .@name$
+	         + " is awake, and it is not going back down quietly.",
+	         bc_all, 0xCC3300;
+
+	// Die erste Wand steht sofort. Der Apex ist von der ersten
+	// Sekunde an unantastbar - genau das soll der Kampf lehren.
+	callsub S_Totems;
+
+	initnpctimer;
+	end;
+
+
+// ------------------------------------------------------------
+//  Eine Welle Totems aufstellen
+// ------------------------------------------------------------
+//  WAS EIN TOTEM IST
+//
+//  Ein Guardian Stone (1907) - die Statue aus WoE:SE - mit vier
+//  gesetzten Mode-Flags:
+//
+//      MD_IGNOREMELEE | MD_IGNOREMAGIC | MD_IGNORERANGED
+//                     | MD_IGNOREMISC
+//
+//  Diese vier sind es, die in rAthena den "Pflanzen"-Zustand
+//  ergeben. is_infinite_defense() in battle.cpp:2922 prueft
+//  genau sie, und wo die Funktion true liefert, wird die ganze
+//  Schadensrechnung uebersprungen: der Treffer macht EXAKT 1.
+//  Zusammen decken die vier Waffen-Nahkampf, Waffen-Fernkampf,
+//  Magie und Sonstiges ab - es bleibt kein Weg offen.
+//
+//  DAMIT IST DIE LEBENSPUNKTZAHL EINE TREFFERZAHL
+//
+//  Und das ist der eigentliche Wert der Sache: ein Totem mit 800
+//  Lebenspunkten braucht 800 Treffer. Von jedem. Der Spieler mit
+//  100 Millionen Schaden braucht genau so viele wie der mit
+//  zwei. Ausruestung, Karten, Verzauberungen, Refine - nichts
+//  davon hilft hier, nur Angriffsgeschwindigkeit und die Zahl
+//  der Leute.
+//
+//  Mehrfachtreffer zaehlen einzeln (battle.cpp:5046 wendet
+//  DAMAGE_DIV_FIX auch bei Pflanzen an). Eine Fertigkeit mit
+//  fuenf Schlaegen macht also 5 Schaden, und eine Flaechen-
+//  fertigkeit trifft mehrere Totems zugleich. Wer sein Gehirn
+//  einschaltet, ist schneller fertig - aber niemand kann die
+//  Phase ueberspringen.
+//
+//  1.000.000 LEBENSPUNKTE UND 100 SCHADEN JE TREFFER
+//
+//  Beides Vorgabe von Raffael, und beides steht so im Spiel.
+//  Der Weg dahin geht ueber zwei Stufen, weil rAthena keine
+//  Schadensobergrenze je Treffer kennt - nachgesehen:
+//  battle.cpp kann Schaden nur PROZENTUAL daempfen
+//  (damagetaken, Zeile 2082), nicht deckeln.
+//
+//  Stufe 1, die Engine: die vier IGNORE-Flags machen jeden
+//  Treffer zu genau 1 Schaden. Das ist die harte Garantie -
+//  keine Ausruestung, keine Karte, kein Refine kommt daran
+//  vorbei.
+//
+//  Stufe 2, dieses Skript: der Herzschlag liest jede Sekunde,
+//  wie viele Punkte ein Totem verloren hat. Da jeder Treffer
+//  genau einen Punkt kostet, IST diese Zahl die Trefferzahl.
+//  Sie wird mit 100 multipliziert und der Rest zusaetzlich
+//  abgezogen. Ergebnis: exakt 100 Schaden je Treffer auf einem
+//  Vorrat von einer Million, und der Lebensbalken zeigt genau
+//  das an.
+//
+//  WARUM DIE ZWEITE STUFE NOETIG IST
+//
+//  Ohne sie muesste das Totem 10.000 Lebenspunkte haben, um
+//  dieselben 10.000 Treffer zu verlangen. Rechnerisch identisch,
+//  im Spiel aber nicht: der Balken zeigte dann 10.000, und
+//  niemand kann daran ablesen, was hier wirklich passiert.
+//
+//  WIE LANGE DAS DAUERT
+//
+//  10.000 Treffer je Totem, fuenf Totems, also 50.000 Treffer
+//  fuer die Wand.
+//
+//  Der Angriffsdeckel liegt bei amotion 96 bis 99 Millisekunden
+//  (status.cpp:4620, pc_maxaspd/AMOTION_DIVIDER_PC) - rund zehn
+//  GRUNDangriffe je Sekunde. Entscheidend sind aber die
+//  Mehrfachtreffer: gegen Pflanzenziele wendet battle.cpp:5046
+//  DAMAGE_DIV_FIX weiterhin an, eine Fertigkeit mit fuenf
+//  Schlaegen zaehlt also fuenfmal, und eine Flaechenfertigkeit
+//  trifft alle fuenf Totems zugleich.
+//
+//  Mit 30 gezaehlten Treffern je Spieler und Sekunde:
+//
+//      3 Spieler   ~9 Minuten
+//      6 Spieler   ~5 Minuten
+//     12 Spieler   ~2 Minuten
+//
+//  Deshalb steht die Wand auch nur EINMAL und nicht dreimal -
+//  drei Waende passten nicht mehr in die zwanzig Minuten.
+//
+//  Die 30 sind weiterhin eine Annahme. Wenn sie danebenliegt,
+//  ist .totem_hp die einzige Zahl, die sich aendern muss.
+S_Totems:
+	$@apex_totems = .totem_zahl;
+
+	for (.@k = 0; .@k < .totem_zahl; .@k++) {
+		monster .arena$, .tx[.@k], .ty[.@k], "Apex Totem",
+		        .totem, 1, "safa_apex::OnTotem";
+		.@g = $@mobid[0];
+
+		// Merkliste fuer den Herzschlag. Auch ein misslungener
+		// Spawn bekommt seinen Platz - sonst verrutschte die
+		// Zuordnung zwischen $@tot_gid und $@tot_hp.
+		$@tot_gid[.@k] = .@g;
+		$@tot_hp[.@k]  = .totem_hp;
+		if (!.@g) continue;
+
+		setunitdata .@g, UMOB_MAXHP, .totem_hp;
+		setunitdata .@g, UMOB_HP,    .totem_hp;
+
+		// ODER, nicht setzen: setunitdata schreibt den Modus als
+		// Ganzes (script.cpp:19455). Ein blankes Zuweisen wuerde
+		// alles andere loeschen, was der Guardian Stone
+		// mitbringt.
+		setunitdata .@g, UMOB_MODE,
+		            getunitdata(.@g, UMOB_MODE)
+		            | MD_IGNOREMELEE | MD_IGNOREMAGIC
+		            | MD_IGNORERANGED | MD_IGNOREMISC;
+	}
+
+	// Ein laufendes Straeuben mit der neuen Wand abbrechen -
+	// sonst haengt die Rueckgabe an einem Gegner, den gerade
+	// niemand treffen kann, und laeuft ins Nichts aus.
+	sc_end SC_MAXPAIN, $@apex_gid;
+	$@apex_str_stand = 0;
+	$@apex_str = .pause_1;
+
+	callsub S_Skalierung;
+
+	mapannounce .arena$,
+	    "Five stones push up out of the ground around it. Nothing you do reaches the beast while they stand.",
+	    bc_map, "0xFF6600";
+	return;
+
+
+// ------------------------------------------------------------
+//  Ein Totem faellt
+// ------------------------------------------------------------
+OnTotem:
+	if ($@apex_totems > 0) $@apex_totems--;
+
+	if ($@apex_totems <= 0) {
+		$@apex_totems = 0;
+		mapannounce .arena$,
+		    "The last stone splits. It is open - go.",
+		    bc_map, "0x66CC66";
+	} else {
+		mapannounce .arena$,
+		    "A stone splits. " + $@apex_totems + " left - it is taking "
+		    + ((.totem_zahl - $@apex_totems) * .pro_totem) + "% of what you deal.",
+		    bc_map, "0xFFCC00";
+	}
+
+	callsub S_Skalierung;
+	end;
+
+
+// ------------------------------------------------------------
+//  Wieviel Schaden der Apex gerade annimmt
+// ------------------------------------------------------------
+//      5 Totems   kein Schaden
+//      4 Totems   20 Prozent
+//      3 Totems   40 Prozent
+//      2 Totems   60 Prozent
+//      1 Totem    80 Prozent
+//      0 Totems   voller Schaden
+//
+//  WARUM DAS AM BOSS HAENGT UND NICHT AN DEN SPIELERN
+//
+//  Weil es dieselbe Regel ist, und sie darf nur an EINER Stelle
+//  stehen. Ein Abzug von 20 Prozent auf den Spieler UND ein
+//  DamageTaken von 20 Prozent am Apex wuerden sich
+//  multiplizieren - bei vier Totems kaemen 4 Prozent an statt
+//  20.
+//
+//  Von den beiden Moeglichkeiten ist diese die haltbarere. Ein
+//  bonus_script am Spieler haette an F_SafaRefresh gehangen,
+//  das stuendlich mit bonus_script_clear 1 alles abraeumt
+//  (doc/script_commands.txt:6562) - der Abzug waere mitten im
+//  Kampf verschwunden. Und er haette beim Betreten, beim Tod
+//  und beim Verlassen einzeln nachgezogen werden muessen. Am
+//  Monster ist es ein Wert, der genau dann steht, wenn er
+//  stehen soll.
+//
+//  Die Rueckgabe im Straeuben-Fenster bleibt dabei richtig:
+//  battle_do_reflect liest den Schaden NACH battle_calc_damage
+//  (battle.cpp:2082), also nach diesem Abzug. Wer gegen vier
+//  stehende Totems draufhaelt, bekommt auch nur ein Fuenftel
+//  zurueck.
+S_Skalierung:
+	.@dt = (.totem_zahl - $@apex_totems) * .pro_totem;
+	if (.@dt < 0)   .@dt = 0;
+	if (.@dt > 100) .@dt = 100;
+
+	// DamageTaken 0 laesst rAthena trotzdem 1 Schaden je Treffer
+	// durch (battle.cpp:2082, i64max(..., 1)). Solange die Wand
+	// vollstaendig steht, deckelt deshalb zusaetzlich
+	// DMGIMMUNE - sonst tropfte ein duenner Faden Schaden
+	// weiter.
+	setunitdata $@apex_gid, UMOB_DMGIMMUNE,
+	            ($@apex_totems >= .totem_zahl) ? 1 : 0;
+	setunitdata $@apex_gid, UMOB_DAMAGETAKEN, .@dt;
+	return;
+
+
+// ------------------------------------------------------------
+//  Der Herzschlag
+// ------------------------------------------------------------
+OnTimer1000:
+	if (!$@apex_gid) {
+		stopnpctimer;
+		end;
+	}
+
+	// Verschwunden, ohne zu sterben - @killall, Neustart einer
+	// Karte, was auch immer. Ohne diese Pruefung liefe der Timer
+	// bis in alle Ewigkeit und der Cairn bliebe gesperrt.
+	if (!unitexists($@apex_gid)) {
+		callsub S_Ende, 0;
+		end;
+	}
+
+	$@apex_tick++;
+	if ($@apex_tick >= .zeit) {
+		callsub S_Ende, 1;
+		end;
+	}
+
+	.@hp  = getunitdata($@apex_gid, UMOB_HP);
+	.@pct = .@hp * 100 / $@apex_maxhp;
+
+	if ($@apex_totems > 0) callsub S_Totemschaden;
+
+	switch ($@apex_phase) {
+
+	// --- 1: solange die erste Wand steht --------------------
+	case 1:
+		// Erst wenn die erste Wand einmal gefallen ist, faengt
+		// alles Weitere an. Vorher kann der Apex ohnehin keinen
+		// Schaden nehmen, und ein Straeuben ohne Angreifer waere
+		// eine Ansage ins Leere.
+		if ($@apex_totems > 0) break;
+
+		$@apex_phase = 3;
+		$@apex_str_stand = 0;
+		$@apex_str = .pause_1;
+
+		mapannounce .arena$,
+		    "It turns around, and something along its back starts to lift.",
+		    bc_map, "0xFF3300";
+		break;
+
+	// --- 3: es schliesst seine Wunden -----------------------
+	case 3:
+		if (.@pct <= 15) {
+			$@apex_phase = 4;
+
+			// Verdoppeln, nicht verdreifachen. Bei mal drei
+			// stuende der Hoechstschlag bei 600.000 und damit
+			// ueber der Haelfte des Deckels - das waere kein
+			// Enrage mehr, sondern ein Wuerfelwurf auf Tod.
+			setunitdata $@apex_gid, UMOB_ATKMIN, .atk_min * 2;
+			setunitdata $@apex_gid, UMOB_ATKMAX, .atk_max * 2;
+			setunitdata $@apex_gid, UMOB_SPEED, 120;
+
+			mapannounce .arena$,
+			    "It stops being careful. The gaps between are getting shorter.",
+			    bc_map, "0xFF0000";
+			break;
+		}
+
+		$@apex_heilt++;
+		if ($@apex_heilt < .heil_takt) break;
+		$@apex_heilt = 0;
+
+		.@neu = .@hp + ($@apex_maxhp / 100 * .heil_pct);
+		if (.@neu > $@apex_maxhp) .@neu = $@apex_maxhp;
+		setunitdata $@apex_gid, UMOB_HP, .@neu;
+
+		callsub S_Skill, "NPC_CRITICALWOUND", 3;
+		mapannounce .arena$,
+		    "It closes what you opened, and leaves you something that will not close.",
+		    bc_map, "0xFF9900";
+		break;
+
+	// --- 4: Enrage ------------------------------------------
+	case 4:
+		$@apex_heilt++;
+		if ($@apex_heilt < .rage_takt) break;
+		$@apex_heilt = 0;
+		callsub S_Skill, "NPC_PULSESTRIKE", 5;
+		break;
+	}
+
+	// Das Straeuben laeuft neben den Phasen her, nicht in ihnen.
+	// Deshalb steht es HINTER dem switch: die Phase kann in
+	// derselben Sekunde wechseln, das Fenster laeuft trotzdem
+	// weiter und wird beim Wechsel nicht verschluckt.
+	//
+	// Solange Totems stehen, ruht es. Der Apex nimmt dann
+	// ohnehin keinen Schaden, es gaebe also nichts
+	// zurueckzugeben - und eine rote Warnung, die folgenlos
+	// bleibt, bringt den Spielern nur bei, sie zu ueberlesen.
+	if ($@apex_phase >= 3 && $@apex_totems <= 0) callsub S_Straeuben;
+
+	setnpctimer 0;
+	end;
+
+
+// ------------------------------------------------------------
+//  Aus 1 Schaden je Treffer werden 100
+// ------------------------------------------------------------
+//  Die IGNORE-Flags garantieren, dass ein Treffer GENAU einen
+//  Lebenspunkt kostet. Der Verlust seit der letzten Sekunde ist
+//  damit die Trefferzahl der letzten Sekunde - eine Zahl, die
+//  sich sonst nirgends abfragen laesst, weil rAthena keinen
+//  Skripthaken auf "wurde getroffen" kennt.
+//
+//  Abgezogen wird das Hundertfache minus dem einen Punkt, den
+//  die Engine schon genommen hat.
+//
+//  ZUR SEKUNDE ALS TAKT
+//
+//  Der Lebensbalken springt dadurch in Stufen statt zu
+//  fliessen. Das ist der Preis dafuer, dass es ohne
+//  Compilerlauf geht, und er ist bei einer Million Vorrat und
+//  Spruengen von einigen Tausend nicht zu sehen.
+//
+//  Ein Totem, dessen Rest nicht mehr reicht, wird ueber
+//  unitkill erlegt. Das loest sein Todesereignis regulaer aus,
+//  OnTotem laeuft also ganz normal - dort steht bewusst nichts,
+//  was einen angehaengten Spieler braucht.
+S_Totemschaden:
+	for (.@k = 0; .@k < .totem_zahl; .@k++) {
+		.@g = $@tot_gid[.@k];
+		if (!.@g) continue;
+		if (!unitexists(.@g)) {
+			$@tot_gid[.@k] = 0;
+			continue;
+		}
+
+		.@jetzt = getunitdata(.@g, UMOB_HP);
+		.@treffer = $@tot_hp[.@k] - .@jetzt;
+		if (.@treffer <= 0) {
+			$@tot_hp[.@k] = .@jetzt;
+			continue;
+		}
+
+		.@rest = .@jetzt - .@treffer * (.wert - 1);
+		if (.@rest <= 0) {
+			$@tot_gid[.@k] = 0;
+			$@tot_hp[.@k]  = 0;
+			unitkill .@g;
+			continue;
+		}
+
+		setunitdata .@g, UMOB_HP, .@rest;
+		$@tot_hp[.@k] = .@rest;
+	}
+	return;
+
+
+// ------------------------------------------------------------
+//  Das Straeuben - das Fenster, in dem man die Finger lassen muss
+// ------------------------------------------------------------
+//  Drei Zustaende im Kreis:
+//
+//    0  ruhig     nichts, man darf dreschen
+//    1  Warnung   angekuendigt, das Fenster kommt
+//    2  aktiv     SC_MAXPAIN liegt an, jeder Treffer kommt zurueck
+//
+//  $@apex_str zaehlt die Sekunden bis zum naechsten Wechsel
+//  herunter. In Phase 4 sind die Pausen kuerzer und die Fenster
+//  laenger - die Werte dafuer stehen in OnInit.
+S_Straeuben:
+	$@apex_str--;
+	if ($@apex_str > 0) return;
+
+	.@p4 = ($@apex_phase >= 4);
+
+	switch ($@apex_str_stand) {
+
+	case 0:
+		$@apex_str_stand = 1;
+		$@apex_str = .warnung;
+		mapannounce .arena$,
+		    "Its hide is coming up. HANDS OFF - " + .warnung + " seconds.",
+		    bc_map, "0xFFCC00";
+		return;
+
+	case 1:
+		$@apex_str_stand = 2;
+		$@apex_str = (.@p4 ? .fenster_2 : .fenster_1);
+
+		// Millisekunden, und eine Sekunde Zugabe: der Status soll
+		// nicht VOR unserem eigenen Zaehler auslaufen, sonst gaebe
+		// es eine stille Luecke, in der die Ansage noch steht,
+		// aber nichts mehr zurueckkommt.
+		sc_start SC_MAXPAIN, ($@apex_str + 1) * 1000, .stufe,
+		         10000, 0, $@apex_gid;
+
+		mapannounce .arena$,
+		    "Bristled. Every wound you open is your own.",
+		    bc_map, "0xFF0000";
+		return;
+
+	case 2:
+		$@apex_str_stand = 0;
+		$@apex_str = (.@p4 ? .pause_2 : .pause_1);
+		sc_end SC_MAXPAIN, $@apex_gid;
+		mapannounce .arena$, "The hide goes down. Go.",
+		            bc_map, "0x66CC66";
+		return;
+	}
+	return;
+
+
+// ------------------------------------------------------------
+//  Einen Skill auf einen zufaelligen Anwesenden werfen
+// ------------------------------------------------------------
+//  getmapunits schreibt die Spielnummern aller Spieler auf der
+//  Karte in ein Feld. Ohne Ziel wirft unitskilluseid ins Leere -
+//  deshalb die Pruefung auf die Anzahl.
+S_Skill:
+	.@n = getmapunits(BL_PC, .arena$, .@wer[0]);
+	if (.@n < 1) return;
+	unitskilluseid $@apex_gid, getarg(0), getarg(1),
+	               .@wer[rand(.@n)];
+	return;
+
+
+// ------------------------------------------------------------
+//  Er faellt
+// ------------------------------------------------------------
+OnApexTot:
+	.@basis = $@apex_basis;
+	.@name$ = $@apex_name$;
+
+	stopnpctimer;
+	killmonster .arena$, "safa_apex::OnTotem";
+
+	$@apex_totems = 0;
+
+	// --- Alle Anwesenden bezahlen ----------------------------
+	//  Nicht nur den, der den letzten Schlag gesetzt hat. Der
+	//  Kampf ist auf Gruppen ausgelegt, und wer die Totems
+	//  einsammelt, waehrend die anderen dreschen, hat genauso
+	//  gearbeitet.
+	//
+	//  getmapunits statt einer Partypruefung: es zaehlt, wer da
+	//  war, nicht wer mit wem verabredet ist.
+	.@n = getmapunits(BL_PC, .arena$, .@wer[0]);
+	for (.@k = 0; .@k < .@n; .@k++) {
+		// attachrid haengt das Skript an einen anderen Spieler.
+		// Ohne das gingen alle Belohnungen an den Toeter.
+		if (!attachrid(.@wer[.@k])) continue;
+
+		getitem .coin, .lohn_coin;
+		getitem .mat,  .lohn_mat;
+		Zeny += .lohn_zeny;
+		apex_erlegt++;
+
+		// EXP ist auf Level 500 wertlos - dort waechst nichts
+		// mehr. Wer noch nicht oben ist, bekommt trotzdem etwas,
+		// und zwar in derselben Waehrung wie die Questreihe:
+		// Prozent einer Stufe. Siehe safa_quests.txt.
+		if (BaseLevel < 500) {
+			.@rate = getbattleflag("quest_exp_rate");
+			if (.@rate < 1) .@rate = 100;
+			getexp NextBaseExp * .lohn_pct / .@rate,
+			       NextJobExp  * .lohn_pct / .@rate;
+		}
+
+		dispbottom "[Apex] " + .@name$ + " is down. "
+		           + .lohn_coin + " " + getitemname(.coin) + ", "
+		           + .lohn_mat  + " " + getitemname(.mat) + ".";
+		detachrid;
+	}
+
+	announce .@name$ + " has been brought down. The cairn is one stone lighter.",
+	         bc_all, 0x66CC66;
+
+	$@apex_gid   = 0;
+	$@apex_phase = 0;
+	$@apex_tick  = 0;
+	$@apex_name$ = "";
+	end;
+
+
+// ------------------------------------------------------------
+//  Schluss ohne Sieg
+// ------------------------------------------------------------
+//  getarg(0): 1 = Zeit abgelaufen, 0 = er ist einfach weg
+S_Ende:
+	stopnpctimer;
+
+	// killmonster mit Label loest das Todesereignis NICHT aus -
+	// hier ist das entscheidend, sonst zahlte ein Zeitablauf
+	// dieselbe Belohnung wie ein Sieg.
+	killmonster .arena$, "safa_apex::OnApexTot";
+	killmonster .arena$, "safa_apex::OnTotem";
+
+	if (getarg(0) == 1) {
+		mapannounce .arena$,
+		    "It has lost interest. Whatever it came up for, it was not you.",
+		    bc_map, "0x888888";
+		announce $@apex_name$ + " went back down. Nobody stopped it.",
+		         bc_all, 0x888888;
+	}
+
+	$@apex_gid    = 0;
+	$@apex_phase  = 0;
+	$@apex_tick   = 0;
+	$@apex_name$  = "";
+	$@apex_totems = 0;
+
+	return;
+
+
+OnInit:
+	.arena$ = "2025arena2";
+	.coin   = 30001;
+	.mat    = 30504;
+
+	// --- Der Kampf -------------------------------------------
+	//  200 Millionen. Bei voller Wand kommt gar nichts an, ohne
+	//  Wand alles - und ohne Wand waeren 100 Millionen nach zwei
+	//  Schlaegen weg. Die Zahl ist an den ueblichen Treffern
+	//  gemessen, nicht an der Spitze: bei rund 2 Millionen je
+	//  Schlag sind das hundert Treffer bei offener Wand.
+	.hp        = 200000000;
+
+	// --- Die Totems ------------------------------------------
+	.totem      = 1907;        // Guardian Stone, die WoE:SE-Statue
+	.totem_zahl = 5;
+	.totem_hp   = 1000000;     // eine Million
+	.wert       = 100;         // Schaden je Treffer -> 10.000 Treffer
+	.pro_totem  = 20;          // Prozentpunkte je gefallenem Totem
+
+	//  Vier Ecken und die Mitte. 99,79 waere der geometrische
+	//  Mittelpunkt, ist aber Zelltyp 5 - Abgrund. Deshalb 99,83.
+	setarray .tx[0],  91, 107,  91, 107,  99;
+	setarray .ty[0],  71,  71,  87,  87,  83;
+	.atk_min   = 120000;     // fest, nicht aus der Vorlage
+	.atk_max   = 200000;     // im Enrage verdoppelt
+	.zeit      = 1200;       // Sekunden, dann geht er zurueck
+
+	// --- Das Straeuben ---------------------------------------
+	//  Stufe 1 ist das Minimum, das SC_MAXPAIN kennt, und
+	//  entspricht 10 Prozent Rueckgabe. Mehr waere sinnlos:
+	//  gegen 1,1 Millionen Lebenspunkte toetet schon Stufe 1
+	//  jeden, der ueber elf Millionen austeilt. Das Fenster ist
+	//  deshalb kein Regler, sondern ein Schalter - und wird
+	//  entsprechend angekuendigt.
+	.stufe     = 1;
+
+	.warnung   = 4;   // Sekunden Vorwarnung
+	.fenster_1 = 6;   // Fensterlaenge in Phase 3
+	.fenster_2 = 8;   // in Phase 4
+	.pause_1   = 22;  // Ruhe zwischen den Fenstern, Phase 3
+	.pause_2   = 13;  // Phase 4
+
+	.heil_takt = 15;  // Sekunden
+	.heil_pct  = 3;   // Prozent der Maximal-HP je Takt
+	.rage_takt = 8;   // Sekunden zwischen den Schlaegen im Enrage
+
+	// --- Belohnung -------------------------------------------
+	//  Bewusst KEINE Erfahrung als Hauptteil. Wer hier steht,
+	//  ist bei Level 500 oder nahe dran; Erfahrung ist fuer ihn
+	//  keine Belohnung mehr, sondern eine Zahl, die nichts tut.
+	//  Bezahlt wird in dem, was auch auf Level 500 noch knapp
+	//  ist: Muenzen fuer die Kopfbedeckungen und den Levelraum,
+	//  Trophaeen fuer das Safari-Set.
+	.lohn_coin = 300;
+	.lohn_mat  = 150;
+	.lohn_zeny = 5000000;
+	.lohn_pct  = 40;   // nur fuer alle unter 500
+
+	// --- Die Vorlagen ----------------------------------------
+	//  Sechs Stueck, alle Rasse Brute, alle Groesse Large, alle
+	//  mit einem Sprite, den der Client kennt. Die Auswahl ist
+	//  nicht zufaellig zusammengesucht, sondern gefiltert:
+	//  Brute, weil "The Ones He Left" Tiere sind und weil das
+	//  Safari-Set gegen Brute wirkt - der Apex ist damit der
+	//  Ort, an dem sich das Set beweist.
+	//
+	//    3426   Infinite Eddga            Lv101
+	//    3633   Venomous Chimera          Lv110
+	//    3796   Awakened Ktullanux        Lv135
+	//    3804   Ominous Turtle General    Lv165
+	//   20934   R001-Bestia               Lv215
+	//   21301   Burning Fang              Lv212
+	//
+	//  Ihre eigenen Werte spielen kaum eine Rolle - HP, Angriff
+	//  und Level werden ohnehin ueberschrieben. Was sie
+	//  mitbringen, ist Aussehen, Element und Skillsatz, und
+	//  genau deshalb sind es sechs statt einem: derselbe Kampf
+	//  fuehlt sich gegen einen Eisdrachen anders an als gegen
+	//  eine Schildkroete.
+	setarray .tier[0], 3426, 3633, 3796, 3804, 20934, 21301;
+
+	// Die Waechter. Bloodthirsty Orc Lord? Nein - ein
+	// gewoehnliches, zaehes Tier reicht. Sie sollen nicht
+	// toedlich sein, sondern Zeit und Wege kosten.
+
+	$@apex_gid = 0;
+	end;
+}
+
+
+// ============================================================
+//  Das Hunter's Ledger - wiederholbare Auftraege
+// ------------------------------------------------------------
+//  WOZU
+//
+//  Wer Level 500 ist, hat von der Questreihe des Grey Wolf
+//  Elder nichts mehr: sie zahlt in Erfahrung, und Erfahrung ist
+//  dort oben eine Zahl ohne Wirkung. Gleichzeitig ist genau
+//  diese Gruppe die, die am schnellsten alles gesehen hat.
+//
+//  Das Ledger gibt ihnen drei Auftraege, die sich JEDEN TAG
+//  erneuern und ausschliesslich in harten Waehrungen zahlen.
+//
+//  WIE DER TAGESWECHSEL ERKANNT WIRD
+//
+//  Ueber gettime(DT_DAYOFYEAR), nicht ueber einen Zeitstempel.
+//  Der Grund ist Ehrlichkeit gegenueber dem Spieler: ein
+//  Zeitstempel laesst die Auftraege irgendwann mitten in der
+//  Nacht umspringen und wandert mit jeder Abgabe weiter. Der
+//  Kalendertag ist vorhersagbar.
+//
+//  Der Jahreswechsel ist dabei kein Sonderfall: es wird nur auf
+//  UNGLEICH geprueft. Vom Tag 365 auf Tag 1 ist ungleich, also
+//  wechselt es.
+//
+//  VARIABLEN
+//
+//    led_tag       Tag im Jahr, an dem zuletzt zurueckgesetzt
+//    led_fertig    Bitmaske der heute schon abgegebenen
+//    led_w0/1/2    Startwerte der Zaehler beim Annehmen
+// ============================================================
+
+veins,234,121,4	script	Hunter's Ledger#safa	4_M_ORIENT01,{
+
+	if (BaseLevel < .min_lv) {
+		mes "[Hunter's Ledger]";
+		mes "The book is for people who have run out";
+		mes "of other things to do. ^FF0000Level " + .min_lv + "^000000.";
+		close;
+	}
+
+	// Tageswechsel
+	.@heute = gettime(DT_DAYOFYEAR);
+	if (led_tag != .@heute) {
+		led_tag    = .@heute;
+		led_fertig = 0;
+		led_w0 = wild_erlegt;
+		led_w1 = apex_erlegt;
+		led_w2 = 0;
+	}
+
+	mes "[Hunter's Ledger]";
+	mes "Three lines a day. They are written fresh";
+	mes "every morning whether anybody signs them";
+	mes "or not.";
+	next;
+
+	while (1) {
+		mes "[Hunter's Ledger]";
+		for (.@i = 0; .@i < 3; .@i++) {
+			if (led_fertig & (1 << .@i))
+				mes "^00AA00" + (.@i + 1) + ". " + .auftrag$[.@i]
+				    + " - done^000000";
+			else
+				mes "^000000" + (.@i + 1) + ". " + .auftrag$[.@i];
+		}
+		next;
+
+		// .@w erst setzen, dann verzweigen. Ein select()
+		// direkt im switch waere kuerzer, aber dann steht die
+		// gewaehlte Nummer nirgends mehr - und genau die
+		// braucht S_Abgeben als Index.
+		.@w = select(
+			.auftrag$[0],
+			.auftrag$[1],
+			.auftrag$[2],
+			"Nothing today");
+
+		if (.@w == 4) {
+			mes "[Hunter's Ledger]";
+			mes "The book keeps until tomorrow.";
+			close;
+		}
+		callsub S_Abgeben, .@w - 1;
+	}
+	end;
+
+
+S_Abgeben:
+	.@i = getarg(0);
+
+	if (led_fertig & (1 << .@i)) {
+		mes "[Hunter's Ledger]";
+		mes "Signed off already. Come back tomorrow.";
+		next;
+		return;
+	}
+
+	// Fortschritt. Auftrag 0 und 1 zaehlen Differenzen, Auftrag
+	// 2 zaehlt, was im Beutel liegt.
+	if (.@i == 0)      .@habe = wild_erlegt - led_w0;
+	else if (.@i == 1) .@habe = apex_erlegt - led_w1;
+	else               .@habe = countitem(.mat);
+	if (.@habe < 0) .@habe = 0;
+
+	mes "[Hunter's Ledger]";
+	mes "^FFCC00" + .auftrag$[.@i] + "^000000";
+	mes "Progress: ^0000FF" + .@habe + " of " + .ziel[.@i] + "^000000";
+	next;
+
+	if (.@habe < .ziel[.@i]) {
+		mes "[Hunter's Ledger]";
+		mes "Not yet. The book does not round up.";
+		next;
+		return;
+	}
+
+	if (.@i == 2) {
+		mes "[Hunter's Ledger]";
+		mes "This line costs you the trophies";
+		mes "themselves. ^FF0000" + .ziel[2] + "^000000 of them, handed over.";
+		next;
+		if (select("Hand them over:Keep them") == 2) {
+			mes "[Hunter's Ledger]";
+			mes "Then the line stays open.";
+			next;
+			return;
+		}
+		if (countitem(.mat) < .ziel[2]) {
+			mes "[Hunter's Ledger]";
+			mes "They are gone from your bag.";
+			next;
+			return;
+		}
+		delitem .mat, .ziel[2];
+	}
+
+	getitem .coin, .lohn_coin[.@i];
+	if (.lohn_mat[.@i] > 0) getitem .mat, .lohn_mat[.@i];
+	Zeny += .lohn_zeny[.@i];
+	led_fertig = led_fertig | (1 << .@i);
+
+	specialeffect2 EF_ANGEL2;
+	mes "[Hunter's Ledger]";
+	mes "^00AA00Signed.^000000 " + .lohn_coin[.@i] + " "
+	    + getitemname(.coin)
+	    + (.lohn_mat[.@i] > 0 ? ", " + .lohn_mat[.@i] + " "
+	       + getitemname(.mat) : "") + ".";
+	next;
+	return;
+
+
+OnInit:
+	.coin   = 30001;
+	.mat    = 30504;
+	.min_lv = 400;
+
+	setarray .auftrag$[0],
+		"Bring down 20 Wildlife pack leaders",
+		"Bring down 2 Apex",
+		"Hand over 1000 Safari Trophies";
+
+	setarray .ziel[0],       20,    2, 1000;
+	setarray .lohn_coin[0], 120,  500,  700;
+	setarray .lohn_mat[0],   60,  250,    0;
+	setarray .lohn_zeny[0], 2000000, 8000000, 4000000;
+	end;
+}
