@@ -1,0 +1,626 @@
+//===== SafaRO Script ========================================
+//= @platz - NPCs im Spiel verschieben
+//===== Erzeugt von ==========================================
+//= tools/platzierer/bauen.py  --  NICHT von Hand pflegen.
+//= Die Tabelle unten kommt aus den NPC-Dateien selbst.
+//===========================================================
+//
+//  BEDIENUNG
+//
+//    1. Dorthin stellen, wo der NPC stehen soll
+//    2. @platz
+//    3. NPC waehlen - "Auf dieser Karte" oder "Suchen"
+//    4. "Hierher setzen"
+//
+//  Der NPC steht sofort dort. Die Verschiebung wird in einer
+//  serverweiten Dauervariable abgelegt und nach jedem Neustart
+//  von selbst wieder angewandt.
+//
+//  WARUM MAN SICH HINSTELLT, STATT ZU KLICKEN
+//
+//  Weil der Ragnarok-Client keine anklickbare Karte in einem
+//  NPC-Fenster darstellen kann. Ein solches Fenster kennt genau
+//  drei Bausteine: Text, Auswahlliste, Eingabefeld. Eine
+//  Zeichenflaeche, die Mausklicks in Koordinaten uebersetzt,
+//  ist im Protokoll nicht vorgesehen.
+//
+//  Der Umweg ist am Ende der genauere Weg: man sieht die Stelle
+//  aus der Spielerperspektive, mit den Nachbarn und den
+//  Laufwegen drumherum. Zusaetzlich markiert das Werkzeug beide
+//  Punkte auf der MINIKARTE - gruen der jetzige Ort, rot das
+//  Ziel.
+//
+//  WAS GEPRUEFT WIRD, BEVOR ETWAS PASSIERT
+//
+//    - Gruppenstufe 99
+//    - Zielzelle begehbar (checkcell CELL_CHKPASS)
+//    - dieselbe Karte, denn movenpc kann die Karte nicht
+//      wechseln (script.cpp:16163, npc_movenpc)
+//    - kein eigener NPC steht schon auf der Zelle
+//
+//  DAUERHAFT WIRD ES DAMIT TROTZDEM NICHT
+//
+//  Ein Skript kann keine Dateien schreiben. Die Verschiebung
+//  lebt in $plz_* und wird beim Start neu angewandt - in der
+//  NPC-Datei steht weiter die alte Koordinate.
+//
+//  Deshalb gibt es "Zum Eintragen anzeigen": das nennt Datei,
+//  Zeile und die fertige Kopfzeile zum Hineinkopieren. Wer das
+//  gemacht hat, nimmt den Eintrag hier heraus, und beide Stellen
+//  sagen wieder dasselbe.
+//
+//  WARUM ERST DREI SEKUNDEN NACH DEM START
+//
+//  OnInit laeuft in der Ladereihenfolge der Dateien. Ein
+//  movenpc auf einen NPC, der noch nicht geladen ist, meldet
+//  "NPC with ID ... was not found". Der Timer wartet, bis alles
+//  steht.
+//===========================================================
+
+
+-	script	safa_platzierer	-1,{
+	end;
+
+
+// ------------------------------------------------------------
+//  @platz
+// ------------------------------------------------------------
+OnGM:
+	if (getgroupid() < .stufe) {
+		dispbottom "[Platz] Nicht fuer dich.";
+		end;
+	}
+
+	getmapxy(.@hier$, .@hx, .@hy, BL_PC);
+
+	while (1) {
+		mes "[Platzierer]";
+		mes "Du stehst auf ^0000FF" + .@hier$ + " " + .@hx + "," + .@hy
+		    + "^000000.";
+		mes "^777777" + getarraysize(.name$) + " eigene NPCs bekannt, "
+		    + $plz_anzahl + " verschoben.^000000";
+		next;
+
+		switch (select(
+			"NPCs auf dieser Karte",
+			"Suchen",
+			"Verschiebungen ansehen",
+			"Schluss")) {
+
+		case 1: callsub S_Liste, .@hier$, "";      break;
+		case 2: callsub S_Suchen;                  break;
+		case 3: callsub S_Verschiebungen;          break;
+		case 4:
+			callsub S_MarkenWeg;
+			mes "[Platzierer]";
+			mes "Bis dann.";
+			close;
+		}
+	}
+	end;
+
+
+// ------------------------------------------------------------
+//  Suchbegriff abfragen
+// ------------------------------------------------------------
+S_Suchen:
+	mes "[Platzierer]";
+	mes "Teil des Namens. Gross und klein ist egal.";
+	next;
+	input .@suche$;
+	if (.@suche$ == "") return;
+	callsub S_Liste, "", .@suche$;
+	return;
+
+
+// ------------------------------------------------------------
+//  Auswahlliste, blaetterbar
+// ------------------------------------------------------------
+//  getarg(0): Karte, oder "" fuer alle
+//  getarg(1): Suchbegriff, oder ""
+//
+//  Die Treffer werden in .@t[] gesammelt und in Zehnerseiten
+//  angeboten. Zehn, weil die Auswahlliste des Clients begrenzt
+//  ist und eine Seite mit sechzig Eintraegen abgeschnitten
+//  ankommt - ohne Fehlermeldung, man sieht nur weniger.
+S_Liste:
+	.@karte$ = getarg(0);
+	.@suche$ = strtolower(getarg(1));
+
+	.@n = 0;
+	for (.@i = 0; .@i < getarraysize(.name$); .@i++) {
+		if (.@karte$ != "" && callsub(S_Karte, .@i) != .@karte$)
+			continue;
+		if (.@suche$ != "" && !compare(strtolower(.anzeige$[.@i]),
+		                               .@suche$))
+			continue;
+		.@t[.@n] = .@i;
+		.@n++;
+	}
+
+	if (.@n < 1) {
+		mes "[Platzierer]";
+		mes "Nichts gefunden.";
+		next;
+		return;
+	}
+
+	.@seite = 0;
+	while (1) {
+		.@von = .@seite * 10;
+		.@liste$ = "";
+		.@z = 0;
+		for (.@k = .@von; .@k < .@von + 10 && .@k < .@n; .@k++) {
+			.@i = .@t[.@k];
+			.@liste$ = .@liste$ + .anzeige$[.@i] + "  ^777777("
+			           + callsub(S_Karte, .@i) + " "
+			           + callsub(S_X, .@i) + ","
+			           + callsub(S_Y, .@i) + ")^000000:";
+			.@z++;
+		}
+
+		mes "[Platzierer]";
+		mes "^777777" + .@n + " Treffer, Seite " + (.@seite + 1)
+		    + " von " + ((.@n - 1) / 10 + 1) + "^000000";
+		next;
+
+		.@w = select(.@liste$ + "^0000FFWeiter^000000:"
+		             + "^0000FFZurueck^000000:Abbrechen");
+
+		if (.@w <= .@z) {
+			callsub S_Waehlen, .@t[.@von + .@w - 1];
+			continue;
+		}
+		if (.@w == .@z + 1) {
+			if (.@von + 10 < .@n) .@seite++;
+			continue;
+		}
+		if (.@w == .@z + 2) {
+			if (.@seite > 0) .@seite--;
+			continue;
+		}
+		return;
+	}
+	return;
+
+
+// ------------------------------------------------------------
+//  Aktuelle Werte eines Eintrags
+// ------------------------------------------------------------
+//  Entweder aus der Tabelle oder, falls schon verschoben, aus
+//  der Dauervariable. Drei kleine Unterprogramme statt einer
+//  Funktion mit Rueckgabetupel - rAthena kennt nur einen
+//  Rueckgabewert.
+S_Ueberschrieben:
+	return inarray($plz_name$[0], .name$[getarg(0)]);
+
+S_Karte:
+	.@u = inarray($plz_name$[0], .name$[getarg(0)]);
+	if (.@u >= 0) return $plz_karte$[.@u];
+	return .karte$[getarg(0)];
+
+S_X:
+	.@u = inarray($plz_name$[0], .name$[getarg(0)]);
+	if (.@u >= 0) return $plz_x[.@u];
+	return .x[getarg(0)];
+
+S_Y:
+	.@u = inarray($plz_name$[0], .name$[getarg(0)]);
+	if (.@u >= 0) return $plz_y[.@u];
+	return .y[getarg(0)];
+
+S_Blick:
+	.@u = inarray($plz_name$[0], .name$[getarg(0)]);
+	if (.@u >= 0) return $plz_blick[.@u];
+	return .blick[getarg(0)];
+
+
+// ------------------------------------------------------------
+//  Ein NPC ist gewaehlt
+// ------------------------------------------------------------
+S_Waehlen:
+	.@i = getarg(0);
+
+	while (1) {
+		getmapxy(.@hier$, .@hx, .@hy, BL_PC);
+		.@k$ = callsub(S_Karte, .@i);
+		.@x  = callsub(S_X, .@i);
+		.@y  = callsub(S_Y, .@i);
+		.@b  = callsub(S_Blick, .@i);
+
+		// Gruen wo er steht, rot wo du stehst. Nur wenn wir auf
+		// derselben Karte sind - viewpoint bezieht sich immer auf
+		// die Karte des Spielers.
+		if (.@k$ == .@hier$) {
+			viewpoint 1, .@x,  .@y,  1, 0x00CC00;
+			viewpoint 1, .@hx, .@hy, 2, 0xFF0000;
+		}
+
+		mes "[" + .anzeige$[.@i] + "]";
+		mes "^777777" + .name$[.@i] + "^000000";
+		mes "Steht auf ^00CC00" + .@k$ + " " + .@x + "," + .@y
+		    + "^000000, Blick " + .@b + ".";
+		if (callsub(S_Ueberschrieben, .@i) >= 0)
+			mes "^FF6600Bereits verschoben.^000000 In der Datei steht "
+			    + .karte$[.@i] + " " + .x[.@i] + "," + .y[.@i] + ".";
+		mes " ";
+		if (.@k$ == .@hier$)
+			mes "Du stehst auf ^FF0000" + .@hx + "," + .@hy + "^000000.";
+		else
+			mes "^FF0000Du bist auf einer anderen Karte^000000 ("
+			    + .@hier$ + ").";
+		next;
+
+		switch (select(
+			(.@k$ == .@hier$ ? "Hierher setzen" : ""),
+			"Koordinaten eingeben",
+			"Blickrichtung",
+			(callsub(S_Ueberschrieben, .@i) >= 0
+			   ? "Zurueck an den Ort aus der Datei" : ""),
+			(callsub(S_Ueberschrieben, .@i) >= 0
+			   ? "Zum Eintragen anzeigen" : ""),
+			"Zurueck")) {
+
+		case 1:
+			callsub S_Setzen, .@i, .@hx, .@hy, .@b;
+			break;
+
+		case 2:
+			mes "[Platzierer]";
+			mes "X?";
+			next;
+			input .@nx, 0, 511;
+			mes "[Platzierer]";
+			mes "Y?";
+			next;
+			input .@ny, 0, 511;
+			callsub S_Setzen, .@i, .@nx, .@ny, .@b;
+			break;
+
+		case 3:
+			mes "[Platzierer]";
+			mes "0 Nord, 2 Ost, 4 Sued, 6 West.";
+			next;
+			input .@nb, 0, 7;
+			callsub S_Setzen, .@i, .@x, .@y, .@nb;
+			break;
+
+		case 4:
+			callsub S_Zuruecknehmen, .@i;
+			break;
+
+		case 5:
+			callsub S_Eintragen, .@i;
+			break;
+
+		case 6:
+			callsub S_MarkenWeg;
+			return;
+		}
+	}
+	return;
+
+
+// ------------------------------------------------------------
+//  Setzen, mit allen Pruefungen davor
+// ------------------------------------------------------------
+S_Setzen:
+	.@i  = getarg(0);
+	.@nx = getarg(1);
+	.@ny = getarg(2);
+	.@nb = getarg(3);
+	.@k$ = callsub(S_Karte, .@i);
+
+	// Die Karte steht fest: movenpc kann sie nicht wechseln
+	// (script.cpp:16163 ruft npc_movenpc, das nur x und y setzt).
+	// "Hierher" gibt es deshalb nur auf derselben Karte; eine
+	// Koordinateneingabe bezieht sich immer auf die Karte des NPC,
+	// egal wo man selbst steht.
+	if (!checkcell(.@k$, .@nx, .@ny, CELL_CHKPASS)) {
+		mes "[Platzierer]";
+		mes "^FF0000" + .@k$ + " " + .@nx + "," + .@ny
+		    + " ist nicht begehbar.^000000";
+		mes "Dort waere er geladen und im Spiel unerreichbar.";
+		next;
+		return;
+	}
+
+	// Steht dort schon einer von uns? Fremde NPCs kennt die
+	// Tabelle nicht - dafuer ist CELL_CHKNPC da, aber das Flag
+	// setzt rAthena nur bei NPCs mit Beruehrungsflaeche. Die
+	// eigene Liste ist der verlaesslichere Teil der Pruefung.
+	for (.@j = 0; .@j < getarraysize(.name$); .@j++) {
+		if (.@j == .@i) continue;
+		if (callsub(S_Karte, .@j) != .@k$) continue;
+		if (callsub(S_X, .@j) != .@nx) continue;
+		if (callsub(S_Y, .@j) != .@ny) continue;
+		mes "[Platzierer]";
+		mes "^FF0000Dort steht schon " + .anzeige$[.@j] + ".^000000";
+		next;
+		return;
+	}
+
+	movenpc .name$[.@i], .@nx, .@ny, .@nb;
+	callsub S_Merken, .@i, .@k$, .@nx, .@ny, .@nb;
+
+	specialeffect2 EF_ANGEL2;
+	mes "[Platzierer]";
+	mes "^00AA00" + .anzeige$[.@i] + " steht jetzt auf " + .@k$ + " "
+	    + .@nx + "," + .@ny + ".^000000";
+	next;
+	mes "[Platzierer]";
+	mes "Ueberlebt den Neustart. In der ^0000FFDatei^000000 steht aber";
+	mes "weiter die alte Zeile - siehe \"Zum Eintragen anzeigen\".";
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  In die Dauerliste schreiben
+// ------------------------------------------------------------
+S_Merken:
+	.@i = getarg(0);
+	.@u = inarray($plz_name$[0], .name$[.@i]);
+	if (.@u < 0) {
+		.@u = $plz_anzahl;
+		$plz_name$[.@u] = .name$[.@i];
+		$plz_anzahl++;
+	}
+	$plz_karte$[.@u] = getarg(1);
+	$plz_x[.@u]      = getarg(2);
+	$plz_y[.@u]      = getarg(3);
+	$plz_blick[.@u]  = getarg(4);
+	return;
+
+
+// ------------------------------------------------------------
+//  Zuruecknehmen
+// ------------------------------------------------------------
+S_Zuruecknehmen:
+	.@i = getarg(0);
+	.@u = inarray($plz_name$[0], .name$[.@i]);
+	if (.@u < 0) return;
+
+	movenpc .name$[.@i], .x[.@i], .y[.@i], .blick[.@i];
+
+	// deletearray statt Nullsetzen: ein auf "" gesetzter letzter
+	// Eintrag verschwindet zwar, ein mittlerer wuerde als leere
+	// Luecke stehenbleiben und inarray spaeter irrefuehren.
+	deletearray $plz_name$[.@u], 1;
+	deletearray $plz_karte$[.@u], 1;
+	deletearray $plz_x[.@u], 1;
+	deletearray $plz_y[.@u], 1;
+	deletearray $plz_blick[.@u], 1;
+	$plz_anzahl--;
+
+	mes "[Platzierer]";
+	mes "^00AA00Zurueck auf " + .karte$[.@i] + " " + .x[.@i] + ","
+	    + .y[.@i] + ".^000000";
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  Die fertige Zeile zum Hineinkopieren
+// ------------------------------------------------------------
+S_Eintragen:
+	.@i = getarg(0);
+	mes "[Platzierer]";
+	mes "^0000FF" + .datei$[.@i] + "^000000, Zeile ^0000FF" + .zeile[.@i]
+	    + "^000000";
+	mes " ";
+	mes "^777777alt:^000000";
+	mes .karte$[.@i] + "," + .x[.@i] + "," + .y[.@i] + ","
+	    + .blick[.@i];
+	mes " ";
+	mes "^777777neu:^000000";
+	mes callsub(S_Karte, .@i) + "," + callsub(S_X, .@i) + ","
+	    + callsub(S_Y, .@i) + "," + callsub(S_Blick, .@i);
+	next;
+	mes "[Platzierer]";
+	mes "Nur der vordere Teil der Zeile aendert sich, alles ab";
+	mes "dem ersten Tabulator bleibt.";
+	mes " ";
+	mes "Danach hier ^0000FFZurueck an den Ort aus der Datei^000000";
+	mes "waehlen - sonst steht die Verschiebung doppelt und die";
+	mes "Liste sagt etwas anderes als die Datei.";
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  Alle Verschiebungen
+// ------------------------------------------------------------
+S_Verschiebungen:
+	if ($plz_anzahl < 1) {
+		mes "[Platzierer]";
+		mes "Keine. Alles steht, wo es in den Dateien steht.";
+		next;
+		return;
+	}
+
+	mes "[Platzierer]";
+	for (.@u = 0; .@u < $plz_anzahl; .@u++)
+		mes "^0000FF" + $plz_name$[.@u] + "^000000  " + $plz_karte$[.@u]
+		    + " " + $plz_x[.@u] + "," + $plz_y[.@u];
+	next;
+
+	if (select("Alle zuruecknehmen:Zurueck") == 2)
+		return;
+
+	mes "[Platzierer]";
+	mes "Sicher? Alle " + $plz_anzahl + " gehen auf den Stand der";
+	mes "Dateien zurueck.";
+	next;
+	if (select("Ja:Nein") == 2)
+		return;
+
+	// Rueckwaerts, weil deletearray die Liste zusammenschiebt.
+	for (.@u = $plz_anzahl - 1; .@u >= 0; .@u--) {
+		.@i = inarray(.name$[0], $plz_name$[.@u]);
+		if (.@i >= 0)
+			movenpc .name$[.@i], .x[.@i], .y[.@i], .blick[.@i];
+	}
+	deletearray $plz_name$[0], 128;
+	deletearray $plz_karte$[0], 128;
+	deletearray $plz_x[0], 128;
+	deletearray $plz_y[0], 128;
+	deletearray $plz_blick[0], 128;
+	$plz_anzahl = 0;
+
+	mes "[Platzierer]";
+	mes "^00AA00Alles zurueck.^000000";
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+S_MarkenWeg:
+	viewpoint 2, 0, 0, 1, 0x000000;
+	viewpoint 2, 0, 0, 2, 0x000000;
+	return;
+
+
+// ------------------------------------------------------------
+//  Nach dem Start alles wieder hinstellen
+// ------------------------------------------------------------
+OnTimer3000:
+	stopnpctimer;
+	if ($plz_anzahl < 1) end;
+
+	.@ok = 0;
+	for (.@u = 0; .@u < $plz_anzahl; .@u++) {
+		if (inarray(.name$[0], $plz_name$[.@u]) < 0) continue;
+		movenpc $plz_name$[.@u], $plz_x[.@u], $plz_y[.@u],
+		        $plz_blick[.@u];
+		.@ok++;
+	}
+	if (.@ok > 0)
+		debugmes "[Platzierer] " + .@ok + " Verschiebungen angewandt.";
+	end;
+
+
+OnInit:
+	.stufe = 99;
+	bindatcmd "platz", "safa_platzierer::OnGM", 99, 99;
+
+	// Erst drei Sekunden nach dem Laden, siehe Kopf.
+	initnpctimer;
+
+	setarray .name$[0], "Way Out#safa_lvl", "Way Out#safa_apex", "Job Master#alb",
+		"Job Master#alde", "Job Master#ama", "Job Master#ayo",
+		"Job Master#bra", "Job Master#com", "Job Master#dew",
+		"Job Master#dic", "Job Master#ecl", "Job Master#einbe",
+		"Job Master#einbr", "Mysterious Ranger", "Job Master#gef",
+		"Job Master#gon", "Job Master#hug", "Job Master#izl",
+		"Job Master#jaw", "Job Master#lhz", "Job Master#lou",
+		"Job Master#mal", "Job Master#ma", "Job Master#man",
+		"Job Master#mid", "Job Master#moc", "Job Master#mora",
+		"Job Master#mor", "Job Master#mos", "Job Master#nif",
+		"Job Master#pay", "Job Master#rac", "Job Master#spl",
+		"Job Master#thor", "Job Master#umb", "#safa_threshold_wake",
+		"GM Workbench#safa", "Threshold Warden", "Acolyte Supplier#safa",
+		"Armstrong#safa", "Bardic Supplier#safa", "Beast Keeper#safa",
+		"Coin Exchanger#safa", "Custom Merchant#safa", "Episode 17.1 Exchange#safa",
+		"Episode 17.2 Exchange#safa", "Episode 18 Exchange#safa", "Episode 19 Exchange#safa",
+		"Episode 20 Exchange#safa", "Episode 21 Exchange#safa", "Fence#safa",
+		"Fletcher#safa", "Forge Supplier#safa", "Gear Supplier#safa",
+		"Gemstone Trader#safa", "Grey Wolf Elder#safa", "Gun Runner#safa",
+		"Herbalist#safa", "Homunculus Freak", "Hunter's Ledger#safa",
+		"Ironhand#safa", "Job Master#ve", "Kafra Employee#safa",
+		"Master Artisan#safa", "Pet Caretaker#safa", "Poisoner#safa",
+		"Reset Master#safa", "Safari Outfitter#safa", "Scholar Supplier#safa",
+		"Shadow Merchant#safa", "Soul Supplier#safa", "Squire#safa",
+		"Stablemaster#safa", "Stylist#custom_stylist", "Supply Master#safa",
+		"Templar Supplier#safa", "The Cairn#safa", "Threshold Warden#safa",
+		"Wise Old Woman#safa", "Threshold Warden#safa_wolf", "Job Master#xmas",
+		"Job Master#yuno";
+	setarray .anzeige$[0], "Way Out", "Way Out", "Job Master", "Job Master",
+		"Job Master", "Job Master", "Job Master", "Job Master",
+		"Job Master", "Job Master", "Job Master", "Job Master",
+		"Job Master", "Mysterious Ranger", "Job Master", "Job Master",
+		"Job Master", "Job Master", "Job Master", "Job Master",
+		"Job Master", "Job Master", "Job Master", "Job Master",
+		"Job Master", "Job Master", "Job Master", "Job Master",
+		"Job Master", "Job Master", "Job Master", "Job Master",
+		"Job Master", "Job Master", "Job Master", "",
+		"GM Workbench", "Threshold Warden", "Acolyte Supplier", "Armstrong",
+		"Bardic Supplier", "Beast Keeper", "Coin Exchanger", "Custom Merchant",
+		"Episode 17.1 Exchange", "Episode 17.2 Exchange", "Episode 18 Exchange", "Episode 19 Exchange",
+		"Episode 20 Exchange", "Episode 21 Exchange", "Fence", "Fletcher",
+		"Forge Supplier", "Gear Supplier", "Gemstone Trader", "Grey Wolf Elder",
+		"Gun Runner", "Herbalist", "Homunculus Freak", "Hunter's Ledger",
+		"Ironhand", "Job Master", "Kafra Employee", "Master Artisan",
+		"Pet Caretaker", "Poisoner", "Reset Master", "Safari Outfitter",
+		"Scholar Supplier", "Shadow Merchant", "Soul Supplier", "Squire",
+		"Stablemaster", "Stylist", "Supply Master", "Templar Supplier",
+		"The Cairn", "Threshold Warden", "Wise Old Woman", "Threshold Warden",
+		"Job Master", "Job Master";
+	setarray .karte$[0], "2025arena1", "2025arena2", "alberta", "aldebaran", "amatsu", "ayothaya",
+		"brasilis", "comodo", "dewata", "dicastes01", "ecl_in01", "einbech",
+		"einbroch", "gef_tower", "geffen", "gonryun", "hugel", "izlude",
+		"jawaii", "lighthalzen", "louyang", "malangdo", "malaya", "manuk",
+		"mid_camp", "moc_ruins", "mora", "morocc", "moscovia", "niflheim",
+		"payon", "rachel", "splendide", "thor_camp", "umbala", "valkyrie",
+		"valkyrie", "valkyrie", "veins", "veins", "veins", "veins",
+		"veins", "veins", "veins", "veins", "veins", "veins",
+		"veins", "veins", "veins", "veins", "veins", "veins",
+		"veins", "veins", "veins", "veins", "veins", "veins",
+		"veins", "veins", "veins", "veins", "veins", "veins",
+		"veins", "veins", "veins", "veins", "veins", "veins",
+		"veins", "veins", "veins", "veins", "veins", "veins",
+		"veins", "wolfvill", "xmas", "yuno";
+	setarray .x[0], 151, 99, 27, 137, 198, 205, 192, 182, 193, 199, 43, 55, 55, 52,
+		113, 154, 91, 123, 248, 150, 224, 130, 225, 274, 201, 70, 53, 155,
+		218, 214, 177, 123, 199, 247, 103, 48, 48, 48, 138, 184, 105, 105,
+		214, 198, 189, 194, 199, 204, 209, 214, 114, 172, 162, 167, 143, 226,
+		129, 122, 184, 234, 211, 215, 230, 184, 184, 152, 222, 219, 148, 136,
+		105, 134, 190, 238, 206, 105, 230, 206, 184, 190, 141, 162;
+	setarray .y[0], 145, 91, 240, 118, 79, 169, 221, 158, 187, 194, 60, 36, 202, 104,
+		72, 122, 150, 150, 139, 100, 103, 114, 204, 144, 289, 164, 152, 97,
+		191, 182, 106, 116, 153, 74, 148, 9, 83, 14, 164, 132, 172, 183,
+		125, 125, 129, 129, 129, 129, 129, 129, 173, 167, 167, 167, 164, 121,
+		180, 181, 123, 121, 121, 121, 125, 135, 126, 164, 125, 129, 164, 173,
+		166, 164, 125, 125, 125, 177, 121, 54, 129, 124, 136, 45;
+	setarray .blick[0], 4, 4, 6, 6, 4, 6, 6, 6, 4, 4, 4, 6, 6, 4, 6, 6, 6, 6, 4, 6,
+		4, 6, 6, 6, 6, 4, 4, 6, 4, 5, 4, 6, 4, 4, 3, 0, 4, 4, 4, 2,
+		4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4,
+		4, 4, 4, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 4,
+		4, 4;
+	setarray .datei$[0], "safa_levelraum.txt", "safa_apex.txt", "safa_placement.txt",
+		"safa_placement.txt", "safa_placement.txt", "safa_placement.txt",
+		"safa_placement.txt", "safa_placement.txt", "safa_placement.txt",
+		"safa_placement.txt", "safa_placement.txt", "safa_placement.txt",
+		"safa_placement.txt", "safa_levelraum.txt", "safa_placement.txt",
+		"safa_placement.txt", "safa_placement.txt", "safa_placement.txt",
+		"safa_placement.txt", "safa_placement.txt", "safa_placement.txt",
+		"safa_placement.txt", "safa_placement.txt", "safa_placement.txt",
+		"safa_placement.txt", "safa_placement.txt", "safa_placement.txt",
+		"safa_placement.txt", "safa_placement.txt", "safa_placement.txt",
+		"safa_placement.txt", "safa_placement.txt", "safa_placement.txt",
+		"safa_placement.txt", "safa_placement.txt", "safa_start.txt",
+		"safa_gm_werkbank.txt", "safa_start.txt", "safa_laeden.txt",
+		"safa_armstrong.txt", "safa_laeden.txt", "safa_laeden.txt",
+		"safa_shops.txt", "safa_shops.txt", "safa_episoden.txt",
+		"safa_episoden.txt", "safa_episoden.txt", "safa_episoden.txt",
+		"safa_episoden.txt", "safa_episoden.txt", "safa_laeden.txt",
+		"safa_laeden.txt", "safa_laeden.txt", "safa_laeden.txt",
+		"safa_laeden.txt", "safa_quests.txt", "safa_laeden.txt",
+		"safa_laeden.txt", "safa_homunculus.txt", "safa_apex.txt",
+		"safa_refiner.txt", "safa_placement.txt", "safa_dienste.txt",
+		"safa_schmied.txt", "safa_pet_laden.txt", "safa_laeden.txt",
+		"safa_dienste.txt", "safa_safari.txt", "safa_laeden.txt",
+		"safa_laeden.txt", "safa_laeden.txt", "safa_laeden.txt",
+		"safa_dienste.txt", "stylist.txt", "safa_supply.txt",
+		"safa_laeden.txt", "safa_apex.txt", "safa_deathreset.txt",
+		"safa_dienste.txt", "safa_deathreset.txt", "safa_placement.txt",
+		"safa_placement.txt";
+	setarray .zeile[0], 120, 407, 58, 17, 18, 19, 42, 20, 43, 44, 45, 21, 22, 52,
+		23, 24, 25, 59, 26, 27, 28, 46, 47, 29, 30, 31, 48, 60,
+		32, 33, 34, 35, 36, 37, 38, 313, 37, 18, 184, 41, 330, 316,
+		78, 249, 178, 190, 228, 260, 286, 319, 302, 106, 62, 82, 170, 103,
+		238, 278, 66, 1132, 27, 39, 459, 34, 52, 126, 144, 68, 150, 258,
+		344, 204, 264, 26, 29, 224, 186, 35, 488, 347, 40, 41;
+
+	end;
+}

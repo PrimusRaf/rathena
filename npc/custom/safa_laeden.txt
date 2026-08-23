@@ -59,7 +59,7 @@
 -	shop	BardicSuppliSkills	-1,6144:-1,11513:-1
 -	shop	SoulSupplierSkills	-1,1000563:100
 
-veins,200,133,4	script	Forge Supplier#safa	4_M_02,{
+veins,162,167,4	script	Forge Supplier#safa	4_M_02,{
 	mes "[Forge Supplier]";
 	mes "Ore, coal, and the patience to hit it until it behaves.";
 	next;
@@ -79,7 +79,7 @@ veins,200,133,4	script	Forge Supplier#safa	4_M_02,{
 	}
 }
 
-veins,202,133,4	script	Gear Supplier#safa	4_M_REPAIR,{
+veins,167,167,4	script	Gear Supplier#safa	4_M_REPAIR,{
 	mes "[Gear Supplier]";
 	mes "Fuel, plates, cannonballs. Nothing here is subtle.";
 	next;
@@ -103,7 +103,7 @@ veins,202,133,4	script	Gear Supplier#safa	4_M_REPAIR,{
 	}
 }
 
-veins,204,133,4	script	Fletcher#safa	4_F_HUWOMAN,{
+veins,172,167,4	script	Fletcher#safa	4_F_HUWOMAN,{
 	mes "[Fletcher]";
 	mes "Arrows by the quiver, and everything a trap wants to be.";
 	next;
@@ -123,7 +123,7 @@ veins,204,133,4	script	Fletcher#safa	4_F_HUWOMAN,{
 	}
 }
 
-veins,206,133,4	script	Poisoner#safa	4_M_KID2,{
+veins,152,164,4	script	Poisoner#safa	4_M_KID2,{
 	mes "[Poisoner]";
 	mes "You did not buy this from me, and we never spoke.";
 	next;
@@ -147,7 +147,7 @@ veins,206,133,4	script	Poisoner#safa	4_M_KID2,{
 	}
 }
 
-veins,208,133,4	script	Scholar Supplier#safa	4_M_SAGE_C,{
+veins,148,164,4	script	Scholar Supplier#safa	4_M_SAGE_C,{
 	mes "[Scholar Supplier]";
 	mes "Every element has a price. Mine are reasonable.";
 	next;
@@ -167,7 +167,7 @@ veins,208,133,4	script	Scholar Supplier#safa	4_M_SAGE_C,{
 	}
 }
 
-veins,210,133,4	script	Gemstone Trader#safa	4_F_02,{
+veins,143,164,4	script	Gemstone Trader#safa	4_F_02,{
 	mes "[Gemstone Trader]";
 	mes "Red, yellow, blue. Magic is a surprisingly literal trade.";
 	next;
@@ -181,7 +181,7 @@ veins,210,133,4	script	Gemstone Trader#safa	4_F_02,{
 	end;
 }
 
-veins,212,133,4	script	Acolyte Supplier#safa	4_F_SISTER,{
+veins,138,164,4	script	Acolyte Supplier#safa	4_F_SISTER,{
 	mes "[Acolyte Supplier]";
 	mes "Holy water and blue gemstones. The rest is faith.";
 	next;
@@ -201,7 +201,7 @@ veins,212,133,4	script	Acolyte Supplier#safa	4_F_SISTER,{
 	}
 }
 
-veins,214,133,4	script	Squire#safa	4_M_JOB_KNIGHT1,{
+veins,134,164,4	script	Squire#safa	4_M_JOB_KNIGHT1,{
 	mes "[Squire]";
 	mes "Runes and steel. Bring the arm, I bring the rest.";
 	next;
@@ -221,7 +221,7 @@ veins,214,133,4	script	Squire#safa	4_M_JOB_KNIGHT1,{
 	}
 }
 
-veins,226,133,4	script	Templar Supplier#safa	4_M_CRU_KNT,{
+veins,105,177,4	script	Templar Supplier#safa	4_M_CRU_KNT,{
 	mes "[Templar Supplier]";
 	mes "Water, bottles, and things a shield alone will not fix.";
 	next;
@@ -235,7 +235,7 @@ veins,226,133,4	script	Templar Supplier#safa	4_M_CRU_KNT,{
 	end;
 }
 
-veins,216,133,4	script	Gun Runner#safa	4_M_GUNSLINGER,{
+veins,129,180,4	script	Gun Runner#safa	4_M_GUNSLINGER,{
 	mes "[Gun Runner]";
 	mes "Lead, powder, and no questions about either.";
 	next;
@@ -255,7 +255,7 @@ veins,216,133,4	script	Gun Runner#safa	4_M_GUNSLINGER,{
 	}
 }
 
-veins,218,133,4	script	Shadow Merchant#safa	4_M_NFDEADMAN,{
+veins,136,173,4	script	Shadow Merchant#safa	4_M_NFDEADMAN,{
 	mes "[Shadow Merchant]";
 	mes "Paper, steel, and things that leave before they arrive.";
 	next;
@@ -275,7 +275,7 @@ veins,218,133,4	script	Shadow Merchant#safa	4_M_NFDEADMAN,{
 	}
 }
 
-veins,220,133,4	script	Herbalist#safa	4_F_ALCHE,{
+veins,122,181,4	script	Herbalist#safa	4_F_ALCHE,{
 	mes "[Herbalist]";
 	mes "Seeds, mushrooms, and a bomb that used to be an apple.";
 	next;
@@ -299,7 +299,7 @@ veins,220,133,4	script	Herbalist#safa	4_F_ALCHE,{
 	}
 }
 
-veins,222,133,4	script	Fence#safa	4_M_ROGUE,{
+veins,114,173,4	script	Fence#safa	4_M_ROGUE,{
 	mes "[Fence]";
 	mes "Everything here fell off something. Do not ask what.";
 	next;
@@ -313,7 +313,7 @@ veins,222,133,4	script	Fence#safa	4_M_ROGUE,{
 	end;
 }
 
-veins,224,133,4	script	Beast Keeper#safa	4_CAT,{
+veins,105,183,4	script	Beast Keeper#safa	4_CAT,{
 	mes "[Beast Keeper]";
 	mes "Fish, shrimp, and the odd stick. They know what they want.";
 	next;
@@ -327,7 +327,7 @@ veins,224,133,4	script	Beast Keeper#safa	4_CAT,{
 	end;
 }
 
-veins,228,133,4	script	Bardic Supplier#safa	4_M_BARD,{
+veins,105,172,4	script	Bardic Supplier#safa	4_M_BARD,{
 	mes "[Bardic Supplier]";
 	mes "Strings, reeds, and a whip that never touched a horse.";
 	next;
@@ -341,7 +341,7 @@ veins,228,133,4	script	Bardic Supplier#safa	4_M_BARD,{
 	end;
 }
 
-veins,230,133,4	script	Soul Supplier#safa	4_M_SOULREAPER,{
+veins,105,166,4	script	Soul Supplier#safa	4_M_SOULREAPER,{
 	mes "[Soul Supplier]";
 	mes "Charms for the parts of a person that are not the body.";
 	next;

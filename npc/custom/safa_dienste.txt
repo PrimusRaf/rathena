@@ -37,12 +37,44 @@
 //=     209  Episode 20          214  Episode 21
 //=     219  Safari Outfitter
 //=
-//= y=133  BASARZEILE, sechzehn Klassenlaeden, alle zwei Felder
-//=     200 bis 230, Reihenfolge wie in tools/laeden/bauen.py
-//=     Sie stehen mit dem Ruecken zur Felswand: y=134 ist ab
-//=     x=224 Fels, und der Rest der Reihe hat oben ohnehin
-//=     nichts. Davor, auf y=132, ist alles frei - man laeuft
-//=     die Zeile also von Sueden ab wie einen Markt.
+//= DER BASAR, sechzehn Klassenlaeden im Sueden
+//=
+//=     A  162,167 bis 172,167      3 Laeden
+//=     B  152,164 bis 134,164      5
+//=     C  129,180 bis 136,173      2   (diagonal)
+//=     D  122,181 bis 114,173      2   (diagonal)
+//=     E  105,183 bis 105,166      4
+//=
+//=     Reihenfolge wie in tools/laeden/bauen.py, gleichmaessig
+//=     ueber die 65 Zellen der fuenf Abschnitte verteilt.
+//=
+//=     WARUM DIE ALS EINZIGE NICHT AM PLATZ STEHEN
+//=
+//=     Sie standen zuerst auf y=133 mitten im Quartier. Sechzehn
+//=     NPCs in einer Reihe, zwei Felder auseinander, direkt im
+//=     Weg zwischen Ankunftspunkt und allem anderen - man kam
+//=     nicht durch, ohne dreimal ein Ladenfenster aufzumachen.
+//=
+//=     Dienste, Episoden und Handwerk braucht man zwischen zwei
+//=     Handgriffen. Klassenbedarf kauft man einmal und geht
+//=     wieder. Nur Ersteres gehoert an den Ankunftsplatz.
+//=
+//=     WARUM DIESE FUENF ABSCHNITTE UND KEINE GERECHNETEN
+//=
+//=     Der erste Versuch war eine gerade Zeile auf y=178, per
+//=     Skript aus db/map_cache.dat gesucht: 45 Zellen am Stueck
+//=     begehbar, erreichbar, frei. Rechnerisch tadellos.
+//=
+//=     Im Spiel taugte sie trotzdem nichts. Der Kartencache kennt
+//=     nur BEGEHBAR - er weiss nicht, wo Marktstaende stehen, wo
+//=     Stufen sind, wo ein Haus im Weg steht oder wo man einfach
+//=     nicht sinnvoll hinlaeuft. Ein NPC kann auf einer perfekt
+//=     freien Zelle stehen und trotzdem unbedienbar wirken.
+//=
+//=     Diese fuenf Abschnitte sind deshalb im Spiel abgelaufen
+//=     und von Raffael abgelesen. Sie sind hier die verlaessliche
+//=     Quelle, nicht die Rechnung - das Skript prueft sie nur
+//=     noch gegen: alle 65 Zellen begehbar, erreichbar, frei.
 //=
 //= x=184  HANDWERKERSPALTE, senkrecht am Westrand des Platzes
 //=     135  Master Artisan      132  Armstrong
