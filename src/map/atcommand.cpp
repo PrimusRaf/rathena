@@ -2111,7 +2111,7 @@ ACMD_FUNC(go)
 		char map[MAP_NAME_LENGTH];
 		int32 x, y;
 	} data[] = {
-		{ MAP_PRONTERA,    156, 191 }, //  0=Prontera
+		{ MAP_VEINS,       210, 123 }, //  0=Veins  <- SafaRO: Hauptstadt seit Episode 22
 		{ MAP_MORROC,      156,  93 }, //  1=Morroc
 		{ MAP_GEFFEN,      119,  59 }, //  2=Geffen
 		{ MAP_PAYON,       162, 233 }, //  3=Payon
@@ -2143,7 +2143,7 @@ ACMD_FUNC(go)
 		{ MAP_EINBECH,      70,  95 }, // 21=Einbech
 		{ MAP_HUGEL,        96, 145 }, // 22=Hugel
 		{ MAP_RACHEL,      130, 110 }, // 23=Rachel
-		{ MAP_VEINS,       216, 123 }, // 24=Veins
+		{ MAP_PRONTERA,    156, 191 }, // 24=Prontera  <- SafaRO: mit 0 getauscht
 		{ MAP_MOSCOVIA,    223, 184 }, // 25=Moscovia
 		{ MAP_MIDCAMP,     180, 240 }, // 26=Midgard Camp
 		{ MAP_MANUK,       282, 138 }, // 27=Manuk
@@ -2194,7 +2194,7 @@ ACMD_FUNC(go)
 		map_name[i] = TOLOWER(map_name[i]);
 	// try to identify the map name
 	if (strncmp(map_name, "prontera", 3) == 0) {
-		town = 0;
+		town = 24;   // SafaRO: mit Veins getauscht, siehe Tabelle oben
 	} else if (strncmp(map_name, "morocc", 4) == 0 ||
 	           strncmp(map_name, "morroc", 4) == 0) {
 		town = 1;
@@ -2252,7 +2252,7 @@ ACMD_FUNC(go)
 	} else if (strncmp(map_name, "rachel", 3) == 0) {
 		town = 23;
 	} else if (strncmp(map_name, "veins", 3) == 0) {
-		town = 24;
+		town = 0;    // SafaRO: Hauptstadt, deshalb Platz 0
 	} else if (strncmp(map_name, "moscovia", 3) == 0) {
 		town = 25;
 	} else if (strncmp(map_name, "mid_camp", 3) == 0) {
