@@ -195,7 +195,8 @@ OnGM:
 		// S_Rudel steigt aus, wenn kein Platz frei ist. Das
 		// merkt man sonst nicht - es passiert schlicht nichts.
 		.@vorher = $@wild_aktiv;
-		callsub S_Rudel, .@map$, .@x, .@y, .@basis, .@i;
+		// Letztes Argument 1: S_Rudel berichtet, was es tut.
+		callsub S_Rudel, .@map$, .@x, .@y, .@basis, .@i, 1;
 
 		if ($@wild_aktiv == .@vorher) {
 			dispbottom "[Wildlife] Nichts passiert. Alle " + .max
@@ -250,6 +251,7 @@ S_Rudel:
 	.@y      = getarg(2);
 	.@basis  = getarg(3);
 	.@i      = getarg(4);
+	.@laut   = getarg(5, 0);   // 1 = Schritt fuer Schritt berichten
 
 	// --- Erst den Platz, dann das Tier --------------------------
 	//  Die Reihenfolge ist wichtig. Umgekehrt stuende bei einem
@@ -286,10 +288,21 @@ S_Rudel:
 
 	.@name$ = "Wildlife " + getmonsterinfo(.@basis, MOB_NAME);
 
+	if (.@laut)
+		dispbottom "  Vorlage " + .@basis + " \"" + .@name$
+		           + "\", Rasse " + getmonsterinfo(.@basis, MOB_RACE)
+		           + ", Stufe " + getmonsterinfo(.@basis, MOB_LV);
+
 	monster .@map$, .@x, .@y, .@name$, .@basis, 1,
 	        "safa_wildlife::OnWildTot";
 	.@gid = $@mobid[0];
-	if (!.@gid) return;
+	if (!.@gid) {
+		if (.@laut)
+			dispbottom "  FEHLER: monster hat keine Spielnummer geliefert.";
+		return;
+	}
+	if (.@laut)
+		dispbottom "  Gespawnt, Spielnummer " + .@gid;
 
 	// --- Werte anheben ---------------------------------------
 	//  Der HP-Faktor ist absichtlich degressiv. Vierzigfach ist
@@ -306,6 +319,9 @@ S_Rudel:
 
 	setunitdata .@gid, UMOB_MAXHP, .@hp;
 	setunitdata .@gid, UMOB_HP,    .@hp;
+	if (.@laut)
+		dispbottom "  HP gesetzt auf " + .@hp + ", gelesen "
+		           + getunitdata(.@gid, UMOB_MAXHP);
 	setunitdata .@gid, UMOB_ATKMIN,
 	            getunitdata(.@gid, UMOB_ATKMIN) * .atk_faktor;
 	setunitdata .@gid, UMOB_ATKMAX,
@@ -317,11 +333,41 @@ S_Rudel:
 	setunitdata .@gid, UMOB_LEVEL,
 	            getunitdata(.@gid, UMOB_LEVEL) + .lv_plus;
 
-	// Aggressiv UND beweglich. Ohne MD_CANMOVE stuende ein
-	// Wildlife Poring aggressiv, aber angewurzelt da - und waere
-	// aus zwei Feldern Abstand kostenlos zu erschiessen.
+	// --- Angriffsverhalten -----------------------------------
+	//  MD_AGGRESSIVE allein reicht NICHT, und das war der Fehler
+	//  im ersten Anlauf: das Tier stand angriffslustig da und tat
+	//  nichts.
+	//
+	//  Der Grund steht in mmo.hpp:249 - MD_CANATTACK ist ein
+	//  EIGENES Flag (0x80). Ein Poring traegt von Haus aus nur
+	//  MD_CANMOVE; er kann schlicht nicht zuschlagen. MD_AGGRESSIVE
+	//  macht daraus ein Tier, das angreifen WILL und es nicht KANN.
+	//
+	//  Deshalb das ganze Buendel:
+	//    MD_CANMOVE            laufen
+	//    MD_CANATTACK          ueberhaupt zuschlagen koennen
+	//    MD_AGGRESSIVE         von sich aus angreifen
+	//    MD_ANGRY              auch verfolgen, nicht nur zuschlagen
+	//    MD_CHANGECHASE        Ziel im Verfolgen wechseln
+	//    MD_CHANGETARGETMELEE  auf den reagieren, der zuschlaegt
+	//
+	//  ODER statt setzen: was das Tier von Haus aus mitbringt -
+	//  Looter, Detector, Elementarimmunitaeten - soll bleiben.
 	setunitdata .@gid, UMOB_MODE,
-	            getunitdata(.@gid, UMOB_MODE) | MD_AGGRESSIVE | MD_CANMOVE;
+	            getunitdata(.@gid, UMOB_MODE)
+	            | MD_CANMOVE | MD_CANATTACK | MD_AGGRESSIVE
+	            | MD_ANGRY | MD_CHANGECHASE | MD_CHANGETARGETMELEE;
+
+	if (.@laut) {
+		.@m = getunitdata(.@gid, UMOB_MODE);
+		dispbottom "  Modus jetzt " + .@m
+		           + "  CANATTACK=" + ((.@m & MD_CANATTACK) ? 1 : 0)
+		           + " AGGRESSIVE=" + ((.@m & MD_AGGRESSIVE) ? 1 : 0)
+		           + " CANMOVE=" + ((.@m & MD_CANMOVE) ? 1 : 0);
+		dispbottom "  Angriff " + getunitdata(.@gid, UMOB_ATKMIN)
+		           + " bis " + getunitdata(.@gid, UMOB_ATKMAX)
+		           + ", Stufe " + getunitdata(.@gid, UMOB_LEVEL);
+	}
 
 	// --- Das Rudel -------------------------------------------
 	//  Die Helfer bekommen denselben Vorsatz. Das ist Absicht:
@@ -343,8 +389,13 @@ S_Rudel:
 		setunitdata .@sg, UMOB_MAXHP, .@shp;
 		setunitdata .@sg, UMOB_HP,    .@shp;
 		setunitdata .@sg, UMOB_MODE,
-		            getunitdata(.@sg, UMOB_MODE) | MD_AGGRESSIVE | MD_CANMOVE;
+		            getunitdata(.@sg, UMOB_MODE)
+		            | MD_CANMOVE | MD_CANATTACK | MD_AGGRESSIVE
+		            | MD_ANGRY | MD_CHANGECHASE | MD_CHANGETARGETMELEE;
+		.@gebaut++;
 	}
+	if (.@laut)
+		dispbottom "  Helfer gestellt: " + .@gebaut + " von " + .helfer;
 
 	// --- Buchfuehrung ----------------------------------------
 	//  $@ ist serverweit und NICHT dauerhaft - genau richtig:
