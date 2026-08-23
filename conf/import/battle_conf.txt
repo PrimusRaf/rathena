@@ -304,3 +304,38 @@ atcommand_mobinfo_type: 0
 //  Steht hier als Zeile und nicht als Auslassung, damit beim
 //  naechsten Durchsehen klar ist: entschieden, nicht vergessen.
 item_rate_treasure: 100
+
+
+// ------------------------------------------------------------
+//  Selbstfuetterung der Tiere   (Original: conf/battle/feature.conf)
+// ------------------------------------------------------------
+
+// --- Erst fuettern, wenn das Tier wirklich hungrig ist ---
+//  Ab Werk 89. Das klingt harmlos, ist aber praktisch Dauerfressen.
+//
+//  Die Schwellen stehen in src/map/pet.hpp:84 folgende:
+//
+//      VERY_HUNGRY  10     HUNGRY  25     NEUTRAL   75
+//      SATISFIED    90     STUFFED 100
+//
+//  Gefuettert wird bei hungry <= dieser Zahl (pet.cpp:880), und
+//  eine Mahlzeit hebt den Wert nur um Fullness aus pet_db - bei
+//  27 der 67 zaehmbaren Tiere sind das DREI Punkte. Mit 89 faellt
+//  der Wert also auf 89, wird auf 92 gefuettert, faellt wieder auf
+//  89, und so fort. Der Beutel ist leer, bevor irgendetwas
+//  gewonnen waere.
+//
+//  25 ist PET_HUNGRY_HUNGRY - genau die Stufe, die im Tierfenster
+//  "Hungry" heisst. Zwei Dinge werden dadurch besser:
+//
+//  1. Gefuettert wird ungefaehr ein Zwanzigstel so oft.
+//  2. Die Vertrautheit steigt DOPPELT so stark je Mahlzeit.
+//     pet.cpp:1668 halbiert den Zuwachs, solange hungry ueber
+//     NEUTRAL (75) liegt. Bei 89 traf das immer zu, bei 25 nie.
+//
+//  NICHT ueber 90 setzen. pet.cpp:1652 vergibt oberhalb von
+//  PET_HUNGRY_SATISFIED den Ueberfuetterungswert r_full, und der
+//  ist bei 64 der 67 Tiere nicht gesetzt - Vorgabe MINUS 100
+//  (pet.cpp:242). Das Tier wuerde bei jeder Mahlzeit Vertrautheit
+//  verlieren statt gewinnen.
+feature.pet_autofeed_rate: 25

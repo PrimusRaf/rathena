@@ -1,0 +1,141 @@
+//===== SafaRO Script =====================================
+//= Der Tierpfleger - Futter und Schmuck fuer alle Tiere
+//===== Erzeugt von ==========================================
+//= tools/pets/laden.py  --  NICHT von Hand pflegen.
+//===========================================================
+//
+//  Aufbau wie bei den Versorgungslaeden in safa_laeden.txt: ein
+//  sichtbarer Haendler, dahinter zwei unsichtbare shop-NPCs
+//  (Sprite -1), geoeffnet ueber callshop.
+//
+//  SORTIMENT
+//
+//  FoodItem und EquipItem aus db/re/pet_db.yml, ueber alle 107 Tiere -
+//  nicht nur die zaehmbaren. Wer ein Ereignis-Ei bekommt, soll das
+//  Futter dazu kaufen koennen.
+//
+//      53 Futtersorten
+//      41 Schmuckstuecke
+//
+//  Preis -1 heisst: Kaufpreis aus item_db.yml. Jeder Posten wurde
+//  daraufhin geprueft; bei 0 verschenkte der Laden ihn. Drei Posten
+//  haben weder Buy noch Sell und stehen deshalb mit einer festen
+//  Zahl da - dem mittleren Preis der uebrigen Posten derselben Art:
+//
+//      Futter    374 Zeny fuer 1000227
+//      Schmuck   20 Zeny fuer 10043, 10044
+//
+//  WAS DER SCHMUCK TUT
+//
+//  Weniger, als der Name verspricht. Unser Tierbonus haengt nicht
+//  daran: status.cpp:4209 fuehrt pet_bonus_script bedingungslos aus.
+//  Am Schmuck haengt allein der alte Weg ueber petskillbonus
+//  (status.cpp:4211), den unsere Tiere nicht mehr benutzen - und das
+//  Aussehen. Der NPC sagt das auch so.
+//
+//  Achtung beim Anlegen: pet_equipitem ruft pc_delitem. Das Stueck
+//  wandert aus dem Beutel ins Tier.
+//===========================================================
+
+// ------------------------------------------------------------
+//  Die beiden Laeden
+// ------------------------------------------------------------
+-	shop	SafaPetFood	-1,504:-1,507:-1,508:-1,511:-1,512:-1,518:-1,528:-1,529:-1,531:-1,532:-1,534:-1,537:-1,554:-1,711:-1,716:-1,911:-1,929:-1,934:-1,1002:-1,1066:-1,6094:-1,6095:-1,6096:-1,6097:-1,6098:-1,6099:-1,6100:-1,6104:-1,6105:-1,6106:-1,6107:-1,6108:-1,6109:-1,6110:-1,6111:-1,6112:-1,6113:-1,6114:-1,6115:-1,6534:-1,7564:-1,7766:-1,7821:-1,7822:-1,7823:-1,7824:-1,25231:-1,25232:-1,25233:-1,25377:-1,1000227:374,1000552:-1,1000889:-1
+-	shop	SafaPetAcce	-1,10001:-1,10002:-1,10003:-1,10004:-1,10005:-1,10006:-1,10007:-1,10008:-1,10009:-1,10010:-1,10011:-1,10012:-1,10013:-1,10014:-1,10015:-1,10016:-1,10017:-1,10018:-1,10019:-1,10020:-1,10021:-1,10022:-1,10023:-1,10024:-1,10025:-1,10026:-1,10027:-1,10028:-1,10029:-1,10030:-1,10031:-1,10032:-1,10033:-1,10034:-1,10035:-1,10036:-1,10037:-1,10038:-1,10039:-1,10043:20,10044:20
+
+
+// ------------------------------------------------------------
+//  Der Haendler
+// ------------------------------------------------------------
+//  prontera 167,178 - gegen db/map_cache.dat geprueft: begehbar.
+
+prontera,167,178,4	script	Pet Caretaker#safa	4_M_DOGTRAVELER,{
+
+	mes "[Pet Caretaker]";
+	mes "Every one of them eats something";
+	mes "different, and every one of them is";
+	mes "certain that its own food is the only";
+	mes "real food. I stock all of it.";
+	next;
+
+	switch (select("Buy food:Buy an accessory:What does my pet need?:Nothing today")) {
+
+	case 1:
+		close2;
+		callshop "SafaPetFood", 1;
+		end;
+
+	case 2:
+		mes "[Pet Caretaker]";
+		mes "Fair warning: an accessory is for the";
+		mes "look. It does not add to what your pet";
+		mes "already gives you.";
+		mes " ";
+		mes "And putting it on ^FF6666uses it up^000000 - it";
+		mes "leaves your bag for good.";
+		next;
+		close2;
+		callshop "SafaPetAcce", 1;
+		end;
+
+	case 3:
+		// PETINFO_FOODID kommt aus der Tierdatenbank, ist also
+		// immer richtig. Fuer den Schmuck gibt es keine solche
+		// Auskunft - getpetinfo kennt AcceID nicht (script.cpp,
+		// BUILDIN_FUNC(getpetinfo)). Deshalb die Tabelle unten.
+		if (getpetinfo(PETINFO_ID) == 0) {
+			mes "[Pet Caretaker]";
+			mes "Bring the animal along and I will tell";
+			mes "you what it wants.";
+			close;
+		}
+
+		mes "[Pet Caretaker]";
+		mes "^0000FF" + getpetinfo(PETINFO_NAME) + "^000000, is it.";
+		mes " ";
+
+		.@futter = getpetinfo(PETINFO_FOODID);
+		if (.@futter > 0) {
+			mes "Food: ^0000FF" + getitemname(.@futter) + "^000000";
+			mes "In your bag: ^0000FF" + countitem(.@futter) + "^000000";
+		} else
+			mes "This one does not eat at all.";
+
+		.@i = inarray(.tier, getpetinfo(PETINFO_CLASS));
+		mes " ";
+		if (.@i >= 0)
+			mes "Accessory: ^0000FF" + getitemname(.schmuck[.@i]) + "^000000";
+		else
+			mes "There is no accessory for this one.";
+
+		mes " ";
+		mes "Intimacy: ^0000FF" + getpetinfo(PETINFO_INTIMATE) + "^000000 of 1000";
+		mes "Hunger: ^0000FF" + getpetinfo(PETINFO_HUNGRY) + "^000000 of 100";
+		mes " ";
+		mes "^777777@petfeed lets it eat on its own,^000000";
+		mes "^777777out of your bag, once it gets hungry.^000000";
+		close;
+
+	case 4:
+		mes "[Pet Caretaker]";
+		mes "They will still be hungry tomorrow.";
+		close;
+	}
+
+OnInit:
+	// Monster-Id -> Schmuck-Id, gleiche Reihenfolge in beiden
+	// Feldern. Erzeugt aus db/re/pet_db.yml, 46 Eintraege.
+	setarray .tier[0],
+		1002, 1011, 1014, 1019, 1023, 1026, 1029, 1031, 1035, 1040,
+		1042, 1049, 1052, 1056, 1057, 1063, 1077, 1101, 1107, 1109,
+		1110, 1113, 1143, 1148, 1155, 1167, 1170, 1179, 1188, 1242,
+		1299, 1370, 1374, 1379, 1401, 1404, 1416, 1495, 1504, 1505,
+		1513, 1586, 1630, 1837, 20696, 20697;
+	setarray .schmuck[0],
+		10013, 10002, 10017, 10010, 10009, 10008, 10006, 10013, 10002, 10035,
+		10002, 10012, 10014, 10019, 10018, 10007, 10017, 10001, 10003, 10004,
+		10005, 10013, 10025, 10032, 10011, 10015, 10016, 10027, 10020, 10039,
+		10028, 10037, 10034, 10036, 10026, 10030, 10029, 10033, 10031, 10024,
+		10022, 10023, 10021, 10038, 10043, 10044;
+	end;
+}
