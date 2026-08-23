@@ -76,8 +76,9 @@
 //  und erst ganz zuletzt die Datenbankzugriffe ueber
 //  getmonsterinfo und die Kartensuche.
 //
-//  Bei 0,3 Prozent Chance laeuft alles ab dem Wuerfel nur noch
-//  bei drei von tausend Kills.
+//  Bei fuenf Prozent laeuft alles ab dem Wuerfel nur noch bei
+//  jedem zwanzigsten Kill - und selbst davon faellt das meiste
+//  gleich wieder an der Spielersperre und am Rudeldeckel weg.
 OnNPCKillEvent:
 	if (killedrid == 0) end;
 	if ($@wild_aktiv >= .max) end;
@@ -377,7 +378,23 @@ OnTimer60000:
 // ------------------------------------------------------------
 OnInit:
 	// --- Was sich lohnt zu drehen ----------------------------
-	.chance     = 30;    // von 10000 je Kill
+	//
+	//  ZUR CHANCE: SIE IST NICHT MEHR DER BEGRENZENDE WERT
+	//
+	//  Bei 500 von 10000 - fuenf Prozent je Kill - faellt der
+	//  Wuerfel im Schnitt alle zwanzig Kills. Wer zwei Monster
+	//  je Sekunde legt, haette damit alle zehn Sekunden ein
+	//  Rudel.
+	//
+	//  Dass es nicht so kommt, liegt an den beiden Werten
+	//  darunter: .cd sperrt jeden Spieler fuer eine Minute, und
+	//  .max deckelt bei sechs Rudeln serverweit. Bei zehn bis
+	//  zwoelf aktiven Leuten ist die Sechs damit praktisch immer
+	//  ausgeschoepft.
+	//
+	//  Wer die gefuehlte Haeufigkeit aendern will, dreht deshalb
+	//  ab hier an .cd und .max, nicht mehr an .chance.
+	.chance     = 500;   // von 10000 je Kill
 	.max        = 6;     // gleichzeitige Rudel serverweit
 	.cd         = 60;    // Sekunden Sperre je Spieler
 	.min_lv     = 5;    // darunter kein Wildlife
