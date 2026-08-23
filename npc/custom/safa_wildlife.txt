@@ -113,6 +113,123 @@ OnNPCKillEvent:
 
 
 // ------------------------------------------------------------
+//  @wild - nachsehen, ob das hier ueberhaupt greift
+// ------------------------------------------------------------
+//  Ohne diesen Befehl bleibt nur: Monster kloppen und hoffen.
+//  Und wenn dann nichts kommt, weiss man nicht, woran es lag -
+//  an der Karte, am Deckel, an der Sperre, am Wuerfel oder
+//  daran, dass die Datei gar nicht geladen ist.
+//
+//    @wild         Status: was gilt hier gerade
+//    @wild los     ein Rudel erzwingen, ohne Wuerfel und Sperre
+//    @wild aus     alle Rudel entfernen, ohne Belohnung
+//    @wild karte   welche Arten diese Karte beisteuert
+//
+//  "los" geht bewusst am Deckel und an der Sperre vorbei. Der
+//  Zweck ist zu sehen, ob die KETTE funktioniert - Tabelle,
+//  Spawn, Werteaufwertung, Helfer, Ansage, Tod, Belohnung. Ob
+//  die Wahrscheinlichkeit richtig eingestellt ist, ist eine
+//  andere Frage und steht im Status.
+OnGM:
+	.@was$ = "";
+	if (.@atcmd_numparameters > 0)
+		.@was$ = .@atcmd_parameters$[0];
+
+	getmapxy(.@map$, .@x, .@y, BL_PC);
+	.@i = inarray(.karte$[0], .@map$);
+
+	// --- aufraeumen ------------------------------------------
+	if (.@was$ == "aus") {
+		for (.@k = 0; .@k < .max; .@k++) {
+			if (!$@wild_gid[.@k]) continue;
+			killmonster $@wild_karte$[.@k], "safa_wildlife::OnWildTot";
+			killmonster $@wild_karte$[.@k], "safa_wildlife::OnWildHelfer";
+			$@wild_gid[.@k] = 0;
+			$@wild_karte$[.@k] = "";
+			$@wild_alter[.@k] = 0;
+		}
+		$@wild_aktiv = 0;
+		dispbottom "[Wildlife] Alle Rudel entfernt, Zaehler auf 0.";
+		end;
+	}
+
+	// --- Arten dieser Karte ----------------------------------
+	if (.@was$ == "karte") {
+		if (.@i < 0) {
+			dispbottom "[Wildlife] " + .@map$
+			           + " steht NICHT in der Tabelle. Hier kommt nie eines.";
+			end;
+		}
+		dispbottom "[Wildlife] " + .@map$ + " steuert "
+		           + .anz[.@i] + " Arten bei:";
+		for (.@k = 0; .@k < .anz[.@i]; .@k++)
+			dispbottom "   " + .art[.von[.@i] + .@k] + "  "
+			           + getmonsterinfo(.art[.von[.@i] + .@k], MOB_NAME);
+		end;
+	}
+
+	// --- erzwingen -------------------------------------------
+	if (.@was$ == "los") {
+		if (.@i < 0) {
+			dispbottom "[Wildlife] " + .@map$
+			           + " steht nicht in der Tabelle - hier geht es nicht.";
+			end;
+		}
+		// Vorlage aus dem Bestand dieser Karte. Beim normalen
+		// Weg ist es das gerade erlegte Monster; hier gibt es
+		// keines, also wird eines der ortsueblichen gezogen.
+		.@basis = .art[.von[.@i] + rand(.anz[.@i])];
+
+		// S_Rudel steigt aus, wenn kein Platz frei ist. Das
+		// merkt man sonst nicht - es passiert schlicht nichts.
+		.@vorher = $@wild_aktiv;
+		callsub S_Rudel, .@map$, .@x, .@y, .@basis, .@i;
+
+		if ($@wild_aktiv == .@vorher) {
+			dispbottom "[Wildlife] Nichts passiert. Alle " + .max
+			           + " Plaetze belegt - erst \"@wild aus\".";
+			end;
+		}
+		dispbottom "[Wildlife] Erzwungen: "
+		           + getmonsterinfo(.@basis, MOB_NAME)
+		           + ". Aktive Rudel jetzt " + $@wild_aktiv + ".";
+		end;
+	}
+
+	// --- Status ----------------------------------------------
+	dispbottom "[Wildlife] Skript ist geladen.";
+	dispbottom "  Karte " + .@map$ + ": "
+	           + (.@i < 0 ? "NICHT in der Tabelle - hier kommt nie eines"
+	                      : "in der Tabelle, " + .anz[.@i] + " Arten");
+	dispbottom "  Tabelle: " + getarraysize(.karte$) + " Karten, "
+	           + getarraysize(.art) + " Arteneintraege";
+	// Das doppelte Prozentzeichen ist kein Tippfehler: der
+	// Rumpf dieser Datei geht durch Pythons %-Formatierung, und
+	// ein einzelnes % waere dort eine Formatangabe. Im
+	// erzeugten Skript steht wieder eines.
+	dispbottom "  Chance: " + .chance + " von 10000 ("
+	           + (.chance / 100) + "," + (.chance % 100)
+	           + " Prozent) je Kill";
+	dispbottom "  Rudel aktiv: " + $@wild_aktiv + " von " + .max
+	           + (($@wild_aktiv >= .max) ? "  <-- DECKEL ERREICHT, nichts Neues" : "");
+
+	.@rest = @wild_cd - gettimetick(2);
+	dispbottom "  Deine Sperre: "
+	           + ((.@rest > 0) ? .@rest + " Sekunden <-- laeuft noch"
+	                           : "frei");
+	dispbottom "  Mindestlevel der Vorlage: " + .min_lv
+	           + ", Rudel loest sich nach " + .leben + " Minuten auf";
+
+	for (.@k = 0; .@k < .max; .@k++) {
+		if (!$@wild_gid[.@k]) continue;
+		dispbottom "   Platz " + .@k + ": " + $@wild_karte$[.@k]
+		           + ", " + $@wild_alter[.@k] + " Minuten"
+		           + (unitexists($@wild_gid[.@k]) ? "" : "  <-- Tier weg, Platz wird beim naechsten Takt frei");
+	}
+	end;
+
+
+// ------------------------------------------------------------
 //  Das Rudel aufstellen
 // ------------------------------------------------------------
 S_Rudel:
@@ -377,6 +494,8 @@ OnTimer60000:
 //  Einstellungen und Tabelle
 // ------------------------------------------------------------
 OnInit:
+	bindatcmd "wild", "safa_wildlife::OnGM", 99, 99;
+
 	// --- Was sich lohnt zu drehen ----------------------------
 	//
 	//  ZUR CHANCE: SIE IST NICHT MEHR DER BEGRENZENDE WERT
