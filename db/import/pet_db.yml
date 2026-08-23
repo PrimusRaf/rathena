@@ -24,6 +24,7 @@ Header:
 Body:
   - Mob: ALICE
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -36,6 +37,7 @@ Body:
       }
   - Mob: BACSOJIN_
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -48,6 +50,7 @@ Body:
       }
   - Mob: BAPHOMET_
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -60,6 +63,7 @@ Body:
       }
   - Mob: BON_GUN
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -72,6 +76,7 @@ Body:
       }
   - Mob: CHONCHON
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -84,6 +89,7 @@ Body:
       }
   - Mob: CHUNG_E
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -96,6 +102,7 @@ Body:
       }
   - Mob: CHUNG_E_
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -108,6 +115,7 @@ Body:
       }
   - Mob: CIVIL_SERVANT
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -120,6 +128,7 @@ Body:
       }
   - Mob: DARK_PRIEST
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -132,6 +141,7 @@ Body:
       }
   - Mob: DELETER_
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -144,6 +154,7 @@ Body:
       }
   - Mob: DESERT_WOLF_B
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -156,6 +167,7 @@ Body:
       }
   - Mob: DEVIRUCHI
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -168,6 +180,7 @@ Body:
       }
   - Mob: DIABOLIC
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -180,6 +193,7 @@ Body:
       }
   - Mob: DIABOLIC2
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -192,6 +206,7 @@ Body:
       }
   - Mob: DOKEBI
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -204,6 +219,7 @@ Body:
       }
   - Mob: DROPS
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -216,6 +232,7 @@ Body:
       }
   - Mob: DULLAHAN
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -228,6 +245,7 @@ Body:
       }
   - Mob: EVENT_RICECAKE
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -240,6 +258,7 @@ Body:
       }
   - Mob: E_CRAMP
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -252,6 +271,7 @@ Body:
       }
   - Mob: E_HYDRA
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -264,6 +284,7 @@ Body:
       }
   - Mob: FARMILIAR
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -276,6 +297,7 @@ Body:
       }
   - Mob: GOBLINE_XMAS
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -288,6 +310,7 @@ Body:
       }
   - Mob: GOBLIN_1
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -300,6 +323,7 @@ Body:
       }
   - Mob: GOBLIN_2
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -312,6 +336,7 @@ Body:
       }
   - Mob: GOBLIN_4
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -324,6 +349,7 @@ Body:
       }
   - Mob: GOBLIN_LEADER
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -336,6 +362,7 @@ Body:
       }
   - Mob: GOLEM
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -348,6 +375,7 @@ Body:
       }
   - Mob: GREMLIN
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -360,6 +388,7 @@ Body:
       }
   - Mob: HUNTER_FLY
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -372,6 +401,7 @@ Body:
       }
   - Mob: IMP
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -384,6 +414,7 @@ Body:
       }
   - Mob: INCUBUS
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -396,6 +427,7 @@ Body:
       }
   - Mob: ISIS
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -408,6 +440,7 @@ Body:
       }
   - Mob: LEAF_CAT
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -420,6 +453,7 @@ Body:
       }
   - Mob: LITTLE_PORING
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -432,6 +466,7 @@ Body:
       }
   - Mob: LOLI_RURI
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -444,6 +479,7 @@ Body:
       }
   - Mob: LUNATIC
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -456,6 +492,7 @@ Body:
       }
   - Mob: MARIN
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -468,6 +505,7 @@ Body:
       }
   - Mob: MARIONETTE
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -480,6 +518,7 @@ Body:
       }
   - Mob: MEDUSA
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -492,6 +531,7 @@ Body:
       }
   - Mob: MIYABI_NINGYO
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -504,6 +544,7 @@ Body:
       }
   - Mob: MUMMY
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -516,6 +557,7 @@ Body:
       }
   - Mob: MUNAK
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -528,6 +570,7 @@ Body:
       }
   - Mob: NIGHTMARE_TERROR
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -540,6 +583,7 @@ Body:
       }
   - Mob: NINE_TAIL
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -552,6 +596,7 @@ Body:
       }
   - Mob: ORK_WARRIOR
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -564,6 +609,7 @@ Body:
       }
   - Mob: PECOPECO
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -576,6 +622,7 @@ Body:
       }
   - Mob: PETIT
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -588,6 +635,7 @@ Body:
       }
   - Mob: PICKY
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -600,6 +648,7 @@ Body:
       }
   - Mob: POISON_SPORE
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -612,6 +661,7 @@ Body:
       }
   - Mob: POPORING
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -624,6 +674,7 @@ Body:
       }
   - Mob: PORING
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -636,6 +687,7 @@ Body:
       }
   - Mob: ROCKER
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -648,6 +700,7 @@ Body:
       }
   - Mob: SAVAGE_BABE
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -660,6 +713,7 @@ Body:
       }
   - Mob: SHINOBI
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -672,6 +726,7 @@ Body:
       }
   - Mob: SMOKIE
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -684,6 +739,7 @@ Body:
       }
   - Mob: SOHEE
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -696,6 +752,7 @@ Body:
       }
   - Mob: SPORE
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -708,6 +765,7 @@ Body:
       }
   - Mob: STEEL_CHONCHON
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -720,6 +778,7 @@ Body:
       }
   - Mob: STONE_SHOOTER
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -732,6 +791,7 @@ Body:
       }
   - Mob: SUCCUBUS
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -744,6 +804,7 @@ Body:
       }
   - Mob: TEDDY_BEAR
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -756,6 +817,7 @@ Body:
       }
   - Mob: TIKBALANG
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -768,6 +830,7 @@ Body:
       }
   - Mob: WANDER_MAN
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -780,6 +843,7 @@ Body:
       }
   - Mob: WHISPER
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -792,6 +856,7 @@ Body:
       }
   - Mob: WICKED_NYMPH
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -804,6 +869,7 @@ Body:
       }
   - Mob: YOYO
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -816,6 +882,7 @@ Body:
       }
   - Mob: ZHERLTHSH
     CaptureRate: 10000
+    AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
