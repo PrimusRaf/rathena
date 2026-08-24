@@ -5160,6 +5160,16 @@ int32 status_calc_homunculus_(homun_data *hd, uint8 opt)
 	// ------------------------------------------------------------
 	//  SafaRO: Gift of the Seeker (Isekai-Geschenk Nr. 510)
 	// ------------------------------------------------------------
+	//  Der Seeker IST der Alchemist von Tier A, nur unter seinem
+	//  Isekai-Namen - ein zweites Alchemisten-Geschenk gibt es in
+	//  dem Tier bewusst nicht. Siehe Kopf von
+	//  npc/custom/safa_systems.txt.
+	//
+	//  Was hier steht, sind die STATUSWERTE des Homunkulus. Der
+	//  Schadenszuschlag des Geschenks laeuft getrennt davon ueber
+	//  "bonus bHomDamage" im Skript und wird in battle_calc_damage
+	//  angewandt - beides zusammen ergibt die Gabe.
+	//
 	//  rAthena kennt keinen Item-Bonus, der den Homunkulus staerkt -
 	//  die gesamte bonus-Familie wirkt nur auf den Spieler selbst.
 	//  Deshalb hier direkt in der Statusberechnung des Homunkulus.
