@@ -256,37 +256,71 @@ S_Zauber:
 	mes "[Master Artisan]";
 	mes "^00CCFF" + .opt_name$[.@o] + "^000000, somewhere between ^FFCC00"
 	    + .opt_von[.@o] + "^000000 and ^FFCC00" + .opt_bis[.@o] + "^000000.";
+	mes "^777777Comes out too low? I strike the same slot again for the same price, as often as you like.^000000";
 	next;
 	if (select("Pay " + callfunc("F_InsertComma", .enchant) + " Zeny:Not yet") == 2)
 		return;
-	if (Zeny < .enchant) {
+
+	// ------------------------------------------------------------
+	//  Ab hier wird gewuerfelt, bis der Spieler zufrieden ist.
+	// ------------------------------------------------------------
+	//  Frueher endete das Gespraech nach einem Wurf, und wer einen
+	//  besseren Wert wollte, klickte sich fuenf Menues weit erneut
+	//  bis hierher. Der Wurf wiederholt sich jetzt an Ort und Stelle:
+	//  gleiches Stueck, gleicher Platz, gleiche Option.
+	//
+	//  Jeder Durchgang zahlt erneut und UEBERSCHREIBT den Wert davor -
+	//  auch nach unten. Deshalb steht in der Frage beides drin, Preis
+	//  und Risiko.
+	//
+	//  Die Schleife ist unbedenklich: check_gotocount (script.cpp:4420)
+	//  zaehlt in einem Lauf von run_script_main, und jedes select haelt
+	//  das Skript an. Beim Weiterlaufen faengt die Zaehlung von vorn an.
+	.@runde = 0;
+	while (1) {
+		if (Zeny < .enchant) {
+			mes "[Master Artisan]";
+			mes "Not with what you are carrying.";
+			if (.@runde > 0)
+				mes "What sits on it now stays on it.";
+			next;
+			return;
+		}
+
+		// Zwischen Anzeige und Zahlung kann das Stueck vom Koerper
+		// verschwunden sein - der Spieler kann inzwischen umgezogen
+		// haben. Gilt fuer jeden Wurf, nicht nur fuer den ersten.
+		if (getequipisequiped(.@teil) == 0) {
+			mes "[Master Artisan]";
+			mes "You took it off. Put it back on and ask again.";
+			next;
+			return;
+		}
+
+		Zeny -= .enchant;
+		.@alt = .@wert;
+		.@wert = rand(.opt_von[.@o], .opt_bis[.@o]);
+		setrandomoption(.@teil, .@frei, .opt_id[.@o], .@wert, 0);
+		.@runde++;
+
+		specialeffect2 EF_REFINEOK;
 		mes "[Master Artisan]";
-		mes "Not with what you are carrying.";
+		if (.@runde > 1)
+			mes "^777777" + .opt_name$[.@o] + " +" + .@alt + "^000000 -> ^00AA00"
+			    + .opt_name$[.@o] + " +" + .@wert + "^000000.";
+		else
+			mes "^00AA00" + .opt_name$[.@o] + " +" + .@wert + "^000000.";
+		if (.@wert >= .opt_bis[.@o])
+			mes "As high as it goes. You will not do better than that.";
+		else if (.@wert <= .opt_von[.@o])
+			mes "The low end. The stone decides, not me.";
+		mes " ";
+		mes "Strike it again? The new number takes the place of this one, ^FF6666better or worse^000000.";
 		next;
-		return;
+		if (select("Again - " + callfunc("F_InsertComma", .enchant) + " Zeny:"
+		           + "Keep " + .opt_name$[.@o] + " +" + .@wert) == 2)
+			return;
 	}
-
-	// Zwischen Anzeige und Zahlung kann das Stueck vom Koerper
-	// verschwunden sein - der Spieler kann inzwischen umgezogen haben.
-	if (getequipisequiped(.@teil) == 0) {
-		mes "[Master Artisan]";
-		mes "You took it off. Put it back on and ask again.";
-		next;
-		return;
-	}
-
-	Zeny -= .enchant;
-	.@wert = rand(.opt_von[.@o], .opt_bis[.@o]);
-	setrandomoption(.@teil, .@frei, .opt_id[.@o], .@wert, 0);
-
-	specialeffect2 EF_REFINEOK;
-	mes "[Master Artisan]";
-	mes "^00AA00" + .opt_name$[.@o] + " +" + .@wert + "^000000.";
-	if (.@wert >= .opt_bis[.@o])
-		mes "As high as it goes. You will not do better than that.";
-	else if (.@wert <= .opt_von[.@o])
-		mes "The low end. The stone decides, not me.";
-	next;
 	return;
 
 // ------------------------------------------------------------
