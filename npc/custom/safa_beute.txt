@@ -21,10 +21,33 @@
 //
 //  DIE LOESUNG
 //
-//  has_autoloot() liefert die Einstellung des Spielers (0 heisst aus).
-//  Ist sie an, geben wir den Gegenstand direkt - sonst legen wir ihn
-//  hin wie bisher. Damit verhaelt sich unsere Beute so, wie der
+//  Wir fragen, ob der Spieler diesen Gegenstand selbsttaetig
+//  einsammeln WUERDE. Wenn ja, geben wir ihn direkt - sonst legen wir
+//  ihn hin wie bisher. Damit verhaelt sich unsere Beute so, wie der
 //  Spieler es von Monster-Drops kennt.
+//
+//  ERST NUR ZUR HAELFTE GELOEST
+//
+//  Zuerst stand hier has_autoloot(). Ein Spieler meldete daraufhin:
+//  @autoloot wirkt, @alootid und @aloottype nicht.
+//
+//  Zu Recht. has_autoloot() (script.cpp:27567) liefert ausschliesslich
+//  sd->state.autoloot - die Prozentzahl aus @autoloot. Die beiden
+//  Listen liegen daneben und werden nicht angesehen:
+//
+//      sd->state.autoloot       @autoloot,    uint16   pc.hpp:427
+//      sd->state.autolootid[]   @alootid,     Liste    pc.hpp:428
+//      sd->state.autoloottype   @aloottype,   Bitfeld  pc.hpp:429
+//
+//  Umgekehrt prueft rAthenas pc_isautolooting (pc.cpp:13148) genau
+//  diese beiden Listen und NICHT die Prozentzahl. Keiner von beiden
+//  allein beantwortet die Frage.
+//
+//  Einen Skriptbefehl, der beides zusammenfasst, gibt es nicht -
+//  nachgesehen in der BUILDIN_DEF-Liste. Deshalb steht er jetzt in
+//  src/custom/script.inc als is_autolooting. ACHTUNG: das ist C++ und
+//  braucht einen Neubau. Ohne ihn kennt der Server den Befehl nicht
+//  und diese Datei laedt nicht.
 //
 //  WARUM NICHT IMMER DIREKT GEBEN
 //
@@ -44,7 +67,7 @@ function	script	F_SafaBeute	{
 	.@id = getarg(0);
 	.@n  = getarg(1, 1);
 
-	if (has_autoloot() > 0 && checkweight(.@id, .@n)) {
+	if (is_autolooting(.@id) && checkweight(.@id, .@n)) {
 		getitem .@id, .@n;
 		return;
 	}

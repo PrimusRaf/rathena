@@ -27,3 +27,10 @@ BUILDIN_DEF(petautofeedallowed,"?"),
 // je eine Zuweisung an und koennen sie auch anzeigen.
 BUILDIN_DEF(resetfeelone,"i?"),
 BUILDIN_DEF(getfeelmap,"i?"),
+
+// --- SafaRO: Autoloot inklusive @alootid und @aloottype ---
+//
+// "i?" - Gegenstandsnummer, dahinter wahlweise eine char_id.
+// has_autoloot kennt nur @autoloot; dieser hier auch die beiden
+// Listen. Benutzt von npc/custom/safa_beute.txt.
+BUILDIN_DEF(is_autolooting,"i?"),

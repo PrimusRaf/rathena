@@ -241,3 +241,75 @@ BUILDIN_FUNC(getfeelmap)
 	script_pushstrcopy(st, mapindex_id2name(sd->feel_map[i].index));
 	return SCRIPT_CMD_SUCCESS;
 }
+
+// ==================================================================
+//  SafaRO - Wuerde dieser Spieler diesen Gegenstand einsammeln?
+// ==================================================================
+//
+//  WOZU
+//
+//  Unsere Skriptbelohnungen laufen ueber F_SafaBeute
+//  (npc/custom/safa_beute.txt): wer Autoloot an hat, bekommt sie per
+//  getitem in die Tasche, alle anderen finden sie als Haeufchen am
+//  Boden. So verhaelt sich Skriptbeute wie Monsterbeute.
+//
+//  Das ging nur zur Haelfte. Ein Spieler meldete: @autoloot wirkt,
+//  @alootid und @aloottype nicht.
+//
+//  Der Grund steht in script.cpp:27567. has_autoloot() liefert
+//  ausschliesslich sd->state.autoloot - die Prozentzahl aus
+//  @autoloot. Von den beiden anderen Listen weiss der Befehl nichts:
+//
+//      sd->state.autoloot       @autoloot,    uint16   pc.hpp:427
+//      sd->state.autolootid[]   @alootid,     Liste    pc.hpp:428
+//      sd->state.autoloottype   @aloottype,   Bitfeld  pc.hpp:429
+//
+//  Umgekehrt prueft pc_isautolooting (pc.cpp:13148) genau die beiden
+//  Listen und NICHT die Prozentzahl. Keiner von beiden allein
+//  beantwortet die Frage, die ein Skript stellen muss.
+//
+//  Einen fertigen Befehl dafuer gibt es nicht - nachgesehen in der
+//  BUILDIN_DEF-Liste, dort stehen zu diesem Thema nur has_autoloot
+//  und autoloot. Also dieser hier.
+//
+//  WARUM DIE PROZENTZAHL SCHON ALS "JA" ZAEHLT
+//
+//  Bei echter Monsterbeute entscheidet @autoloot ueber die Fallrate:
+//  alles, was seltener faellt als die eingestellte Zahl, wird
+//  eingesammelt. Eine Skriptbelohnung hat aber gar keine Fallrate -
+//  sie faellt immer. Es gibt also nichts zu vergleichen, und jede
+//  eingeschaltete Zahl bedeutet hier schlicht "ja, einsammeln".
+//  Genau so hat sich F_SafaBeute bisher schon verhalten; das bleibt.
+// ------------------------------------------------------------------
+
+/**
+ * Wuerde dieser Spieler diesen Gegenstand selbsttaetig einsammeln?
+ *
+ *	is_autolooting <Gegenstandsnummer>{,<char_id>};
+ *
+ * Rueckgabe: 1 wenn ja - ueber @autoloot, @alootid ODER @aloottype -,
+ * sonst 0.
+ */
+BUILDIN_FUNC(is_autolooting)
+{
+	map_session_data *sd;
+	t_itemid nameid = script_getnum(st, 2);
+
+	if (!itemdb_exists(nameid)) {
+		ShowError("buildin_is_autolooting: unknown item id %u.\n", nameid);
+		script_pushint(st, 0);
+		return SCRIPT_CMD_FAILURE;
+	}
+
+	if (!script_charid2sd(3, sd)) {
+		script_pushint(st, 0);
+		return SCRIPT_CMD_FAILURE;
+	}
+
+	// Die Prozentzahl aus @autoloot, siehe oben, plus die beiden
+	// Listen ueber rAthenas eigene Pruefung. Damit ist genau das
+	// abgedeckt, was auch bei Monsterbeute greifen wuerde.
+	script_pushint(st,
+		(sd->state.autoloot > 0 || pc_isautolooting(sd, nameid)) ? 1 : 0);
+	return SCRIPT_CMD_SUCCESS;
+}
