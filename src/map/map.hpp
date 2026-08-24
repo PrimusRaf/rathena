@@ -599,7 +599,19 @@ enum _sp {
 	// SafaRO: Schaden des eigenen Homunkulus in Prozent.
 	// rAthena kennt sonst keinen Bonus, der den Homunkulus betrifft -
 	// die gesamte bonus-Familie wirkt nur auf den Spieler selbst.
-	SP_HOM_DAMAGE //2109
+	SP_HOM_DAMAGE, //2109
+
+	// SafaRO: Schaden der eigenen Beschwoerungen in Prozent - die
+	// Maschinen des Mechanic (Silver Sniper, Magic Decoy), die
+	// ABR-Einheiten des Meisters und alles andere, was als Mob mit
+	// master_id des Spielers auf der Karte steht.
+	//
+	// Getrennt von SP_HOM_DAMAGE, weil der Homunkulus ein eigener
+	// Objekttyp ist (BL_HOM) und die Maschinen keiner - sie sind
+	// gewoehnliche Mobs. Wer beides in einen Bonus legte, koennte
+	// den Homunkulus des Biolo nicht mehr getrennt vom Kartenwagen
+	// des Genetic behandeln.
+	SP_SUMMON_DAMAGE //2110
 };
 
 enum _look {

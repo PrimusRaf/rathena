@@ -253,6 +253,12 @@ bonus bHomDamage,n;			SafaRO: increases the damage dealt by your own
 					homunculus by n%. Stored on the master, applied in
 					battle_calc_damage. Does NOT show in the homunculus
 					status window - it only takes effect on hit.
+bonus bSummonDamage,n;			SafaRO: increases the damage dealt by mobs you
+					summoned yourself by n% - the Mechanic's Silver
+					Sniper and Magic Decoy, the Meister's ABR units,
+					and any other mob whose master is you. Stored on
+					the summoner, applied in battle_calc_damage. Does
+					NOT show anywhere - it only takes effect on hit.
 bonus2 bSkillDelay,sk,t;		Increases delay of skill sk by t milliseconds
 bonus2 bSkillCooldown,sk,t;		Increases cooldown of skill sk by t milliseconds
 

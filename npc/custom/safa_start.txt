@@ -211,10 +211,11 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 				// freeloop, und zwar nicht aus Bequemlichkeit.
 				// rAthena uebersetzt jedes "case" eines switch in ein
 				// goto (script.cpp, parse_syntax), und goto zaehlt
-				// gegen check_gotocount - Abbruch bei 2048. Bei 110
+				// gegen check_gotocount - Abbruch bei 2048. Bei 120
 				// Geschenken kostet ein Aufruf von F_SafaGiftName
-				// schon bis zu 110 Spruenge; mal achtzehn Eintraege
-				// in Tier SSS wird es eng.
+				// schon bis zu 120 Spruenge; mal achtzehn Eintraege
+				// in den grossen Tiers sind das ueber 2100 - die
+				// Grenze reisst also nicht mehr knapp, sondern sicher.
 				//
 				// Genau daran ist der Waechter gestorben: Text im
 				// Fenster, kein Next-Knopf, und im Protokoll

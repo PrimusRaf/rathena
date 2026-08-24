@@ -682,6 +682,13 @@ public:
 		// battle_calc_damage, wenn der Angreifer ein Homunkulus mit
 		// genau diesem Meister ist.
 		int32 hom_damage;
+		// SafaRO: Schadenszuschlag fuer die eigenen Beschwoerungen,
+		// gesetzt ueber "bonus bSummonDamage,n;". Gemeint sind die
+		// Maschinen des MECHANIC und die ABR-Einheiten des MEISTERS -
+		// beide sind auf der Karte gewoehnliche Mobs mit master_id
+		// des Spielers, kein eigener Objekttyp wie der Homunkulus.
+		// Angewandt wird der Wert in battle_calc_damage.
+		int32 summon_damage;
 	} bonus;
 	// zeroed vars end here.
 

@@ -21,6 +21,29 @@
 //= IDs sind Tier*100 + Position. Die 100er-Schritte sind noetig,
 //= weil ein Tier zwoelf Geschenke hat - mit Tier*10 waeren sich
 //= Tier B Position 11 und Tier A Position 1 in die Quere gekommen.
+//=
+//= ZWEI STELLEN, DIE NICHT DEM MUSTER FOLGEN
+//=
+//= 1) Position 510 heisst "Gift of the Seeker" und nicht "Gift of
+//=    the Alchemist" - gemeint ist aber dieselbe Klasse. Es ist der
+//=    Alchemist von Tier A, nur unter seinem Isekai-Namen. Wer hier
+//=    ein zweites Alchemisten-Geschenk vermisst, sucht vergeblich:
+//=    es gibt keins, und es darf auch keins geben. Die Nummer 510
+//=    steht zusaetzlich fest in src/map/status.cpp, wo der
+//=    Homunkulus des Seekers seine Statuswerte bekommt.
+//=
+//= 2) Kagerou, Rebellion, Expanded Novice und Doram haben in der
+//=    Vorlage keine eigene 3rd Class. Sie bekommen in S und SS
+//=    trotzdem ein Geschenk (615-618, 715-718), sonst waere ein
+//=    Doram-Spieler ab Tier B ohne Gabe - siehe unten.
+//=
+//= HELFER MIT MASCHINEN UND HOMUNKULI
+//=
+//= Alchemist (410, 510), Genetic und Biolo bekommen zusaetzlich zum
+//= Skill- und Waffenbonus "bonus bHomDamage", Mechanic und Meister
+//= "bonus bSummonDamage". Beides sind SafaRO-eigene Boni; ohne sie
+//= wirkt keine einzige Gabe auf das, was diese Klassen eigentlich
+//= ausmacht. Siehe doc/item_bonus.txt und battle_calc_damage.
 //============================================================
 
 function	script	F_SafaTierName	{
@@ -103,9 +126,10 @@ function	script	F_SafaGift	{
 	case 407: return "bonus2 bWeaponDamageRate,W_MACE,75; bonus2 bSkillAtk,\"PR_MAGNUS\",75; bonus2 bSkillAtk,\"AL_HOLYLIGHT\",75; bonus bAllStats,25; bonus bFixedCastrate,-100;";
 	case 408: return "bonus2 bWeaponDamageRate,W_KNUCKLE,75; bonus2 bSkillAtk,\"MO_EXTREMITYFIST\",75; bonus2 bSkillAtk,\"MO_FINGEROFFENSIVE\",75; bonus bAllStats,25;";
 	case 409: return "bonus2 bWeaponDamageRate,W_2HAXE,75; bonus2 bSkillAtk,\"WS_CARTTERMINATION\",75; bonus2 bSkillAtk,\"BS_HAMMERFALL\",75; bonus bAllStats,25;";
-	case 410: return "bonus2 bWeaponDamageRate,W_1HAXE,75; bonus2 bSkillAtk,\"AM_ACIDTERROR\",75; bonus2 bSkillAtk,\"AM_DEMONSTRATION\",75; bonus bAllStats,25;";
+	case 410: return "bonus2 bWeaponDamageRate,W_1HAXE,75; bonus2 bSkillAtk,\"AM_ACIDTERROR\",75; bonus2 bSkillAtk,\"AM_DEMONSTRATION\",75; bonus bHomDamage,75; bonus bAllStats,25;";
 	case 411: return "bonus2 bWeaponDamageRate,W_KATAR,75; bonus2 bSkillAtk,\"AS_SONICBLOW\",75; bonus2 bSkillAtk,\"AS_GRIMTOOTH\",75; bonus bAllStats,25;";
 	case 412: return "bonus2 bWeaponDamageRate,W_DAGGER,75; bonus2 bSkillAtk,\"RG_BACKSTAP\",75; bonus2 bSkillAtk,\"RG_RAID\",75; bonus bAllStats,25;";
+	case 418: return "bonus bMatkRate,75; bonus2 bSkillAtk,\"SU_CN_METEOR\",75; bonus2 bSkillAtk,\"SU_PICKYPECK\",75; bonus bAllStats,25; bonus bFixedCastrate,-100;";
 	case 501: return "bonus2 bWeaponDamageRate,W_2HSPEAR,150; bonus2 bWeaponDamageRate,W_2HSWORD,150; bonus2 bSkillAtk,\"KN_BOWLINGBASH\",150; bonus2 bSkillAtk,\"KN_PIERCE\",150; bonus bAllStats,40;";
 	case 502: return "bonus2 bWeaponDamageRate,W_1HSWORD,150; bonus2 bWeaponDamageRate,W_1HSPEAR,150; bonus2 bSkillAtk,\"CR_GRANDCROSS\",150; bonus2 bSkillAtk,\"CR_SHIELDBOOMERANG\",150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
 	case 503: return "bonus bMatkRate,150; bonus2 bSkillAtk,\"WZ_METEOR\",150; bonus2 bSkillAtk,\"WZ_STORMGUST\",150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
@@ -115,9 +139,15 @@ function	script	F_SafaGift	{
 	case 507: return "bonus2 bWeaponDamageRate,W_MACE,150; bonus2 bSkillAtk,\"PR_MAGNUS\",150; bonus2 bSkillAtk,\"AL_HOLYLIGHT\",150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
 	case 508: return "bonus2 bWeaponDamageRate,W_KNUCKLE,150; bonus2 bSkillAtk,\"MO_EXTREMITYFIST\",150; bonus2 bSkillAtk,\"MO_FINGEROFFENSIVE\",150; bonus bAllStats,40;";
 	case 509: return "bonus2 bWeaponDamageRate,W_2HAXE,150; bonus2 bSkillAtk,\"WS_CARTTERMINATION\",150; bonus2 bSkillAtk,\"BS_HAMMERFALL\",150; bonus bAllStats,40;";
-	case 510: return "bonus bAtkRate,-20; bonus bDefRate,-20;";
+	// Der Seeker IST der Alchemist von Tier A - deshalb steht hier
+	// kein zweites Alchemisten-Geschenk. Er trug frueher nur den
+	// Homunkulus-Teil (und den auch nur aus status.cpp, siehe dort
+	// Nr. 510); Waffe und Fertigkeiten kamen erst jetzt dazu, damit
+	// er wie 410, 610/710 und 810 aus allen drei Teilen besteht.
+	case 510: return "bonus2 bWeaponDamageRate,W_1HAXE,150; bonus2 bSkillAtk,\"AM_ACIDTERROR\",150; bonus2 bSkillAtk,\"AM_DEMONSTRATION\",150; bonus bHomDamage,150; bonus bAllStats,40;";
 	case 511: return "bonus2 bWeaponDamageRate,W_KATAR,150; bonus2 bSkillAtk,\"AS_SONICBLOW\",150; bonus2 bSkillAtk,\"AS_GRIMTOOTH\",150; bonus bAllStats,40;";
 	case 512: return "bonus2 bWeaponDamageRate,W_DAGGER,150; bonus2 bSkillAtk,\"RG_BACKSTAP\",150; bonus2 bSkillAtk,\"RG_RAID\",150; bonus bAllStats,40;";
+	case 518: return "bonus bMatkRate,150; bonus2 bSkillAtk,\"SU_CN_METEOR\",150; bonus2 bSkillAtk,\"SU_PICKYPECK\",150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
 	case 601: return "bonus2 bWeaponDamageRate,W_2HSPEAR,300; bonus2 bWeaponDamageRate,W_2HSWORD,300; bonus2 bSkillAtk,\"RK_IGNITIONBREAK\",300; bonus2 bSkillAtk,\"RK_SONICWAVE\",300; bonus bAllStats,60;";
 	case 602: return "bonus2 bWeaponDamageRate,W_1HSWORD,300; bonus2 bWeaponDamageRate,W_1HSPEAR,300; bonus2 bSkillAtk,\"LG_CANNONSPEAR\",300; bonus2 bSkillAtk,\"LG_OVERBRAND\",300; bonus bAllStats,60;";
 	case 603: return "bonus bMatkRate,300; bonus2 bSkillAtk,\"WL_SOULEXPANSION\",300; bonus2 bSkillAtk,\"WL_CHAINLIGHTNING\",300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
@@ -126,10 +156,14 @@ function	script	F_SafaGift	{
 	case 606: return "bonus2 bWeaponDamageRate,W_MUSICAL,300; bonus2 bWeaponDamageRate,W_WHIP,300; bonus2 bSkillAtk,\"WM_REVERBERATION\",300; bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM\",300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
 	case 607: return "bonus2 bWeaponDamageRate,W_MACE,300; bonus2 bSkillAtk,\"AB_ADORAMUS\",300; bonus2 bSkillAtk,\"AB_JUDEX\",300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
 	case 608: return "bonus2 bWeaponDamageRate,W_KNUCKLE,300; bonus2 bSkillAtk,\"SR_SKYNETBLOW\",300; bonus2 bSkillAtk,\"SR_TIGERCANNON\",300; bonus bAllStats,60;";
-	case 609: return "bonus2 bWeaponDamageRate,W_2HAXE,300; bonus2 bSkillAtk,\"NC_AXETORNADO\",300; bonus2 bSkillAtk,\"NC_ARMSCANNON\",300; bonus bAllStats,60;";
-	case 610: return "bonus2 bWeaponDamageRate,W_1HAXE,300; bonus2 bSkillAtk,\"GN_CARTCANNON\",300; bonus2 bSkillAtk,\"GN_CRAZYWEED\",300; bonus bAllStats,60;";
+	case 609: return "bonus2 bWeaponDamageRate,W_2HAXE,300; bonus2 bSkillAtk,\"NC_AXETORNADO\",300; bonus2 bSkillAtk,\"NC_ARMSCANNON\",300; bonus bSummonDamage,300; bonus bAllStats,60;";
+	case 610: return "bonus2 bWeaponDamageRate,W_1HAXE,300; bonus2 bSkillAtk,\"GN_CARTCANNON\",300; bonus2 bSkillAtk,\"GN_CRAZYWEED\",300; bonus bHomDamage,300; bonus bAllStats,60;";
 	case 611: return "bonus2 bWeaponDamageRate,W_KATAR,300; bonus2 bSkillAtk,\"GC_CROSSIMPACT\",300; bonus2 bSkillAtk,\"GC_ROLLINGCUTTER\",300; bonus bAllStats,60;";
 	case 612: return "bonus2 bWeaponDamageRate,W_DAGGER,300; bonus2 bSkillAtk,\"SC_FATALMENACE\",300; bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",300; bonus bAllStats,60;";
+	case 615: return "bonus2 bWeaponDamageRate,W_HUUMA,300; bonus2 bWeaponDamageRate,W_DAGGER,300; bonus2 bSkillAtk,\"KO_HUUMARANKA\",300; bonus2 bSkillAtk,\"KO_MUCHANAGE\",300; bonus bAllStats,60;";
+	case 616: return "bonus2 bWeaponDamageRate,W_RIFLE,300; bonus2 bWeaponDamageRate,W_GATLING,300; bonus2 bSkillAtk,\"RL_HAMMER_OF_GOD\",300; bonus2 bSkillAtk,\"RL_FIREDANCE\",300; bonus bAllStats,60;";
+	case 617: return "bonus bMatkRate,300; bonus2 bWeaponDamageRate,W_1HSWORD,300; bonus2 bSkillAtk,\"SM_BASH\",300; bonus2 bSkillAtk,\"MG_FIREBOLT\",300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
+	case 618: return "bonus bMatkRate,300; bonus2 bSkillAtk,\"SU_SOULATTACK\",300; bonus2 bSkillAtk,\"SU_SV_ROOTTWIST_ATK\",300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
 	case 701: return "bonus2 bWeaponDamageRate,W_2HSPEAR,600; bonus2 bWeaponDamageRate,W_2HSWORD,600; bonus2 bSkillAtk,\"RK_IGNITIONBREAK\",600; bonus2 bSkillAtk,\"RK_SONICWAVE\",600; bonus bAllStats,85;";
 	case 702: return "bonus2 bWeaponDamageRate,W_1HSWORD,600; bonus2 bWeaponDamageRate,W_1HSPEAR,600; bonus2 bSkillAtk,\"LG_CANNONSPEAR\",600; bonus2 bSkillAtk,\"LG_OVERBRAND\",600; bonus bAllStats,85;";
 	case 703: return "bonus bMatkRate,600; bonus2 bSkillAtk,\"WL_SOULEXPANSION\",600; bonus2 bSkillAtk,\"WL_CHAINLIGHTNING\",600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
@@ -138,10 +172,14 @@ function	script	F_SafaGift	{
 	case 706: return "bonus2 bWeaponDamageRate,W_MUSICAL,600; bonus2 bWeaponDamageRate,W_WHIP,600; bonus2 bSkillAtk,\"WM_REVERBERATION\",600; bonus2 bSkillAtk,\"WM_SEVERE_RAINSTORM\",600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
 	case 707: return "bonus2 bWeaponDamageRate,W_MACE,600; bonus2 bSkillAtk,\"AB_ADORAMUS\",600; bonus2 bSkillAtk,\"AB_JUDEX\",600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
 	case 708: return "bonus2 bWeaponDamageRate,W_KNUCKLE,600; bonus2 bSkillAtk,\"SR_SKYNETBLOW\",600; bonus2 bSkillAtk,\"SR_TIGERCANNON\",600; bonus bAllStats,85;";
-	case 709: return "bonus2 bWeaponDamageRate,W_2HAXE,600; bonus2 bSkillAtk,\"NC_AXETORNADO\",600; bonus2 bSkillAtk,\"NC_ARMSCANNON\",600; bonus bAllStats,85;";
-	case 710: return "bonus2 bWeaponDamageRate,W_1HAXE,600; bonus2 bSkillAtk,\"GN_CARTCANNON\",600; bonus2 bSkillAtk,\"GN_CRAZYWEED\",600; bonus bAllStats,85;";
+	case 709: return "bonus2 bWeaponDamageRate,W_2HAXE,600; bonus2 bSkillAtk,\"NC_AXETORNADO\",600; bonus2 bSkillAtk,\"NC_ARMSCANNON\",600; bonus bSummonDamage,600; bonus bAllStats,85;";
+	case 710: return "bonus2 bWeaponDamageRate,W_1HAXE,600; bonus2 bSkillAtk,\"GN_CARTCANNON\",600; bonus2 bSkillAtk,\"GN_CRAZYWEED\",600; bonus bHomDamage,600; bonus bAllStats,85;";
 	case 711: return "bonus2 bWeaponDamageRate,W_KATAR,600; bonus2 bSkillAtk,\"GC_CROSSIMPACT\",600; bonus2 bSkillAtk,\"GC_ROLLINGCUTTER\",600; bonus bAllStats,85;";
 	case 712: return "bonus2 bWeaponDamageRate,W_DAGGER,600; bonus2 bSkillAtk,\"SC_FATALMENACE\",600; bonus2 bSkillAtk,\"SC_TRIANGLESHOT\",600; bonus bAllStats,85;";
+	case 715: return "bonus2 bWeaponDamageRate,W_HUUMA,600; bonus2 bWeaponDamageRate,W_DAGGER,600; bonus2 bSkillAtk,\"KO_HUUMARANKA\",600; bonus2 bSkillAtk,\"KO_MUCHANAGE\",600; bonus bAllStats,85;";
+	case 716: return "bonus2 bWeaponDamageRate,W_RIFLE,600; bonus2 bWeaponDamageRate,W_GATLING,600; bonus2 bSkillAtk,\"RL_HAMMER_OF_GOD\",600; bonus2 bSkillAtk,\"RL_FIREDANCE\",600; bonus bAllStats,85;";
+	case 717: return "bonus bMatkRate,600; bonus2 bWeaponDamageRate,W_1HSWORD,600; bonus2 bSkillAtk,\"SM_BASH\",600; bonus2 bSkillAtk,\"MG_FIREBOLT\",600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
+	case 718: return "bonus bMatkRate,600; bonus2 bSkillAtk,\"SU_SOULATTACK\",600; bonus2 bSkillAtk,\"SU_SV_ROOTTWIST_ATK\",600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
 	case 801: return "bonus2 bWeaponDamageRate,W_2HSPEAR,1200; bonus2 bWeaponDamageRate,W_2HSWORD,1200; bonus2 bSkillAtk,\"DK_SERVANTWEAPON_ATK\",1200; bonus2 bSkillAtk,\"DK_DRAGONIC_AURA\",1200; bonus bAllStats,120;";
 	case 802: return "bonus2 bWeaponDamageRate,W_1HSWORD,1200; bonus2 bWeaponDamageRate,W_1HSPEAR,1200; bonus2 bSkillAtk,\"IG_OVERSLASH\",1200; bonus2 bSkillAtk,\"IG_SHIELD_SHOOTING\",1200; bonus bAllStats,120;";
 	case 803: return "bonus bMatkRate,1200; bonus2 bSkillAtk,\"AG_DESTRUCTIVE_HURRICANE\",1200; bonus2 bSkillAtk,\"AG_SOUL_VC_STRIKE\",1200; bonus bAllStats,120; bonus bFixedCastrate,-100;";
@@ -150,8 +188,8 @@ function	script	F_SafaGift	{
 	case 806: return "bonus2 bWeaponDamageRate,W_MUSICAL,1200; bonus2 bWeaponDamageRate,W_WHIP,1200; bonus2 bSkillAtk,\"TR_ROSEBLOSSOM\",1200; bonus2 bSkillAtk,\"TR_METALIC_FURY\",1200; bonus bAllStats,120; bonus bFixedCastrate,-100;";
 	case 807: return "bonus2 bWeaponDamageRate,W_MACE,1200; bonus2 bSkillAtk,\"CD_ARBITRIUM\",1200; bonus2 bSkillAtk,\"CD_EFFLIGO\",1200; bonus bAllStats,120; bonus bFixedCastrate,-100;";
 	case 808: return "bonus2 bWeaponDamageRate,W_KNUCKLE,1200; bonus2 bSkillAtk,\"IQ_OLEUM_SANCTUM\",1200; bonus2 bSkillAtk,\"IQ_MASSIVE_F_BLASTER\",1200; bonus bAllStats,120;";
-	case 809: return "bonus2 bWeaponDamageRate,W_2HAXE,1200; bonus2 bSkillAtk,\"MT_AXE_STOMP\",1200; bonus2 bSkillAtk,\"MT_SPARK_BLASTER\",1200; bonus bAllStats,120;";
-	case 810: return "bonus2 bWeaponDamageRate,W_1HAXE,1200; bonus2 bSkillAtk,\"BO_ACIDIFIED_ZONE_WATER\",1200; bonus2 bSkillAtk,\"BO_EXPLOSIVE_POWDER\",1200; bonus bAllStats,120;";
+	case 809: return "bonus2 bWeaponDamageRate,W_2HAXE,1200; bonus2 bSkillAtk,\"MT_AXE_STOMP\",1200; bonus2 bSkillAtk,\"MT_SPARK_BLASTER\",1200; bonus bSummonDamage,1200; bonus bAllStats,120;";
+	case 810: return "bonus2 bWeaponDamageRate,W_1HAXE,1200; bonus2 bSkillAtk,\"BO_ACIDIFIED_ZONE_WATER\",1200; bonus2 bSkillAtk,\"BO_EXPLOSIVE_POWDER\",1200; bonus bHomDamage,1200; bonus bAllStats,120;";
 	case 811: return "bonus2 bWeaponDamageRate,W_KATAR,1200; bonus2 bSkillAtk,\"SHC_SAVAGE_IMPACT\",1200; bonus2 bSkillAtk,\"SHC_ETERNAL_SLASH\",1200; bonus bAllStats,120;";
 	case 812: return "bonus2 bWeaponDamageRate,W_DAGGER,1200; bonus2 bSkillAtk,\"ABC_ABYSS_DAGGER\",1200; bonus2 bSkillAtk,\"ABC_UNLUCKY_RUSH\",1200; bonus bAllStats,120;";
 	case 207: return "bonus2 bWeaponDamageRate,W_FIST,30; bonus2 bSkillAtk,\"TK_STORMKICK\",30; bonus2 bSkillAtk,\"TK_DOWNKICK\",30; bonus bAllStats,8;";
@@ -290,10 +328,20 @@ function	script	F_SafaGiftName	{
 	case 515: return "Gift of the Kagerou";
 	case 516: return "Gift of the Rebellion";
 	case 517: return "Gift of the Expanded Novice";
+	case 418: return "Gift of the Doram Expert";
+	case 518: return "Gift of the Doram Expert";
 	case 613: return "Gift of the Star Emperor";
 	case 614: return "Gift of the Soul Reaper";
+	case 615: return "Gift of the Oboro";
+	case 616: return "Gift of the Rebellion";
+	case 617: return "Gift of the Expanded Novice";
+	case 618: return "Gift of the Doram Master";
 	case 713: return "Gift of the Star Emperor";
 	case 714: return "Gift of the Soul Reaper";
+	case 715: return "Gift of the Oboro";
+	case 716: return "Gift of the Rebellion";
+	case 717: return "Gift of the Expanded Novice";
+	case 718: return "Gift of the Doram Master";
 	case 813: return "Gift of the Sky Emperor";
 	case 814: return "Gift of the Soul Ascetic";
 	case 815: return "Gift of the Shinkiro";
@@ -310,10 +358,10 @@ function	script	F_SafaTierCount	{
 	case 1: return 4;
 	case 2: return 11;
 	case 3: return 11;
-	case 4: return 17;
-	case 5: return 17;
-	case 6: return 14;
-	case 7: return 14;
+	case 4: return 18;
+	case 5: return 18;
+	case 6: return 18;
+	case 7: return 18;
 	case 8: return 18;
 	}
 	return 0;
@@ -576,6 +624,8 @@ function	script	F_SafaGiftDesc	{
 		mes "^00AA00One-Handed Axe damage +75%^000000";
 		mes "^0088FFSignature skills +75%^000000";
 		mes "^777777Acid Terror, Bomb^000000";
+		mes "^00AA00Homunculus damage +75%^000000";
+		mes "^777777Does not show in the homunculus window.^000000";
 		mes "^00AA00All stats +25^000000";
 		break;
 	case 411:
@@ -682,9 +732,13 @@ function	script	F_SafaGiftDesc	{
 		mes "Whatever walks at your side becomes";
 		mes "the thing people fear.";
 		mes " ";
-		mes "^00AA00Homunculus damage +50%^000000";
-		mes "^00AA00Homunculus maximum HP +20%, defense +20^000000";
-		mes "^FF0000Your own attack and defense -20%^000000";
+		mes "^00AA00One-Handed Axe damage +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Acid Terror, Bomb^000000";
+		mes "^00AA00Homunculus damage +150%^000000";
+		mes "^00AA00Homunculus attack +50%, maximum HP +20%, defense +20^000000";
+		mes "^777777The damage bonus does not show in the homunculus window.^000000";
+		mes "^00AA00All stats +40^000000";
 		break;
 	case 511:
 		mes "You were shaped for what a Assassin does.";
@@ -783,6 +837,8 @@ function	script	F_SafaGiftDesc	{
 		mes "^00AA00Two-Handed Axe damage +300%^000000";
 		mes "^0088FFSignature skills +300%^000000";
 		mes "^777777Axe Tornado, Arm Cannon^000000";
+		mes "^00AA00Summoned machine damage +300%^000000";
+		mes "^777777Silver Sniper, Magic Decoy.^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 610:
@@ -791,6 +847,8 @@ function	script	F_SafaGiftDesc	{
 		mes "^00AA00One-Handed Axe damage +300%^000000";
 		mes "^0088FFSignature skills +300%^000000";
 		mes "^777777Cart Cannon, Crazy Weed^000000";
+		mes "^00AA00Homunculus damage +300%^000000";
+		mes "^777777Does not show in the homunculus window.^000000";
 		mes "^00AA00All stats +60^000000";
 		break;
 	case 611:
@@ -890,6 +948,8 @@ function	script	F_SafaGiftDesc	{
 		mes "^00AA00Two-Handed Axe damage +600%^000000";
 		mes "^0088FFSignature skills +600%^000000";
 		mes "^777777Axe Tornado, Arm Cannon^000000";
+		mes "^00AA00Summoned machine damage +600%^000000";
+		mes "^777777Silver Sniper, Magic Decoy.^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 710:
@@ -898,6 +958,8 @@ function	script	F_SafaGiftDesc	{
 		mes "^00AA00One-Handed Axe damage +600%^000000";
 		mes "^0088FFSignature skills +600%^000000";
 		mes "^777777Cart Cannon, Crazy Weed^000000";
+		mes "^00AA00Homunculus damage +600%^000000";
+		mes "^777777Does not show in the homunculus window.^000000";
 		mes "^00AA00All stats +85^000000";
 		break;
 	case 711:
@@ -997,6 +1059,8 @@ function	script	F_SafaGiftDesc	{
 		mes "^00AA00Two-Handed Axe damage +1200%^000000";
 		mes "^0088FFSignature skills +1200%^000000";
 		mes "^777777Axe Stomp, Spark Blaster^000000";
+		mes "^00AA00Summoned machine damage +1200%^000000";
+		mes "^777777The ABR units you call.^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 810:
@@ -1005,6 +1069,8 @@ function	script	F_SafaGiftDesc	{
 		mes "^00AA00One-Handed Axe damage +1200%^000000";
 		mes "^0088FFSignature skills +1200%^000000";
 		mes "^777777Acidified Zone Water, Explosive Powder^000000";
+		mes "^00AA00Homunculus damage +1200%^000000";
+		mes "^777777Does not show in the homunculus window.^000000";
 		mes "^00AA00All stats +120^000000";
 		break;
 	case 811:
@@ -1307,6 +1373,104 @@ function	script	F_SafaGiftDesc	{
 		mes "^0088FFNo fixed cast time^000000";
 		mes "^777777Variable cast still needs DEX x2 + INT of 530.^000000";
 		mes "^00AA00All stats +120^000000";
+		break;
+	case 418:
+		mes "The forest answers you louder than before.";
+		mes " ";
+		mes "^00AA00Magic attack +75%^000000";
+		mes "^0088FFSignature skills +75%^000000";
+		mes "^777777Catnip Meteor, Picky Peck^000000";
+		mes "^0088FFNo fixed cast time^000000";
+		mes "^777777Variable cast still needs DEX x2 + INT of 530.^000000";
+		mes "^00AA00All stats +25^000000";
+		break;
+	case 518:
+		mes "The forest answers you louder than before.";
+		mes " ";
+		mes "^00AA00Magic attack +150%^000000";
+		mes "^0088FFSignature skills +150%^000000";
+		mes "^777777Catnip Meteor, Picky Peck^000000";
+		mes "^0088FFNo fixed cast time^000000";
+		mes "^777777Variable cast still needs DEX x2 + INT of 530.^000000";
+		mes "^00AA00All stats +40^000000";
+		break;
+	case 615:
+		mes "The shadow you cast is not the one you own.";
+		mes " ";
+		mes "^00AA00Huuma Shuriken damage +300%^000000";
+		mes "^00AA00Dagger damage +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Huuma Shuriken - Ranka, Mucha Nage^000000";
+		mes "^00AA00All stats +60^000000";
+		break;
+	case 616:
+		mes "You stopped counting your shots a while ago.";
+		mes " ";
+		mes "^00AA00Rifle damage +300%^000000";
+		mes "^00AA00Gatling Gun damage +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Hammer of God, Fire Dance^000000";
+		mes "^00AA00All stats +60^000000";
+		break;
+	case 617:
+		mes "Still no specialty. Still standing.";
+		mes " ";
+		mes "^00AA00One-Handed Sword damage +300%^000000";
+		mes "^00AA00Magic attack +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Bash, Fire Bolt^000000";
+		mes "^0088FFNo fixed cast time^000000";
+		mes "^777777Variable cast still needs DEX x2 + INT of 530.^000000";
+		mes "^00AA00All stats +60^000000";
+		break;
+	case 618:
+		mes "The forest does not answer. It moves.";
+		mes " ";
+		mes "^00AA00Magic attack +300%^000000";
+		mes "^0088FFSignature skills +300%^000000";
+		mes "^777777Soul Attack, Silvervine Root Twist^000000";
+		mes "^0088FFNo fixed cast time^000000";
+		mes "^777777Variable cast still needs DEX x2 + INT of 530.^000000";
+		mes "^00AA00All stats +60^000000";
+		break;
+	case 715:
+		mes "The shadow you cast is not the one you own.";
+		mes " ";
+		mes "^00AA00Huuma Shuriken damage +600%^000000";
+		mes "^00AA00Dagger damage +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Huuma Shuriken - Ranka, Mucha Nage^000000";
+		mes "^00AA00All stats +85^000000";
+		break;
+	case 716:
+		mes "You stopped counting your shots a while ago.";
+		mes " ";
+		mes "^00AA00Rifle damage +600%^000000";
+		mes "^00AA00Gatling Gun damage +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Hammer of God, Fire Dance^000000";
+		mes "^00AA00All stats +85^000000";
+		break;
+	case 717:
+		mes "Still no specialty. Still standing.";
+		mes " ";
+		mes "^00AA00One-Handed Sword damage +600%^000000";
+		mes "^00AA00Magic attack +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Bash, Fire Bolt^000000";
+		mes "^0088FFNo fixed cast time^000000";
+		mes "^777777Variable cast still needs DEX x2 + INT of 530.^000000";
+		mes "^00AA00All stats +85^000000";
+		break;
+	case 718:
+		mes "The forest does not answer. It moves.";
+		mes " ";
+		mes "^00AA00Magic attack +600%^000000";
+		mes "^0088FFSignature skills +600%^000000";
+		mes "^777777Soul Attack, Silvervine Root Twist^000000";
+		mes "^0088FFNo fixed cast time^000000";
+		mes "^777777Variable cast still needs DEX x2 + INT of 530.^000000";
+		mes "^00AA00All stats +85^000000";
 		break;
 	}
 	return;

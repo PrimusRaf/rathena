@@ -1714,6 +1714,43 @@ int64 battle_calc_damage(block_list *src,block_list *bl,struct Damage *d,int64 d
 		}
 	}
 
+	// ------------------------------------------------------------
+	//  SafaRO: Schadenszuschlag fuer die eigenen Beschwoerungen
+	// ------------------------------------------------------------
+	//  Gesetzt ueber "bonus bSummonDamage,n;" beim SPIELER. Gemeint
+	//  sind vor allem die Maschinen des Mechanic (Silver Sniper,
+	//  Magic Decoy) und die ABR-Einheiten des Meisters.
+	//
+	//  Warum nicht ueber den Homunkulus-Zweig oben: die Maschinen
+	//  sind kein eigener Objekttyp. Auf der Karte stehen sie als
+	//  gewoehnliche Mobs (BL_MOB), die sich nur durch master_id vom
+	//  Rest unterscheiden - siehe skill_check_condition_mob_master_sub
+	//  in skill.cpp, das genau diese Kennung zum Zaehlen benutzt.
+	//
+	//  Der Zuschlag gilt bewusst fuer JEDE eigene Beschwoerung, nicht
+	//  nur fuer FAW und ABR. Eine Einschraenkung auf special_state.ai
+	//  waere moeglich, wuerde den Bonus aber an zwei Klassen nageln;
+	//  wer ihn vergibt, entscheidet ohnehin im Skript, wer ihn
+	//  bekommt.
+	//
+	//  Wie beim Homunkulus steht der Wert nicht im Statusfenster des
+	//  Mobs - er wirkt erst beim Zuschlagen.
+	// ------------------------------------------------------------
+	if( src->type == BL_MOB ){
+		TBL_MOB* smd = BL_CAST( BL_MOB, src );
+
+		if( smd != nullptr && smd->master_id > 0 ){
+			map_session_data* msd = map_id2sd( smd->master_id );
+
+			if( msd != nullptr && msd->bonus.summon_damage != 0 ){
+				damage += damage * msd->bonus.summon_damage / 100;
+
+				if( damage < 1 )
+					damage = 1;
+			}
+		}
+	}
+
 	if (bl->type == BL_PC) {
 		sd=(map_session_data *)bl;
 		//Special no damage states

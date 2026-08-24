@@ -4321,6 +4321,10 @@ void pc_bonus(map_session_data *sd,int32 type,int32 val)
 			if (sd->state.lr_flag != LR_FLAG_ARROW)
 				sd->bonus.hom_damage += val;
 			break;
+		case SP_SUMMON_DAMAGE: // SafaRO: bonus bSummonDamage,n;
+			if (sd->state.lr_flag != LR_FLAG_ARROW)
+				sd->bonus.summon_damage += val;
+			break;
 		case SP_CRIT_ATK_RATE:
 			if (sd->state.lr_flag != LR_FLAG_ARROW)
 				sd->bonus.crit_atk_rate += val;
