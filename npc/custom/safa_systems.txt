@@ -1629,10 +1629,142 @@ OnPCDieEvent:
 		end;
 
 	set death_count, death_count + 1;
+
+	// Derselbe Tod, zweimal gezaehlt - und das mit Absicht:
+	//
+	//   death_count   die getragenen Todesmale. Der Deathreset-NPC
+	//                 setzt sie auf 0, sie sind eine Schuld.
+	//   tode_gesamt   die Lebensbilanz. Nichts setzt sie zurueck,
+	//                 sie sind eine Zahl.
+	//
+	// Ohne die zweite Variable waere jedes Todes-Ranking eine
+	// Momentaufnahme der Schulden - wer bezahlt hat, staende auf
+	// Null. Fuer die Rangliste ist genau das die falsche Zahl.
+	//
+	// Steht hinter der PvP-Pruefung, also aus demselben Grund wie
+	// der Debuff: auf einer PvP-Karte ist ein Tod kein Missgeschick,
+	// sondern der Spielinhalt, und zu zweit in beliebiger Zahl
+	// herstellbar.
+	set tode_gesamt, tode_gesamt + 1;
+
 	callfunc "F_SafaRefresh";
 
 	.@pen = death_count * 5;
 	if (.@pen > 90) .@pen = 90;
 	dispbottom "[System] Death " + death_count + ". All combat values now reduced by " + .@pen + "%.";
+	end;
+}
+
+
+// ============================================================
+//  Ranglisten-Zaehler
+// ------------------------------------------------------------
+//  Die Startseite zeigt eine Rangliste nach Level, Toden,
+//  PvP-Kills, Apex-Kills und MVP-Kills. Level liest das Panel
+//  direkt aus `char`, apex_erlegt schreibt safa_apex.txt. Die
+//  drei uebrigen Zahlen hat bisher niemand gefuehrt - dieser
+//  Block fuehrt sie.
+//
+//  Alle Zaehler sind gewoehnliche permanente Charaktervariablen
+//  und landen damit in `char_reg_num`. Das Panel liest sie von
+//  dort (backend/grants.sql). Bewusst KEIN Kontoregister (#):
+//  eine Rangliste zeigt Charaktere, und wer den Charakter
+//  loescht, verliert seinen Platz - sonst koennte man sich
+//  einen Rang erspielen und den Beweis wegwerfen.
+//
+//    tode_gesamt   Tode, lebenslang       (siehe #safa_core)
+//    pvp_kills     erschlagene Spieler
+//    mvp_erlegt    erlegte MVP
+//
+//  Warum ein eigener NPC und nicht der vorhandene #safa_core:
+//  OnPCKillEvent und OnNPCKillEvent feuern in ganz anderen
+//  Groessenordnungen als OnPCDieEvent. Getrennt zu stehen macht
+//  sichtbar, was bei jedem einzelnen Monsterkill mitlaeuft, und
+//  laesst sich zum Messen abschalten, ohne den Todes-Debuff
+//  mitzunehmen.
+// ============================================================
+-	script	#safa_ladder	-1,{
+	end;
+
+OnInit:
+	// Sperrfrist in Sekunden, in der derselbe Gegner nicht noch
+	// einmal zaehlt. Siehe OnPCKillEvent.
+	.pvp_sperre = 60;
+	end;
+
+// ------------------------------------------------------------
+//  PvP-Kills
+// ------------------------------------------------------------
+//  Das Ereignis haengt am TOETER, killedrid ist die Konto-ID des
+//  Gefallenen.
+//
+//  Zwei Sperren, beide gegen dieselbe Sorte Schummelei:
+//
+//  1. killedrid == getcharid(3) faengt das eigene Konto ab. Zwei
+//     Clients, zweiter Charakter, immer wieder umhauen - das ist
+//     der naheliegendste Weg und damit der erste, den es zu
+//     verstellen gilt.
+//
+//  2. Derselbe Gegner zaehlt erst nach .pvp_sperre Sekunden
+//     wieder. Das trifft die Absprache zwischen zwei Leuten, die
+//     sich abwechselnd toeten - in einem echten Kampf faellt
+//     derselbe Gegner selten im Minutentakt, in einer Absprache
+//     alle paar Sekunden.
+//
+//  Beides haelt keinen auf, der es wirklich darauf anlegt. Es
+//  soll den bequemen Weg verbauen, nicht jeden.
+// ------------------------------------------------------------
+OnPCKillEvent:
+	if (killedrid == 0) end;
+	if (killedrid == getcharid(3)) end;
+
+	.@map$ = strcharinfo(3);
+	if (!getmapflag(.@map$, mf_pvp) && !getmapflag(.@map$, mf_gvg) &&
+	    !getmapflag(.@map$, mf_gvg_castle) && !getmapflag(.@map$, mf_gvg_dungeon) &&
+	    !getmapflag(.@map$, mf_battleground))
+		end;
+
+	// @-Variablen: leben nur bis zum Ausloggen. Das reicht - die
+	// Sperre soll eine laufende Sitzung bremsen, nicht eine
+	// Buchfuehrung ueber Wochen sein.
+	if (@pvp_opfer == killedrid && gettimetick(2) - @pvp_zeit < .pvp_sperre)
+		end;
+
+	@pvp_opfer = killedrid;
+	@pvp_zeit  = gettimetick(2);
+
+	set pvp_kills, pvp_kills + 1;
+	end;
+
+// ------------------------------------------------------------
+//  MVP-Kills
+// ------------------------------------------------------------
+//  MD_MVP im Monstermodus statt einer Liste von Monster-IDs:
+//  eine Liste veraltet mit jeder Episode, das Flag nicht.
+//
+//  getmonsterinfo liefert -1 bei unbekannter Klasse, und
+//  -1 & MD_MVP ist wahr - ohne die Pruefung auf < 0 wuerde also
+//  jeder Kill als MVP durchgehen. Dieselbe Falle steht in
+//  safa_shops.txt beschrieben, wo die MVP-Coins haengen.
+//
+//  Angerechnet wird first_sd (mob.cpp, mob_dead): dem ersten
+//  Spieler im Schadensbuch des Monsters, nicht dem letzten
+//  Schlag und nicht dem hoechsten Schaden. Das ist rAthenas
+//  Regel fuer dieses Ereignis, nicht unsere - wir koennen sie
+//  hier nicht aendern, nur wissen.
+//
+//  Fuer eine Party heisst das: der MVP zaehlt dem, der ihn
+//  angefangen hat. Wer zuletzt dazukommt, geht leer aus. Das
+//  ist vertretbar, solange es niemand fuer eine Schadensmessung
+//  haelt - die Zahl sagt "ich war dabei, von Anfang an".
+// ------------------------------------------------------------
+OnNPCKillEvent:
+	if (killedrid == 0) end;
+
+	.@mode = getmonsterinfo(killedrid, MOB_MODE);
+	if (.@mode < 0) end;
+	if (!(.@mode & MD_MVP)) end;
+
+	set mvp_erlegt, mvp_erlegt + 1;
 	end;
 }
