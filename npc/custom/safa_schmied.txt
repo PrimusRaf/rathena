@@ -257,6 +257,14 @@ S_Zauber:
 	mes "^00CCFF" + .opt_name$[.@o] + "^000000, somewhere between ^FFCC00"
 	    + .opt_von[.@o] + "^000000 and ^FFCC00" + .opt_bis[.@o] + "^000000.";
 	mes "^777777Comes out too low? I strike the same slot again for the same price, as often as you like.^000000";
+	// Prozentwerte stehen in keiner der beiden Anzeigeformeln
+	// (pc.hpp:1244-1259). Wer das nicht vorher liest, haelt den
+	// Enchant fuer kaputt - genau diese Frage kam schon.
+	if (.opt_sicht[.@o] == 0) {
+		mes " ";
+		mes "^FF6666Your status window will not move for this one.^000000";
+		mes "^777777That window adds up what you carry. A percentage is not carried, it is applied - and it is applied at the moment you strike. Watch the numbers over your enemy, not the ones on your sheet.^000000";
+	}
 	next;
 	if (select("Pay " + callfunc("F_InsertComma", .enchant) + " Zeny:Not yet") == 2)
 		return;
@@ -485,6 +493,17 @@ S_Grenzen:
 	mes "Enchantment is a different craft. That one I can put on anything you wear - ^00CCFFincluding costume and shadow pieces^000000, which take no cards at all.";
 	mes " ";
 	mes "For those, it is the only way to make them worth anything.";
+	next;
+	mes "[Master Artisan]";
+	mes "And one thing I am asked often enough to say it unprompted.";
+	mes " ";
+	mes "^00CCFFATK in percent^000000 and ^00CCFFMATK in percent^000000 ^FF6666never show up in your status window^000000. That is not them failing. That window adds up flat numbers - what you carry. A percentage is not carried, it is applied, and it is applied at the moment of the blow.";
+	next;
+	mes "[Master Artisan]";
+	mes "So take your pick.";
+	mes " ";
+	mes "^00CCFFATK^000000 and ^00CCFFMATK^000000, the flat ones, the window counts them - you will see the number climb.";
+	mes "The percentages you will not see. You will only ^00AA00feel^000000 them, and on a piece worth wearing they hit harder than the flat ones ever will.";
 	next;
 	return;
 
@@ -2710,10 +2729,16 @@ OnInit:
 	setarray .nach_slots[6624], 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4;
 	setarray .nach_slots[6636], 4, 4, 4, 4;
 
-	setarray .opt_id[0], 3, 4, 5, 6, 7, 8, 1, 2, 17, 14, 15, 24;
-	setarray .opt_name$[0], "STR", "AGI", "VIT", "INT", "DEX", "LUK", "Max HP", "Max SP", "ATK", "MATK in percent", "ASPD", "Critical";
+	setarray .opt_id[0], 3, 4, 5, 6, 7, 8, 1, 2, 17, 13, 19, 14;
+	setarray .opt_id[12], 15, 24;
+	setarray .opt_name$[0], "STR", "AGI", "VIT", "INT", "DEX", "LUK", "Max HP", "Max SP", "ATK", "ATK in percent", "MATK", "MATK in percent";
+	setarray .opt_name$[12], "ASPD", "Critical";
 	setarray .opt_von[0], 1, 1, 1, 1, 1, 1, 2000, 400, 1, 1, 1, 1;
-	setarray .opt_bis[0], 100, 100, 100, 100, 100, 100, 16000, 3000, 100, 20, 3, 20;
-	.menue$ = "STR:AGI:VIT:INT:DEX:LUK:Max HP:Max SP:ATK:MATK in percent:ASPD:Critical:Never mind";
+	setarray .opt_von[12], 1, 1;
+	setarray .opt_bis[0], 100, 100, 100, 100, 100, 100, 16000, 3000, 100, 20, 100, 20;
+	setarray .opt_bis[12], 3, 20;
+	setarray .opt_sicht[0], 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0;
+	setarray .opt_sicht[12], 1, 1;
+	.menue$ = "STR:AGI:VIT:INT:DEX:LUK:Max HP:Max SP:ATK:ATK in percent:MATK:MATK in percent:ASPD:Critical:Never mind";
 	end;
 }
