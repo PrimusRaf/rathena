@@ -172,6 +172,7 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 
 OnInit:
 	.stufe = 99;   // ab dieser Gruppenstufe sicht- und bedienbar
+	bindatcmd "emo", "GM Workbench#safa::OnEmote", 99, 99;
 
 	// Die Optionsliste steht einmal hier statt dreimal im Ablauf.
 	// Es sind dieselben zwoelf, die der Master Artisan vergibt -
@@ -205,4 +206,61 @@ OnPCLoginEvent:
 	if (getgroupid() < .stufe)
 		cloakonnpcself "GM Workbench#safa";
 	end;
+
+
+// ------------------------------------------------------------
+//  @emo - Gegentest fuer die Emote-Frage
+// ------------------------------------------------------------
+//  WOZU
+//
+//  Im Spiel zeigt /gawi keine Emote. Dafuer gibt es genau zwei
+//  moegliche Ursachen, und sie liegen an entgegengesetzten
+//  Enden:
+//
+//    1. Der Client SENDET nichts, was der Server versteht.
+//       Seit PACKETVER 20230705 registriert rAthena das Paket
+//       CZ_REQ_EMOTION_EXPANSION (0x0BE9) - und haengt es an
+//       clif_parse_dull, eine Attrappe, die nichts tut
+//       (clif_packetdb.hpp:2030). Die Struktur dazu ist nicht
+//       einmal ausgewertet: "uint8 unknown[4]"
+//       (packets.hpp:2033). Unser Client ist 20250716.
+//
+//    2. Der Client kann Emotes gar nicht ZEICHNEN, etwa weil im
+//       Patchstand etwas an den Effekt-Sprites fehlt.
+//
+//  Dieser Befehl trennt die beiden. Er geht NICHT ueber ein
+//  Client-Paket, sondern laesst den Server die Emote von sich
+//  aus senden.
+//
+//    Emote erscheint  -> zeichnen kann er, es liegt am Paket
+//                        (Ursache 1, braucht C++ und Neubau)
+//    Emote erscheint nicht -> Client-/Patchproblem (Ursache 2)
+//
+//  Nummern stehen als ET_ in src/map/script_constants.hpp.
+//  /gawi ist ET_SCISSOR = 10, /bawi ist ET_ROCK = 11.
+//
+//    @emo        macht ET_SCISSOR, also dasselbe wie /gawi
+//    @emo 23     eine bestimmte Nummer
+OnEmote:
+	if (getgroupid() < .stufe) {
+		dispbottom "[Emote] Nicht fuer dich.";
+		end;
+	}
+
+	.@n = 10;
+	if (.@atcmd_numparameters > 0)
+		.@n = atoi(.@atcmd_parameters$[0]);
+
+	// ET_MAX liegt bei rund 90; alles darueber wuerde der Client
+	// verwerfen, ohne etwas zu melden.
+	if (.@n < 0 || .@n > 89) {
+		dispbottom "[Emote] Nummer 0 bis 89.";
+		end;
+	}
+
+	emotion .@n, getcharid(3);
+	dispbottom "[Emote] Nummer " + .@n + " vom Server gesendet. "
+	           + "Siehst du sie ueber deinem Kopf?";
+	end;
+
 }

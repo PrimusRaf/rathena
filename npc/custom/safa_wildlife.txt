@@ -347,6 +347,131 @@ S_Rudel:
 		dispbottom "  Gespawnt, Spielnummer " + .@gid
 		           + ", Modus vorher " + .@d[UMOB_MODE];
 
+	// --- Kampfwerte am Ausloeser ausrichten ------------------
+	//  WARUM UEBERHAUPT AUSRICHTEN
+	//
+	//  Ein fester Zahlensatz kann auf diesem Server nicht
+	//  funktionieren. Zwischen Stufe 5 und Stufe 500 liegen bei
+	//  Ausweichen, Ruestung und Lebenspunkten drei Groessen-
+	//  ordnungen. Was den einen umbringt, merkt der andere nicht.
+	//  Also wird jedes Rudel auf den zugeschnitten, der es
+	//  geweckt hat.
+	//
+	//  DIE TREFFERFORMEL IM RENEWAL
+	//
+	//  battle.cpp:3291 setzt die Grundrate auf 0 - NICHT auf 80,
+	//  das ist Pre-Renewal. battle.cpp:3310 addiert dann
+	//  hit - flee, battle.cpp:3344 kappt auf min_hitrate 5 bis
+	//  max_hitrate 100. Es gilt also schlicht:
+	//
+	//      Trefferchance% = MOB_HIT - SPIELER_FLEE
+	//
+	//  Ein Mob-HIT ist von Haus aus Level + DEX + 150
+	//  (status.cpp:2640), ein Spieler-FLEE Level + AGI + LUK/5
+	//  + 100 + Ausruestung (status.cpp:2644). Auf Stufe 500 steht
+	//  also 270 gegen 900. Die Tiere trafen zu 5 Prozent, und
+	//  daran haette auch der zehnfache Angriffswert nichts
+	//  geaendert.
+	//
+	//  DASS DAS HIER UEBERHAUPT WIRKT
+	//
+	//  setunitdata UMOB_HIT schreibt den ENDWERT, nicht einen
+	//  Grundwert. script.cpp:19535 ruft danach nur SCB_BATTLE,
+	//  und SCB_BATTLE schliesst SCB_BASE aus (status.hpp:3304) -
+	//  status_calc_misc laeuft also nicht erneut und rechnet
+	//  Level + DEX + 150 nicht noch einmal obendrauf.
+	.@ziel = getcharid(3);
+
+	//  Ohne angehaengten Spieler gibt readparam 0 zurueck, und
+	//  daraus wuerde ein Tier mit Angriff 0. Dann lieber die
+	//  Ruecklage aus OnInit.
+	if (.@ziel) {
+		.@p_flee = readparam(bFlee);
+		.@p_hit  = readparam(bHit);
+		.@p_def1 = readparam(bDef);
+		.@p_def2 = readparam(bDef2);
+		.@p_hp   = readparam(bMaxHP);
+	} else {
+		.@p_flee = .not_flee;
+		.@p_hit  = .not_hit;
+		.@p_def1 = 0;
+		.@p_def2 = 0;
+		.@p_hp   = .not_hp;
+	}
+
+	// TREFFEN: so viel Prozent der Schlaege sollen ankommen.
+	.@k_hit = .@p_flee + .treffer_mob;
+
+	// AUSWEICHEN: hier haengt der Soeldner.
+	//
+	//  status_calc_mercenary_ rechnet mit dem DB-Level des
+	//  Soeldners, nicht mit deinem (status.cpp:5037). Der
+	//  staerkste Eintrag in db/re/mercenary_db.yml steht auf
+	//  Level 87 mit DEX 87, sein HIT ist also bei rund 324
+	//  gedeckelt - egal, wie weit sein Herr ist. Ein Spieler auf
+	//  Stufe 500 kommt auf ueber 900. Zwischen diesen beiden
+	//  Zahlen liegt ein Fenster, in dem der Soeldner haeufig
+	//  danebenhaut und der Spieler trifft.
+	//
+	//  Der feste Wert allein waere aber eine Falle fuer niedrige
+	//  Stufen: ein Spieler auf Stufe 50 hat selbst nur HIT 268
+	//  und traefe dann zu 18 Prozent. Deshalb die Deckelung an
+	//  seinem eigenen Trefferwert - er soll immer .treffer_spieler
+	//  Prozent landen, der Soeldner nimmt, was uebrig bleibt.
+	.@k_flee = .flee_wert;
+	.@pmax = .@p_hit - .treffer_spieler;
+	if (.@k_flee > .@pmax) .@k_flee = .@pmax;
+	if (.@k_flee < 0)      .@k_flee = 0;
+
+	// SCHADEN: Zielgroesse ist ein Anteil der Lebenspunkte des
+	// Ausloesers PRO TREFFER.
+	//
+	//  Die Renewal-Formel steht in battle.cpp:4899:
+	//
+	//      Schaden = Angriff * (4000 + DEF) / (4000 + 10*DEF)
+	//                - DEF2
+	//
+	//  Nach Angriff aufgeloest ergibt das die Zeile unten. Die
+	//  Rechnung laeuft in int64 (script.cpp:3832), 1,1 Mio mal
+	//  9000 passt also bequem.
+	//
+	//  Was hier NICHT eingerechnet ist: Kartenabzuege, Element
+	//  und Rassenresistenzen. Die kommen danach und ziehen den
+	//  Wert bei gut ausgeruesteten Spielern weiter herunter -
+	//  .schaden_pct ist die Obergrenze, nicht die Zusage. Ebenso
+	//  unberuecksichtigt bleibt batk (STR + Level, status.cpp:2484),
+	//  das oben draufkommt; bei dreistelligen Werten faellt es
+	//  neben zehntausenden Angriff nicht ins Gewicht.
+	.@will = .@p_hp * .schaden_pct / 100;
+	.@k_atk = (.@will + .@p_def2) * (4000 + 10 * .@p_def1)
+	          / (4000 + .@p_def1);
+
+	//  HARTE GRENZE 65535.
+	//
+	//  status.hpp:3365 - struct weapon_atk fuehrt atk und atk2 als
+	//  uint16. Ein groesserer Wert laeuft ueber und wird winzig;
+	//  aus 70000 wuerden 4464. Genau so ein Ueberlauf faellt im
+	//  Spiel als "das Vieh kitzelt nur" auf und ist von aussen
+	//  nicht zu sehen. Deshalb wird hier gekappt und im
+	//  ausfuehrlichen Bericht vermerkt.
+	.@gekappt = 0;
+	if (.@k_atk > 65535) {
+		.@k_atk = 65535;
+		.@gekappt = 1;
+	}
+	if (.@k_atk < 1) .@k_atk = 1;
+
+	if (.@laut) {
+		dispbottom "  Spieler: FLEE " + .@p_flee + ", HIT " + .@p_hit
+		           + ", DEF " + .@p_def1 + "/" + .@p_def2
+		           + ", MaxHP " + .@p_hp;
+		dispbottom "  Daraus: Mob-HIT " + .@k_hit
+		           + " (Trefferrate " + .treffer_mob + "%)"
+		           + ", Mob-FLEE " + .@k_flee
+		           + ", Angriff " + .@k_atk
+		           + (.@gekappt ? "  <-- auf 65535 gekappt, uint16" : "");
+	}
+
 	// --- Werte anheben ---------------------------------------
 	//  Der HP-Faktor ist absichtlich degressiv. Vierzigfach ist
 	//  bei einem Poring (50 HP) eine Ansage und bei einem
@@ -354,18 +479,34 @@ S_Rudel:
 	//  umwirft, bevor der Aufraeumtimer greift. Ein Rudel, das
 	//  man nicht toeten KANN, ist keine Schwierigkeit, sondern
 	//  eine Sperre.
+	//
+	//  Der Faktor allein reicht aber nicht: ein Poring kommt so
+	//  auf 2000 Lebenspunkte, und das raeumt ein Soeldner im
+	//  Vorbeigehen weg. Deshalb zusaetzlich eine Untergrenze,
+	//  die an den Lebenspunkten des Ausloesers haengt - wer viel
+	//  aushaelt, trifft auf etwas, das ebenfalls viel aushaelt.
+	//  Genommen wird der groessere der beiden Werte.
 	.@hp = .@d[UMOB_MAXHP];
 	.@f = .hp_faktor;
 	if (.@hp > 1000000)     .@f = .hp_faktor / 5;
 	else if (.@hp > 100000) .@f = .hp_faktor / 2;
 	.@hp = .@hp * .@f;
 
+	.@boden = .@p_hp * .hp_spieler;
+	if (.@hp < .@boden) .@hp = .@boden;
+	if (.@hp > .hp_deckel) .@hp = .hp_deckel;
+
 	setunitdata .@gid, UMOB_MAXHP, .@hp;
 	setunitdata .@gid, UMOB_HP,    .@hp;
 	if (.@laut)
-		dispbottom "  HP gesetzt auf " + .@hp;
-	setunitdata .@gid, UMOB_ATKMIN, .@d[UMOB_ATKMIN] * .atk_faktor;
-	setunitdata .@gid, UMOB_ATKMAX, .@d[UMOB_ATKMAX] * .atk_faktor;
+		dispbottom "  HP gesetzt auf " + .@hp
+		           + " (Vorlage " + .@d[UMOB_MAXHP]
+		           + ", Untergrenze " + .@boden + ")";
+
+	setunitdata .@gid, UMOB_ATKMIN, .@k_atk * 80 / 100;
+	setunitdata .@gid, UMOB_ATKMAX, .@k_atk;
+	setunitdata .@gid, UMOB_HIT,    .@k_hit;
+	setunitdata .@gid, UMOB_FLEE,   .@k_flee;
 	setunitdata .@gid, UMOB_DEF,    .@d[UMOB_DEF] + .def_plus;
 	setunitdata .@gid, UMOB_MDEF,   .@d[UMOB_MDEF] + .def_plus;
 	setunitdata .@gid, UMOB_LEVEL,  .@d[UMOB_LEVEL] + .lv_plus;
@@ -410,8 +551,8 @@ S_Rudel:
 	//  Ausloeser ist immer ein Spieler - entweder der, der etwas
 	//  erlegt hat, oder der GM mit @wild los. Ohne angehaengten
 	//  Spieler waere getcharid(3) null; die Pruefung faengt das
-	//  ab, statt einen Fehler ins Log zu schreiben.
-	.@ziel = getcharid(3);
+	//  ab, statt einen Fehler ins Log zu schreiben. .@ziel steht
+	//  schon oben, wo die Kampfwerte geholt wurden.
 	if (.@ziel)
 		unitattack .@gid, .@ziel, 1;
 
@@ -421,6 +562,11 @@ S_Rudel:
 		           + "  CANATTACK=" + ((.@n[UMOB_MODE] & MD_CANATTACK) ? 1 : 0)
 		           + " AGGRESSIVE=" + ((.@n[UMOB_MODE] & MD_AGGRESSIVE) ? 1 : 0)
 		           + " CANMOVE=" + ((.@n[UMOB_MODE] & MD_CANMOVE) ? 1 : 0);
+		//  Rueckgelesen, nicht nur berechnet: nur so faellt ein
+		//  Ueberlauf oder ein von der Engine verworfener Wert auf.
+		dispbottom "  Zurueckgelesen: HIT " + .@n[UMOB_HIT]
+		           + ", FLEE " + .@n[UMOB_FLEE]
+		           + "   (gesetzt: " + .@k_hit + " / " + .@k_flee + ")";
 		dispbottom "  Angriff " + .@n[UMOB_ATKMIN] + " bis "
 		           + .@n[UMOB_ATKMAX] + ", HP " + .@n[UMOB_MAXHP]
 		           + ", Stufe " + .@n[UMOB_LEVEL];
@@ -448,9 +594,31 @@ S_Rudel:
 		if (!.@sg) continue;
 
 		getunitdata .@sg, .@dh;
+
+		//  Die Helfer bekommen dasselbe Trefferbild wie der
+		//  Anfuehrer. Sonst waeren fuenf von sechs Tieren im
+		//  Rudel harmlos, und genau so hat es sich vorher
+		//  angefuehlt: ein Gegner, der ab und zu etwas macht,
+		//  und Statisten drumherum.
+		//
+		//  Nur der Schaden ist geteilt - .helfer_atk Prozent
+		//  vom Anfuehrer. Sechs Tiere mit vollem Schaden waeren
+		//  das Sechsfache der eingestellten Zielgroesse.
 		.@shp = .@dh[UMOB_MAXHP] * .helfer_hp;
+		.@sboden = .@p_hp * .hp_spieler / 100 * .helfer_hp_pct;
+		if (.@shp < .@sboden) .@shp = .@sboden;
+		if (.@shp > .hp_deckel) .@shp = .hp_deckel;
+
 		setunitdata .@sg, UMOB_MAXHP, .@shp;
 		setunitdata .@sg, UMOB_HP,    .@shp;
+		setunitdata .@sg, UMOB_ATKMIN,
+		            .@k_atk * .helfer_atk / 100 * 80 / 100;
+		setunitdata .@sg, UMOB_ATKMAX, .@k_atk * .helfer_atk / 100;
+		setunitdata .@sg, UMOB_HIT,    .@k_hit;
+		setunitdata .@sg, UMOB_FLEE,   .@k_flee;
+		setunitdata .@sg, UMOB_DEF,    .@dh[UMOB_DEF] + .def_plus;
+		setunitdata .@sg, UMOB_MDEF,   .@dh[UMOB_MDEF] + .def_plus;
+		setunitdata .@sg, UMOB_LEVEL,  .@dh[UMOB_LEVEL] + .lv_plus;
 		setunitdata .@sg, UMOB_MODE,
 		            .@dh[UMOB_MODE]
 		            | MD_CANMOVE | MD_CANATTACK | MD_AGGRESSIVE
@@ -664,12 +832,70 @@ OnInit:
 	.min_lv     = 5;    // darunter kein Wildlife
 	.leben      = 30;    // Minuten, dann loest sich das Rudel auf
 
+	// --- Wie hart es zugeht ----------------------------------
+	//  Diese sechs Zahlen sind die Schwierigkeit. Alles andere
+	//  rechnet sich daraus und aus den Werten des Spielers, der
+	//  das Rudel geweckt hat.
+	//
+	//  .schaden_pct  Anteil der Lebenspunkte des Ausloesers, den
+	//                EIN Treffer des Anfuehrers abzieht - vor
+	//                Karten, Element und Rassenresistenz. Bei 3
+	//                sind das rechnerisch 33 Treffer bis zum Tod.
+	//
+	//  .treffer_mob  Trefferrate der Tiere gegen den Ausloeser in
+	//                Prozent. Wird direkt in den HIT umgesetzt:
+	//                HIT = Spieler-FLEE + dieser Wert. 95 laesst
+	//                dem Ausweichen noch einen Rest, ohne dass
+	//                das Rudel harmlos wird.
+	//
+	//                Hinweis: greifen mehr als drei Tiere
+	//                denselben Spieler an, zieht rAthena dessen
+	//                FLEE zusaetzlich um 10 Prozent je weiterem
+	//                Angreifer ab (agi_penalty_type 1, count 3,
+	//                num 10 in conf/battle/battle.conf). Ein
+	//                volles Rudel trifft also noch etwas oefter
+	//                als hier eingestellt. Das ist gewollt -
+	//                umzingelt zu werden soll wehtun.
+	//
+	//  .treffer_spieler  Gegenstueck: so viel Prozent seiner
+	//                eigenen Schlaege soll der Ausloeser landen.
+	//                Deckelt das FLEE der Tiere nach oben.
+	//
+	//  .flee_wert    Ausweichen der Tiere, solange die Deckelung
+	//                darueber es zulaesst. Hier haengt der
+	//                Soeldner: sein HIT ist durch das DB-Level
+	//                bei rund 324 gedeckelt (status.cpp:5037),
+	//                bei 250 landet er also je nach Typ zwischen
+	//                der 5-Prozent-Untergrenze und etwa 75
+	//                Prozent. Er hilft noch, traegt den Kampf
+	//                aber nicht mehr allein.
+	//
+	//  .hp_spieler   Untergrenze der Lebenspunkte des Anfuehrers,
+	//                als Vielfaches der Lebenspunkte des
+	//                Ausloesers. Verhindert den Fall "Poring mit
+	//                2000 HP, vom Soeldner im Vorbeigehen
+	//                erledigt".
+	.schaden_pct      = 3;
+	.treffer_mob      = 95;
+	.treffer_spieler  = 95;
+	.flee_wert        = 250;
+	.hp_spieler       = 25;
+	.hp_deckel        = 50000000;
+
+	//  Ruecklage fuer den Fall, dass kein Spieler angehaengt ist.
+	//  Kommt im normalen Betrieb nicht vor - readparam lieferte
+	//  dann aber 0, und daraus wuerde ein Tier mit Angriff 0.
+	.not_flee = 400;
+	.not_hit  = 400;
+	.not_hp   = 50000;
+
 	.hp_faktor  = 40;    // Lebenspunkte des Anfuehrers
-	.atk_faktor = 3;
 	.def_plus   = 40;
 	.lv_plus    = 25;
 	.helfer     = 5;     // Rudelgroesse ohne den Anfuehrer
 	.helfer_hp  = 5;
+	.helfer_atk = 50;    // Prozent vom Anfuehrer
+	.helfer_hp_pct = 30;  // Prozent der HP-Untergrenze
 
 	.exp_faktor = 50;    // in gewoehnlichen Kills gerechnet
 	.zeny_je_lv = 500;
