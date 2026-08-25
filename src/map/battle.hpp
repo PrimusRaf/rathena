@@ -722,6 +722,7 @@ struct Battle_Config
 	int32 at_logout_event;
 	int32 homunculus_starving_rate;
 	int32 homunculus_starving_delay;
+	int32 homunculus_summon_time;
 	int32 drop_connection_on_quit;
 	int32 mob_spawn_variance;
 	int32 mercenary_autoloot;

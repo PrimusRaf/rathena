@@ -1113,6 +1113,36 @@ void hom_init_timers(homun_data * hd)
 }
 
 /**
+ * SafaRO - Beschwoerungsdauer eines Homunkulus.
+ *
+ * Offiziell laeuft SC_HOMUN_TIME nach der Duration1 von AM_CALLHOMUN ab
+ * (db/re/skill_db.yml: 1800000, also 30 Minuten). Endet der Status,
+ * greift status.cpp in status_change_end SC_HOMUN_TIME zu
+ * hom_vaporize(sd, HOM_ST_REST) - der Homunkulus verschwindet mitten im
+ * Spiel, ohne dass der Spieler etwas falsch gemacht haette.
+ *
+ * homunculus_summon_time in conf/battle/homunc.conf steuert das:
+ *   0                unbegrenzt (SafaRO-Vorgabe)
+ *   >0               Dauer in Millisekunden
+ *   -1               Wert aus skill_db.yml, also offizielles Verhalten
+ *
+ * INFINITE_TICK ist rAthenas eigenes Mittel fuer dauerhafte Status -
+ * dieselbe Zuweisung benutzt status.cpp fuer SC_SPRITEMABLE oder
+ * Eleanors SC_STYLE_CHANGE. Ein Status mit dieser Dauer bekommt keinen
+ * Ablauftimer, status_change_end wird also nie von selbst gerufen und
+ * kann den Homunkulus nicht einlagern.
+ */
+static t_tick hom_summon_time( void ){
+	if( battle_config.homunculus_summon_time == 0 )
+		return INFINITE_TICK;
+
+	if( battle_config.homunculus_summon_time > 0 )
+		return battle_config.homunculus_summon_time;
+
+	return skill_get_time( AM_CALLHOMUN, 1 );
+}
+
+/**
  * Make a player spawn a homonculus (call)
  * @param sd
  * @return False:failure, True:success
@@ -1165,7 +1195,7 @@ bool hom_call(map_session_data *sd)
 	}
 
 #ifdef RENEWAL
-	sc_start(sd, sd, SC_HOMUN_TIME, 100, 1, skill_get_time(AM_CALLHOMUN, 1));
+	sc_start(sd, sd, SC_HOMUN_TIME, 100, 1, hom_summon_time());
 #endif
 
 	return true;
@@ -1227,7 +1257,7 @@ int32 hom_recv_data(uint32 account_id, struct s_homunculus *sh, int32 flag)
 		hom_init_timers(hd);
 
 #ifdef RENEWAL
-		sc_start(sd, sd, SC_HOMUN_TIME, 100, 1, skill_get_time(AM_CALLHOMUN, 1));
+		sc_start(sd, sd, SC_HOMUN_TIME, 100, 1, hom_summon_time());
 #endif
 	}
 
@@ -1330,7 +1360,7 @@ int32 hom_ressurect(map_session_data* sd, unsigned char per, int16 x, int16 y)
 	}
 
 #ifdef RENEWAL
-	sc_start(sd, sd, SC_HOMUN_TIME, 100, 1, skill_get_time(AM_CALLHOMUN, 1));
+	sc_start(sd, sd, SC_HOMUN_TIME, 100, 1, hom_summon_time());
 #endif
 
 	return status_revive(hd, per, 0);
