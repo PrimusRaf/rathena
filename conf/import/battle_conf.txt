@@ -52,10 +52,55 @@ max_summoner_aspd: 199
 // ------------------------------------------------------------
 
 // Wie schnell Intimacy waechst, in Prozent. Standard 100.
-// 300 = dreifaches Tempo. Betrifft Fuettern ebenso wie den
-// Intimacy-Verlust beim Tod.
-// Relevant fuer die Evolution: die braucht 91.100 Intimacy.
-homunculus_friendly_rate: 300
+//
+// WARUM 30000 UND NICHT 300
+//
+// Ein Homunkulus startet mit 2.100 Intimacy und gilt ab 91.100 als
+// Loyal (homunculus.cpp, intimacy_grades). Es fehlen also 89.000.
+//
+// Eine Mahlzeit ist 75 wert bei Hunger 26-75 und 100 bei Hunger
+// 11-25. Bei 300 sind das 225 je Mahlzeit - vier Fuetterungen
+// bringen 900, der Homunkulus steht danach bei 3.000 und immer noch
+// auf Awkward. Genau so nachgemessen.
+//
+// Dazu kommt eine Grenze, die man nicht wegkonfigurieren kann:
+// jede Mahlzeit hebt den Hunger um 10, und Hunger faellt nur um 1 je
+// Minute. Mehr als sechs Fuetterungen je Stunde sind unmoeglich. Bei
+// 300 waeren das rund 50 Stunden reine Spielzeit fuer einen loyalen
+// Homunkulus - und nach der Evolution (setzt auf 1.000 zurueck) noch
+// einmal dieselbe Strecke.
+//
+// Bei 30000 ist eine Mahlzeit im normalen Band 22.500 wert. Ein
+// frischer Homunkulus steht auf Hunger 32, vier Fuetterungen
+// hintereinander (32 -> 72, bleibt im Band 26-75) ergeben 92.100.
+// Loyal nach vier Mahlzeiten, ohne Wartezeit.
+//
+// Ueberfuettern lohnt trotzdem nicht: die Strafe oberhalb von Hunger
+// 76 laeuft ueber hom_decrease_intimacy, und die Funktion rechnet
+// diese Rate NICHT ein (homunculus.cpp Zeile 780). -50 bleibt -50.
+//
+// Aus demselben Grund stimmte der fruehere Kommentar hier nicht:
+// der Verlust beim Tod haengt nicht an dieser Rate. Es gibt ihn
+// ueberhaupt nicht - homunculus.cpp Zeile 236 haelt ausdruecklich
+// fest, dass auf den Tod keine Intimacy-Strafe folgt.
+homunculus_friendly_rate: 30000
+
+// Wie lange ein Homunkulus beschworen bleibt, in Millisekunden.
+//
+// Eigener Schalter, kein rAthena-Standard - angelegt in
+// src/map/homunculus.cpp, battle.cpp und battle.hpp.
+//
+// Offiziell laeuft der Status SC_HOMUN_TIME nach Duration1 von
+// AM_CALLHOMUN ab (db/re/skill_db.yml: 1.800.000, also 30 Minuten),
+// und status.cpp lagert den Homunkulus daraufhin selbsttaetig ein -
+// mitten im Spiel, ohne dass der Spieler etwas falsch gemacht haette.
+//
+//    0   unbegrenzt
+//   >0   Dauer in Millisekunden
+//   -1   Duration1 aus skill_db.yml, also offizielles Verhalten
+//
+// Braucht einen neu uebersetzten map-server.
+homunculus_summon_time: 0
 
 // Anteil der EXP, den der Homunkulus von deinen Kills bekommt,
 // in Prozent. Standard 10 - der Homunkulus haengt damit dauerhaft
