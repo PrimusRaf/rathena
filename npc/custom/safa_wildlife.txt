@@ -10,9 +10,14 @@
 //  Wer draussen ein Monster erlegt, hat eine kleine Chance,
 //  dass an derselben Stelle die WILDLIFE-Fassung desselben
 //  Monsters aufsteht: gleicher Sprite, gleicher Name mit dem
-//  Vorsatz "Wildlife", vierzigfache Lebenspunkte, dreifacher
-//  Angriff, aggressiv - und ein Rudel aus fuenf weiteren Arten
-//  DERSELBEN KARTE im Ruecken.
+//  Vorsatz "Wildlife", stark erhoehte Lebenspunkte, aggressiv -
+//  und ein Rudel aus vier weiteren Arten DERSELBEN KARTE im
+//  Ruecken.
+//
+//  Wie hart genau, steht nicht fest, sondern richtet sich nach
+//  dem Spieler, der das Rudel geweckt hat. Die Stellschrauben
+//  dafuer stehen unten in OnInit und sind dort einzeln
+//  begruendet.
 //
 //  Aus einem Poring wird ein Wildlife Poring, und mit ihm
 //  stehen Wildlife Drops, Wildlife Poporing und was sonst noch
@@ -424,27 +429,44 @@ S_Rudel:
 	if (.@k_flee < 0)      .@k_flee = 0;
 
 	// SCHADEN: Zielgroesse ist ein Anteil der Lebenspunkte des
-	// Ausloesers PRO TREFFER.
+	// Ausloesers PRO TREFFER - VOR seiner Ruestung.
 	//
-	//  Die Renewal-Formel steht in battle.cpp:4899:
+	//  WAS HIER FRUEHER STAND UND WARUM ES WEG IST
 	//
-	//      Schaden = Angriff * (4000 + DEF) / (4000 + 10*DEF)
-	//                - DEF2
+	//  Die Renewal-Formel lautet (battle.cpp:4899):
 	//
-	//  Nach Angriff aufgeloest ergibt das die Zeile unten. Die
-	//  Rechnung laeuft in int64 (script.cpp:3832), 1,1 Mio mal
-	//  9000 passt also bequem.
+	//      Schaden = Angriff * (4000 + DEF) / (4000 + 10*DEF) - DEF2
 	//
-	//  Was hier NICHT eingerechnet ist: Kartenabzuege, Element
-	//  und Rassenresistenzen. Die kommen danach und ziehen den
-	//  Wert bei gut ausgeruesteten Spielern weiter herunter -
-	//  .schaden_pct ist die Obergrenze, nicht die Zusage. Ebenso
-	//  unberuecksichtigt bleibt batk (STR + Level, status.cpp:2484),
-	//  das oben draufkommt; bei dreistelligen Werten faellt es
-	//  neben zehntausenden Angriff nicht ins Gewicht.
-	.@will = .@p_hp * .schaden_pct / 100;
-	.@k_atk = (.@will + .@p_def2) * (4000 + 10 * .@p_def1)
-	          / (4000 + .@p_def1);
+	//  Der erste Anlauf hat sie nach Angriff AUFGELOEST, damit nach
+	//  Abzug von DEF und DEF2 genau .schaden_pct uebrig bleibt:
+	//
+	//      .@k_atk = (.@will + .@p_def2) * (4000 + 10*.@p_def1)
+	//                / (4000 + .@p_def1)
+	//
+	//  Das war sauber gerechnet und trotzdem falsch. Es rechnet die
+	//  Ruestung des Spielers HERAUS. Gegen Wildlife waren DEF, VIT
+	//  und jedes Ruestungsteil damit exakt wirkungslos - der
+	//  Tankbuild und der Papierbuild verloren denselben Anteil ihrer
+	//  Lebenspunkte je Treffer. Ein Gegner, gegen den Ausruestung
+	//  nichts aendert, ist kein Gegner, sondern eine Uhr.
+	//
+	//  Jetzt steht der Angriffswert schlicht auf dem Zielschaden,
+	//  und die Formel oben laeuft ganz normal darueber. Ein Spieler
+	//  mit DEF 300 nimmt davon 4300/7000, also 61 Prozent; mit
+	//  DEF 900 sind es 4900/13000, also 38 Prozent. Genau dieser
+	//  Unterschied hat vorher gefehlt.
+	//
+	//  .schaden_pct ist deshalb jetzt der Wert VOR der Ruestung und
+	//  entsprechend hoeher angesetzt als die 3, die vorher danach
+	//  uebrig blieben.
+	//
+	//  Weiterhin nicht eingerechnet: Kartenabzuege, Element und
+	//  Rassenresistenzen - die kommen danach und ziehen den Wert
+	//  zusaetzlich herunter. Ebenso batk (STR + Level,
+	//  status.cpp:2484), das oben draufkommt; bei dreistelligen
+	//  Werten faellt es neben zehntausenden Angriff nicht ins
+	//  Gewicht.
+	.@k_atk = .@p_hp * .schaden_pct / 100;
 
 	//  HARTE GRENZE 65535.
 	//
@@ -511,6 +533,26 @@ S_Rudel:
 	setunitdata .@gid, UMOB_MDEF,   .@d[UMOB_MDEF] + .def_plus;
 	setunitdata .@gid, UMOB_LEVEL,  .@d[UMOB_LEVEL] + .lv_plus;
 
+	// --- Schlagtempo begrenzen -------------------------------
+	//  Das Rudel fuehlte sich an, als haetten die Tiere 199 ASPD.
+	//  Sie haben es nicht - dieses Skript fasst das Tempo gar nicht
+	//  an, jedes Tier behaelt das seiner Vorlage. Sechs davon
+	//  gleichzeitig ergeben aber dasselbe Bild, und bei einer
+	//  schnellen Vorlage wird daraus ein Trommelfeuer.
+	//
+	//  AMOTION ist die Dauer der Schlaganimation, ADELAY der
+	//  Abstand zwischen zwei Schlaegen (status.cpp, mob_db-Felder
+	//  AttackMotion und AttackDelay). Beide sind ueber setunitdata
+	//  erreichbar (script.cpp:19508 und 19509).
+	//
+	//  Gesetzt wird nur eine UNTERGRENZE. Ein von Haus aus traeges
+	//  Tier soll traege bleiben - schneller machen wollen wir hier
+	//  niemanden.
+	if (.@d[UMOB_ADELAY] < .adelay_min)
+		setunitdata .@gid, UMOB_ADELAY, .adelay_min;
+	if (.@d[UMOB_AMOTION] < .amotion_min)
+		setunitdata .@gid, UMOB_AMOTION, .amotion_min;
+
 	// --- Angriffsverhalten -----------------------------------
 	//  MD_AGGRESSIVE allein reicht NICHT, und das war der Fehler
 	//  im ersten Anlauf: das Tier stand angriffslustig da und tat
@@ -570,6 +612,23 @@ S_Rudel:
 		dispbottom "  Angriff " + .@n[UMOB_ATKMIN] + " bis "
 		           + .@n[UMOB_ATKMAX] + ", HP " + .@n[UMOB_MAXHP]
 		           + ", Stufe " + .@n[UMOB_LEVEL];
+		//  Zurueckgelesen, weil setunitdata ADELAY/AMOTION nur
+		//  base_status setzt und SCB_BATTLE nachrechnen laesst -
+		//  ob der Wert wirklich stehenbleibt, sagt nur diese Zeile.
+		dispbottom "  Tempo: ADELAY " + .@n[UMOB_ADELAY]
+		           + ", AMOTION " + .@n[UMOB_AMOTION]
+		           + "   (Vorlage " + .@d[UMOB_ADELAY]
+		           + "/" + .@d[UMOB_AMOTION]
+		           + ", Untergrenze " + .adelay_min
+		           + "/" + .amotion_min + ")";
+		//  Was das Rudel je Angriffsrunde ausmacht - die Zahl, um
+		//  die es beim Ausbalancieren wirklich geht.
+		dispbottom "  Rudelschaden je Runde: " + .schaden_pct
+		           + " + " + .helfer + "x"
+		           + (.schaden_pct * .helfer_atk / 100) + " = "
+		           + (.schaden_pct
+		              + .helfer * .schaden_pct * .helfer_atk / 100)
+		           + "% deiner MaxHP, VOR Ruestung";
 	}
 
 	// --- Das Rudel -------------------------------------------
@@ -619,6 +678,10 @@ S_Rudel:
 		setunitdata .@sg, UMOB_DEF,    .@dh[UMOB_DEF] + .def_plus;
 		setunitdata .@sg, UMOB_MDEF,   .@dh[UMOB_MDEF] + .def_plus;
 		setunitdata .@sg, UMOB_LEVEL,  .@dh[UMOB_LEVEL] + .lv_plus;
+		if (.@dh[UMOB_ADELAY] < .adelay_min)
+			setunitdata .@sg, UMOB_ADELAY, .adelay_min;
+		if (.@dh[UMOB_AMOTION] < .amotion_min)
+			setunitdata .@sg, UMOB_AMOTION, .amotion_min;
 		setunitdata .@sg, UMOB_MODE,
 		            .@dh[UMOB_MODE]
 		            | MD_CANMOVE | MD_CANATTACK | MD_AGGRESSIVE
@@ -680,9 +743,16 @@ OnWildTot:
 	//  (conf/import/battle_conf.txt) - beide Seiten sind also
 	//  gleich hochgerechnet und der Vergleich stimmt.
 	//
-	//  Fuenfzig passt zum Aufwand: vierzigfache Lebenspunkte
-	//  plus fuenf Helfer mit fuenffachen sind rund fuenfundsechzig
+	//  Fuenfzig war urspruenglich am Aufwand bemessen: vierzigfache
+	//  Lebenspunkte plus fuenf Helfer waren rund fuenfundsechzig
 	//  gewoehnliche Tiere an Arbeit.
+	//
+	//  Seit der Entschaerfung ist das Rudel kleiner - rund
+	//  sechzehnfache Spieler-HP statt zweiundsechzigfache. Der
+	//  Faktor steht trotzdem noch auf fuenfzig, und zwar bewusst:
+	//  der Kampf soll sich lohnen, sonst weicht ihm jeder aus,
+	//  statt sich darauf einzulassen. Wer das anders sieht, dreht
+	//  .exp_faktor in OnInit - das ist die eine Zahl dafuer.
 	getexp getmonsterinfo(.@basis, MOB_BASEEXP) * .exp_faktor,
 	       getmonsterinfo(.@basis, MOB_JOBEXP) * .exp_faktor;
 
@@ -837,10 +907,26 @@ OnInit:
 	//  rechnet sich daraus und aus den Werten des Spielers, der
 	//  das Rudel geweckt hat.
 	//
-	//  .schaden_pct  Anteil der Lebenspunkte des Ausloesers, den
-	//                EIN Treffer des Anfuehrers abzieht - vor
-	//                Karten, Element und Rassenresistenz. Bei 3
-	//                sind das rechnerisch 33 Treffer bis zum Tod.
+	//  .schaden_pct  Anteil der Lebenspunkte des Ausloesers, auf den
+	//                der Angriffswert des Anfuehrers gesetzt wird -
+	//                VOR seiner Ruestung, vor Karten, Element und
+	//                Rassenresistenz.
+	//
+	//                Was davon ankommt, haengt an DEF:
+	//                  DEF 0    voller Wert
+	//                  DEF 300  61 Prozent
+	//                  DEF 900  38 Prozent
+	//                Bei 6 landet ein Spieler mit DEF 300 also rund
+	//                3,7 Prozent je Treffer.
+	//
+	//                DIE RUDELRECHNUNG IST DIE WICHTIGE
+	//                Nicht der Anfuehrer allein zaehlt, sondern was
+	//                je Angriffsrunde ankommt:
+	//                    Anfuehrer + .helfer * .helfer_atk Prozent
+	//                Vorher: 3 + 5*1,5 = 10,5 Prozent je Runde, und
+	//                zwar unabhaengig von jeder Ruestung. Das war
+	//                der Grund, warum ein Rudel niemanden stehen
+	//                liess.
 	//
 	//  .treffer_mob  Trefferrate der Tiere gegen den Ausloeser in
 	//                Prozent. Wird direkt in den HIT umgesetzt:
@@ -875,12 +961,26 @@ OnInit:
 	//                Ausloesers. Verhindert den Fall "Poring mit
 	//                2000 HP, vom Soeldner im Vorbeigehen
 	//                erledigt".
-	.schaden_pct      = 3;
-	.treffer_mob      = 95;
+	.schaden_pct      = 4;
+	.treffer_mob      = 90;
 	.treffer_spieler  = 95;
 	.flee_wert        = 250;
-	.hp_spieler       = 25;
+	.hp_spieler       = 8;
 	.hp_deckel        = 50000000;
+
+	//  --- Schlagtempo, Untergrenze in Millisekunden -----------
+	//  Siehe die Begruendung in S_Rudel. Kurz: das Skript macht
+	//  kein Tier schneller, aber sechs gleichzeitig angreifende
+	//  Tiere fuehlen sich an wie eines mit 199 ASPD. Eine
+	//  Untergrenze von 1200 ms bedeutet hoechstens gut ein Schlag
+	//  je Tier und Sekunde - Zeit genug, um zu reagieren, statt
+	//  aus vollen Lebenspunkten umzufallen.
+	//
+	//  Wer nur bremsen will, ohne am Schaden zu drehen, dreht
+	//  hier. Wer die Tiere ganz beim Tempo ihrer Vorlage lassen
+	//  will, setzt beide auf 0.
+	.adelay_min  = 1200;
+	.amotion_min = 500;
 
 	//  Ruecklage fuer den Fall, dass kein Spieler angehaengt ist.
 	//  Kommt im normalen Betrieb nicht vor - readparam lieferte
@@ -889,13 +989,13 @@ OnInit:
 	.not_hit  = 400;
 	.not_hp   = 50000;
 
-	.hp_faktor  = 40;    // Lebenspunkte des Anfuehrers
+	.hp_faktor  = 15;    // Lebenspunkte des Anfuehrers
 	.def_plus   = 40;
 	.lv_plus    = 25;
-	.helfer     = 5;     // Rudelgroesse ohne den Anfuehrer
-	.helfer_hp  = 5;
-	.helfer_atk = 50;    // Prozent vom Anfuehrer
-	.helfer_hp_pct = 30;  // Prozent der HP-Untergrenze
+	.helfer     = 4;     // Rudelgroesse ohne den Anfuehrer
+	.helfer_hp  = 3;
+	.helfer_atk = 25;    // Prozent vom Anfuehrer
+	.helfer_hp_pct = 25;  // Prozent der HP-Untergrenze
 
 	.exp_faktor = 50;    // in gewoehnlichen Kills gerechnet
 	.zeny_je_lv = 500;
