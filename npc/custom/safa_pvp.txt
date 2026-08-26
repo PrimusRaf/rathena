@@ -1,0 +1,709 @@
+// ============================================================
+//  SafaRO - Der Duellmeister
+// ============================================================
+//
+//  Ein NPC im Veins-Quartier, der in die PvP-Arenen schickt:
+//  eine freie Arena, eine Nightmare-Arena und fuenf Duellraeume
+//  fuer einen gegen einen. Dazu die Rangliste der erschlagenen
+//  Spieler.
+//
+//  ------------------------------------------------------------
+//  WARUM NICHT DIE VORHANDENEN PVP-NPCS
+//  ------------------------------------------------------------
+//
+//  npc/other/pvp.txt ist geladen und stellt Narrator und Gate
+//  Keeper in die Gasthaeuser von Prontera, Morocc, Geffen, Payon
+//  und Alberta. Drei Gruende, warum das hier nicht reicht:
+//
+//    1. Die Gasthaeuser liegen in Staedten, die seit Episode 22
+//       nicht mehr die Hauptstadt sind. Wer in Veins anfaengt,
+//       findet sie nie.
+//    2. Der Gate Keeper verlangt 500 Zeny und Stufe 31 und
+//       schickt in pvp_y_room, eine Vorhalle mit weiteren NPCs,
+//       die noch einmal weiterschicken.
+//    3. Sein Nightmare-Zweig ist im Original abgeschaltet - er
+//       antwortet woertlich "currently the Nightmare mode
+//       service is not available".
+//
+//  Die vorhandenen NPCs bleiben unangetastet. Wer sie findet,
+//  darf sie benutzen; sie fuehren auf andere Karten als die hier
+//  gewaehlten und stehen sich also nicht im Weg.
+//
+//  ------------------------------------------------------------
+//  WELCHE KARTEN - UND WARUM KEINE EINZIGE pvp_y
+//  ------------------------------------------------------------
+//
+//  rAthena kennt zwei Familien:
+//
+//    pvp_y_<1..8>-<1..5>   Stadtkopien. -1 Prontera, -2 Izlude,
+//                          -3 Payon, -4 Alberta, -5 Morocc.
+//                          Riesig: pvp_y_1-1 hat 61.014
+//                          begehbare Zellen, pvp_y_1-5 52.529.
+//    pvp_n_<1..8>-<1..5>   Gebaute Arenen. -1 "Sandwich", -2
+//                          "Lock on", -3 "Four Room", -4 "Under
+//                          cross", -5 "Compass Room". Zwischen
+//                          2.647 und 10.303 Zellen.
+//
+//  Auf einer Stadtkopie mit 61.000 Zellen finden sich zwei
+//  Spieler nicht. Deshalb ausschliesslich pvp_n.
+//
+//  Die Praefixe 1 bis 8 sind im Original nur Stufenbereiche und
+//  tragen dieselben Kartendaten - byteweise verglichen, alle acht
+//  Fassungen jedes Designs sind identisch. Wir benutzen sie
+//  deshalb als getrennte Raeume desselben Grundrisses.
+//
+//    Freie Arena    pvp_n_1-1              Sandwich     10.303
+//    Nightmare      pvp_n_1-4              Under cross   6.595
+//    Duell I..V     pvp_n_1-5 .. pvp_n_5-5 Compass       2.647
+//
+//  ------------------------------------------------------------
+//  DIE FALLE: warp <karte>,0,0
+//  ------------------------------------------------------------
+//
+//  0,0 heisst "irgendwo begehbar", und rAthena sucht sich die
+//  Zelle selbst (map_search_freecell). Geprueft wird dabei nur,
+//  ob die Zelle betretbar ist - NICHT, ob sie mit dem Rest der
+//  Karte zusammenhaengt. Genau das benutzt npc/other/pvp.txt in
+//  F_PVP_FSRS, und genau das geht hier schief:
+//
+//    pvp_n_1-1   9.504 von 10.303 Zellen haengen zusammen,
+//                  799 liegen abgetrennt daneben
+//    pvp_n_1-4   4.576 von  6.595,   2.019 abgetrennt
+//    pvp_n_1-5   2.248 von  2.647,     399 abgetrennt
+//
+//  Ein Spieler, den es in die abgetrennte Flaeche wirft, kaeme
+//  dort nie wieder heraus: noteleport verbietet den Fluegel, ein
+//  NPC steht dort nicht, und laufen kann er nicht. Er saesse
+//  fest, bis ihn jemand toetet - nur findet ihn dort niemand.
+//
+//  Deshalb steht unten fuer jede Arena eine Liste fester
+//  Ankunftspunkte. Alle stammen aus einer Flutfuellung von der
+//  Arenamitte aus, liegen also nachweislich in der zusammen-
+//  haengenden Flaeche, und haben 5x5 freie Nachbarschaft - kein
+//  Ankunftspunkt in einer Ecke, aus der man sich erst
+//  herausdrehen muss.
+//
+//  ------------------------------------------------------------
+//  DER AUSGANG IST PFLICHT, NICHT KOMFORT
+//  ------------------------------------------------------------
+//
+//  Alle pvp_n-Karten tragen noteleport (npc/mapflag/noteleport.txt).
+//  Fluegel und Teleport-Fertigkeit sind also tot. noreturn steht
+//  nicht darauf, ein Schmetterlingsfluegel wuerde noch gehen -
+//  nur hat den niemand dabei, der zum Duell geht.
+//
+//  Ohne NPC saesse man fest, bis man stirbt. Deshalb steht auf
+//  jeder benutzten Karte ein "Way Out", auf den grossen zwei.
+//  Die Koordinaten sind gegen db/map_cache.dat geprueft, und
+//  zwar dreifach: begehbar, in der Hauptflaeche, und mit freier
+//  Nachbarschaft. Das Letzte ist kein Luxus - ein NPC belegt
+//  seine Zelle, und in einem ein Feld breiten Gang wuerde er den
+//  Weg zumauern.
+//
+//  ------------------------------------------------------------
+//  WAS EIN TOD HIER KOSTET
+//  ------------------------------------------------------------
+//
+//  Der Todes-Debuff aus safa_systems.txt (OnPCDieEvent) prueft
+//  mf_pvp und steigt auf diesen Karten gar nicht erst ein. Kein
+//  death_count, kein tode_gesamt, keine Schwellenwaechterin.
+//
+//  Der EXP-Verlust ist eine andere Sache. conf/battle/exp.conf
+//  steht auf death_penalty_base 100, also ein Prozent je Tod,
+//  und die pvp_n-Karten tragen KEIN nopenalty - anders als die
+//  pvp_y-Karten, die es haben. Fuer die freie Arena und die
+//  Duellraeume setzen wir es unten selbst. Die Nightmare-Arena
+//  behaelt es bewusst nicht.
+//
+//  ------------------------------------------------------------
+//  NIGHTMARE
+//  ------------------------------------------------------------
+//
+//  npc/mapflag/nightmare.txt setzt auf allen 40 pvp_n-Karten
+//  pvp_nightmaredrop random,equip,300 - drei Prozent Chance,
+//  beim Tod ein getragenes Ausruestungsteil zu verlieren.
+//
+//  Das gilt damit auch fuer die Karten, die hier harmlos sein
+//  sollen. Wir schalten es dort ab. Moeglich ist das nur, weil
+//  npc/re/scripts_main.conf scripts_custom.conf NACH
+//  scripts_mapflags.conf einliest - die spaetere Zeile gewinnt.
+//  Wird diese Reihenfolge je gedreht, verlieren Spieler in der
+//  freien Arena Ausruestung, ohne dass hier eine Zeile falsch
+//  waere. Das ist die unangenehmste Abhaengigkeit dieser Datei.
+//
+//  Fuer pvp_n_1-4 steht der Wert unten noch einmal ausge-
+//  schrieben, obwohl nightmare.txt ihn schon setzt. Er ist die
+//  halbe Begruendung dieses NPCs; er gehoert dorthin, wo man ihn
+//  sucht.
+//
+//  ------------------------------------------------------------
+//  DIE RANGLISTE
+//  ------------------------------------------------------------
+//
+//  pvp_kills wird in safa_systems.txt (#safa_ladder,
+//  OnPCKillEvent) gezaehlt, mit zwei Sperren gegen Absprachen:
+//  das eigene Konto zaehlt nie, und derselbe Gegner erst nach
+//  60 Sekunden wieder.
+//
+//  Die Liste liest char_reg_num. Dort landet der Wert erst beim
+//  Speichern des Charakters, nicht beim Kill - die eigene Zahl
+//  im Dialog kommt deshalb aus der Variablen und ist aktuell,
+//  die Liste kann eine Sitzung hinterherhinken. Der NPC sagt das,
+//  sonst haelt es jemand fuer einen Fehler.
+//
+//  ------------------------------------------------------------
+//  STANDORT
+//  ------------------------------------------------------------
+//
+//  veins 208,117. Die Anlaufstellen-Spalte des Veins-Quartiers
+//  (siehe Kopf von safa_dienste.txt) hat Job Master auf 110,
+//  Healer auf 112, Warper auf 115. 117 setzt sie fort. Zelle und
+//  Nachbarschaft gegen db/map_cache.dat geprueft: Typ 0.
+//
+//  Der Rueckweg fuehrt auf 208,118 und nicht auf 208,117 - dort
+//  steht der Duellmeister selbst, und ein NPC belegt seine Zelle.
+// ============================================================
+
+
+// ------------------------------------------------------------
+//  Der Duellmeister
+// ------------------------------------------------------------
+veins,208,117,4	script	Duel Master#safa	2_M_SWORDMASTER,{
+
+	mes "[Duel Master]";
+	mes "You want a fight that means something";
+	mes "and costs you nothing? Then you have";
+	mes "found the right man.";
+	next;
+
+	mes "[Duel Master]";
+	mes "Out there the cycle counts every death";
+	mes "and the Warden makes you pay for it.";
+	mes "^00AA00In my arenas it counts none.^000000";
+	next;
+
+	.@menu$ = "Free arena  ^777777[" + getmapusers(.frei$) + " / " + .frei_max + "]^000000:" +
+	    "^FF6666Nightmare arena^000000  ^777777[" + getmapusers(.nacht$) + " / " + .nacht_max + "]^000000:" +
+	    "Duel rooms - one against one:" +
+	    "The ledger of kills:" +
+	    "Explain the rules:" +
+	    "Leave";
+
+	switch (select(.@menu$)) {
+		case 1: callsub S_Frei;      break;
+		case 2: callsub S_Nightmare; break;
+		case 3: callsub S_Duell;     break;
+		case 4: callsub S_Rangliste; break;
+		case 5: callsub S_Regeln;    break;
+		case 6:
+			mes "[Duel Master]";
+			mes "Sharpen it first. Then come back.";
+			close;
+	}
+	end;
+
+
+// ------------------------------------------------------------
+//  Freie Arena - alle gegen alle, kein Verlust
+// ------------------------------------------------------------
+S_Frei:
+	mes "[Duel Master]";
+	mes "^0000FFThe Sandwich^000000. Two halls with one";
+	mes "corridor between them. Everyone against";
+	mes "everyone, no sides, no seconds.";
+	next;
+
+	mes "[Duel Master]";
+	mes "^00AA00Nothing is lost in there.^000000 No";
+	mes "experience, no equipment, no marks on";
+	mes "your name. You walk out carrying what";
+	mes "you walked in with.";
+	next;
+
+	mes "[Duel Master]";
+	mes "Standing inside right now: ^0000FF" + getmapusers(.frei$) + "^000000.";
+	next;
+
+	if (select("Send me in:Not yet") == 2) {
+		mes "[Duel Master]";
+		mes "It fills up towards the evening.";
+		close;
+	}
+
+	// Gegenprobe unmittelbar vor dem Sprung: zwischen der Anzeige
+	// oben und dieser Zeile kann die Arena vollgelaufen sein.
+	if (getmapusers(.frei$) >= .frei_max) {
+		mes "[Duel Master]";
+		mes "^FF6666The arena is full.^000000 " + .frei_max + " is the ceiling,";
+		mes "and I do not raise it for anyone.";
+		close;
+	}
+
+	close2;
+	callsub S_Springen, .frei$, 0;
+	dispbottom "[Free Arena] The way back stands in both halls: 70,65 and 120,132.";
+	end;
+
+
+// ------------------------------------------------------------
+//  Nightmare - dieselbe Sache mit Einsatz
+// ------------------------------------------------------------
+S_Nightmare:
+	mes "[Duel Master]";
+	mes "^FF6666Under cross^000000. Four corner rooms and a";
+	mes "crossing in the middle. Same fighting,";
+	mes "different stakes.";
+	next;
+
+	mes "[Duel Master]";
+	mes "^FF0000Read this twice.^000000 In there, dying has a";
+	mes "price:";
+	mes " ";
+	mes "  ^FF0000-^000000 ^FF6666three percent^000000 chance to drop one";
+	mes "    piece of the gear you are wearing";
+	mes "  ^FF0000-^000000 the usual ^FF6666one percent of your^000000";
+	mes "    ^FF6666experience^000000, gone";
+	next;
+
+	mes "[Duel Master]";
+	mes "What falls, falls on the ground, and";
+	mes "whoever picks it up owns it. I do not";
+	mes "hand anything back and neither does";
+	mes "anyone else.";
+	next;
+
+	mes "[Duel Master]";
+	mes "Your death marks still do not grow -";
+	mes "that much the cycle grants you. The rest";
+	mes "is yours to lose.";
+	next;
+
+	mes "[Duel Master]";
+	mes "Standing inside right now: ^0000FF" + getmapusers(.nacht$) + "^000000.";
+	next;
+
+	// Zwei Abfragen statt einer. Der Rueckweg aus einem verlorenen
+	// Ausruestungsstueck ist keiner - ein Fehlklick soll hier nicht
+	// reichen.
+	if (select("I know what I am doing:Take me back to the safe one") == 2) {
+		mes "[Duel Master]";
+		mes "Wise. The Sandwich is right there.";
+		close;
+	}
+
+	mes "[Duel Master]";
+	mes "Last word. Take off what you cannot";
+	mes "replace, and then say it again.";
+	next;
+
+	if (select("Send me in:No") == 2) {
+		mes "[Duel Master]";
+		mes "Come back when your hands are empty.";
+		close;
+	}
+
+	if (getmapusers(.nacht$) >= .nacht_max) {
+		mes "[Duel Master]";
+		mes "^FF6666Full.^000000 " + .nacht_max + " in there is already more";
+		mes "than that floor can hold.";
+		close;
+	}
+
+	close2;
+	callsub S_Springen, .nacht$, 1;
+	dispbottom "[Nightmare] Equipment can drop here. The way back: 100,140 and 100,60.";
+	end;
+
+
+// ------------------------------------------------------------
+//  Duellraeume - zwei Leute, sonst niemand
+// ------------------------------------------------------------
+S_Duell:
+	mes "[Duel Master]";
+	mes "^0000FFFive compass rooms^000000, all the same floor";
+	mes "plan. A ring in the middle, four";
+	mes "corridors leading into it.";
+	next;
+
+	mes "[Duel Master]";
+	mes "I let ^0000FFtwo^000000 in and no more. A third";
+	mes "would not be a duel, it would be an";
+	mes "audience with opinions.";
+	next;
+
+	mes "[Duel Master]";
+	mes "^00AA00Nothing is lost in there either.^000000";
+	mes "Pick a room and tell your opponent";
+	mes "which one.";
+	next;
+
+	.@n = getarraysize(.duell$);
+	.@menu$ = "";
+	for (.@i = 0; .@i < .@n; .@i++) {
+		.@u = getmapusers(.duell$[.@i]);
+		.@menu$ += .duell_name$[.@i] + "  ^777777[" +
+		    (.@u == 0 ? "empty" : (.@u == 1 ? "one waiting" : "taken")) +
+		    "]^000000:";
+	}
+	.@menu$ += "Back";
+
+	.@w = select(.@menu$) - 1;
+
+	if (.@w == .@n) {
+		mes "[Duel Master]";
+		mes "Bring somebody, then pick a room.";
+		close;
+	}
+
+	// Auch hier die Gegenprobe nach der Auswahl. Die Belegung in
+	// der Liste ist eine Momentaufnahme von vor dem Klick, und
+	// gerade bei "one waiting" reicht eine Sekunde.
+	if (getmapusers(.duell$[.@w]) >= 2) {
+		mes "[Duel Master]";
+		mes "^FF6666" + .duell_name$[.@w] + " is taken.^000000 Two are";
+		mes "already circling each other in there.";
+		mes "Wait for them, or take another room.";
+		close;
+	}
+
+	close2;
+	// Feste Mitte statt Streupunkt: in einem Duellraum sollen sich
+	// die zwei sofort sehen. Der Ring ist an dieser Stelle 5x5 frei
+	// geprueft, zwei Spieler auf derselben Zelle stoeren sich in
+	// rAthena nicht.
+	warp .duell$[.@w], 100, 100;
+	dispbottom "[" + .duell_name$[.@w] + "] The way back stands at 100,135 and 100,65.";
+	end;
+
+
+// ------------------------------------------------------------
+//  Rangliste
+// ------------------------------------------------------------
+S_Rangliste:
+	mes "[Duel Master]";
+	mes "I keep a ledger. Not of who talks the";
+	mes "most - of who is left standing.";
+	next;
+
+	// Nur Charaktere mit mindestens einem Kill. Ohne die Bedingung
+	// stuenden bei einem frischen Server zehn Nullen in der Liste,
+	// und die erste Frage waere, warum sie alle gleich sind.
+	.@n = query_sql("SELECT c.`name`, r.`value` " +
+	    "FROM `char_reg_num` r " +
+	    "JOIN `char` c ON c.`char_id` = r.`char_id` " +
+	    "WHERE r.`key` = 'pvp_kills' AND r.`value` > 0 " +
+	    "ORDER BY r.`value` DESC, c.`name` ASC LIMIT 10",
+	    .@name$, .@wert);
+
+	if (.@n <= 0) {
+		mes "[Duel Master]";
+		mes "^777777The ledger is empty.^000000 Nobody has put";
+		mes "anybody down yet. Somebody has to be";
+		mes "first.";
+		next;
+	} else {
+		mes "[Duel Master]";
+		mes "^0000FFThe ledger of kills^000000";
+		mes " ";
+		for (.@i = 0; .@i < .@n; .@i++)
+			mes "  ^777777" + (.@i + 1) + ".^000000 " + .@name$[.@i] +
+			    "  -  ^FF6666" + .@wert[.@i] + "^000000";
+		next;
+	}
+
+	mes "[Duel Master]";
+	if (pvp_kills <= 0) {
+		mes "You have put down ^777777nobody^000000 so far.";
+	} else {
+		// COUNT(*) + 1 zaehlt, wie viele echt darueber stehen. Die
+		// eigene Zeile faellt heraus, weil sie nicht groesser ist
+		// als sie selbst - Gleichstand teilt sich den Rang.
+		query_sql("SELECT COUNT(*) + 1 FROM `char_reg_num` " +
+		    "WHERE `key` = 'pvp_kills' AND `value` > " + pvp_kills,
+		    .@rang);
+		mes "You have put down ^FF6666" + pvp_kills + "^000000, which puts";
+		mes "you at rank ^0000FF" + .@rang + "^000000.";
+	}
+	next;
+
+	// Der Hinweis ist kein Schmuck. Wer gerade drei Leute erschlagen
+	// hat und sich unveraendert in der Liste sieht, haelt das sonst
+	// fuer kaputt und meldet es.
+	mes "[Duel Master]";
+	mes "^777777Your own number is current. The list is";
+	mes "written from the books, and the books";
+	mes "are only brought up to date when a";
+	mes "character is put away for the night.^000000";
+	close;
+
+
+// ------------------------------------------------------------
+//  Regeln
+// ------------------------------------------------------------
+S_Regeln:
+	mes "[Duel Master]";
+	mes "^0000FFWhat a death costs in there^000000";
+	mes " ";
+	mes "The cycle does not look at my arenas.";
+	mes "No death mark, no debuff, no errand for";
+	mes "the Warden. Dying is the game here, not";
+	mes "an accident.";
+	next;
+
+	mes "[Duel Master]";
+	mes "In the ^00AA00free arena^000000 and the ^00AA00duel rooms^000000";
+	mes "that is the whole of it. Nothing else is";
+	mes "taken from you.";
+	next;
+
+	mes "[Duel Master]";
+	mes "In the ^FF6666Nightmare arena^000000 two things are:";
+	mes "one percent of your experience, and a";
+	mes "three percent chance at one worn piece";
+	mes "of your equipment.";
+	next;
+
+	mes "[Duel Master]";
+	mes "^0000FFWhat counts for the ledger^000000";
+	mes " ";
+	mes "Kills on a battle map. Nothing else -";
+	mes "a duel in the street is a brawl, not a";
+	mes "record.";
+	next;
+
+	mes "[Duel Master]";
+	mes "And two things never count:";
+	mes " ";
+	mes "  ^777777-^000000 anyone from your own account";
+	mes "  ^777777-^000000 the same opponent twice inside";
+	mes "    one minute";
+	next;
+
+	mes "[Duel Master]";
+	mes "That stops nobody who is truly set on";
+	mes "cheating me. It only makes the lazy way";
+	mes "not work.";
+	next;
+
+	mes "[Duel Master]";
+	mes "^0000FFGetting back out^000000";
+	mes " ";
+	mes "Wings do not work in there - the ground";
+	mes "refuses them. Every arena has a man of";
+	mes "mine standing in it who will send you";
+	mes "home. Find him, or die; both work.";
+	close;
+
+
+// ------------------------------------------------------------
+//  Der Sprung
+// ------------------------------------------------------------
+//  getarg(0) Karte, getarg(1) 0 = freie Arena, 1 = Nightmare.
+//
+//  Die Ankunftspunkte stehen in .frei_x/.frei_y und
+//  .nacht_x/.nacht_y. Warum nicht warp <karte>,0,0: siehe den
+//  Abschnitt "DIE FALLE" ganz oben. Kurz - 0,0 kann in eine
+//  abgetrennte Flaeche werfen, aus der es keinen Weg zurueck
+//  gibt.
+//
+//  Die Abfrage auf .@anz > 1 vor dem rand ist kein Aberglaube: wer
+//  die Punktliste unten je auf einen Eintrag kuerzt, bekaeme sonst
+//  rand(1) - und tools/skript/pruefen.py beanstandet genau das,
+//  also machen wir es hier gar nicht erst.
+S_Springen:
+	.@karte$ = getarg(0);
+
+	if (getarg(1) == 0) {
+		.@anz = getarraysize(.frei_x);
+		.@r = (.@anz > 1 ? rand(.@anz) : 0);
+		warp .@karte$, .frei_x[.@r], .frei_y[.@r];
+	} else {
+		.@anz = getarraysize(.nacht_x);
+		.@r = (.@anz > 1 ? rand(.@anz) : 0);
+		warp .@karte$, .nacht_x[.@r], .nacht_y[.@r];
+	}
+	return;
+
+
+// ------------------------------------------------------------
+//  Einstellungen
+// ------------------------------------------------------------
+OnInit:
+	.frei$  = "pvp_n_1-1";   // Sandwich
+	.nacht$ = "pvp_n_1-4";   // Under cross
+
+	// Obergrenzen. Die Zahlen stammen aus npc/other/pvp.txt, wo
+	// die Nightmare-Raeume auf 32 und 64 gedeckelt sind. Sie sind
+	// keine technische Grenze, sondern eine ueber den Platz: die
+	// Sandwich-Karte hat 9.504 zusammenhaengende Zellen, das
+	// Kreuz nur 4.576.
+	.frei_max  = 64;
+	.nacht_max = 32;
+
+	setarray .duell$[0],
+	    "pvp_n_1-5", "pvp_n_2-5", "pvp_n_3-5", "pvp_n_4-5", "pvp_n_5-5";
+	setarray .duell_name$[0],
+	    "Compass I", "Compass II", "Compass III", "Compass IV", "Compass V";
+
+	// Acht Ankunftspunkte in der Sandwich-Arena. Ermittelt durch
+	// Flutfuellung von 105,100 aus - der Engstelle zwischen den
+	// beiden Hallen - und danach auf 5x5 freie Nachbarschaft
+	// geprueft. Alle acht liegen also in der Hauptflaeche und
+	// nicht in einer Ecke.
+	//
+	// 84,60 statt des naheliegenden 70,65: dort steht der
+	// Rueckweg-NPC der Suedhalle. Auf einer NPC-Zelle anzukommen
+	// geht zwar, sieht aber aus wie ein Fehler.
+	setarray .frei_x[0],  84, 160,  58, 133, 105, 120, 160, 104;
+	setarray .frei_y[0],  60, 122, 150,  51, 110, 150,  76,  69;
+
+	// Vier fuer das Kreuz: Mitte, Suedarm, Westraum, Ostraum.
+	// Dieselbe Pruefung, Flutfuellung von 100,100 aus.
+	setarray .nacht_x[0], 100,  94,  35, 162;
+	setarray .nacht_y[0], 100,  63, 127, 123;
+
+	// Ein Schild ueber dem Kopf mit der aktuellen Besetzung der
+	// freien Arena. Grenze 0 heisst: niemand kann hineinklicken,
+	// es ist reine Anzeige - dieselbe Bauart wie in
+	// npc/other/pvp.txt.
+	waitingroom "Free arena: 0 fighting", 0;
+	initnpctimer;
+	end;
+
+// Alle 30 Sekunden neu beschriften. Ein waitingroom-Text laesst
+// sich nicht aendern, nur ersetzen - also abreissen und neu
+// aufstellen. setnpctimer 0 startet die Uhr wieder, ohne dass ein
+// zweiter Zaehler entsteht.
+OnTimer30000:
+	delwaitingroom;
+	waitingroom "Free arena: " + getmapusers(.frei$) + " fighting", 0;
+	setnpctimer 0;
+	end;
+}
+
+
+// ------------------------------------------------------------
+//  Der Rueckweg
+// ------------------------------------------------------------
+//  Ein Skript, vierzehn Standorte. Zielt auf veins 208,118 -
+//  ein Feld noerdlich des Duellmeisters, weil dessen eigene
+//  Zelle belegt ist.
+//
+//  Kein savepoint und kein "SavePoint" als Warpziel: die
+//  pvp_n-Karten tragen nosave SavePoint, wer sich abmeldet steht
+//  ohnehin an seinem Speicherpunkt. Hier soll man dorthin
+//  zurueck, wo man losgegangen ist.
+-	script	Way Out#safa_pvp::safa_pvp_raus	-1,{
+
+	mes "[Way Out]";
+	mes "Had enough?";
+	next;
+
+	if (select("Back to Veins:Stay in here") == 2) {
+		mes "[Way Out]";
+		mes "Then get back to it.";
+		close;
+	}
+
+	close2;
+	warp "veins", 208, 118;
+	end;
+}
+
+// Sandwich - je einer in der Sued- und in der Nordhalle. Die
+// Engstelle bei x 103..108 bleibt frei: dort wird gekaempft, und
+// ein NPC im Gang waere ein Pfropfen.
+pvp_n_1-1,70,65,4	duplicate(safa_pvp_raus)	Way Out#pvp_frei_s	2_M_SWORDMASTER
+pvp_n_1-1,120,132,4	duplicate(safa_pvp_raus)	Way Out#pvp_frei_n	2_M_SWORDMASTER
+
+// Under cross - Nord- und Suedarm, beide 19 beziehungsweise 12
+// Zellen breit. Die Kreuzung bei 100,100 bleibt frei.
+pvp_n_1-4,100,140,4	duplicate(safa_pvp_raus)	Way Out#pvp_nacht_n	2_M_SWORDMASTER
+pvp_n_1-4,100,60,4	duplicate(safa_pvp_raus)	Way Out#pvp_nacht_s	2_M_SWORDMASTER
+
+// Compass - Nord- und Suedkammer jedes Raums, je 12 Zellen breit.
+// Der Ring in der Mitte bleibt leer, dort wird gefochten.
+pvp_n_1-5,100,135,4	duplicate(safa_pvp_raus)	Way Out#pvp_duell1n	2_M_SWORDMASTER
+pvp_n_1-5,100,65,4	duplicate(safa_pvp_raus)	Way Out#pvp_duell1s	2_M_SWORDMASTER
+pvp_n_2-5,100,135,4	duplicate(safa_pvp_raus)	Way Out#pvp_duell2n	2_M_SWORDMASTER
+pvp_n_2-5,100,65,4	duplicate(safa_pvp_raus)	Way Out#pvp_duell2s	2_M_SWORDMASTER
+pvp_n_3-5,100,135,4	duplicate(safa_pvp_raus)	Way Out#pvp_duell3n	2_M_SWORDMASTER
+pvp_n_3-5,100,65,4	duplicate(safa_pvp_raus)	Way Out#pvp_duell3s	2_M_SWORDMASTER
+pvp_n_4-5,100,135,4	duplicate(safa_pvp_raus)	Way Out#pvp_duell4n	2_M_SWORDMASTER
+pvp_n_4-5,100,65,4	duplicate(safa_pvp_raus)	Way Out#pvp_duell4s	2_M_SWORDMASTER
+pvp_n_5-5,100,135,4	duplicate(safa_pvp_raus)	Way Out#pvp_duell5n	2_M_SWORDMASTER
+pvp_n_5-5,100,65,4	duplicate(safa_pvp_raus)	Way Out#pvp_duell5s	2_M_SWORDMASTER
+
+
+// ------------------------------------------------------------
+//  Kartenregeln
+// ------------------------------------------------------------
+//  Diese Zeilen ueberschreiben npc/mapflag/nightmare.txt, weil
+//  scripts_custom.conf spaeter eingelesen wird. Siehe Kopf.
+//
+//  pvp, noteleport, nomemo, nosave SavePoint, nocostume und
+//  pvp_noguild stehen bereits in npc/mapflag/ und sind hier
+//  bewusst nicht wiederholt - sie gelten fuer alle 40
+//  pvp_n-Karten und gehoeren nicht uns.
+//
+//  Was fehlt und deshalb hier steht:
+//
+//    pvp_nightmaredrop off  Ausruestung bleibt, wo sie ist
+//    nopenalty              kein EXP-Verlust beim Tod. Die
+//                           pvp_y-Karten haben es, die pvp_n
+//                           nicht - ein Versehen im Original,
+//                           denn dort war jede pvp_n-Karte eine
+//                           Nightmare-Karte.
+//    nobranch               kein Dead Branch. Ein beschworenes
+//                           Monster in einer Duellrunde
+//                           entscheidet sie.
+//    noicewall              kein Ice Wall. In den Compass-
+//                           Gaengen und im Sandwich-Hals liesse
+//                           sich damit der Gegner einmauern.
+//    novending              kein Laden mitten in der Arena.
+
+// Freie Arena
+pvp_n_1-1	mapflag	pvp_nightmaredrop	off
+pvp_n_1-1	mapflag	nopenalty
+pvp_n_1-1	mapflag	nobranch
+pvp_n_1-1	mapflag	noicewall
+pvp_n_1-1	mapflag	novending
+
+// Duellraeume
+pvp_n_1-5	mapflag	pvp_nightmaredrop	off
+pvp_n_1-5	mapflag	nopenalty
+pvp_n_1-5	mapflag	nobranch
+pvp_n_1-5	mapflag	noicewall
+pvp_n_1-5	mapflag	novending
+pvp_n_2-5	mapflag	pvp_nightmaredrop	off
+pvp_n_2-5	mapflag	nopenalty
+pvp_n_2-5	mapflag	nobranch
+pvp_n_2-5	mapflag	noicewall
+pvp_n_2-5	mapflag	novending
+pvp_n_3-5	mapflag	pvp_nightmaredrop	off
+pvp_n_3-5	mapflag	nopenalty
+pvp_n_3-5	mapflag	nobranch
+pvp_n_3-5	mapflag	noicewall
+pvp_n_3-5	mapflag	novending
+pvp_n_4-5	mapflag	pvp_nightmaredrop	off
+pvp_n_4-5	mapflag	nopenalty
+pvp_n_4-5	mapflag	nobranch
+pvp_n_4-5	mapflag	noicewall
+pvp_n_4-5	mapflag	novending
+pvp_n_5-5	mapflag	pvp_nightmaredrop	off
+pvp_n_5-5	mapflag	nopenalty
+pvp_n_5-5	mapflag	nobranch
+pvp_n_5-5	mapflag	noicewall
+pvp_n_5-5	mapflag	novending
+
+// Nightmare-Arena. Der Drop-Wert steht hier ausgeschrieben,
+// obwohl nightmare.txt ihn schon setzt: 300 von 10000 sind drei
+// Prozent, und diese drei Prozent sind der halbe Grund, warum
+// dieser Raum von den anderen getrennt ist.
+//
+// nopenalty steht hier absichtlich NICHT. Der EXP-Verlust ist
+// Teil des Einsatzes und wird dem Spieler zweimal angesagt.
+pvp_n_1-4	mapflag	pvp_nightmaredrop	random,equip,300
+pvp_n_1-4	mapflag	nobranch
+pvp_n_1-4	mapflag	noicewall
+pvp_n_1-4	mapflag	novending
