@@ -1146,6 +1146,72 @@ Body:
     Script: |
       bonus2 bExpAddRace,RC_All,50;
 
+# ----------------------------------------------------------
+#  Die beiden Verdoppler
+# ----------------------------------------------------------
+#  WARUM SHADOW GEAR UND NICHT COSTUME
+#
+#  Costume-Plaetze gibt es in rAthena nur fuer Kopf (oben,
+#  mitte, unten) und Umhang - fuer Waffe und Schild nicht.
+#  Shadow Gear ist das Gegenstueck dazu: eigene Plaetze
+#  (Shadow_Weapon, Shadow_Shield), keine Optik, keine
+#  Kampfwirkung, blockiert weder die echte Waffe noch das
+#  echte Schild. Genau das, was hier gebraucht wird - und das
+#  Set benutzt Shadow-Plaetze fuer Robe, Boots und Sigil
+#  ohnehin schon.
+#
+#  WARUM DAS SKRIPT UND KEINE KOMBINATION
+#
+#  Beide VERDOPPELN den Bonus, den das Set gerade bringt - bei
+#  jeder Teilezahl, nicht erst beim vollstaendigen Set:
+#
+#      1 Teil  50 %  + Waffe  100 %  + Schild  200 %
+#      8 Teile 800 % + Waffe 1600 %  + Schild 3200 %
+#
+#  Eine Kombination kann nur einen FESTEN Betrag addieren und
+#  kennt den laufenden Bonus nicht. Sie verlangt ausserdem
+#  bestimmte Gegenstaende, nicht eine Anzahl - fuer acht Teile
+#  waeren das alle Teilmengen, also 256 Eintraege je Set und
+#  Aufsatz.
+#
+#  Deshalb rechnet F_SafaFarmSet in npc/custom/safa_farmsets.txt
+#  bei jeder Werteberechnung nach, was gerade anliegt. Die
+#  Begruendung im Einzelnen steht dort.
+#
+#  Ohne ein einziges Set-Teil geben beide gar nichts.
+
+  - Id: 30057
+    AegisName: Scholars_Quill
+    Name: Scholar's Quill
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 100
+    Defense: 0
+    Slots: 1
+    Locations:
+      Shadow_Weapon: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      callfunc "F_SafaFarmSet", 30050, 0;
+
+  - Id: 30058
+    AegisName: Scholars_Tome
+    Name: Scholar's Tome
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 100
+    Defense: 0
+    Slots: 1
+    Locations:
+      Shadow_Shield: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      callfunc "F_SafaFarmSet", 30050, 1;
+
 # ==========================================================
 #  Drop-Farm-Set  -  je +50 %, vollstaendig noch einmal +400 %
 #  Waehrung beim Supply Master: Destiny Coin (30001)
@@ -1268,6 +1334,43 @@ Body:
     Refineable: false
     Script: |
       bonus2 bDropAddRace,RC_All,50;
+
+# ----------------------------------------------------------
+#  Die beiden Verdoppler - Begruendung siehe beim
+#  Scholar's Quill weiter oben.
+# ----------------------------------------------------------
+
+  - Id: 30067
+    AegisName: Prospectors_Pick
+    Name: Prospector's Pick
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 100
+    Defense: 0
+    Slots: 1
+    Locations:
+      Shadow_Weapon: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      callfunc "F_SafaFarmSet", 30060, 0;
+
+  - Id: 30068
+    AegisName: Prospectors_Pan
+    Name: Prospector's Pan
+    Type: Shadowgear
+    Buy: 0
+    Sell: 0
+    Weight: 100
+    Defense: 0
+    Slots: 1
+    Locations:
+      Shadow_Shield: true
+    EquipLevelMin: 1
+    Refineable: false
+    Script: |
+      callfunc "F_SafaFarmSet", 30060, 1;
 
 
 

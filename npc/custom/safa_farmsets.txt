@@ -1,0 +1,140 @@
+// ============================================================
+//  SafaRO - die Verdoppler der Farming-Sets
+// ============================================================
+//
+//  WAS GEWUENSCHT WAR
+//
+//  Zum Scholar's Set (Erfahrung) und zum Prospector's Set
+//  (Beute) gehoeren zwei Aufsaetze: eine Schattenwaffe und ein
+//  Schattenschild. Jeder von beiden VERDOPPELT den Bonus, den
+//  das Set gerade bringt - und zwar bei jeder Teilezahl:
+//
+//      1 Teil   50 %   + Waffe   100 %   + Schild   200 %
+//      4 Teile 200 %   + Waffe   400 %   + Schild   800 %
+//      8 Teile 800 %   + Waffe  1600 %   + Schild  3200 %
+//
+//  WARUM DAS NICHT UEBER item_combos.yml GEHT
+//
+//  Eine Kombination kann nur einen FESTEN Betrag addieren. Sie
+//  weiss nicht, wie hoch der laufende Bonus ist, und es gibt
+//  keinen Skriptzugriff darauf - weder auf die Summe noch auf
+//  einen Multiplikator. Ein Verdoppeln laesst sich damit nur
+//  nachbauen, indem man fuer JEDE Teilezahl eine eigene
+//  Kombination anlegt, und eine Kombination verlangt bestimmte
+//  Gegenstaende, nicht eine Anzahl. Fuer acht Teile waeren das
+//  alle Teilmengen - 256 Eintraege je Set und Aufsatz.
+//
+//  Deshalb rechnet diese Funktion nach, was gerade anliegt.
+//
+//  WANN SIE LAEUFT
+//
+//  Sie steht im Script-Feld der beiden Aufsaetze. Item-Skripte
+//  werden bei JEDER Neuberechnung der Spielerwerte ausgefuehrt -
+//  also auch, sobald ein weiteres Set-Teil an- oder abgelegt
+//  wird. Die Zahl stimmt damit von selbst, ohne Ereignis und
+//  ohne Timer.
+//
+//  getequipid liest nur sd->equip_index und loest keine weitere
+//  Berechnung aus; eine Schleife kann daraus nicht entstehen.
+//
+//
+//  +++ ACHTUNG: DIE 50 UND DIE 400 STEHEN DOPPELT +++
+//
+//  Die Grundwerte des Sets stehen an drei Stellen, und sie
+//  muessen zusammenpassen:
+//
+//    db/import/item_db.yml       je Teil  bonus2 ...,50
+//    db/import/item_combos.yml   acht Teile vollstaendig  +400
+//    DIESE DATEI                 rechnet beides nach
+//
+//  Wer dort etwas aendert, aendert es hier mit. Ein Fehler
+//  faellt nicht auf: die Aufsaetze verdoppelten dann auf den
+//  falschen Wert, und im Spiel sieht man nur eine Zahl, die
+//  nicht stimmt.
+// ============================================================
+
+// ------------------------------------------------------------
+//  Die Ids liegen lueckenlos, und das ist Absicht
+// ------------------------------------------------------------
+//  Scholar 30050-30058, Prospector 30060-30068, in derselben
+//  Reihenfolge. Deshalb genuegt der Funktion die erste Id des
+//  Sets; alles Weitere ist ein Abstand darauf:
+//
+//      +0  Beret    Costume Head Top
+//      +1  Lens     Costume Head Mid
+//      +2  Charm    Costume Head Low
+//      +3  Robe     Shadow Armor
+//      +4  Mantle   Costume Garment
+//      +5  Boots    Shadow Shoes
+//      +6  Sigil    Shadow Accessory, RECHTS UND LINKS
+//      +7  Waffe    Shadow Weapon
+//      +8  Schild   Shadow Shield
+//
+//  Wird das Set je erweitert, muss diese Reihenfolge erhalten
+//  bleiben - sonst zaehlt die Funktion stillschweigend falsch.
+// ------------------------------------------------------------
+//
+//  Aufruf aus dem Item-Skript:
+//
+//      callfunc "F_SafaFarmSet", <erste Id des Sets>, <Rolle>
+//
+//      Rolle 0 = Waffe, 1 = Schild
+// ------------------------------------------------------------
+function	script	F_SafaFarmSet	{
+	.@basis = getarg(0);
+	.@rolle = getarg(1);
+
+	// --- Wieviele Teile liegen an ----------------------------
+	//  Das Sigil zaehlt ZWEIMAL, weil es in beide
+	//  Accessoire-Plaetze passt und man es zweimal kauft.
+	//  Genau so ist auch die Kombination in item_combos.yml
+	//  gebaut - dort steht die Id doppelt in der Liste.
+	//  Deshalb sind acht Teile das Ziel und nicht sieben.
+	.@n = 0;
+	if (getequipid(EQI_COSTUME_HEAD_TOP) == .@basis)     .@n++;
+	if (getequipid(EQI_COSTUME_HEAD_MID) == .@basis + 1) .@n++;
+	if (getequipid(EQI_COSTUME_HEAD_LOW) == .@basis + 2) .@n++;
+	if (getequipid(EQI_SHADOW_ARMOR)     == .@basis + 3) .@n++;
+	if (getequipid(EQI_COSTUME_GARMENT)  == .@basis + 4) .@n++;
+	if (getequipid(EQI_SHADOW_SHOES)     == .@basis + 5) .@n++;
+	if (getequipid(EQI_SHADOW_ACC_R)     == .@basis + 6) .@n++;
+	if (getequipid(EQI_SHADOW_ACC_L)     == .@basis + 6) .@n++;
+
+	// Kein Set-Teil, nichts zu verdoppeln. Der Aufsatz allein
+	// ist wertlos - das ist Absicht und steht so auch im Text
+	// des Supply Master.
+	if (.@n == 0)
+		return;
+
+	// --- Was das Set gerade bringt ---------------------------
+	.@wert = .@n * 50;
+	if (.@n == 8)
+		.@wert += 400;
+
+	// --- Was dieser Aufsatz beitraegt ------------------------
+	//  Verdoppeln heisst: noch einmal dasselbe obendrauf.
+	//
+	//  Beim Schild kommt es darauf an, ob die Waffe schon
+	//  liegt. Sie hat den Wert bereits verdoppelt, das Schild
+	//  verdoppelt also die verdoppelte Summe - und muss dafuer
+	//  das Doppelte beitragen.
+	//
+	//      Set 50, Waffe +50            = 100
+	//      Set 50, Waffe +50, Schild +100 = 200
+	//
+	//  Umgekehrt gilt dasselbe: liegt nur das Schild und keine
+	//  Waffe, verdoppelt es schlicht einfach. Beide Wege fuehren
+	//  auf denselben Wert, keiner der beiden Aufsaetze ist vom
+	//  anderen abhaengig.
+	.@zu = .@wert;
+	if (.@rolle == 1 && getequipid(EQI_SHADOW_WEAPON) == .@basis + 7)
+		.@zu = .@wert * 2;
+
+	// --- Und je nach Set die richtige Groesse ----------------
+	if (.@basis == 30050)
+		bonus2 bExpAddRace, RC_All, .@zu;
+	else
+		bonus2 bDropAddRace, RC_All, .@zu;
+
+	return;
+}

@@ -23,8 +23,17 @@
 //  Preise gestaffelt: Kopfteile 100, Koerperteile 150,
 //  Sigil 200. Das Sigil braucht man zweimal, ein volles Set
 //  kostet damit 1.150 Coins.
--	itemshop	ExpFarm#supply	-1,30001,30050:100,30051:100,30052:100,30053:150,30054:150,30055:150,30056:200
--	itemshop	DropFarm#supply	-1,30001,30060:100,30061:100,30062:100,30063:150,30064:150,30065:150,30066:200
+//
+//  Die beiden Verdoppler stehen bewusst weit darueber: 3.000
+//  je Stueck, zusammen 6.000 - mehr als das Fuenffache des
+//  ganzen Sets. Sie sind auch mehr wert: das Set bringt 800
+//  Prozent, mit beiden Aufsaetzen sind es 3.200. Wer sie hat,
+//  soll dafuer gearbeitet haben und nicht nebenbei
+//  eingesammelt haben.
+//
+//  Volle Ausbaustufe: 1.150 + 6.000 = 7.150 Coins je Set.
+-	itemshop	ExpFarm#supply	-1,30001,30050:100,30051:100,30052:100,30053:150,30054:150,30055:150,30056:200,30057:3000,30058:3000
+-	itemshop	DropFarm#supply	-1,30001,30060:100,30061:100,30062:100,30063:150,30064:150,30065:150,30066:200,30067:3000,30068:3000
 
 veins,206,125,4	script	Supply Master#safa	4_M_04,{
 
@@ -133,6 +142,9 @@ S_JobSets:
 		mes "[Supply Master]";
 		mes "The ^0000FF" + .jsname$[.@idx[.@w - 1]] + " Set^000000. Seven pieces,";
 		mes "and the Ring twice - eight in all.";
+		// Nur die Job-Sets. Die Farming-Sets haben seit den
+		// beiden Verdopplern zehn Teile, laufen aber ueber
+		// einen anderen Zweig und nicht ueber diese Zeile.
 		close2;
 		callshop .jsladen$[.@idx[.@w - 1]], 1;
 		end;
@@ -161,6 +173,31 @@ S_Erklaerung:
 	mes "Eight pieces at fifty is ^0000FF400%^000000. Wear all";
 	mes "eight at once and that doubles again -";
 	mes "^0000FF800%^000000 in total.";
+	next;
+	mes "[Supply Master]";
+	mes "Then there are two more. A ^0000FFshadow weapon^000000";
+	mes "and a ^0000FFshadow shield^000000. They sit in their own";
+	mes "slots - your real weapon stays where it is.";
+	next;
+	mes "[Supply Master]";
+	mes "Each one ^0000FFdoubles^000000 whatever you are";
+	mes "wearing right now. Not a fixed amount -";
+	mes "double.";
+	next;
+	mes "[Supply Master]";
+	mes "One piece is 50%. With the weapon that is";
+	mes "^0000FF100%^000000, with the shield as well ^0000FF200%^000000. You";
+	mes "do not need the full set for that.";
+	next;
+	mes "[Supply Master]";
+	mes "All eight pieces make 800%. Add the weapon";
+	mes "and you are at ^0000FF1600%^000000, add the shield and";
+	mes "you are at ^0000FF3200%^000000.";
+	next;
+	mes "[Supply Master]";
+	mes "Without a single set piece they do nothing";
+	mes "at all - there is nothing to double. And";
+	mes "they cost ^0000FF3000 Coins^000000 each. Your choice.";
 	next;
 	mes "[Supply Master]";
 	mes "Mixing the two sets works, but you lose";

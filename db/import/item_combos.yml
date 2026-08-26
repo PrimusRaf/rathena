@@ -47,6 +47,26 @@ Header:
 #  zweimal dasselbe.
 # ==========================================================
 
+# ==========================================================
+#  +++ DIE 400 STEHT DOPPELT +++
+# ----------------------------------------------------------
+#  Die beiden Aufsaetze der Farming-Sets - Schattenwaffe und
+#  Schattenschild - VERDOPPELN den laufenden Set-Bonus. Sie
+#  muessen ihn dafuer kennen und rechnen ihn selbst nach, in
+#  npc/custom/safa_farmsets.txt (F_SafaFarmSet).
+#
+#  Diese Funktion enthaelt dieselben 400 noch einmal. Wer sie
+#  hier aendert, aendert sie dort mit. Sonst verdoppeln die
+#  Aufsaetze auf einen anderen Wert als den, der tatsaechlich
+#  anliegt - und im Spiel sieht man nur eine Zahl, die nicht
+#  stimmt.
+#
+#  Ueber eine Kombination waeren die Aufsaetze nicht zu
+#  bauen: eine Kombination addiert einen FESTEN Betrag und
+#  kennt den laufenden Bonus nicht. Die Begruendung im
+#  Einzelnen steht im Kopf von safa_farmsets.txt.
+# ==========================================================
+
 Body:
   - Combos:
       - Combo:
