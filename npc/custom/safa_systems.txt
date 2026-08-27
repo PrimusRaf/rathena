@@ -123,6 +123,30 @@ function	script	F_SafaSkillProzent	{
 }
 
 
+// ------------------------------------------------------------
+//  Die Statuswerte je Tier
+// ------------------------------------------------------------
+//  Dieselbe Geschichte wie beim Prozentsatz darueber: die Zahl
+//  stand bis zum Umbau in jedem einzelnen Geschenk als
+//  bonus bAllStats,N. Sie haengt jetzt an der Zauberzeit-Frage -
+//  wer die feste Zauberzeit weghaben will, bekommt die Haelfte -
+//  und muss deshalb an einer Stelle stehen, an der man rechnen
+//  kann.
+//
+//  Die Werte sind unveraendert die der alten Geschenke,
+//  nachgezaehlt ueber alle 90: kein einziges wich ab.
+function	script	F_SafaStatWert	{
+	switch (getarg(0)) {
+	case 4: return 25;
+	case 5: return 40;
+	case 6: return 60;
+	case 7: return 85;
+	case 8: return 120;
+	}
+	return 0;
+}
+
+
 function	script	F_SafaGift	{
 	switch (getarg(0)) {
 	case 1: return "bonus2 bDropAddRace,RC_ALL,15; bonus2 bExpAddRace,RC_ALL,-10;";
@@ -145,81 +169,81 @@ function	script	F_SafaGift	{
 	case 304: return "bonus2 bWeaponDamageRate,W_MACE,60; bonus2 bSkillAtk,\"AL_HEAL\",60; bonus2 bSkillAtk,\"AL_HOLYLIGHT\",60; bonus bAllStats,16; bonus bFixedCastrate,-100;";
 	case 305: return "bonus2 bWeaponDamageRate,W_1HAXE,60; bonus2 bSkillAtk,\"MC_MAMMONITE\",60; bonus bAllStats,16;";
 	case 306: return "bonus2 bWeaponDamageRate,W_DAGGER,60; bonus2 bSkillAtk,\"TF_POISON\",60; bonus bAllStats,16;";
-	case 401: return "bonus2 bWeaponDamageRate,W_2HSPEAR,75; bonus2 bWeaponDamageRate,W_2HSWORD,75; bonus bAllStats,25;";
-	case 402: return "bonus2 bWeaponDamageRate,W_1HSWORD,75; bonus2 bWeaponDamageRate,W_1HSPEAR,75; bonus bAllStats,25; bonus bFixedCastrate,-100;";
-	case 403: return "bonus bMatkRate,75; bonus bAllStats,25; bonus bFixedCastrate,-100;";
-	case 404: return "bonus bMatkRate,75; bonus bAllStats,25; bonus bFixedCastrate,-100;";
-	case 405: return "bonus2 bWeaponDamageRate,W_BOW,75; bonus bAllStats,25;";
-	case 406: return "bonus2 bWeaponDamageRate,W_WHIP,75; bonus2 bWeaponDamageRate,W_MUSICAL,75; bonus bAllStats,25;";
-	case 407: return "bonus2 bWeaponDamageRate,W_MACE,75; bonus bAllStats,25; bonus bFixedCastrate,-100;";
-	case 408: return "bonus2 bWeaponDamageRate,W_KNUCKLE,75; bonus bAllStats,25;";
-	case 409: return "bonus2 bWeaponDamageRate,W_2HAXE,75; bonus bAllStats,25;";
-	case 410: return "bonus2 bWeaponDamageRate,W_1HAXE,75; bonus bHomDamage,75; bonus bAllStats,25;";
-	case 411: return "bonus2 bWeaponDamageRate,W_KATAR,75; bonus bAllStats,25;";
-	case 412: return "bonus2 bWeaponDamageRate,W_DAGGER,75; bonus bAllStats,25;";
-	case 418: return "bonus bMatkRate,75; bonus bAllStats,25; bonus bFixedCastrate,-100;";
-	case 501: return "bonus2 bWeaponDamageRate,W_2HSPEAR,150; bonus2 bWeaponDamageRate,W_2HSWORD,150; bonus bAllStats,40;";
-	case 502: return "bonus2 bWeaponDamageRate,W_1HSWORD,150; bonus2 bWeaponDamageRate,W_1HSPEAR,150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
-	case 503: return "bonus bMatkRate,150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
-	case 504: return "bonus bMatkRate,150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
-	case 505: return "bonus2 bWeaponDamageRate,W_BOW,150; bonus bAllStats,40;";
-	case 506: return "bonus2 bWeaponDamageRate,W_WHIP,150; bonus2 bWeaponDamageRate,W_MUSICAL,150; bonus bAllStats,40;";
-	case 507: return "bonus2 bWeaponDamageRate,W_MACE,150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
-	case 508: return "bonus2 bWeaponDamageRate,W_KNUCKLE,150; bonus bAllStats,40;";
-	case 509: return "bonus2 bWeaponDamageRate,W_2HAXE,150; bonus bAllStats,40;";
+	case 401: return "";
+	case 402: return "";
+	case 403: return "";
+	case 404: return "";
+	case 405: return "";
+	case 406: return "";
+	case 407: return "";
+	case 408: return "";
+	case 409: return "";
+	case 410: return "bonus bHomDamage,75;";
+	case 411: return "";
+	case 412: return "";
+	case 418: return "";
+	case 501: return "";
+	case 502: return "";
+	case 503: return "";
+	case 504: return "";
+	case 505: return "";
+	case 506: return "";
+	case 507: return "";
+	case 508: return "";
+	case 509: return "";
 	// Der Seeker IST der Alchemist von Tier A - deshalb steht hier
 	// kein zweites Alchemisten-Geschenk. Er trug frueher nur den
 	// Homunkulus-Teil (und den auch nur aus status.cpp, siehe dort
 	// Nr. 510); Waffe und Fertigkeiten kamen erst jetzt dazu, damit
 	// er wie 410, 610/710 und 810 aus allen drei Teilen besteht.
-	case 510: return "bonus2 bWeaponDamageRate,W_1HAXE,150; bonus bHomDamage,150; bonus bAllStats,40;";
-	case 511: return "bonus2 bWeaponDamageRate,W_KATAR,150; bonus bAllStats,40;";
-	case 512: return "bonus2 bWeaponDamageRate,W_DAGGER,150; bonus bAllStats,40;";
-	case 518: return "bonus bMatkRate,150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
-	case 601: return "bonus2 bWeaponDamageRate,W_2HSPEAR,300; bonus2 bWeaponDamageRate,W_2HSWORD,300; bonus bAllStats,60;";
-	case 602: return "bonus2 bWeaponDamageRate,W_1HSWORD,300; bonus2 bWeaponDamageRate,W_1HSPEAR,300; bonus bAllStats,60;";
-	case 603: return "bonus bMatkRate,300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
-	case 604: return "bonus bMatkRate,300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
-	case 605: return "bonus2 bWeaponDamageRate,W_BOW,300; bonus bAllStats,60;";
-	case 606: return "bonus2 bWeaponDamageRate,W_MUSICAL,300; bonus2 bWeaponDamageRate,W_WHIP,300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
-	case 607: return "bonus2 bWeaponDamageRate,W_MACE,300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
-	case 608: return "bonus2 bWeaponDamageRate,W_KNUCKLE,300; bonus bAllStats,60;";
-	case 609: return "bonus2 bWeaponDamageRate,W_2HAXE,300; bonus bSummonDamage,300; bonus bAllStats,60;";
-	case 610: return "bonus2 bWeaponDamageRate,W_1HAXE,300; bonus bHomDamage,300; bonus bAllStats,60;";
-	case 611: return "bonus2 bWeaponDamageRate,W_KATAR,300; bonus bAllStats,60;";
-	case 612: return "bonus2 bWeaponDamageRate,W_DAGGER,300; bonus bAllStats,60;";
-	case 615: return "bonus2 bWeaponDamageRate,W_HUUMA,300; bonus2 bWeaponDamageRate,W_DAGGER,300; bonus bAllStats,60;";
-	case 616: return "bonus2 bWeaponDamageRate,W_RIFLE,300; bonus2 bWeaponDamageRate,W_GATLING,300; bonus bAllStats,60;";
-	case 617: return "bonus bMatkRate,300; bonus2 bWeaponDamageRate,W_1HSWORD,300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
-	case 618: return "bonus bMatkRate,300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
-	case 701: return "bonus2 bWeaponDamageRate,W_2HSPEAR,600; bonus2 bWeaponDamageRate,W_2HSWORD,600; bonus bAllStats,85;";
-	case 702: return "bonus2 bWeaponDamageRate,W_1HSWORD,600; bonus2 bWeaponDamageRate,W_1HSPEAR,600; bonus bAllStats,85;";
-	case 703: return "bonus bMatkRate,600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
-	case 704: return "bonus bMatkRate,600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
-	case 705: return "bonus2 bWeaponDamageRate,W_BOW,600; bonus bAllStats,85;";
-	case 706: return "bonus2 bWeaponDamageRate,W_MUSICAL,600; bonus2 bWeaponDamageRate,W_WHIP,600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
-	case 707: return "bonus2 bWeaponDamageRate,W_MACE,600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
-	case 708: return "bonus2 bWeaponDamageRate,W_KNUCKLE,600; bonus bAllStats,85;";
-	case 709: return "bonus2 bWeaponDamageRate,W_2HAXE,600; bonus bSummonDamage,600; bonus bAllStats,85;";
-	case 710: return "bonus2 bWeaponDamageRate,W_1HAXE,600; bonus bHomDamage,600; bonus bAllStats,85;";
-	case 711: return "bonus2 bWeaponDamageRate,W_KATAR,600; bonus bAllStats,85;";
-	case 712: return "bonus2 bWeaponDamageRate,W_DAGGER,600; bonus bAllStats,85;";
-	case 715: return "bonus2 bWeaponDamageRate,W_HUUMA,600; bonus2 bWeaponDamageRate,W_DAGGER,600; bonus bAllStats,85;";
-	case 716: return "bonus2 bWeaponDamageRate,W_RIFLE,600; bonus2 bWeaponDamageRate,W_GATLING,600; bonus bAllStats,85;";
-	case 717: return "bonus bMatkRate,600; bonus2 bWeaponDamageRate,W_1HSWORD,600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
-	case 718: return "bonus bMatkRate,600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
-	case 801: return "bonus2 bWeaponDamageRate,W_2HSPEAR,1200; bonus2 bWeaponDamageRate,W_2HSWORD,1200; bonus bAllStats,120;";
-	case 802: return "bonus2 bWeaponDamageRate,W_1HSWORD,1200; bonus2 bWeaponDamageRate,W_1HSPEAR,1200; bonus bAllStats,120;";
-	case 803: return "bonus bMatkRate,1200; bonus bAllStats,120; bonus bFixedCastrate,-100;";
-	case 804: return "bonus bMatkRate,1200; bonus bAllStats,120; bonus bFixedCastrate,-100;";
-	case 805: return "bonus2 bWeaponDamageRate,W_BOW,1200; bonus bAllStats,120;";
-	case 806: return "bonus2 bWeaponDamageRate,W_MUSICAL,1200; bonus2 bWeaponDamageRate,W_WHIP,1200; bonus bAllStats,120; bonus bFixedCastrate,-100;";
-	case 807: return "bonus2 bWeaponDamageRate,W_MACE,1200; bonus bAllStats,120; bonus bFixedCastrate,-100;";
-	case 808: return "bonus2 bWeaponDamageRate,W_KNUCKLE,1200; bonus bAllStats,120;";
-	case 809: return "bonus2 bWeaponDamageRate,W_2HAXE,1200; bonus bSummonDamage,1200; bonus bAllStats,120;";
-	case 810: return "bonus2 bWeaponDamageRate,W_1HAXE,1200; bonus bHomDamage,1200; bonus bAllStats,120;";
-	case 811: return "bonus2 bWeaponDamageRate,W_KATAR,1200; bonus bAllStats,120;";
-	case 812: return "bonus2 bWeaponDamageRate,W_DAGGER,1200; bonus bAllStats,120;";
+	case 510: return "bonus bHomDamage,150;";
+	case 511: return "";
+	case 512: return "";
+	case 518: return "";
+	case 601: return "";
+	case 602: return "";
+	case 603: return "";
+	case 604: return "";
+	case 605: return "";
+	case 606: return "";
+	case 607: return "";
+	case 608: return "";
+	case 609: return "bonus bSummonDamage,300;";
+	case 610: return "bonus bHomDamage,300;";
+	case 611: return "";
+	case 612: return "";
+	case 615: return "";
+	case 616: return "";
+	case 617: return "";
+	case 618: return "";
+	case 701: return "";
+	case 702: return "";
+	case 703: return "";
+	case 704: return "";
+	case 705: return "";
+	case 706: return "";
+	case 707: return "";
+	case 708: return "";
+	case 709: return "bonus bSummonDamage,600;";
+	case 710: return "bonus bHomDamage,600;";
+	case 711: return "";
+	case 712: return "";
+	case 715: return "";
+	case 716: return "";
+	case 717: return "";
+	case 718: return "";
+	case 801: return "";
+	case 802: return "";
+	case 803: return "";
+	case 804: return "";
+	case 805: return "";
+	case 806: return "";
+	case 807: return "";
+	case 808: return "";
+	case 809: return "bonus bSummonDamage,1200;";
+	case 810: return "bonus bHomDamage,1200;";
+	case 811: return "";
+	case 812: return "";
 	case 207: return "bonus2 bWeaponDamageRate,W_FIST,30; bonus2 bSkillAtk,\"TK_STORMKICK\",30; bonus2 bSkillAtk,\"TK_DOWNKICK\",30; bonus bAllStats,8;";
 	case 208: return "bonus2 bWeaponDamageRate,W_HUUMA,30; bonus2 bWeaponDamageRate,W_DAGGER,30; bonus2 bSkillAtk,\"NJ_SYURIKEN\",30; bonus2 bSkillAtk,\"NJ_HUUMA\",30; bonus bAllStats,8;";
 	case 209: return "bonus2 bWeaponDamageRate,W_REVOLVER,30; bonus2 bSkillAtk,\"GS_TRIPLEACTION\",30; bonus2 bSkillAtk,\"GS_BULLSEYE\",30; bonus bAllStats,8;";
@@ -230,26 +254,26 @@ function	script	F_SafaGift	{
 	case 309: return "bonus2 bWeaponDamageRate,W_REVOLVER,60; bonus2 bSkillAtk,\"GS_TRIPLEACTION\",60; bonus2 bSkillAtk,\"GS_BULLSEYE\",60; bonus bAllStats,16;";
 	case 310: return "bonus bMatkRate,60; bonus2 bWeaponDamageRate,W_1HSWORD,60; bonus2 bSkillAtk,\"SM_BASH\",60; bonus2 bSkillAtk,\"MG_FIREBOLT\",60; bonus bAllStats,16; bonus bFixedCastrate,-100;";
 	case 311: return "bonus bMatkRate,60; bonus2 bSkillAtk,\"SU_BITE\",60; bonus2 bSkillAtk,\"SU_SCRATCH\",60; bonus bAllStats,16; bonus bFixedCastrate,-100;";
-	case 413: return "bonus2 bWeaponDamageRate,W_FIST,75; bonus bAllStats,25; bonus bFixedCastrate,-100;";
-	case 414: return "bonus bMatkRate,75; bonus bAllStats,25; bonus bFixedCastrate,-100;";
-	case 415: return "bonus2 bWeaponDamageRate,W_HUUMA,75; bonus2 bWeaponDamageRate,W_DAGGER,75; bonus bAllStats,25;";
-	case 416: return "bonus2 bWeaponDamageRate,W_RIFLE,75; bonus2 bWeaponDamageRate,W_GATLING,75; bonus bAllStats,25;";
-	case 417: return "bonus bMatkRate,75; bonus2 bWeaponDamageRate,W_1HSWORD,75; bonus bAllStats,25; bonus bFixedCastrate,-100;";
-	case 513: return "bonus2 bWeaponDamageRate,W_FIST,150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
-	case 514: return "bonus bMatkRate,150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
-	case 515: return "bonus2 bWeaponDamageRate,W_HUUMA,150; bonus2 bWeaponDamageRate,W_DAGGER,150; bonus bAllStats,40;";
-	case 516: return "bonus2 bWeaponDamageRate,W_RIFLE,150; bonus2 bWeaponDamageRate,W_GATLING,150; bonus bAllStats,40;";
-	case 517: return "bonus bMatkRate,150; bonus2 bWeaponDamageRate,W_1HSWORD,150; bonus bAllStats,40; bonus bFixedCastrate,-100;";
-	case 613: return "bonus2 bWeaponDamageRate,W_FIST,300; bonus bAllStats,60;";
-	case 614: return "bonus bMatkRate,300; bonus bAllStats,60; bonus bFixedCastrate,-100;";
-	case 713: return "bonus2 bWeaponDamageRate,W_FIST,600; bonus bAllStats,85;";
-	case 714: return "bonus bMatkRate,600; bonus bAllStats,85; bonus bFixedCastrate,-100;";
-	case 813: return "bonus2 bWeaponDamageRate,W_FIST,1200; bonus bAllStats,120;";
-	case 814: return "bonus bMatkRate,1200; bonus bAllStats,120; bonus bFixedCastrate,-100;";
-	case 815: return "bonus2 bWeaponDamageRate,W_HUUMA,1200; bonus2 bWeaponDamageRate,W_DAGGER,1200; bonus bAllStats,120; bonus bFixedCastrate,-100;";
-	case 816: return "bonus2 bWeaponDamageRate,W_RIFLE,1200; bonus2 bWeaponDamageRate,W_GATLING,1200; bonus bAllStats,120;";
-	case 817: return "bonus bMatkRate,1200; bonus2 bWeaponDamageRate,W_1HSWORD,1200; bonus bAllStats,120; bonus bFixedCastrate,-100;";
-	case 818: return "bonus bMatkRate,1200; bonus bAllStats,120; bonus bFixedCastrate,-100;";
+	case 413: return "";
+	case 414: return "";
+	case 415: return "";
+	case 416: return "";
+	case 417: return "";
+	case 513: return "";
+	case 514: return "";
+	case 515: return "";
+	case 516: return "";
+	case 517: return "";
+	case 613: return "";
+	case 614: return "";
+	case 713: return "";
+	case 714: return "";
+	case 813: return "";
+	case 814: return "";
+	case 815: return "";
+	case 816: return "";
+	case 817: return "";
+	case 818: return "";
 	}
 	return "";
 }
@@ -1567,7 +1591,19 @@ function	script	F_SafaRefresh	{
 	// bonus_script lehnt leere Skripte ab ("No Script string, No
 	// Duration"). Der Buff waere also stillschweigend weg, ohne dass
 	// im Spiel irgendetwas darauf hinweist.
-	if (isekai_gift > 0 && callfunc("F_SafaGift", isekai_gift) == "") {
+	// Geprueft wird der NAME und nicht mehr der Bonusstring.
+	//
+	// Seit die Wahl beim Spieler liegt, geben 82 der 90 Geschenke der
+	// Tiers B bis SSS einen LEEREN String zurueck - Waffe, MATK,
+	// Statuswerte und Zauberzeit setzt F_SafaRefresh weiter unten
+	// selbst zusammen, und was uebrig bleibt, ist bei den meisten
+	// nichts. Die alte Pruefung auf "" haette daraufhin jedem
+	// Charakter sein Geschenk abgenommen.
+	//
+	// F_SafaGiftName kennt alle 120 Nummern und faellt bei einer
+	// unbekannten auf "none" zurueck. Das ist der Test, der gemeint
+	// war.
+	if (isekai_gift > 0 && callfunc("F_SafaGiftName", isekai_gift) == "none") {
 		dispbottom "[System] Your gift no longer exists in this world. Speak to the Threshold Warden again.";
 		set isekai_gift, 0;
 	}
@@ -1580,12 +1616,15 @@ function	script	F_SafaRefresh	{
 	//
 	// Zuruecksetzen statt stehenlassen macht den Wetzstein wieder
 	// ansprechbar. Wer neu waehlt, waehlt aus der richtigen Liste.
-	if (isekai_gift == 0 && isekai_skill1 > 0) {
+	if (isekai_gift == 0 &&
+	    (isekai_skill1 > 0 || isekai_pfad > 0 || isekai_cast > 0)) {
 		set isekai_skill1, 0;
 		set isekai_skill1b, 0;
 		set isekai_skill2, 0;
 		set isekai_skill2b, 0;
-		dispbottom "[System] Your edges are gone with the gift. The Whetstone will take you again.";
+		set isekai_pfad, 0;
+		set isekai_cast, 0;
+		dispbottom "[System] Your choices are gone with the gift. The Warden will ask you again.";
 	}
 
 	if (isekai_gift > 0) {
@@ -1623,7 +1662,70 @@ function	script	F_SafaRefresh	{
 			if (isekai_skill2b > 0) .@gift$ += " bonus2 bSkillAtk," + isekai_skill2b + "," + .@pct + ";";
 		}
 
-		bonus_script .@gift$, 2000000, 512, 0, EFST_KINGS_GRACE;
+		// ------------------------------------------------------------
+		//  Schadensart, Statuswerte, Zauberzeit
+		// ------------------------------------------------------------
+		//  Ab Tier B traegt F_SafaGift nur noch, was klassenspezifisch
+		//  ist - bHomDamage beim Alchemisten, bSummonDamage beim
+		//  Mechanic. 82 der 90 Geschenke geben deshalb einen leeren
+		//  String zurueck. Alles andere entsteht hier, aus drei
+		//  Entscheidungen des Spielers:
+		//
+		//    isekai_pfad   1 physisch -> bAtkRate
+		//                  2 magisch  -> bMatkRate
+		//                  0 noch nicht gewaehlt -> Vorgabe aus der
+		//                    Tabelle, also das, was das Geschenk
+		//                    frueher war
+		//
+		//    isekai_cast   1 ja  -> bFixedCastrate,-100, dafuer HALBE
+		//                           Statuswerte
+		//                  2 nein-> volle Statuswerte
+		//                  0 noch nicht gewaehlt -> wie "nein"
+		//
+		//  WARUM KEINE WAFFENBINDUNG MEHR
+		//
+		//  bWeaponDamageRate wirkt ausschliesslich auf physischen
+		//  Waffenschaden EINER Waffengattung - gesetzt in pc.cpp:4709,
+		//  gelesen in battle.cpp:2439, und diese Funktion ruft nur der
+		//  physische Angriffspfad. Das hat zweimal geschadet: ein
+		//  Kagerou, der Ninja-Magie spielt, bekam gar nichts, und wer
+		//  seine Klasse mit einer anderen Waffe spielte als der
+		//  vorgesehenen, ebenfalls nicht. bAtkRate kennt weder
+		//  Gattung noch Ausnahme.
+		//
+		//  WARUM -100 UND NICHT WENIGER
+		//
+		//  bFixedCastrate stapelt nicht, pc.cpp:4422 rechnet
+		//  min(fixcastrate, val) - es gilt immer nur der staerkste
+		//  Wert. -100 nimmt die feste Zauberzeit ganz weg und
+		//  ueberschreibt dabei jede Ausruestung.
+		.@pfad = isekai_pfad;
+		if (.@pfad == 0 && .@tier >= 4) {
+			.@slot = (.@tier - 4) * 18 + (isekai_gift % 100) - 1;
+			.@pfad = getvariableofnpc(.vorgabe[.@slot], "#safa_skillwahl");
+		}
+
+		.@stat = callfunc("F_SafaStatWert", .@tier);
+
+		if (isekai_cast == 1) {
+			.@gift$ += " bonus bFixedCastrate,-100;";
+			.@stat = .@stat / 2;
+		}
+
+		if (.@pct > 0)
+			.@gift$ += " bonus " + (.@pfad == 2 ? "bMatkRate" : "bAtkRate")
+			         + "," + .@pct + ";";
+
+		if (.@stat > 0)
+			.@gift$ += " bonus bAllStats," + .@stat + ";";
+
+		// bonus_script lehnt einen leeren String ab ("No Script
+		// string, No Duration"). Fuer Tier F bis C kann er das sein -
+		// dort ist .@pct 0 und .@stat auch, und F_SafaGift traegt
+		// alles selbst. Die Pruefung kostet nichts und erspart eine
+		// Fehlerzeile im Sekundentakt.
+		if (.@gift$ != "")
+			bonus_script .@gift$, 2000000, 512, 0, EFST_KINGS_GRACE;
 	}
 
 	.@pen = death_count * 5;

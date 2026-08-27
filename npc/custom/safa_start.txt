@@ -422,16 +422,44 @@ S_Kanten:
 		return;
 	}
 
-	// Schon gewaehlt.
-	if (isekai_skill1 > 0) {
-		if (getgroupid() >= 99)
-			dispbottom "[Edges] Already set: " + isekai_skill1
-			         + " and " + isekai_skill2 + ".";
-		return;
-	}
-
 	.@slot = (.@tier - 4) * 18 + (isekai_gift % 100) - 1;
 	.@pct = callfunc("F_SafaSkillProzent", .@tier);
+
+	// ------------------------------------------------------------
+	//  Drei Fragen, in dieser Reihenfolge
+	// ------------------------------------------------------------
+	//    1. Klinge oder Zauber   S_Weg
+	//    2. die zwei Kanten      S_KantenNur
+	//    3. die feste Zauberzeit S_Cast
+	//
+	//  Jede prueft selbst, ob sie schon beantwortet ist, und kehrt
+	//  dann wortlos zurueck. Das ist wichtiger, als es aussieht: die
+	//  drei sind zu verschiedenen Zeiten dazugekommen, und ein
+	//  Charakter kann Frage 2 beantwortet haben, ohne 1 und 3 je
+	//  gesehen zu haben. Wer hier mit return abkuerzt, sobald eine
+	//  Frage erledigt ist, sperrt genau diese Leute aus.
+	// ------------------------------------------------------------
+	callsub S_Weg, .@pct;
+
+	if (isekai_skill1 == 0)
+		callsub S_KantenNur, .@slot, .@pct, .@tier;
+	else if (getgroupid() >= 99)
+		dispbottom "[Edges] Already set: " + isekai_skill1
+		         + " and " + isekai_skill2 + ".";
+
+	callsub S_Cast, callfunc("F_SafaStatWert", .@tier);
+	return;
+
+
+// ------------------------------------------------------------
+//  Zweite Frage: die zwei Kanten
+// ------------------------------------------------------------
+//  getarg(0) Steckplatz, getarg(1) Tier-Prozentsatz, getarg(2)
+//  das Tier selbst fuer die Gegenprobe.
+S_KantenNur:
+	.@slot = getarg(0);
+	.@pct = getarg(1);
+	.@tier = getarg(2);
 
 	mes "[Threshold Warden]";
 	mes "One thing is still loose. A gift like";
@@ -494,6 +522,171 @@ S_Kanten:
 
 	mes "[Threshold Warden]";
 	mes "Then that is what you are.";
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  Erste Frage: Klinge oder Zauber
+// ------------------------------------------------------------
+//  getarg(0) ist der Tier-Prozentsatz, nur fuer die Anzeige.
+//
+//  Physisch gibt bAtkRate, magisch bMatkRate - beides in voller
+//  Hoehe, beides ohne Bindung an eine Waffengattung.
+//
+//  WAS DAMIT WEGFAELLT
+//
+//  Bis zum Umbau gab jedes Geschenk bWeaponDamageRate auf ein bis
+//  zwei feste Waffengattungen. Das hat zweimal geschadet: es
+//  ruehrte Magie gar nicht an (pc.cpp:4709, battle.cpp:2439 - nur
+//  der physische Pfad), und wer seine Klasse mit einer anderen
+//  Waffe spielte als der vorgesehenen, ging ebenfalls leer aus.
+//  Ein Kagerou, der Ninja-Magie wirkt, bekam von einem Tier-B-
+//  Geschenk ganze 25 Statuspunkte.
+//
+//  bAtkRate kennt weder Gattung noch Ausnahme.
+//
+//  WER NICHT ANTWORTET
+//
+//  bekommt die Vorgabe aus der Tabelle: das, was sein Geschenk
+//  vorher war. Ein Zauberer bleibt Zauberer, ein Schlaeger
+//  Schlaeger. Der Abbruch ist deshalb harmlos.
+S_Weg:
+	.@p = getarg(0);
+
+	if (isekai_pfad > 0) {
+		if (getgroupid() >= 99)
+			dispbottom "[Path] Already set: "
+			         + (isekai_pfad == 1 ? "physical" : "magic") + ".";
+		return;
+	}
+
+	mes "[Threshold Warden]";
+	mes "A gift has to know what kind of harm it";
+	mes "is for. Steel, or the other thing.";
+	next;
+
+	mes "[Threshold Warden]";
+	mes "Whichever you name, it gives ^0000FF" + .@p + " percent^000000.";
+	mes "^777777It does not care what you are holding.^000000";
+	next;
+
+	.@w = select("^0000FFPhysical^000000 - attack power:"
+	           + "^0000FFMagic^000000 - magic attack power:"
+	           + "^777777Neither, not now^000000");
+
+	if (.@w == 3) {
+		mes "[Threshold Warden]";
+		mes "^777777Then it keeps the shape it came in.^000000";
+		next;
+		return;
+	}
+
+	// Gegenprobe vor dem Schreiben, wie ueberall in diesem Ablauf.
+	if (isekai_gift == 0) {
+		mes "[Threshold Warden]";
+		mes "^FF6666Your gift changed while we spoke.^000000";
+		next;
+		return;
+	}
+
+	set isekai_pfad, .@w;
+	callfunc "F_SafaRefresh";
+	specialeffect2 EF_ANGEL2;
+
+	mes "[Threshold Warden]";
+	mes "^0000FF" + (.@w == 1 ? "Steel" : "The other thing") + "^000000, then.";
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  Dritte Frage: die feste Zauberzeit
+// ------------------------------------------------------------
+//  getarg(0) ist der volle Statuswert des Tiers.
+//
+//  Ja  -> bFixedCastrate,-100 und die HALBEN Statuswerte
+//  Nein-> volle Statuswerte, keine Verkuerzung
+//
+//  WARUM DAS EINE ECHTE FRAGE IST
+//
+//  In Renewal besteht eine Zauberzeit aus zwei Teilen. Der
+//  variable sinkt mit DEX und INT und wird null bei
+//  DEX*2 + INT >= 530 (conf/battle/skill.conf, vcast_stat_scale).
+//  Der feste Teil - 20 Prozent - wird von Statuswerten UEBERHAUPT
+//  NICHT beruehrt. Wer alles hochzieht, kommt bei 80 Prozent an
+//  und dann nicht weiter; den Rest nimmt nur bFixedCastrate weg.
+//
+//  Fuer einen Zauberer ist das also viel wert. Fuer jemanden, der
+//  zuschlaegt, ist es nichts - und der nimmt lieber die vollen
+//  Statuswerte mit. Genau deshalb steht die Frage hier und nicht
+//  fest im Geschenk.
+//
+//  -100 und nicht weniger: bFixedCastrate stapelt nicht,
+//  pc.cpp:4422 rechnet min(fixcastrate, val). Es gilt immer nur
+//  der staerkste Wert, und -100 nimmt die feste Zeit ganz weg.
+//
+//  Wer nicht antwortet, bekommt die vollen Statuswerte und keine
+//  Verkuerzung.
+S_Cast:
+	.@s = getarg(0);
+
+	if (isekai_cast > 0) {
+		if (getgroupid() >= 99)
+			dispbottom "[Cast] Already set: "
+			         + (isekai_cast == 1 ? "no fixed cast, half stats"
+			                             : "full stats") + ".";
+		return;
+	}
+
+	mes "[Threshold Warden]";
+	mes "Last thing. Some gifts cut away the part";
+	mes "of a spell that no amount of wit makes";
+	mes "faster.";
+	next;
+
+	mes "[Threshold Warden]";
+	mes "You can have that - or you can have the";
+	mes "whole weight of what the gift carries.";
+	mes "Not both.";
+	mes " ";
+	mes "  ^0000FFno fixed cast time^000000, and ^FF6666" + (.@s / 2) + "^000000 to all stats";
+	mes "  ^0000FFfull " + .@s + "^000000 to all stats, and the wait stays";
+	next;
+
+	.@w = select("^0000FFCut the wait^000000 - half the stats:"
+	           + "^0000FFKeep the stats^000000 - live with the wait:"
+	           + "^777777Neither, not now^000000");
+
+	if (.@w == 3) {
+		mes "[Threshold Warden]";
+		mes "^777777Then you keep the stats and the wait.^000000";
+		next;
+		return;
+	}
+
+	if (isekai_gift == 0) {
+		mes "[Threshold Warden]";
+		mes "^FF6666Your gift changed while we spoke.^000000";
+		next;
+		return;
+	}
+
+	set isekai_cast, .@w;
+	callfunc "F_SafaRefresh";
+	specialeffect2 EF_ANGEL2;
+
+	mes "[Threshold Warden]";
+	// Klammern, obwohl es nach einer Zeile aussieht: der erste Zweig
+	// hat zwei mes, und ohne Klammern gehoerte das zweite nicht mehr
+	// zum if - das else stuende dann hinter einer Anweisung, die der
+	// Parser nicht mehr erwartet.
+	if (.@w == 1) {
+		mes "No more waiting, then. It costs you half";
+		mes "of what the gift was carrying.";
+	} else {
+		mes "The full weight it is.";
+	}
 	next;
 	return;
 

@@ -612,5 +612,17 @@ OnInit:
 	    "Napalm Vulcan Strike", "Bite", "Scratch", "Silvervine Stem Spear", "Catnip Meteor", "Scar of Tarou",
 	    "Picky Peck", "Lunatic Carrot Beat", "Spirit of Savage", "Chulho Sonic Claw", "Howling of Chulho", "Hyunrok Breeze",
 	    "Hogogong Strike", "Hyunrok Cannon", "Chulho Battering", "Hyunrok Spirit Power";
+
+	// --- Vorgabe, solange der Spieler nicht gewaehlt hat ---
+	//     1 = physisch, 2 = magisch. Abgeleitet daraus, ob das
+	//     Geschenk VOR dem Umbau bMatkRate trug - damit sich
+	//     fuer einen Charakter, der die Frage noch nicht
+	//     beantwortet hat, nichts umdreht.
+	setarray .vorgabe[0],
+	    1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2,
+	    1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2,
+	    1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2,
+	    1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2,
+	    1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2;
 	end;
 }
