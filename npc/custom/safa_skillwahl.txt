@@ -1,0 +1,823 @@
+// ============================================================
+//  SafaRO - Der Wetzstein
+// ============================================================
+//
+//  ERZEUGT VON tools/isekai/skillwahl.py - NICHT VON HAND
+//  PFLEGEN. Aenderungen gehoeren ins Skript, dann neu laufen
+//  lassen.
+//
+//  ------------------------------------------------------------
+//  WAS HIER PASSIERT
+//  ------------------------------------------------------------
+//
+//  Die Geschenke der Tiers B bis SSS geben einen Schadensbonus
+//  auf zwei Fertigkeiten. Bis zum 27.08.2026 stand fest, welche
+//  zwei das sind - der Knight bekam Bowling Bash und Pierce, ob
+//  er so spielt oder nicht.
+//
+//  Jetzt waehlt der Spieler sie selbst. Einmal, dann endgueltig,
+//  wie das Geschenk selbst.
+//
+//  Der Threshold Warden bindet das Geschenk. Der Wetzstein
+//  daneben schaerft zwei Kanten daran. Beide stehen in Valhalla,
+//  beide fragen genau einmal.
+//
+//  ------------------------------------------------------------
+//  WAS WAEHLBAR IST
+//  ------------------------------------------------------------
+//
+//  Alle Angriffsfertigkeiten des Klassenbaums, den das Geschenk
+//  meint - einschliesslich der geerbten. Ein Dragon Knight sieht
+//  also auch Bash und Bowling Bash, nicht nur seine eigenen.
+//
+//  Ob der Charakter die Fertigkeit schon gelernt hat, spielt
+//  keine Rolle. Gewaehlt wird in Valhalla, also vor der ersten
+//  Klasse; eine Liste aus gelernten Fertigkeiten waere dort
+//  leer.
+//
+//  NICHT waehlbar ist alles, was keinen Schaden macht. bSkillAtk
+//  wirkt ausschliesslich auf Schadensfertigkeiten, und eine
+//  einmalige Wahl auf Heal waere ein Klick ins Leere, den
+//  niemand rueckgaengig machen kann.
+//
+//  ------------------------------------------------------------
+//  DIE ZAHLEN
+//  ------------------------------------------------------------
+//
+//    90 Geschenke, 260 Gruppen, 1516 waehlbare Fertigkeiten.
+//    Die kuerzeste Auswahl hat 3, die laengste 51.
+//
+//  ------------------------------------------------------------
+//  WIE DIE TABELLE ZU LESEN IST
+//  ------------------------------------------------------------
+//
+//  Flache Arrays plus Versatz und Anzahl, wie in
+//  safa_wildlife.txt:
+//
+//    .g_von[s]     erster Gruppenindex des Geschenks s
+//    .g_anz[s]     Anzahl seiner Gruppen
+//    .gr_name$[g]  Ueberschrift der Gruppe - die Klassenstufe
+//    .gr_von[g]    erster Fertigkeitsindex der Gruppe
+//    .gr_anz[g]    Anzahl Fertigkeiten
+//    .sk_id[i]     Fertigkeits-Id
+//    .sk_id2[i]    zweite Id oder 0 - die _ATK-Schwester, die den
+//                  Schaden traegt, wenn die sichtbare Fertigkeit
+//                  ihn nicht selbst anrichtet. Ist sie gesetzt,
+//                  bekommen BEIDE den Bonus.
+//    .sk_name$[i]  Anzeigename
+//
+//  s ist NICHT die Geschenk-Id, sondern
+//  (Tier - 4) * 18 + (Position - 1), also 0 bis 89. Die
+//  Umrechnung steht unten in S_Slot.
+//
+//  Warum die Gruppen: ein select() mit vierzig langen Eintraegen
+//  sprengt das Menuepaket zum Client. Die groesste Gruppe hier
+//  hat 19 Eintraege.
+// ============================================================
+
+
+
+// ------------------------------------------------------------
+//  Die Tabelle
+// ------------------------------------------------------------
+-	script	#safa_skillwahl	-1,{
+	end;
+
+OnInit:
+	setarray .g_von[0],
+	    0, 3, 6, 9, 12, 15, 19, 21, 24, 26, 29, 32, 34, 35, 37, 39, 41, 43,
+	    44, 47, 50, 53, 56, 59, 63, 65, 68, 70, 73, 76, 78, 79, 81, 83, 85, 87,
+	    88, 91, 94, 97, 100, 103, 107, 110, 113, 115, 118, 121, 124, 126, 129, 131, 133, 135,
+	    136, 139, 142, 145, 148, 151, 155, 158, 161, 163, 166, 169, 172, 174, 177, 179, 181, 183,
+	    184, 189, 194, 199, 204, 209, 215, 219, 224, 228, 233, 238, 242, 245, 249, 252, 255, 258;
+	setarray .g_anz[0],
+	    3, 3, 3, 3, 3, 4, 2, 3, 2, 3, 3, 2, 1, 2, 2, 2, 2, 1,
+	    3, 3, 3, 3, 3, 4, 2, 3, 2, 3, 3, 2, 1, 2, 2, 2, 2, 1,
+	    3, 3, 3, 3, 3, 4, 3, 3, 2, 3, 3, 3, 2, 3, 2, 2, 2, 1,
+	    3, 3, 3, 3, 3, 4, 3, 3, 2, 3, 3, 3, 2, 3, 2, 2, 2, 1,
+	    5, 5, 5, 5, 5, 6, 4, 5, 4, 5, 5, 4, 3, 4, 3, 3, 3, 2;
+	setarray .gr_von[0],
+	    0, 2, 9, 12, 14, 18, 20, 29, 40, 43, 52, 54, 55, 58, 65, 67, 70, 71,
+	    72, 73, 74, 76, 77, 83, 86, 88, 89, 91, 93, 94, 97, 102, 104, 107, 111, 116,
+	    121, 124, 140, 149, 161, 173, 186, 205, 213, 215, 222, 225, 227, 231, 233, 242, 253, 256,
+	    265, 267, 268, 271, 278, 280, 283, 284, 285, 286, 287, 289, 290, 296, 299, 301, 302, 304,
+	    306, 307, 310, 315, 317, 320, 324, 329, 334, 337, 353, 362, 374, 386, 399, 418, 426, 428,
+	    435, 442, 444, 448, 458, 467, 478, 490, 499, 501, 509, 512, 519, 528, 531, 532, 535, 536,
+	    537, 539, 541, 542, 548, 559, 561, 572, 574, 576, 584, 587, 592, 601, 604, 608, 611, 616,
+	    624, 629, 632, 637, 653, 662, 674, 686, 699, 718, 726, 728, 735, 742, 744, 748, 758, 767,
+	    778, 790, 799, 801, 809, 812, 819, 828, 831, 832, 835, 836, 837, 839, 841, 842, 848, 859,
+	    861, 872, 874, 876, 884, 887, 892, 901, 904, 908, 911, 916, 924, 929, 932, 937, 953, 962,
+	    974, 986, 999, 1018, 1026, 1028, 1035, 1038, 1045, 1053, 1055, 1059, 1061, 1071, 1079, 1088, 1099, 1102,
+	    1114, 1130, 1139, 1141, 1142, 1150, 1157, 1160, 1167, 1169, 1178, 1187, 1190, 1191, 1192, 1195, 1199, 1200,
+	    1201, 1203, 1205, 1211, 1212, 1218, 1221, 1232, 1243, 1245, 1246, 1257, 1266, 1268, 1270, 1271, 1279, 1287,
+	    1290, 1295, 1297, 1306, 1313, 1316, 1320, 1323, 1334, 1339, 1347, 1360, 1365, 1368, 1373, 1381, 1397, 1406,
+	    1424, 1436, 1448, 1459, 1472, 1491, 1501, 1509;
+	setarray .gr_anz[0],
+	    2, 7, 3, 2, 4, 2, 9, 11, 3, 9, 2, 1, 3, 7, 2, 3, 1, 1,
+	    1, 1, 2, 1, 6, 3, 2, 1, 2, 2, 1, 3, 5, 2, 3, 4, 5, 5,
+	    3, 16, 9, 12, 12, 13, 19, 8, 2, 7, 3, 2, 4, 2, 9, 11, 3, 9,
+	    2, 1, 3, 7, 2, 3, 1, 1, 1, 1, 2, 1, 6, 3, 2, 1, 2, 2,
+	    1, 3, 5, 2, 3, 4, 5, 5, 3, 16, 9, 12, 12, 13, 19, 8, 2, 7,
+	    7, 2, 4, 10, 9, 11, 12, 9, 2, 8, 3, 7, 9, 3, 1, 3, 1, 1,
+	    2, 2, 1, 6, 11, 2, 11, 2, 2, 8, 3, 5, 9, 3, 4, 3, 5, 8,
+	    5, 3, 5, 16, 9, 12, 12, 13, 19, 8, 2, 7, 7, 2, 4, 10, 9, 11,
+	    12, 9, 2, 8, 3, 7, 9, 3, 1, 3, 1, 1, 2, 2, 1, 6, 11, 2,
+	    11, 2, 2, 8, 3, 5, 9, 3, 4, 3, 5, 8, 5, 3, 5, 16, 9, 12,
+	    12, 13, 19, 8, 2, 7, 3, 7, 8, 2, 4, 2, 10, 8, 9, 11, 3, 12,
+	    16, 9, 2, 1, 8, 7, 3, 7, 2, 9, 9, 3, 1, 1, 3, 4, 1, 1,
+	    2, 2, 6, 1, 6, 3, 11, 11, 2, 1, 11, 9, 2, 2, 1, 8, 8, 3,
+	    5, 2, 9, 7, 3, 4, 3, 11, 5, 8, 13, 5, 3, 5, 8, 16, 9, 18,
+	    12, 12, 11, 13, 19, 10, 8, 7;
+	setarray .gr_name$[0],
+	    "Swordman", "Knight", "Lord Knight", "Swordman", "Crusader", "Paladin",
+	    "Mage", "Wizard", "High Wizard", "Mage", "Sage", "Professor",
+	    "Archer", "Hunter", "Sniper", "Archer", "Bard", "Dancer",
+	    "Clown", "Acolyte", "Priest", "Acolyte", "Monk", "Champion",
+	    "Merchant", "Whitesmith", "Merchant", "Alchemist", "Creator", "Thief",
+	    "Assassin", "Assassin Cross", "Thief", "Rogue", "Taekwon", "Taekwon",
+	    "Soul Linker", "Ninja", "Kagerou", "Gunslinger", "Rebellion", "Supernovice",
+	    "Super Novice E", "Summoner", "Swordman", "Knight", "Lord Knight", "Swordman",
+	    "Crusader", "Paladin", "Mage", "Wizard", "High Wizard", "Mage",
+	    "Sage", "Professor", "Archer", "Hunter", "Sniper", "Archer",
+	    "Bard", "Dancer", "Clown", "Acolyte", "Priest", "Acolyte",
+	    "Monk", "Champion", "Merchant", "Whitesmith", "Merchant", "Alchemist",
+	    "Creator", "Thief", "Assassin", "Assassin Cross", "Thief", "Rogue",
+	    "Taekwon", "Taekwon", "Soul Linker", "Ninja", "Kagerou", "Gunslinger",
+	    "Rebellion", "Supernovice", "Super Novice E", "Summoner", "Swordman", "Knight",
+	    "Rune Knight", "Swordman", "Crusader", "Royal Guard", "Mage", "Wizard",
+	    "Warlock", "Mage", "Sage", "Sorcerer", "Archer", "Hunter",
+	    "Ranger", "Archer", "Dancer", "Wanderer", "Bard", "Acolyte",
+	    "Priest", "Arch Bishop", "Acolyte", "Monk", "Sura", "Merchant",
+	    "Mechanic", "Merchant", "Alchemist", "Genetic", "Thief", "Assassin",
+	    "Guillotine Cross", "Thief", "Rogue", "Shadow Chaser", "Taekwon", "Star Emperor",
+	    "Taekwon", "Soul Linker", "Soul Reaper", "Ninja", "Oboro", "Gunslinger",
+	    "Rebellion", "Supernovice", "Super Novice E", "Summoner", "Swordman", "Knight",
+	    "Rune Knight", "Swordman", "Crusader", "Royal Guard", "Mage", "Wizard",
+	    "Warlock", "Mage", "Sage", "Sorcerer", "Archer", "Hunter",
+	    "Ranger", "Archer", "Dancer", "Wanderer", "Bard", "Acolyte",
+	    "Priest", "Arch Bishop", "Acolyte", "Monk", "Sura", "Merchant",
+	    "Mechanic", "Merchant", "Alchemist", "Genetic", "Thief", "Assassin",
+	    "Guillotine Cross", "Thief", "Rogue", "Shadow Chaser", "Taekwon", "Star Emperor",
+	    "Taekwon", "Soul Linker", "Soul Reaper", "Ninja", "Oboro", "Gunslinger",
+	    "Rebellion", "Supernovice", "Super Novice E", "Summoner", "Swordman", "Knight",
+	    "Lord Knight", "Rune Knight", "Dragon Knight", "Swordman", "Crusader", "Paladin",
+	    "Royal Guard", "Imperial Guard", "Mage", "Wizard", "High Wizard", "Warlock",
+	    "Arch Mage", "Mage", "Sage", "Professor", "Sorcerer", "Elemental Master",
+	    "Archer", "Hunter", "Sniper", "Ranger", "Windhawk", "Archer",
+	    "Bard", "Clown", "Minstrel", "Troubadour", "Dancer", "Acolyte",
+	    "Priest", "Arch Bishop", "Cardinal", "Acolyte", "Monk", "Champion",
+	    "Sura", "Inquisitor", "Merchant", "Whitesmith", "Mechanic", "Meister",
+	    "Merchant", "Alchemist", "Creator", "Genetic", "Biolo", "Thief",
+	    "Assassin", "Assassin Cross", "Guillotine Cross", "Shadow Cross", "Thief", "Rogue",
+	    "Shadow Chaser", "Abyss Chaser", "Taekwon", "Star Emperor", "Sky Emperor", "Taekwon",
+	    "Soul Linker", "Soul Reaper", "Soul Ascetic", "Ninja", "Kagerou", "Shinkiro",
+	    "Gunslinger", "Rebellion", "Night Watch", "Supernovice", "Super Novice E", "Hyper Novice",
+	    "Summoner", "Spirit Handler";
+	setarray .sk_id[0],
+	    5, 7, 56, 57, 58, 59, 61, 62, 1001, 397, 398, 399, 5, 7, 250, 251, 253, 254,
+	    367, 480, 11, 13, 14, 15, 17, 18, 19, 20, 21, 80, 81, 83, 84, 85, 86, 88,
+	    89, 90, 91, 1006, 365, 400, 484, 11, 13, 14, 15, 17, 18, 19, 20, 21, 90, 91,
+	    375, 46, 47, 148, 116, 121, 122, 123, 129, 1009, 499, 381, 382, 46, 47, 148, 316, 324,
+	    394, 156, 77, 79, 156, 266, 267, 271, 272, 273, 1016, 370, 371, 372, 42, 153, 485, 42,
+	    153, 229, 230, 490, 52, 149, 152, 136, 137, 139, 141, 1004, 379, 406, 52, 149, 152, 46,
+	    212, 214, 219, 413, 415, 417, 419, 421, 413, 415, 417, 419, 421, 467, 468, 469, 523, 524,
+	    525, 526, 527, 528, 530, 534, 535, 536, 537, 539, 540, 541, 542, 544, 3004, 3005, 3006, 3007,
+	    3008, 3009, 3010, 3019, 3020, 501, 502, 503, 512, 513, 514, 515, 516, 518, 519, 520, 521, 2553,
+	    2554, 2557, 2559, 2561, 2562, 2565, 2566, 2567, 2569, 2570, 2571, 5, 7, 11, 13, 14, 15, 17,
+	    18, 19, 20, 21, 42, 52, 80, 81, 83, 84, 85, 86, 88, 89, 90, 91, 116, 139,
+	    141, 212, 214, 250, 251, 253, 365, 5019, 5021, 5026, 5028, 5032, 5033, 5036, 5046, 5, 7, 56,
+	    57, 58, 59, 61, 62, 1001, 397, 398, 399, 5, 7, 250, 251, 253, 254, 367, 480, 11,
+	    13, 14, 15, 17, 18, 19, 20, 21, 80, 81, 83, 84, 85, 86, 88, 89, 90, 91,
+	    1006, 365, 400, 484, 11, 13, 14, 15, 17, 18, 19, 20, 21, 90, 91, 375, 46, 47,
+	    148, 116, 121, 122, 123, 129, 1009, 499, 381, 382, 46, 47, 148, 316, 324, 394, 156, 77,
+	    79, 156, 266, 267, 271, 272, 273, 1016, 370, 371, 372, 42, 153, 485, 42, 153, 229, 230,
+	    490, 52, 149, 152, 136, 137, 139, 141, 1004, 379, 406, 52, 149, 152, 46, 212, 214, 219,
+	    413, 415, 417, 419, 421, 413, 415, 417, 419, 421, 467, 468, 469, 523, 524, 525, 526, 527,
+	    528, 530, 534, 535, 536, 537, 539, 540, 541, 542, 544, 3004, 3005, 3006, 3007, 3008, 3009, 3010,
+	    3019, 3020, 501, 502, 503, 512, 513, 514, 515, 516, 518, 519, 520, 521, 2553, 2554, 2557, 2559,
+	    2561, 2562, 2565, 2566, 2567, 2569, 2570, 2571, 5, 7, 11, 13, 14, 15, 17, 18, 19, 20,
+	    21, 42, 52, 80, 81, 83, 84, 85, 86, 88, 89, 90, 91, 116, 139, 141, 212, 214,
+	    250, 251, 253, 365, 5019, 5021, 5026, 5028, 5032, 5033, 5036, 5046, 5, 7, 56, 57, 58, 59,
+	    61, 62, 1001, 2002, 2004, 2005, 2006, 2008, 2020, 5004, 5, 7, 250, 251, 253, 254, 2307, 2308,
+	    2310, 2312, 2314, 2317, 2320, 2321, 2323, 2324, 11, 13, 14, 15, 17, 18, 19, 20, 21, 80,
+	    81, 83, 84, 85, 86, 88, 89, 90, 91, 1006, 2201, 2202, 2203, 2204, 2210, 2211, 2212, 2213,
+	    2214, 2216, 2217, 2230, 11, 13, 14, 15, 17, 18, 19, 20, 21, 90, 91, 2443, 2444, 2446,
+	    2447, 2448, 2449, 2450, 2454, 46, 47, 148, 116, 121, 122, 123, 129, 1009, 499, 2233, 2236, 2239,
+	    2242, 2243, 2244, 2246, 2253, 2254, 46, 47, 148, 324, 2413, 2414, 2426, 316, 156, 77, 79, 2038,
+	    2040, 156, 266, 267, 271, 272, 273, 1016, 2326, 2327, 2328, 2329, 2332, 2336, 2337, 2343, 2344, 2517,
+	    2518, 42, 153, 2256, 2257, 2258, 2259, 2260, 2261, 2267, 2278, 2279, 2280, 5006, 42, 153, 229, 230,
+	    2476, 2477, 2479, 2481, 2482, 2483, 2485, 5003, 52, 149, 152, 136, 137, 139, 141, 1004, 2022, 2023,
+	    2029, 2030, 2031, 2034, 2036, 2037, 5001, 52, 149, 152, 46, 212, 214, 219, 2284, 2288, 2304, 413,
+	    415, 417, 419, 421, 2576, 2579, 2580, 2581, 2582, 2587, 2592, 2593, 413, 415, 417, 419, 421, 467,
+	    468, 469, 2600, 2602, 2603, 2604, 2610, 523, 524, 525, 526, 527, 528, 530, 534, 535, 536, 537,
+	    539, 540, 541, 542, 544, 3004, 3005, 3006, 3007, 3008, 3009, 3010, 3019, 3020, 501, 502, 503, 512,
+	    513, 514, 515, 516, 518, 519, 520, 521, 2553, 2554, 2557, 2559, 2561, 2562, 2565, 2566, 2567, 2569,
+	    2570, 2571, 5, 7, 11, 13, 14, 15, 17, 18, 19, 20, 21, 42, 52, 80, 81, 83,
+	    84, 85, 86, 88, 89, 90, 91, 116, 139, 141, 212, 214, 250, 251, 253, 365, 5019, 5021,
+	    5026, 5028, 5032, 5033, 5036, 5046, 5, 7, 56, 57, 58, 59, 61, 62, 1001, 2002, 2004, 2005,
+	    2006, 2008, 2020, 5004, 5, 7, 250, 251, 253, 254, 2307, 2308, 2310, 2312, 2314, 2317, 2320, 2321,
+	    2323, 2324, 11, 13, 14, 15, 17, 18, 19, 20, 21, 80, 81, 83, 84, 85, 86, 88,
+	    89, 90, 91, 1006, 2201, 2202, 2203, 2204, 2210, 2211, 2212, 2213, 2214, 2216, 2217, 2230, 11, 13,
+	    14, 15, 17, 18, 19, 20, 21, 90, 91, 2443, 2444, 2446, 2447, 2448, 2449, 2450, 2454, 46,
+	    47, 148, 116, 121, 122, 123, 129, 1009, 499, 2233, 2236, 2239, 2242, 2243, 2244, 2246, 2253, 2254,
+	    46, 47, 148, 324, 2413, 2414, 2426, 316, 156, 77, 79, 2038, 2040, 156, 266, 267, 271, 272,
+	    273, 1016, 2326, 2327, 2328, 2329, 2332, 2336, 2337, 2343, 2344, 2517, 2518, 42, 153, 2256, 2257, 2258,
+	    2259, 2260, 2261, 2267, 2278, 2279, 2280, 5006, 42, 153, 229, 230, 2476, 2477, 2479, 2481, 2482, 2483,
+	    2485, 5003, 52, 149, 152, 136, 137, 139, 141, 1004, 2022, 2023, 2029, 2030, 2031, 2034, 2036, 2037,
+	    5001, 52, 149, 152, 46, 212, 214, 219, 2284, 2288, 2304, 413, 415, 417, 419, 421, 2576, 2579,
+	    2580, 2581, 2582, 2587, 2592, 2593, 413, 415, 417, 419, 421, 467, 468, 469, 2600, 2602, 2603, 2604,
+	    2610, 523, 524, 525, 526, 527, 528, 530, 534, 535, 536, 537, 539, 540, 541, 542, 544, 3004,
+	    3005, 3006, 3007, 3008, 3009, 3010, 3019, 3020, 501, 502, 503, 512, 513, 514, 515, 516, 518, 519,
+	    520, 521, 2553, 2554, 2557, 2559, 2561, 2562, 2565, 2566, 2567, 2569, 2570, 2571, 5, 7, 11, 13,
+	    14, 15, 17, 18, 19, 20, 21, 42, 52, 80, 81, 83, 84, 85, 86, 88, 89, 90,
+	    91, 116, 139, 141, 212, 214, 250, 251, 253, 365, 5019, 5021, 5026, 5028, 5032, 5033, 5036, 5046,
+	    5, 7, 56, 57, 58, 59, 61, 62, 1001, 397, 398, 399, 2002, 2004, 2005, 2006, 2008, 2020,
+	    5004, 5204, 5205, 5208, 6001, 5210, 5211, 5213, 6502, 5, 7, 250, 251, 253, 254, 367, 480, 2307,
+	    2308, 2310, 2312, 2314, 2317, 2320, 2321, 2323, 2324, 5263, 5264, 5265, 5266, 5267, 6504, 6503, 6505, 11,
+	    13, 14, 15, 17, 18, 19, 20, 21, 80, 81, 83, 84, 85, 86, 88, 89, 90, 91,
+	    1006, 365, 400, 484, 2201, 2202, 2203, 2204, 2210, 2211, 2212, 2213, 2214, 2216, 2217, 2230, 5214, 5215,
+	    5216, 5217, 5218, 5220, 5221, 5222, 5225, 5227, 5229, 5230, 5233, 5234, 5235, 5237, 11, 13, 14, 15,
+	    17, 18, 19, 20, 21, 90, 91, 375, 2443, 2444, 2446, 2447, 2448, 2449, 2450, 2454, 5369, 5370,
+	    5371, 5372, 5373, 5380, 6517, 46, 47, 148, 116, 121, 122, 123, 129, 1009, 499, 381, 382, 2233,
+	    2236, 2239, 2242, 2243, 2244, 2246, 2253, 2254, 5326, 5329, 5330, 5331, 5332, 5333, 5334, 5335, 6520, 46,
+	    47, 148, 316, 394, 2413, 2414, 2426, 5353, 5355, 5356, 6521, 324, 156, 77, 79, 2038, 2040, 5273,
+	    5277, 5279, 5283, 5284, 6518, 156, 266, 267, 271, 272, 273, 1016, 370, 371, 372, 2326, 2327, 2328,
+	    2329, 2332, 2336, 2337, 2343, 2344, 2517, 2518, 5241, 5243, 5244, 5245, 5248, 5249, 5250, 5251, 5252, 5253,
+	    6519, 42, 153, 485, 2256, 2257, 2258, 2259, 2260, 2261, 2267, 2278, 2279, 2280, 5006, 5295, 5296, 5298,
+	    6002, 6003, 6004, 6506, 6507, 6508, 42, 153, 229, 230, 490, 2476, 2477, 2479, 2481, 2482, 2483, 2485,
+	    5003, 5340, 5341, 5342, 5343, 6005, 6006, 6509, 6510, 52, 149, 152, 136, 137, 139, 141, 1004, 379,
+	    406, 2022, 2023, 2029, 2030, 2031, 2034, 2036, 2037, 5001, 5286, 5287, 5289, 5291, 5292, 5294, 6511, 52,
+	    149, 152, 46, 212, 214, 219, 2284, 2288, 2304, 5314, 5315, 5316, 5319, 5320, 5321, 5322, 6512, 6513,
+	    6514, 6515, 413, 415, 417, 419, 421, 2576, 2579, 2580, 2581, 2582, 2587, 2592, 2593, 5465, 5468, 5471,
+	    5466, 5469, 5472, 5467, 5470, 5473, 5474, 5502, 5503, 5504, 413, 415, 417, 419, 421, 467, 468, 469,
+	    2600, 2602, 2603, 2604, 2610, 5425, 5424, 5426, 5427, 5428, 5429, 5430, 5431, 523, 524, 525, 526, 527,
+	    528, 530, 534, 535, 536, 537, 539, 540, 541, 542, 544, 3004, 3005, 3006, 3007, 3008, 3009, 3010,
+	    3019, 3020, 5488, 5477, 5485, 5480, 5489, 5476, 5486, 5483, 5481, 5490, 5487, 5484, 5482, 5491, 5494, 5493,
+	    5492, 5495, 501, 502, 503, 512, 513, 514, 515, 516, 518, 519, 520, 521, 2553, 2554, 2557, 2559,
+	    2561, 2562, 2565, 2566, 2567, 2569, 2570, 2571, 5410, 5405, 5406, 5407, 5408, 5409, 5411, 5412, 5415, 5500,
+	    5501, 5, 7, 11, 13, 14, 15, 17, 18, 19, 20, 21, 42, 52, 80, 81, 83, 84,
+	    85, 86, 88, 89, 90, 91, 116, 139, 141, 212, 214, 250, 251, 253, 365, 5451, 5453, 5455,
+	    5456, 5457, 5458, 5452, 5454, 5459, 5460, 5019, 5021, 5026, 5028, 5032, 5033, 5036, 5046, 5435, 5436, 5445,
+	    5437, 5446, 5506, 5507;
+	setarray .sk_id2[0],
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    2215, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 2484, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2215, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2484,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 5209, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2215, 0, 0, 0, 0, 0,
+	    0, 0, 5219, 0, 0, 5223, 5226, 0, 0, 5231, 0, 0, 5236, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 5354, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5274,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2484, 0,
+	    0, 5307, 5308, 5309, 5310, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5382, 0, 0, 0, 0, 0, 0,
+	    0, 6522, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	    0, 0, 0, 0;
+	setarray .sk_name$[0],
+	    "Bash", "Magnum Break", "Pierce", "Brandish Spear", "Spear Stab", "Spear Boomerang",
+	    "Counter Attack", "Bowling Bash", "Charge Attack", "Spiral Pierce", "Traumatic Blow", "Vital Strike",
+	    "Bash", "Magnum Break", "Smite", "Shield Boomerang", "Holy Cross", "Grand Cross",
+	    "Gloria Domini", "Shield Chain", "Napalm Beat", "Soul Strike", "Cold Bolt", "Frost Diver",
+	    "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt", "Thunderstorm", "Fire Pillar",
+	    "Sightrasher", "Meteor Storm", "Jupitel Thunder", "Lord of Vermilion", "Water Ball", "Frost Nova",
+	    "Storm Gust", "Earth Spike", "Heaven's Drive", "Sight Blaster", "Stave Crasher", "Napalm Vulcan",
+	    "Gravitation Field", "Napalm Beat", "Soul Strike", "Cold Bolt", "Frost Diver", "Fire Ball",
+	    "Fire Wall", "Fire Bolt", "Lightning Bolt", "Thunderstorm", "Earth Spike", "Heaven's Drive",
+	    "Soul Siphon", "Double Strafe", "Arrow Shower", "Arrow Repel", "Land Mine", "Freezing Trap",
+	    "Blast Mine", "Claymore Trap", "Blitz Beat", "Phantasmic Arrow", "Beast Strafing", "Falcon Assault",
+	    "Focused Arrow Strike", "Double Strafe", "Arrow Shower", "Arrow Repel", "Melody Strike", "Slinging Arrow",
+	    "Vulcan Arrow", "Holy Light", "Turn Undead", "Magnus Exorcismus", "Holy Light", "Occult Impaction",
+	    "Throw Spirit Sphere", "Asura Strike", "Raging Quadruple Blow", "Raging Thrust", "Ki Explosion", "Raging Palm Strike",
+	    "Glacier Fist", "Chain Crush Combo", "Mammonite", "Cart Revolution", "Cart Termination", "Mammonite",
+	    "Cart Revolution", "Bomb", "Acid Terror", "Acid Demonstration", "Envenom", "Sand Attack",
+	    "Stone Fling", "Sonic Blow", "Grimtooth", "Poison React", "Venom Splasher", "Throw Venom Knife",
+	    "Soul Destroyer", "Meteor Assault", "Envenom", "Sand Attack", "Stone Fling", "Double Strafe",
+	    "Back Stab", "Sightless Mind", "Snatch", "Tornado Kick", "Heel Drop", "Roundhouse Kick",
+	    "Counter Kick", "Flying Kick", "Tornado Kick", "Heel Drop", "Roundhouse Kick", "Counter Kick",
+	    "Flying Kick", "Estin", "Estun", "Esma", "Throw Shuriken", "Throw Kunai",
+	    "Throw Huuma Shuriken", "Throw Zeny", "Improvised Defense", "Vanishing Slash", "Shadow Slash", "Crimson Fire Petal",
+	    "Crimson Fire Formation", "Raging Fire Dragon", "Spear of Ice", "Ice Meteor", "Wind Blade", "Lightning Strike of Destruction",
+	    "Kamaitachi", "Final Strike", "Cross Slash", "Soul Cutter", "Kunai Explosion", "Kunai Splash",
+	    "Rapid Throw", "Swirling Petal", "Makibishi", "Release Ninja Spell", "Cast Ninja Spell", "Fling",
+	    "Triple Action", "Bulls Eye", "Tracking", "Disarm", "Piercing Shot", "Rapid Shower",
+	    "Desperado", "Dust", "Full Buster", "Spread Attack", "Ground Drift", "Mass Spiral",
+	    "Banishing Buster", "Shatter Storm", "Quick Draw Shot", "Fire Dance", "Howling Mine", "Round Trip",
+	    "Dragon Tail", "Fire Rain", "Anti-Material Blast", "Slug Shot", "Hammer of God", "Bash",
+	    "Magnum Break", "Napalm Beat", "Soul Strike", "Cold Bolt", "Frost Diver", "Fire Ball",
+	    "Fire Wall", "Fire Bolt", "Lightning Bolt", "Thunderstorm", "Mammonite", "Envenom",
+	    "Fire Pillar", "Sightrasher", "Meteor Storm", "Jupitel Thunder", "Lord of Vermilion", "Water Ball",
+	    "Frost Nova", "Storm Gust", "Earth Spike", "Heaven's Drive", "Land Mine", "Poison React",
+	    "Venom Splasher", "Back Stab", "Sightless Mind", "Smite", "Shield Boomerang", "Holy Cross",
+	    "Stave Crasher", "Bite", "Scratch", "Silvervine Stem Spear", "Catnip Meteor", "Scar of Tarou",
+	    "Picky Peck", "Lunatic Carrot Beat", "Spirit of Savage", "Bash", "Magnum Break", "Pierce",
+	    "Brandish Spear", "Spear Stab", "Spear Boomerang", "Counter Attack", "Bowling Bash", "Charge Attack",
+	    "Spiral Pierce", "Traumatic Blow", "Vital Strike", "Bash", "Magnum Break", "Smite",
+	    "Shield Boomerang", "Holy Cross", "Grand Cross", "Gloria Domini", "Shield Chain", "Napalm Beat",
+	    "Soul Strike", "Cold Bolt", "Frost Diver", "Fire Ball", "Fire Wall", "Fire Bolt",
+	    "Lightning Bolt", "Thunderstorm", "Fire Pillar", "Sightrasher", "Meteor Storm", "Jupitel Thunder",
+	    "Lord of Vermilion", "Water Ball", "Frost Nova", "Storm Gust", "Earth Spike", "Heaven's Drive",
+	    "Sight Blaster", "Stave Crasher", "Napalm Vulcan", "Gravitation Field", "Napalm Beat", "Soul Strike",
+	    "Cold Bolt", "Frost Diver", "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt",
+	    "Thunderstorm", "Earth Spike", "Heaven's Drive", "Soul Siphon", "Double Strafe", "Arrow Shower",
+	    "Arrow Repel", "Land Mine", "Freezing Trap", "Blast Mine", "Claymore Trap", "Blitz Beat",
+	    "Phantasmic Arrow", "Beast Strafing", "Falcon Assault", "Focused Arrow Strike", "Double Strafe", "Arrow Shower",
+	    "Arrow Repel", "Melody Strike", "Slinging Arrow", "Vulcan Arrow", "Holy Light", "Turn Undead",
+	    "Magnus Exorcismus", "Holy Light", "Occult Impaction", "Throw Spirit Sphere", "Asura Strike", "Raging Quadruple Blow",
+	    "Raging Thrust", "Ki Explosion", "Raging Palm Strike", "Glacier Fist", "Chain Crush Combo", "Mammonite",
+	    "Cart Revolution", "Cart Termination", "Mammonite", "Cart Revolution", "Bomb", "Acid Terror",
+	    "Acid Demonstration", "Envenom", "Sand Attack", "Stone Fling", "Sonic Blow", "Grimtooth",
+	    "Poison React", "Venom Splasher", "Throw Venom Knife", "Soul Destroyer", "Meteor Assault", "Envenom",
+	    "Sand Attack", "Stone Fling", "Double Strafe", "Back Stab", "Sightless Mind", "Snatch",
+	    "Tornado Kick", "Heel Drop", "Roundhouse Kick", "Counter Kick", "Flying Kick", "Tornado Kick",
+	    "Heel Drop", "Roundhouse Kick", "Counter Kick", "Flying Kick", "Estin", "Estun",
+	    "Esma", "Throw Shuriken", "Throw Kunai", "Throw Huuma Shuriken", "Throw Zeny", "Improvised Defense",
+	    "Vanishing Slash", "Shadow Slash", "Crimson Fire Petal", "Crimson Fire Formation", "Raging Fire Dragon", "Spear of Ice",
+	    "Ice Meteor", "Wind Blade", "Lightning Strike of Destruction", "Kamaitachi", "Final Strike", "Cross Slash",
+	    "Soul Cutter", "Kunai Explosion", "Kunai Splash", "Rapid Throw", "Swirling Petal", "Makibishi",
+	    "Release Ninja Spell", "Cast Ninja Spell", "Fling", "Triple Action", "Bulls Eye", "Tracking",
+	    "Disarm", "Piercing Shot", "Rapid Shower", "Desperado", "Dust", "Full Buster",
+	    "Spread Attack", "Ground Drift", "Mass Spiral", "Banishing Buster", "Shatter Storm", "Quick Draw Shot",
+	    "Fire Dance", "Howling Mine", "Round Trip", "Dragon Tail", "Fire Rain", "Anti-Material Blast",
+	    "Slug Shot", "Hammer of God", "Bash", "Magnum Break", "Napalm Beat", "Soul Strike",
+	    "Cold Bolt", "Frost Diver", "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt",
+	    "Thunderstorm", "Mammonite", "Envenom", "Fire Pillar", "Sightrasher", "Meteor Storm",
+	    "Jupitel Thunder", "Lord of Vermilion", "Water Ball", "Frost Nova", "Storm Gust", "Earth Spike",
+	    "Heaven's Drive", "Land Mine", "Poison React", "Venom Splasher", "Back Stab", "Sightless Mind",
+	    "Smite", "Shield Boomerang", "Holy Cross", "Stave Crasher", "Bite", "Scratch",
+	    "Silvervine Stem Spear", "Catnip Meteor", "Scar of Tarou", "Picky Peck", "Lunatic Carrot Beat", "Spirit of Savage",
+	    "Bash", "Magnum Break", "Pierce", "Brandish Spear", "Spear Stab", "Spear Boomerang",
+	    "Counter Attack", "Bowling Bash", "Charge Attack", "Sonic Wave", "Hundred Spear", "Wind Cutter",
+	    "Ignition Break", "Dragon Breath", "Phantom Thrust", "Dragon Breath - Water", "Bash", "Magnum Break",
+	    "Smite", "Shield Boomerang", "Holy Cross", "Grand Cross", "Cannon Spear", "Banishing Point",
+	    "Shield Press", "Pinpoint Attack", "Rage Burst", "Over Brand", "Moon Slasher", "Ray of Genesis",
+	    "Earth Drive", "Hesperus Lit", "Napalm Beat", "Soul Strike", "Cold Bolt", "Frost Diver",
+	    "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt", "Thunderstorm", "Fire Pillar",
+	    "Sightrasher", "Meteor Storm", "Jupitel Thunder", "Lord of Vermilion", "Water Ball", "Frost Nova",
+	    "Storm Gust", "Earth Spike", "Heaven's Drive", "Sight Blaster", "White Imprison", "Soul Expansion",
+	    "Frosty Misty", "Jack Frost", "Drain Life", "Crimson Rock", "Hell Inferno", "Comet",
+	    "Chain Lightning", "Earth Strain", "Tetra Vortex", "Release", "Napalm Beat", "Soul Strike",
+	    "Cold Bolt", "Frost Diver", "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt",
+	    "Thunderstorm", "Earth Spike", "Heaven's Drive", "Fire Walk", "Electric Walk", "Earth Grave",
+	    "Diamond Dust", "Poison Buster", "Psychic Wave", "Cloud Kill", "Varetyr Spear", "Double Strafe",
+	    "Arrow Shower", "Arrow Repel", "Land Mine", "Freezing Trap", "Blast Mine", "Claymore Trap",
+	    "Blitz Beat", "Phantasmic Arrow", "Beast Strafing", "Arrow Storm", "Aimed Bolt", "Cluster Bomb",
+	    "Warg Dash", "Warg Strike", "Warg Bite", "Sensitive Keen", "Firing Trap", "Icebound Trap",
+	    "Double Strafe", "Arrow Shower", "Arrow Repel", "Slinging Arrow", "Metallic Sound", "Reverberation",
+	    "Great Echo", "Melody Strike", "Holy Light", "Turn Undead", "Magnus Exorcismus", "Judex",
+	    "Adoramus", "Holy Light", "Occult Impaction", "Throw Spirit Sphere", "Asura Strike", "Raging Quadruple Blow",
+	    "Raging Thrust", "Ki Explosion", "Dragon Combo", "Sky Net Blow", "Earth Shaker", "Fallen Empire",
+	    "Rampage Blaster", "Knuckle Arrow", "Windmill", "Gate of Hell", "Gentle Touch - Quiet", "Howling of Lion",
+	    "Ride In Lightening", "Mammonite", "Cart Revolution", "Boost Knuckle", "Pile Bunker", "Vulcan Arm",
+	    "Flame Launcher", "Cold Slower", "Arm Cannon", "Self Destruction", "Axe Boomerang", "Power Swing",
+	    "Axe Tornado", "Magma Eruption", "Mammonite", "Cart Revolution", "Bomb", "Acid Terror",
+	    "Cart Tornado", "Cart Cannon", "Thorn Trap", "Spore Explosion", "Wall of Thorns", "Crazy Weed",
+	    "Demonic Fire", "Illusion Doping", "Envenom", "Sand Attack", "Stone Fling", "Sonic Blow",
+	    "Grimtooth", "Poison React", "Venom Splasher", "Throw Venom Knife", "Cross Impact", "Dark Illusion",
+	    "Counter Slash", "Weapon Crush", "Venom Pressure", "Phantom Menace", "Rolling Cutter", "Cross Ripper Slasher",
+	    "Dark Claw", "Envenom", "Sand Attack", "Stone Fling", "Double Strafe", "Back Stab",
+	    "Sightless Mind", "Snatch", "Fatal Menace", "Triangle Shot", "Feint Bomb", "Tornado Kick",
+	    "Heel Drop", "Roundhouse Kick", "Counter Kick", "Flying Kick", "Full Moon Kick", "New Moon Kick",
+	    "Flash Kick", "Star Emperor Advent", "Nova Explosion", "Book of Creating Star", "Solar Burst", "Prominence Kick",
+	    "Tornado Kick", "Heel Drop", "Roundhouse Kick", "Counter Kick", "Flying Kick", "Estin",
+	    "Estun", "Esma", "Curse Explosion", "Espa", "Esha", "Eswhoo",
+	    "Soul Explosion", "Throw Shuriken", "Throw Kunai", "Throw Huuma Shuriken", "Throw Zeny", "Improvised Defense",
+	    "Vanishing Slash", "Shadow Slash", "Crimson Fire Petal", "Crimson Fire Formation", "Raging Fire Dragon", "Spear of Ice",
+	    "Ice Meteor", "Wind Blade", "Lightning Strike of Destruction", "Kamaitachi", "Final Strike", "Cross Slash",
+	    "Soul Cutter", "Kunai Explosion", "Kunai Splash", "Rapid Throw", "Swirling Petal", "Makibishi",
+	    "Release Ninja Spell", "Cast Ninja Spell", "Fling", "Triple Action", "Bulls Eye", "Tracking",
+	    "Disarm", "Piercing Shot", "Rapid Shower", "Desperado", "Dust", "Full Buster",
+	    "Spread Attack", "Ground Drift", "Mass Spiral", "Banishing Buster", "Shatter Storm", "Quick Draw Shot",
+	    "Fire Dance", "Howling Mine", "Round Trip", "Dragon Tail", "Fire Rain", "Anti-Material Blast",
+	    "Slug Shot", "Hammer of God", "Bash", "Magnum Break", "Napalm Beat", "Soul Strike",
+	    "Cold Bolt", "Frost Diver", "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt",
+	    "Thunderstorm", "Mammonite", "Envenom", "Fire Pillar", "Sightrasher", "Meteor Storm",
+	    "Jupitel Thunder", "Lord of Vermilion", "Water Ball", "Frost Nova", "Storm Gust", "Earth Spike",
+	    "Heaven's Drive", "Land Mine", "Poison React", "Venom Splasher", "Back Stab", "Sightless Mind",
+	    "Smite", "Shield Boomerang", "Holy Cross", "Stave Crasher", "Bite", "Scratch",
+	    "Silvervine Stem Spear", "Catnip Meteor", "Scar of Tarou", "Picky Peck", "Lunatic Carrot Beat", "Spirit of Savage",
+	    "Bash", "Magnum Break", "Pierce", "Brandish Spear", "Spear Stab", "Spear Boomerang",
+	    "Counter Attack", "Bowling Bash", "Charge Attack", "Sonic Wave", "Hundred Spear", "Wind Cutter",
+	    "Ignition Break", "Dragon Breath", "Phantom Thrust", "Dragon Breath - Water", "Bash", "Magnum Break",
+	    "Smite", "Shield Boomerang", "Holy Cross", "Grand Cross", "Cannon Spear", "Banishing Point",
+	    "Shield Press", "Pinpoint Attack", "Rage Burst", "Over Brand", "Moon Slasher", "Ray of Genesis",
+	    "Earth Drive", "Hesperus Lit", "Napalm Beat", "Soul Strike", "Cold Bolt", "Frost Diver",
+	    "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt", "Thunderstorm", "Fire Pillar",
+	    "Sightrasher", "Meteor Storm", "Jupitel Thunder", "Lord of Vermilion", "Water Ball", "Frost Nova",
+	    "Storm Gust", "Earth Spike", "Heaven's Drive", "Sight Blaster", "White Imprison", "Soul Expansion",
+	    "Frosty Misty", "Jack Frost", "Drain Life", "Crimson Rock", "Hell Inferno", "Comet",
+	    "Chain Lightning", "Earth Strain", "Tetra Vortex", "Release", "Napalm Beat", "Soul Strike",
+	    "Cold Bolt", "Frost Diver", "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt",
+	    "Thunderstorm", "Earth Spike", "Heaven's Drive", "Fire Walk", "Electric Walk", "Earth Grave",
+	    "Diamond Dust", "Poison Buster", "Psychic Wave", "Cloud Kill", "Varetyr Spear", "Double Strafe",
+	    "Arrow Shower", "Arrow Repel", "Land Mine", "Freezing Trap", "Blast Mine", "Claymore Trap",
+	    "Blitz Beat", "Phantasmic Arrow", "Beast Strafing", "Arrow Storm", "Aimed Bolt", "Cluster Bomb",
+	    "Warg Dash", "Warg Strike", "Warg Bite", "Sensitive Keen", "Firing Trap", "Icebound Trap",
+	    "Double Strafe", "Arrow Shower", "Arrow Repel", "Slinging Arrow", "Metallic Sound", "Reverberation",
+	    "Great Echo", "Melody Strike", "Holy Light", "Turn Undead", "Magnus Exorcismus", "Judex",
+	    "Adoramus", "Holy Light", "Occult Impaction", "Throw Spirit Sphere", "Asura Strike", "Raging Quadruple Blow",
+	    "Raging Thrust", "Ki Explosion", "Dragon Combo", "Sky Net Blow", "Earth Shaker", "Fallen Empire",
+	    "Rampage Blaster", "Knuckle Arrow", "Windmill", "Gate of Hell", "Gentle Touch - Quiet", "Howling of Lion",
+	    "Ride In Lightening", "Mammonite", "Cart Revolution", "Boost Knuckle", "Pile Bunker", "Vulcan Arm",
+	    "Flame Launcher", "Cold Slower", "Arm Cannon", "Self Destruction", "Axe Boomerang", "Power Swing",
+	    "Axe Tornado", "Magma Eruption", "Mammonite", "Cart Revolution", "Bomb", "Acid Terror",
+	    "Cart Tornado", "Cart Cannon", "Thorn Trap", "Spore Explosion", "Wall of Thorns", "Crazy Weed",
+	    "Demonic Fire", "Illusion Doping", "Envenom", "Sand Attack", "Stone Fling", "Sonic Blow",
+	    "Grimtooth", "Poison React", "Venom Splasher", "Throw Venom Knife", "Cross Impact", "Dark Illusion",
+	    "Counter Slash", "Weapon Crush", "Venom Pressure", "Phantom Menace", "Rolling Cutter", "Cross Ripper Slasher",
+	    "Dark Claw", "Envenom", "Sand Attack", "Stone Fling", "Double Strafe", "Back Stab",
+	    "Sightless Mind", "Snatch", "Fatal Menace", "Triangle Shot", "Feint Bomb", "Tornado Kick",
+	    "Heel Drop", "Roundhouse Kick", "Counter Kick", "Flying Kick", "Full Moon Kick", "New Moon Kick",
+	    "Flash Kick", "Star Emperor Advent", "Nova Explosion", "Book of Creating Star", "Solar Burst", "Prominence Kick",
+	    "Tornado Kick", "Heel Drop", "Roundhouse Kick", "Counter Kick", "Flying Kick", "Estin",
+	    "Estun", "Esma", "Curse Explosion", "Espa", "Esha", "Eswhoo",
+	    "Soul Explosion", "Throw Shuriken", "Throw Kunai", "Throw Huuma Shuriken", "Throw Zeny", "Improvised Defense",
+	    "Vanishing Slash", "Shadow Slash", "Crimson Fire Petal", "Crimson Fire Formation", "Raging Fire Dragon", "Spear of Ice",
+	    "Ice Meteor", "Wind Blade", "Lightning Strike of Destruction", "Kamaitachi", "Final Strike", "Cross Slash",
+	    "Soul Cutter", "Kunai Explosion", "Kunai Splash", "Rapid Throw", "Swirling Petal", "Makibishi",
+	    "Release Ninja Spell", "Cast Ninja Spell", "Fling", "Triple Action", "Bulls Eye", "Tracking",
+	    "Disarm", "Piercing Shot", "Rapid Shower", "Desperado", "Dust", "Full Buster",
+	    "Spread Attack", "Ground Drift", "Mass Spiral", "Banishing Buster", "Shatter Storm", "Quick Draw Shot",
+	    "Fire Dance", "Howling Mine", "Round Trip", "Dragon Tail", "Fire Rain", "Anti-Material Blast",
+	    "Slug Shot", "Hammer of God", "Bash", "Magnum Break", "Napalm Beat", "Soul Strike",
+	    "Cold Bolt", "Frost Diver", "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt",
+	    "Thunderstorm", "Mammonite", "Envenom", "Fire Pillar", "Sightrasher", "Meteor Storm",
+	    "Jupitel Thunder", "Lord of Vermilion", "Water Ball", "Frost Nova", "Storm Gust", "Earth Spike",
+	    "Heaven's Drive", "Land Mine", "Poison React", "Venom Splasher", "Back Stab", "Sightless Mind",
+	    "Smite", "Shield Boomerang", "Holy Cross", "Stave Crasher", "Bite", "Scratch",
+	    "Silvervine Stem Spear", "Catnip Meteor", "Scar of Tarou", "Picky Peck", "Lunatic Carrot Beat", "Spirit of Savage",
+	    "Bash", "Magnum Break", "Pierce", "Brandish Spear", "Spear Stab", "Spear Boomerang",
+	    "Counter Attack", "Bowling Bash", "Charge Attack", "Spiral Pierce", "Traumatic Blow", "Vital Strike",
+	    "Sonic Wave", "Hundred Spear", "Wind Cutter", "Ignition Break", "Dragon Breath", "Phantom Thrust",
+	    "Dragon Breath - Water", "Servant Weapon Phantom", "Servant Weapon Demolition", "Hack And Slasher", "Dragonic Breath", "Dragonic Aura",
+	    "Madness Crusher", "Storm Slash", "Dragonic Pierce", "Bash", "Magnum Break", "Smite",
+	    "Shield Boomerang", "Holy Cross", "Grand Cross", "Gloria Domini", "Shield Chain", "Cannon Spear",
+	    "Banishing Point", "Shield Press", "Pinpoint Attack", "Rage Burst", "Over Brand", "Moon Slasher",
+	    "Ray of Genesis", "Earth Drive", "Hesperus Lit", "Grand Judgement", "Judgement Cross", "Shield Shooting",
+	    "Overslash", "Cross Rain", "Imperial Cross", "Radiant Spear", "Imperial Pressure", "Napalm Beat",
+	    "Soul Strike", "Cold Bolt", "Frost Diver", "Fire Ball", "Fire Wall", "Fire Bolt",
+	    "Lightning Bolt", "Thunderstorm", "Fire Pillar", "Sightrasher", "Meteor Storm", "Jupitel Thunder",
+	    "Lord of Vermilion", "Water Ball", "Frost Nova", "Storm Gust", "Earth Spike", "Heaven's Drive",
+	    "Sight Blaster", "Stave Crasher", "Napalm Vulcan", "Gravitation Field", "White Imprison", "Soul Expansion",
+	    "Frosty Misty", "Jack Frost", "Drain Life", "Crimson Rock", "Hell Inferno", "Comet",
+	    "Chain Lightning", "Earth Strain", "Tetra Vortex", "Release", "Deadly Projection", "Destructive Hurricane",
+	    "Rain Of Crystal", "Mystery Illusion", "Violent Quake", "Soul Vulcan Strike", "Strantum Tremor", "All Bloom",
+	    "Crystal Impact", "Tornado Storm", "Floral Flare Road", "Astral Strike", "Rock Down", "Storm Cannon",
+	    "Crimson Arrow", "Frozen Slash", "Napalm Beat", "Soul Strike", "Cold Bolt", "Frost Diver",
+	    "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt", "Thunderstorm", "Earth Spike",
+	    "Heaven's Drive", "Soul Siphon", "Fire Walk", "Electric Walk", "Earth Grave", "Diamond Dust",
+	    "Poison Buster", "Psychic Wave", "Cloud Kill", "Varetyr Spear", "Diamond Storm", "Lightning Land",
+	    "Venom Swamp", "Conflagration", "Terra Drive", "Elemental Buster", "Psychic Stream", "Double Strafe",
+	    "Arrow Shower", "Arrow Repel", "Land Mine", "Freezing Trap", "Blast Mine", "Claymore Trap",
+	    "Blitz Beat", "Phantasmic Arrow", "Beast Strafing", "Falcon Assault", "Focused Arrow Strike", "Arrow Storm",
+	    "Aimed Bolt", "Cluster Bomb", "Warg Dash", "Warg Strike", "Warg Bite", "Sensitive Keen",
+	    "Firing Trap", "Icebound Trap", "Hawk Rush", "Hawk Boomerang", "Gale Storm", "Deep Blind Trap",
+	    "Solid Trap", "Swift Trap", "Crescive Bolt", "Flame Trap", "Wild Walk", "Double Strafe",
+	    "Arrow Shower", "Arrow Repel", "Melody Strike", "Vulcan Arrow", "Metallic Sound", "Reverberation",
+	    "Great Echo", "Rose Blossom", "Rhythm Shooting", "Metallic Fury", "Rhythmical Wave", "Slinging Arrow",
+	    "Holy Light", "Turn Undead", "Magnus Exorcismus", "Judex", "Adoramus", "Arbitrium",
+	    "Effligo", "Pneumaticus Procella", "Petitio", "Framen", "Divinus Flos", "Holy Light",
+	    "Occult Impaction", "Throw Spirit Sphere", "Asura Strike", "Raging Quadruple Blow", "Raging Thrust", "Ki Explosion",
+	    "Raging Palm Strike", "Glacier Fist", "Chain Crush Combo", "Dragon Combo", "Sky Net Blow", "Earth Shaker",
+	    "Fallen Empire", "Rampage Blaster", "Knuckle Arrow", "Windmill", "Gate of Hell", "Gentle Touch - Quiet",
+	    "Howling of Lion", "Ride In Lightening", "Oleum Sanctum", "Massive Flame Blaster", "Explosion Blaster", "First Brand",
+	    "Second Flame", "Second Faith", "Second Judgement", "Third Punish", "Third Flame Bomb", "Third Consecration",
+	    "Blazing Flame Blast", "Mammonite", "Cart Revolution", "Cart Termination", "Boost Knuckle", "Pile Bunker",
+	    "Vulcan Arm", "Flame Launcher", "Cold Slower", "Arm Cannon", "Self Destruction", "Axe Boomerang",
+	    "Power Swing", "Axe Tornado", "Magma Eruption", "Axe Stomp", "Rush Quake", "Attack Machine",
+	    "Spark Blaster", "Triple Laser", "Mighty Smash", "Rush Strike", "Powerful Swing", "Energy Cannonade",
+	    "Mammonite", "Cart Revolution", "Bomb", "Acid Terror", "Acid Demonstration", "Cart Tornado",
+	    "Cart Cannon", "Thorn Trap", "Spore Explosion", "Wall of Thorns", "Crazy Weed", "Demonic Fire",
+	    "Illusion Doping", "Acidified Zone Water", "Acidified Zone Ground", "Acidified Zone Wind", "Acidified Zone Fire", "Explosive Powder",
+	    "Mayhemic Thorns", "Mystery Powder", "Dust Explosion", "Envenom", "Sand Attack", "Stone Fling",
+	    "Sonic Blow", "Grimtooth", "Poison React", "Venom Splasher", "Throw Venom Knife", "Soul Destroyer",
+	    "Meteor Assault", "Cross Impact", "Dark Illusion", "Counter Slash", "Weapon Crush", "Venom Pressure",
+	    "Phantom Menace", "Rolling Cutter", "Cross Ripper Slasher", "Dark Claw", "Dancing Knife", "Savage Impact",
+	    "Eternal Slash", "Shadow Stab", "Impact Crater", "Fatal Shadow Crow", "Cross Slash", "Envenom",
+	    "Sand Attack", "Stone Fling", "Double Strafe", "Back Stab", "Sightless Mind", "Snatch",
+	    "Fatal Menace", "Triangle Shot", "Feint Bomb", "Abyss Dagger", "Unlucky Rush", "Chain Reaction Shot",
+	    "Omega Abyss Strike", "Deft Stab", "Abyss Square", "Frenzy Shot", "Hit And Sliding", "Chasing Break",
+	    "Chasing Shot", "Abyss Flame", "Tornado Kick", "Heel Drop", "Roundhouse Kick", "Counter Kick",
+	    "Flying Kick", "Full Moon Kick", "New Moon Kick", "Flash Kick", "Star Emperor Advent", "Nova Explosion",
+	    "Book of Creating Star", "Solar Burst", "Prominence Kick", "Rising Sun", "Rising Moon", "Twinkling Galaxy",
+	    "Noon Blast", "Midnight Kick", "Star Burst", "Sunset Blast", "Dawn Break", "Star Cannon",
+	    "All in the Sky", "Sky Sun", "Sky Moon", "Star Light Kick", "Tornado Kick", "Heel Drop",
+	    "Roundhouse Kick", "Counter Kick", "Flying Kick", "Estin", "Estun", "Esma",
+	    "Curse Explosion", "Espa", "Esha", "Eswhoo", "Soul Explosion", "Exorcism Of Malicious Soul",
+	    "Talisman Of Soul Stealing", "Talisman Of Blue Dragon", "Talisman Of White Tiger", "Talisman Of Red Phoenix", "Talisman Of Black Tortoise", "Talisman Of Four Bearing God",
+	    "Circle Of Directions And Elementals", "Throw Shuriken", "Throw Kunai", "Throw Huuma Shuriken", "Throw Zeny", "Improvised Defense",
+	    "Vanishing Slash", "Shadow Slash", "Crimson Fire Petal", "Crimson Fire Formation", "Raging Fire Dragon", "Spear of Ice",
+	    "Ice Meteor", "Wind Blade", "Lightning Strike of Destruction", "Kamaitachi", "Final Strike", "Cross Slash",
+	    "Soul Cutter", "Kunai Explosion", "Kunai Splash", "Rapid Throw", "Swirling Petal", "Makibishi",
+	    "Release Ninja Spell", "Cast Ninja Spell", "Red Flame Cannon", "Infiltrate", "Kunai - Distortion", "Shadow Hunting",
+	    "Cold Blooded Cannon", "Melt Away", "Kunai - Rotation", "Huuma Shuriken - Grasp", "Shadow Dance", "Thundering Cannon",
+	    "Kunai - Refraction", "Huuma Shuriken - Construct", "Shadow Flash", "Golden Dragon Cannon", "Kunai - Nightmare", "Shadow - Nightmare",
+	    "Darkening Cannon", "Dark Dragon - Nightmare", "Fling", "Triple Action", "Bulls Eye", "Tracking",
+	    "Disarm", "Piercing Shot", "Rapid Shower", "Desperado", "Dust", "Full Buster",
+	    "Spread Attack", "Ground Drift", "Mass Spiral", "Banishing Buster", "Shatter Storm", "Quick Draw Shot",
+	    "Fire Dance", "Howling Mine", "Round Trip", "Dragon Tail", "Fire Rain", "Anti-Material Blast",
+	    "Slug Shot", "Hammer of God", "Basic Grenade", "The Vigilante at Night", "Only One Bullet", "Spiral Shooting",
+	    "Magazine for One", "Wild Fire", "Hasty Fire in the Hole", "Grenades Dropping", "Mission Bombard", "Wild Shot",
+	    "Midnight Fallen", "Bash", "Magnum Break", "Napalm Beat", "Soul Strike", "Cold Bolt",
+	    "Frost Diver", "Fire Ball", "Fire Wall", "Fire Bolt", "Lightning Bolt", "Thunderstorm",
+	    "Mammonite", "Envenom", "Fire Pillar", "Sightrasher", "Meteor Storm", "Jupitel Thunder",
+	    "Lord of Vermilion", "Water Ball", "Frost Nova", "Storm Gust", "Earth Spike", "Heaven's Drive",
+	    "Land Mine", "Poison React", "Venom Splasher", "Back Stab", "Sightless Mind", "Smite",
+	    "Shield Boomerang", "Holy Cross", "Stave Crasher", "Double Bowling Bash", "Shield Chain Rush", "Meteor Storm Buster",
+	    "Jupitel Thunderstorm", "Jack Frost Nova", "Hell's Drive", "Mega Sonic Blow", "Spiral Pierce Max", "Ground Gravitation",
+	    "Napalm Vulcan Strike", "Bite", "Scratch", "Silvervine Stem Spear", "Catnip Meteor", "Scar of Tarou",
+	    "Picky Peck", "Lunatic Carrot Beat", "Spirit of Savage", "Chulho Sonic Claw", "Howling of Chulho", "Hyunrok Breeze",
+	    "Hogogong Strike", "Hyunrok Cannon", "Chulho Battering", "Hyunrok Spirit Power";
+	end;
+}
+
+
+// ------------------------------------------------------------
+//  Der Wetzstein
+// ------------------------------------------------------------
+//  valkyrie 50,14 - zwei Felder neben dem Threshold Warden auf
+//  48,14. Beide Zellen sind Typ 0, gegen db/map_cache.dat
+//  geprueft.
+//
+//  Der Warden bindet das Geschenk, der Wetzstein schaerft zwei
+//  Kanten daran. Wer neu ankommt, laeuft von 48,9 nach Norden
+//  und hat beide vor sich.
+//
+//  4_M_ORIENT02 ist der Bruder von 4_M_ORIENT01, dem Sprite des
+//  Level-Raums. Kein Zufall: es sind dieselbe Sorte Leute.
+valkyrie,50,14,4	script	The Whetstone	4_M_ORIENT02,{
+
+	if (isekai_gift == 0) {
+		mes "[The Whetstone]";
+		mes "Nothing to sharpen yet. She has to";
+		mes "bind your gift first - then come back";
+		mes "and tell me where you want the edges.";
+		close;
+	}
+
+	.@tier = callfunc("F_SafaGiftTier", isekai_gift);
+
+	// Tier F bis C haben keinen Fertigkeitsbonus - F und E gar
+	// keinen, D und C einen festen. Nur ab B (Tier 4) gibt es
+	// zwei Kanten, und nur die sind hier zu vergeben.
+	if (.@tier < 4) {
+		mes "[The Whetstone]";
+		mes "^777777" + callfunc("F_SafaGiftName", isekai_gift) + "^000000";
+		mes "carries no edges. It is a blunt thing,";
+		mes "and blunt things work too.";
+		next;
+		mes "[The Whetstone]";
+		mes "Come back when the Warden hands you";
+		mes "something with a blade on it.";
+		close;
+	}
+
+	.@slot = (.@tier - 4) * 18 + (isekai_gift % 100) - 1;
+	.@pct = callfunc("F_SafaSkillProzent", .@tier);
+
+	// --- Schon gewetzt ---
+	if (isekai_skill1 > 0) {
+		mes "[The Whetstone]";
+		mes "Your edges are set. ^FF0000They do not move";
+		mes "again.^000000";
+		mes " ";
+		mes "  ^0000FF" + callsub(S_Name, .@slot, isekai_skill1) + "^000000  +" + .@pct + "%";
+		mes "  ^0000FF" + callsub(S_Name, .@slot, isekai_skill2) + "^000000  +" + .@pct + "%";
+		close;
+	}
+
+	mes "[The Whetstone]";
+	mes "^777777" + callfunc("F_SafaGiftName", isekai_gift) + "^000000";
+	mes "sharpens ^0000FFtwo^000000 of the things you will";
+	mes "learn to do. By ^0000FF" + .@pct + " percent^000000, each.";
+	next;
+
+	mes "[The Whetstone]";
+	mes "Which two is yours to say - once.";
+	mes "^FF0000I do not grind a blade twice.^000000";
+	next;
+
+	if (select("Show me the list:Not yet") == 2) {
+		mes "[The Whetstone]";
+		mes "Think about how you mean to fight.";
+		mes "That is the whole question.";
+		close;
+	}
+
+	// --- Erste Kante ---
+	.@i1 = callsub(S_Waehlen, .@slot, -1, "first");
+	if (.@i1 < 0) {
+		mes "[The Whetstone]";
+		mes "Then nothing is decided. Good.";
+		close;
+	}
+
+	// --- Zweite Kante ---
+	.@i2 = callsub(S_Waehlen, .@slot, .@i1, "second");
+	if (.@i2 < 0) {
+		mes "[The Whetstone]";
+		mes "Then nothing is decided. Both edges";
+		mes "stay dull until you name both.";
+		close;
+	}
+
+	.@n1$ = getvariableofnpc(.sk_name$[.@i1], "#safa_skillwahl");
+	.@n2$ = getvariableofnpc(.sk_name$[.@i2], "#safa_skillwahl");
+
+	mes "[The Whetstone]";
+	mes "  ^0000FF" + .@n1$ + "^000000";
+	mes "  ^0000FF" + .@n2$ + "^000000";
+	mes " ";
+	mes "^FF0000This cannot be undone.^000000";
+	next;
+
+	if (select("Grind them:Let me think again") == 2) {
+		mes "[The Whetstone]";
+		mes "Take your time. The stone keeps.";
+		close;
+	}
+
+	// Gegenprobe: zwischen der Auswahl und dieser Zeile liegt ein
+	// Klick, und in einem Klick passt ein GM, der das Geschenk
+	// abgenommen hat.
+	if (isekai_gift == 0 || callfunc("F_SafaGiftTier", isekai_gift) != .@tier) {
+		mes "[The Whetstone]";
+		mes "^FF6666Your gift changed while we talked.^000000";
+		mes "Start again.";
+		close;
+	}
+
+	set isekai_skill1,  getvariableofnpc(.sk_id[.@i1],  "#safa_skillwahl");
+	set isekai_skill1b, getvariableofnpc(.sk_id2[.@i1], "#safa_skillwahl");
+	set isekai_skill2,  getvariableofnpc(.sk_id[.@i2],  "#safa_skillwahl");
+	set isekai_skill2b, getvariableofnpc(.sk_id2[.@i2], "#safa_skillwahl");
+
+	callfunc "F_SafaRefresh";
+	specialeffect2 EF_REPAIRWEAPON;
+
+	mes "[The Whetstone]";
+	mes "Done. Two edges, +" + .@pct + " percent each.";
+	mes "Everything else stays as blunt as it was.";
+	close;
+
+
+// ------------------------------------------------------------
+//  Eine Kante waehlen
+// ------------------------------------------------------------
+//  getarg(0) Steckplatz, getarg(1) bereits vergebener Index
+//  (-1 = keiner), getarg(2) "first" oder "second" fuer den Text.
+//
+//  Rueckgabe: Index in .sk_id, oder -1 bei Abbruch.
+//
+//  Zwei Menues statt einem: ein Dragon Knight hat 30 waehlbare
+//  Fertigkeiten, und ein select() mit 30 langen Eintraegen
+//  sprengt das Menuepaket zum Client. Die Gruppen sind ohnehin
+//  die natuerliche Ordnung - man denkt in Klassenstufen.
+S_Waehlen:
+	.@s = getarg(0);
+	.@aus = getarg(1);
+	.@was$ = getarg(2);
+
+	.@gv = getvariableofnpc(.g_von[.@s], "#safa_skillwahl");
+	.@ga = getvariableofnpc(.g_anz[.@s], "#safa_skillwahl");
+
+	// while statt for(;;): rAthena erwartet im for drei Teile,
+	// und ein leeres for ist kein dokumentierter Fall.
+	while (1) {
+		mes "[The Whetstone]";
+		mes "The ^0000FF" + .@was$ + "^000000 edge. Where from?";
+
+		.@m$ = "";
+		for (.@k = 0; .@k < .@ga; .@k++)
+			.@m$ += getvariableofnpc(.gr_name$[.@gv + .@k], "#safa_skillwahl") + ":";
+		.@m$ += "^777777Stop^000000";
+
+		.@g = select(.@m$) - 1;
+		if (.@g == .@ga) return -1;
+
+		.@sv = getvariableofnpc(.gr_von[.@gv + .@g], "#safa_skillwahl");
+		.@sa = getvariableofnpc(.gr_anz[.@gv + .@g], "#safa_skillwahl");
+
+		.@m2$ = "";
+		for (.@k = 0; .@k < .@sa; .@k++) {
+			// Die schon vergebene Kante wird grau gezeigt statt
+			// weggelassen: eine Liste, die sich zwischen erstem und
+			// zweitem Durchgang verkuerzt, laesst einen an der
+			// eigenen Erinnerung zweifeln.
+			.@m2$ += ((.@sv + .@k) == .@aus ? "^777777" : "") +
+			    getvariableofnpc(.sk_name$[.@sv + .@k], "#safa_skillwahl") +
+			    ((.@sv + .@k) == .@aus ? " - taken^000000" : "") + ":";
+		}
+		.@m2$ += "^777777Back^000000";
+
+		.@w = select(.@m2$) - 1;
+		if (.@w == .@sa) continue;
+		if ((.@sv + .@w) == .@aus) {
+			mes "[The Whetstone]";
+			mes "^FF6666That one already has your first edge.^000000";
+			mes "Two edges on one blade is one edge.";
+			next;
+			continue;
+		}
+		return .@sv + .@w;
+	}
+	return -1;
+
+
+// ------------------------------------------------------------
+//  Anzeigename zu einer gespeicherten Id
+// ------------------------------------------------------------
+//  getarg(0) Steckplatz, getarg(1) Fertigkeits-Id.
+//
+//  Gesucht wird ueber die Gruppen dieses Geschenks und nicht ueber
+//  die ganze Tabelle: 1500 Eintraege abzuklappern kostet Spruenge,
+//  und check_gotocount bricht bei 2048 ab. Dieser Server hat das
+//  schon einmal erlebt, siehe F_SafaGiftTier in safa_systems.txt.
+S_Name:
+	.@s = getarg(0);
+	.@id = getarg(1);
+	.@gv = getvariableofnpc(.g_von[.@s], "#safa_skillwahl");
+	.@ga = getvariableofnpc(.g_anz[.@s], "#safa_skillwahl");
+	for (.@k = 0; .@k < .@ga; .@k++) {
+		.@sv = getvariableofnpc(.gr_von[.@gv + .@k], "#safa_skillwahl");
+		.@sa = getvariableofnpc(.gr_anz[.@gv + .@k], "#safa_skillwahl");
+		for (.@j = 0; .@j < .@sa; .@j++)
+			if (getvariableofnpc(.sk_id[.@sv + .@j], "#safa_skillwahl") == .@id)
+				return getvariableofnpc(.sk_name$[.@sv + .@j], "#safa_skillwahl");
+	}
+	// Kein Treffer heisst: die Wahl passt nicht mehr zum Geschenk.
+	// Das kann nach einem GM-Eingriff vorkommen. F_SafaRefresh
+	// raeumt das auf, hier reicht ein ehrlicher Platzhalter.
+	return "something the gift no longer knows";
+}
