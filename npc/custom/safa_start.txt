@@ -39,6 +39,17 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 				close;
 			}
 		}
+		// --- Kanten nachholen ---
+		//     Dieselbe Ueberlegung wie beim Startpaket eine Zeile
+		//     weiter unten: wer sein Geschenk gewaehlt hat, bevor es
+		//     die freie Fertigkeitswahl gab, steht sonst dauerhaft
+		//     ohne Schadensbonus da - die festen Vergaben sind aus
+		//     F_SafaGift heraus.
+		//
+		//     S_Kanten kehrt von selbst zurueck, wenn nichts zu tun
+		//     ist: kein Geschenk ab Tier B, oder schon gewaehlt.
+		callsub S_Kanten;
+
 		// --- Startpaket nachholen ---
 		//     Fuer alle, die ihr Geschenk gewaehlt haben, bevor es das
 		//     Paket gab - und fuer jeden, bei dem die Platzpruefung
@@ -258,6 +269,15 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 					mes "^0000FF" + callfunc("F_SafaGiftName", .@pick) + "^000000 is yours.";
 					next;
 
+					// --- Die zwei Kanten ---
+					//     MUSS hier stehen und nicht bei einem eigenen
+					//     NPC in der Halle: dieser Ablauf endet unten
+					//     mit savepoint und warp nach Veins. Wer hier
+					//     durch ist, kommt nicht zurueck, und ein
+					//     zweiter NPC in Valhalla staende hinter einer
+					//     Tuer, die schon zugefallen ist.
+					callsub S_Kanten;
+
 					// --- Startpaket ---
 					//     Erst hier, nicht beim Betreten der Halle: wer
 					//     sein Geschenk noch nicht gewaehlt hat, soll den
@@ -307,6 +327,260 @@ valkyrie,48,14,4	script	Threshold Warden	4_F_VALKYRIE2,{
 			break;
 		}
 	}
+
+	// Die Schleife darueber wird nur ueber close oder warp
+	// verlassen, herausfallen kann man nicht. Das end steht
+	// trotzdem da: darunter beginnen die Sprungziele, und ohne
+	// diese Zeile liefe ein Skript, das doch einmal herausfaellt,
+	// stillschweigend in S_Kanten hinein.
+	end;
+
+
+// ============================================================
+//  Die zwei Kanten
+// ============================================================
+//  Ab Tier B schaerft ein Geschenk zwei Fertigkeiten. Welche
+//  zwei, waehlt der Spieler hier - einmal, dann endgueltig, wie
+//  das Geschenk selbst.
+//
+//  WARUM HIER UND NICHT BEI EINEM EIGENEN NPC
+//
+//  Beide Ausgaenge dieses Skripts enden mit
+//
+//      savepoint "veins",210,123;
+//      warp "veins",210,123;
+//
+//  Wer die Waechterin hinter sich hat, ist aus der Halle
+//  draussen und kommt nicht zurueck. Ein zweiter NPC in
+//  Valhalla - erst so gebaut - stuende hinter einer Tuer, die
+//  schon zugefallen ist. Die Wahl gehoert in denselben Ablauf,
+//  vor den Sprung.
+//
+//  Aufgerufen wird S_Kanten an ZWEI Stellen:
+//
+//    1. direkt nach dem Binden eines neuen Geschenks
+//    2. oben im "hat schon ein Geschenk"-Zweig, fuer alle, die
+//       ihr Geschenk gewaehlt haben, bevor es die Wahl gab
+//
+//  Beide Male kehrt es von selbst zurueck, wenn nichts zu tun
+//  ist. Der Ablauf ringsum merkt also nicht, ob gewaehlt wurde.
+//
+//  WOHER DIE LISTE KOMMT
+//
+//  npc/custom/safa_skillwahl.txt, erzeugt von
+//  tools/isekai/skillwahl.py. Dort steht auch, was als
+//  Angriffsfertigkeit zaehlt und warum.
+// ============================================================
+S_Kanten:
+
+	// ------------------------------------------------------------
+	//  Drei Gruende zu schweigen - und warum sie fuer einen GM
+	//  nicht still sein duerfen
+	// ------------------------------------------------------------
+	//  Dieser Abschnitt kehrt in drei Faellen wortlos zurueck. Fuer
+	//  den Spieler ist das richtig: er soll nicht bei jedem Besuch
+	//  an eine Entscheidung erinnert werden, die ihn nichts angeht
+	//  oder die er laengst getroffen hat.
+	//
+	//  Fuer den, der es baut, ist dasselbe Schweigen aber nicht von
+	//  einem Fehler zu unterscheiden - "man waehlt das Geschenk und
+	//  ist draussen" sieht bei einem Tier-F-Charakter genauso aus
+	//  wie bei einem kaputten Sprungziel. Deshalb sagt es einem GM,
+	//  warum es nichts getan hat.
+	//
+	//  dispbottom und nicht mes: der Ablauf ringsum ist mitten in
+	//  einem Fenster, und ein mes an dieser Stelle wuerde ihn
+	//  zerreissen.
+	// ------------------------------------------------------------
+
+	if (isekai_gift == 0) {
+		// Kann hier eigentlich nicht vorkommen, beide Aufrufer
+		// pruefen vorher. Ein Zugriff auf Steckplatz -1 waere still
+		// und falsch.
+		if (getgroupid() >= 99)
+			dispbottom "[Edges] No gift bound - nothing to sharpen.";
+		return;
+	}
+
+	.@tier = callfunc("F_SafaGiftTier", isekai_gift);
+
+	// Tier F bis C: F und E haben gar keinen Fertigkeitsbonus,
+	// D und C behalten ihre feste Vergabe. Nichts zu waehlen.
+	//
+	// Das ist der Fall, der am ehesten fuer einen Fehler gehalten
+	// wird: Tier B verlangt 450 Union-Punkte, und die gibt es nur
+	// fuer Charaktere des Accounts auf Level 500. Ein frischer
+	// Account steht bei 0 und kann ausschliesslich Tier F binden.
+	// Zum Testen hilft "Set test points (GM)" im Hauptmenue.
+	if (.@tier < 4) {
+		if (getgroupid() >= 99)
+			dispbottom "[Edges] Gift " + isekai_gift + " is tier "
+			         + callfunc("F_SafaTierName", .@tier)
+			         + " - free edges start at B. Points: "
+			         + callfunc("F_SafaPoints") + ", B needs "
+			         + callfunc("F_SafaTierReq", 4) + ".";
+		return;
+	}
+
+	// Schon gewaehlt.
+	if (isekai_skill1 > 0) {
+		if (getgroupid() >= 99)
+			dispbottom "[Edges] Already set: " + isekai_skill1
+			         + " and " + isekai_skill2 + ".";
+		return;
+	}
+
+	.@slot = (.@tier - 4) * 18 + (isekai_gift % 100) - 1;
+	.@pct = callfunc("F_SafaSkillProzent", .@tier);
+
+	mes "[Threshold Warden]";
+	mes "One thing is still loose. A gift like";
+	mes "yours does not sharpen everything - it";
+	mes "sharpens ^0000FFtwo^000000 things, by ^0000FF" + .@pct + " percent^000000";
+	mes "each.";
+	next;
+
+	mes "[Threshold Warden]";
+	mes "Which two is yours to say.";
+	mes "^FF0000Say it once. It does not come loose";
+	mes "again.^000000";
+	next;
+
+	// --- Erste Kante ---
+	.@i1 = callsub(S_KanteWaehlen, .@slot, -1, "first");
+	if (.@i1 < 0) {
+		callsub S_KantenSpaeter;
+		return;
+	}
+
+	// --- Zweite Kante ---
+	.@i2 = callsub(S_KanteWaehlen, .@slot, .@i1, "second");
+	if (.@i2 < 0) {
+		callsub S_KantenSpaeter;
+		return;
+	}
+
+	mes "[Threshold Warden]";
+	mes "  ^0000FF" + getvariableofnpc(.sk_name$[.@i1], "#safa_skillwahl") + "^000000";
+	mes "  ^0000FF" + getvariableofnpc(.sk_name$[.@i2], "#safa_skillwahl") + "^000000";
+	mes " ";
+	mes "^FF0000This cannot be undone.^000000";
+	next;
+
+	if (select("Set them:Let me look again") == 2) {
+		callsub S_KantenSpaeter;
+		return;
+	}
+
+	// Gegenprobe vor dem Schreiben. Zwischen der Auswahl und dieser
+	// Zeile liegen mehrere Klicks, und in denen passt ein GM, der
+	// das Geschenk abgenommen hat - dann zeigte der Steckplatz auf
+	// einen fremden Klassenbaum.
+	if (isekai_gift == 0 || callfunc("F_SafaGiftTier", isekai_gift) != .@tier) {
+		mes "[Threshold Warden]";
+		mes "^FF6666Your gift changed while we spoke.^000000";
+		mes "Ask me again.";
+		next;
+		return;
+	}
+
+	set isekai_skill1,  getvariableofnpc(.sk_id[.@i1],  "#safa_skillwahl");
+	set isekai_skill1b, getvariableofnpc(.sk_id2[.@i1], "#safa_skillwahl");
+	set isekai_skill2,  getvariableofnpc(.sk_id[.@i2],  "#safa_skillwahl");
+	set isekai_skill2b, getvariableofnpc(.sk_id2[.@i2], "#safa_skillwahl");
+
+	callfunc "F_SafaRefresh";
+	specialeffect2 EF_ANGEL2;
+
+	mes "[Threshold Warden]";
+	mes "Then that is what you are.";
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  Abbruch
+// ------------------------------------------------------------
+//  Wer nicht waehlen will, wird nicht gezwungen - aber er muss
+//  wissen, dass er ohne Bonus hinausgeht und nur ueber diese
+//  Halle wieder herankommt. Die erreicht er von aussen mit
+//  @warp valkyrie 48,9; das kann ein Spieler nicht, ein GM
+//  schon.
+S_KantenSpaeter:
+	mes "[Threshold Warden]";
+	mes "^FF6666Then your gift stays blunt.^000000";
+	mes "Nothing of it is lost - but nothing of";
+	mes "it works either, until you name the two.";
+	next;
+	mes "[Threshold Warden]";
+	mes "Come back to this hall when you know.";
+	mes "^777777It is not on any road. You will have to";
+	mes "ask someone to put you here.^000000";
+	next;
+	return;
+
+
+// ------------------------------------------------------------
+//  Eine Kante waehlen
+// ------------------------------------------------------------
+//  getarg(0) Steckplatz, getarg(1) schon vergebener Index
+//  (-1 = keiner), getarg(2) "first" oder "second" fuer den Text.
+//
+//  Rueckgabe: Index in .sk_id, oder -1 bei Abbruch.
+//
+//  Zwei Menues statt einem: ein Shinkiro hat 33 waehlbare
+//  Fertigkeiten, und ein select() mit 33 langen Eintraegen
+//  sprengt das Menuepaket zum Client. Die Gruppen sind ohnehin
+//  die natuerliche Ordnung - man denkt in Klassenstufen.
+S_KanteWaehlen:
+	.@s = getarg(0);
+	.@aus = getarg(1);
+	.@was$ = getarg(2);
+
+	.@gv = getvariableofnpc(.g_von[.@s], "#safa_skillwahl");
+	.@ga = getvariableofnpc(.g_anz[.@s], "#safa_skillwahl");
+
+	while (1) {
+		mes "[Threshold Warden]";
+		mes "The ^0000FF" + .@was$ + "^000000 edge. Where from?";
+
+		.@m$ = "";
+		for (.@k = 0; .@k < .@ga; .@k++)
+			.@m$ += getvariableofnpc(.gr_name$[.@gv + .@k], "#safa_skillwahl") + ":";
+		.@m$ += "^777777Not now^000000";
+
+		.@g = select(.@m$) - 1;
+		if (.@g == .@ga)
+			return -1;
+
+		.@sv = getvariableofnpc(.gr_von[.@gv + .@g], "#safa_skillwahl");
+		.@sa = getvariableofnpc(.gr_anz[.@gv + .@g], "#safa_skillwahl");
+
+		.@m2$ = "";
+		for (.@k = 0; .@k < .@sa; .@k++) {
+			// Die schon vergebene Kante wird grau gezeigt statt
+			// weggelassen: eine Liste, die sich zwischen erstem und
+			// zweitem Durchgang verkuerzt, laesst einen an der
+			// eigenen Erinnerung zweifeln.
+			.@m2$ += ((.@sv + .@k) == .@aus ? "^777777" : "") +
+			    getvariableofnpc(.sk_name$[.@sv + .@k], "#safa_skillwahl") +
+			    ((.@sv + .@k) == .@aus ? " - taken^000000" : "") + ":";
+		}
+		.@m2$ += "^777777Back^000000";
+
+		.@w = select(.@m2$) - 1;
+		if (.@w == .@sa)
+			continue;
+		if ((.@sv + .@w) == .@aus) {
+			mes "[Threshold Warden]";
+			mes "^FF6666That one already holds your first edge.^000000";
+			mes "Two edges on one blade is one edge.";
+			next;
+			continue;
+		}
+		return .@sv + .@w;
+	}
+	return -1;
 }
 
 
