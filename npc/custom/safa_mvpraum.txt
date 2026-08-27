@@ -1,0 +1,783 @@
+// ============================================================
+//  SafaRO - Die Gebundenen
+// ============================================================
+//
+//  Vier private Kammern, in denen man sich gegen Coins einen MVP
+//  rufen laesst. Der Eingang steht in einer Nische in Kunlun und
+//  wird nirgends erwaehnt - wie der Level-Raum in gef_tower.
+//
+//  ------------------------------------------------------------
+//  WARUM NICHT npc/custom/etc/mvp_room.txt
+//  ------------------------------------------------------------
+//
+//  Das mitgelieferte Skript von AnnieRuru kann fast dasselbe,
+//  aber drei Dinge passen nicht:
+//
+//    1. Es stellt seinen NPC nach prontera 148,174 - offen
+//       sichtbar, und Prontera ist seit Episode 22 nicht mehr
+//       die Hauptstadt.
+//    2. Es mietet ueber Zeny. Auf einem 25x-Server ist Zeny
+//       keine Grenze, sondern eine Geste.
+//    3. Es benutzt 06guild_01 bis 08 - die Gildenkarten der WoE
+//       2.0. Die sind bei uns nicht frei.
+//
+//  ------------------------------------------------------------
+//  WELCHE KARTEN - UND WIE SIE GEFUNDEN WURDEN
+//  ------------------------------------------------------------
+//
+//  guild_vs1-1 bis guild_vs1-4.
+//
+//  Von den 1265 Karten, die der Map-Server laedt, kommen 179 in
+//  KEINER npc-Datei vor - kein Spawn, kein Warp, kein NPC, kein
+//  Mapflag. Diese vier sind darunter. Sie sind ausserdem
+//  byteweise identisch: ein Grundriss, vier Ausfertigungen, also
+//  vier gleichwertige Kammern statt vier verschiedener.
+//
+//  Der Grundriss: ein Ring von rund 47 mal 47 Zellen in der
+//  Mitte, dazu je eine kleine Kammer im Westen (x 4..11) und
+//  Osten, verbunden durch einen Gang auf y 48..51. 2.743
+//  begehbare Zellen, davon 2.544 zusammenhaengend.
+//
+//  Die Westkammer ist der Vorraum: dort kommt man an, dort
+//  stehen Rufer und Rueckweg, und dort steht der MVP NICHT.
+//  Gekaempft wird im Ring. Das ist kein Schmuck - ein NPC belegt
+//  seine Zelle, und zwei NPCs mitten in einem MVP-Kampf sind
+//  zwei Stellen, an denen man haengenbleibt.
+//
+//  Alle Koordinaten gegen db/map_cache.dat geprueft: begehbar,
+//  mit der Ringmitte verbunden, 3x3 freie Nachbarschaft.
+//
+//  ------------------------------------------------------------
+//  WO DER EINGANG STEHT
+//  ------------------------------------------------------------
+//
+//  gonryun 220,144 - Koordinate von Raffael.
+//
+//  ACHTUNG BEIM SUCHEN: die Karte heisst gonryun, nicht kunlun.
+//  "Kunlun" ist nur der Anzeigename, den npc/custom/warper.txt
+//  in seinem Staedtemenue benutzt (Zeile 143). Eine Karte dieses
+//  Namens gibt es weder in conf/maps_athena.conf noch in
+//  db/map_index.txt. Wer nach "kunlun" greppt, findet nichts und
+//  haelt es fuer einen Fehler.
+//
+//  Warum dort:
+//
+//    - Kunlun ist die leerste bespielte Stadt des Servers. 42
+//      NPCs stehen dort, in Veins sind es 115 und in Prontera
+//      317. Wer hierher kommt, kommt mit Absicht.
+//    - Die Zelle liegt in einer Nische: auf y 144 endet der
+//      begehbare Streifen bei x 222, auf y 145 schon bei 218.
+//      Der Binder steht also in einer Ecke und nicht im Weg -
+//      man muss zu ihm hin, man laeuft nicht an ihm vorbei.
+//    - Das Naechste in der Umgebung ist der Wirtshaus-Warp bei
+//      215,114, dreissig Zellen entfernt. Es steht ihm nichts im
+//      Weg und er steht niemandem im Weg.
+//
+//  Blickrichtung 4, also nach Sueden: dort ist offen, im Norden
+//  ist die Wand.
+//
+//  Versteckt heisst hier "unbeworben", nicht "unerreichbar" -
+//  wie beim Level-Raum in gef_tower. Der Warper fuehrt nach
+//  Kunlun, es steht nur nirgends, dass dort etwas ist.
+//
+//  ------------------------------------------------------------
+//  WAS ES KOSTET - UND WARUM IN COINS
+//  ------------------------------------------------------------
+//
+//  Destiny Coins kommen ausschliesslich von Monstern: 10 Prozent
+//  auf 1 Coin bei normalen, 100 Prozent auf 5 bei MVPs (siehe
+//  npc/custom/safa_shops.txt).
+//
+//  Der Raum ist damit eine SENKE, keine Quelle. Ein gerufener
+//  MVP gibt 5 Coins zurueck; die billigste Beschwoerung kostet
+//  100. Wer hier farmt, verliert Coins und gewinnt Kaempfe -
+//  genau die Richtung, die eine Zweitwaehrung braucht.
+//
+//    Miete    200 Coins fuer 30 Minuten, Kammer gehoert einem
+//             allein oder der Party
+//    Stufe 1  100 Coins   Lv  50 -  85   die alten Namen
+//    Stufe 2  200 Coins   Lv  80 - 110
+//    Stufe 3  350 Coins   Lv 113 - 147
+//    Stufe 4  600 Coins   Lv 150 - 245
+//
+//  Zum Vergleich: der Level-Raum kostet 1000, die Kopfteile beim
+//  Custom Merchant 500 bis 1000, das Wecken des Apex 500 plus
+//  200 Safari-Trophaeen.
+//
+//  ------------------------------------------------------------
+//  DASS DER KILL MITZAEHLT, IST ABSICHT
+//  ------------------------------------------------------------
+//
+//  Ein hier gerufener MVP laesst 5 Destiny Coins fallen
+//  (safa_shops.txt) und erhoeht mvp_erlegt (safa_systems.txt).
+//  Beides bleibt so.
+//
+//  Der Kill ist echt: derselbe Gegner, dieselben Trefferpunkte,
+//  dieselbe Gefahr, und bezahlt wurde vorher mehr, als
+//  zurueckkommt. Ihn nicht zaehlen zu lassen hiesse ausserdem,
+//  in zwei fremden Dateien eine Kartenpruefung einzubauen - und
+//  die naechste eigene Arena muesste dort wieder nachgetragen
+//  werden.
+//
+//  Der Todes-Debuff gilt hier ebenfalls. guild_vs1-x traegt kein
+//  mf_pvp, also steigt OnPCDieEvent ganz normal ein. Wer gegen
+//  Beelzebub verliert, traegt das Mal wie ueberall sonst. Kein
+//  nopenalty, kein Rabatt - sonst waere die Kammer der sichere
+//  Ort, an dem man MVPs uebt, statt der teure, an dem man sie
+//  wagt.
+//
+//  ------------------------------------------------------------
+//  WARUM DER ZUSTAND IN $@-VARIABLEN LIEGT
+//  ------------------------------------------------------------
+//
+//  Drei NPCs muessen wissen, wem eine Kammer gerade gehoert: der
+//  Binder draussen, der Rufer drinnen und die Uhr, die
+//  hinauswirft. NPC-Variablen (Punkt) haengen am Skript, nicht
+//  am Standort - Duplikate teilen sie sich (script.cpp:20518),
+//  fremde NPCs kommen nur ueber getvariableofnpc daran, und das
+//  wird bei Arrays schnell unleserlich.
+//
+//  $@-Variablen sind serverweit und liegen nur im Speicher. Sie
+//  ueberstehen ein @reloadscript, gehen bei einem Neustart aber
+//  verloren. Beides ist hier richtig: eine Miete ist eine halbe
+//  Stunde alt, kein Besitz.
+//
+//  Die Praefixe sind bewusst lang ($@safa_mvp...). $@-Namen sind
+//  serverweit, und ein zweites Skript mit $@raum wuerde diesem
+//  hier still den Zustand umschreiben.
+//
+//  ------------------------------------------------------------
+//  EINER NACH DEM ANDEREN
+//  ------------------------------------------------------------
+//
+//  Es laesst sich immer nur EIN MVP gleichzeitig rufen. Gezaehlt
+//  wird ueber mobcount mit dem Ereignisnamen, den die
+//  Beschwoerung mitgibt - nicht ueber "all".
+//
+//  Der Unterschied ist wichtig: Baphomet, Orc Hero und andere
+//  rufen Gefolge, und Gefolge erbt das Ereignis NICHT
+//  (mob_summonslave setzt keinen npc_event). Ueber "all" waere
+//  die Kammer also gesperrt, bis auch der letzte Baphomet Jr.
+//  gefallen ist - und einer davon steht immer in irgendeiner
+//  Ecke.
+// ============================================================
+
+
+// ------------------------------------------------------------
+//  Der Binder
+// ------------------------------------------------------------
+gonryun,220,144,4	script	The Binder	4_M_DARKPRIEST,{
+
+	.@jetzt = gettimetick(2);
+	.@n = getarraysize($@safa_mvpraum$);
+
+	// Habe ich schon eine Kammer? Dann ist die erste Frage nicht
+	// "welche", sondern "zurueck". Wer gerade gestorben ist, steht
+	// an seinem Speicherpunkt und will genau das.
+	//
+	// Das callsub steht bewusst in einer eigenen Zeile und nicht
+	// in der Bedingung: rAthena wertet bei && beide Seiten aus,
+	// es waere also kein Kurzschluss, und ein Unterprogramm-
+	// aufruf mitten in einem Ausdruck ist schwerer zu lesen als
+	// eine Zuweisung.
+	.@meine = -1;
+	for (.@i = 0; .@i < .@n; .@i++) {
+		if ($@safa_mvp_bis[.@i] <= .@jetzt) continue;
+		.@g = callsub(S_Gehoert, .@i);
+		if (.@g) .@meine = .@i;
+	}
+
+	mes "[The Binder]";
+	mes "You are a long way down for someone";
+	mes "who is not hunting Kasa.";
+	next;
+
+	if (.@meine < 0) {
+		mes "[The Binder]";
+		mes "I keep four rooms and a short list of";
+		mes "names. Rent a room, say a name, and the";
+		mes "one who carries it will be standing in";
+		mes "there with you.";
+		next;
+
+		mes "[The Binder]";
+		mes "A room is yours for ^0000FF" + .dauer + " minutes^000000 and costs";
+		mes "^0000FF" + .miete + " " + getitemname(.coin) + "^000000. What you call";
+		mes "afterwards is charged by name.";
+		next;
+
+		mes "[The Binder]";
+		mes "You carry ^0000FF" + countitem(.coin) + "^000000.";
+		next;
+	}
+
+	// --- Menue der Kammern ---
+	.@menu$ = "";
+	for (.@i = 0; .@i < .@n; .@i++) {
+		if ($@safa_mvp_bis[.@i] <= .@jetzt) {
+			.@menu$ += .name$[.@i] + "  ^777777[free]^000000:";
+			continue;
+		}
+		if (.@meine == .@i) {
+			.@menu$ += .name$[.@i] + "  ^00AA00[yours, " +
+			    (($@safa_mvp_bis[.@i] - .@jetzt) / 60 + 1) + " min left]^000000:";
+			continue;
+		}
+		.@menu$ += .name$[.@i] + "  ^FF6666[" + $@safa_mvp_wer$[.@i] + "]^000000:";
+	}
+	.@menu$ += "Nothing today";
+
+	.@w = select(.@menu$) - 1;
+
+	if (.@w == .@n) {
+		mes "[The Binder]";
+		mes "Then walk back up. Mind the fire.";
+		close;
+	}
+
+	// --- Eigene Kammer: nur zurueck hinein ---
+	if (.@meine == .@w) {
+		mes "[The Binder]";
+		mes "Still yours. ^0000FF" +
+		    (($@safa_mvp_bis[.@w] - .@jetzt) / 60 + 1) + " minutes^000000 left.";
+		close2;
+		warp $@safa_mvpraum$[.@w], .ankunft_x, .ankunft_y;
+		end;
+	}
+
+	// --- Fremde Kammer ---
+	if ($@safa_mvp_bis[.@w] > .@jetzt) {
+		mes "[The Binder]";
+		mes "^FF6666Taken.^000000 " + $@safa_mvp_wer$[.@w] + " paid for it,";
+		mes "and I do not sell the same room twice.";
+		close;
+	}
+
+	// --- Eine Kammer je Person ---
+	//  Sonst mietet einer alle vier und die anderen drei stehen
+	//  eine halbe Stunde leer. Der Preis allein bremst das nicht:
+	//  800 Coins sind fuer jemanden, der hier ueberhaupt herkommt,
+	//  kein Betrag.
+	if (.@meine >= 0) {
+		mes "[The Binder]";
+		mes "^FF6666You already hold " + .name$[.@meine] + ".^000000";
+		mes "One at a time. Let it run out, or go";
+		mes "and use it.";
+		close;
+	}
+
+	// --- Mieten ---
+	mes "[The Binder]";
+	mes "Rent " + .name$[.@w] + " for ^0000FF" + .dauer + " minutes^000000?";
+	mes "That is ^0000FF" + .miete + " " + getitemname(.coin) + "^000000.";
+	next;
+
+	.@fuer = select("For me alone:For my party:Never mind");
+
+	if (.@fuer == 3) {
+		mes "[The Binder]";
+		mes "The rooms will keep.";
+		close;
+	}
+
+	if (.@fuer == 2 && getcharid(1) == 0) {
+		mes "[The Binder]";
+		mes "^FF6666You have no party.^000000 Take it alone, or";
+		mes "find people first.";
+		close;
+	}
+
+	// Gegenprobe unmittelbar vor dem Abbuchen. Zwischen der
+	// Anzeige und dieser Zeile kann ein Handel stattgefunden
+	// haben - und ein anderer kann dieselbe Kammer gemietet
+	// haben.
+	if (countitem(.coin) < .miete) {
+		mes "[The Binder]";
+		mes "^FF6666You cannot pay.^000000 Come back heavier.";
+		close;
+	}
+	if ($@safa_mvp_bis[.@w] > gettimetick(2)) {
+		mes "[The Binder]";
+		mes "^FF6666Somebody was faster.^000000 Pick another.";
+		close;
+	}
+
+	delitem .coin, .miete;
+
+	$@safa_mvp_bis[.@w]  = gettimetick(2) + .dauer * 60;
+	$@safa_mvp_typ[.@w]  = (.@fuer == 2 ? 1 : 0);
+	$@safa_mvp_id[.@w]   = (.@fuer == 2 ? getcharid(1) : getcharid(3));
+	$@safa_mvp_wer$[.@w] = (.@fuer == 2 ? getpartyname(getcharid(1)) : strcharinfo(0));
+	$@safa_mvp_warn[.@w] = 0;
+
+	// Hausputz vor dem Einzug. Sollte nach einem sauberen Ablauf
+	// nie noetig sein - aber ein Neustart mitten in einer Miete
+	// hinterlaesst genau das, was hier weggeraeumt wird.
+	killmonsterall $@safa_mvpraum$[.@w];
+
+	mes "[The Binder]";
+	mes "Then it is yours. The circle inside takes";
+	mes "the names; I only keep the door.";
+	close2;
+	warp $@safa_mvpraum$[.@w], .ankunft_x, .ankunft_y;
+	end;
+
+
+// ------------------------------------------------------------
+//  Gehoert Kammer getarg(0) dem Anrufer?
+// ------------------------------------------------------------
+//  Typ 0 ist die Konto-Id, Typ 1 die Party-Id. Getrennt gehalten,
+//  weil beide Zahlenraeume sich ueberschneiden - eine Party 2001
+//  und ein Konto 2001 gibt es gleichzeitig, und ohne den Typ
+//  waere das derselbe Anspruch.
+S_Gehoert:
+	.@k = getarg(0);
+	if ($@safa_mvp_typ[.@k] == 1)
+		return (getcharid(1) != 0 && $@safa_mvp_id[.@k] == getcharid(1));
+	return ($@safa_mvp_id[.@k] == getcharid(3));
+
+
+OnInit:
+	.coin  = 30001;   // Destiny Coin
+	.miete = 200;
+	.dauer = 30;      // Minuten
+
+	// Ankunftspunkt in der Westkammer, zwischen Rufer (6,51) und
+	// Rueckweg (6,47). Gilt fuer alle vier Kammern - sie sind
+	// byteweise identisch.
+	//
+	// Punkt- und nicht .@-Variablen: .@ lebt nur so lange, wie ein
+	// Skript laeuft. In OnInit gesetzt waeren sie beim ersten Klick
+	// laengst weg, und der Spieler landete auf 0,0.
+	.ankunft_x = 8;
+	.ankunft_y = 49;
+
+	deletearray $@safa_mvpraum$[0];
+	setarray $@safa_mvpraum$[0],
+	    "guild_vs1-1", "guild_vs1-2", "guild_vs1-3", "guild_vs1-4";
+
+	setarray .name$[0],
+	    "First Room", "Second Room", "Third Room", "Fourth Room";
+
+	// Der Zustand wird hier BEWUSST nicht zurueckgesetzt. Bei
+	// einem @reloadscript liefe sonst jede laufende Miete ins
+	// Leere, und wer drinnen steht, haette bezahlt und nichts.
+	// Nach einem Serverneustart sind die $@-Variablen ohnehin
+	// leer, und leer heisst frei.
+
+	initnpctimer;
+	end;
+
+
+// ------------------------------------------------------------
+//  Die Uhr
+// ------------------------------------------------------------
+//  Alle zehn Sekunden. Das ist die Aufloesung, mit der eine
+//  Miete endet - genauer muss es nicht sein, und ein Zaehler,
+//  der jede Sekunde ueber vier Kammern laeuft, ist Arbeit ohne
+//  Ertrag.
+//
+//  setnpctimer 0 statt stopnpctimer/initnpctimer: der Zaehler
+//  laeuft weiter und faengt nur wieder bei null an. Ein zweiter
+//  entsteht dabei nicht.
+OnTimer10000:
+	.@jetzt = gettimetick(2);
+
+	for (.@i = 0; .@i < getarraysize($@safa_mvpraum$); .@i++) {
+
+		if ($@safa_mvp_bis[.@i] == 0) continue;
+
+		.@rest = $@safa_mvp_bis[.@i] - .@jetzt;
+
+		// Eine Minute vorher ansagen. Ohne das steht man mitten im
+		// Kampf und ist auf einmal woanders - und haelt es fuer
+		// einen Fehler.
+		if (.@rest > 0) {
+			if (.@rest <= 60 && $@safa_mvp_warn[.@i] == 0) {
+				$@safa_mvp_warn[.@i] = 1;
+				mapannounce $@safa_mvpraum$[.@i],
+				    "[The Binder] One minute. Finish it or leave it.",
+				    bc_map, "0xFF6666";
+			}
+			continue;
+		}
+
+		// Abgelaufen. Erst hinauswerfen, dann aufraeumen - in der
+		// anderen Reihenfolge stuende der Spieler eine Zehntel-
+		// sekunde in einer Kammer, aus der gerade sein MVP
+		// verschwunden ist.
+		mapwarp $@safa_mvpraum$[.@i], "gonryun", 220, 143;
+		killmonsterall $@safa_mvpraum$[.@i];
+
+		$@safa_mvp_bis[.@i]  = 0;
+		$@safa_mvp_typ[.@i]  = 0;
+		$@safa_mvp_id[.@i]   = 0;
+		$@safa_mvp_wer$[.@i] = "";
+		$@safa_mvp_warn[.@i] = 0;
+	}
+
+	setnpctimer 0;
+	end;
+
+
+// ------------------------------------------------------------
+//  Ereignis der Beschwoerung
+// ------------------------------------------------------------
+//  Haengt an diesem NPC, weil er als einziger einen festen Namen
+//  hat: der Rufer drinnen steht viermal da, und ein Duplikat
+//  traegt seinen eigenen Namen. mobcount braucht aber genau eine
+//  Zeichenkette.
+//
+//  Das Ereignis tut nichts. Es ist nur die Marke, an der sich ein
+//  gerufener MVP von seinem Gefolge unterscheiden laesst.
+OnMvpTot:
+	end;
+}
+
+
+// ------------------------------------------------------------
+//  Der Rufer
+// ------------------------------------------------------------
+//  Ein Skript, vier Standorte. Welche Kammer gemeint ist, sagt
+//  strnpcinfo(4) - der Kartenname, auf dem das Duplikat steht.
+-	script	The Circle#safa::safa_mvp_rufer	-1,{
+
+	.@karte$ = strnpcinfo(4);
+	.@raum = -1;
+	for (.@i = 0; .@i < getarraysize($@safa_mvpraum$); .@i++)
+		if ($@safa_mvpraum$[.@i] == .@karte$) .@raum = .@i;
+
+	// Kann nur passieren, wenn jemand ein Duplikat auf eine Karte
+	// gestellt hat, die nicht in der Liste steht. Dann lieber eine
+	// Meldung als ein stiller Zugriff auf $@..[-1].
+	if (.@raum < 0) {
+		mes "[The Circle]";
+		mes "^FF6666This circle is not bound to anything.^000000";
+		close;
+	}
+
+	if ($@safa_mvp_bis[.@raum] <= gettimetick(2)) {
+		mes "[The Circle]";
+		mes "Nobody has paid for this room. The stones";
+		mes "are cold.";
+		close;
+	}
+
+	.@g = callsub(S_Meins, .@raum);
+	if (!.@g) {
+		mes "[The Circle]";
+		mes "^FF6666This room belongs to " + $@safa_mvp_wer$[.@raum] + ".^000000";
+		mes "The names are theirs to spend, not yours.";
+		close;
+	}
+
+	mes "[The Circle]";
+	mes "Say a name and I will pull the one who";
+	mes "carries it out of the ground.";
+	next;
+
+	// Nur EINER auf einmal. Gezaehlt wird ueber die Marke des
+	// Binders, nicht ueber "all" - Gefolge erbt sie nicht, siehe
+	// Kopf der Datei.
+	if (mobcount(.@karte$, .ereignis$) > 0) {
+		mes "[The Circle]";
+		mes "^FF6666One is still standing.^000000 Put it down";
+		mes "first. I will not have two of them in";
+		mes "here at once.";
+		close;
+	}
+
+	mes "[The Circle]";
+	mes "^777777" + (($@safa_mvp_bis[.@raum] - gettimetick(2)) / 60 + 1) +
+	    " minutes left on this room.^000000";
+	mes "You carry ^0000FF" + countitem(.coin) + " " + getitemname(.coin) + "^000000.";
+	next;
+
+	.@stufe = select("The old names  ^777777[" + .preis[0] + "]^000000:" +
+	    "The deep ones  ^777777[" + .preis[1] + "]^000000:" +
+	    "The old wars  ^777777[" + .preis[2] + "]^000000:" +
+	    "^FF6666The worst of them^000000  ^777777[" + .preis[3] + "]^000000:" +
+	    "Not yet");
+
+	if (.@stufe == 5) {
+		mes "[The Circle]";
+		mes "The ground keeps them either way.";
+		close;
+	}
+
+	// copyarray statt vier gleich gebauter Bloecke: die Liste
+	// steht damit genau einmal je Stufe in OnInit, und der Ablauf
+	// darunter genau einmal ueberhaupt.
+	switch (.@stufe) {
+		case 1:
+			copyarray .@id[0],  .s1_id[0],    getarraysize(.s1_id);
+			copyarray .@nm$[0], .s1_name$[0], getarraysize(.s1_id);
+			break;
+		case 2:
+			copyarray .@id[0],  .s2_id[0],    getarraysize(.s2_id);
+			copyarray .@nm$[0], .s2_name$[0], getarraysize(.s2_id);
+			break;
+		case 3:
+			copyarray .@id[0],  .s3_id[0],    getarraysize(.s3_id);
+			copyarray .@nm$[0], .s3_name$[0], getarraysize(.s3_id);
+			break;
+		case 4:
+			copyarray .@id[0],  .s4_id[0],    getarraysize(.s4_id);
+			copyarray .@nm$[0], .s4_name$[0], getarraysize(.s4_id);
+			break;
+	}
+
+	.@preis = .preis[.@stufe - 1];
+	.@anz = getarraysize(.@id);
+
+	.@liste$ = "";
+	for (.@i = 0; .@i < .@anz; .@i++)
+		.@liste$ += .@nm$[.@i] + ":";
+	.@liste$ += "Back";
+
+	.@w = select(.@liste$) - 1;
+
+	if (.@w == .@anz) {
+		mes "[The Circle]";
+		mes "Then take your time. The room is paid";
+		mes "for either way.";
+		close;
+	}
+
+	mes "[The Circle]";
+	mes "^0000FF" + .@nm$[.@w] + "^000000 for ^0000FF" + .@preis + " " +
+	    getitemname(.coin) + "^000000.";
+	mes "Once it stands, it is yours to deal with.";
+	next;
+
+	if (select("Call it:No") == 2) {
+		mes "[The Circle]";
+		mes "Wise, maybe.";
+		close;
+	}
+
+	// Dieselben drei Gegenproben wie oben, aus demselben Grund:
+	// zwischen Anzeige und Abbuchung liegt ein Klick, und in einem
+	// Klick passt ein Handel, eine abgelaufene Miete und ein
+	// zweiter Spieler, der schneller war.
+	if (countitem(.coin) < .@preis) {
+		mes "[The Circle]";
+		mes "^FF6666You cannot pay.^000000";
+		close;
+	}
+	if ($@safa_mvp_bis[.@raum] <= gettimetick(2)) {
+		mes "[The Circle]";
+		mes "^FF6666The room just ran out.^000000";
+		close;
+	}
+	if (mobcount(.@karte$, .ereignis$) > 0) {
+		mes "[The Circle]";
+		mes "^FF6666One is still standing.^000000";
+		close;
+	}
+
+	delitem .coin, .@preis;
+
+	// Die Ringmitte, 42 Zellen oestlich der Westkammer. Weit genug,
+	// dass niemand auf dem Rufer landet, und geprueft begehbar.
+	monster .@karte$, .mx, .my, "--ja--", .@id[.@w], 1, .ereignis$;
+
+	mapannounce .@karte$,
+	    "[The Circle] " + .@nm$[.@w] + " is standing.", bc_map, "0x3355FF";
+
+	mes "[The Circle]";
+	mes "It is in the ring. Go on.";
+	close;
+
+
+// ------------------------------------------------------------
+//  Gehoert Kammer getarg(0) dem Anrufer?
+// ------------------------------------------------------------
+//  Wortgleich zu S_Gehoert beim Binder. Zwei NPCs, zwei
+//  Skripte - eine gemeinsame Funktion waere ein callfunc fuer
+//  drei Zeilen, und callfunc sucht zur Laufzeit.
+S_Meins:
+	.@k = getarg(0);
+	if ($@safa_mvp_typ[.@k] == 1)
+		return (getcharid(1) != 0 && $@safa_mvp_id[.@k] == getcharid(1));
+	return ($@safa_mvp_id[.@k] == getcharid(3));
+
+
+OnInit:
+	.coin = 30001;
+	.mx = 50;
+	.my = 49;
+
+	// Der Ereignisname der Beschwoerung. Er zeigt auf den Binder,
+	// weil dessen Name feststeht - siehe dort bei OnMvpTot.
+	.ereignis$ = "The Binder::OnMvpTot";
+
+	setarray .preis[0], 100, 200, 350, 600;
+
+	// ------------------------------------------------------------
+	//  Die Namen
+	// ------------------------------------------------------------
+	//  Vier Stufen, fuenfzig Namen, von Hand ausgesucht. Nicht
+	//  alle 190 MVPs, die db/re/mob_db.yml kennt:
+	//
+	//    - Die Datenbank fuehrt viele doppelt. Eddga steht als
+	//      1115 und als 2095, Baphomet als 1039, 1399 und 2100.
+	//      Die 2xxx-Fassungen gehoeren zu Biolabor und Alptraum-
+	//      Instanzen und sind dort anders eingestellt.
+	//    - Etliche sind ohne ihre Instanz nicht das, was sie sein
+	//      sollen - Faceworm Queen ohne die Phasen ringsum ist ein
+	//      Sack Trefferpunkte.
+	//    - Eine Liste aus 190 Eintraegen ist kein Menue.
+	//
+	//  Jede Id wurde gegen db/re/mob_db.yml geprueft: vorhanden
+	//  und tatsaechlich als MVP gefuehrt.
+	// ------------------------------------------------------------
+
+	// --- Stufe 1: die alten Namen, Lv 50 bis 85 ---
+	setarray .s1_id[0],
+	    1087, 1190, 1147, 1086, 1115, 1038, 1511,
+	    1159, 1389, 1046, 1059, 1150, 1039, 1157;
+	setarray .s1_name$[0],
+	    "Orc Hero", "Orc Lord", "Maya", "Golden Thief Bug",
+	    "Eddga", "Osiris", "Amon Ra", "Phreeoni", "Dracula",
+	    "Doppelganger", "Mistress", "Moonlight Flower",
+	    "Baphomet", "Pharaoh";
+
+	// --- Stufe 2: Lv 80 bis 110 ---
+	setarray .s2_id[0],
+	    1688, 1112, 1251, 1373, 1272, 1885,
+	    1252, 1492, 1623, 1418, 1312, 1583;
+	setarray .s2_name$[0],
+	    "Lady Tanee", "Drake", "Stormy Knight", "Lord of the Dead",
+	    "Dark Lord", "Gopinich", "Hatii", "Samurai Specter",
+	    "RSX-0806", "Evil Snake Lord", "Turtle General", "Tao Gunka";
+
+	// --- Stufe 3: Lv 113 bis 147 ---
+	setarray .s3_id[0],
+	    1785, 2022, 1734, 1685, 1719, 1871,
+	    1768, 2087, 1658, 1751, 1832, 1874;
+	setarray .s3_name$[0],
+	    "Atroce", "Nidhoggur's Shadow", "Kiel D-01", "Vesper",
+	    "Detardeurus", "Falling Bishop", "Gloom Under Night",
+	    "Scaraba Queen", "Egnigem Cenia", "Valkyrie Randgris",
+	    "Ifrit", "Beelzebub";
+
+	// --- Stufe 4: Lv 150 aufwaerts ---
+	//  Die sechs Helden auf Lv 160 sind die Biolabor-Fassungen aus
+	//  gl_cas02 - dieselben, gegen die man in der Instanz antritt,
+	//  nur einzeln. The One auf Lv 245 ist der hoechste MVP, den
+	//  die Datenbank kennt.
+	setarray .s4_id[0],
+	    2476, 1917, 1646, 1647, 1648, 1649,
+	    1650, 1651, 2564, 3074, 3097, 20928;
+	setarray .s4_name$[0],
+	    "Amdarais", "Wounded Morocc", "Lord Knight Seyren",
+	    "Assassin Cross Eremes", "Whitesmith Howard",
+	    "High Priest Margaretha", "Sniper Cecil",
+	    "High Wizard Kathryne", "Fenrir", "Time Holder",
+	    "Despair God Morroc", "The One";
+	end;
+}
+
+guild_vs1-1,6,51,4	duplicate(safa_mvp_rufer)	The Circle#mvp1	4_M_DARKPRIEST
+guild_vs1-2,6,51,4	duplicate(safa_mvp_rufer)	The Circle#mvp2	4_M_DARKPRIEST
+guild_vs1-3,6,51,4	duplicate(safa_mvp_rufer)	The Circle#mvp3	4_M_DARKPRIEST
+guild_vs1-4,6,51,4	duplicate(safa_mvp_rufer)	The Circle#mvp4	4_M_DARKPRIEST
+
+
+// ------------------------------------------------------------
+//  Der Rueckweg
+// ------------------------------------------------------------
+//  4_M_ORIENT01 wie der Ausgang des Level-Raums. Wer beide
+//  gefunden hat, soll merken, dass sie zusammengehoeren.
+//
+//  Ziel ist gonryun 220,143 - ein Feld suedlich des Binders,
+//  weil dessen Zelle belegt ist und im Norden die Wand steht.
+//  Nicht SavePoint: man soll dort herauskommen, wo man
+//  hineingegangen ist, und die zweite Miete liegt einen Schritt
+//  entfernt.
+-	script	Way Out#safa_mvp::safa_mvp_raus	-1,{
+
+	mes "[Way Out]";
+	mes "Out again?";
+	next;
+
+	if (select("Back to the Binder:Stay") == 2) {
+		mes "[Way Out]";
+		mes "The room is paid for. Use it.";
+		close;
+	}
+
+	// Der MVP bleibt stehen. Die Miete laeuft weiter, man kann
+	// zurueck, und aufgeraeumt wird beim Ablauf. Ihn hier zu
+	// toeten waere freundlich gemeint und teuer: wer nur kurz
+	// Traenke holen will, haette dafuer bezahlt.
+	close2;
+	warp "gonryun", 220, 143;
+	end;
+}
+
+guild_vs1-1,6,47,4	duplicate(safa_mvp_raus)	Way Out#mvp1	4_M_ORIENT01
+guild_vs1-2,6,47,4	duplicate(safa_mvp_raus)	Way Out#mvp2	4_M_ORIENT01
+guild_vs1-3,6,47,4	duplicate(safa_mvp_raus)	Way Out#mvp3	4_M_ORIENT01
+guild_vs1-4,6,47,4	duplicate(safa_mvp_raus)	Way Out#mvp4	4_M_ORIENT01
+
+
+// ------------------------------------------------------------
+//  Kartenregeln
+// ------------------------------------------------------------
+//  Die vier Karten tragen bisher KEINEN einzigen Mapflag - sie
+//  kommen in npc/mapflag/ nicht vor. Alles hier ist also neu und
+//  nicht etwa eine Korrektur.
+//
+//    nosave SavePoint  Wer sich drinnen abmeldet, steht beim
+//                      naechsten Anmelden an seinem
+//                      Speicherpunkt. Sonst haette man einen
+//                      Dauerplatz fuer 200 Coins.
+//    nomemo            Kein Speicherpunkt in der Kammer.
+//    nowarpto          @warp, @jump und @recall fuehren nicht
+//                      hinein. Eine gemietete Kammer ist privat,
+//                      und ohne das waere sie es nur, solange
+//                      niemand den Kartennamen kennt.
+//    nobranch          Kein Dead Branch. Der Raum verkauft
+//                      Monster; er soll nicht auch welche
+//                      verschenken.
+//    noicewall         Kein Ice Wall. Der Gang zur Westkammer
+//                      ist vier Zellen breit - damit liesse sich
+//                      ein MVP aussperren und aus der Ferne
+//                      erledigen.
+//    novending         Kein Laden in einer Kampfkammer.
+//
+//  Was BEWUSST fehlt:
+//
+//    nopenalty         Sterben kostet hier wie ueberall. Siehe
+//                      Kopf der Datei.
+//    noteleport        Fluegel und Teleport bleiben erlaubt. Wer
+//                      sich an Beelzebub verhoben hat, soll
+//                      wegkommen koennen - er hat fuer den Raum
+//                      bezahlt, nicht fuer sein Begraebnis.
+
+guild_vs1-1	mapflag	nosave	SavePoint
+guild_vs1-1	mapflag	nomemo
+guild_vs1-1	mapflag	nowarpto
+guild_vs1-1	mapflag	nobranch
+guild_vs1-1	mapflag	noicewall
+guild_vs1-1	mapflag	novending
+guild_vs1-2	mapflag	nosave	SavePoint
+guild_vs1-2	mapflag	nomemo
+guild_vs1-2	mapflag	nowarpto
+guild_vs1-2	mapflag	nobranch
+guild_vs1-2	mapflag	noicewall
+guild_vs1-2	mapflag	novending
+guild_vs1-3	mapflag	nosave	SavePoint
+guild_vs1-3	mapflag	nomemo
+guild_vs1-3	mapflag	nowarpto
+guild_vs1-3	mapflag	nobranch
+guild_vs1-3	mapflag	noicewall
+guild_vs1-3	mapflag	novending
+guild_vs1-4	mapflag	nosave	SavePoint
+guild_vs1-4	mapflag	nomemo
+guild_vs1-4	mapflag	nowarpto
+guild_vs1-4	mapflag	nobranch
+guild_vs1-4	mapflag	noicewall
+guild_vs1-4	mapflag	novending
