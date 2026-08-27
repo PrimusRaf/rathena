@@ -90,6 +90,7 @@ Thumbs.db
 !/db/import/quest_db.yml
 !/db/import/refine.yml
 !/db/import/refine_high.yml
+!/db/import/skill_db.yml
 !/db/import/statpoint.yml
 
 # /conf/
