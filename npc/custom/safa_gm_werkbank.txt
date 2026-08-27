@@ -5,6 +5,10 @@
 //  Setzt alle fuenf Zufallsoptionen eines getragenen Stuecks auf
 //  einen festen Wert und wertet auf Wunsch bis +30 auf.
 //
+//  Bedient werden ZWANZIG Plaetze: die zehn normalen, sechs
+//  Shadow und vier Costume. Warum nicht einundzwanzig - EQI_AMMO
+//  fehlt mit Absicht - steht weiter unten bei der Liste.
+//
 //  WOZU
 //
 //  Fuer Testgegenstaende gibt es keinen GM-Befehl. Die Liste in
@@ -43,6 +47,15 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 	}
 
 	mes "[GM Workbench]";
+	mes "What are we doing?";
+	next;
+
+	if (select("Work on one piece:^0000FFSocket everything I am wearing^000000") == 2) {
+		callsub S_AlleSockel;
+		close;
+	}
+
+	mes "[GM Workbench]";
 	mes "Which piece?";
 	next;
 
@@ -53,15 +66,56 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 	// Ende, meldet getarraysize eine zu kleine Zahl und der linke
 	// Ring fehlt in der Liste. Genau dieser Fehler hat beim Master
 	// Artisan monatelang gesteckt.
+	//
+	// ------------------------------------------------------------
+	//  ZWANZIG PLAETZE, NICHT ZEHN
+	// ------------------------------------------------------------
+	//  Dazugekommen sind die sechs Shadow- und die vier
+	//  Costume-Plaetze. Beide tragen Zufallsoptionen wie normale
+	//  Ausruestung - nachgesehen in status.cpp:4147: die Schleife,
+	//  die Optionen auswertet, laeuft ueber ALLE EQI von 0 bis
+	//  EQI_MAX und ueberspringt genau eine, naemlich EQI_AMMO.
+	//
+	//  Deshalb steht EQI_AMMO auch hier nicht in der Liste. Man
+	//  koennte einem Pfeil Optionen aufschreiben, sie wuerden nur
+	//  nie gelesen - eine Zeile, die aussieht, als taete sie etwas.
+	//
+	//  Die Reihenfolge ist Ausruestung, Shadow, Costume, damit die
+	//  drei Gruppen im Menue beieinander stehen.
 	setarray .@platz[0], EQI_HEAD_TOP, EQI_HEAD_MID, EQI_HEAD_LOW,
 	                     EQI_ARMOR, EQI_HAND_R, EQI_HAND_L,
-	                     EQI_GARMENT, EQI_SHOES, EQI_ACC_R, EQI_ACC_L;
+	                     EQI_GARMENT, EQI_SHOES, EQI_ACC_R, EQI_ACC_L,
+	                     EQI_SHADOW_ARMOR, EQI_SHADOW_WEAPON,
+	                     EQI_SHADOW_SHIELD, EQI_SHADOW_SHOES,
+	                     EQI_SHADOW_ACC_R, EQI_SHADOW_ACC_L,
+	                     EQI_COSTUME_HEAD_TOP, EQI_COSTUME_HEAD_MID,
+	                     EQI_COSTUME_HEAD_LOW, EQI_COSTUME_GARMENT;
+
+	// Die Kennzeichnung ist noetig, nicht huebsch: getequipname
+	// liefert den Gegenstandsnamen, und ein Costume-Hut kann
+	// genauso heissen wie der echte darunter. Ohne Vorsatz stuenden
+	// zwei gleiche Zeilen im Menue.
+	setarray .@kat$[0], "", "", "", "", "", "", "", "", "", "",
+	                    "^0000FF[S]^000000 ", "^0000FF[S]^000000 ",
+	                    "^0000FF[S]^000000 ", "^0000FF[S]^000000 ",
+	                    "^0000FF[S]^000000 ", "^0000FF[S]^000000 ",
+	                    "^AA00AA[C]^000000 ", "^AA00AA[C]^000000 ",
+	                    "^AA00AA[C]^000000 ", "^AA00AA[C]^000000 ";
+
 	.@n = 0;
 	.@liste$ = "";
-	for (.@i = 0; .@i < 10; .@i++) {
+	for (.@i = 0; .@i < 20; .@i++) {
 		if (getequipisequiped(.@platz[.@i])) {
 			.@wahl[.@n] = .@platz[.@i];
-			.@liste$ = .@liste$ + getequipname(.@platz[.@i]) + ":";
+			// Ob es ein Costume ist, wird HIER gemerkt und nicht
+			// spaeter aus der EQI-Nummer zurueckgerechnet: die
+			// Costume-Nummern sind 10 bis 13, die Shadow-Nummern 15
+			// bis 20, und eine solche Spanne im Kopf zu behalten ist
+			// genau die Sorte Wissen, die beim naechsten rAthena-
+			// Update falsch wird.
+			.@kost[.@n] = (.@i >= 16);
+			.@liste$ = .@liste$ + .@kat$[.@i]
+			         + getequipname(.@platz[.@i]) + ":";
 			.@n++;
 		}
 	}
@@ -75,9 +129,28 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 	if (.@k >= .@n)
 		close;
 	.@teil = .@wahl[.@k];
+	.@istkostuem = .@kost[.@k];
 
 	mes "[GM Workbench]";
 	mes "^0000FF" + getequipname(.@teil) + "^000000";
+
+	// Warnung statt Sperre. Beide Eingriffe FUNKTIONIEREN auf einem
+	// Costume - setrandomoption schreibt, und die Optionen werden
+	// auch gelesen (status.cpp:4147). Nur beim Aufwerten ist es
+	// eine Zahl ohne Wirkung: successrefitem prueft nicht, ob ein
+	// Stueck ueberhaupt aufwertbar ist (script.cpp, BUILDIN
+	// successrefitem - es setzt refine und fertig), und ein Costume
+	// hat keine Werte, die eine Aufwertung erhoehen koennte.
+	//
+	// Wer hier trotzdem +30 setzen will, soll das koennen. Er soll
+	// es nur nicht fuer einen Test halten, der etwas beweist.
+	if (.@istkostuem) {
+		mes " ";
+		mes "^777777Costume slot. Options work and are read";
+		mes "like anywhere else. Refine writes a number";
+		mes "that nothing reads - there are no stats on";
+		mes "a costume for it to raise.^000000";
+	}
 	next;
 
 	switch (select("Set all five options:Refine to +30:Both:Never mind")) {
@@ -169,6 +242,178 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 	if (.@was & 1)
 		mes "Options: ^0000FF" + .@zeile$ + "^000000";
 	close;
+
+// ============================================================
+//  Alles sockeln
+// ============================================================
+//  Tauscht jedes getragene Stueck gegen dieselbe Ausfuehrung mit
+//  mehr Slots und zieht es wieder an.
+//
+//  WARUM TAUSCHEN UND NICHT AUFBOHREN
+//
+//  Die Slotzahl haengt an der Item-ID, nicht am einzelnen
+//  Exemplar - der Client liest sie aus seiner eigenen Tabelle.
+//  Ein Slot laesst sich deshalb nicht aufschalten. Es gibt nur
+//  den Tausch gegen die weitere Fassung, sofern die Schmiede sie
+//  je gemacht haben. Ausfuehrlich steht das im Kopf von
+//  npc/custom/safa_schmied.txt.
+//
+//  WOHER DIE PAARE KOMMEN
+//
+//  Aus genau derselben Tabelle wie beim Meisterhandwerker -
+//  6.640 Paare, erzeugt von tools/schmied/bauen.py. Sie wird
+//  NICHT kopiert, sondern ueber getvariableofnpc gelesen. Eine
+//  zweite Kopie waere eine zweite Wahrheit, und beim naechsten
+//  Lauf des Generators waere eine davon veraltet.
+//
+//  WARUM inarray UND KEINE SCHLEIFE
+//
+//  Bei 6.640 Eintraegen bricht rAthena eine Suchschleife ab:
+//  check_gotocount liegt bei 2.048 (script.cpp:4420), im Log
+//  steht dann "infinity loop" und der Spieler sieht gar nichts.
+//  inarray sucht in C und verbraucht keinen einzigen Sprung.
+//
+//  Dass inarray hier mit einer FREMDEN Tabelle arbeitet, geht,
+//  weil es seinen ersten Parameter als Referenz nimmt
+//  (BUILDIN_DEF(inarray,"rv")) und daraus reference_getref liest -
+//  und getvariableofnpc setzt genau diesen Verweis auf den
+//  Geltungsbereich des anderen NPCs.
+//
+//  WAS UEBERSPRUNGEN WIRD
+//
+//    - Stuecke ohne weitere Fassung. Rund 97 Prozent der
+//      Ausruestung hat keine.
+//    - Stuecke mit Karten oder Optionen. Beide ueberleben den
+//      Tausch NICHT, und ein Knopf, der stillschweigend eine
+//      Karte verschluckt, ist auf einer GM-Werkbank genauso
+//      falsch wie sonst.
+//
+//  Nur die zehn normalen Plaetze. In Kostuem und Schatten passt
+//  ohnehin keine Karte (pc.cpp:5632), ein Slot dort waere ein
+//  Loch ohne Zweck.
+//
+//  MEHRFACH JE STUECK
+//
+//  inarray liefert den ERSTEN Treffer, und ein Stueck kann
+//  mehrere Paare haben - 0 auf 1 und 0 auf 4 stehen beide in der
+//  Tabelle. Deshalb wird je Stueck bis zu vier Mal getauscht,
+//  solange es noch weiter geht. Die Schranke ist da, damit ein
+//  fehlerhaftes Paar, das auf sich selbst zeigt, keine
+//  Endlosschleife wird.
+// ============================================================
+S_AlleSockel:
+
+	setarray .@platz[0], EQI_HEAD_TOP, EQI_HEAD_MID, EQI_HEAD_LOW,
+	                     EQI_ARMOR, EQI_HAND_R, EQI_HAND_L,
+	                     EQI_GARMENT, EQI_SHOES, EQI_ACC_R, EQI_ACC_L;
+
+	.@getauscht = 0;
+	.@ohne = 0;
+	.@belegt = 0;
+	.@bericht$ = "";
+
+	// Feste Zehn, kein getarraysize - EQI_ACC_L ist 0 und faellt aus
+	// dem Array. Siehe oben.
+	for (.@i = 0; .@i < 10; .@i++) {
+
+		if (!getequipisequiped(.@platz[.@i]))
+			continue;
+
+		.@teil = .@platz[.@i];
+
+		// Karten oder Optionen? Dann Finger weg, und zwar bevor
+		// irgendetwas angefasst wird.
+		if (getequipcardcnt(.@teil) > 0) {
+			.@belegt++;
+			continue;
+		}
+		.@opt = 0;
+		for (.@j = 0; .@j < 5; .@j++)
+			if (getequiprandomoption(.@teil, .@j, ROA_ID) > 0)
+				.@opt++;
+		if (.@opt > 0) {
+			.@belegt++;
+			continue;
+		}
+
+		.@vorher$ = getequipname(.@teil);
+		.@stufen = 0;
+
+		// Bis zu vier Stufen hoch, siehe MEHRFACH JE STUECK.
+		for (.@s = 0; .@s < 4; .@s++) {
+
+			.@id = getequipid(.@teil);
+			if (.@id <= 0)
+				break;
+
+			.@idx = inarray(getvariableofnpc(.von[0], "Master Artisan#safa"), .@id);
+			if (.@idx < 0)
+				break;
+
+			.@neu = getvariableofnpc(.nach[.@idx], "Master Artisan#safa");
+			if (.@neu <= 0 || .@neu == .@id)
+				break;
+
+			.@ref = getequiprefinerycnt(.@teil);
+
+			// Erst vom Koerper nehmen, dann tauschen. Sonst behaelt
+			// der Client bis zum naechsten Statuslauf die alten Boni
+			// im Fenster.
+			unequip .@teil;
+			delitem2 .@id, 1, 1, .@ref, 0, 0, 0, 0, 0;
+			getitem2 .@neu, 1, 1, .@ref, 0, 0, 0, 0, 0;
+
+			// Wieder anziehen - anders als beim Meisterhandwerker,
+			// der die Stuecke bewusst in den Beutel legt. Hier soll
+			// EIN Klick genuegen, sonst ist es kein Knopf, sondern
+			// eine Aufgabenliste.
+			equip .@neu;
+			.@stufen++;
+		}
+
+		if (.@stufen == 0) {
+			.@ohne++;
+			continue;
+		}
+
+		// Je Stueck eine eigene Zeile, gesammelt in einem Array und
+		// nicht in einer Zeichenkette: zehn Namen hintereinander in
+		// EIN mes waeren eine Zeile, die das Fenster quer verlaesst.
+		.@bericht$[.@getauscht] = "  " + .@vorher$ + " ^777777->^000000 ^00AA00"
+		                        + getequipname(.@teil) + "^000000";
+		.@getauscht++;
+	}
+
+	mes "[GM Workbench]";
+	if (.@getauscht == 0 && .@ohne == 0 && .@belegt == 0) {
+		mes "You are wearing nothing.";
+		next;
+		return;
+	}
+
+	mes "^00AA00" + .@getauscht + " traded^000000, ^777777" + .@ohne
+	  + " had no wider version^000000";
+
+	// Klammern, obwohl es nach einer Zeile aussieht - zwei mes ohne
+	// sie gehoerten nicht beide zum if.
+	if (.@belegt > 0) {
+		mes "^FF6666" + .@belegt + " skipped^000000 - cards or enchants";
+		mes "^FF6666would have been lost in the trade.^000000";
+	}
+
+	if (.@getauscht > 0) {
+		mes " ";
+		for (.@i = 0; .@i < .@getauscht; .@i++)
+			mes .@bericht$[.@i];
+	}
+	next;
+
+	// recalculatestat, weil equip zwar neu anlegt, die Boni der
+	// frischen Slots aber erst beim naechsten Statuslauf im Fenster
+	// stehen. Dasselbe Nachziehen wie bei den Optionen weiter oben.
+	recalculatestat;
+	return;
+
 
 OnInit:
 	.stufe = 99;   // ab dieser Gruppenstufe sicht- und bedienbar
