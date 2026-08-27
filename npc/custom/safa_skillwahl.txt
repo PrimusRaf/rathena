@@ -73,6 +73,19 @@
 //  Warum die Gruppen: ein select() mit vierzig langen Eintraegen
 //  sprengt das Menuepaket zum Client. Die groesste Gruppe hier
 //  hat 19 Eintraege.
+//
+//  ------------------------------------------------------------
+//  WER DIESE TABELLE LIEST
+//  ------------------------------------------------------------
+//
+//  Der Threshold Warden in npc/custom/safa_start.txt, ueber
+//  getvariableofnpc(..., "#safa_skillwahl").
+//
+//  Die Wahl gehoert dorthin und nicht zu einem eigenen NPC: die
+//  Waechterin schickt nach dem Binden sofort nach Veins
+//  (savepoint und warp am Ende ihres Ablaufs). Ein zweiter NPC
+//  in Valhalla stuende hinter dieser Tuer und waere fuer einen
+//  neuen Charakter unerreichbar.
 // ============================================================
 
 
@@ -600,224 +613,4 @@ OnInit:
 	    "Picky Peck", "Lunatic Carrot Beat", "Spirit of Savage", "Chulho Sonic Claw", "Howling of Chulho", "Hyunrok Breeze",
 	    "Hogogong Strike", "Hyunrok Cannon", "Chulho Battering", "Hyunrok Spirit Power";
 	end;
-}
-
-
-// ------------------------------------------------------------
-//  Der Wetzstein
-// ------------------------------------------------------------
-//  valkyrie 50,14 - zwei Felder neben dem Threshold Warden auf
-//  48,14. Beide Zellen sind Typ 0, gegen db/map_cache.dat
-//  geprueft.
-//
-//  Der Warden bindet das Geschenk, der Wetzstein schaerft zwei
-//  Kanten daran. Wer neu ankommt, laeuft von 48,9 nach Norden
-//  und hat beide vor sich.
-//
-//  4_M_ORIENT02 ist der Bruder von 4_M_ORIENT01, dem Sprite des
-//  Level-Raums. Kein Zufall: es sind dieselbe Sorte Leute.
-valkyrie,50,14,4	script	The Whetstone	4_M_ORIENT02,{
-
-	if (isekai_gift == 0) {
-		mes "[The Whetstone]";
-		mes "Nothing to sharpen yet. She has to";
-		mes "bind your gift first - then come back";
-		mes "and tell me where you want the edges.";
-		close;
-	}
-
-	.@tier = callfunc("F_SafaGiftTier", isekai_gift);
-
-	// Tier F bis C haben keinen Fertigkeitsbonus - F und E gar
-	// keinen, D und C einen festen. Nur ab B (Tier 4) gibt es
-	// zwei Kanten, und nur die sind hier zu vergeben.
-	if (.@tier < 4) {
-		mes "[The Whetstone]";
-		mes "^777777" + callfunc("F_SafaGiftName", isekai_gift) + "^000000";
-		mes "carries no edges. It is a blunt thing,";
-		mes "and blunt things work too.";
-		next;
-		mes "[The Whetstone]";
-		mes "Come back when the Warden hands you";
-		mes "something with a blade on it.";
-		close;
-	}
-
-	.@slot = (.@tier - 4) * 18 + (isekai_gift % 100) - 1;
-	.@pct = callfunc("F_SafaSkillProzent", .@tier);
-
-	// --- Schon gewetzt ---
-	if (isekai_skill1 > 0) {
-		mes "[The Whetstone]";
-		mes "Your edges are set. ^FF0000They do not move";
-		mes "again.^000000";
-		mes " ";
-		mes "  ^0000FF" + callsub(S_Name, .@slot, isekai_skill1) + "^000000  +" + .@pct + "%";
-		mes "  ^0000FF" + callsub(S_Name, .@slot, isekai_skill2) + "^000000  +" + .@pct + "%";
-		close;
-	}
-
-	mes "[The Whetstone]";
-	mes "^777777" + callfunc("F_SafaGiftName", isekai_gift) + "^000000";
-	mes "sharpens ^0000FFtwo^000000 of the things you will";
-	mes "learn to do. By ^0000FF" + .@pct + " percent^000000, each.";
-	next;
-
-	mes "[The Whetstone]";
-	mes "Which two is yours to say - once.";
-	mes "^FF0000I do not grind a blade twice.^000000";
-	next;
-
-	if (select("Show me the list:Not yet") == 2) {
-		mes "[The Whetstone]";
-		mes "Think about how you mean to fight.";
-		mes "That is the whole question.";
-		close;
-	}
-
-	// --- Erste Kante ---
-	.@i1 = callsub(S_Waehlen, .@slot, -1, "first");
-	if (.@i1 < 0) {
-		mes "[The Whetstone]";
-		mes "Then nothing is decided. Good.";
-		close;
-	}
-
-	// --- Zweite Kante ---
-	.@i2 = callsub(S_Waehlen, .@slot, .@i1, "second");
-	if (.@i2 < 0) {
-		mes "[The Whetstone]";
-		mes "Then nothing is decided. Both edges";
-		mes "stay dull until you name both.";
-		close;
-	}
-
-	.@n1$ = getvariableofnpc(.sk_name$[.@i1], "#safa_skillwahl");
-	.@n2$ = getvariableofnpc(.sk_name$[.@i2], "#safa_skillwahl");
-
-	mes "[The Whetstone]";
-	mes "  ^0000FF" + .@n1$ + "^000000";
-	mes "  ^0000FF" + .@n2$ + "^000000";
-	mes " ";
-	mes "^FF0000This cannot be undone.^000000";
-	next;
-
-	if (select("Grind them:Let me think again") == 2) {
-		mes "[The Whetstone]";
-		mes "Take your time. The stone keeps.";
-		close;
-	}
-
-	// Gegenprobe: zwischen der Auswahl und dieser Zeile liegt ein
-	// Klick, und in einem Klick passt ein GM, der das Geschenk
-	// abgenommen hat.
-	if (isekai_gift == 0 || callfunc("F_SafaGiftTier", isekai_gift) != .@tier) {
-		mes "[The Whetstone]";
-		mes "^FF6666Your gift changed while we talked.^000000";
-		mes "Start again.";
-		close;
-	}
-
-	set isekai_skill1,  getvariableofnpc(.sk_id[.@i1],  "#safa_skillwahl");
-	set isekai_skill1b, getvariableofnpc(.sk_id2[.@i1], "#safa_skillwahl");
-	set isekai_skill2,  getvariableofnpc(.sk_id[.@i2],  "#safa_skillwahl");
-	set isekai_skill2b, getvariableofnpc(.sk_id2[.@i2], "#safa_skillwahl");
-
-	callfunc "F_SafaRefresh";
-	specialeffect2 EF_REPAIRWEAPON;
-
-	mes "[The Whetstone]";
-	mes "Done. Two edges, +" + .@pct + " percent each.";
-	mes "Everything else stays as blunt as it was.";
-	close;
-
-
-// ------------------------------------------------------------
-//  Eine Kante waehlen
-// ------------------------------------------------------------
-//  getarg(0) Steckplatz, getarg(1) bereits vergebener Index
-//  (-1 = keiner), getarg(2) "first" oder "second" fuer den Text.
-//
-//  Rueckgabe: Index in .sk_id, oder -1 bei Abbruch.
-//
-//  Zwei Menues statt einem: ein Dragon Knight hat 30 waehlbare
-//  Fertigkeiten, und ein select() mit 30 langen Eintraegen
-//  sprengt das Menuepaket zum Client. Die Gruppen sind ohnehin
-//  die natuerliche Ordnung - man denkt in Klassenstufen.
-S_Waehlen:
-	.@s = getarg(0);
-	.@aus = getarg(1);
-	.@was$ = getarg(2);
-
-	.@gv = getvariableofnpc(.g_von[.@s], "#safa_skillwahl");
-	.@ga = getvariableofnpc(.g_anz[.@s], "#safa_skillwahl");
-
-	// while statt for(;;): rAthena erwartet im for drei Teile,
-	// und ein leeres for ist kein dokumentierter Fall.
-	while (1) {
-		mes "[The Whetstone]";
-		mes "The ^0000FF" + .@was$ + "^000000 edge. Where from?";
-
-		.@m$ = "";
-		for (.@k = 0; .@k < .@ga; .@k++)
-			.@m$ += getvariableofnpc(.gr_name$[.@gv + .@k], "#safa_skillwahl") + ":";
-		.@m$ += "^777777Stop^000000";
-
-		.@g = select(.@m$) - 1;
-		if (.@g == .@ga) return -1;
-
-		.@sv = getvariableofnpc(.gr_von[.@gv + .@g], "#safa_skillwahl");
-		.@sa = getvariableofnpc(.gr_anz[.@gv + .@g], "#safa_skillwahl");
-
-		.@m2$ = "";
-		for (.@k = 0; .@k < .@sa; .@k++) {
-			// Die schon vergebene Kante wird grau gezeigt statt
-			// weggelassen: eine Liste, die sich zwischen erstem und
-			// zweitem Durchgang verkuerzt, laesst einen an der
-			// eigenen Erinnerung zweifeln.
-			.@m2$ += ((.@sv + .@k) == .@aus ? "^777777" : "") +
-			    getvariableofnpc(.sk_name$[.@sv + .@k], "#safa_skillwahl") +
-			    ((.@sv + .@k) == .@aus ? " - taken^000000" : "") + ":";
-		}
-		.@m2$ += "^777777Back^000000";
-
-		.@w = select(.@m2$) - 1;
-		if (.@w == .@sa) continue;
-		if ((.@sv + .@w) == .@aus) {
-			mes "[The Whetstone]";
-			mes "^FF6666That one already has your first edge.^000000";
-			mes "Two edges on one blade is one edge.";
-			next;
-			continue;
-		}
-		return .@sv + .@w;
-	}
-	return -1;
-
-
-// ------------------------------------------------------------
-//  Anzeigename zu einer gespeicherten Id
-// ------------------------------------------------------------
-//  getarg(0) Steckplatz, getarg(1) Fertigkeits-Id.
-//
-//  Gesucht wird ueber die Gruppen dieses Geschenks und nicht ueber
-//  die ganze Tabelle: 1500 Eintraege abzuklappern kostet Spruenge,
-//  und check_gotocount bricht bei 2048 ab. Dieser Server hat das
-//  schon einmal erlebt, siehe F_SafaGiftTier in safa_systems.txt.
-S_Name:
-	.@s = getarg(0);
-	.@id = getarg(1);
-	.@gv = getvariableofnpc(.g_von[.@s], "#safa_skillwahl");
-	.@ga = getvariableofnpc(.g_anz[.@s], "#safa_skillwahl");
-	for (.@k = 0; .@k < .@ga; .@k++) {
-		.@sv = getvariableofnpc(.gr_von[.@gv + .@k], "#safa_skillwahl");
-		.@sa = getvariableofnpc(.gr_anz[.@gv + .@k], "#safa_skillwahl");
-		for (.@j = 0; .@j < .@sa; .@j++)
-			if (getvariableofnpc(.sk_id[.@sv + .@j], "#safa_skillwahl") == .@id)
-				return getvariableofnpc(.sk_name$[.@sv + .@j], "#safa_skillwahl");
-	}
-	// Kein Treffer heisst: die Wahl passt nicht mehr zum Geschenk.
-	// Das kann nach einem GM-Eingriff vorkommen. F_SafaRefresh
-	// raeumt das auf, hier reicht ein ehrlicher Platzhalter.
-	return "something the gift no longer knows";
 }
