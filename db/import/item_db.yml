@@ -8024,3 +8024,44 @@ Body:
     Buy: 0
     Sell: 0
     Weight: 1
+
+# ============================================================
+#  Elephantmagon Card - die Karte des Biom-Bosses
+# ============================================================
+#  Faellt zu 0,5 % vom Elephantmagon (23100). Die Rate steht in
+#  mob_db_safa_biom.yml und wird von mob_item_ratio.yml gegen den
+#  50fachen Kartenmultiplikator festgenagelt.
+#
+#  WARUM VERTEIDIGUNG UND NICHT NOCH MEHR SCHADEN
+#
+#  Das Wild-Safari-Set ist reine Offensive: +50 % ATK oder MATK,
+#  +30 auf alle Stats, +30 % gegen Brute, dazu 10 % Element- und
+#  Rassenresistenz. Was ihm fehlt, ist alles, was Schlaege
+#  aushaelt - und genau das ist im Wurzelbiom das Knappe. Eine
+#  Karte, die noch einmal Schaden draufsetzt, haette den Kampf
+#  nicht anders gemacht, nur kuerzer.
+#
+#  Size_Large trifft dabei nicht zufaellig: der Elephantmagon
+#  selbst ist Large, und der Rest des Bioms soll es werden. Die
+#  Karte ist also die Beute, die den naechsten Kampf gegen
+#  seinesgleichen ueberhaupt erst tragbar macht.
+#
+#  Class_Boss deckt Bosse ab, nicht die MVP-Fahne - der
+#  Elephantmagon hat Class: Boss, aber bewusst kein Modes.Mvp.
+#
+#  Ruestungsplatz, weil dort auf diesem Server am wenigsten
+#  konkurriert: die sechs Set-Effekte haengen an den Teilen
+#  selbst, nicht an ihren Kartenplaetzen.
+# ============================================================
+  - Id: 30559
+    AegisName: SAFA_ELEPHANTMAGON_CARD
+    Name: Elephantmagon Card
+    Type: Card
+    Buy: 20
+    Weight: 10
+    Locations:
+      Armor: true
+    Script: |
+      bonus2 bSubSize,Size_Large,20;
+      bonus2 bSubClass,Class_Boss,10;
+      bonus bMaxHPrate,15;

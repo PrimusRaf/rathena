@@ -168,7 +168,13 @@ Body:
     SkillRange: 10
     ChaseRange: 14
     Size: Large
-    Race: Demihuman
+    # Brute, nicht Demihuman - und das ist eine Spielentscheidung, keine
+    # zoologische. Das Wild-Safari-Set gibt +30 % Schaden gegen RC_Brute
+    # (db/import/item_combos.yml). Steht der Boss als Demihuman da, hilft
+    # ausgerechnet das Jagdset nicht gegen das groesste Wild auf dem
+    # Server. So schliesst sich der Weg: Set farmen, damit den Boss legen,
+    # von ihm seine Karte bekommen.
+    Race: Brute
     Element: Earth
     ElementLevel: 4
     # Langsam und schwer. Das ist die einzige Antwort auf "wir toeten
@@ -185,3 +191,41 @@ Body:
       Aggressive: true
       CastSensorChase: true
       ChangeTargetMelee: true
+    # ------------------------------------------------------------------
+    #  Beute
+    # ------------------------------------------------------------------
+    #  HIER STEHT NUR, WAS AUF DEN BODEN FAELLT.
+    #
+    #  Die 100 Safari-Trophaeen und die 50 Destiny Coins stehen NICHT
+    #  hier, sondern in npc/custom/safa_biom.txt. Grund: ein Drop-Eintrag
+    #  gibt immer genau EIN Stueck. Hundert Trophaeen waeren hundert
+    #  Eintraege, und MAX_MOB_DROP laesst nur zehn zu. Ueber das
+    #  Todeslabel und F_SafaBeute ist es eine Zeile - und dieselbe
+    #  Funktion, die Wildlife schon benutzt.
+    #
+    #  ZUR KARTENRATE
+    #
+    #  Rate 50 sind 0,5 %. Damit das auch so bleibt, steht die Karte
+    #  zusaetzlich in db/import/mob_item_ratio.yml mit Ratio 100.
+    #  Ohne diesen Eintrag zoege conf/import/battle_conf.txt mit
+    #  `item_rate_card: 5000` den Wert auf das Fuenfzigfache hoch - aus
+    #  0,5 % wuerden 25 %. Genau dafuer gibt es die Datei; der Destiny
+    #  Coin steht aus demselben Grund darin.
+    #
+    #  Nachgesehen in mob.cpp:4830: item_dropratio_adjust ERSETZT den
+    #  Typmultiplikator, es rechnet ihn nicht dazu.
+    Drops:
+      - Item: SAFA_ELEPHANTMAGON_CARD
+        Rate: 50
+        StealProtected: true
+      # Beides bewusst Etc-Items, kein Usable. Golden_Treasure_Box
+      # (12841) waere naheliegender gewesen und ist eine Falle: sie ist
+      # zwar `Type: Usable`, hat aber in item_group_db.yml KEINE Gruppe.
+      # Wer sie anklickt, bekommt nichts - und sucht den Fehler bei
+      # sich. Treasure Box und Gold sind schlicht wertvoll: 300.000
+      # beziehungsweise 150.000 Kaufwert, also rund 150.000 und 75.000
+      # Zeny beim Verkauf.
+      - Item: Gold
+        Rate: 10000
+      - Item: Treasure_Box
+        Rate: 3000

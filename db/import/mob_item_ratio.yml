@@ -50,3 +50,35 @@ Header:
 Body:
   - Item: Destiny_Coin
     Ratio: 100
+
+  # Die Elephantmagon-Karte. Dieselbe Ueberlegung, andere Zahl:
+  # conf/import/battle_conf.txt setzt item_rate_card auf 5000, also das
+  # Fuenfzigfache. Aus den 0,5 Prozent in mob_db_safa_biom.yml wuerden
+  # damit 25 - eine MVP-Karte, die jeder vierte Kill abwirft.
+  #
+  # mob.cpp:4830 ERSETZT den Typmultiplikator durch diesen Wert, es
+  # rechnet ihn nicht dazu. Ratio 100 heisst also schlicht: Rate gilt,
+  # wie sie dasteht.
+  - Item: SAFA_ELEPHANTMAGON_CARD
+    Ratio: 100
+
+  # Gold und Truhe vom selben Boss - MIT List, und das ist der Punkt.
+  #
+  # Ohne List gilt ein Eintrag laut Dateikopf fuer ALLE Monster. Gold
+  # faellt aber von zig amtlichen Monstern, und ein globaler Ratio 100
+  # naehme ihnen allen den 25fachen Multiplikator aus
+  # conf/import/battle_conf.txt - eine serverweite Aenderung, versteckt
+  # in einer Zeile, die nach Biom aussieht.
+  #
+  # Warum ueberhaupt festnageln: Rate 3000 waeren mit dem Multiplikator
+  # 75000 und wuerden auf item_drop_common_max = 10000 gekappt. Aus den
+  # gewollten 30 Prozent wuerden 100, und in mob_db_safa_biom.yml
+  # stuende eine Zahl, die nichts mehr bedeutet.
+  - Item: Gold
+    Ratio: 100
+    List:
+      SAFA_ELEPHANTMAGON: true
+  - Item: Treasure_Box
+    Ratio: 100
+    List:
+      SAFA_ELEPHANTMAGON: true

@@ -192,6 +192,22 @@ OnInit:
 
 	.laut = 0;   // 1 = Rechenweg an den GM ausgeben
 
+	// Zaehler ausdruecklich auf 0. NPC-Variablen sind das ohnehin, aber
+	// tools/skript/pruefen.py erkennt `.gefallen++` nicht als Setzen und
+	// beanstandet die Variable sonst - und eine Beanstandung, die man
+	// jedes Mal wegerklaeren muss, ist so gut wie keine.
+	.gefallen = 0;
+
+	// --- Was es zu holen gibt --------------------------------
+	//  Die IDs stehen so auch in safa_wildlife.txt; dieselben zwei
+	//  Waehrungen, nur eine Groessenordnung darueber. Zum
+	//  Vergleich: ein Wildlife-Rudel bringt 5 Trophaeen oder 10
+	//  Coins, der Levelraum kostet 1.000 Coins.
+	.mat     = 30504;   // Safari Trophy, siehe safa_safari.txt
+	.coin    = 30001;   // Destiny Coin, siehe safa_shops.txt
+	.troph   = 100;
+	.muenzen = 50;
+
 	initnpctimer;
 	end;
 
@@ -436,9 +452,51 @@ OnNachrechnen:
 OnBossTod:
 	.tot = 1;
 	.gefallen++;
+
+	// --- Beute ------------------------------------------------
+	//  WARUM DAS HIER STEHT UND NICHT IN mob_db
+	//
+	//  Ein Drop-Eintrag gibt immer genau EIN Stueck. Hundert
+	//  Trophaeen waeren hundert Eintraege, und MAX_MOB_DROP laesst
+	//  zehn zu. Was auf den Boden faellt - Karte, Gold, Truhe -
+	//  steht in mob_db_safa_biom.yml; die Stapel stehen hier.
+	//
+	//  WARUM ALLE AUF DER KARTE UND NICHT NUR DER LETZTE SCHLAG
+	//
+	//  Der Kampf dauert Minuten und ist auf eine Gruppe ausgelegt.
+	//  Bekaeme nur der Toeter etwas, waere die Verabredung "einer
+	//  haelt drauf, alle anderen schauen zu" - und beim naechsten
+	//  Mal kommt niemand mehr mit. Wildlife macht es anders, aber
+	//  dort erlegt einer ein Rudel, das aus SEINEM Kill entstanden
+	//  ist.
+	//
+	//  Wer tot am Boden liegt, bekommt nichts. Das ist die ganze
+	//  Huerde gegen Zuschauer - mehr braucht es nicht, denn wer
+	//  danebensteht, stirbt hier ohnehin.
+	.@c = getmapunits(BL_PC, .karte$, .@namen$);
+	.@n = 0;
+	for (.@i = 0; .@i < .@c; .@i++) {
+		.@aid = getcharid(3, .@namen$[.@i]);
+		if (!.@aid) continue;
+		if (!attachrid(.@aid)) continue;
+		if (Hp > 0) {
+			callfunc "F_SafaBeute", .mat, .troph;
+			callfunc "F_SafaBeute", .coin, .muenzen;
+			dispbottom "Die Wurzeln geben her, was sie genommen haben: "
+			           + .troph + " Safari Trophies, " + .muenzen
+			           + " Destiny Coins.";
+			.@n++;
+		}
+		detachrid;
+	}
+
+	announce "Elephantmagon has fallen at the roots of the world tree.",
+	         bc_all, 0xFFCC00;
+
 	if (.laut)
 		debugmes "[Biom] Elephantmagon gefallen (" + .gefallen
-		         + " gesamt), DamageTaken steht bei " + $safa_biom_dt;
+		         + " gesamt), Beute an " + .@n + " von " + .@c
+		         + " Spielern, DamageTaken steht bei " + $safa_biom_dt;
 	end;
 
 

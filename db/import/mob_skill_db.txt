@@ -98,11 +98,74 @@
 // Divine Smash. Zwei Sekunden Zauberzeit, nicht abbrechbar, 45 Sekunden
 // Sperre - die Ansage des Kampfes. Erst ab 80 Prozent Leben, damit der
 // Anfang nicht schon damit beginnt.
-23100,Elephantmagon@NPC_EARTHQUAKE,attack,653,1,10000,2000,45000,no,self,myhpltmaxrate,80,,,,,,6,
-23100,Elephantmagon@NPC_EARTHQUAKE,chase,653,1,10000,2000,45000,no,self,myhpltmaxrate,80,,,,,,6,
+//
+//  WARUM STUFE 3 UND NICHT 1
+//
+//  Stufe 1 kam im Spiel unter einem gewoehnlichen Treffer heraus, und
+//  zwar aus einem Grund, der beim Ansetzen nicht auf dem Zettel stand:
+//  die Faehigkeit rechnet zwar mit unserem WAFFENANGRIFF, wird danach
+//  aber wie Magie gemindert. Im Renewal heisst das (battle.cpp:6174)
+//
+//      Schaden * (1000 + MDEF) / (1000 + MDEF*10) - MDEF2
+//
+//  und darauf noch MRES bis zu minus 80 Prozent (battle.cpp:6136). Ein
+//  Spieler mit MDEF 200 nimmt davon 40 Prozent, mit ordentlichem MRES
+//  noch rund 17. Von den 300 Prozent der Stufe 1 blieb also etwa die
+//  Haelfte eines normalen Schlags uebrig.
+//
+//  Die Stufen im Klartext (200 + 100*Stufe + 100*(Stufe/2), ab 5 noch
+//  einmal +100):
+//
+//      1 ->  300 %   5x5      4 ->  800 %  11x11
+//      2 ->  500 %   7x7      5 -> 1000 %  13x13
+//      3 ->  600 %   9x9
+//
+//  Stufe 3 verdoppelt das Verhaeltnis und vergroessert die Flaeche auf
+//  9x9. Wer trotzdem mehr will, aendert genau eine Ziffer - die 5 hinter
+//  der Skill-ID. Ueber Stufe 3 hinaus wird es fuer Bauten OHNE MDEF
+//  allerdings schnell toedlich, und das trifft dann die Falschen.
+23100,Elephantmagon@NPC_EARTHQUAKE,attack,653,3,10000,2000,45000,no,self,myhpltmaxrate,80,,,,,,6,
+23100,Elephantmagon@NPC_EARTHQUAKE,chase,653,3,10000,2000,45000,no,self,myhpltmaxrate,80,,,,,,6,
 
 // Ab einem Drittel Leben kommt es doppelt so oft. Kein neuer Mechanismus,
 // nur ein anderer Takt - das reicht, damit sich das Ende anders anfuehlt
 // als der Anfang.
-23100,Elephantmagon@NPC_EARTHQUAKE,attack,653,1,10000,2000,20000,no,self,myhpltmaxrate,33,,,,,,6,
-23100,Elephantmagon@NPC_EARTHQUAKE,chase,653,1,10000,2000,20000,no,self,myhpltmaxrate,33,,,,,,6,
+23100,Elephantmagon@NPC_EARTHQUAKE,attack,653,3,10000,2000,20000,no,self,myhpltmaxrate,33,,,,,,6,
+23100,Elephantmagon@NPC_EARTHQUAKE,chase,653,3,10000,2000,20000,no,self,myhpltmaxrate,33,,,,,,6,
+
+// --------------------------------------------------------------------
+//  Trunk Strike - der schwere Schlag mit langer Sperre
+// --------------------------------------------------------------------
+//  NPC_DARKBREATH haengt als einzige brauchbare Faehigkeit NICHT am
+//  Angriffswert. battle.cpp:5997:
+//
+//      ad.damage = tstatus->hp * (Stufe<=5 ? 100/(2*(6-Stufe)) : 50)/100
+//
+//  Das ist ein Anteil der AKTUELLEN Lebenspunkte des Ziels:
+//
+//      Stufe 1 -> 10 %      Stufe 4 -> 25 %
+//      Stufe 2 -> 12 %      Stufe 5 -> 50 %
+//      Stufe 3 -> 16 %
+//
+//  Drei Eigenschaften machen das zum richtigen Werkzeug hier:
+//
+//  Es SKALIERT VON SELBST. Wer mehr Lebenspunkte hat, verliert mehr -
+//  derselbe Gedanke wie beim Rest des Bioms, nur ohne eine Zeile
+//  Skript.
+//
+//  Es KANN NICHT TOETEN. Gerechnet wird auf die aktuellen, nicht die
+//  maximalen Lebenspunkte; es bleibt also immer die Haelfte stehen. Ein
+//  schwerer Schlag, der niemanden aus dem Nichts umlegt.
+//
+//  Es IST UNABHAENGIG von .schaden_pct im Skript. Wer dort dreht,
+//  aendert hier nichts - zwei Regler, die sich nicht gegenseitig
+//  verstellen.
+//
+//  Auch das geht als Magie durch MDEF und MRES, kommt also bei einem
+//  gepanzerten Spieler eher bei 15 als bei 50 Prozent an. Genau richtig:
+//  Ruestung soll etwas bringen.
+//
+//  Reichweite 9, Einzelziel, 60 Sekunden Sperre. Der Elefant spuckt es
+//  aus dem Ruessel - passt zum "Trunk Strike" auf dem Konzeptblatt.
+23100,Elephantmagon@NPC_DARKBREATH,attack,202,5,10000,1500,60000,no,target,always,0,,,,,,29,
+23100,Elephantmagon@NPC_DARKBREATH,chase,202,5,10000,1500,60000,no,target,always,0,,,,,,29,
