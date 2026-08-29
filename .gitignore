@@ -75,6 +75,7 @@ Thumbs.db
 # import-Datei nur dann im Repo, wenn sie hier eingetragen wird. Der
 # Rest des Verzeichnisses sind unveraenderte Vorlagen.
 /db/import/*
+!/db/import/enchantgrade.yml
 !/db/import/exp_homun.yml
 !/db/import/item_combos.yml
 !/db/import/item_db.yml
@@ -84,6 +85,7 @@ Thumbs.db
 !/db/import/level_penalty.yml
 !/db/import/mercenary_db.yml
 !/db/import/mob_db.yml
+!/db/import/mob_db_safa_biom.yml
 !/db/import/mob_db_safa_coins.yml
 !/db/import/mob_item_ratio.yml
 !/db/import/pet_db.yml

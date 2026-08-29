@@ -102,3 +102,8 @@ Footer:
     Mode: Renewal
   - Path: db/import/mob_db.yml
   - Path: db/import/mob_db_safa_coins.yml
+  # Das Wurzelbiom. Steht NACH den Coins, damit ein spaeterer
+  # Coin-Eintrag fuer 23100 diesen hier ergaenzen kann und nicht
+  # umgekehrt - Imports werden der Reihe nach angewandt, der
+  # spaetere gewinnt.
+  - Path: db/import/mob_db_safa_biom.yml

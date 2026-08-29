@@ -1,0 +1,187 @@
+###########################################################################
+# SafaRO - Das Wurzelbiom
+###########################################################################
+#
+#  DAS HIER IST DAS ERSTE ECHTE EIGENE MONSTER
+#
+#  In db/import/mob_db.yml steht als Begruendung fuer das Umschreiben
+#  vorhandener Monster: "Welches Sprite der Client zeigt, entscheidet er
+#  anhand der Monsternummer - ueber seine eigenen Tabellen
+#  npcidentity.lub und jobname.lub, und die liegen in data.grf, 3,5 GB,
+#  nicht im Repo. Eine frei erfundene Nummer kennt er deshalb nicht."
+#
+#  Das galt, solange wir diese Tabellen nicht selbst geschrieben haben.
+#  Seit tools/monster/lua_schreiben.py tun wir das: die Datei wird als
+#  loser Klartext neben die GRF gelegt und ersetzt die amtliche
+#  vollstaendig - 5561 offizielle Eintraege plus unsere. Damit ist eine
+#  eigene Nummer nicht mehr unsichtbar, und der Satz oben gilt fuer
+#  diese Datei nicht mehr.
+#
+#  Wer eine Nummer hinzufuegt, muss sie an BEIDEN Stellen eintragen.
+#  Nur hier heisst: unsichtbares Monster. Nur dort heisst: ein Sprite,
+#  das nie erscheint.
+#
+#  WARUM 23100 UND NICHT IRGENDWAS
+#
+#  Die Nummer muss auf beiden Seiten frei sein:
+#
+#    rAthena   mob.cpp:4983 laesst 1001-3998 und 20021-31998 zu. Der
+#              Bereich dazwischen, 3999-20020, gehoert @clone
+#              (MOB_CLONE_START bis MIN_MOB_DB2) - ein Eintrag dort
+#              wird vom YAML-Leser abgewiesen. Belegt sind aktuell
+#              Nummern bis 22668.
+#    Client    npcidentity.lub reicht bis 23060.
+#
+#  Ab 23061 ist beides frei. 23100 ist der naechste runde Wert und
+#  laesst hundert Plaetze fuer das Biom: 23100 der Anfuehrer,
+#  23101 aufwaerts die uebrigen Arten.
+#
+#  DIE WERTE HIER SIND NUR DER BODEN
+#
+#  Was im Spiel steht, setzt npc/custom/safa_biom.txt beim Erscheinen
+#  neu - nach den Werten der Spieler, die gerade auf der Karte sind.
+#  Das ist derselbe Ansatz wie bei Wildlife und aus demselben Grund:
+#  zwischen Stufe 5 und Stufe 500 liegen bei Ausweichen, Ruestung und
+#  Lebenspunkten drei Groessenordnungen, ein fester Zahlensatz kann
+#  darin nicht gleichzeitig fordernd und ueberwindbar sein.
+#
+#  Trotzdem stehen hier keine Platzhalter, sondern brauchbare Werte:
+#  wer das Monster mit @monster irgendwo hinstellt, umgeht das Skript,
+#  und dann soll es nicht mit einem Lebenspunkt dastehen.
+#
+#  ====================================================================
+#  LEBENSPUNKTE ALLEIN REICHEN NICHT. DAS IST KEINE MEINUNG.
+#  ====================================================================
+#
+#  Unsere Spieler auf Stufe 500 schlagen ein bis zwei Milliarden je
+#  Treffer. Der naheliegende Gedanke - "dann eben noch mehr HP" -
+#  laeuft nach genau zwei Schritten gegen eine Wand in der Engine:
+#
+#    status.hpp:3380   max_hp ist uint32, absolute Grenze 4.294.967.295
+#    mob.cpp:5056      DIESE Datei liest Hp mit asUInt32 - hier sind
+#                      also die vollen 4,29 Milliarden erlaubt
+#    script.cpp        setunitdata liest seinen Wert dagegen als int32
+#                      (`int32 type = script_getnum(st,3), value = 0;`)
+#                      und endet bei 2.147.483.647
+#
+#  Daraus folgt eine Arbeitsteilung, die man kennen muss: **die
+#  Lebenspunkte kommen aus dieser Datei und werden vom Skript NIE
+#  gesetzt.** Ueber setunitdata waere bei 2,1 Milliarden Schluss, und
+#  ein hoeherer Wert liefe schon beim Einlesen ins Negative und kaeme
+#  als uint32 nicht gross, sondern zufaellig wieder heraus.
+#
+#  4.200.000.000 ist der hoechste runde Wert unterhalb der uint32-
+#  Grenze. Mehr Lebenspunkte gibt diese Engine nicht her, Punkt.
+#
+#  (Nur zur Klarstellung, weil es naheliegt, das zu verwechseln: die
+#  Rechnungen IM Skript sind nicht betroffen. Skriptvariablen sind
+#  int64 - script.hpp:286 `int64 num`, op_2num rechnet in int64,
+#  Zahlenliterale liest der Parser mit strtoll. Nur der eine
+#  Parameter von setunitdata ist eng.)
+#
+#  Vier Milliarden HP gegen zwei Milliarden Schaden sind zwei Treffer.
+#  Die Robustheit muss also aus der Schadensminderung kommen, und
+#  davon gibt es drei Stufen, die NACHEINANDER greifen:
+#
+#    Defense       battle.cpp:4899, Renewal
+#                  Schaden * (4000 + DEF) / (4000 + 10*DEF)
+#                  Bei DEF 8000: 12000/84000 = 14 %, also Faktor 7.
+#                  defType ist int16 (config/const.hpp:49), mehr als
+#                  32767 geht nicht - und brachte auch nur Faktor 9,
+#                  die Kurve ist bei 8000 schon fast flach.
+#
+#    Resistance    battle.cpp:5677
+#                  Abzug = res / (res + 400) * 80 %
+#                  Bei 3000: 3000/3400 * 80 = 70,6 %, Faktor 3,4.
+#                  Die 80 im Zaehler ist eine harte Obergrenze -
+#                  mehr als Faktor 5 ist ueber RES nie zu holen.
+#
+#    DamageTaken   battle.cpp:2118, ganz am Ende der Kette
+#                  Schaden = max(Schaden * DamageTaken / 100, 1)
+#                  Bei 5: Faktor 20. DAS ist der eigentliche Hebel.
+#
+#  Zusammen rund Faktor 475. Aus zwei Milliarden Rohschaden werden
+#  damit gut vier Millionen je Treffer, und die zwei Milliarden HP
+#  halten etwa 475 Treffer - ein Kampf von Minuten statt einem Schlag.
+#
+#  ZWEI DINGE, DIE MAN DABEI WISSEN MUSS
+#
+#  DamageTaken kennt in dieser Datei nur 1 bis 100. mob.cpp:5418 liest
+#  es mit asUInt16Rate und einem Maximum von 100; 0 wird ebenfalls
+#  abgewiesen (database.cpp, "needs to be at least 1"). Zur Laufzeit
+#  ueber setunitdata gilt diese Pruefung NICHT - script.cpp:19530
+#  schreibt den Wert ungeprueft. Das Skript nutzt das, haelt sich aber
+#  freiwillig an dieselben Grenzen.
+#
+#  Der Mindestschaden ist 1, nicht 0. Ein Boss laesst sich ueber
+#  DamageTaken also nie unverwundbar machen - was gut ist, sonst
+#  entstuende genau die Wand, die niemand umwirft.
+#
+#  KEIN Modes.Mvp
+#
+#  Absichtlich. Class ist Boss - damit ist er gegen Statuseffekte
+#  immun und nicht ohne Weiteres zu betaeuben. Die MVP-Fahne setzt
+#  aber zusaetzlich Ranglisteneintrag, MVP-Erfahrung und die
+#  Bildschirmmeldung fuer den ganzen Server; das gehoert zum Biom-
+#  Aufbau und wird angeschaltet, wenn die Belohnungen stehen, nicht
+#  vorher.
+###########################################################################
+
+Header:
+  Type: MOB_DB
+  Version: 5
+
+Body:
+  - Id: 23100
+    AegisName: SAFA_ELEPHANTMAGON
+    Name: Elephantmagon
+    JapaneseName: Elephantmagon
+    Level: 300
+    # 4,2 Mrd - der hoechste runde Wert unterhalb der uint32-Grenze.
+    # NUR hier setzbar, nicht ueber setunitdata; siehe Dateikopf.
+    Hp: 4200000000
+    Sp: 1
+    BaseExp: 900000
+    JobExp: 700000
+    MvpExp: 0
+    Attack: 9800
+    Attack2: 14200
+    # Faktor 7 gegen physischen Schaden. Hoeher lohnt nicht, die
+    # Kurve (4000+DEF)/(4000+10*DEF) ist hier schon fast flach.
+    Defense: 8000
+    MagicDefense: 8000
+    # Faktor 3,4. Ueber RES ist wegen der 80-Prozent-Deckelung in
+    # battle.cpp:5677 nie mehr als Faktor 5 zu holen.
+    Resistance: 3000
+    MagicResistance: 3000
+    # Faktor 20 - der eigentliche Hebel, und der einzige, der noch
+    # Luft nach oben hat. Das Skript fuehrt diesen Wert im Betrieb
+    # nach, siehe npc/custom/safa_biom.txt.
+    DamageTaken: 5
+    Str: 210
+    Agi: 90
+    Vit: 180
+    Int: 120
+    Dex: 260
+    Luk: 90
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 14
+    Size: Large
+    Race: Demihuman
+    Element: Earth
+    ElementLevel: 4
+    # Langsam und schwer. Das ist die einzige Antwort auf "wir toeten
+    # alles mit einem Schlag", die ohne Zahlen auskommt: wer 500 Zellen
+    # weit rennt, entkommt ihm - wer stehen bleibt, nicht.
+    WalkSpeed: 250
+    AttackDelay: 1400
+    AttackMotion: 900
+    DamageMotion: 500
+    Ai: 21
+    Class: Boss
+    Modes:
+      CanMove: true
+      Aggressive: true
+      CastSensorChase: true
+      ChangeTargetMelee: true

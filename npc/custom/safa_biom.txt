@@ -1,0 +1,497 @@
+//===== SafaRO Script ========================================
+//= Das Wurzelbiom - ygg_roots
+//===========================================================
+//
+//  WAS ES IST
+//
+//  Eine bislang ungenutzte Karte wird zum Endgame-Gebiet. Dort
+//  steht der Elephantmagon (23100), unser erstes Monster mit
+//  eigenem Sprite - gebaut aus dem Konzeptblatt, siehe
+//  tools/monster/.
+//
+//  WARUM AUSGERECHNET ygg_roots
+//
+//  Sie ist frei und sie ist gross. Nachgesehen: von den 1295
+//  Karten in db/map_index.txt kommen 314 in keiner einzigen
+//  Zeile unter npc/ vor. Die meisten davon sind Arenen und
+//  Berufsquest-Raeume, also klein und leer. ygg_roots misst
+//  400 x 400 Zellen, davon 61.012 begehbar - 38 Prozent. Zum
+//  Vergleich: ygg_fruit hat 1.576 begehbare Zellen, ygg_edge
+//  7.876. Und die Wurzeln des Weltenbaums passen zu einem
+//  Server, dessen Anfang auf valkyrie liegt und dessen Tod
+//  nach Valhalla fuehrt.
+//
+//  Sie ist die erste von dreien. ygg_edge und ygg_fruit liegen
+//  daneben und sind ebenso frei - dort kommen die naechsten
+//  Stufen hin, wenn diese steht.
+//
+//  DIE WERTE HAENGEN AN DEN SPIELERN AUF DER KARTE
+//
+//  Das ist die Antwort auf "wir toeten alles mit einem Schlag".
+//  Ein fester Zahlensatz kann das nicht sein: wer heute passt,
+//  ist in zwei Wochen wieder Zierrat, und dann steht dieselbe
+//  Beschwerde wieder da.
+//
+//  Gerechnet wird deshalb wie bei Wildlife, mit denselben
+//  Formeln und aus demselben Grund - im Renewal ist die
+//  Trefferrate schlicht MOB_HIT minus SPIELER_FLEE mit
+//  Grundwert 0 (battle.cpp:3291 und 3310). Ein Mob-HIT ist
+//  Level + DEX + 150 (status.cpp:2640), ein Spieler-FLEE
+//  Level + AGI + LUK/5 + 100 + Ausruestung (status.cpp:2644).
+//  Auf Stufe 500 stehen damit rund 270 gegen rund 1000: ohne
+//  Nachrechnen traefe der Boss zu fuenf Prozent, egal wie hoch
+//  sein Angriffswert steht.
+//
+//  DER UNTERSCHIED ZU WILDLIFE
+//
+//  Wildlife hat genau EINEN Ausloeser - den Spieler, der das
+//  Rudel geweckt hat - und rechnet an dessen Werten. Hier ist
+//  das keine Option: ein Boss steht auf einer Karte, auf der
+//  mehrere Leute gleichzeitig sind, und der Erste, der sie
+//  betritt, waere sonst das Mass fuer alle.
+//
+//  Gerechnet wird deshalb am STAERKSTEN Spieler auf der Karte,
+//  und zwar wiederholt: bei jedem Betreten und alle 15
+//  Sekunden. Wer mit einem schwachen Zweitcharakter hereinkommt,
+//  macht den Boss damit nicht weich. Wer mit einer starken
+//  Gruppe kommt, bekommt einen entsprechend harten.
+//
+//  WARUM NICHT BEIM ERSCHEINEN
+//
+//  Weil es dafuer keinen Haken gibt. Ein Label hinter 'monster'
+//  feuert beim TOD, nicht bei der Geburt. Man koennte den Boss
+//  aus dem Skript heraus setzen und sofort danach rechnen -
+//  dann aber nur einmal, mit den Werten von damals. Die
+//  Nachrechnung im Takt deckt beides ab: neu erschienene
+//  Monster und Spieler, die staerker geworden sind.
+//
+//  WAS NOCH FEHLT
+//
+//  Belohnungen. Der Boss laesst bisher nichts fallen, und das
+//  ist Absicht - Drops gehoeren erst hinein, wenn feststeht,
+//  wozu sie dienen. Solange bleibt es beim Erfahrungswert aus
+//  mob_db_safa_biom.yml.
+//
+//===========================================================
+
+ygg_roots	mapflag	loadevent
+// Kein nosave, kein nowarp: das Biom ist kein Verlies, sondern
+// ein Gebiet. Wer hineinlaeuft, kommt auch wieder heraus.
+ygg_roots	mapflag	nobranch
+
+
+-	script	safa_biom	-1,{
+	end;
+
+
+// ------------------------------------------------------------
+//  Betritt jemand die Karte
+// ------------------------------------------------------------
+//  loadevent oben sorgt dafuer, dass das hier ueberhaupt
+//  feuert. Ohne die Mapflag passiert nichts, ohne dass eine
+//  Fehlermeldung erschiene - eine der leiseren Fallen in
+//  rAthena.
+OnPCLoadMapEvent:
+	if (strcharinfo(3) != .karte$) end;
+	dispbottom "Die Wurzeln spueren dich.";
+	donpcevent "safa_biom::OnNachrechnen";
+	end;
+
+
+// ------------------------------------------------------------
+//  Der Takt
+// ------------------------------------------------------------
+OnInit:
+	bindatcmd "biom", "safa_biom::OnGM", 99, 99;
+
+	.karte$ = "ygg_roots";
+	.boss   = 23100;
+
+	// --- Wie viele und wie oft -------------------------------
+	.anzahl   = 3;      // gleichzeitig auf der Karte
+	.takt     = 15000;  // Millisekunden zwischen zwei Nachrechnungen
+
+	// --- Wie hart es zugeht ----------------------------------
+	//  Dieselben Stellschrauben wie in safa_wildlife.txt und mit
+	//  derselben Bedeutung. Wer beides vergleichen will: die
+	//  Begruendungen stehen dort ausfuehrlich.
+	//
+	//  .schaden_pct  Anteil der Lebenspunkte des Bezugsspielers,
+	//                auf den der Angriffswert gesetzt wird - VOR
+	//                dessen Ruestung. Was ankommt, haengt an DEF:
+	//                bei DEF 300 sind es 61 Prozent davon, bei
+	//                DEF 900 noch 38. Genau dieser Unterschied ist
+	//                der Grund, warum hier NICHT nach dem
+	//                Zielschaden aufgeloest wird - sonst waere
+	//                Ruestung gegen den Boss wirkungslos.
+	//
+	//                12 heisst also: ein ungepanzerter Spieler
+	//                verliert je Treffer rund ein Achtel, ein gut
+	//                gepanzerter rund ein Zwanzigstel. Bei
+	//                AttackDelay 1400 bleibt Zeit zu reagieren.
+	.schaden_pct     = 12;
+	.treffer_mob     = 90;   // Prozent der Schlaege sollen landen
+	.treffer_spieler = 80;   // so viel soll der Spieler treffen
+	.flee_wert       = 500;
+
+	// --- Wie robust er ist -----------------------------------
+	//  DIE LEBENSPUNKTE FASST DIESES SKRIPT NICHT AN.
+	//
+	//  Frueher stand hier ein Vielfaches der Spieler-HP mit einem
+	//  Deckel von 80 Millionen. Wer ein bis zwei Milliarden je
+	//  Treffer schlaegt, raeumt 80 Millionen im ersten Schlag ab -
+	//  egal, wie das Vielfache steht.
+	//
+	//  Es hilft aber auch nicht, hier eine groessere Zahl
+	//  einzutragen: setunitdata liest seinen Wert als int32
+	//  (script.cpp, `int32 ... value`), Schluss bei 2.147.483.647.
+	//  mob_db.yml dagegen liest Hp mit asUInt32 (mob.cpp:5056) und
+	//  nimmt die vollen 4,29 Milliarden.
+	//
+	//  Deshalb: 4.200.000.000 stehen in mob_db_safa_biom.yml, und
+	//  das Skript liest sie nur. Wuerde es sie setzen, halbierte es
+	//  den Boss.
+	.res_wert = 3000;   // Faktor 3,4, mehr als 5 geht ueber RES nie
+
+	// --- Die Selbstregelung ----------------------------------
+	//  DamageTaken ist der einzige Hebel mit Luft nach oben:
+	//  battle.cpp:2118 rechnet Schaden * DamageTaken / 100 ganz am
+	//  Ende, nach DEF und RES. Bei 5 ist das Faktor 20, bei 1
+	//  Faktor 100.
+	//
+	//  WARUM ER NICHT FEST EINGETRAGEN IST
+	//
+	//  Weil "unsere Spieler machen 1-2 Milliarden" eine Momentaufnahme
+	//  ist. In zwei Wochen sind es fuenf, und dann steht dieselbe
+	//  Beschwerde wieder da - so wie jetzt. Eine feste Zahl kann
+	//  diesem Server nicht folgen.
+	//
+	//  Das Skript misst deshalb, was TATSAECHLICH ankommt: wie viel
+	//  Leben der Boss je Takt verliert. Daraus laesst sich die
+	//  Kampfdauer hochrechnen, und DamageTaken wird so nachgezogen,
+	//  dass sie bei .ziel_sek landet. Niemand muss den Schaden der
+	//  Spieler kennen - auch ich nicht.
+	.ziel_sek  = 180;   // so lange soll ein Kampf dauern
+	.dt_min    = 1;     // Faktor 100, haerter geht nicht
+	.dt_max    = 100;   // ungemindert
+	.dt_schritt = 30;   // hoechstens 30 % Aenderung je Takt
+
+	//  Dauerhaft und serverweit: der gelernte Wert soll einen
+	//  Neustart ueberleben, sonst faengt die Regelung nach jedem
+	//  docker compose restart wieder bei 5 an.
+	if ($safa_biom_dt < .dt_min || $safa_biom_dt > .dt_max)
+		$safa_biom_dt = 5;
+
+	// --- Ruecklage ------------------------------------------
+	//  Steht niemand auf der Karte, gibt readparam 0 zurueck und
+	//  daraus wuerde ein Boss mit Angriff 0. Dann lieber diese
+	//  Werte - grob ein Spieler auf halber Strecke.
+	.not_flee = 600;
+	.not_hit  = 600;
+	.not_hp   = 200000;
+
+	.laut = 0;   // 1 = Rechenweg an den GM ausgeben
+
+	initnpctimer;
+	end;
+
+OnTimer15000:
+	donpcevent "safa_biom::OnNachrechnen";
+	setnpctimer 0;
+	end;
+
+
+// ------------------------------------------------------------
+//  Besatz auffuellen und Werte setzen
+// ------------------------------------------------------------
+//  ZUM ZUGRIFF AUF MONSTERWERTE
+//
+//  getunitdata ist ein BEFEHL, keine Funktion. Es fuellt ein
+//  Array, dessen Indizes die UMOB-Konstanten sind:
+//
+//      getunitdata .@gid, .@d;   ->   .@d[UMOB_MAXHP]
+//
+//  Die naheliegende Schreibweise getunitdata(.@gid, UMOB_MAXHP)
+//  sieht richtig aus, ist es aber nicht: script.cpp:19079 meldet
+//  "Error in argument! Please give a variable to store values in"
+//  und BRICHT DAS SKRIPT AN DER STELLE AB. Im Spiel sieht man
+//  davon nichts, das Monster behaelt einfach seine Grundwerte.
+//  Genau daran hat safa_wildlife.txt schon einmal wochenlang
+//  gehangen, es steht dort ab Zeile 340 als Warnung.
+OnNachrechnen:
+	// --- Auffuellen ------------------------------------------
+	//  mobcount zaehlt nur Monster mit gebundenem Label. Der
+	//  Besatz wird deshalb ueber getmapunits gezaehlt, das alles
+	//  auf der Karte sieht.
+	.@n = getmapunits(BL_MOB, .karte$, .@mobs);
+	.@da = 0;
+	for (.@i = 0; .@i < .@n; .@i++) {
+		getunitdata .@mobs[.@i], .@d;
+		if (.@d[UMOB_CLASS] == .boss) .@da++;
+	}
+
+	//  Mit Todeslabel. Nicht der Belohnung wegen - es gibt noch
+	//  keine -, sondern weil die Regelung weiter unten sonst blind
+	//  ist: ein Boss, der innerhalb eines Taktes faellt, hinterlaesst
+	//  keinen messbaren Lebensverlust.
+	for (.@i = .@da; .@i < .anzahl; .@i++)
+		monster .karte$, 0, 0, "--ja--", .boss, 1, "safa_biom::OnBossTod";
+
+	// --- Bezugsspieler suchen --------------------------------
+	//  Der staerkste auf der Karte, gemessen an MaxHP. Nicht an
+	//  der Stufe: auf diesem Server sagt die Stufe wenig ueber
+	//  die Ausruestung, und es sind die Lebenspunkte, an denen
+	//  der Schaden bemessen wird.
+	//
+	//  Gelesen wird ueber attachrid und readparam, nicht ueber
+	//  getunitdata: FLEE und HIT sind abgeleitete Werte und
+	//  stehen in der UPC-Liste gar nicht. getmapunits liefert mit
+	//  einem STRING-Array die Namen, daraus wird ueber
+	//  getcharid(3, name) die Kontonummer.
+	.@p_flee = .not_flee;
+	.@p_hit  = .not_hit;
+	.@p_hp   = .not_hp;
+
+	.@c = getmapunits(BL_PC, .karte$, .@namen$);
+	.@besthp = 0;
+	for (.@i = 0; .@i < .@c; .@i++) {
+		.@aid = getcharid(3, .@namen$[.@i]);
+		if (!.@aid) continue;
+		if (!attachrid(.@aid)) continue;
+		.@hp = readparam(bMaxHP);
+		if (.@hp > .@besthp) {
+			.@besthp = .@hp;
+			.@p_hp   = .@hp;
+			.@p_flee = readparam(bFlee);
+			.@p_hit  = readparam(bHit);
+		}
+		detachrid;
+	}
+
+	// --- Daraus die Werte ------------------------------------
+	//  Trefferrate: HIT = Spieler-FLEE + gewuenschte Prozent.
+	//  setunitdata UMOB_HIT schreibt den ENDWERT - script.cpp
+	//  ruft danach nur SCB_BATTLE, und das schliesst SCB_BASE
+	//  aus (status.hpp:3304), status_calc_misc laeuft also nicht
+	//  erneut und addiert Level + DEX + 150 nicht noch einmal.
+	.@k_hit = .@p_flee + .treffer_mob;
+
+	//  Ausweichen: fester Wert, aber gedeckelt am Trefferwert
+	//  des Spielers, damit er immer .treffer_spieler Prozent
+	//  landet. Ungedeckelt waere das die Falle fuer niedrige
+	//  Stufen - und fuer den Soeldner, dessen HIT bei rund 324
+	//  haengt, weil status_calc_mercenary_ mit seinem DB-Level
+	//  rechnet und nicht mit dem seines Herrn (status.cpp:5037).
+	.@k_flee = .flee_wert;
+	.@max = .@p_hit - .treffer_spieler;
+	if (.@k_flee > .@max) .@k_flee = .@max;
+	if (.@k_flee < 0)     .@k_flee = 0;
+
+	//  Angriff: der Zielschaden VOR der Ruestung. Bewusst nicht
+	//  nach DEF aufgeloest - siehe die Begruendung oben bei
+	//  .schaden_pct.
+	.@k_atk = .@p_hp * .schaden_pct / 100;
+
+	//  HARTE GRENZE 65535: weapon_atk fuehrt atk als uint16
+	//  (status.hpp:3365). Darueber laeuft der Wert um, aus 70000
+	//  werden 4464 - ein Boss, der nur noch kitzelt, und von
+	//  aussen sieht man nichts davon.
+	.@gekappt = 0;
+	if (.@k_atk > 65535) { .@k_atk = 65535; .@gekappt = 1; }
+	if (.@k_atk < 1) .@k_atk = 1;
+
+	// --- Auf alle Boesen der Karte anwenden ------------------
+	//  Nebenbei wird der am staerksten angeschlagene Boss gemerkt.
+	//  Er ist der, an dem gerade gekaempft wird, und damit der
+	//  einzige, dessen Lebensverlust etwas ueber den Schaden der
+	//  Spieler aussagt.
+	.@n = getmapunits(BL_MOB, .karte$, .@mobs);
+	.@geaendert = 0;
+	.@wund_gid = 0;
+	.@wund_teil = 1001;          // Promille, 1000 = unversehrt
+	.@lebt_noch = 0;
+	for (.@i = 0; .@i < .@n; .@i++) {
+		.@gid = .@mobs[.@i];
+		getunitdata .@gid, .@d;
+		if (.@d[UMOB_CLASS] != .boss) continue;
+		if (.@gid == .letzter_gid) .@lebt_noch = 1;
+
+		setunitdata .@gid, UMOB_ATKMIN, .@k_atk * 80 / 100;
+		setunitdata .@gid, UMOB_ATKMAX, .@k_atk;
+		setunitdata .@gid, UMOB_HIT,    .@k_hit;
+		setunitdata .@gid, UMOB_FLEE,   .@k_flee;
+		setunitdata .@gid, UMOB_RES,    .res_wert;
+		setunitdata .@gid, UMOB_MRES,   .res_wert;
+		setunitdata .@gid, UMOB_DAMAGETAKEN, $safa_biom_dt;
+		.@geaendert++;
+
+		//  Der Lebensstand in Promille, gemessen am eigenen
+		//  Maximum des Bosses statt an einer Zahl im Skript. So
+		//  steht der Wert nur an einer Stelle - in
+		//  mob_db_safa_biom.yml - und eine Aenderung dort wirkt
+		//  hier von selbst.
+		//
+		//  Die Multiplikation ist unbedenklich: Skriptvariablen
+		//  sind int64 (script.hpp:286), 4,2 Mrd mal 1000 passt
+		//  bequem. Eng ist in diesem Skript nur der eine
+		//  Parameter von setunitdata.
+		.@teil = .@d[UMOB_HP] * 1000 / .@d[UMOB_MAXHP];
+		if (.@teil < .@wund_teil) {
+			.@wund_teil = .@teil;
+			.@wund_gid  = .@gid;
+		}
+	}
+
+	// --- DamageTaken nachfuehren -----------------------------
+	//  ZWEI FAELLE, UND DER ZWEITE IST DER WICHTIGE
+	//
+	//  Fall 1: Der Boss lebt noch und hat Leben verloren. Aus dem
+	//  Verlust je Takt laesst sich die Gesamtdauer hochrechnen.
+	//
+	//  Fall 2: Seit dem letzten Takt ist einer GESTORBEN. Dann gibt
+	//  es keinen Verlust zu messen - und genau das ist der Fall, um
+	//  den es hier ueberhaupt geht. Wer zwei Milliarden je Schlag
+	//  macht, legt den Boss moeglicherweise innerhalb der 15
+	//  Sekunden um; eine Regelung, die nur Fall 1 kennt, erfuehre
+	//  davon nie etwas und bliebe ewig bei ihrem Startwert.
+	//
+	//  Gemeldet wird das ueber OnBossTod, nicht ueber "die GID ist
+	//  verschwunden". Der Unterschied ist wichtig: verschwinden
+	//  kann ein Monster auch durch einen Neustart der Karte oder
+	//  einen Aufraeumbefehl, und die Regelung wuerde daraus einen
+	//  Kampf ableiten, den es nie gab.
+	//
+	//  Der Todesfall gewinnt gegen die Messung: ein Kampf, der
+	//  innerhalb eines Taktes vorbei war, ist die haertere
+	//  Information.
+	.@dauer = 0;
+	if (.tot) {
+		.@dauer = .takt / 1000;
+		.tot = 0;
+	} else if (.@wund_gid && .@wund_gid == .letzter_gid
+	           && .@wund_teil < .letztes_teil && .@c > 0) {
+		.@verlust = .letztes_teil - .@wund_teil;      // Promille je Takt
+		//  Dauer fuer den ganzen Balken: 1000 Promille geteilt
+		//  durch den Verlust je Takt, mal Taktlaenge in Sekunden.
+		//  Alle Zwischenwerte bleiben vierstellig - kein Ueberlauf.
+		//  Roh gerechnet (HP mal 1000) waere es einer, bei zwei
+		//  Milliarden Lebenspunkten sofort.
+		.@dauer = 1000 * (.takt / 1000) / .@verlust;
+	}
+
+	if (.@dauer > 0) {
+		//  Neuer Wert im Verhaeltnis Ist zu Soll. Stirbt er zu
+		//  schnell, faellt DamageTaken und er wird zaeher.
+		.@neu = $safa_biom_dt * .@dauer / .ziel_sek;
+
+		//  Schrittweite begrenzen. Ohne das springt die Regelung
+		//  bei einer einzelnen starken Runde von 5 auf 1 und beim
+		//  naechsten Leerlauf zurueck - der Boss waere jedes Mal
+		//  ein anderer.
+		.@ober = $safa_biom_dt + $safa_biom_dt * .dt_schritt / 100 + 1;
+		.@unter = $safa_biom_dt - $safa_biom_dt * .dt_schritt / 100 - 1;
+		if (.@neu > .@ober)  .@neu = .@ober;
+		if (.@neu < .@unter) .@neu = .@unter;
+		if (.@neu < .dt_min) .@neu = .dt_min;
+		if (.@neu > .dt_max) .@neu = .dt_max;
+
+		if (.@neu != $safa_biom_dt) {
+			if (.laut)
+				debugmes "[Biom] Kampfdauer hochgerechnet " + .@dauer
+				         + " s (Ziel " + .ziel_sek + "), DamageTaken "
+				         + $safa_biom_dt + " -> " + .@neu;
+			$safa_biom_dt = .@neu;
+		}
+	}
+	.letzter_gid  = .@wund_gid;
+	.letztes_teil = .@wund_teil;
+
+	// Ausgabe ins Serverlog, NICHT an einen Spieler: OnNachrechnen
+	// wird ueber donpcevent aufgerufen und hat deshalb nie eine RID
+	// angehaengt - jedes dispbottom hier ginge ins Leere, auch das
+	// aus @biom jetzt. debugmes landet in der map-Konsole, und dort
+	// wird ohnehin zuerst nachgesehen.
+	if (.laut)
+		debugmes "[Biom] Bezug: FLEE " + .@p_flee + ", HIT " + .@p_hit
+		           + ", MaxHP " + .@p_hp + "  ->  Mob HIT " + .@k_hit
+		           + ", FLEE " + .@k_flee + ", ATK " + .@k_atk
+		           + (.@gekappt ? " (auf 65535 gekappt)" : "")
+		           + "  |  DamageTaken " + $safa_biom_dt
+		           + ", RES " + .res_wert
+		           + ", Balken bei " + .@wund_teil + " Promille"
+		           + "  auf " + .@geaendert + " Boss(e)";
+	end;
+
+
+// ------------------------------------------------------------
+//  Ein Boss ist gefallen
+// ------------------------------------------------------------
+//  Nur ein Merker. Die eigentliche Rechnung passiert im naechsten
+//  Takt, weil hier nicht feststeht, wie lange der Kampf ging -
+//  gewertet wird er als "hoechstens einen Takt", und das ist die
+//  richtige Richtung: er war zu schnell vorbei.
+//
+//  Der Zaehler laeuft mit, damit sich im Log ablesen laesst, ob die
+//  Regelung ueberhaupt Futter bekommt.
+OnBossTod:
+	.tot = 1;
+	.gefallen++;
+	if (.laut)
+		debugmes "[Biom] Elephantmagon gefallen (" + .gefallen
+		         + " gesamt), DamageTaken steht bei " + $safa_biom_dt;
+	end;
+
+
+// ------------------------------------------------------------
+//  @biom - fuer die Kontrolle im Spiel
+// ------------------------------------------------------------
+OnGM:
+	if (.@atcmd_parameters$[0] == "laut") {
+		.laut = !.laut;
+		dispbottom "[Biom] Rechenweg " + (.laut ? "an" : "aus") + ".";
+		end;
+	}
+	if (.@atcmd_parameters$[0] == "hin") {
+		warp .karte$, 0, 0;
+		end;
+	}
+	if (.@atcmd_parameters$[0] == "jetzt") {
+		donpcevent "safa_biom::OnNachrechnen";
+		dispbottom "[Biom] nachgerechnet.";
+		end;
+	}
+	if (.@atcmd_parameters$[0] == "dt") {
+		//  Von Hand setzen. Die Regelung zieht danach weiter, aber
+		//  nur um .dt_schritt Prozent je Takt - ein Wert von Hand
+		//  haelt also mehrere Minuten und laesst sich in Ruhe
+		//  ansehen.
+		.@w = atoi(.@atcmd_parameters$[1]);
+		if (.@w < .dt_min || .@w > .dt_max) {
+			dispbottom "[Biom] DamageTaken muss zwischen " + .dt_min
+			           + " und " + .dt_max + " liegen. Aktuell: "
+			           + $safa_biom_dt + " (Faktor " + (100 / $safa_biom_dt) + ").";
+			end;
+		}
+		$safa_biom_dt = .@w;
+		donpcevent "safa_biom::OnNachrechnen";
+		dispbottom "[Biom] DamageTaken auf " + .@w + " gesetzt (Faktor "
+		           + (100 / .@w) + ").";
+		end;
+	}
+
+	.@n = getmapunits(BL_MOB, .karte$, .@mobs);
+	.@da = 0;
+	for (.@i = 0; .@i < .@n; .@i++) {
+		getunitdata .@mobs[.@i], .@d;
+		if (.@d[UMOB_CLASS] == .boss) .@da++;
+	}
+	dispbottom "[Biom] " + .karte$ + ": " + .@da + " von " + .anzahl
+	           + " Elephantmagon, " + getmapusers(.karte$) + " Spieler.";
+	dispbottom "[Biom] DamageTaken " + $safa_biom_dt + " (Schaden mal 1/"
+	           + (100 / $safa_biom_dt) + "), Ziel-Kampfdauer "
+	           + .ziel_sek + " s.";
+	dispbottom "[Biom] Minderung gesamt: DEF Faktor 7, RES Faktor 3,4, "
+	           + "DamageTaken Faktor " + (100 / $safa_biom_dt) + ".";
+	dispbottom "[Biom] @biom hin | jetzt | laut | dt <1-100>";
+	end;
+}
