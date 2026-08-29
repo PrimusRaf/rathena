@@ -68,3 +68,70 @@ Body:
     Option: VAR_NOTHING
     Script: |
       bonus bMaxHP,0;
+
+# ====================================================================
+#  SafaRO - Optionen, die nicht auf Werte gehen
+# ====================================================================
+#  Bis hierher konnte die GM-Werkbank nur Zahlen an Charakterwerten
+#  drehen - ATK, Max HP, STR. Alles, was sich anders anfuehlt, ging
+#  nicht: mehr Erfahrung, bessere Beute, ein Zauber, der von selbst
+#  ausloest.
+#
+#  DER FREIE BEREICH
+#
+#  Die amtliche Datenbank hat 249 Eintraege und endet bei Id 254,
+#  lueckenlos nach oben. Ab 255 ist frei.
+#
+#  ROA_PARAM IST DER ZWEITE WERT, UND ER LAG BRACH
+#
+#  setrandomoption nimmt fuenf Angaben: Platz, Index, Id, Wert, Param
+#  (doc/script_commands.txt). Von den 249 amtlichen Optionen benutzt
+#  KEINE EINZIGE den Param - nachgezaehlt. Er steht uns also
+#  vollstaendig zur Verfuegung, und genau den braucht ein Autozauber:
+#  eine Zahl allein reicht dort nicht, es sind Fertigkeit UND Chance.
+#
+#    Wert  = Chance in Zehntelprozent (bonus3 bAutoSpell rechnet n/10)
+#    Param = Fertigkeits-Id
+#
+#  WARUM DREI STUFEN STATT EINER
+#
+#  bonus3 bAutoSpell verlangt Fertigkeit, STUFE und Chance - drei
+#  Zahlen, wir haben zwei Felder. Die Stufe in den Param
+#  hineinzurechnen (Fertigkeit*100+Stufe) waere eine Bastelei, die
+#  spaeter niemand mehr liest. Stattdessen gibt es die Stufe als
+#  eigene Option: 257 fuer Stufe 1, 258 fuer 5, 259 fuer 10. Wer
+#  Stufe 7 braucht, legt 261 an - das ist eine Zeile.
+# ====================================================================
+
+  - Id: 255
+    Option: SAFA_EXPRATE
+    Script: |
+      bonus2 bExpAddRace,RC_All,getrandomoptinfo(ROA_VALUE);
+
+  - Id: 256
+    Option: SAFA_DROPRATE
+    Script: |
+      bonus2 bDropAddRace,RC_All,getrandomoptinfo(ROA_VALUE);
+
+  # Autozauber beim Angriff. Wert = Chance in Zehntelprozent,
+  # Param = Fertigkeits-Id. 100 sind also 10 Prozent.
+  - Id: 257
+    Option: SAFA_AUTOCAST_1
+    Script: |
+      bonus3 bAutoSpell,getrandomoptinfo(ROA_PARAM),1,getrandomoptinfo(ROA_VALUE);
+
+  - Id: 258
+    Option: SAFA_AUTOCAST_5
+    Script: |
+      bonus3 bAutoSpell,getrandomoptinfo(ROA_PARAM),5,getrandomoptinfo(ROA_VALUE);
+
+  - Id: 259
+    Option: SAFA_AUTOCAST_10
+    Script: |
+      bonus3 bAutoSpell,getrandomoptinfo(ROA_PARAM),10,getrandomoptinfo(ROA_VALUE);
+
+  # Und dasselbe beim Getroffenwerden - fuer Schutzzauber.
+  - Id: 260
+    Option: SAFA_AUTOCAST_HIT_5
+    Script: |
+      bonus3 bAutoSpellWhenHit,getrandomoptinfo(ROA_PARAM),5,getrandomoptinfo(ROA_VALUE);

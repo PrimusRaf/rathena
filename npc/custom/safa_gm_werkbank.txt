@@ -50,9 +50,11 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 	mes "What are we doing?";
 	next;
 
-	if (select("Work on one piece:^0000FFSocket everything I am wearing^000000") == 2) {
-		callsub S_AlleSockel;
-		close;
+	switch (select("Work on one piece:"
+	             + "^0000FFSocket everything I am wearing^000000:"
+	             + "^0000FFGrade everything to A^000000")) {
+	case 2: callsub S_AlleSockel; close;
+	case 3: callsub S_AlleGradeA; close;
 	}
 
 	mes "[GM Workbench]";
@@ -169,24 +171,43 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 
 		for (.@i = 0; .@i < .@bis; .@i++) {
 
-			// KEIN next vor input.
+			// AUSWAHL STATT EINGABE.
 			//
-			// next leert das Fenster, und der Eingabekasten steht
-			// dann vor leerem Grund - genau deshalb war die Liste
-			// beim Tippen nicht mehr zu sehen. Ohne next bleibt der
-			// Text stehen, waehrend der Kasten darueber liegt.
+			// Vorher stand die Optionsliste im Fenster und darueber
+			// der Eingabekasten. Das hatte zwei Fehler, und den
+			// zweiten merkt man erst im Spiel: SOLANGE EIN
+			// EINGABEKASTEN OFFEN IST, LAESST SICH DAS FENSTER
+			// DARUNTER NICHT SCROLLEN. Die Liste war also nur so
+			// weit lesbar, wie sie zufaellig hineinpasste - und mit
+			// den neuen Optionen passte sie nicht mehr.
+			//
+			// Ein Menue hat das Problem nicht: es scrollt selbst,
+			// und die Nummern muss sich niemand merken. Wer doch
+			// eine Id von Hand braucht - es gibt 249 amtliche -,
+			// nimmt den letzten Eintrag.
 			mes "[GM Workbench]";
 			if (.@einzeln)
-				mes "Slot ^0000FF" + (.@i + 1) + "^000000 of 5 - which option?";
+				mes "Slot ^0000FF" + (.@i + 1) + "^000000 of 5.";
 			else
-				mes "Which option for all five slots?";
-			mes " ";
-			for (.@z = 0; .@z < 5; .@z++)
-				mes .hilfe$[.@z];
-			mes " ";
-			if (.@einzeln)
-				mes "^7777770 leaves this slot empty.^000000";
-			input .@id, (.@einzeln ? 0 : 1), 255;
+				mes "This goes into all five slots.";
+
+			// Kein next davor: ein Menue legt sich NEBEN das Fenster,
+			// nicht darueber. Anders als der Eingabekasten - und das
+			// ist der ganze Grund, warum hier jetzt ein Menue steht.
+			.@w = select(.menue$) - 1;
+
+			if (.@w == getarraysize(.opt_id)) {
+				// Von Hand. Eigene Seite, damit der Kasten nicht
+				// ueber etwas Lesenswertem liegt.
+				mes "[GM Workbench]";
+				mes "Option ID?";
+				mes "^7777771 to " + .max_id + ". 0 leaves the slot empty.^000000";
+				input .@id, 0, .max_id;
+			} else if (.@w < 0) {
+				.@id = 0;
+			} else {
+				.@id = .opt_id[.@w];
+			}
 
 			// Id 0 laesst einen Platz leer. Dafuer haben wir in
 			// db/import/item_randomopt_db.yml eigens einen Eintrag
@@ -200,21 +221,52 @@ valkyrie,48,83,4	script	GM Workbench#safa	4_M_ALCHE_A,{
 				continue;
 			}
 
-			// Zweite Frage, getrennt von der ersten - und die
-			// gewaehlte Id steht dabei vor Augen.
-			mes " ";
-			mes "Option ^0000FF" + .@id + "^000000 - which value?";
-			mes "^777777Stored as int16, so 32767 is the ceiling.^000000";
+			// Braucht diese Option eine Fertigkeit dazu?
+			.@skill = 0;
+			.@braucht = (inarray(.braucht_skill[0], .@id) >= 0);
+
+			// Name fuer die Anzeige. Bei einer von Hand getippten Id
+			// gibt es keinen - dann steht dort die Nummer.
+			.@n = inarray(.opt_id[0], .@id);
+			.@name$ = (.@n >= 0) ? .opt_name$[.@n] : ("Option " + .@id);
+
+			next;
+
+			// Zweite Frage auf EIGENER Seite. Kurz halten - was
+			// hier steht, ist bei offenem Kasten nicht scrollbar.
+			mes "[GM Workbench]";
+			mes "^0000FF" + .@name$ + "^000000";
+			if (.@braucht)
+				mes "Chance in tenths of a percent. 100 = 10%.";
+			else
+				mes "Which value? Ceiling 32767.";
 			input .@wert, 1, 32767;
 
+			// Dritte Frage, nur bei den Autozauber-Optionen. Sie
+			// wandert in den PARAM, das fuenfte Argument von
+			// setrandomoption - bei allen anderen bleibt dort 0.
+			if (.@braucht) {
+				next;
+				mes "[GM Workbench]";
+				mes "Which skill should fire?";
+				mes "^777777Skill ID from db/re/skill_db.yml.";
+				mes "19 Fire Bolt, 20 Lightning Bolt, 14 Cold Bolt,";
+				mes "89 Storm Gust, 83 Meteor Storm,";
+				mes "28 Heal, 73 Kyrie Eleison.^000000";
+				input .@skill, 1, 10000;
+			}
+
 			if (.@einzeln) {
-				setrandomoption(.@teil, .@i, .@id, .@wert, 0);
+				setrandomoption(.@teil, .@i, .@id, .@wert, .@skill);
 				.@zeile$ = .@zeile$ + (.@i + 1) + ": " + .@id
-				         + "/" + .@wert + "  ";
+				         + "/" + .@wert
+				         + (.@skill ? "/skill " + .@skill : "") + "  ";
 			} else {
 				for (.@z = 0; .@z < 5; .@z++)
-					setrandomoption(.@teil, .@z, .@id, .@wert, 0);
-				.@zeile$ = "id " + .@id + ", value " + .@wert + " on all five";
+					setrandomoption(.@teil, .@z, .@id, .@wert, .@skill);
+				.@zeile$ = "id " + .@id + ", value " + .@wert
+				         + (.@skill ? ", skill " + .@skill : "")
+				         + " on all five";
 			}
 			next;
 		}
@@ -415,19 +467,191 @@ S_AlleSockel:
 	return;
 
 
+// ============================================================
+//  Alles auf Grade A
+// ============================================================
+//  Setzt jedes getragene Stueck auf Enchantgrade A.
+//
+//  WARUM DAS EIN TAUSCH IST UND KEIN SCHALTER
+//
+//  Es gibt keinen Skriptbefehl, der den Grad eines vorhandenen
+//  Stuecks aendert. rAthena kennt nur getenchantgrade zum LESEN
+//  (script.cpp:28605) und enchantgradeui, das lediglich das
+//  Client-Fenster oeffnet. Geschrieben wird der Grad nur beim
+//  Anlegen eines Gegenstands.
+//
+//  Also: Stueck ablegen, mit allen Merkmalen loeschen, mit
+//  denselben Merkmalen und Grad A neu erzeugen, wieder anziehen.
+//  delitem4 und getitem4 sind die einzigen Fassungen, die den
+//  Grad ueberhaupt kennen (script.cpp:28565 und 28569).
+//
+//  WAS DABEI MITGENOMMEN WIRD
+//
+//    Verfeinerung   getequiprefinerycnt
+//    vier Karten    getequipcardid, Platz 0 bis 3
+//    fuenf Optionen getequiprandomoption, ROA_ID/VALUE/PARAM
+//
+//  Das ist der Grund, warum hier so viel gelesen wird, bevor
+//  irgendetwas passiert: delitem4 findet das Stueck nur, wenn
+//  ALLE Merkmale stimmen, und was beim Neuerzeugen fehlt, ist
+//  weg. Ein GM-Knopf, der eine MVP-Karte verschluckt, waere
+//  schlimmer als gar keiner.
+//
+//  ZWEI GRENZEN, DIE MAN KENNEN SOLLTE
+//
+//  1. Zerbrochene Stuecke. Es gibt keinen Skript-Getter fuer das
+//     attribute-Feld, deshalb steht unten fest die 0. Ein
+//     zerbrochenes getragenes Stueck wuerde delitem4 nicht
+//     finden - es bliebe unveraendert und taucht im Bericht als
+//     uebersprungen auf.
+//
+//  2. equip nimmt den ERSTEN passenden Gegenstand im Beutel. Wer
+//     zwei gleiche Stuecke traegt und ein drittes davon im Beutel
+//     hat, kann hinterher das falsche anhaben. Fuer eine
+//     Testbank ist das zu verschmerzen.
+//
+//  WO DER GRAD UEBERHAUPT ETWAS BRINGT
+//
+//  Der Bonus haengt an enchantgrade.yml, und die kennt nur
+//  Waffen der Stufe 5 und Ruestungen der Stufe 2. Alles andere
+//  bekommt den Grad zwar angeschrieben - der Client zeigt ihn -,
+//  aber status.cpp findet keinen Eintrag und rechnet nichts.
+//  Deshalb sagt der Bericht dazu, wie viele Stuecke wirklich
+//  davon haben.
+//
+//  Und der Bonus ist ein Prozentsatz AUF DEN VERFEINERUNGSBONUS
+//  (status.cpp:3961), nicht auf den Grundschaden. Auf einem
+//  unverfeinerten Stueck ist Grad A wertlos.
+// ============================================================
+S_AlleGradeA:
+
+	setarray .@platz[0], EQI_HEAD_TOP, EQI_HEAD_MID, EQI_HEAD_LOW,
+	                     EQI_ARMOR, EQI_HAND_R, EQI_HAND_L,
+	                     EQI_GARMENT, EQI_SHOES, EQI_ACC_R, EQI_ACC_L,
+	                     EQI_SHADOW_ARMOR, EQI_SHADOW_WEAPON,
+	                     EQI_SHADOW_SHIELD, EQI_SHADOW_SHOES,
+	                     EQI_SHADOW_ACC_R, EQI_SHADOW_ACC_L,
+	                     EQI_COSTUME_HEAD_TOP, EQI_COSTUME_HEAD_MID,
+	                     EQI_COSTUME_HEAD_LOW, EQI_COSTUME_GARMENT;
+
+	.@gesetzt = 0;
+	.@schon = 0;
+	.@wirkt = 0;
+
+	for (.@i = 0; .@i < 20; .@i++) {
+
+		if (!getequipisequiped(.@platz[.@i]))
+			continue;
+
+		.@teil = .@platz[.@i];
+
+		if (getenchantgrade(.@teil) >= ENCHANTGRADE_A) {
+			.@schon++;
+			continue;
+		}
+
+		.@id  = getequipid(.@teil);
+		.@ref = getequiprefinerycnt(.@teil);
+		.@gr  = getenchantgrade(.@teil);
+		.@c0  = getequipcardid(.@teil, 0);
+		.@c1  = getequipcardid(.@teil, 1);
+		.@c2  = getequipcardid(.@teil, 2);
+		.@c3  = getequipcardid(.@teil, 3);
+
+		// Die Arrays MUESSEN vor jedem Durchgang geleert werden.
+		// Sonst schleppt ein Stueck mit weniger Optionen die
+		// Eintraege des vorigen mit, und delitem4 faende es nicht.
+		deletearray .@oid[0], 5;
+		deletearray .@oval[0], 5;
+		deletearray .@opar[0], 5;
+		for (.@j = 0; .@j < 5; .@j++) {
+			.@oid[.@j]  = getequiprandomoption(.@teil, .@j, ROA_ID);
+			.@oval[.@j] = getequiprandomoption(.@teil, .@j, ROA_VALUE);
+			.@opar[.@j] = getequiprandomoption(.@teil, .@j, ROA_PARAM);
+		}
+
+		// Ob der Grad hinterher auch rechnet, haengt an der Stufe -
+		// siehe Kopf. Gezaehlt wird VOR dem Tausch, weil danach
+		// nichts mehr angelegt ist.
+		if (getequipweaponlv(.@teil) == 5 || getequiparmorlv(.@teil) == 2)
+			.@wirkt++;
+
+		unequip .@teil;
+		delitem4 .@id, 1, 1, .@ref, 0, .@c0, .@c1, .@c2, .@c3, .@gr,
+		         .@oid, .@oval, .@opar;
+		getitem4 .@id, 1, 1, .@ref, 0, .@c0, .@c1, .@c2, .@c3,
+		         ENCHANTGRADE_A, .@oid, .@oval, .@opar;
+		equip .@id;
+
+		.@gesetzt++;
+	}
+
+	mes "[GM Workbench]";
+	if (.@gesetzt == 0 && .@schon == 0) {
+		mes "You are wearing nothing.";
+		next;
+		return;
+	}
+
+	mes "^00AA00" + .@gesetzt + " set to grade A^000000"
+	  + (.@schon > 0 ? ", ^777777" + .@schon + " already were^000000" : "");
+	mes " ";
+	mes "^777777Of those, ^000000^0000FF" + .@wirkt + "^000000^777777 will actually compute";
+	mes "the bonus - only weapon level 5 and armor";
+	mes "level 2 have an entry in enchantgrade.yml.";
+	mes "And the bonus is a percentage of the REFINE";
+	mes "bonus, so an unrefined piece gains nothing.^000000";
+	next;
+
+	recalculatestat;
+	return;
+
+
 OnInit:
 	.stufe = 99;   // ab dieser Gruppenstufe sicht- und bedienbar
 	bindatcmd "emo", "GM Workbench#safa::OnEmote", 99, 99;
 
-	// Die Optionsliste steht einmal hier statt dreimal im Ablauf.
-	// Es sind dieselben zwoelf, die der Master Artisan vergibt -
-	// siehe tools/schmied/bauen.py, OPTIONEN.
-	setarray .hilfe$[0],
-		"  ^0000FF17^000000 ATK          ^0000FF14^000000 MATK in percent",
-		"  ^0000FF 1^000000 Max HP       ^0000FF 2^000000 Max SP",
-		"  ^0000FF 3^000000 STR   ^0000FF4^000000 AGI   ^0000FF5^000000 VIT",
-		"  ^0000FF 6^000000 INT   ^0000FF7^000000 DEX   ^0000FF8^000000 LUK",
-		"  ^0000FF15^000000 ASPD         ^0000FF24^000000 Critical";
+	// --- Die Auswahlliste ------------------------------------
+	//  Zwei gleich lange Reihen: Nummer und Klartext. Angeboten
+	//  werden die zwoelf, die auch der Master Artisan vergibt
+	//  (tools/schmied/bauen.py, OPTIONEN), dazu unsere eigenen ab
+	//  255 aus db/import/item_randomopt_db.yml.
+	//
+	//  Es sind bewusst nicht alle 249 amtlichen. Ein Menue mit 249
+	//  Zeilen ist keine Auswahl mehr, sondern eine Zumutung - fuer
+	//  die seltenen Faelle gibt es den letzten Eintrag.
+	setarray .opt_id[0],
+		17, 14, 15, 24,
+		1, 2,
+		3, 4, 5, 6, 7, 8,
+		255, 256, 257, 258, 259, 260;
+	setarray .opt_name$[0],
+		"ATK +%",       "MATK +%",      "ASPD +",       "Critical +",
+		"Max HP +",     "Max SP +",
+		"STR +",        "AGI +",        "VIT +",
+		"INT +",        "DEX +",        "LUK +",
+		"^FF7700EXP from all races +%^000000",
+		"^FF7700Drop rate from all races +%^000000",
+		"^FF7700Autocast Lv 1^000000",
+		"^FF7700Autocast Lv 5^000000",
+		"^FF7700Autocast Lv 10^000000",
+		"^FF7700Autocast Lv 5 when hit^000000";
+
+	// Der fertige Menuetext, einmal gebaut statt bei jedem Aufruf.
+	.menue$ = "";
+	for (.@i = 0; .@i < getarraysize(.opt_id); .@i++)
+		.menue$ = .menue$ + .opt_name$[.@i] + ":";
+	.menue$ = .menue$ + "^777777Type an ID myself^000000";
+
+	// Optionen, die zusaetzlich eine Fertigkeit brauchen. Der Wert
+	// allein reicht bei ihnen nicht - siehe ROA_PARAM im Kopf von
+	// db/import/item_randomopt_db.yml.
+	setarray .braucht_skill[0], 257, 258, 259, 260;
+
+	// Hoechste Id, die von Hand eingetippt werden darf. Stand vorher
+	// auf 255, weil dort die amtliche Datenbank endet; unsere eigenen
+	// liegen darueber und waeren nicht erreichbar gewesen.
+	.max_id = 260;
 	end;
 
 // ------------------------------------------------------------
