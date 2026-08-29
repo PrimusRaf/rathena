@@ -1,0 +1,108 @@
+// ==========================================================================
+//  SafaRO - Faehigkeiten eigener Monster
+// ==========================================================================
+//
+//  Diese Datei wird von mob.cpp:7206 zusaetzlich zu db/re/mob_skill_db.txt
+//  gelesen. Format und Spaltenzahl sind dieselben - 19 Felder, auch die
+//  leeren am Ende muessen stehen, sonst weist sv_readdb die Zeile ab:
+//
+//    MobID,Merkname,Zustand,SkillID,Stufe,Rate,Zauberzeit,Sperre,
+//    Abbrechbar,Ziel,Bedingung,Bedingungswert,val1..val5,Emotion,Chat
+//
+//    Rate       10000 = 100 %
+//    Sperre     Millisekunden, bevor dieselbe Faehigkeit wieder darf
+//
+// --------------------------------------------------------------------------
+//  ELEPHANTMAGON (23100)
+// --------------------------------------------------------------------------
+//
+//  WARUM GENAU DIESE VIER
+//
+//  Der Angriffswert des Bosses wird zur Laufzeit gesetzt - auf 12 Prozent
+//  der Lebenspunkte des staerksten Spielers auf der Karte, siehe
+//  npc/custom/safa_biom.txt. Eine Faehigkeit mit hohem Schadensverhaeltnis
+//  vervielfacht diesen ohnehin schon grossen Wert. Deshalb wurde fuer jede
+//  Faehigkeit in battle.cpp nachgesehen, was sie rechnet:
+//
+//    NPC_PULSESTRIKE    kein eigener Fall  -> 100 %
+//    NPC_GUIDEDATTACK   kein eigener Fall  -> 100 %
+//    MO_BODYRELOCATION  kein Schaden
+//    NPC_EARTHQUAKE     eigener Fall, siehe unten
+//
+//  KN_BRANDISHSPEAR waere thematisch das Naheliegendste - ein gefuehrter
+//  Waffenschwung - steht aber in battle.cpp in einem Sammelfall, dessen
+//  Verhaeltnis sich nicht sauber ablesen liess. Bei drei Treffern je
+//  Einsatz und einem Angriffswert dieser Groessenordnung ist "ungefaehr"
+//  nicht gut genug. Deshalb draussen.
+//
+//  ERDBEBEN IST DER SONDERFALL - UND NICHT SO, WIE ES AUSSIEHT
+//
+//  NPC_EARTHQUAKE steht im skill_db als Type: Magic. Man wuerde also
+//  erwarten, dass es am MATK haengt, und das Skript setzt MATK nicht -
+//  die Faehigkeit waere wirkungslos.
+//
+//  Ist sie nicht. battle.cpp:6020 unterscheidet nach Caster: fuer einen
+//  SPIELER rechnet es mit STR und Waffenangriff, fuer alles andere - also
+//  fuer unser Monster - mit
+//
+//      battle_calc_base_damage(src, sstatus, &sstatus->rhw, ...)
+//
+//  und das ist der WAFFENANGRIFF, genau der Wert, den das Skript setzt.
+//  Danach greift
+//
+//      MATK_RATE(200 + 100*Stufe + 100*(Stufe/2) + (Stufe>4 ? 100 : 0))
+//
+//  Auf Stufe 1 sind das 300 Prozent, auf Stufe 5 bereits 1000. Bei einem
+//  Grundtreffer von 12 Prozent der Spielerlebenspunkte waere Stufe 5 also
+//  ein sicherer Tod fuer jeden im 13x13-Feld. Deshalb **Stufe 1**: rund
+//  ein Drittel der Lebenspunkte, im 5x5-Feld, mit zwei Sekunden Zauberzeit
+//  davor. Das ist eine Ansage, aus der man herauslaufen kann.
+//
+//  Baphomet steht auf Stufe 5 - er hat aber auch keinen Angriffswert, der
+//  sich am Spieler bemisst.
+//
+//  WAS BEWUSST FEHLT
+//
+//  Keine Heilung. Weder AL_HEAL noch NPC_ALLHEAL, obwohl Baphomet beides
+//  hat - so gewollt.
+//
+//  Kein AL_TELEPORT. Baphomet verschwindet bei "rudeattacked"; ein Boss,
+//  der mitten im Kampf wegspringt, ist keine Schwierigkeit, sondern eine
+//  verlorene Viertelstunde.
+//
+//  Keine Betaeubung. NPC_STUNATTACK waere bei einem Gegner, der je Treffer
+//  einen zweistelligen Prozentsatz abzieht, kein Kampf mehr, sondern ein
+//  Muenzwurf.
+//
+//  DER RHYTHMUS
+//
+//  Die vier greifen ineinander: Pulse Strike schlaegt alles im Umkreis von
+//  sieben Feldern zurueck, der Boss laeuft mit Tempo 250 betont langsam
+//  hinterher - und holt die Entfernung mit Snap wieder auf. Wer stehen
+//  bleibt, frisst den Flaechenschlag; wer wegrennt, wird eingeholt. Guided
+//  Attack sorgt dafuer, dass reines Ausweichen nicht reicht.
+// --------------------------------------------------------------------------
+
+// Entfernung aufholen. Der Boss ist absichtlich langsam; ohne das hier
+// waere er zu Fuss zu besiegen.
+23100,Elephantmagon@MO_BODYRELOCATION,chase,264,1,1500,300,8000,yes,target,always,0,,,,,,,
+
+// Trifft immer. Gegen reine Ausweich-Bauten, die sonst gar nichts
+// abbekaemen - Mob-HIT gegen Spieler-FLEE ist im Renewal eine reine
+// Differenz, und die kann ein Spieler beliebig weit aufreissen.
+23100,Elephantmagon@NPC_GUIDEDATTACK,attack,172,1,1000,0,10000,no,target,always,0,,,,,,,
+
+// Der Hammer auf den Boden: 7x7 um sich, Rueckstoss ueber sieben Felder.
+23100,Elephantmagon@NPC_PULSESTRIKE,attack,661,1,3000,700,12000,no,self,always,0,,,,,,6,
+
+// Divine Smash. Zwei Sekunden Zauberzeit, nicht abbrechbar, 45 Sekunden
+// Sperre - die Ansage des Kampfes. Erst ab 80 Prozent Leben, damit der
+// Anfang nicht schon damit beginnt.
+23100,Elephantmagon@NPC_EARTHQUAKE,attack,653,1,10000,2000,45000,no,self,myhpltmaxrate,80,,,,,,6,
+23100,Elephantmagon@NPC_EARTHQUAKE,chase,653,1,10000,2000,45000,no,self,myhpltmaxrate,80,,,,,,6,
+
+// Ab einem Drittel Leben kommt es doppelt so oft. Kein neuer Mechanismus,
+// nur ein anderer Takt - das reicht, damit sich das Ende anders anfuehlt
+// als der Anfang.
+23100,Elephantmagon@NPC_EARTHQUAKE,attack,653,1,10000,2000,20000,no,self,myhpltmaxrate,33,,,,,,6,
+23100,Elephantmagon@NPC_EARTHQUAKE,chase,653,1,10000,2000,20000,no,self,myhpltmaxrate,33,,,,,,6,

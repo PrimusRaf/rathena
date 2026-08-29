@@ -87,6 +87,7 @@ Thumbs.db
 !/db/import/mob_db.yml
 !/db/import/mob_db_safa_biom.yml
 !/db/import/mob_db_safa_coins.yml
+!/db/import/mob_skill_db.txt
 !/db/import/mob_item_ratio.yml
 !/db/import/pet_db.yml
 !/db/import/quest_db.yml
