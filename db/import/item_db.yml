@@ -7817,6 +7817,35 @@ Body:
       bonus bLongAtkRate,30;
       bonus bDex,20;
 
+  - Id: 30544
+    AegisName: Safari_L_Ducky
+    Name: Rubberducky Axe
+    Type: Weapon
+    SubType: 2hAxe
+    Buy: 0
+    Sell: 0
+    Weight: 1500
+    Attack: 380
+    Range: 1
+    Slots: 2
+    Locations:
+      Both_Hand: true
+    WeaponLevel: 5
+    EquipLevelMin: 190
+    Refineable: true
+    Jobs:
+      Alchemist: true
+      Assassin: true
+      Blacksmith: true
+      Crusader: true
+      Knight: true
+      Merchant: true
+      SuperNovice: true
+      Swordman: true
+    Script: |
+      bonus bLongAtkRate,30;
+      bonus bDex,20;
+
   - Id: 30550
     AegisName: Safari_M_Crown
     Name: Mirage Crown

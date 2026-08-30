@@ -54,7 +54,11 @@
 //  Zeny bezahlt wird, sondern mit Item 30504 - die Zahl direkt
 //  hinter dem Sprite ist die Waehrung.
 -	itemshop	SafariFangbearer#safa	-1,30504,30510:100,30511:100,30512:100,30513:100,30514:100,30515:100,30516:150,30517:150,30518:150,30519:150,30520:150,30521:150,30522:150,30523:150,30524:150,30525:150,30526:150
--	itemshop	SafariLongsight#safa	-1,30504,30530:100,30531:100,30532:100,30533:100,30534:100,30535:100,30536:150,30537:150,30538:150,30539:150,30540:150,30541:150,30542:150,30543:150
+// 30544 ist die Rubberducky Axe. Sie steht bewusst in DIESEM Laden
+// und nicht bei Fangbearer: sie ist ein Nahkampfbeil, aber ihr Zweck
+// ist der Fernkampfsatz. Wer sie kauft, will die siebte Stufe von
+// Longsight - und die gibt es nur hier.
+-	itemshop	SafariLongsight#safa	-1,30504,30530:100,30531:100,30532:100,30533:100,30534:100,30535:100,30536:150,30537:150,30538:150,30539:150,30540:150,30541:150,30542:150,30543:150,30544:150
 -	itemshop	SafariMirage#safa	-1,30504,30550:100,30551:100,30552:100,30553:100,30554:100,30555:100,30556:150,30557:150,30558:150
 
 
@@ -81,9 +85,14 @@ veins,193,120,4	script	Safari Outfitter#safa	4_M_ORIENT01,{
 		mes "You carry ^0000FF" + countitem(.mat) + " " + getitemname(.mat) + "^000000.";
 		next;
 
+		// "one very silly axe" ist die einzige Stelle, an der ein
+		// Spieler OHNE Fernkampfwaffe ueberhaupt erfaehrt, dass
+		// diese Linie auch fuer ihn offensteht. Im Laden steht die
+		// Rubberducky Axe zwar mit drin - aber dorthin geht
+		// niemand, den die Ueberschrift schon ausgeschlossen hat.
 		switch (select(
 			"^0000FFFangbearer^000000 - claw and tooth, up close",
-			"^0000FFLongsight^000000 - bow, gun and the long view",
+			"^0000FFLongsight^000000 - bow, gun, and one very silly axe",
 			"^0000FFMirage^000000 - for those who call instead",
 			"Where do trophies come from?",
 			"What does a full set cost?",
