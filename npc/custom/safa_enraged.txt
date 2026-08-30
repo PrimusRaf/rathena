@@ -1,0 +1,703 @@
+//===== SafaRO Script ========================================
+//= The Wild - Enraged
+//===== Von Hand gepflegt ====================================
+//= Anders als safa_wildlife.txt wird diese Datei NICHT
+//= erzeugt. Es gibt keine Tabelle darin - das Ereignis
+//= braucht keine, weil es nichts aufstellt, sondern nur
+//= vorhandene Monster umwertet.
+//===========================================================
+//
+//  WAS PASSIERT
+//
+//  Waehrend das Ereignis laeuft, wird JEDES Monster auf dem
+//  Server zehnmal so gefaehrlich: es haelt zehnmal so lange
+//  durch und schlaegt zehnmal so hart zu. Der Name bekommt den
+//  Vorsatz "Enraged", damit man auf einen Blick sieht, was
+//  einen da anfaellt. Erfahrung und Beute steigen im selben
+//  Faktor, sonst wuerde niemand rausgehen.
+//
+//  Minibosse und MVPs sind ausdruecklich EINGESCHLOSSEN. Das
+//  ist der Unterschied zu Wildlife, das beide ausnimmt.
+//
+//  Gestartet wird ausschliesslich von Hand: @enraged an 60.
+//  Kein Zeitplan, kein Wuerfel. Wer das aendern will, haengt
+//  spaeter einen Timer an OnStart - die Mechanik darunter
+//  bleibt dieselbe.
+//
+//
+//  WARUM DIE ZAEHIGKEIT NICHT UEBER LEBENSPUNKTE LAEUFT
+//
+//  Das ist die wichtigste Entscheidung in dieser Datei, und
+//  sie sieht auf den ersten Blick falsch aus.
+//
+//  setunitdata liest seinen Wert als int32
+//  (script.cpp: "int32 type = script_getnum(st, 3), value = 0;").
+//  Ende der Fahnenstange ist damit 2.147.483.647. In
+//  mob_db.yml stehen Lebenspunkte dagegen als uint32
+//  (mob.cpp, asUInt32) und duerfen bis 4.294.967.295 gehen -
+//  und genau dort stehen auf diesem Server die harten Brocken.
+//
+//  Ein "UMOB_MAXHP mal zehn" auf einen Boss mit 4 Milliarden
+//  Lebenspunkten waere also keine Verzehnfachung, sondern eine
+//  HALBIERUNG. Das staerkste Monster des Servers waere
+//  ausgerechnet im Haerte-Ereignis das schwaechste. Der
+//  Fehler faellt nirgends auf: kein Warntext, kein Logeintrag,
+//  das Monster stirbt einfach schneller als sonst.
+//
+//  DamageTaken hat diese Grenze nicht. Es ist ein Prozentsatz
+//  auf den eingehenden Schaden (max(dmg*DT/100, 1)), er wirkt
+//  multiplikativ und ist von der Groesse der Lebenspunkte
+//  unabhaengig. DT 100 -> 10 heisst: jeder Treffer richtet ein
+//  Zehntel aus, das Monster haelt genau zehnmal so lange.
+//  Dasselbe Ergebnis, ohne die Falle.
+//
+//  Nebenwirkung, die man kennen muss: die Lebensleiste faellt
+//  langsam, statt dass sie lang ist. Fuer den Spieler fuehlt
+//  sich das identisch an, fuer den Server ist es sicher.
+//
+//  Wer schon in mob_db.yml ein DamageTaken stehen hat - das
+//  sind derzeit 217 Eintraege in db/re/mob_db.yml -, wird von
+//  dort aus geteilt, nicht von 100 aus. Der Mindestwert ist 1;
+//  darunter geht die Engine nicht, und der Mindestschaden
+//  bleibt ohnehin immer 1. Unverwundbar wird hier keiner.
+//
+//
+//  WARUM DER SCHADEN NICHT IMMER GANZE ZEHN SCHAFFT
+//
+//  setunitdata schreibt UMOB_ATKMIN und UMOB_ATKMAX in
+//  status_data.rhw.atk/atk2, und die sind uint16 - Schluss bei
+//  65535. Ein Monster mit 6553 Angriff oder weniger bekommt
+//  seine vollen zehn; darueber kappt die Engine still.
+//
+//  Der hoechste Angriffswert in db/re/mob_db.yml ist 42597.
+//  Dieses eine Monster kaeme also nur auf Faktor 1,5.
+//
+//  Das ist bewusst NICHT ueber die Angriffsgeschwindigkeit
+//  ausgeglichen, obwohl das rechnerisch ginge. Zwei Gruende:
+//  UMOB_ADELAY laesst sich hinterher nicht sauber
+//  zuruecksetzen, weil getmonsterinfo den Wert gar nicht
+//  herausgibt (es gibt kein MOB_ADELAY) - das Monster bliebe
+//  also nach dem Ereignis schnell. Und zehnfache
+//  Schlagfrequenz auf jedem Monster des Servers ist eine
+//  Paketflut, die niemand gebraucht hat.
+//
+//  Wie oft die Grenze wirklich greift, sagt "@enraged status".
+//  Wenn dort eine grosse Zahl steht, ist das eine Aussage ueber
+//  mob_db.yml und keine ueber dieses Skript.
+//
+//
+//  WORAN DAS SKRIPT ERKENNT, WAS IHM GEHOERT
+//
+//  Angefasst wird nur, wessen Name NOCH dem Datenbanknamen
+//  entspricht UND wessen Angriffswerte noch die aus mob_db.yml
+//  sind. Stimmt eines von beiden nicht, hat ein anderes Skript
+//  das Monster bereits umgebaut - Wildlife, Biom, Apex - und
+//  das laesst dieses hier in Ruhe.
+//
+//  Der Gewinn daraus ist das Zuruecksetzen. Weil der
+//  Ausgangszustand garantiert der Datenbankzustand ist, laesst
+//  er sich am Ende ueber getmonsterinfo exakt wiederherstellen.
+//  Kein Merkfeld ueber zehntausend Spielnummern, nichts, was
+//  ueber einen @reloadscript oder einen Absturz auseinander-
+//  laufen kann.
+//
+//  Dass dasselbe Monster nicht zweimal umgewertet wird, macht
+//  dagegen der Vorsatz "Enraged" im Namen. Diese zweite Sperre
+//  ist keine Doppelung: waere sie nicht da, stiege der Angriff
+//  bei jedem Durchlauf weiter, bis die uint16-Grenze alles
+//  einebnet.
+//
+//  Der Preis: ein Wildlife-Rudel bleibt waehrend des
+//  Ereignisses so stark, wie Wildlife es gemacht hat. Das ist
+//  vertretbar - Wildlife rechnet seine Werte ohnehin am
+//  Spieler aus und ist damit schon hart.
+//
+//  Und eine Luecke bleibt: Spawnzeilen mit "--en--" tragen den
+//  englischen Namen ein, MOB_NAME liefert aber den
+//  Anzeigenamen. Wo beide auseinandergehen - 360 der 2675
+//  Arten haben ueberhaupt einen abweichenden -, greift das
+//  Ereignis nicht. "@enraged status" zaehlt diese Faelle mit,
+//  damit die Luecke sichtbar bleibt statt still zu sein.
+//
+//
+//  WARUM IN HAEPPCHEN GEARBEITET WIRD
+//
+//  rAthena stellt die Monster ALLER Karten beim Start auf,
+//  nicht erst, wenn jemand hinkommt. getunits(BL_MOB) liefert
+//  deshalb je nach Ausbau fuenfstellig viele Spielnummern.
+//  Alle in einem Durchgang umzuwerten waere ein spuerbarer
+//  Hänger fuer jeden, der gerade spielt.
+//
+//  Stattdessen wird je Takt ein Stueck der Liste abgearbeitet
+//  (.haeppchen). Ist die Liste durch, wird sie neu geholt -
+//  damit sind auch die Monster erfasst, die inzwischen
+//  nachgewachsen sind. Ein voller Durchlauf dauert dadurch ein
+//  paar Sekunden; so lange kann ein frisch erschienenes
+//  Monster noch normal sein. Das ist der bewusst gezahlte
+//  Preis dafuer, dass niemand ruckelt.
+//
+//
+//  WAS EIN ABSTURZ ANRICHTEN KOENNTE
+//
+//  Die Erfahrungs- und Beutesaetze sind Servereinstellungen,
+//  keine Monsterwerte. Stuerzt der Server mitten im Ereignis
+//  ab, stehen sie beim Hochfahren immer noch zehnfach - und
+//  niemand merkt es, weil die Monster nach dem Neustart wieder
+//  normal sind.
+//
+//  Deshalb liegen die urspruenglichen Saetze in DAUERHAFTEN
+//  Variablen ($safa_enr_alt), zusammen mit dem Endzeitpunkt
+//  ($safa_enr_bis). OnInit sieht beim Hochfahren nach: ist die
+//  Zeit abgelaufen, werden die Saetze zurueckgesetzt; laeuft
+//  sie noch, wird das Ereignis fortgesetzt.
+//
+//===========================================================
+
+
+-	script	safa_enraged	-1,{
+	end;
+
+
+// ------------------------------------------------------------
+//  @enraged - starten, beenden, nachsehen
+// ------------------------------------------------------------
+//    @enraged an [minuten]   startet, ohne Angabe .std_dauer
+//    @enraged aus            beendet sofort und setzt zurueck
+//    @enraged status         Was gilt gerade, und was nicht
+//
+//  "status" ist der eigentlich wichtige Befehl. Ein Ereignis,
+//  das zehntausend Monster ueber mehrere Sekunden verteilt
+//  umwertet, laesst sich sonst nicht beurteilen: man sieht ein
+//  paar wuetende Poringe und weiss nicht, ob der Rest schon
+//  dran war, ob die Saetze stehen und ob die Angriffsgrenze
+//  zugeschlagen hat.
+OnGM:
+	.@was$ = "";
+	if (.@atcmd_numparameters > 0)
+		.@was$ = .@atcmd_parameters$[0];
+
+	// --- starten ---------------------------------------------
+	if (.@was$ == "an") {
+		if ($safa_enr_bis > 0) {
+			dispbottom "[Enraged] Laeuft bereits, noch "
+			           + (($safa_enr_bis - gettimetick(2)) / 60)
+			           + " Minuten. Erst \"@enraged aus\".";
+			end;
+		}
+		.@min = .std_dauer;
+		if (.@atcmd_numparameters > 1)
+			.@min = atoi(.@atcmd_parameters$[1]);
+		if (.@min < 1) .@min = 1;
+		if (.@min > .max_dauer) .@min = .max_dauer;
+
+		callsub S_Start, .@min;
+		dispbottom "[Enraged] Gestartet fuer " + .@min + " Minuten.";
+		dispbottom "  Der Durchlauf braucht ein paar Sekunden. "
+		           + "\"@enraged status\" zeigt den Fortschritt.";
+		end;
+	}
+
+	// --- beenden ---------------------------------------------
+	if (.@was$ == "aus") {
+		if ($safa_enr_bis == 0 && $@enr_modus == 0) {
+			dispbottom "[Enraged] Laeuft gerade nicht.";
+			end;
+		}
+		callsub S_Ende;
+		dispbottom "[Enraged] Beendet. Das Beruhigen laeuft jetzt "
+		           + "im Hintergrund weiter.";
+		end;
+	}
+
+	// --- Status ----------------------------------------------
+	dispbottom "[Enraged] Skript ist geladen.";
+
+	if ($safa_enr_bis > 0) {
+		.@rest = $safa_enr_bis - gettimetick(2);
+		dispbottom "  Zustand: LAEUFT, noch " + (.@rest / 60) + " Min "
+		           + (.@rest % 60) + " Sek";
+	} else if ($@enr_modus == 2) {
+		dispbottom "  Zustand: klingt ab - die Monster werden gerade "
+		           + "wieder normal";
+	} else {
+		dispbottom "  Zustand: aus";
+	}
+
+	dispbottom "  Faktor: " + .faktor + "fach auf Zaehigkeit, Angriff, "
+	           + "Erfahrung und Beute";
+
+	// Der Fortschritt ist die Antwort auf "warum ist das Monster
+	// vor mir noch normal". Ohne ihn raet man.
+	dispbottom "  Durchlauf: " + $@enr_pos + " von "
+	           + getarraysize($@enr_liste) + " Monstern dieser Runde"
+	           + (($@enr_pos >= getarraysize($@enr_liste))
+	              ? "  (Liste wird gleich neu geholt)" : "");
+	dispbottom "  Umgewertet in dieser Runde: " + $@enr_wach
+	           + ", zurueckgesetzt: " + $@enr_ruhig;
+
+	// Fremd benannt heisst: ein anderes Skript oder die
+	// Spawnzeile hat den Namen gesetzt. Diese Monster bleiben
+	// normal - siehe S_Haeppchen. Eine hohe Zahl ist kein
+	// Fehler, aber eine Ansage darueber, wie viel vom Server
+	// dieses Ereignis wirklich erreicht.
+	dispbottom "  Uebergangen, weil fremd benannt: " + $@enr_fremd;
+
+	// Siehe Kopf: das ist eine Aussage ueber mob_db.yml.
+	dispbottom "  An der Angriffsgrenze (" + .atk_deckel + ") gekappt: "
+	           + $@enr_deckel
+	           + (($@enr_deckel > 0)
+	              ? "  <-- die kommen nicht auf Faktor " + .faktor : "");
+
+	dispbottom "  Saetze gerade: Basis-EXP " + getbattleflag("base_exp_rate")
+	           + ", Job-EXP " + getbattleflag("job_exp_rate")
+	           + ", Beute " + getbattleflag("item_rate_common");
+	dispbottom "  Gemerkte Saetze: " + getarraysize($safa_enr_alt)
+	           + ((getarraysize($safa_enr_alt) > 0 && $safa_enr_bis == 0)
+	              ? "  <-- STEHT NOCH, obwohl aus. Bitte melden." : "");
+	end;
+
+
+// ------------------------------------------------------------
+//  Das Ereignis anwerfen
+// ------------------------------------------------------------
+S_Start:
+	.@min = getarg(0);
+
+	// Reihenfolge: erst merken, dann hochsetzen. Umgekehrt
+	// merkte man sich den bereits verzehnfachten Wert und
+	// das Zuruecksetzen liefe ins Leere - beim zweiten
+	// Ereignis waere der Server dann dauerhaft auf 100fach.
+	callsub S_RatenMerken;
+	callsub S_RatenSetzen, .faktor;
+
+	// Der Endzeitpunkt ist DAUERHAFT, damit er einen Neustart
+	// ueberlebt. gettimetick(2) ist die Unixzeit, nicht die
+	// Laufzeit des Servers - genau deshalb taugt sie dafuer.
+	$safa_enr_bis = gettimetick(2) + .@min * 60;
+	$@enr_gewarnt = 0;
+
+	deletearray $@enr_liste[0];
+	$@enr_pos    = 0;
+	$@enr_wach   = 0;
+	$@enr_ruhig  = 0;
+	$@enr_deckel = 0;
+	$@enr_fremd  = 0;
+	$@enr_modus  = 1;
+
+	announce "The Wild - Enraged. For the next " + .@min
+	         + " minutes every creature out there hits " + .faktor
+	         + " times harder and takes " + .faktor
+	         + " times longer to fall. So does what it leaves behind.",
+	         bc_all, "0xFF3300";
+	return;
+
+
+// ------------------------------------------------------------
+//  Das Ereignis abblasen
+// ------------------------------------------------------------
+//  Die Saetze gehen SOFORT zurueck, die Monster nicht - die
+//  brauchen wieder ihre Haeppchen. Diese Reihenfolge ist
+//  Absicht: ein Spieler, der in der Abklingphase noch ein
+//  wuetendes Monster legt, bekommt normale Beute. Andersherum -
+//  normale Monster bei zehnfacher Beute - waere die Einladung,
+//  genau in diesem Fenster zu farmen.
+S_Ende:
+	callsub S_RatenZurueck;
+	$safa_enr_bis = 0;
+
+	deletearray $@enr_liste[0];
+	$@enr_pos   = 0;
+	$@enr_ruhig = 0;
+	$@enr_modus = 2;
+
+	announce "The Wild settles. The creatures are catching their breath.",
+	         bc_all, "0x888888";
+	return;
+
+
+// ------------------------------------------------------------
+//  Der Takt
+// ------------------------------------------------------------
+//  Ein Takt macht genau drei Dinge, in dieser Reihenfolge:
+//  auf Ablauf pruefen, warnen, ein Haeppchen abarbeiten.
+//
+//  Der Timer laeuft immer, auch wenn nichts los ist. Ein
+//  Vergleich zweier Zahlen je Sekunde kostet nichts, und ein
+//  Timer, den man startet und stoppt, ist eine Stelle mehr,
+//  an der er nach einem @reloadscript nicht wieder anlaeuft.
+OnTimer1000:
+	setnpctimer 0;
+
+	if ($@enr_modus == 0) end;
+
+	if ($@enr_modus == 1) {
+		.@rest = $safa_enr_bis - gettimetick(2);
+
+		if (.@rest <= 0) {
+			callsub S_Ende;
+			end;
+		}
+
+		// Einmal warnen, nicht jede Sekunde. $@enr_gewarnt
+		// merkt sich, was schon raus ist.
+		if (.@rest <= 300 && $@enr_gewarnt < 1) {
+			$@enr_gewarnt = 1;
+			announce "The Wild - Enraged: five minutes left.",
+			         bc_all, "0xFF9900";
+		}
+
+		callsub S_Haeppchen, 1;
+		end;
+	}
+
+	// Modus 2: beruhigen. Ist ein ganzer Durchlauf vorbei, ohne
+	// dass noch ein einziges Monster zurueckzusetzen war, steht
+	// keines mehr - dann ist das Ereignis wirklich vorbei.
+	//
+	// Der zweite Fall - gar keine Monster in der Liste - kommt
+	// auf einem laufenden Server nicht vor, faengt aber den
+	// Zustand ab, in dem der Takt sonst fuer immer jede Sekunde
+	// erfolglos alle Monster einsammelte.
+	callsub S_Haeppchen, 0;
+	if (getarraysize($@enr_liste) == 0
+	    || ($@enr_pos >= getarraysize($@enr_liste) && $@enr_ruhig == 0)) {
+		$@enr_modus = 0;
+		deletearray $@enr_liste[0];
+		$@enr_pos = 0;
+	}
+	end;
+
+
+// ------------------------------------------------------------
+//  Ein Haeppchen der Monsterliste
+// ------------------------------------------------------------
+//  getarg(0): 1 = wecken, 0 = beruhigen.
+//
+//  WARUM DIE LISTE ZWISCHENGESPEICHERT WIRD
+//
+//  getunits(BL_MOB) laeuft ueber alle Monster des Servers.
+//  Das je Takt zu tun, nur um danach ein Fuenftel davon
+//  anzufassen, waere die teuerste Zeile der Datei. Also
+//  einmal holen, ueber mehrere Takte abarbeiten, dann neu
+//  holen. Das Neuholen ist gleichzeitig die Stelle, an der
+//  nachgewachsene Monster dazukommen.
+S_Haeppchen:
+	.@wecken = getarg(0);
+
+	if ($@enr_pos >= getarraysize($@enr_liste)) {
+		deletearray $@enr_liste[0];
+		$@enr_pos   = 0;
+		$@enr_ruhig = 0;
+		.@gesamt = getunits(BL_MOB, $@enr_liste[0]);
+		if (.@gesamt == 0) return;
+	}
+
+	.@bis = $@enr_pos + .haeppchen;
+	if (.@bis > getarraysize($@enr_liste))
+		.@bis = getarraysize($@enr_liste);
+
+	// Ohne freeloop bricht rAthena bei 2048 Durchlaeufen ab -
+	// mit einer Meldung im Log, die man leicht uebersieht,
+	// weil das Skript danach einfach weiterlaeuft.
+	freeloop(1);
+	for (.@i = $@enr_pos; .@i < .@bis; .@i++) {
+		.@gid = $@enr_liste[.@i];
+		if (!.@gid) continue;
+		if (!unitexists(.@gid)) continue;
+
+		// Diener und Beschwoerungen bleiben aussen vor. Der
+		// Grund sind die Pflanzen und Kugeln, die Spieler
+		// selbst aufstellen: die tragen eine Monsternummer wie
+		// alles andere, und ein verzehnfachter eigener
+		// Marine Sphere waere kein Ereignis, sondern ein Bug.
+		// Dass die Adds eines MVP damit auch verschont
+		// bleiben, ist verschmerzbar - sie sind ohnehin
+		// Beiwerk.
+		if (getunitdata(.@gid, UMOB_MASTERAID)) continue;
+
+		.@klasse = getunitdata(.@gid, UMOB_CLASS);
+		.@db$    = getmonsterinfo(.@klasse, MOB_NAME);
+		if (.@db$ == "null") continue;
+
+		.@name$ = getunitname(.@gid);
+
+		// Traegt es schon die Marke? Geprueft wird NUR der
+		// Vorsatz, nicht der ganze Name - und das ist wichtig:
+		// md->name ist char[24], "Enraged " belegt davon acht.
+		// Bei einem langen Monsternamen schneidet die Engine
+		// hinten ab. Ein Vergleich auf den vollen Namen
+		// "Enraged " + Datenbankname schluege dann fehl, das
+		// Monster wuerde am Ende nie beruhigt und behielte
+		// seine zehnfachen Werte, bis es stirbt. Der Vorsatz
+		// steht vorne und wird nie abgeschnitten.
+		.@markiert = (substr(.@name$, 0, .plen - 1) == .praefix$);
+
+		if (.@wecken) {
+			if (.@markiert) continue;
+
+			// Heisst es noch wie in der Datenbank? Wenn nicht,
+			// hat ein anderes Skript es umgebaut - Wildlife,
+			// Biom, Apex - oder die Spawnzeile hat ihm einen
+			// eigenen Namen gegeben. In beiden Faellen liesse
+			// sich der Ausgangszustand hinterher nicht mehr
+			// herstellen, also Finger weg.
+			//
+			// Das laesst eine Luecke: Spawnzeilen mit "--en--"
+			// setzen den englischen Namen, MOB_NAME liefert aber
+			// den Anzeigenamen (mob->jname). Bei den 360 Arten,
+			// wo sich beide unterscheiden, greift das Ereignis
+			// dort nicht. Damit das nicht STILL passiert, wird
+			// mitgezaehlt - "@enraged status" zeigt die Zahl.
+			if (.@name$ != .@db$) {
+				$@enr_fremd++;
+				continue;
+			}
+
+			// Und stimmen die Angriffswerte noch mit der
+			// Datenbank ueberein? Der Name allein ist ein
+			// Stellvertreter, das hier ist die Sache selbst:
+			// zurueckgesetzt wird spaeter auf genau diese
+			// Datenbankwerte, also darf nur mitmachen, wer sie
+			// gerade auch hat.
+			//
+			// Das faengt auch den Biomboss ab, der zwar unter
+			// seinem Datenbanknamen erscheint ("--ja--" in
+			// safa_biom.txt), seine Werte danach aber selbst
+			// setzt.
+			//
+			// Zwei Faelle rutschen hier absichtlich durch die
+			// Sperre und kommen erst spaeter dran: ein Monster
+			// unter Provoke (der Statuseffekt hebt den Angriff,
+			// die Werte weichen ab) und die Wachen einer Burg
+			// (guardup_lv). Beide werden im naechsten Durchlauf
+			// erfasst, sobald der Grund weg ist - das ist der
+			// Preis dafuer, dass das Zuruecksetzen exakt bleibt.
+			if (getunitdata(.@gid, UMOB_ATKMIN)
+			    != getmonsterinfo(.@klasse, MOB_ATKMIN)) continue;
+			if (getunitdata(.@gid, UMOB_ATKMAX)
+			    != getmonsterinfo(.@klasse, MOB_ATKMAX)) continue;
+
+			callsub S_Wecken, .@gid, .@klasse, .@db$;
+		} else {
+			if (!.@markiert) continue;
+			callsub S_Beruhigen, .@gid, .@klasse, .@db$;
+		}
+	}
+	freeloop(0);
+
+	$@enr_pos = .@bis;
+	return;
+
+
+// ------------------------------------------------------------
+//  Ein Monster wuetend machen
+// ------------------------------------------------------------
+S_Wecken:
+	.@gid    = getarg(0);
+	.@klasse = getarg(1);
+	.@db$    = getarg(2);
+
+	// --- Zaehigkeit ------------------------------------------
+	//  Der Ausgangswert wird EINMAL JE MONSTERART gemerkt, nicht
+	//  je Monster. DamageTaken kommt aus mob_db.yml und ist damit
+	//  eine Eigenschaft der Art - ein Feld ueber Monsternummern
+	//  bleibt klein (ein paar tausend Eintraege) statt ueber
+	//  Spielnummern zu wachsen (zehntausende, und nach jedem
+	//  Respawn andere).
+	//
+	//  Die Ablage ist um eins verschoben, weil ein leeres
+	//  Feldelement in rAthena 0 liefert und 0 ein gueltiges
+	//  DamageTaken waere. So heisst 0 verlaesslich "noch nie
+	//  gesehen".
+	if ($@enr_dt[.@klasse] == 0)
+		$@enr_dt[.@klasse] = getunitdata(.@gid, UMOB_DAMAGETAKEN) + 1;
+
+	.@dt = ($@enr_dt[.@klasse] - 1) / .faktor;
+	if (.@dt < 1) .@dt = 1;   // darunter kennt die Engine nichts
+	setunitdata .@gid, UMOB_DAMAGETAKEN, .@dt;
+
+	// --- Schaden ---------------------------------------------
+	//  Bewusst aus der DATENBANK gerechnet, nicht aus dem
+	//  aktuellen Wert des Monsters. Aus dem aktuellen Wert wuerde
+	//  bei jedem Durchlauf erneut verzehnfacht - die Namenssperre
+	//  oben verhindert das zwar, aber sich auf zwei Sperren zu
+	//  verlassen, wo eine reicht, ist wie der Zaehler, den
+	//  safa_wildlife aus genau diesem Grund losgeworden ist.
+	.@atk1 = getmonsterinfo(.@klasse, MOB_ATKMIN) * .faktor;
+	.@atk2 = getmonsterinfo(.@klasse, MOB_ATKMAX) * .faktor;
+
+	if (.@atk1 > .atk_deckel || .@atk2 > .atk_deckel)
+		$@enr_deckel++;
+	if (.@atk1 > .atk_deckel) .@atk1 = .atk_deckel;
+	if (.@atk2 > .atk_deckel) .@atk2 = .atk_deckel;
+
+	setunitdata .@gid, UMOB_ATKMIN, .@atk1;
+	setunitdata .@gid, UMOB_ATKMAX, .@atk2;
+
+	// --- Der Name ist die Marke ------------------------------
+	//  Zuletzt, nicht zuerst. Bricht eine der Zeilen darueber
+	//  ab, traegt das Monster sonst schon die Marke, ohne die
+	//  Werte zu haben - und wird nie wieder angefasst, weil die
+	//  Sperre oben greift.
+	setunitname .@gid, .praefix$ + .@db$;
+	$@enr_wach++;
+	return;
+
+
+// ------------------------------------------------------------
+//  Ein Monster wieder beruhigen
+// ------------------------------------------------------------
+//  Spiegelbildlich, und deshalb erst der Name zum Schluss:
+//  bleibt hier etwas liegen, wird dasselbe Monster im naechsten
+//  Takt noch einmal versucht.
+S_Beruhigen:
+	.@gid    = getarg(0);
+	.@klasse = getarg(1);
+	.@db$    = getarg(2);
+
+	.@dt = 100;
+	if ($@enr_dt[.@klasse] > 0)
+		.@dt = $@enr_dt[.@klasse] - 1;
+	setunitdata .@gid, UMOB_DAMAGETAKEN, .@dt;
+
+	setunitdata .@gid, UMOB_ATKMIN, getmonsterinfo(.@klasse, MOB_ATKMIN);
+	setunitdata .@gid, UMOB_ATKMAX, getmonsterinfo(.@klasse, MOB_ATKMAX);
+
+	setunitname .@gid, .@db$;
+	$@enr_ruhig++;
+	return;
+
+
+// ------------------------------------------------------------
+//  Erfahrung und Beute
+// ------------------------------------------------------------
+//  Das sind Servereinstellungen, keine Monsterwerte - sie
+//  wirken auf alles, was in diesem Zeitraum faellt, auch auf
+//  die Monster, die der Durchlauf noch nicht erreicht hat.
+//  Genau so ist es gemeint: das Ereignis ist ein Zeitraum,
+//  kein Ort.
+//
+//  KARTEN UND TRUHEN SIND NICHT DABEI
+//
+//  item_rate_card und item_rate_treasure fehlen in der Liste
+//  unten mit Absicht. Der Server steht bei 2500 - zehnfach
+//  waeren 25000, und item_drop_card_max deckelt bei 10000,
+//  also 100 Prozent. Jedes Monster liesse in einer Stunde
+//  seine Karte fallen. Was danach an Karten im Umlauf ist,
+//  bekommt man nicht mehr eingesammelt; die Erfahrung dieser
+//  Stunde bleibt dagegen auf den Konten, wo sie hingehoert.
+//
+//  Wer es trotzdem will, haengt die beiden Namen unten an. Die
+//  Mechanik traegt sie mit - es ist eine Entscheidung ueber
+//  die Wirtschaft, keine ueber das Skript.
+S_RatenMerken:
+	// Nur wenn wirklich nichts gemerkt ist. Sonst ueberschriebe
+	// ein zweites Anwerfen (oder ein OnInit nach @reloadscript)
+	// die echten Ausgangswerte mit den verzehnfachten.
+	if (getarraysize($safa_enr_alt) > 0) return;
+	for (.@i = 0; .@i < getarraysize(.rate$); .@i++)
+		$safa_enr_alt[.@i] = getbattleflag(.rate$[.@i]);
+	return;
+
+S_RatenSetzen:
+	.@f = getarg(0);
+	for (.@i = 0; .@i < getarraysize(.rate$); .@i++)
+		setbattleflag .rate$[.@i], $safa_enr_alt[.@i] * .@f;
+	return;
+
+S_RatenZurueck:
+	if (getarraysize($safa_enr_alt) == 0) return;
+	for (.@i = 0; .@i < getarraysize(.rate$); .@i++)
+		setbattleflag .rate$[.@i], $safa_enr_alt[.@i];
+	deletearray $safa_enr_alt[0];
+	return;
+
+
+// ------------------------------------------------------------
+//  Einstellungen
+// ------------------------------------------------------------
+OnInit:
+	bindatcmd "enraged", "safa_enraged::OnGM", 99, 99;
+
+	// --- Was sich lohnt zu drehen ----------------------------
+	.faktor      = 10;    // Zaehigkeit, Schaden, Erfahrung, Beute
+	.std_dauer   = 60;    // Minuten, wenn @enraged an ohne Zahl kommt
+	.max_dauer   = 720;   // Obergrenze, damit kein Tippfehler zwoelf
+	                      // Tage Ereignis daraus macht
+	.praefix$    = "Enraged ";
+	.plen        = getstrlen(.praefix$);   // einmal, nicht je Monster
+
+	// --- Der Durchsatz ---------------------------------------
+	//  .haeppchen ist die einzige Zahl, die den Server belasten
+	//  kann. Sie sagt, wie viele Monster je Sekunde angesehen
+	//  werden - angesehen, nicht umgewertet; das meiste faellt
+	//  gleich an der Namenspruefung weg.
+	//
+	//  Bei 2000 und rund 20000 Monstern auf dem Server ist ein
+	//  voller Durchlauf nach etwa zehn Sekunden herum. So lange
+	//  kann ein frisch erschienenes Monster noch normal sein.
+	//
+	//  Teuer ist nicht das Ansehen, sondern das Umwerten: jedes
+	//  setunitdata auf den Angriff zieht ein status_calc_bl nach
+	//  sich. Das faellt genau EINMAL an, beim ersten Durchlauf
+	//  nach dem Start - danach sind fast alle schon wach und die
+	//  Namenspruefung wirft sie sofort wieder raus.
+	//
+	//  Wer schneller will, dreht hoch und sieht danach ins
+	//  map-Log. Wird es eng, steht es dort - und nicht im Spiel.
+	.haeppchen   = 2000;
+
+	// --- Die harte Grenze der Engine -------------------------
+	//  status_data.rhw.atk ist uint16. Kein Stellwert, sondern
+	//  eine Tatsache - hier nur benannt, damit sie im Skript
+	//  einen Namen hat statt einer nackten Zahl.
+	.atk_deckel  = 65535;
+
+	// --- Was mitwaechst --------------------------------------
+	//  Zur Auslassung von Karten und Truhen siehe S_RatenMerken.
+	setarray .rate$[0],
+	    "base_exp_rate",
+	    "job_exp_rate",
+	    "mvp_exp_rate",
+	    "item_rate_common",  "item_rate_common_boss",  "item_rate_common_mvp",
+	    "item_rate_heal",    "item_rate_heal_boss",    "item_rate_heal_mvp",
+	    "item_rate_use",     "item_rate_use_boss",     "item_rate_use_mvp",
+	    "item_rate_equip",   "item_rate_equip_boss",   "item_rate_equip_mvp",
+	    "item_rate_mvp";
+
+	// --- Aufraeumen nach einem Absturz -----------------------
+	//  Siehe Kopf. Der Fall, den das abfaengt: der Server geht
+	//  waehrend des Ereignisses hart aus. Die Monster sind nach
+	//  dem Hochfahren von selbst wieder normal - die Saetze
+	//  nicht, die stehen in der Konfiguration des laufenden
+	//  Prozesses und waeren beim naechsten Start wieder
+	//  zehnfach.
+	//
+	//  ACHTUNG, DER UNTERSCHIED ZU @reloadscript: dabei bleiben
+	//  $@-Variablen und Monster stehen, $-Variablen ohnehin.
+	//  Deshalb wird hier NICHT stumpf zurueckgesetzt, sondern
+	//  nach der Uhr entschieden.
+	if ($safa_enr_bis > 0) {
+		if (gettimetick(2) >= $safa_enr_bis) {
+			// Zeit war abgelaufen, waehrend nichts lief.
+			callsub S_RatenZurueck;
+			$safa_enr_bis = 0;
+			$@enr_modus   = 2;   // falls doch Monster stehen
+		} else {
+			// Laeuft noch. Die Saetze koennen nach einem
+			// Neustart auf den Ausgangswerten stehen - dann
+			// muessen sie wieder hoch. Zweimal Hochsetzen kann
+			// nicht passieren, weil immer von $safa_enr_alt
+			// aus gerechnet wird und nie vom aktuellen Wert.
+			callsub S_RatenSetzen, .faktor;
+			$@enr_modus = 1;
+		}
+	} else if (getarraysize($safa_enr_alt) > 0) {
+		// Kein Ereignis, aber gemerkte Saetze: das ist genau
+		// der Absturz zwischen S_RatenMerken und S_Start.
+		callsub S_RatenZurueck;
+	}
+
+	initnpctimer;
+	end;
+}
