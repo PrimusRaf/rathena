@@ -16,8 +16,19 @@
 //  einen da anfaellt. Erfahrung und Beute steigen im selben
 //  Faktor, sonst wuerde niemand rausgehen.
 //
-//  Minibosse und MVPs sind ausdruecklich EINGESCHLOSSEN. Das
-//  ist der Unterschied zu Wildlife, das beide ausnimmt.
+//  ES GIBT KEINE AUSNAHMEN.
+//
+//  Nicht "fast alle", nicht "alles ausser den Sonderfaellen":
+//  jedes Monster, das lebt. MVPs, Minibosse, die Adds eines
+//  MVP, Wildlife-Rudel, der Biomboss, Monster in laufenden
+//  Instanzen, die Pflanzen und Kugeln, die Spieler selbst
+//  aufstellen. Das ist der Unterschied zu Wildlife, das MVPs
+//  und Minibosse ausnimmt.
+//
+//  Die erste Fassung dieser Datei liess drei Gruppen aus, weil
+//  sie sich hinterher nicht exakt zuruecksetzen liessen. Das
+//  ist bewusst aufgegeben worden - was es kostet, steht bei
+//  S_Beruhigen, und es ist bezahlt, nicht uebersehen.
 //
 //  Gestartet wird ausschliesslich von Hand: @enraged an 60.
 //  Kein Zeitplan, kein Wuerfel. Wer das aendern will, haengt
@@ -86,38 +97,35 @@
 //  mob_db.yml und keine ueber dieses Skript.
 //
 //
-//  WORAN DAS SKRIPT ERKENNT, WAS IHM GEHOERT
+//  WORAN DAS SKRIPT ERKENNT, WAS ES SCHON HATTE
 //
-//  Angefasst wird nur, wessen Name NOCH dem Datenbanknamen
-//  entspricht UND wessen Angriffswerte noch die aus mob_db.yml
-//  sind. Stimmt eines von beiden nicht, hat ein anderes Skript
-//  das Monster bereits umgebaut - Wildlife, Biom, Apex - und
-//  das laesst dieses hier in Ruhe.
+//  Am Vorsatz "Enraged" im Namen, und an sonst nichts. Das ist
+//  keine Auswahl, sondern eine Sperre gegen die ZWEITE
+//  Anwendung: ohne sie stiege der Angriff bei jedem Durchlauf
+//  weiter, bis die uint16-Grenze alles einebnet.
 //
-//  Der Gewinn daraus ist das Zuruecksetzen. Weil der
-//  Ausgangszustand garantiert der Datenbankzustand ist, laesst
-//  er sich am Ende ueber getmonsterinfo exakt wiederherstellen.
-//  Kein Merkfeld ueber zehntausend Spielnummern, nichts, was
-//  ueber einen @reloadscript oder einen Absturz auseinander-
-//  laufen kann.
+//  Der Vorsatz taugt dafuer, weil er vorne steht. md->name ist
+//  char[24]; bei einem langen Monsternamen schneidet die Engine
+//  hinten ab - "Enraged Ancient Mimic" wird gekuerzt, aber
+//  "Enraged " bleibt. Ein Vergleich auf den ganzen Namen waere
+//  bei 639 der 2675 Arten fehlgeschlagen, und die haetten das
+//  Ereignis nie wieder verlassen.
 //
-//  Dass dasselbe Monster nicht zweimal umgewertet wird, macht
-//  dagegen der Vorsatz "Enraged" im Namen. Diese zweite Sperre
-//  ist keine Doppelung: waere sie nicht da, stiege der Angriff
-//  bei jedem Durchlauf weiter, bis die uint16-Grenze alles
-//  einebnet.
+//  DAS ZURUECKSETZEN IST DAFUER UNGENAU
 //
-//  Der Preis: ein Wildlife-Rudel bleibt waehrend des
-//  Ereignisses so stark, wie Wildlife es gemacht hat. Das ist
-//  vertretbar - Wildlife rechnet seine Werte ohnehin am
-//  Spieler aus und ist damit schon hart.
+//  Hergestellt wird der DATENBANKZUSTAND, nicht der Zustand von
+//  vorher. Fuer jedes gewoehnliche Monster ist das dasselbe.
+//  Fuer die von anderen Skripten aufgewerteten nicht - die
+//  stehen danach auf mob_db-Werten und heissen wieder wie in
+//  mob_db.
 //
-//  Und eine Luecke bleibt: Spawnzeilen mit "--en--" tragen den
-//  englischen Namen ein, MOB_NAME liefert aber den
-//  Anzeigenamen. Wo beide auseinandergehen - 360 der 2675
-//  Arten haben ueberhaupt einen abweichenden -, greift das
-//  Ereignis nicht. "@enraged status" zaehlt diese Faelle mit,
-//  damit die Luecke sichtbar bleibt statt still zu sein.
+//  Die Alternative waere ein Merkfeld ueber Spielnummern
+//  gewesen. Bei zehntausenden lebenden Monstern und einem
+//  Respawn im Sekundentakt waeren das hunderttausend Eintraege,
+//  die einen @reloadscript ueberleben muessen und bei jedem
+//  Absturz verwaisen - fuer eine Genauigkeit, die nur Monster
+//  betrifft, die sich ohnehin binnen Minuten selbst aufloesen.
+//  Die Begruendung im einzelnen steht bei S_Beruhigen.
 //
 //
 //  WARUM IN HAEPPCHEN GEARBEITET WIRD
@@ -235,12 +243,12 @@ OnGM:
 	dispbottom "  Umgewertet in dieser Runde: " + $@enr_wach
 	           + ", zurueckgesetzt: " + $@enr_ruhig;
 
-	// Fremd benannt heisst: ein anderes Skript oder die
-	// Spawnzeile hat den Namen gesetzt. Diese Monster bleiben
-	// normal - siehe S_Haeppchen. Eine hohe Zahl ist kein
-	// Fehler, aber eine Ansage darueber, wie viel vom Server
-	// dieses Ereignis wirklich erreicht.
-	dispbottom "  Uebergangen, weil fremd benannt: " + $@enr_fremd;
+	// Die Zahl gehoert hierher, weil sie die einzige Antwort auf
+	// "warum ist das Monster vor mir noch normal" ist, die nicht
+	// "warte den Durchlauf ab" lautet: es gibt keine mehr.
+	// Ausgenommen wird nichts.
+	dispbottom "  Ausgenommen: nichts - MVPs, Minibosse, Adds, "
+	           + "Wildlife und Instanzen inbegriffen";
 
 	// Siehe Kopf: das ist eine Aussage ueber mob_db.yml.
 	dispbottom "  An der Angriffsgrenze (" + .atk_deckel + ") gekappt: "
@@ -281,7 +289,6 @@ S_Start:
 	$@enr_wach   = 0;
 	$@enr_ruhig  = 0;
 	$@enr_deckel = 0;
-	$@enr_fremd  = 0;
 	$@enr_modus  = 1;
 
 	announce "The Wild - Enraged. For the next " + .@min
@@ -405,18 +412,27 @@ S_Haeppchen:
 		if (!.@gid) continue;
 		if (!unitexists(.@gid)) continue;
 
-		// Diener und Beschwoerungen bleiben aussen vor. Der
-		// Grund sind die Pflanzen und Kugeln, die Spieler
-		// selbst aufstellen: die tragen eine Monsternummer wie
-		// alles andere, und ein verzehnfachter eigener
-		// Marine Sphere waere kein Ereignis, sondern ein Bug.
-		// Dass die Adds eines MVP damit auch verschont
-		// bleiben, ist verschmerzbar - sie sind ohnehin
-		// Beiwerk.
-		if (getunitdata(.@gid, UMOB_MASTERAID)) continue;
-
+		// HIER STEHT KEINE AUSNAHME MEHR.
+		//
+		// Frueher fielen an dieser Stelle drei Gruppen heraus:
+		// Diener und Beschwoerungen (UMOB_MASTERAID), fremd
+		// benannte Monster und solche mit veraenderten
+		// Angriffswerten. Das war die vorsichtige Fassung - sie
+		// fasste nur an, was sich garantiert exakt
+		// zuruecksetzen liess.
+		//
+		// Jetzt gilt: alles, was lebt, wird wuetend. MVPs,
+		// Minibosse, Adds, Wildlife-Rudel, Instanzmonster, die
+		// Pflanzen eines Alchemisten. Was das kostet, steht
+		// unten bei S_Beruhigen - es ist bezahlt, nicht
+		// uebersehen.
 		.@klasse = getunitdata(.@gid, UMOB_CLASS);
 		.@db$    = getmonsterinfo(.@klasse, MOB_NAME);
+
+		// Kein Ausschluss, sondern eine Unmoeglichkeit: ohne
+		// Datenbankeintrag gibt es keinen Namen, auf den am Ende
+		// zurueckgesetzt werden koennte. Das trifft nur
+		// Klassennummern, die gar nicht in mob_db stehen.
 		if (.@db$ == "null") continue;
 
 		.@name$ = getunitname(.@gid);
@@ -433,50 +449,13 @@ S_Haeppchen:
 		.@markiert = (substr(.@name$, 0, .plen - 1) == .praefix$);
 
 		if (.@wecken) {
+			// Die einzige verbliebene Bedingung, und sie ist
+			// keine Ausnahme, sondern die Sperre gegen die
+			// zweite Anwendung: wer die Marke schon traegt, ist
+			// durch. Ohne sie stiege der Angriff bei jedem
+			// Durchlauf weiter, bis die uint16-Grenze alles
+			// einebnet.
 			if (.@markiert) continue;
-
-			// Heisst es noch wie in der Datenbank? Wenn nicht,
-			// hat ein anderes Skript es umgebaut - Wildlife,
-			// Biom, Apex - oder die Spawnzeile hat ihm einen
-			// eigenen Namen gegeben. In beiden Faellen liesse
-			// sich der Ausgangszustand hinterher nicht mehr
-			// herstellen, also Finger weg.
-			//
-			// Das laesst eine Luecke: Spawnzeilen mit "--en--"
-			// setzen den englischen Namen, MOB_NAME liefert aber
-			// den Anzeigenamen (mob->jname). Bei den 360 Arten,
-			// wo sich beide unterscheiden, greift das Ereignis
-			// dort nicht. Damit das nicht STILL passiert, wird
-			// mitgezaehlt - "@enraged status" zeigt die Zahl.
-			if (.@name$ != .@db$) {
-				$@enr_fremd++;
-				continue;
-			}
-
-			// Und stimmen die Angriffswerte noch mit der
-			// Datenbank ueberein? Der Name allein ist ein
-			// Stellvertreter, das hier ist die Sache selbst:
-			// zurueckgesetzt wird spaeter auf genau diese
-			// Datenbankwerte, also darf nur mitmachen, wer sie
-			// gerade auch hat.
-			//
-			// Das faengt auch den Biomboss ab, der zwar unter
-			// seinem Datenbanknamen erscheint ("--ja--" in
-			// safa_biom.txt), seine Werte danach aber selbst
-			// setzt.
-			//
-			// Zwei Faelle rutschen hier absichtlich durch die
-			// Sperre und kommen erst spaeter dran: ein Monster
-			// unter Provoke (der Statuseffekt hebt den Angriff,
-			// die Werte weichen ab) und die Wachen einer Burg
-			// (guardup_lv). Beide werden im naechsten Durchlauf
-			// erfasst, sobald der Grund weg ist - das ist der
-			// Preis dafuer, dass das Zuruecksetzen exakt bleibt.
-			if (getunitdata(.@gid, UMOB_ATKMIN)
-			    != getmonsterinfo(.@klasse, MOB_ATKMIN)) continue;
-			if (getunitdata(.@gid, UMOB_ATKMAX)
-			    != getmonsterinfo(.@klasse, MOB_ATKMAX)) continue;
-
 			callsub S_Wecken, .@gid, .@klasse, .@db$;
 		} else {
 			if (!.@markiert) continue;
@@ -517,14 +496,21 @@ S_Wecken:
 	setunitdata .@gid, UMOB_DAMAGETAKEN, .@dt;
 
 	// --- Schaden ---------------------------------------------
-	//  Bewusst aus der DATENBANK gerechnet, nicht aus dem
-	//  aktuellen Wert des Monsters. Aus dem aktuellen Wert wuerde
-	//  bei jedem Durchlauf erneut verzehnfacht - die Namenssperre
-	//  oben verhindert das zwar, aber sich auf zwei Sperren zu
-	//  verlassen, wo eine reicht, ist wie der Zaehler, den
-	//  safa_wildlife aus genau diesem Grund losgeworden ist.
-	.@atk1 = getmonsterinfo(.@klasse, MOB_ATKMIN) * .faktor;
-	.@atk2 = getmonsterinfo(.@klasse, MOB_ATKMAX) * .faktor;
+	//  Aus dem AKTUELLEN Wert des Monsters gerechnet, nicht aus
+	//  dem Datenbankwert.
+	//
+	//  Das war vorher andersherum, und die Umstellung gehoert zu
+	//  "keine Ausnahmen": ein Wildlife-Anfuehrer traegt einen
+	//  Angriffswert, den safa_wildlife am Leben des Spielers
+	//  ausgerechnet hat - der liegt weit ueber allem, was in
+	//  mob_db steht. Vom Datenbankwert aus verzehnfacht haette
+	//  dieses Skript ihn mitten im Ereignis SCHWAECHER gemacht.
+	//
+	//  Die Sperre gegen doppelte Anwendung ist damit allein die
+	//  Marke im Namen. Sie reicht: der Vorsatz steht vorne und
+	//  wird von der Namenslaenge nie abgeschnitten.
+	.@atk1 = getunitdata(.@gid, UMOB_ATKMIN) * .faktor;
+	.@atk2 = getunitdata(.@gid, UMOB_ATKMAX) * .faktor;
 
 	if (.@atk1 > .atk_deckel || .@atk2 > .atk_deckel)
 		$@enr_deckel++;
@@ -550,6 +536,33 @@ S_Wecken:
 //  Spiegelbildlich, und deshalb erst der Name zum Schluss:
 //  bleibt hier etwas liegen, wird dasselbe Monster im naechsten
 //  Takt noch einmal versucht.
+//
+//  WAS "KEINE AUSNAHMEN" HIER KOSTET
+//
+//  Zurueckgesetzt wird auf die DATENBANK. Fuer das gewoehnliche
+//  Monster ist das exakt der Ausgangszustand - es stand vorher
+//  auch auf seinen Datenbankwerten.
+//
+//  Fuer die von anderen Skripten aufgewerteten gilt das nicht.
+//  Ein Wildlife-Rudel, das ein Ereignis ueberlebt, steht danach
+//  auf Datenbankwerten statt auf den am Spieler berechneten -
+//  es ist also schwaecher als vorher, nicht staerker. Dasselbe
+//  gilt fuer den Namen: aus "Wildlife Poring" wird wieder
+//  "Poring".
+//
+//  Das ist der bewusst gezahlte Preis dafuer, dass ueberhaupt
+//  jedes Monster mitmacht. Die Alternative waere ein Merkfeld
+//  ueber Spielnummern gewesen - zehntausende Eintraege, die
+//  jeden Respawn ueberleben muessten und bei jedem Absturz
+//  verwaisen.
+//
+//  Warum es vertretbar ist: die betroffenen Systeme leben
+//  ohnehin in Minuten, nicht in Stunden. Ein Wildlife-Rudel
+//  loest sich nach 30 Minuten selbst auf, der Biomboss rechnet
+//  seine Werte alle 15 Sekunden neu (safa_biom.txt,
+//  OnNachrechnen) und holt sich seinen Zustand damit von selbst
+//  zurueck. Was bleibt, ist ein Rudel, das zufaellig noch stand,
+//  als das Ereignis endete.
 S_Beruhigen:
 	.@gid    = getarg(0);
 	.@klasse = getarg(1);
