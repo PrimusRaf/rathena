@@ -486,15 +486,6 @@ S_Haeppchen:
 		// Pflanzen eines Alchemisten. Was das kostet, steht
 		// unten bei S_Beruhigen - es ist bezahlt, nicht
 		// uebersehen.
-		.@klasse = getunitdata(.@gid, UMOB_CLASS);
-		.@db$    = getmonsterinfo(.@klasse, MOB_NAME);
-
-		// Kein Ausschluss, sondern eine Unmoeglichkeit: ohne
-		// Datenbankeintrag gibt es keinen Namen, auf den am Ende
-		// zurueckgesetzt werden koennte. Das trifft nur
-		// Klassennummern, die gar nicht in mob_db stehen.
-		if (.@db$ == "null") continue;
-
 		.@name$ = getunitname(.@gid);
 
 		// Traegt es schon die Marke? Geprueft wird NUR der
@@ -516,6 +507,17 @@ S_Haeppchen:
 		$@enr_p_gesehen++;
 		if (.@markiert) $@enr_p_wach++;
 
+		// --- Ab hier wird es teuer, deshalb erst ab hier ------
+		//  getunitdata fuellt ein Feld mit rund sechzig
+		//  Eintraegen. Das je Monster und Sekunde zu tun, nur um
+		//  gleich darauf am Vorsatz abzubiegen, waere bei
+		//  viertausend Monstern viermal so viel Arbeit wie
+		//  noetig - und zwar dauerhaft, denn nach dem ersten
+		//  Takt sind ohnehin alle wach.
+		//
+		//  Der Vorsatz oben entscheidet ohne einen einzigen
+		//  Datenbankzugriff. Erst wer wirklich angefasst wird,
+		//  kostet etwas.
 		if (.@wecken) {
 			// Die einzige verbliebene Bedingung, und sie ist
 			// keine Ausnahme, sondern die Sperre gegen die
@@ -524,11 +526,40 @@ S_Haeppchen:
 			// Durchlauf weiter, bis die uint16-Grenze alles
 			// einebnet.
 			if (.@markiert) continue;
-			callsub S_Wecken, .@gid, .@klasse, .@db$;
-			$@enr_p_wach++;   // ab jetzt traegt es die Marke
 		} else {
 			if (!.@markiert) continue;
-			callsub S_Beruhigen, .@gid, .@klasse, .@db$, .@name$;
+		}
+
+		// FELD, NICHT EINZELWERT. getunitdata gibt nichts
+		// zurueck, es FUELLT ein Feld:
+		//     getunitdata <GID>,<feldname>;
+		// Ein "getunitdata(.@gid, UMOB_CLASS)" uebergibt die
+		// Konstante dort, wo eine Feldvariable stehen muss.
+		// .@klasse blieb daraufhin unbrauchbar, getmonsterinfo
+		// lieferte "null", und die Pruefung darunter hat JEDES
+		// Monster uebersprungen - das Ereignis lief, zeigte
+		// steigende Takte und wertete null Monster um.
+		getunitdata .@gid, .@d;
+		.@klasse = .@d[UMOB_CLASS];
+		.@db$    = getmonsterinfo(.@klasse, MOB_NAME);
+
+		if (.@wecken) {
+			// Kein Ausschluss, sondern eine Unmoeglichkeit: ohne
+			// Datenbankeintrag gibt es keinen Namen, auf den am
+			// Ende zurueckgesetzt werden koennte.
+			if (.@db$ == "null") continue;
+			callsub S_Wecken, .@gid, .@klasse, .@db$,
+			        .@d[UMOB_DAMAGETAKEN], .@d[UMOB_ATKMIN],
+			        .@d[UMOB_ATKMAX];
+			$@enr_p_wach++;   // ab jetzt traegt es die Marke
+		} else {
+			// Beim Beruhigen ist der Datenbankname nur Notnagel.
+			// Fehlt er, bleibt immer noch der abgeschnittene
+			// Vorsatz - besser als das Monster wuetend stehen
+			// zu lassen.
+			if (.@db$ == "null") .@db$ = .@name$;
+			callsub S_Beruhigen, .@gid, .@klasse, .@db$, .@name$,
+			        .@d[UMOB_ATKMIN], .@d[UMOB_ATKMAX];
 			$@enr_p_wach--;   // Marke ist ab jetzt weg
 		}
 	}
@@ -542,9 +573,14 @@ S_Haeppchen:
 //  Ein Monster wuetend machen
 // ------------------------------------------------------------
 S_Wecken:
-	.@gid    = getarg(0);
-	.@klasse = getarg(1);
-	.@db$    = getarg(2);
+	.@gid     = getarg(0);
+	.@klasse  = getarg(1);
+	.@db$     = getarg(2);
+	// Durchgereicht statt hier noch einmal gelesen - S_Haeppchen
+	// hat das Feld ohnehin schon geholt.
+	.@dt_alt  = getarg(3);
+	.@a1_alt  = getarg(4);
+	.@a2_alt  = getarg(5);
 
 	// --- Zaehigkeit ------------------------------------------
 	//  Der Ausgangswert wird EINMAL JE MONSTERART gemerkt, nicht
@@ -559,7 +595,7 @@ S_Wecken:
 	//  DamageTaken waere. So heisst 0 verlaesslich "noch nie
 	//  gesehen".
 	if ($@enr_dt[.@klasse] == 0)
-		$@enr_dt[.@klasse] = getunitdata(.@gid, UMOB_DAMAGETAKEN) + 1;
+		$@enr_dt[.@klasse] = .@dt_alt + 1;
 
 	.@dt = ($@enr_dt[.@klasse] - 1) / .faktor;
 	if (.@dt < 1) .@dt = 1;   // darunter kennt die Engine nichts
@@ -579,8 +615,8 @@ S_Wecken:
 	//  Die Sperre gegen doppelte Anwendung ist damit allein die
 	//  Marke im Namen. Sie reicht: der Vorsatz steht vorne und
 	//  wird von der Namenslaenge nie abgeschnitten.
-	.@atk1 = getunitdata(.@gid, UMOB_ATKMIN) * .faktor;
-	.@atk2 = getunitdata(.@gid, UMOB_ATKMAX) * .faktor;
+	.@atk1 = .@a1_alt * .faktor;
+	.@atk2 = .@a2_alt * .faktor;
 
 	if (.@atk1 > .atk_deckel || .@atk2 > .atk_deckel)
 		$@enr_deckel++;
@@ -629,6 +665,8 @@ S_Beruhigen:
 	.@klasse     = getarg(1);
 	.@db$        = getarg(2);
 	.@name_jetzt$ = getarg(3);   // wie es JETZT heisst, mit Vorsatz
+	.@a1_jetzt   = getarg(4);
+	.@a2_jetzt   = getarg(5);
 
 	.@dt = 100;
 	if ($@enr_dt[.@klasse] > 0)
@@ -647,14 +685,12 @@ S_Beruhigen:
 	//  Ausgangswert nicht mehr im Wert enthalten. Dort bleibt die
 	//  Datenbank die beste verfuegbare Auskunft. Erkennbar ist
 	//  der Fall daran, dass der Wert GENAU auf der Grenze steht.
-	.@a1 = getunitdata(.@gid, UMOB_ATKMIN);
-	.@a2 = getunitdata(.@gid, UMOB_ATKMAX);
 	setunitdata .@gid, UMOB_ATKMIN,
-	    (.@a1 >= .atk_deckel) ? getmonsterinfo(.@klasse, MOB_ATKMIN)
-	                          : .@a1 / .faktor;
+	    (.@a1_jetzt >= .atk_deckel) ? getmonsterinfo(.@klasse, MOB_ATKMIN)
+	                                : .@a1_jetzt / .faktor;
 	setunitdata .@gid, UMOB_ATKMAX,
-	    (.@a2 >= .atk_deckel) ? getmonsterinfo(.@klasse, MOB_ATKMAX)
-	                          : .@a2 / .faktor;
+	    (.@a2_jetzt >= .atk_deckel) ? getmonsterinfo(.@klasse, MOB_ATKMAX)
+	                                : .@a2_jetzt / .faktor;
 
 	// --- Name: Vorsatz abschneiden ---------------------------
 	//  Auch hier die Umkehrung statt der Datenbank, und aus zwei
