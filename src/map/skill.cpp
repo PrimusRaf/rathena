@@ -8232,7 +8232,30 @@ int32 skill_check_bl_sc(block_list *target, va_list ap) {
 
 }
 
-/** 
+/**
+ * SafaRO custom: Sub function to check if RL_FLICKER has anything to detonate.
+ * Returns 1 if bl is a Bind Trap placed by src or a target marked by src's Howling Mine.
+ */
+static int32 skill_flicker_detonatable_sub(block_list *bl, va_list ap) {
+	block_list *src = va_arg(ap, block_list *);
+
+	nullpo_ret(bl);
+
+	if (bl->type == BL_SKILL) {
+		skill_unit *su = (skill_unit *)bl;
+
+		if (su->group != nullptr && su->group->unit_id == UNT_B_TRAP && su->group->src_id == src->id)
+			return 1;
+	} else {
+		status_change *tsc = status_get_sc(bl);
+
+		if (tsc != nullptr && tsc->getSCE(SC_H_MINE) != nullptr && tsc->getSCE(SC_H_MINE)->val2 == src->id)
+			return 1;
+	}
+	return 0;
+}
+
+/**
  * Check skill condition when cast begin
  * For ammo, only check if the skill need ammo
  * For checking ammo requirement (type and amount) will be skill_check_condition_castend
@@ -8663,6 +8686,15 @@ bool skill_check_condition_castbegin( map_session_data& sd, uint16 skill_id, uin
 			// other checks were already done in skill_isNotOk()
 			if (!sd.status.guild_id || (sd.state.gmaster_flag == 0 && skill_id != GD_CHARGESHOUT_BEATING))
 				return false;
+			break;
+
+		case RL_FLICKER:
+			// SafaRO custom: Flicker is only usable if there is an active Howling Mine mark
+			// or Bind Trap from the caster within detonation range
+			if (map_foreachinallrange(skill_flicker_detonatable_sub, &sd, AREA_SIZE, BL_CHAR | BL_SKILL, &sd) == 0) {
+				clif_skill_fail( sd, skill_id );
+				return false;
+			}
 			break;
 
 		case GS_GLITTERING:

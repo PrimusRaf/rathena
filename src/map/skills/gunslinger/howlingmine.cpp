@@ -25,14 +25,19 @@ void SkillHowlingMine::castendDamageId(block_list* src, block_list* target, uint
 		}
 
 		// Triggered by RL_FLICKER
+		// SafaRO fix: only targets marked by the caster's Howling Mine may explode.
+		// Without this check Flicker detonated on every enemy in range, even unmarked ones.
+		if (tsc == nullptr || tsc->getSCE(SC_H_MINE) == nullptr || tsc->getSCE(SC_H_MINE)->val2 != src->id) {
+			flag |= 1; // Don't consume requirement
+			return;
+		}
+
 		map_foreachinrange(skill_area_sub, target, skill_get_splash(getSkillId(), skill_lv), BL_CHAR | BL_SKILL,
 			src, getSkillId(), skill_lv, tick, flag | BCT_ENEMY | 1, skill_castend_damage_id);
 		flag |= 1; // Don't consume requirement
 
-		if (tsc && tsc->getSCE(SC_H_MINE) && tsc->getSCE(SC_H_MINE)->val2 == src->id) {
-			status_change_end(target, SC_H_MINE);
-			sc_start4(src, target, SC_BURNING, 10 * skill_lv, skill_lv, 1000, src->id, 0, skill_get_time2(getSkillId(), skill_lv));
-		}
+		status_change_end(target, SC_H_MINE);
+		sc_start4(src, target, SC_BURNING, 10 * skill_lv, skill_lv, 1000, src->id, 0, skill_get_time2(getSkillId(), skill_lv));
 	} else {
 		skill_attack(skill_get_type(getSkillId()), src, src, target, getSkillId(), skill_lv, tick, flag);
 	}
@@ -46,8 +51,8 @@ void SkillHowlingMine::calculateSkillRatio(const Damage* wd, const block_list* s
 	const map_session_data* sd = BL_CAST(BL_PC, src);
 
 	if (sd && sd->flicker) {
-		// Flicker explosion damage: 500 + 300 * SkillLv
-		skillratio += -100 + 500 + 300 * skill_lv;
+		// Flicker explosion damage (SafaRO nerf, halved): 250 + 150 * SkillLv
+		skillratio += -100 + 250 + 150 * skill_lv;
 	} else {
 		// Direct trigger damage: 200 + 200 * SkillLv
 		skillratio += -100 + 200 + 200 * skill_lv;
