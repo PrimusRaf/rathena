@@ -36,10 +36,19 @@
 //  bleibt dieselbe.
 //
 //
-//  WARUM DIE ZAEHIGKEIT NICHT UEBER LEBENSPUNKTE LAEUFT
+//  ZAEHIGKEIT: LEBENSPUNKTE, UND NUR NOTFALLS DAMAGETAKEN
 //
-//  Das ist die wichtigste Entscheidung in dieser Datei, und
-//  sie sieht auf den ersten Blick falsch aus.
+//  Die erste Fassung machte das umgekehrt und lief ueber
+//  DamageTaken - rechnerisch dasselbe, aber unsichtbar. Der
+//  Poring behielt seine 50 auf der Leiste und starb bei
+//  Spielern, die fuer Milliarden schlagen, weiterhin im ersten
+//  Schlag. Ein Ereignis, von dem man nur den Namen sieht, ist
+//  keines.
+//
+//  Jetzt bekommt jedes Monster seine Lebenspunkte mal .faktor,
+//  sichtbar: aus 50 werden 500.
+//
+//  DIE GRENZE, DIE DAS NICHT UEBERALL ZULAESST
 //
 //  setunitdata liest seinen Wert als int32
 //  (script.cpp: "int32 type = script_getnum(st, 3), value = 0;").
@@ -48,23 +57,19 @@
 //  (mob.cpp, asUInt32) und duerfen bis 4.294.967.295 gehen -
 //  und genau dort stehen auf diesem Server die harten Brocken.
 //
-//  Ein "UMOB_MAXHP mal zehn" auf einen Boss mit 4 Milliarden
-//  Lebenspunkten waere also keine Verzehnfachung, sondern eine
-//  HALBIERUNG. Das staerkste Monster des Servers waere
-//  ausgerechnet im Haerte-Ereignis das schwaechste. Der
-//  Fehler faellt nirgends auf: kein Warntext, kein Logeintrag,
-//  das Monster stirbt einfach schneller als sonst.
+//  Ein "UMOB_MAXHP mal zehn" auf den Elephantmagon mit seinen
+//  4,2 Milliarden waere also keine Verzehnfachung, sondern ein
+//  Ueberlauf und damit eine HALBIERUNG. Das staerkste Monster
+//  des Servers waere ausgerechnet im Haerte-Ereignis das
+//  schwaechste - ohne Warntext, ohne Logeintrag.
 //
-//  DamageTaken hat diese Grenze nicht. Es ist ein Prozentsatz
-//  auf den eingehenden Schaden (max(dmg*DT/100, 1)), er wirkt
-//  multiplikativ und ist von der Groesse der Lebenspunkte
-//  unabhaengig. DT 100 -> 10 heisst: jeder Treffer richtet ein
-//  Zehntel aus, das Monster haelt genau zehnmal so lange.
-//  Dasselbe Ergebnis, ohne die Falle.
-//
-//  Nebenwirkung, die man kennen muss: die Lebensleiste faellt
-//  langsam, statt dass sie lang ist. Fuer den Spieler fuehlt
-//  sich das identisch an, fuer den Server ist es sicher.
+//  Fuer die 151 Arten oberhalb von .hp_grenze bleibt es deshalb
+//  bei DamageTaken: ein Prozentsatz auf den eingehenden Schaden
+//  (max(dmg*DT/100, 1)), von der Groesse der Lebenspunkte
+//  unabhaengig. DT 100 -> 10 heisst, das Monster haelt genau
+//  zehnmal so lange. Bei einem Boss mit Milliarden erzaehlt die
+//  Leiste ohnehin nichts mehr, dort faellt das Unsichtbare
+//  nicht ins Gewicht.
 //
 //  Wer schon in mob_db.yml ein DamageTaken stehen hat - das
 //  sind derzeit 217 Eintraege in db/re/mob_db.yml -, wird von
@@ -172,6 +177,7 @@
 //    @enraged an [minuten]   startet, ohne Angabe .std_dauer
 //    @enraged aus            beendet sofort und setzt zurueck
 //    @enraged status         Was gilt gerade, und was nicht
+//    @enraged probe          Was steht wirklich am Monster
 //
 //  "status" ist der eigentlich wichtige Befehl. Ein Ereignis,
 //  das zehntausend Monster ueber mehrere Sekunden verteilt
@@ -214,6 +220,44 @@ OnGM:
 		callsub S_Ende;
 		dispbottom "[Enraged] Beendet. Das Beruhigen laeuft jetzt "
 		           + "im Hintergrund weiter.";
+		end;
+	}
+
+	// --- Nachmessen statt nachfuehlen ------------------------
+	//  Der Grund, warum es diesen Befehl gibt: "man merkt
+	//  nichts" ist keine Beobachtung, mit der sich arbeiten
+	//  laesst. Auf einem Server, auf dem Spieler fuer
+	//  Milliarden schlagen, ist ein Poring mit 50 oder mit 500
+	//  Lebenspunkten derselbe eine Schlag - der Unterschied
+	//  steht in den Zahlen, nicht im Kampfgefuehl.
+	//
+	//  Deshalb zeigt "probe" nebeneinander, was am Monster steht
+	//  und was in mob_db steht. Stimmen die beiden ueberein,
+	//  greift das Ereignis nicht. Weichen sie um .faktor ab,
+	//  greift es - und dann ist die Frage eine ueber die
+	//  Groessenordnung und nicht mehr ueber das Skript.
+	if (.@was$ == "probe") {
+		.@karte$ = strcharinfo(3);
+		.@n = getmapunits(BL_MOB, .@karte$, .@m[0]);
+		dispbottom "[Enraged] " + .@karte$ + ": " + .@n + " Monster.";
+		.@z = 0;
+		for (.@i = 0; .@i < .@n && .@z < 5; .@i++) {
+			if (!unitexists(.@m[.@i])) continue;
+			getunitdata .@m[.@i], .@d;
+			.@k = .@d[UMOB_CLASS];
+			dispbottom "  " + getunitname(.@m[.@i]);
+			dispbottom "     jetzt : HP " + .@d[UMOB_HP] + "/"
+			           + .@d[UMOB_MAXHP]
+			           + "  ATK " + .@d[UMOB_ATKMIN] + "-"
+			           + .@d[UMOB_ATKMAX]
+			           + "  DmgTaken " + .@d[UMOB_DAMAGETAKEN];
+			dispbottom "     mob_db: HP " + getmonsterinfo(.@k, MOB_MAXHP)
+			           + "  ATK " + getmonsterinfo(.@k, MOB_ATKMIN) + "-"
+			           + getmonsterinfo(.@k, MOB_ATKMAX);
+			.@z++;
+		}
+		if (.@z == 0)
+			dispbottom "  Hier steht gerade keines.";
 		end;
 	}
 
@@ -283,6 +327,10 @@ OnGM:
 	           + "Wildlife und Instanzen inbegriffen";
 
 	// Siehe Kopf: das ist eine Aussage ueber mob_db.yml.
+	// Wer zu gross fuer sichtbare Lebenspunkte ist, siehe
+	// S_Wecken. Bei diesen Monstern bleibt die Leiste, wie sie
+	// war - sie stecken nur ein Zehntel des Schadens ein.
+	dispbottom "  Ueber DamageTaken statt Lebenspunkte: " + $@enr_dtweg;
 	dispbottom "  An der Angriffsgrenze (" + .atk_deckel + ") gekappt: "
 	           + $@enr_deckel
 	           + (($@enr_deckel > 0)
@@ -326,6 +374,7 @@ S_Start:
 	$@enr_p_gesehen  = 0;
 	$@enr_stand_wach = 0;
 	$@enr_stand_alle = 0;
+	$@enr_dtweg      = 0;
 	$@enr_modus      = 1;
 
 	announce "The Wild - Enraged. For the next " + .@min
@@ -550,7 +599,7 @@ S_Haeppchen:
 			if (.@db$ == "null") continue;
 			callsub S_Wecken, .@gid, .@klasse, .@db$,
 			        .@d[UMOB_DAMAGETAKEN], .@d[UMOB_ATKMIN],
-			        .@d[UMOB_ATKMAX];
+			        .@d[UMOB_ATKMAX], .@d[UMOB_MAXHP];
 			$@enr_p_wach++;   // ab jetzt traegt es die Marke
 		} else {
 			// Beim Beruhigen ist der Datenbankname nur Notnagel.
@@ -559,7 +608,8 @@ S_Haeppchen:
 			// zu lassen.
 			if (.@db$ == "null") .@db$ = .@name$;
 			callsub S_Beruhigen, .@gid, .@klasse, .@db$, .@name$,
-			        .@d[UMOB_ATKMIN], .@d[UMOB_ATKMAX];
+			        .@d[UMOB_ATKMIN], .@d[UMOB_ATKMAX],
+			        .@d[UMOB_HP], .@d[UMOB_MAXHP];
 			$@enr_p_wach--;   // Marke ist ab jetzt weg
 		}
 	}
@@ -581,25 +631,65 @@ S_Wecken:
 	.@dt_alt  = getarg(3);
 	.@a1_alt  = getarg(4);
 	.@a2_alt  = getarg(5);
+	.@hp_alt  = getarg(6);   // MaxHP, wie es jetzt dasteht
 
-	// --- Zaehigkeit ------------------------------------------
-	//  Der Ausgangswert wird EINMAL JE MONSTERART gemerkt, nicht
-	//  je Monster. DamageTaken kommt aus mob_db.yml und ist damit
-	//  eine Eigenschaft der Art - ein Feld ueber Monsternummern
-	//  bleibt klein (ein paar tausend Eintraege) statt ueber
-	//  Spielnummern zu wachsen (zehntausende, und nach jedem
-	//  Respawn andere).
+	// --- Zaehigkeit: zwei Wege, und der erste ist der sichtbare
+	//
+	//  LEBENSPUNKTE, WO SIE PASSEN
+	//
+	//  Ein Poring mit 50 Lebenspunkten soll 500 haben, und zwar
+	//  auf der Leiste. DamageTaken taete dasselbe, aber
+	//  unsichtbar - die Leiste faellt langsamer, die Zahl bleibt.
+	//  Das fuehlt sich nicht nach einem Ereignis an, sondern nach
+	//  einem zaehen Nachmittag.
+	//
+	//  DAMAGETAKEN, WO SIE NICHT PASSEN
+	//
+	//  setunitdata liest seinen Wert als int32 (script.cpp:
+	//  "int32 type = script_getnum(st, 3), value = 0"), Ende bei
+	//  2.147.483.647. In mob_db.yml stehen Lebenspunkte als
+	//  uint32 und duerfen bis 4.294.967.295 gehen.
+	//
+	//  Der Elephantmagon hat 4,2 Milliarden. Mal zehn waere das
+	//  keine Verzehnfachung, sondern ein Ueberlauf - und heraus
+	//  kaeme eine HALBIERUNG. Das staerkste Monster des Servers
+	//  waere ausgerechnet im Haerte-Ereignis das schwaechste,
+	//  ohne Warnung und ohne Logeintrag.
+	//
+	//  151 der 2662 Monsterarten liegen ueber der Grenze - der
+	//  Elephantmagon und die Trainingspuppen mit je 2
+	//  Milliarden. Fuer die bleibt es beim unsichtbaren Weg: sie
+	//  sind ohnehin so gross, dass die Leiste dort nichts mehr
+	//  erzaehlt.
+	//
+	//  DER ZWISCHENSPEICHER IST GLEICHZEITIG DIE WEGMARKE
+	//
+	//  $@enr_dt[.@klasse] wird NUR auf dem DamageTaken-Weg
+	//  gesetzt. S_Beruhigen liest daran ab, welcher Weg gegangen
+	//  wurde, und muss die Entscheidung nicht neu treffen - sie
+	//  waere dort auch gar nicht mehr zu treffen, weil die
+	//  Lebenspunkte inzwischen zehnmal so hoch stehen.
 	//
 	//  Die Ablage ist um eins verschoben, weil ein leeres
 	//  Feldelement in rAthena 0 liefert und 0 ein gueltiges
-	//  DamageTaken waere. So heisst 0 verlaesslich "noch nie
-	//  gesehen".
-	if ($@enr_dt[.@klasse] == 0)
-		$@enr_dt[.@klasse] = .@dt_alt + 1;
+	//  DamageTaken waere. So heisst 0 verlaesslich "nicht auf
+	//  diesem Weg".
+	if (.@hp_alt > 0 && .@hp_alt <= .hp_grenze) {
+		// status_set_maxhp HEILT die Differenz von selbst
+		// (status.cpp: heal = maxhp - status->max_hp). Ein
+		// zusaetzliches setunitdata UMOB_HP danach waere eine
+		// zweite Heilung - genau der Griff, der den Biomboss
+		// einmal unsterblich gemacht hat. Also nur MAXHP.
+		setunitdata .@gid, UMOB_MAXHP, .@hp_alt * .faktor;
+	} else {
+		if ($@enr_dt[.@klasse] == 0)
+			$@enr_dt[.@klasse] = .@dt_alt + 1;
 
-	.@dt = ($@enr_dt[.@klasse] - 1) / .faktor;
-	if (.@dt < 1) .@dt = 1;   // darunter kennt die Engine nichts
-	setunitdata .@gid, UMOB_DAMAGETAKEN, .@dt;
+		.@dt = ($@enr_dt[.@klasse] - 1) / .faktor;
+		if (.@dt < 1) .@dt = 1;   // darunter kennt die Engine nichts
+		setunitdata .@gid, UMOB_DAMAGETAKEN, .@dt;
+		$@enr_dtweg++;
+	}
 
 	// --- Schaden ---------------------------------------------
 	//  Aus dem AKTUELLEN Wert des Monsters gerechnet, nicht aus
@@ -667,11 +757,36 @@ S_Beruhigen:
 	.@name_jetzt$ = getarg(3);   // wie es JETZT heisst, mit Vorsatz
 	.@a1_jetzt   = getarg(4);
 	.@a2_jetzt   = getarg(5);
+	.@hp_jetzt   = getarg(6);
+	.@max_jetzt  = getarg(7);
 
-	.@dt = 100;
-	if ($@enr_dt[.@klasse] > 0)
-		.@dt = $@enr_dt[.@klasse] - 1;
-	setunitdata .@gid, UMOB_DAMAGETAKEN, .@dt;
+	// --- Zaehigkeit: denselben Weg zurueck ---------------------
+	//  Welcher Weg gegangen wurde, steht im Zwischenspeicher:
+	//  gesetzt heisst DamageTaken, leer heisst Lebenspunkte.
+	//  Siehe S_Wecken.
+	if ($@enr_dt[.@klasse] > 0) {
+		setunitdata .@gid, UMOB_DAMAGETAKEN, $@enr_dt[.@klasse] - 1;
+	} else {
+		// DIE REIHENFOLGE IST HIER LEBENSWICHTIG - woertlich.
+		//
+		// status_set_maxhp zieht die Differenz beim Absenken
+		// wieder ab (status.cpp: status_zap(bl, -heal, 0)), und
+		// status_damage deckelt den Abzug auf die AKTUELLEN
+		// Lebenspunkte und toetet dann. Ein Monster, das gerade
+		// halb heruntergeschlagen ist, faellt beim Absenken also
+		// einfach um: 250 von 500 minus 450 ist unter null.
+		//
+		// Deshalb erst auffuellen, dann absenken, dann den
+		// Anteil wiederherstellen. Weil die Obergrenze durch
+		// .faktor geteilt wird, ist der Anteil schlicht der
+		// durch .faktor geteilte Stand - keine Bruchrechnung,
+		// kein Ueberlauf.
+		.@ziel = .@hp_jetzt / .faktor;
+		if (.@ziel < 1) .@ziel = 1;
+		setunitdata .@gid, UMOB_HP,    .@max_jetzt;
+		setunitdata .@gid, UMOB_MAXHP, .@max_jetzt / .faktor;
+		setunitdata .@gid, UMOB_HP,    .@ziel;
+	}
 
 	// --- Angriff: geteilt, nicht nachgeschlagen ---------------
 	//  S_Wecken hat mal .faktor gerechnet, also ist das Teilen
@@ -815,6 +930,20 @@ OnInit:
 	//  eine Tatsache - hier nur benannt, damit sie im Skript
 	//  einen Namen hat statt einer nackten Zahl.
 	.atk_deckel  = 65535;
+
+	// --- Ab wo Lebenspunkte nicht mehr gehen -----------------
+	//  Alles bis hier bekommt sichtbare Lebenspunkte mal
+	//  .faktor. Darueber wuerde der Wert beim Schreiben durch
+	//  setunitdata ueber die int32-Grenze laufen (2.147.483.647)
+	//  und dabei ins Gegenteil kippen - siehe S_Wecken. Fuer
+	//  diese 151 Arten bleibt es beim unsichtbaren Weg ueber
+	//  DamageTaken.
+	//
+	//  200 Millionen statt der rechnerischen 214.748.364: der
+	//  Abstand ist Absicht. Ein Monster, dessen Lebenspunkte ein
+	//  anderes Skript schon angehoben hat, soll nicht knapp
+	//  darueber landen.
+	.hp_grenze   = 200000000;
 
 	// --- Was mitwaechst --------------------------------------
 	//  Zur Auslassung von Karten und Truhen siehe S_RatenMerken.
