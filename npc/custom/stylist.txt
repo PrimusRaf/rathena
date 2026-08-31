@@ -3,7 +3,7 @@
 //===== By: ==================================================
 //= Euphy
 //===== Current Version: =====================================
-//= 2.0
+//= 2.1
 //===== Compatible With: =====================================
 //= rAthena Project
 //===== Description: =========================================
@@ -12,6 +12,7 @@
 //= 1.0 Initial script.
 //= 1.1 Switched to 'getbattleflag', credits to Saithis. [Euphy]
 //= 2.0 SafaRO: 256 Farben statt 8, Auswahl ueber Farbfamilien.
+//= 2.1 Klammerung der ?: - siehe unten. Texte auf Englisch.
 //============================================================
 //= SafaRO, Episode 22: von prontera 170,180 nach veins 238,125
 //= gezogen. Er ist der einzige der uebernommenen rAthena-Customs
@@ -41,167 +42,210 @@
 //=
 //= Die 18 Toene einer Familie sind 6 Helligkeiten mal 3
 //= Saettigungen, in dieser Reihenfolge. Genau darauf beruht die
-//= Namensliste .ton$ weiter unten - wer das Raster im Python-
+//= Namensliste .tone$ weiter unten - wer das Raster im Python-
 //= Skript aendert, muss sie hier mitaendern, sonst stehen die
 //= Namen an den falschen Farben.
 //============================================================
+//= EIN AT-ZEICHEN ZUVIEL - der Fehler aus Fassung 2.0
+//=
+//= Dort stand beim Uebernehmen der Familiengrenzen
+//=
+//=     .@von = .von[.@w - 1];      richtig
+//=     .@bis = .@bis[.@w - 1];     falsch
+//=
+//= Das zweite liest nicht aus dem NPC-Array .bis, sondern aus
+//= dem lokalen .@bis - also aus sich selbst, und dort steht
+//= nichts. Ergebnis: die Obergrenze war 0. Damit war
+//= .@farbe < .@bis nie wahr, "Next" fiel jedes Mal auf den
+//= Anfang der Familie zurueck, und wer Limette gewaehlt hatte,
+//= sass fuer immer auf der 80.
+//=
+//= Das Menue daneben zeigte trotzdem "Next (81)" - es rechnet
+//= mit derselben kaputten Grenze und kommt beim Zurueckfallen
+//= zufaellig auf denselben Wert. Es sah also aus, als haette
+//= das Skript recht und der Server nicht.
+//=
+//= Rechtschreibpruefung gibt es fuer .@ nicht: eine nie gesetzte
+//= Skriptvariable ist keine Fehlermeldung, sie ist 0. Deshalb
+//= stehen die beiden Zuweisungen jetzt direkt untereinander -
+//= dort faellt ein fehlendes oder ueberzaehliges @ beim Lesen
+//= auf.
+//=
+//= Die ?: sind zusaetzlich geklammert, wie script_commands.txt
+//= es empfiehlt. Ursache waren sie nicht: parse_variable ruft
+//= fuer die rechte Seite parse_subexpr(p, -1) auf, und damit
+//= wird das ?: mitgenommen.
+//============================================================
 
 veins,238,125,4	script	Stylist#custom_stylist	122,{
-	mes "[Stylistin]";
-	mes "Was darf ich an dir aendern?";
+	mes "[Stylist]";
+	mes "What shall I change?";
 	next;
-	switch (select(" ~ Kleidungsfarbe: ~ Frisur: ~ Haarfarbe: ~ Nichts, danke")) {
+	switch (select(" ~ Cloth color: ~ Hairstyle: ~ Hair color: ~ Nothing, thanks")) {
 	case 1:
-		.@look = LOOK_CLOTHES_COLOR;
-		.@max = getbattleflag("max_cloth_color");
-		.@was$ = "Kleidungsfarbe";
+		set .@look, LOOK_CLOTHES_COLOR;
+		set .@max, getbattleflag("max_cloth_color");
+		set .@what$, "Cloth color";
 		break;
 	case 2:
-		callsub S_Frisur;
+		callsub S_Hair;
 		end;
 	case 3:
-		.@look = LOOK_HAIR_COLOR;
-		.@max = getbattleflag("max_hair_color");
-		.@was$ = "Haarfarbe";
+		set .@look, LOOK_HAIR_COLOR;
+		set .@max, getbattleflag("max_hair_color");
+		set .@what$, "Hair color";
 		break;
 	case 4:
 		close;
 	}
 
-	.@urspr = getlook(.@look);
-	.@farbe = .@urspr;
+	set .@original, getlook(.@look);
+	set .@color, .@original;
 
-S_Familie:
-	mes "[Stylistin]";
-	mes "Welche Richtung?";
-	.@menu$ = "";
-	.@n = getarraysize(.familie$);
-	for (.@i = 0; .@i < .@n; .@i++)
-		.@menu$ = .@menu$ + " ~ " + .familie$[.@i] + " (^0055FF" + .von[.@i] + "-" + .bis[.@i] + "^000000):";
-	.@menu$ = .@menu$ + " ~ Zufall: ~ Zurueck zu ^0055FF" + .@urspr + "^000000 und fertig: ~ Fertig";
+S_Family:
+	mes "[Stylist]";
+	mes "Which direction?";
+	set .@menu$, "";
+	set .@fams, getarraysize(.family$);
+	for (set .@i, 0; .@i < .@fams; set .@i, .@i + 1)
+		set .@menu$, .@menu$ + " ~ " + .family$[.@i] + " (^0055FF" + .from[.@i] + "-" + .to[.@i] + "^000000):";
+	set .@menu$, .@menu$ + " ~ Surprise me: ~ Back to ^0055FF" + .@original + "^000000 and done: ~ Done";
 
-	.@w = select(.@menu$);
-	if (.@w == .@n + 1) {
-		// Zufall ueber alles, nicht nur ueber eine Familie -
-		// wer wuerfeln will, will ueberrascht werden.
-		.@farbe = rand(0, .@max);
-		.@von = 0;
-		.@bis = .@max;
-	} else if (.@w == .@n + 2) {
-		setlook .@look, .@urspr;
-		mes "Wie du warst.";
+	set .@pick, select(.@menu$);
+	if (.@pick == .@fams + 1) {
+		// Der Zufall greift ueber alle Farben, nicht nur ueber eine
+		// Familie - wer wuerfeln will, will ueberrascht werden.
+		set .@color, rand(0, .@max);
+		set .@from, 0;
+		set .@to, .@max;
+	} else if (.@pick == .@fams + 2) {
+		setlook .@look, .@original;
+		mes "[Stylist]";
+		mes "Just as you were.";
 		close;
-	} else if (.@w == .@n + 3) {
-		mes "Steht dir.";
+	} else if (.@pick == .@fams + 3) {
+		mes "[Stylist]";
+		mes "It suits you.";
 		close;
 	} else {
-		.@von = .von[.@w - 1];
-		.@bis = .@bis[.@w - 1];
-		if (.@bis > .@max)
-			.@bis = .@max;
-		if (.@von > .@max) {
-			mes "Diese Farben sind auf dem Server noch nicht";
-			mes "freigeschaltet. Sag einem GM Bescheid.";
+		set .@from, .from[.@pick - 1];
+		set .@to, .to[.@pick - 1];
+		if (.@to > .@max)
+			set .@to, .@max;
+		if (.@from > .@max) {
+			mes "[Stylist]";
+			mes "These colors are not unlocked on this";
+			mes "server yet. Tell a GM about it.";
 			close;
 		}
-		.@farbe = .@von;
+		set .@color, .@from;
 	}
 
 	// Ab hier wird jede Auswahl sofort angelegt. Ein Spiegel, in
 	// dem man erst nach dem Bezahlen sieht, was man bekommt, waere
 	// kein Spiegel.
 	while (1) {
-		setlook .@look, .@farbe;
-		message strcharinfo(0), .@was$ + " " + .@farbe + " von " + .@max + ".";
+		setlook .@look, .@color;
+		message strcharinfo(0), .@what$ + " " + .@color + " of " + .@max + ".";
 
-		.@menu$ = " ~ Weiter (^0055FF" + ((.@farbe < .@bis) ? .@farbe + 1 : .@von) + "^000000)"
-		        + ": ~ Zurueck (^0055FF" + ((.@farbe > .@von) ? .@farbe - 1 : .@bis) + "^000000)";
-		.@tonliste = (.@bis - .@von == 17);
-		if (.@tonliste)
-			.@menu$ = .@menu$ + ": ~ Ton aus der Liste";
-		.@menu$ = .@menu$ + ": ~ Nummer eingeben: ~ Andere Richtung"
-		        + ": ~ Zurueck zu ^0055FF" + .@urspr + "^000000 und fertig: ~ Fertig";
+		set .@next, ((.@color < .@to) ? .@color + 1 : .@from);
+		set .@prev, ((.@color > .@from) ? .@color - 1 : .@to);
+		set .@hastones, (((.@to - .@from) == 17) ? 1 : 0);
 
-		.@w = select(.@menu$);
-		if (!.@tonliste && .@w >= 3)
-			.@w = .@w + 1;
+		set .@menu$, " ~ Next (^0055FF" + .@next + "^000000)"
+		           + ": ~ Previous (^0055FF" + .@prev + "^000000)";
+		if (.@hastones)
+			set .@menu$, .@menu$ + ": ~ Pick a shade";
+		set .@menu$, .@menu$ + ": ~ Enter a number: ~ Another direction"
+		           + ": ~ Back to ^0055FF" + .@original + "^000000 and done: ~ Done";
 
-		switch (.@w) {
+		set .@pick, select(.@menu$);
+		// Ohne die Schattenliste fehlt ein Menuepunkt, und alles
+		// dahinter rutscht um eins vor. Einmal zurueckschieben ist
+		// billiger als zwei getrennte switch-Bloecke zu pflegen.
+		if (!.@hastones && .@pick >= 3)
+			set .@pick, .@pick + 1;
+
+		switch (.@pick) {
 		case 1:
-			.@farbe = (.@farbe < .@bis) ? .@farbe + 1 : .@von;
+			set .@color, .@next;
 			break;
 		case 2:
-			.@farbe = (.@farbe > .@von) ? .@farbe - 1 : .@bis;
+			set .@color, .@prev;
 			break;
 		case 3:
-			.@menu$ = "";
-			for (.@i = 0; .@i < 18; .@i++)
-				.@menu$ = .@menu$ + " ~ " + .ton$[.@i] + ":";
-			.@ton = select(.@menu$ + " ~ Doch nicht");
-			if (.@ton <= 18)
-				.@farbe = .@von + .@ton - 1;
+			set .@menu$, "";
+			for (set .@i, 0; .@i < 18; set .@i, .@i + 1)
+				set .@menu$, .@menu$ + " ~ " + .tone$[.@i] + ":";
+			set .@shade, select(.@menu$ + " ~ Never mind");
+			if (.@shade <= 18)
+				set .@color, .@from + .@shade - 1;
 			break;
 		case 4:
-			mes "[Stylistin]";
-			mes "Eine Zahl von ^0055FF0^000000 bis ^0055FF" + .@max + "^000000.";
-			mes "Die ^0055FF0^000000 wuerfelt.";
+			mes "[Stylist]";
+			mes "A number from ^0055FF0^000000 to ^0055FF" + .@max + "^000000.";
+			mes "^0055FF0^000000 rolls the dice.";
 			next;
-			input .@eingabe, 0, .@max;
-			.@farbe = (.@eingabe) ? .@eingabe : rand(0, .@max);
+			input .@typed, 0, .@max;
+			set .@color, ((.@typed) ? .@typed : rand(0, .@max));
 			// Von Hand eingegeben heisst: der Familienrahmen gilt
 			// nicht mehr, sonst springt das Blaettern gleich darauf
 			// zurueck und die eingetippte Farbe ist wieder weg.
-			.@von = 0;
-			.@bis = .@max;
+			set .@from, 0;
+			set .@to, .@max;
 			break;
 		case 5:
-			goto S_Familie;
+			goto S_Family;
 		case 6:
-			setlook .@look, .@urspr;
-			mes "[Stylistin]";
-			mes "Wie du warst.";
+			setlook .@look, .@original;
+			mes "[Stylist]";
+			mes "Just as you were.";
 			close;
 		case 7:
-			mes "[Stylistin]";
-			mes "Steht dir.";
+			mes "[Stylist]";
+			mes "It suits you.";
 			close;
 		}
 	}
 
-S_Frisur:
-	.@max = getbattleflag("max_hair_style");
-	.@urspr = getlook(LOOK_HAIR);
-	.@stil = 1;
+S_Hair:
+	set .@max, getbattleflag("max_hair_style");
+	set .@original, getlook(LOOK_HAIR);
+	set .@style, 1;
 	while (1) {
-		setlook LOOK_HAIR, .@stil;
-		message strcharinfo(0), "Frisur " + .@stil + " von " + .@max + ".";
-		switch (select(" ~ Weiter (^0055FF" + ((.@stil != .@max) ? .@stil + 1 : 1) + "^000000)"
-		             + ": ~ Zurueck (^0055FF" + ((.@stil != 1) ? .@stil - 1 : .@max) + "^000000)"
-		             + ": ~ Nummer eingeben"
-		             + ": ~ Zurueck zu ^0055FF" + .@urspr + "^000000 und fertig"
-		             + ": ~ Fertig")) {
+		setlook LOOK_HAIR, .@style;
+		message strcharinfo(0), "Hairstyle " + .@style + " of " + .@max + ".";
+
+		set .@next, ((.@style < .@max) ? .@style + 1 : 1);
+		set .@prev, ((.@style > 1) ? .@style - 1 : .@max);
+
+		switch (select(" ~ Next (^0055FF" + .@next + "^000000)"
+		             + ": ~ Previous (^0055FF" + .@prev + "^000000)"
+		             + ": ~ Enter a number"
+		             + ": ~ Back to ^0055FF" + .@original + "^000000 and done"
+		             + ": ~ Done")) {
 		case 1:
-			.@stil = (.@stil != .@max) ? .@stil + 1 : 1;
+			set .@style, .@next;
 			break;
 		case 2:
-			.@stil = (.@stil != 1) ? .@stil - 1 : .@max;
+			set .@style, .@prev;
 			break;
 		case 3:
-			mes "[Stylistin]";
-			mes "Eine Zahl von ^0055FF1^000000 bis ^0055FF" + .@max + "^000000.";
-			mes "Die ^0055FF0^000000 wuerfelt.";
+			mes "[Stylist]";
+			mes "A number from ^0055FF1^000000 to ^0055FF" + .@max + "^000000.";
+			mes "^0055FF0^000000 rolls the dice.";
 			next;
-			input .@eingabe, 0, .@max;
-			.@stil = (.@eingabe) ? .@eingabe : rand(1, .@max);
+			input .@typed, 0, .@max;
+			set .@style, ((.@typed) ? .@typed : rand(1, .@max));
 			break;
 		case 4:
-			setlook LOOK_HAIR, .@urspr;
-			mes "[Stylistin]";
-			mes "Wie du warst.";
+			setlook LOOK_HAIR, .@original;
+			mes "[Stylist]";
+			mes "Just as you were.";
 			close;
 		case 5:
-			mes "[Stylistin]";
-			mes "Steht dir.";
+			mes "[Stylist]";
+			mes "It suits you.";
 			close;
 		}
 	}
@@ -209,20 +253,20 @@ S_Frisur:
 OnInit:
 	// Die Grenzen stammen aus tools/sprite/paletten_erweitern.py.
 	// Lass sie in einer Zeile mit den Namen stehen - wer sie
-	// getrennt pflegt, verschiebt frueher oder later eine davon.
-	setarray .familie$[0], "Klassisch", "Rot", "Orange", "Gold", "Gelb",
-	                       "Limette", "Gruen", "Tuerkis", "Cyan", "Blau",
-	                       "Violett", "Magenta", "Pink", "Neutral";
-	setarray .von[0],        0,   8,  26,  44,  62,  80,  98, 116, 134, 152, 170, 188, 206, 224;
-	setarray .bis[0],        7,  25,  43,  61,  79,  97, 115, 133, 151, 169, 187, 205, 223, 255;
+	// getrennt pflegt, verschiebt frueher oder spaeter eine davon.
+	setarray .family$[0], "Classic", "Red", "Orange", "Gold", "Yellow",
+	                      "Lime", "Green", "Teal", "Cyan", "Blue",
+	                      "Violet", "Magenta", "Pink", "Neutral";
+	setarray .from[0],       0,   8,  26,  44,  62,  80,  98, 116, 134, 152, 170, 188, 206, 224;
+	setarray .to[0],         7,  25,  43,  61,  79,  97, 115, 133, 151, 169, 187, 205, 223, 255;
 
 	// 6 Helligkeiten mal 3 Saettigungen, in genau der Reihenfolge,
 	// in der das Python-Skript sie schreibt.
-	setarray .ton$[0], "Sehr dunkel, staubig", "Sehr dunkel, klar", "Sehr dunkel, kraeftig",
-	                   "Dunkel, staubig",      "Dunkel, klar",      "Dunkel, kraeftig",
-	                   "Gedeckt, staubig",     "Gedeckt, klar",     "Gedeckt, kraeftig",
-	                   "Mittel, staubig",      "Mittel, klar",      "Mittel, kraeftig",
-	                   "Hell, staubig",        "Hell, klar",        "Hell, kraeftig",
-	                   "Sehr hell, staubig",   "Sehr hell, klar",   "Sehr hell, kraeftig";
+	setarray .tone$[0], "Very dark, muted",  "Very dark, clear",  "Very dark, vivid",
+	                    "Dark, muted",       "Dark, clear",       "Dark, vivid",
+	                    "Deep, muted",       "Deep, clear",       "Deep, vivid",
+	                    "Medium, muted",     "Medium, clear",     "Medium, vivid",
+	                    "Light, muted",      "Light, clear",      "Light, vivid",
+	                    "Very light, muted", "Very light, clear", "Very light, vivid";
 	end;
 }
