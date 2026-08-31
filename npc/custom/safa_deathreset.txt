@@ -45,10 +45,18 @@ veins,206,54,4	script	Threshold Warden#safa	4_F_SISTER,{
 		close;
 	}
 
+	// "marks" und nicht mehr "deaths in all": seit der Rangliste
+	// gibt es zwei Zahlen, und sie sind nicht dieselbe.
+	// death_count sind die Male, die noch auf einem liegen -
+	// bezahlbar. tode_gesamt ist die Lebensbilanz und bleibt, auch
+	// nachdem hier bezahlt wurde. Wer das nicht erfaehrt, haelt
+	// seinen Rang auf der Rangliste hinterher fuer einen Fehler.
 	mes "[Threshold Warden]";
 	mes "Every death leaves a mark. Yours weighs";
 	mes "^FF0000" + (death_count * 5 > 90 ? 90 : death_count * 5) + "%^000000 on everything you do -";
-	mes "^FF0000" + death_count + "^000000 " + (death_count == 1 ? "death" : "deaths") + " in all.";
+	mes "^FF0000" + death_count + "^000000 " + (death_count == 1 ? "mark" : "marks") + " you still carry.";
+	if (tode_gesamt > death_count)
+		mes "^777777The cycle counts " + tode_gesamt + " in all. That number it keeps.^000000";
 	next;
 
 	// Jeder Zweig endet mit close, kehrt also nie zurueck. Das break

@@ -83,9 +83,26 @@ OnNPCKillEvent:
 	else if (.@ep == 18)  setarray .@gabe[0], 1000405;
 	else end;
 
+	// ACHTUNG, rand(1) IST EIN FEHLER.
+	//
+	//  Episode 18 hat nur EIN Material. getarraysize liefert dann 1,
+	//  und buildin_rand rechnet (script.cpp:5605):
+	//
+	//      maximum = 1;  maximum -= 1;  if (maximum < 1) -> Fehler
+	//
+	//  Es meldet "range (0) is too small. No randomness possible."
+	//  und setzt st->state = END - das Skript bricht an dieser Zeile
+	//  ab. Der Spieler bekam auf allen Episode-18-Karten NICHTS,
+	//  stillschweigend, bei jedem fuenften Kill.
+	//
+	//  Deshalb die Fallunterscheidung: bei einem einzigen Eintrag
+	//  gibt es nichts zu wuerfeln.
+	.@n = getarraysize(.@gabe);
+	.@w = (.@n > 1) ? rand(.@n) : 0;
+
 	// Ueber F_SafaBeute: Autoloot wirkt nur auf Monster-Drops
 	// (mob.cpp:2592), nicht auf per Skript hingelegte Gegenstaende.
-	callfunc "F_SafaBeute", .@gabe[rand(getarraysize(.@gabe))], 1;
+	callfunc "F_SafaBeute", .@gabe[.@w], 1;
 	end;
 
 OnInit:

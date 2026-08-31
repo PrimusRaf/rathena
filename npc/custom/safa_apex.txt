@@ -439,7 +439,12 @@ OnWecken:
 	killmonster .arena$, "safa_apex::OnTotem";
 	killmonster .arena$, "safa_apex::OnApexTot";
 
-	.@i = rand(getarraysize(.tier));
+	// Auch hier die Wache gegen rand(1), siehe S_Skill weiter unten.
+	// .tier hat heute sechs Eintraege, aber das ist eine Zahl in
+	// OnInit - wer sie auf einen kuerzt, soll nicht den Boss
+	// lahmlegen.
+	.@t = getarraysize(.tier);
+	.@i = (.@t > 1) ? rand(.@t) : 0;
 	.@basis = .tier[.@i];
 	.@name$ = "Apex " + getmonsterinfo(.@basis, MOB_NAME);
 
@@ -926,11 +931,24 @@ S_Straeuben:
 //  getmapunits schreibt die Spielnummern aller Spieler auf der
 //  Karte in ein Feld. Ohne Ziel wirft unitskilluseid ins Leere -
 //  deshalb die Pruefung auf die Anzahl.
+//
+//  UND rand(1) IST EIN FEHLER.
+//
+//  Steht genau EIN Spieler in der Arena, liefert getmapunits 1.
+//  buildin_rand rechnet dann (script.cpp:5605):
+//
+//      maximum = 1;  maximum -= 1;  if (maximum < 1) -> Fehler
+//
+//  Es meldet "range (0) is too small" und setzt st->state = END.
+//  Das Skript bricht genau hier ab - der Apex haette also gegen
+//  einen einzelnen Spieler nie einen Skill benutzt, und im Log
+//  stand achtmal dieselbe Zeile. Bei zwei Spielern ging es, was
+//  die Sache beim Testen noch unauffaelliger macht.
 S_Skill:
 	.@n = getmapunits(BL_PC, .arena$, .@wer[0]);
 	if (.@n < 1) return;
-	unitskilluseid $@apex_gid, getarg(0), getarg(1),
-	               .@wer[rand(.@n)];
+	.@z = (.@n > 1) ? rand(.@n) : 0;
+	unitskilluseid $@apex_gid, getarg(0), getarg(1), .@wer[.@z];
 	return;
 
 
@@ -964,6 +982,15 @@ OnApexTot:
 		getitem .mat,  .lohn_mat;
 		Zeny += .lohn_zeny;
 		apex_erlegt++;
+
+		// Wann dieser Stand erreicht wurde. Die Rangliste
+		// entscheidet damit den Gleichstand: bei gleicher Zahl
+		// steht vorn, wer sie zuerst hatte. Ohne den Stempel
+		// muesste etwas anderes entscheiden, und "alphabetisch
+		// nach Name" hiesse, dass ein Charakter namens AAAA
+		// jeden Gleichstand gewinnt.
+		// Siehe safa_systems.txt, Block "Ranglisten-Zaehler".
+		apex_stempel = gettimetick(2);
 
 		// EXP ist auf Level 500 wertlos - dort waechst nichts
 		// mehr. Wer noch nicht oben ist, bekommt trotzdem etwas,

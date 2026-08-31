@@ -82,6 +82,13 @@
 // ------------------------------------------------------------
 function	script	F_SafaFarmSet	{
 	.@basis = getarg(0);
+	//  0 = Waffe, 1 = Schild
+	// -1 = nur zaehlen und die Teilezahl zurueckgeben, nichts
+	//      anwenden. Dafuer ist @farmset da (weiter unten). Ohne
+	//      diesen Weg muesste die Zaehlerei ein zweites Mal
+	//      dastehen, und zwei Zaehler laufen frueher oder spaeter
+	//      auseinander - dann zeigt die Auskunft etwas anderes an,
+	//      als tatsaechlich gerechnet wird.
 	.@rolle = getarg(1);
 
 	// --- Wieviele Teile liegen an ----------------------------
@@ -99,6 +106,10 @@ function	script	F_SafaFarmSet	{
 	if (getequipid(EQI_SHADOW_SHOES)     == .@basis + 5) .@n++;
 	if (getequipid(EQI_SHADOW_ACC_R)     == .@basis + 6) .@n++;
 	if (getequipid(EQI_SHADOW_ACC_L)     == .@basis + 6) .@n++;
+
+	// Auskunftsmodus: nur melden, nichts anwenden.
+	if (.@rolle == -1)
+		return .@n;
 
 	// Kein Set-Teil, nichts zu verdoppeln. Der Aufsatz allein
 	// ist wertlos - das ist Absicht und steht so auch im Text
@@ -137,4 +148,83 @@ function	script	F_SafaFarmSet	{
 		bonus2 bDropAddRace, RC_All, .@zu;
 
 	return;
+}
+
+
+// ============================================================
+//  @farmset - was der Server gerade sieht
+// ============================================================
+//  Ohne diesen Befehl bleibt beim Nachpruefen nur die
+//  Prozentanzeige der Erfahrungsleiste, und die ist auf zwei
+//  Stellen gerundet. Bei 0,10 Prozent liegt der wahre Wert
+//  zwischen 0,095 und 0,105 - das sind zehn Prozent
+//  Unsicherheit, und damit laesst sich ein Faktor 17 nicht von
+//  einem Faktor 21 unterscheiden.
+//
+//  Dieser Befehl zaehlt mit DERSELBEN Funktion, die auch
+//  rechnet, und zeigt Schritt fuer Schritt, was daraus folgt.
+//  Weicht die Erfahrung im Spiel davon ab, liegt es nicht am
+//  Set, sondern an etwas dazwischen - Levelstrafe, Rasse,
+//  Kartenabzuege.
+//
+//  Fuer alle freigegeben (Stufe 0): wer das Set kauft, soll
+//  nachsehen koennen, wofuer er bezahlt hat.
+// ============================================================
+-	script	safa_farmset_info	-1,{
+	end;
+
+OnGM:
+	dispbottom "--- Farming-Sets ---";
+	callsub S_Melden, 30050, "Scholar (Erfahrung)";
+	callsub S_Melden, 30060, "Prospector (Beute)";
+	dispbottom "Grundrate des Servers: Erfahrung "
+	           + (getbattleflag("base_exp_rate") / 100) + "x";
+	end;
+
+S_Melden:
+	.@basis = getarg(0);
+	.@titel$ = getarg(1);
+
+	.@n = callfunc("F_SafaFarmSet", .@basis, -1);
+	.@waffe  = (getequipid(EQI_SHADOW_WEAPON) == .@basis + 7);
+	.@schild = (getequipid(EQI_SHADOW_SHIELD) == .@basis + 8);
+
+	if (.@n == 0 && !.@waffe && !.@schild) {
+		dispbottom .@titel$ + ": nichts angelegt.";
+		return;
+	}
+
+	.@wert = .@n * 50;
+	if (.@n == 8)
+		.@wert += 400;
+
+	.@summe = .@wert;
+	if (.@waffe)
+		.@summe += .@wert;
+	if (.@schild)
+		.@summe += (.@waffe ? .@wert * 2 : .@wert);
+
+	dispbottom .@titel$ + ": " + .@n + " von 8 Teilen"
+	           + (.@waffe  ? ", Waffe" : "")
+	           + (.@schild ? ", Schild" : "");
+	dispbottom "   Set allein: " + .@wert + " Prozent"
+	           + ((.@n == 8) ? "  (400 aus den Teilen + 400 Set-Bonus)"
+	                         : "  (" + .@n + " x 50)");
+	if (.@n > 0 && (.@waffe || .@schild))
+		dispbottom "   Mit Aufsaetzen: " + .@summe + " Prozent";
+	if (.@n == 0)
+		dispbottom "   Aufsatz ohne Set-Teil - verdoppelt nichts.";
+
+	// Was das unter dem Strich heisst. Ein Bonus von 800 Prozent
+	// ist neunfach, nicht achtfach - der Grundwert bleibt ja
+	// erhalten (pc.cpp:8411: exp + exp * bonus / 100).
+	dispbottom "   Faktor auf die Erfahrung: x"
+	           + ((100 + .@summe) / 100) + ","
+	           + (((100 + .@summe) % 100) / 10)
+	           + "   (Grundrate zaehlt separat obendrauf)";
+	return;
+
+OnInit:
+	bindatcmd "farmset", "safa_farmset_info::OnGM", 0, 99;
+	end;
 }
