@@ -234,14 +234,46 @@ OnGM:
 	dispbottom "  Faktor: " + .faktor + "fach auf Zaehigkeit, Angriff, "
 	           + "Erfahrung und Beute";
 
-	// Der Fortschritt ist die Antwort auf "warum ist das Monster
-	// vor mir noch normal". Ohne ihn raet man.
-	dispbottom "  Durchlauf: " + $@enr_pos + " von "
-	           + getarraysize($@enr_liste) + " Monstern dieser Runde"
-	           + (($@enr_pos >= getarraysize($@enr_liste))
-	              ? "  (Liste wird gleich neu geholt)" : "");
-	dispbottom "  Umgewertet in dieser Runde: " + $@enr_wach
+	// DIE ZAHL, DIE MAN WISSEN WILL.
+	//
+	// Zuerst und in einer eigenen Zeile, weil alles darunter nur
+	// erklaert, wie sie zustande kommt. "5012 von 5012" heisst:
+	// es sind alle. Steht dort dauerhaft etwas anderes, stimmt
+	// etwas nicht - und dann helfen die Zeilen darunter weiter.
+	if ($@enr_stand_alle > 0) {
+		dispbottom "  ^0000CCWuetend: " + $@enr_stand_wach + " von "
+		           + $@enr_stand_alle + " Monstern^000000"
+		           // Eine kleine Luecke ist der Normalfall und kein
+		           // Fehler: zwischen zwei Durchlaeufen wachsen
+		           // Monster nach, und die sind eine Sekunde lang
+		           // noch normal. Erst eine Luecke, die BLEIBT,
+		           // ist eine.
+		           + (($@enr_stand_wach >= $@enr_stand_alle)
+		              ? "  - das sind alle"
+		              : "  - der Rest ist gerade nachgewachsen")
+		           + "  (gezaehlt vor "
+		           + (gettimetick(2) - $@enr_stand_zeit) + " s)";
+	} else {
+		dispbottom "  Wuetend: noch nicht gezaehlt - der erste "
+		           + "Durchlauf ist noch nicht durch.";
+	}
+
+	// Der Cursor. Er sagt NICHT, wie viele wuetend sind, sondern
+	// wie weit das Haeppchen dieser Sekunde gekommen ist. Genau
+	// diese Verwechslung hat schon einmal wie ein Fehler
+	// ausgesehen, deshalb steht sie jetzt dabei.
+	dispbottom "  Haeppchen gerade bei " + $@enr_pos + " von "
+	           + getarraysize($@enr_liste)
+	           + " - das ist der Cursor, nicht die Menge";
+	dispbottom "  Neu umgewertet: " + $@enr_wach
 	           + ", zurueckgesetzt: " + $@enr_ruhig;
+
+	// Der Herzschlag. Ein Takt je Sekunde; zweimal "status" kurz
+	// hintereinander muss eine groessere Zahl zeigen. Tut es das
+	// nicht, steht der Timer - und dann ist jede andere Zahl hier
+	// eingefroren und sagt gar nichts mehr.
+	dispbottom "  Takte seit dem Start: " + $@enr_takte
+	           + "  (zweimal nachsehen - die Zahl MUSS steigen)";
 
 	// Die Zahl gehoert hierher, weil sie die einzige Antwort auf
 	// "warum ist das Monster vor mir noch normal" ist, die nicht
@@ -285,11 +317,16 @@ S_Start:
 	$@enr_gewarnt = 0;
 
 	deletearray $@enr_liste[0];
-	$@enr_pos    = 0;
-	$@enr_wach   = 0;
-	$@enr_ruhig  = 0;
-	$@enr_deckel = 0;
-	$@enr_modus  = 1;
+	$@enr_pos        = 0;
+	$@enr_wach       = 0;
+	$@enr_ruhig      = 0;
+	$@enr_deckel     = 0;
+	$@enr_takte      = 0;
+	$@enr_p_wach     = 0;
+	$@enr_p_gesehen  = 0;
+	$@enr_stand_wach = 0;
+	$@enr_stand_alle = 0;
+	$@enr_modus      = 1;
 
 	announce "The Wild - Enraged. For the next " + .@min
 	         + " minutes every creature out there hits " + .faktor
@@ -334,6 +371,7 @@ S_Ende:
 //  an der er nach einem @reloadscript nicht wieder anlaeuft.
 OnTimer1000:
 	setnpctimer 0;
+	$@enr_takte++;
 
 	if ($@enr_modus == 0) end;
 
@@ -392,9 +430,31 @@ S_Haeppchen:
 	.@wecken = getarg(0);
 
 	if ($@enr_pos >= getarraysize($@enr_liste)) {
+		// --- Ein Durchlauf ist zu Ende: Stand veroeffentlichen --
+		//  Das hier ist die Zahl, die im Status stehen muss.
+		//
+		//  Vorher stand dort der Cursor - "2000 von 5000" - und
+		//  das las sich wie "nur 2000 Monster sind wuetend". Es
+		//  hiess aber nur "das Haeppchen dieser Sekunde ist bis
+		//  Position 2000 gekommen"; eine Sekunde spaeter stand da
+		//  4000, dann 5000, dann wieder 2000.
+		//
+		//  Der Cursor beantwortet die Frage nicht, die man beim
+		//  Nachsehen hat. Die lautet: sind es ALLE? Also wird
+		//  waehrend des Durchlaufs mitgezaehlt, wie viele die
+		//  Marke tragen und wie viele es ueberhaupt gibt, und am
+		//  Ende des Durchlaufs wird beides festgehalten.
+		if (getarraysize($@enr_liste) > 0) {
+			$@enr_stand_wach   = $@enr_p_wach;
+			$@enr_stand_alle   = $@enr_p_gesehen;
+			$@enr_stand_zeit   = gettimetick(2);
+		}
+
 		deletearray $@enr_liste[0];
-		$@enr_pos   = 0;
-		$@enr_ruhig = 0;
+		$@enr_pos      = 0;
+		$@enr_ruhig    = 0;
+		$@enr_p_wach   = 0;
+		$@enr_p_gesehen = 0;
 		.@gesamt = getunits(BL_MOB, $@enr_liste[0]);
 		if (.@gesamt == 0) return;
 	}
@@ -448,6 +508,14 @@ S_Haeppchen:
 		// steht vorne und wird nie abgeschnitten.
 		.@markiert = (substr(.@name$, 0, .plen - 1) == .praefix$);
 
+		// Gezaehlt wird JEDES lebende Monster, das der Durchlauf
+		// sieht - und getrennt davon, wie viele die Marke tragen.
+		// Nach dem Wecken gleich unten wird nachgezaehlt, damit
+		// die Zahl den Stand NACH diesem Haeppchen zeigt und
+		// nicht den davor.
+		$@enr_p_gesehen++;
+		if (.@markiert) $@enr_p_wach++;
+
 		if (.@wecken) {
 			// Die einzige verbliebene Bedingung, und sie ist
 			// keine Ausnahme, sondern die Sperre gegen die
@@ -457,9 +525,11 @@ S_Haeppchen:
 			// einebnet.
 			if (.@markiert) continue;
 			callsub S_Wecken, .@gid, .@klasse, .@db$;
+			$@enr_p_wach++;   // ab jetzt traegt es die Marke
 		} else {
 			if (!.@markiert) continue;
-			callsub S_Beruhigen, .@gid, .@klasse, .@db$;
+			callsub S_Beruhigen, .@gid, .@klasse, .@db$, .@name$;
+			$@enr_p_wach--;   // Marke ist ab jetzt weg
 		}
 	}
 	freeloop(0);
@@ -537,46 +607,81 @@ S_Wecken:
 //  bleibt hier etwas liegen, wird dasselbe Monster im naechsten
 //  Takt noch einmal versucht.
 //
-//  WAS "KEINE AUSNAHMEN" HIER KOSTET
+//  ZURUECKGERECHNET, NICHT NACHGESCHLAGEN
 //
-//  Zurueckgesetzt wird auf die DATENBANK. Fuer das gewoehnliche
-//  Monster ist das exakt der Ausgangszustand - es stand vorher
-//  auch auf seinen Datenbankwerten.
+//  Jeder der drei Werte wird umgekehrt, wie er gesetzt wurde:
+//  Angriff geteilt statt mal, Vorsatz abgeschnitten statt neu
+//  gesetzt, DamageTaken aus dem Zwischenspeicher der Art.
 //
-//  Fuer die von anderen Skripten aufgewerteten gilt das nicht.
-//  Ein Wildlife-Rudel, das ein Ereignis ueberlebt, steht danach
-//  auf Datenbankwerten statt auf den am Spieler berechneten -
-//  es ist also schwaecher als vorher, nicht staerker. Dasselbe
-//  gilt fuer den Namen: aus "Wildlife Poring" wird wieder
-//  "Poring".
+//  Die erste Fassung holte Name und Angriff aus mob_db. Das war
+//  fuer gewoehnliche Monster richtig und fuer alle anderen
+//  falsch: ein Wildlife-Rudel, das ein Ereignis ueberlebte,
+//  stand hinterher auf Datenbankwerten und hiess wieder
+//  "Poring" - es war also SCHWAECHER als vor dem Ereignis, und
+//  seine Herkunft war nicht mehr zu sehen.
 //
-//  Das ist der bewusst gezahlte Preis dafuer, dass ueberhaupt
-//  jedes Monster mitmacht. Die Alternative waere ein Merkfeld
-//  ueber Spielnummern gewesen - zehntausende Eintraege, die
-//  jeden Respawn ueberleben muessten und bei jedem Absturz
-//  verwaisen.
-//
-//  Warum es vertretbar ist: die betroffenen Systeme leben
-//  ohnehin in Minuten, nicht in Stunden. Ein Wildlife-Rudel
-//  loest sich nach 30 Minuten selbst auf, der Biomboss rechnet
-//  seine Werte alle 15 Sekunden neu (safa_biom.txt,
-//  OnNachrechnen) und holt sich seinen Zustand damit von selbst
-//  zurueck. Was bleibt, ist ein Rudel, das zufaellig noch stand,
-//  als das Ereignis endete.
+//  Die Datenbank ist jetzt nur noch der Notnagel fuer die
+//  beiden Faelle, in denen der Ausgangswert wirklich verloren
+//  ist: der an der uint16-Grenze gekappte Angriff und der auf
+//  23 Zeichen abgeschnittene Name. Beide sind unten benannt.
 S_Beruhigen:
-	.@gid    = getarg(0);
-	.@klasse = getarg(1);
-	.@db$    = getarg(2);
+	.@gid        = getarg(0);
+	.@klasse     = getarg(1);
+	.@db$        = getarg(2);
+	.@name_jetzt$ = getarg(3);   // wie es JETZT heisst, mit Vorsatz
 
 	.@dt = 100;
 	if ($@enr_dt[.@klasse] > 0)
 		.@dt = $@enr_dt[.@klasse] - 1;
 	setunitdata .@gid, UMOB_DAMAGETAKEN, .@dt;
 
-	setunitdata .@gid, UMOB_ATKMIN, getmonsterinfo(.@klasse, MOB_ATKMIN);
-	setunitdata .@gid, UMOB_ATKMAX, getmonsterinfo(.@klasse, MOB_ATKMAX);
+	// --- Angriff: geteilt, nicht nachgeschlagen ---------------
+	//  S_Wecken hat mal .faktor gerechnet, also ist das Teilen
+	//  die exakte Umkehrung - fuer JEDES Monster, auch fuer die
+	//  von anderen Skripten aufgewerteten. Der Umweg ueber
+	//  getmonsterinfo hatte ein Wildlife-Rudel hinterher auf
+	//  mob_db-Werte gesetzt und damit schwaecher gemacht, als es
+	//  vor dem Ereignis war.
+	//
+	//  Nur wo die uint16-Grenze zugeschlagen hat, ist der
+	//  Ausgangswert nicht mehr im Wert enthalten. Dort bleibt die
+	//  Datenbank die beste verfuegbare Auskunft. Erkennbar ist
+	//  der Fall daran, dass der Wert GENAU auf der Grenze steht.
+	.@a1 = getunitdata(.@gid, UMOB_ATKMIN);
+	.@a2 = getunitdata(.@gid, UMOB_ATKMAX);
+	setunitdata .@gid, UMOB_ATKMIN,
+	    (.@a1 >= .atk_deckel) ? getmonsterinfo(.@klasse, MOB_ATKMIN)
+	                          : .@a1 / .faktor;
+	setunitdata .@gid, UMOB_ATKMAX,
+	    (.@a2 >= .atk_deckel) ? getmonsterinfo(.@klasse, MOB_ATKMAX)
+	                          : .@a2 / .faktor;
 
-	setunitname .@gid, .@db$;
+	// --- Name: Vorsatz abschneiden ---------------------------
+	//  Auch hier die Umkehrung statt der Datenbank, und aus zwei
+	//  Gruenden:
+	//
+	//  Erstens behaelt ein Wildlife-Rudel so seinen Namen - aus
+	//  "Enraged Wildlife Poring" wird wieder "Wildlife Poring"
+	//  und nicht "Poring".
+	//
+	//  Zweitens ist der Datenbankname bei den 14 Arten aus
+	//  mob_avail.yml gar nicht der richtige: getunitdata liefert
+	//  ueber UMOB_CLASS die SICHTKLASSE (script.cpp:19111,
+	//  md->vd->look[LOOK_BASE]), nicht die Monsternummer. Wo
+	//  beide auseinandergehen, haette getmonsterinfo den Namen
+	//  des Sprite-Monsters geliefert - und den haette das
+	//  Monster dann dauerhaft behalten.
+	//
+	//  Die Ausnahme ist der abgeschnittene Name: md->name ist
+	//  char[24], laenger als 23 Zeichen wird nichts. Steht der
+	//  Name genau auf 23, ist er mit hoher Wahrscheinlichkeit
+	//  gekuerzt und sein Ende unwiederbringlich - dann ist die
+	//  Datenbank wieder die beste Auskunft.
+	if (getstrlen(.@name_jetzt$) >= 23)
+		setunitname .@gid, .@db$;
+	else
+		setunitname .@gid, substr(.@name_jetzt$, .plen,
+		                          getstrlen(.@name_jetzt$) - 1);
 	$@enr_ruhig++;
 	return;
 
@@ -646,19 +751,28 @@ OnInit:
 	//  werden - angesehen, nicht umgewertet; das meiste faellt
 	//  gleich an der Namenspruefung weg.
 	//
-	//  Bei 2000 und rund 20000 Monstern auf dem Server ist ein
-	//  voller Durchlauf nach etwa zehn Sekunden herum. So lange
-	//  kann ein frisch erschienenes Monster noch normal sein.
+	//  Der Wert stand auf 2000 und war damit zu vorsichtig
+	//  gewaehlt: er stammte aus der Annahme, hier stuenden rund
+	//  20000 Monster. Tatsaechlich sind es gut 5000, und bei 2000
+	//  je Takt brauchte ein voller Durchlauf drei Sekunden.
+	//
+	//  Das war nicht falsch, aber es sah falsch aus. "@enraged
+	//  status" zeigte den Cursor - "2000 von 5000" -, und das
+	//  liest sich wie "nur 2000 Monster sind wuetend". Ein Wert
+	//  ueber dem Bestand macht aus dem Durchlauf einen einzigen
+	//  Takt: der Stand im Status ist danach immer vollstaendig,
+	//  und ein nachgewachsenes Monster ist hoechstens eine
+	//  Sekunde lang normal.
 	//
 	//  Teuer ist nicht das Ansehen, sondern das Umwerten: jedes
 	//  setunitdata auf den Angriff zieht ein status_calc_bl nach
-	//  sich. Das faellt genau EINMAL an, beim ersten Durchlauf
-	//  nach dem Start - danach sind fast alle schon wach und die
-	//  Namenspruefung wirft sie sofort wieder raus.
+	//  sich. Das faellt genau EINMAL an, im ersten Takt nach dem
+	//  Start - danach sind alle wach und die Namenspruefung wirft
+	//  sie sofort wieder raus.
 	//
-	//  Wer schneller will, dreht hoch und sieht danach ins
-	//  map-Log. Wird es eng, steht es dort - und nicht im Spiel.
-	.haeppchen   = 2000;
+	//  Waechst der Server, waechst diese Zahl mit. Ob sie zu hoch
+	//  steht, sagt das map-Log und nicht das Spiel.
+	.haeppchen   = 8000;
 
 	// --- Die harte Grenze der Engine -------------------------
 	//  status_data.rhw.atk ist uint16. Kein Stellwert, sondern
