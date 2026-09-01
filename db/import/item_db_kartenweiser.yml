@@ -1616,6 +1616,8 @@ Body:
       bonus bHPrecovRate,-25;
       bonus bDefEle,Ele_Ghost;
       bonus bHPrecovRate,-25;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Ghost,15;
 
   - Id: 50091
     AegisName: Ghostring_Card_S3
@@ -1637,6 +1639,8 @@ Body:
       bonus bHPrecovRate,-25;
       bonus bDefEle,Ele_Ghost;
       bonus bHPrecovRate,-25;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Ghost,30;
 
   - Id: 50092
     AegisName: Poison_Spore_Card_S2
@@ -1860,6 +1864,8 @@ Body:
     Script: |
       bonus bDefEle,Ele_Holy;
       bonus bDefEle,Ele_Holy;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Dark,15;
 
   - Id: 50105
     AegisName: Angeling_Card_S3
@@ -1877,6 +1883,8 @@ Body:
       bonus bDefEle,Ele_Holy;
       bonus bDefEle,Ele_Holy;
       bonus bDefEle,Ele_Holy;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Dark,30;
 
   - Id: 50106
     AegisName: Marina_Card_S2
@@ -2084,6 +2092,9 @@ Body:
       bonus bDef,1;
       bonus bUnbreakableArmor;
       bonus bDef,1;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50117
     AegisName: Cornutus_Card_S3
@@ -2105,6 +2116,9 @@ Body:
       bonus bDef,1;
       bonus bUnbreakableArmor;
       bonus bDef,1;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50118
     AegisName: Anacondaq_Card_S2
@@ -2460,6 +2474,9 @@ Body:
       bonus bBaseAtk,5;
       bonus bUnbreakableWeapon;
       bonus bBaseAtk,5;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50139
     AegisName: Golem_Card_S3
@@ -2481,6 +2498,9 @@ Body:
       bonus bBaseAtk,5;
       bonus bUnbreakableWeapon;
       bonus bBaseAtk,5;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50140
     AegisName: Pirate_Skel_Card_S2
@@ -2644,6 +2664,9 @@ Body:
       bonus bVariableCastrate,25;
       bonus bNoCastCancel;
       bonus bVariableCastrate,25;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50149
     AegisName: Phen_Card_S3
@@ -2665,6 +2688,9 @@ Body:
       bonus bVariableCastrate,25;
       bonus bNoCastCancel;
       bonus bVariableCastrate,25;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50150
     AegisName: Savage_Card_S2
@@ -3056,6 +3082,8 @@ Body:
       bonus bDef,1;
       bonus bDefEle,Ele_Water;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Wind,15;
 
   - Id: 50173
     AegisName: Sword_Fish_Card_S3
@@ -3077,6 +3105,8 @@ Body:
       bonus bDef,1;
       bonus bDefEle,Ele_Water;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Wind,30;
 
   - Id: 50174
     AegisName: Munak_Card_S2
@@ -3392,6 +3422,8 @@ Body:
       bonus bDef,1;
       bonus bDefEle,Ele_Wind;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Earth,15;
 
   - Id: 50191
     AegisName: Dokebi_Card_S3
@@ -3413,6 +3445,8 @@ Body:
       bonus bDef,1;
       bonus bDefEle,Ele_Wind;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Earth,30;
 
   - Id: 50192
     AegisName: Pasana_Card_S2
@@ -3430,6 +3464,8 @@ Body:
       bonus bDef,1;
       bonus bDefEle,Ele_Fire;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Water,15;
 
   - Id: 50193
     AegisName: Pasana_Card_S3
@@ -3451,6 +3487,8 @@ Body:
       bonus bDef,1;
       bonus bDefEle,Ele_Fire;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Water,30;
 
   - Id: 50194
     AegisName: Sohee_Card_S2
@@ -3506,6 +3544,8 @@ Body:
       bonus bDef,1;
       bonus bDefEle,Ele_Earth;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Fire,15;
 
   - Id: 50197
     AegisName: Sand_Man_Card_S3
@@ -3527,6 +3567,8 @@ Body:
       bonus bDef,1;
       bonus bDefEle,Ele_Earth;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Fire,30;
 
   - Id: 50198
     AegisName: Whisper_Card_S2
@@ -3978,6 +4020,8 @@ Body:
       bonus bDef,1;
       bonus bDefEle,Ele_Poison;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Holy,15;
 
   - Id: 50223
     AegisName: Argiope_Card_S3
@@ -3999,6 +4043,8 @@ Body:
       bonus bDef,1;
       bonus bDefEle,Ele_Poison;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Holy,30;
 
   - Id: 50224
     AegisName: Hunter_Fly_Card_S2
@@ -4148,6 +4194,8 @@ Body:
     Script: |
       bonus bDefEle,Ele_Dark;
       bonus bDefEle,Ele_Dark;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Holy,15;
 
   - Id: 50233
     AegisName: Bathory_Card_S3
@@ -4165,6 +4213,8 @@ Body:
       bonus bDefEle,Ele_Dark;
       bonus bDefEle,Ele_Dark;
       bonus bDefEle,Ele_Dark;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Holy,30;
 
   - Id: 50234
     AegisName: Petit__Card_S2
@@ -4538,6 +4588,9 @@ Body:
       bonus bUseSPrate,100;
       bonus bNoMagicDamage,100;
       bonus bUseSPrate,100;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50251
     AegisName: Golden_Bug_Card_S3
@@ -4569,6 +4622,9 @@ Body:
       bonus bUseSPrate,100;
       bonus bNoMagicDamage,100;
       bonus bUseSPrate,100;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50252
     AegisName: Baphomet__Card_S2
@@ -4623,6 +4679,9 @@ Body:
       bonus bSpeedRate,25;
       bonus bSpeedRate,25;
       bonus bSpeedRate,25;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50255
     AegisName: Moonlight_Flower_Card_S3
@@ -4645,6 +4704,9 @@ Body:
       bonus bSpeedRate,25;
       bonus bSpeedRate,25;
       bonus bSpeedRate,25;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50256
     AegisName: Mistress_Card_S2
@@ -4666,6 +4728,9 @@ Body:
       bonus bUseSPrate,25;
       bonus bNoGemStone;
       bonus bUseSPrate,25;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50257
     AegisName: Mistress_Card_S3
@@ -4699,6 +4764,9 @@ Body:
       bonus bUseSPrate,25;
       bonus bNoGemStone;
       bonus bUseSPrate,25;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50258
     AegisName: Daydric_Card_S2
@@ -4855,6 +4923,9 @@ Body:
       bonus bNoSizeFix;
       bonus bNoSizeFix;
       bonus bNoSizeFix;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50267
     AegisName: Drake_Card_S3
@@ -4877,6 +4948,9 @@ Body:
       bonus bNoSizeFix;
       bonus bNoSizeFix;
       bonus bNoSizeFix;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50268
     AegisName: Anubis_Card_S2
@@ -4992,6 +5066,8 @@ Body:
       bonus bDefEle,Ele_Undead;
       bonus bInt,1;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Holy,15;
 
   - Id: 50275
     AegisName: Evil_Druid_Card_S3
@@ -5017,6 +5093,8 @@ Body:
       bonus bDefEle,Ele_Undead;
       bonus bInt,1;
       bonus bDef,1;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Holy,30;
 
   - Id: 50276
     AegisName: Doppelganger_Card_S2
@@ -5125,6 +5203,9 @@ Body:
       bonus bRestartFullRecover;
       bonus bRestartFullRecover;
       bonus bRestartFullRecover;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50281
     AegisName: Osiris_Card_S3
@@ -5147,6 +5228,9 @@ Body:
       bonus bRestartFullRecover;
       bonus bRestartFullRecover;
       bonus bRestartFullRecover;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50282
     AegisName: Berzebub_Card_S2
@@ -8516,6 +8600,9 @@ Body:
       bonus bLuk,3;
       if (BaseClass == Job_Merchant)
          bonus bUnbreakableArmor;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50455
     AegisName: Baby_Leopard_Card_S3
@@ -8541,6 +8628,9 @@ Body:
       bonus bLuk,3;
       if (BaseClass == Job_Merchant)
          bonus bUnbreakableArmor;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50456
     AegisName: Anolian_Card_S2
@@ -10484,6 +10574,9 @@ Body:
       bonus bSPDrainValue,-1;
       if (BaseClass == Job_Merchant)
          bonus bUnbreakableWeapon;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50551
     AegisName: Zipper_Bear_Card_S3
@@ -10513,6 +10606,9 @@ Body:
       bonus bSPDrainValue,-1;
       if (BaseClass == Job_Merchant)
          bonus bUnbreakableWeapon;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50552
     AegisName: Tengu_Card_S2
@@ -12260,6 +12356,9 @@ Body:
       bonus bVariableCastrate,30;
       bonus bNoCastCancel;
       bonus2 bSkillAtk,"MG_FIREWALL",5;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50643
     AegisName: Blood_Butterfly_Card_S3
@@ -12285,6 +12384,9 @@ Body:
       bonus bVariableCastrate,30;
       bonus bNoCastCancel;
       bonus2 bSkillAtk,"MG_FIREWALL",5;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50644
     AegisName: Hyegun_Card_S2
@@ -12853,6 +12955,9 @@ Body:
       bonus bVit,3;
       bonus bUnbreakableArmor;
       bonus bNoKnockback;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50673
     AegisName: Rsx_0806_Card_S3
@@ -12893,6 +12998,9 @@ Body:
       bonus bVit,3;
       bonus bUnbreakableArmor;
       bonus bNoKnockback;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50674
     AegisName: Mole_Card_S2
@@ -15697,6 +15805,9 @@ Body:
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
       bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 50803
     AegisName: Randgris_Card_S3
@@ -15737,6 +15848,9 @@ Body:
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
       bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 50804
     AegisName: Gloom_Under_Night_Card_S2
@@ -19730,6 +19844,8 @@ Body:
       bonus2 bSubRace,RC_Fish,10;
       bonus bDefEle,Ele_Water;
       bonus2 bSubRace,RC_Fish,10;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Wind,15;
 
   - Id: 50975
     AegisName: Pot_Dofle_Card_S3
@@ -19751,6 +19867,8 @@ Body:
       bonus2 bSubRace,RC_Fish,10;
       bonus bDefEle,Ele_Water;
       bonus2 bSubRace,RC_Fish,10;
+      // Setzer-Ausgleich: Schwaeche der Elementruestung abfedern
+      bonus2 bSubEle,Ele_Wind,30;
 
   - Id: 50976
     AegisName: King_Dramoh_Card_S2
@@ -28100,6 +28218,9 @@ Body:
       autobonus "{ bonus bNoCastCancel; }",5,5000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; showscript \"This is the truth!\"; }";
       bonus bMatk,25;
       autobonus "{ bonus bNoCastCancel; }",5,5000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; showscript \"This is the truth!\"; }";
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 51289
     AegisName: WizardOfVeritas_Card_S3
@@ -28121,6 +28242,9 @@ Body:
       autobonus "{ bonus bNoCastCancel; }",5,5000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; showscript \"This is the truth!\"; }";
       bonus bMatk,25;
       autobonus "{ bonus bNoCastCancel; }",5,5000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; showscript \"This is the truth!\"; }";
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 51290
     AegisName: FuryHero_Card_S2
@@ -28180,6 +28304,9 @@ Body:
       bonus bNoCastCancel;
       bonus bMatk,20;
       bonus bNoCastCancel;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 51293
     AegisName: SweetNightM_Card_S3
@@ -28201,6 +28328,9 @@ Body:
       bonus bNoCastCancel;
       bonus bMatk,20;
       bonus bNoCastCancel;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 51294
     AegisName: MattDrainliar_Card_S2
@@ -28256,6 +28386,9 @@ Body:
       bonus bBaseAtk,20;
       bonus bUnbreakableWeapon;
       bonus bUnbreakableArmor;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 51297
     AegisName: LivingDead_Card_S3
@@ -28281,6 +28414,9 @@ Body:
       bonus bBaseAtk,20;
       bonus bUnbreakableWeapon;
       bonus bUnbreakableArmor;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 51298
     AegisName: Ill_Dracula_Card_S2
@@ -31030,6 +31166,9 @@ Body:
       }
       bonus bMaxHPrate,.@hp;
       bonus bMaxSPrate,.@sp;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 51401
     AegisName: Coyote_Card_S3
@@ -31079,6 +31218,9 @@ Body:
       }
       bonus bMaxHPrate,.@hp;
       bonus bMaxSPrate,.@sp;
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 51402
     AegisName: Mechaspider_Card_S2
@@ -35428,6 +35570,9 @@ Body:
       bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 51579
     AegisName: As_Ragged_Golem_Card_S3
@@ -35477,6 +35622,9 @@ Body:
       bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 51580
     AegisName: Poisonous_Card_S2
@@ -36332,6 +36480,9 @@ Body:
       if (.@r>=11) {
          bonus bUnbreakableWeapon;
       }
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,3;
+      bonus bMaxSPrate,3;
 
   - Id: 51615
     AegisName: Alnoldi_Ex_H_Card_S3
@@ -36377,6 +36528,9 @@ Body:
       if (.@r>=11) {
          bonus bUnbreakableWeapon;
       }
+      // Setzer-Ausgleich fuer nicht stapelbare Boni
+      bonus bMaxHPrate,6;
+      bonus bMaxSPrate,6;
 
   - Id: 51616
     AegisName: Beta_Scissore_Ng_Card_S2

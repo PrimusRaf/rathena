@@ -57,6 +57,12 @@ lhz_in02,264,283,4	script	Kartenweiser#safa	4_M_SAGE_C,{
 		mes "Karten, die einen ^0000CCSkill^000000 verleihen, heben ihn stattdessen um ^0000CC+1 Stufe^000000 je Verdichtung - eine Skillstufe wird gesetzt, sie summiert sich nicht.";
 		next;
 		mes "[Kartenweiser]";
+		mes "Auch ein ^0000CCRuestungselement^000000 laesst sich nicht verdoppeln - mehr Element als Element gibt es nicht.";
+		mes "Stattdessen federe ich die ^0000CCSchwaeche^000000 der Elementruestung ab: je Stufe ^0000CC15%^000000 weniger Schaden vom Konter-Element. Angeling etwa mildert Schatten.";
+		mes " ";
+		mes "Andere einmalige Wirkungen (Sicht, Unzerbrechlich und dergleichen) gleiche ich mit ^0000CCMaxHP und MaxSP +3%^000000 je Stufe aus.";
+		next;
+		mes "[Kartenweiser]";
 		mes "Die Gebuehr richtet sich nach Stufe und Seltenheit. Und zwei Warnungen:";
 		mes " ";
 		mes "^CC0000Die GANZE Karte verdichtet sich - auch ihre Nachteile.^000000 Wer eine Karte mit Malus verdichtet, vervielfacht den Malus mit.";
