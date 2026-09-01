@@ -8094,3 +8094,978 @@ Body:
       bonus2 bSubSize,Size_Large,20;
       bonus2 bSubClass,Class_Boss,10;
       bonus bMaxHPrate,15;
+
+  - Id: 30600
+    AegisName: Safa_B_Earwitchhat
+    Name: Costume Earwitchhat
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2822
+
+  - Id: 30601
+    AegisName: Safa_Black_Rabbit_Ear
+    Name: Costume Black Rabbit Ear
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2823
+
+  - Id: 30602
+    AegisName: Safa_Book_Of_Sorcery
+    Name: Costume Book Of Sorcery
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2824
+
+  - Id: 30603
+    AegisName: Safa_Booster_Scarf_A
+    Name: Costume Booster Scarf (A)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2825
+
+  - Id: 30604
+    AegisName: Safa_Booster_Scarf_B
+    Name: Costume Booster Scarf (B)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2826
+
+  - Id: 30605
+    AegisName: Safa_Booster_Scarf_C
+    Name: Costume Booster Scarf (C)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2827
+
+  - Id: 30606
+    AegisName: Safa_C_Bell_Cat_Hair
+    Name: Costume Bell Cat Hair
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2828
+
+  - Id: 30607
+    AegisName: Safa_C_Braids_Wave
+    Name: Costume Braids Wave
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2829
+
+  - Id: 30608
+    AegisName: Safa_C_Cat_Straight_Long_Wh
+    Name: Costume Cat Straight Long (White)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2830
+
+  - Id: 30609
+    AegisName: Safa_C_Clb_Kp_Dc
+    Name: Costume Clb Kp (DC)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2831
+
+  - Id: 30610
+    AegisName: Safa_C_Cons_Of_Wind
+    Name: Costume Cons Of Wind
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2832
+
+  - Id: 30611
+    AegisName: Safa_C_Ear_Of_Nyar_Gy
+    Name: Costume Ear Of Nyar (Gray)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2833
+
+  - Id: 30612
+    AegisName: Safa_C_Ear_Of_Nyar_Wh
+    Name: Costume Ear Of Nyar (White)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2834
+
+  - Id: 30613
+    AegisName: Safa_C_Fluffy_Rabbit_Cape
+    Name: Costume Fluffy Rabbit Cape
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2835
+
+  - Id: 30614
+    AegisName: Safa_C_Fox_Bamboo_Hat
+    Name: Costume Fox Bamboo Hat
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2836
+
+  - Id: 30615
+    AegisName: Safa_C_Friendly_White_Fox
+    Name: Costume Friendly White Fox
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2837
+
+  - Id: 30616
+    AegisName: Safa_C_Frog_Hood
+    Name: Costume Frog Hood
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2838
+
+  - Id: 30617
+    AegisName: Safa_C_G_S_Captain_Hat
+    Name: Costume G S Captain Hat
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2839
+
+  - Id: 30618
+    AegisName: Safa_C_Ghost_Bat_Tw
+    Name: Costume Ghost Bat (TW)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2840
+
+  - Id: 30619
+    AegisName: Safa_C_Gold_Paeonia
+    Name: Costume Gold Paeonia
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2841
+
+  - Id: 30620
+    AegisName: Safa_C_Golden_Violet
+    Name: Costume Golden Violet
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2842
+
+  - Id: 30621
+    AegisName: Safa_C_H_Knight_Cloak
+    Name: Costume H Knight Cloak
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2843
+
+  - Id: 30622
+    AegisName: Safa_C_Indomitable_Crown
+    Name: Costume Indomitable Crown
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2844
+
+  - Id: 30623
+    AegisName: Safa_C_Jormun_Cape
+    Name: Costume Jormun Cape
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2845
+
+  - Id: 30624
+    AegisName: Safa_C_Libra_Of_Judgement
+    Name: Costume Libra Of Judgement
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2846
+
+  - Id: 30625
+    AegisName: Safa_C_Lion_Crown
+    Name: Costume Lion Crown
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2847
+
+  - Id: 30626
+    AegisName: Safa_C_Macaron_Bunny_Head
+    Name: Costume Macaron Bunny Head
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2848
+
+  - Id: 30627
+    AegisName: Safa_C_Magic_Heir_Tw
+    Name: Costume Magic Heir (TW)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2849
+
+  - Id: 30628
+    AegisName: Safa_C_Majestic_Helmet_Bl
+    Name: Costume Majestic Helmet (Blue)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2850
+
+  - Id: 30629
+    AegisName: Safa_C_Muka_Sombrero
+    Name: Costume Muka Sombrero
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2851
+
+  - Id: 30630
+    AegisName: Safa_C_N_Piamette_Bonnet
+    Name: Costume N Piamette Bonnet
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2852
+
+  - Id: 30631
+    AegisName: Safa_C_Nine_Tail_Fox_Hair
+    Name: Costume Nine Tail Fox Hair
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2853
+
+  - Id: 30632
+    AegisName: Safa_C_Petal_Hood
+    Name: Costume Petal Hood
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2854
+
+  - Id: 30633
+    AegisName: Safa_C_Protect_Cloth_B
+    Name: Costume Protect Cloth (B)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2855
+
+  - Id: 30634
+    AegisName: Safa_C_Rabbit_Hopping_Bl
+    Name: Costume Rabbit Hopping (Blue)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2856
+
+  - Id: 30635
+    AegisName: Safa_C_Red_Paeonia
+    Name: Costume Red Paeonia
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2857
+
+  - Id: 30636
+    AegisName: Safa_C_Reliance_Crown
+    Name: Costume Reliance Crown
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2858
+
+  - Id: 30637
+    AegisName: Safa_C_Ribbon_Beret_B
+    Name: Costume Ribbon Beret (B)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2859
+
+  - Id: 30638
+    AegisName: Safa_C_Spinning_Skulls
+    Name: Costume Spinning Skulls
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2860
+
+  - Id: 30639
+    AegisName: Safa_C_Stall_Of_Angel
+    Name: Costume Stall Of Angel
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2861
+
+  - Id: 30640
+    AegisName: Safa_C_Stall_Of_Dominions
+    Name: Costume Stall Of Dominions
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Low: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2862
+
+  - Id: 30641
+    AegisName: Safa_C_Vanargandr_Helm_Gl
+    Name: Costume Vanargandr Helm (Gold)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2863
+
+  - Id: 30642
+    AegisName: Safa_C_Wildcat_Knit_Cap
+    Name: Costume Wildcat Knit Cap
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2864
+
+  - Id: 30643
+    AegisName: Safa_Circlet_Of_Time
+    Name: Costume Circlet Of Time
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2865
+
+  - Id: 30644
+    AegisName: Safa_Cons_Of_Earth
+    Name: Costume Cons Of Earth
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2866
+
+  - Id: 30645
+    AegisName: Safa_Cons_Of_Fire
+    Name: Costume Cons Of Fire
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2867
+
+  - Id: 30646
+    AegisName: Safa_Demons_Familiar
+    Name: Costume Demons Familiar
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2868
+
+  - Id: 30647
+    AegisName: Safa_Dog_Officer
+    Name: Costume Dog Officer
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2869
+
+  - Id: 30648
+    AegisName: Safa_Eleanor_Wig_Yl
+    Name: Costume Eleanor Wig (Yellow)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2870
+
+  - Id: 30649
+    AegisName: Safa_Fafnir_Helm
+    Name: Costume Fafnir Helm
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2871
+
+  - Id: 30650
+    AegisName: Safa_Fairy_Feathers
+    Name: Costume Fairy Feathers
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2872
+
+  - Id: 30651
+    AegisName: Safa_Faith_Of_Yggdrasil
+    Name: Costume Faith Of Yggdrasil
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2873
+
+  - Id: 30652
+    AegisName: Safa_Flash_Of_Lightning
+    Name: Costume Flash Of Lightning
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2874
+
+  - Id: 30653
+    AegisName: Safa_Floating_Ball
+    Name: Costume Floating Ball
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2875
+
+  - Id: 30654
+    AegisName: Safa_Fluffywing
+    Name: Costume Fluffywing
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2876
+
+  - Id: 30655
+    AegisName: Safa_Fortunetellinsealed
+    Name: Costume Fortunetellinsealed
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2877
+
+  - Id: 30656
+    AegisName: Safa_Goodnevil_Circlet
+    Name: Costume Goodnevil Circlet
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2878
+
+  - Id: 30657
+    AegisName: Safa_Gorgoncoronet
+    Name: Costume Gorgoncoronet
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2879
+
+  - Id: 30658
+    AegisName: Safa_Greater_Dracul_Horn
+    Name: Costume Greater Dracul Horn
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2880
+
+  - Id: 30659
+    AegisName: Safa_Guardian_Claus
+    Name: Costume Guardian Claus
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2881
+
+  - Id: 30660
+    AegisName: Safa_Khalitzburg_Kn_Helm_Bl
+    Name: Costume Khalitzburg Kn Helm (Blue)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2882
+
+  - Id: 30661
+    AegisName: Safa_Resonatetaego
+    Name: Costume Resonatetaego
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Mid: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2883
+
+  - Id: 30662
+    AegisName: Safa_Royal_Rabbit_Crown
+    Name: Costume Royal Rabbit Crown
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2884
+
+  - Id: 30663
+    AegisName: Safa_Smoky_Transformhat
+    Name: Costume Smoky Transformhat
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2885
+
+  - Id: 30664
+    AegisName: Safa_Thanos_Helm2_Lt
+    Name: Costume Thanos Helm2 (Light)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2886
+
+  - Id: 30665
+    AegisName: Safa_Thanos_Helm3_Lt
+    Name: Costume Thanos Helm3 (Light)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2887
+
+  - Id: 30666
+    AegisName: Safa_Thanos_Helm4_Lt
+    Name: Costume Thanos Helm4 (Light)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2888
+
+  - Id: 30667
+    AegisName: Safa_Viva_Adul_Hat_Ab
+    Name: Costume Viva Adul Hat (AB)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2889
+
+  - Id: 30668
+    AegisName: Safa_Viva_Adul_Hat_Gc
+    Name: Costume Viva Adul Hat (GC)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2890
+
+  - Id: 30669
+    AegisName: Safa_Viva_Adul_Hat_Gn
+    Name: Costume Viva Adul Hat (GN)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2891
+
+  - Id: 30670
+    AegisName: Safa_Viva_Adul_Hat_Ko
+    Name: Costume Viva Adul Hat (KO)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2892
+
+  - Id: 30671
+    AegisName: Safa_Viva_Adul_Hat_Lg
+    Name: Costume Viva Adul Hat (LG)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2893
+
+  - Id: 30672
+    AegisName: Safa_Viva_Adul_Hat_Nc
+    Name: Costume Viva Adul Hat (NC)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2894
+
+  - Id: 30673
+    AegisName: Safa_Viva_Adul_Hat_Ra
+    Name: Costume Viva Adul Hat (RA)
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2895
+
+  - Id: 30674
+    AegisName: Safa_Whikebain_Ears_Gold
+    Name: Costume Whikebain Ears Gold
+    Type: Armor
+    Buy: 0
+    Sell: 0
+    Weight: 10
+    Locations:
+      Costume_Head_Top: true
+    EquipLevelMin: 1
+    Refineable: true
+    View: 2896
