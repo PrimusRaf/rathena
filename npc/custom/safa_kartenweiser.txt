@@ -48,7 +48,7 @@ lhz_in02,264,283,4	script	Kartenweiser#safa	4_M_SAGE_C,{
 		mes "[Kartenweiser]";
 		mes "Bring mir ^0000CCdrei gleiche Monstercards^000000 und die Gebuehr, und du erhaeltst eine Karte der naechsten Stufe:";
 		mes " ";
-		mes "^0000CCStufe 2^000000 (ein Stern am Namen): doppelte Wirkung";
+		mes "^0000CCStufe 2^000000 (ein + am Namen): doppelte Wirkung";
 		mes "^0000CCStufe 3^000000: nochmals verdoppelt - vierfach";
 		next;
 		mes "[Kartenweiser]";
