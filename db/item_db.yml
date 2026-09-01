@@ -96,3 +96,9 @@ Footer:
     Mode: Renewal
   - Path: db/import/item_db.yml
   - Path: db/import/item_db_slots4.yml
+  # Der Kartenweise: verstaerkte Monstercards (Stufe 2/3), erzeugt
+  # von tools/kartenweiser/bauen.py. Steht NACH item_db.yml, damit
+  # ein Import-Eintrag eine Grundkarte patchen kann, BEVOR jemand
+  # auf die Idee kommt, die erzeugte Datei von Hand zu aendern -
+  # ein Nachlauf des Werkzeugs ueberschreibt sie vollstaendig.
+  - Path: db/import/item_db_kartenweiser.yml
