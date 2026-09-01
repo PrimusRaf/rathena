@@ -245,6 +245,13 @@ OnInit:
 -	itemshop	Eyes#safa	-1,30001,30021:750,30022:1000,30031:750
 -	itemshop	Auras#safa	-1,30001,30030:500,30032:1000,30033:800,30034:800,30035:800,30036:800,30037:800,30038:800,30039:800,30040:800,30041:800,30042:800
 
+//  Schatzkammer: 75 offizielle Costume-Sprites aus der GRF, als
+//  statlose Items verdrahtet (IDs 30600-30674, tools/sprite/
+//  schatzkammer.json). Preise: 300 Coins, schwebende Stuecke 400.
+-	itemshop	VaultHats#safa	-1,30001,30600:300,30601:300,30606:300,30607:300,30608:300,30609:300,30611:300,30612:300,30614:300,30615:300,30616:300,30617:300,30619:300,30620:300,30622:300,30625:300,30626:300,30627:300,30628:300,30629:300,30630:300,30631:300,30632:300,30634:300,30635:300,30636:300,30637:300,30641:300,30642:300,30643:300,30647:300,30648:300,30649:300,30656:300,30657:300,30658:300,30660:300,30662:300,30663:300,30664:300,30665:300,30666:300,30667:300,30668:300,30669:300,30670:300,30671:300,30672:300,30673:300,30674:300
+-	itemshop	VaultAllies#safa	-1,30001,30602:400,30610:400,30618:400,30624:400,30638:400,30644:400,30645:400,30646:400,30650:400,30651:400,30652:400,30653:400,30654:400,30655:400,30659:400,30661:400
+-	itemshop	VaultDrapes#safa	-1,30001,30603:300,30604:300,30605:300,30613:300,30621:300,30623:300,30633:300,30639:300,30640:300
+
 veins,195,118,4	script	Custom Merchant#safa	1_F_MERCHANT_02,{
 
 	mes "[Custom Merchant]";
@@ -307,11 +314,16 @@ OnInit:
 	// Reihenfolge muss zu .titel$ passen - Eintrag n im Menue
 	// oeffnet Laden n.
 	setarray .laden$[0], "Hats#safa", "Wings#safa",
-	                     "Eyes#safa", "Auras#safa";
+	                     "Eyes#safa", "Auras#safa",
+	                     "VaultHats#safa", "VaultAllies#safa",
+	                     "VaultDrapes#safa";
 	setarray .titel$[0], "^0000FFHats^000000 - crowns, halos, diadems",
 	                     "^0000FFWings^000000",
 	                     "^0000FFEyes and Face^000000 - visors and masks",
-	                     "^0000FFAuras^000000 - twelve, worn at the feet";
+	                     "^0000FFAuras^000000 - twelve, worn at the feet",
+	                     "^0000FFTreasury Hats^000000 - fifty official classics",
+	                     "^0000FFTreasury Companions^000000 - wings and floating pieces",
+	                     "^0000FFTreasury Drapes^000000 - scarves, capes, stoles";
 	end;
 }
 
