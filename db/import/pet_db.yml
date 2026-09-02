@@ -77,6 +77,13 @@ Body:
   - Mob: CHONCHON
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: STEEL_CHONCHON
+        ItemRequirements:
+          - Item: Iron
+            Amount: 300
+          - Item: Wind_Of_Verdure
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -90,6 +97,11 @@ Body:
   - Mob: CHUNG_E
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: CHUNG_E_
+        ItemRequirements:
+          - Item: Cyfar
+            Amount: 450
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -103,6 +115,13 @@ Body:
   - Mob: CHUNG_E_
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: BACSOJIN_
+        ItemRequirements:
+          - Item: Cyfar
+            Amount: 300
+          - Item: Bs_Making_S
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -142,6 +161,13 @@ Body:
   - Mob: DELETER_
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: DELETER_2
+        ItemRequirements:
+          - Item: Dragon's_Skin
+            Amount: 300
+          - Item: Yggdrasilberry
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -194,6 +220,13 @@ Body:
   - Mob: DIABOLIC2
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: DIABOLIC
+        ItemRequirements:
+          - Item: Yggdrasilberry
+            Amount: 300
+          - Item: Petite_DiablOfs_Horn
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -233,6 +266,13 @@ Body:
   - Mob: DULLAHAN
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: NIGHTMARE_TERROR_H
+        ItemRequirements:
+          - Item: Dullahan's_Helm
+            Amount: 300
+          - Item: Burning_Horse_Shoe
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -285,6 +325,13 @@ Body:
   - Mob: FARMILIAR
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: HODREMLIN
+        ItemRequirements:
+          - Item: Tooth_Of_Bat
+            Amount: 300
+          - Item: Prickly_Fruit_
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -298,6 +345,13 @@ Body:
   - Mob: GOBLINE_XMAS
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: GOBLIN_LEADER
+        ItemRequirements:
+          - Item: Scell
+            Amount: 300
+          - Item: Brigan
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -311,6 +365,13 @@ Body:
   - Mob: GOBLIN_1
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: GOBLIN_LEADER
+        ItemRequirements:
+          - Item: Wing_Of_Fly
+            Amount: 300
+          - Item: Brigan
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -324,6 +385,13 @@ Body:
   - Mob: GOBLIN_2
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: GOBLIN_LEADER
+        ItemRequirements:
+          - Item: Iron
+            Amount: 300
+          - Item: Brigan
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -337,6 +405,13 @@ Body:
   - Mob: GOBLIN_4
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: GOBLIN_LEADER
+        ItemRequirements:
+          - Item: Yellow_Live
+            Amount: 300
+          - Item: Brigan
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -402,6 +477,13 @@ Body:
   - Mob: IMP
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: FIRE_GOLEM
+        ItemRequirements:
+          - Item: Hot_Hair
+            Amount: 300
+          - Item: Stone_Of_Blessing
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -441,6 +523,13 @@ Body:
   - Mob: LEAF_CAT
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: CAT_O_NINE_TAIL
+        ItemRequirements:
+          - Item: Great_Leaf
+            Amount: 300
+          - Item: Puppy_Love
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -454,6 +543,11 @@ Body:
   - Mob: LITTLE_PORING
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: PORING
+        ItemRequirements:
+          - Item: Jellopy
+            Amount: 450
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -493,6 +587,13 @@ Body:
   - Mob: MARIN
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: SWEETS_DROPS
+        ItemRequirements:
+          - Item: Garlet
+            Amount: 300
+          - Item: Stolen_Cacao
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -506,6 +607,13 @@ Body:
   - Mob: MARIONETTE
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: ALIZA
+        ItemRequirements:
+          - Item: Golden_Hair
+            Amount: 300
+          - Item: Brigan
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -532,6 +640,13 @@ Body:
   - Mob: MIYABI_NINGYO
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: ALIZA
+        ItemRequirements:
+          - Item: Glossy_Hair
+            Amount: 300
+          - Item: Brigan
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -558,6 +673,13 @@ Body:
   - Mob: MUNAK
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: HYEGUN
+        ItemRequirements:
+          - Item: Danggie
+            Amount: 300
+          - Item: Brigan
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -636,6 +758,13 @@ Body:
   - Mob: PICKY
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: PECOPECO
+        ItemRequirements:
+          - Item: Feather_Of_Birds
+            Amount: 300
+          - Item: Bill_Of_Birds
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -662,6 +791,13 @@ Body:
   - Mob: POPORING
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: ANGELING
+        ItemRequirements:
+          - Item: Sticky_Mucus
+            Amount: 300
+          - Item: Angelic_Chain
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -727,6 +863,13 @@ Body:
   - Mob: SMOKIE
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: XM_TEDDY_BEAR
+        ItemRequirements:
+          - Item: Raccoon_Leaf
+            Amount: 300
+          - Item: Screw
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -740,6 +883,13 @@ Body:
   - Mob: SOHEE
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: LOLI_RURI
+        ItemRequirements:
+          - Item: Long_Hair
+            Amount: 300
+          - Item: Black_Kitty_Doll
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -753,6 +903,13 @@ Body:
   - Mob: SPORE
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: POISON_SPORE
+        ItemRequirements:
+          - Item: Mushroom_Spore
+            Amount: 300
+          - Item: Poison_Spore
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -766,6 +923,13 @@ Body:
   - Mob: STEEL_CHONCHON
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: HUNTER_FLY
+        ItemRequirements:
+          - Item: Wind_Of_Verdure
+            Amount: 300
+          - Item: Rough_Wind
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -857,6 +1021,13 @@ Body:
   - Mob: WICKED_NYMPH
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: SUCCUBUS
+        ItemRequirements:
+          - Item: Limpid_Celestial_Robe
+            Amount: 300
+          - Item: Fruit_Of_Mastela
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -892,4 +1063,316 @@ Body:
       if (.@f >= PET_INTIMATE_LOYAL) {
         bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
         bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
+  - Mob: ALICEL
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+      }
+  - Mob: ALIOT
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+      }
+  - Mob: ALIZA
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+      }
+  - Mob: AM_MUT
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+      }
+  - Mob: ANCIENT_MUMMY
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"WZ_METEOR",10,150;
+        bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
+      }
+  - Mob: ANGELING
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"AB_JUDEX",10,150;
+        bonus3 bAutoSpellWhenHit,"AL_HEAL",10,75;
+      }
+  - Mob: CAT_O_NINE_TAIL
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+      }
+  - Mob: CHOCO
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+      }
+  - Mob: DELETER_2
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+      }
+  - Mob: DESERT_WOLF
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+      }
+  - Mob: DR_EGGRING
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,150;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,75;
+      }
+  - Mob: DR_LUNATIC
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+      }
+  - Mob: EP17_2_CHILD_ADMIN2
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+      }
+  - Mob: FIRE_GOLEM
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+      }
+  - Mob: GRAND_PECO
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+      }
+  - Mob: HIGH_ORC
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+      }
+  - Mob: HODREMLIN
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+      }
+  - Mob: HYEGUN
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"WZ_METEOR",10,150;
+        bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
+      }
+  - Mob: LITTLE_ISIS
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+      }
+  - Mob: MASTERING
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,150;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,75;
+      }
+  - Mob: METALLER
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+      }
+  - Mob: NIGHTMARE_TERROR_H
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+      }
+  - Mob: SAVAGE
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,150;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,75;
+      }
+  - Mob: SWEETS_DROPS
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+      }
+  - Mob: WANDER_MAN_H
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,150;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,75;
+      }
+  - Mob: XM_TEDDY_BEAR
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 4 * .@s;
+      bonus bMaxHPrate, (3 * .@s) / 2;
+      bonus bMaxSPrate, (3 * .@s) / 2;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"WZ_METEOR",10,150;
+        bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
       }
