@@ -6,12 +6,13 @@
 //  Gleiche Dienste wie der Enkel, aber: Enchant-Spannen nach
 //  Raffaels Vorgaben (Stats/ATK/MATK/DEF/MDEF bis 1000,
 //  Prozente bis 100, HP/SP 16k-30k), dazu die Grade-Schmiede
-//  (enchantgradeui). Geheim-NPC: Obergeschoss der
-//  Lighthalzen-Herberge, vier Zellen neben dem Card Sage
-//  (lhz_in02 264,283). Wer ihn findet, hat ihn.
+//  (enchantgradeui). Geheim-NPC in Manuk (man_in01 176,282)
+//  - bewusst weit weg vom Enkel und vom Card Sage, jeder
+//  Geheim-NPC hat sein eigenes Versteck. Die Zelle ist frei
+//  (naechste NPCs dort liegen alle unter y=130).
 //===========================================================
 
-lhz_in02,268,283,3	script	Elder Artisan#safa	2_M_ALCHE,{
+man_in01,176,282,3	script	Elder Artisan#safa	2_M_ALCHE,{
 	mes "[Elder Artisan]";
 	mes "So you found me. My grandson downstairs in Veins does honest work - I did his kind of work before his father was born.";
 	mes "What I put on a piece, he could not dream of. And I am the one who tends the ^00CCFFgrade forge^000000.";
