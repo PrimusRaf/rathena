@@ -2,14 +2,19 @@
 //= Der Kartenweise (Card Sage)
 //===== Beschreibung: ========================================
 //= Verdichtet drei gleiche Monstercards zu einer staerkeren
-//= Fassung. Regeln:
+//= Fassung. Dialog ENGLISCH (Hausregel fuer NPCs), Kommentare
+//= deutsch. Regeln:
 //=
-//=     3x Grundkarte  -> Stufe 2 (Name-Stern),  Wirkung x2
-//=     3x Stufe 2     -> Stufe 3 (zwei Sterne), Wirkung x4
+//=     3x Grundkarte  -> Stufe 2 (ein + am Namen), Wirkung x2
+//=     3x Stufe 2     -> Stufe 3 (++),             Wirkung x4
 //=     MVP-Karten     -> x3 je Stufe (Stufe 3 also x9)
 //=     Skill-Karten   -> Skillstufe +1 je Stufe (nicht x2 -
 //=                       skill SETZT die Stufe, sie summiert
 //=                       sich nicht; Deckel ist das MaxLevel)
+//=     Setzer-Boni    -> Elementruestung: je Stufe SubEle 15%
+//=                       gegen das Konter-Element; sonstige
+//=                       (Sicht, Unzerbrechlich ...): MaxHP
+//=                       und MaxSP +3% je Stufe
 //=
 //= Die verstaerkten Items, die Zuordnungs-Arrays und alle
 //= Client-Eintraege erzeugt tools/kartenweiser/bauen.py.
@@ -38,36 +43,36 @@
 //= ist der Lab Staff auf 265,273; die Zelle ist frei.
 //============================================================
 
-lhz_in02,264,283,4	script	Kartenweiser#safa	4_M_SAGE_C,{
+lhz_in02,264,283,4	script	Card Sage#safa	4_M_SAGE_C,{
 	disable_items;
-	mes "[Kartenweiser]";
-	mes "Drei gleiche Karten tragen dieselbe Seele. Ich kann sie zu einer einzigen verdichten - staerker, als die drei es zusammen waren.";
+	mes "[Card Sage]";
+	mes "Three identical cards carry the same soul. I can condense them into a single one - stronger than the three were together.";
 	next;
-	switch (select("Karten verdichten:Wie funktioniert das?:Schon gut")) {
+	switch (select("Condense cards:How does it work?:Never mind")) {
 	case 2:
-		mes "[Kartenweiser]";
-		mes "Bring mir ^0000CCdrei gleiche Monstercards^000000 und die Gebuehr, und du erhaeltst eine Karte der naechsten Stufe:";
+		mes "[Card Sage]";
+		mes "Bring me ^0000CCthree identical monster cards^000000 and my fee, and you receive one card of the next tier:";
 		mes " ";
-		mes "^0000CCStufe 2^000000 (ein + am Namen): doppelte Wirkung";
-		mes "^0000CCStufe 3^000000: nochmals verdoppelt - vierfach";
+		mes "^0000CCTier 2^000000 (a + on its name): twice the effect";
+		mes "^0000CCTier 3^000000 (++): doubled again - fourfold";
 		next;
-		mes "[Kartenweiser]";
-		mes "^CC0000MVP-Karten^000000 sind dichter gewoben: sie ver^CC0000drei^000000fachen sich je Stufe.";
+		mes "[Card Sage]";
+		mes "^CC0000MVP cards^000000 are woven more densely: they ^CC0000triple^000000 with every tier.";
 		mes " ";
-		mes "Karten, die einen ^0000CCSkill^000000 verleihen, heben ihn stattdessen um ^0000CC+1 Stufe^000000 je Verdichtung - eine Skillstufe wird gesetzt, sie summiert sich nicht.";
+		mes "Cards that grant a ^0000CCskill^000000 raise it by ^0000CC+1 level^000000 per condensation instead - a skill level is set, it does not add up.";
 		next;
-		mes "[Kartenweiser]";
-		mes "Auch ein ^0000CCRuestungselement^000000 laesst sich nicht verdoppeln - mehr Element als Element gibt es nicht.";
-		mes "Stattdessen federe ich die ^0000CCSchwaeche^000000 der Elementruestung ab: je Stufe ^0000CC15%^000000 weniger Schaden vom Konter-Element. Angeling etwa mildert Schatten.";
+		mes "[Card Sage]";
+		mes "An ^0000CCarmor element^000000 cannot be doubled either - there is no more element than the element.";
+		mes "Instead I cushion the ^0000CCweakness^000000 of the elemental armor: per tier, ^0000CC15%^000000 less damage from the counter element. Angeling, for instance, softens Shadow.";
 		mes " ";
-		mes "Andere einmalige Wirkungen (Sicht, Unzerbrechlich und dergleichen) gleiche ich mit ^0000CCMaxHP und MaxSP +3%^000000 je Stufe aus.";
+		mes "Other unique effects (sight, unbreakable and the like) I compensate with ^0000CCMaxHP and MaxSP +3%^000000 per tier.";
 		next;
-		mes "[Kartenweiser]";
-		mes "Die Gebuehr richtet sich nach Stufe und Seltenheit. Und zwei Warnungen:";
+		mes "[Card Sage]";
+		mes "The fee depends on tier and rarity. And two warnings:";
 		mes " ";
-		mes "^CC0000Die GANZE Karte verdichtet sich - auch ihre Nachteile.^000000 Wer eine Karte mit Malus verdichtet, vervielfacht den Malus mit.";
+		mes "^CC0000The WHOLE card condenses - its drawbacks included.^000000 Condense a card with a flaw, and the flaw multiplies with it.";
 		mes " ";
-		mes "Die verdichtete Karte ist ein ^0000CCeigenes Item^000000 - Set-Wirkungen mit anderen Karten (Combos) kennen nur die Grundkarte.";
+		mes "A condensed card is an ^0000CCitem of its own^000000 - set effects with other cards (combos) only know the base card.";
 		close;
 	case 3:
 		close;
@@ -85,9 +90,9 @@ lhz_in02,264,283,4	script	Kartenweiser#safa	4_M_SAGE_C,{
 		set .@n, .@n + 1;
 	}
 	if (!.@n) {
-		mes "[Kartenweiser]";
-		mes "Du traegst keine drei gleichen Monstercards bei dir.";
-		mes "Komm wieder, wenn sich drei Seelen gleichen Namens in deiner Tasche draengen.";
+		mes "[Card Sage]";
+		mes "You carry no three identical monster cards.";
+		mes "Return when three souls of the same name crowd your bag.";
 		close;
 	}
 
@@ -99,25 +104,25 @@ lhz_in02,264,283,4	script	Kartenweiser#safa	4_M_SAGE_C,{
 			+ " > " + getitemname($@KW_ZIEL[.@k])
 			+ ($@KW_MVP[.@k] ? " [MVP]" : "") + ":";
 	}
-	mes "[Kartenweiser]";
-	mes "Diese Verdichtungen kann ich dir anbieten:";
+	mes "[Card Sage]";
+	mes "These condensations I can offer you:";
 	next;
 	set .@k, .@weg[select(.@m$) - 1];
 
 	// ---- Bestaetigung ------------------------------------------
-	mes "[Kartenweiser]";
+	mes "[Card Sage]";
 	mes "^0000CC3x " + getitemname($@KW_BASIS[.@k]) + "^000000";
-	mes "werden zu";
+	mes "will become";
 	mes "^0000CC1x " + getitemname($@KW_ZIEL[.@k]) + "^000000";
 	mes " ";
-	mes "Gebuehr: ^CC0000" + callfunc("F_InsertComma", $@KW_GEBUEHR[.@k]) + " Zeny^000000";
+	mes "Fee: ^CC0000" + callfunc("F_InsertComma", $@KW_GEBUEHR[.@k]) + " Zeny^000000";
 	if ($@KW_MVP[.@k]) {
-		mes "^CC0000Eine MVP-Karte - dreifache Verdichtung.^000000";
+		mes "^CC0000An MVP card - threefold condensation.^000000";
 	}
 	next;
-	if (select("Verdichten:Lieber nicht") == 2) {
-		mes "[Kartenweiser]";
-		mes "Eine weise Zurueckhaltung ist auch eine Antwort.";
+	if (select("Condense:Rather not") == 2) {
+		mes "[Card Sage]";
+		mes "Wise restraint is an answer, too.";
 		close;
 	}
 
@@ -126,21 +131,21 @@ lhz_in02,264,283,4	script	Kartenweiser#safa	4_M_SAGE_C,{
 	// nichts verkauft werden (disable_items), aber Vorsicht
 	// kostet nichts.
 	if (countitem($@KW_BASIS[.@k]) < 3) {
-		mes "[Kartenweiser]";
-		mes "Du hast keine drei " + getitemname($@KW_BASIS[.@k]) + " mehr bei dir.";
+		mes "[Card Sage]";
+		mes "You no longer carry three " + getitemname($@KW_BASIS[.@k]) + ".";
 		close;
 	}
 	if (Zeny < $@KW_GEBUEHR[.@k]) {
-		mes "[Kartenweiser]";
-		mes "Dir fehlt die Gebuehr von " + callfunc("F_InsertComma", $@KW_GEBUEHR[.@k]) + " Zeny.";
+		mes "[Card Sage]";
+		mes "You lack the fee of " + callfunc("F_InsertComma", $@KW_GEBUEHR[.@k]) + " Zeny.";
 		close;
 	}
 	set Zeny, Zeny - $@KW_GEBUEHR[.@k];
 	delitem $@KW_BASIS[.@k], 3;
 	getitem $@KW_ZIEL[.@k], 1;
 	specialeffect2 EF_ABSORBSPIRITS;
-	mes "[Kartenweiser]";
-	mes "Drei Seelen, ein Wille.";
-	mes "Nimm sie - " + getitemname($@KW_ZIEL[.@k]) + ".";
+	mes "[Card Sage]";
+	mes "Three souls, one will.";
+	mes "Take it - " + getitemname($@KW_ZIEL[.@k]) + ".";
 	close;
 }
