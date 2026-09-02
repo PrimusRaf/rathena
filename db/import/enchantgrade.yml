@@ -103,6 +103,8 @@ Body:
       - Level: 2
         Grades:
           - Grade: None
+            # SafaRO: Zuschlag verdoppelt (amtlich 10) - Grade soll sich lohnen.
+            Bonus: 20
             Chances:
               - Refine: 21
                 Chance: 8000
@@ -125,6 +127,8 @@ Body:
               - Refine: 30
                 Chance: 8000
           - Grade: D
+            # SafaRO: Zuschlag verdoppelt (amtlich 30) - Grade soll sich lohnen.
+            Bonus: 60
             Chances:
               - Refine: 21
                 Chance: 7000
@@ -147,6 +151,8 @@ Body:
               - Refine: 30
                 Chance: 7000
           - Grade: C
+            # SafaRO: Zuschlag verdoppelt (amtlich 50) - Grade soll sich lohnen.
+            Bonus: 100
             Chances:
               - Refine: 21
                 Chance: 6000
@@ -169,6 +175,8 @@ Body:
               - Refine: 30
                 Chance: 6000
           - Grade: B
+            # SafaRO: Zuschlag verdoppelt (amtlich 100) - Grade soll sich lohnen.
+            Bonus: 200
             Chances:
               - Refine: 21
                 Chance: 5000
@@ -195,6 +203,8 @@ Body:
       - Level: 5
         Grades:
           - Grade: None
+            # SafaRO: Zuschlag verdoppelt (amtlich 10) - Grade soll sich lohnen.
+            Bonus: 20
             Chances:
               - Refine: 21
                 Chance: 8000
@@ -217,6 +227,8 @@ Body:
               - Refine: 30
                 Chance: 8000
           - Grade: D
+            # SafaRO: Zuschlag verdoppelt (amtlich 30) - Grade soll sich lohnen.
+            Bonus: 60
             Chances:
               - Refine: 21
                 Chance: 7000
@@ -239,6 +251,8 @@ Body:
               - Refine: 30
                 Chance: 7000
           - Grade: C
+            # SafaRO: Zuschlag verdoppelt (amtlich 50) - Grade soll sich lohnen.
+            Bonus: 100
             Chances:
               - Refine: 21
                 Chance: 6000
@@ -261,6 +275,8 @@ Body:
               - Refine: 30
                 Chance: 6000
           - Grade: B
+            # SafaRO: Zuschlag verdoppelt (amtlich 100) - Grade soll sich lohnen.
+            Bonus: 200
             Chances:
               - Refine: 21
                 Chance: 5000
