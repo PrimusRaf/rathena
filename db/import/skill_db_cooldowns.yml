@@ -1,0 +1,1799 @@
+# Erzeugt von tools/cooldowns/bauen.py - NICHT von Hand
+# pflegen, ein Nachlauf ueberschreibt alles. Regeln und
+# Begruendung stehen im Werkzeug. FAKTOR=0.0, Ausnahmen: GD_
+Header:
+  Type: SKILL_DB
+  Version: 4
+
+Body:
+  - Id: 7
+    Name: SM_MAGNUM
+    Cooldown: 0
+  - Id: 8
+    Name: SM_ENDURE
+    Cooldown: 0
+  - Id: 33
+    Name: AL_ANGELUS
+    Cooldown: 0
+  - Id: 57
+    Name: KN_BRANDISHSPEAR
+    Cooldown: 0
+  - Id: 62
+    Name: KN_BOWLINGBASH
+    Cooldown: 0
+  - Id: 66
+    Name: PR_IMPOSITIO
+    Cooldown: 0
+  - Id: 67
+    Name: PR_SUFFRAGIUM
+    Cooldown: 0
+  - Id: 79
+    Name: PR_MAGNUS
+    Cooldown: 0
+  - Id: 83
+    Name: WZ_METEOR
+    Cooldown: 0
+  - Id: 85
+    Name: WZ_VERMILION
+    Cooldown: 0
+  - Id: 89
+    Name: WZ_STORMGUST
+    Cooldown: 0
+  - Id: 91
+    Name: WZ_HEAVENDRIVE
+    Cooldown: 0
+  - Id: 136
+    Name: AS_SONICBLOW
+    Cooldown: 0
+  - Id: 141
+    Name: AS_SPLASHER
+    Cooldown: 0
+  - Id: 155
+    Name: MC_LOUD
+    Cooldown: 0
+  - Id: 212
+    Name: RG_BACKSTAP
+    Cooldown: 0
+  - Id: 244
+    Name: AM_REST
+    Cooldown: 0
+  - Id: 247
+    Name: AM_RESURRECTHOMUN
+    Cooldown: 0
+  - Id: 254
+    Name: CR_GRANDCROSS
+    Cooldown: 0
+  - Id: 267
+    Name: MO_FINGEROFFENSIVE
+    Cooldown: 0
+  - Id: 269
+    Name: MO_BLADESTOP
+    Cooldown: 0
+  - Id: 304
+    Name: BD_ADAPTATION
+    Cooldown: 0
+  - Id: 305
+    Name: BD_ENCORE
+    Cooldown: 0
+  - Id: 306
+    Name: BD_LULLABY
+    Cooldown: 0
+  - Id: 307
+    Name: BD_RICHMANKIM
+    Cooldown: 0
+  - Id: 308
+    Name: BD_ETERNALCHAOS
+    Cooldown: 0
+  - Id: 309
+    Name: BD_DRUMBATTLEFIELD
+    Cooldown: 0
+  - Id: 310
+    Name: BD_RINGNIBELUNGEN
+    Cooldown: 0
+  - Id: 311
+    Name: BD_ROKISWEIL
+    Cooldown: 0
+  - Id: 312
+    Name: BD_INTOABYSS
+    Cooldown: 0
+  - Id: 313
+    Name: BD_SIEGFRIED
+    Cooldown: 0
+  - Id: 317
+    Name: BA_DISSONANCE
+    Cooldown: 0
+  - Id: 318
+    Name: BA_FROSTJOKER
+    Cooldown: 0
+  - Id: 319
+    Name: BA_WHISTLE
+    Cooldown: 0
+  - Id: 320
+    Name: BA_ASSASSINCROSS
+    Cooldown: 0
+  - Id: 321
+    Name: BA_POEMBRAGI
+    Cooldown: 0
+  - Id: 322
+    Name: BA_APPLEIDUN
+    Cooldown: 0
+  - Id: 325
+    Name: DC_UGLYDANCE
+    Cooldown: 0
+  - Id: 326
+    Name: DC_SCREAM
+    Cooldown: 0
+  - Id: 327
+    Name: DC_HUMMING
+    Cooldown: 0
+  - Id: 328
+    Name: DC_DONTFORGETME
+    Cooldown: 0
+  - Id: 329
+    Name: DC_FORTUNEKISS
+    Cooldown: 0
+  - Id: 330
+    Name: DC_SERVICEFORYOU
+    Cooldown: 0
+  - Id: 362
+    Name: HP_BASILICA
+    Cooldown: 0
+  - Id: 375
+    Name: PF_SOULBURN
+    Cooldown: 0
+  - Id: 378
+    Name: ASC_EDP
+    Cooldown: 0
+  - Id: 379
+    Name: ASC_BREAKER
+    Cooldown: 0
+  - Id: 382
+    Name: SN_SHARPSHOOTING
+    Cooldown: 0
+  - Id: 394
+    Name: CG_ARROWVULCAN
+    Cooldown: 0
+  - Id: 400
+    Name: HW_NAPALMVULCAN
+    Cooldown: 0
+  - Id: 406
+    Name: ASC_METEORASSAULT
+    Cooldown: 0
+  - Id: 484
+    Name: HW_GRAVITATION
+    Cooldown: 0
+  - Id: 489
+    Name: CG_TAROTCARD
+    Cooldown: 0
+  - Id: 490
+    Name: CR_ACIDDEMONSTRATION
+    Cooldown: 0
+  - Id: 524
+    Name: NJ_KUNAI
+    Cooldown: 0
+  - Id: 528
+    Name: NJ_KASUMIKIRI
+    Cooldown: 0
+  - Id: 536
+    Name: NJ_BAKUENRYU
+    Cooldown: 0
+  - Id: 539
+    Name: NJ_HYOUSYOURAKU
+    Cooldown: 0
+  - Id: 693
+    Name: ALL_PARTYFLEE
+    Cooldown: 0
+  - Id: 715
+    Name: NPC_DARKPIERCING
+    Cooldown: 0
+  - Id: 784
+    Name: ALL_EVENT_20TH_ANNIVERSARY
+    Cooldown: 0
+  - Id: 1001
+    Name: KN_CHARGEATK
+    Cooldown: 0
+  - Id: 1010
+    Name: BA_PANGVOICE
+    Cooldown: 0
+  - Id: 1011
+    Name: DC_WINKCHARM
+    Cooldown: 0
+  - Id: 2002
+    Name: RK_SONICWAVE
+    Cooldown: 0
+  - Id: 2003
+    Name: RK_DEATHBOUND
+    Cooldown: 0
+  - Id: 2004
+    Name: RK_HUNDREDSPEAR
+    Cooldown: 0
+  - Id: 2005
+    Name: RK_WINDCUTTER
+    Cooldown: 0
+  - Id: 2006
+    Name: RK_IGNITIONBREAK
+    Cooldown: 0
+  - Id: 2009
+    Name: RK_DRAGONHOWLING
+    Cooldown: 0
+  - Id: 2201
+    Name: WL_WHITEIMPRISON
+    Cooldown: 0
+  - Id: 2203
+    Name: WL_FROSTMISTY
+    Cooldown: 0
+  - Id: 2204
+    Name: WL_JACKFROST
+    Cooldown: 0
+  - Id: 2205
+    Name: WL_MARSHOFABYSS
+    Cooldown: 0
+  - Id: 2206
+    Name: WL_RECOGNIZEDSPELL
+    Cooldown: 0
+  - Id: 2209
+    Name: WL_STASIS
+    Cooldown: 0
+  - Id: 2210
+    Name: WL_DRAINLIFE
+    Cooldown: 0
+  - Id: 2211
+    Name: WL_CRIMSONROCK
+    Cooldown: 0
+  - Id: 2212
+    Name: WL_HELLINFERNO
+    Cooldown: 0
+  - Id: 2213
+    Name: WL_COMET
+    Cooldown: 0
+  - Id: 2216
+    Name: WL_EARTHSTRAIN
+    Cooldown: 0
+  - Id: 2217
+    Name: WL_TETRAVORTEX
+    Cooldown: 0
+  - Id: 2022
+    Name: GC_CROSSIMPACT
+    Cooldown: 0
+  - Id: 2035
+    Name: GC_HALLUCINATIONWALK
+    Cooldown: 0
+  - Id: 2037
+    Name: GC_CROSSRIPPERSLASHER
+    Cooldown: 0
+  - Id: 2040
+    Name: AB_ADORAMUS
+    Cooldown: 0
+  - Id: 2043
+    Name: AB_CHEAL
+    Cooldown: 0
+  - Id: 2044
+    Name: AB_EPICLESIS
+    Cooldown: 0
+  - Id: 2045
+    Name: AB_PRAEFATIO
+    Cooldown: 0
+  - Id: 2046
+    Name: AB_ORATIO
+    Cooldown: 0
+  - Id: 2047
+    Name: AB_LAUDAAGNUS
+    Cooldown: 0
+  - Id: 2048
+    Name: AB_LAUDARAMUS
+    Cooldown: 0
+  - Id: 2050
+    Name: AB_RENOVATIO
+    Cooldown: 0
+  - Id: 2051
+    Name: AB_HIGHNESSHEAL
+    Cooldown: 0
+  - Id: 2052
+    Name: AB_CLEARANCE
+    Cooldown: 0
+  - Id: 2057
+    Name: AB_SILENTIUM
+    Cooldown: 0
+  - Id: 2233
+    Name: RA_ARROWSTORM
+    Cooldown: 0
+  - Id: 2236
+    Name: RA_AIMEDBOLT
+    Cooldown: 0
+  - Id: 2244
+    Name: RA_WUGBITE
+    Cooldown: 0
+  - Id: 2257
+    Name: NC_PILEBUNKER
+    Cooldown: 0
+  - Id: 2261
+    Name: NC_ARMSCANNON
+    Cooldown: 0
+  - Id: 2267
+    Name: NC_SELFDESTRUCTION
+    Cooldown: 0
+  - Id: 2269
+    Name: NC_EMERGENCYCOOL
+    Cooldown: 0
+  - Id: 2270
+    Name: NC_INFRAREDSCAN
+    Cooldown: 0
+  - Id: 2272
+    Name: NC_MAGNETICFIELD
+    Cooldown: 0
+  - Id: 2273
+    Name: NC_NEUTRALBARRIER
+    Cooldown: 0
+  - Id: 2274
+    Name: NC_STEALTHFIELD
+    Cooldown: 0
+  - Id: 2278
+    Name: NC_AXEBOOMERANG
+    Cooldown: 0
+  - Id: 2280
+    Name: NC_AXETORNADO
+    Cooldown: 0
+  - Id: 2288
+    Name: SC_TRIANGLESHOT
+    Cooldown: 0
+  - Id: 2289
+    Name: SC_BODYPAINT
+    Cooldown: 0
+  - Id: 2290
+    Name: SC_INVISIBILITY
+    Cooldown: 0
+  - Id: 2291
+    Name: SC_DEADLYINFECT
+    Cooldown: 0
+  - Id: 2292
+    Name: SC_ENERVATION
+    Cooldown: 0
+  - Id: 2293
+    Name: SC_GROOMY
+    Cooldown: 0
+  - Id: 2294
+    Name: SC_IGNORANCE
+    Cooldown: 0
+  - Id: 2295
+    Name: SC_LAZINESS
+    Cooldown: 0
+  - Id: 2296
+    Name: SC_UNLUCKY
+    Cooldown: 0
+  - Id: 2297
+    Name: SC_WEAKNESS
+    Cooldown: 0
+  - Id: 2303
+    Name: SC_BLOODYLUST
+    Cooldown: 0
+  - Id: 2304
+    Name: SC_FEINTBOMB
+    Cooldown: 0
+  - Id: 2307
+    Name: LG_CANNONSPEAR
+    Cooldown: 0
+  - Id: 2310
+    Name: LG_SHIELDPRESS
+    Cooldown: 0
+  - Id: 2311
+    Name: LG_REFLECTDAMAGE
+    Cooldown: 0
+  - Id: 2312
+    Name: LG_PINPOINTATTACK
+    Cooldown: 0
+  - Id: 2315
+    Name: LG_SHIELDSPELL
+    Cooldown: 0
+  - Id: 2317
+    Name: LG_OVERBRAND
+    Cooldown: 0
+  - Id: 2318
+    Name: LG_PRESTIGE
+    Cooldown: 0
+  - Id: 2319
+    Name: LG_BANDING
+    Cooldown: 0
+  - Id: 2320
+    Name: LG_MOONSLASHER
+    Cooldown: 0
+  - Id: 2321
+    Name: LG_RAYOFGENESIS
+    Cooldown: 0
+  - Id: 2323
+    Name: LG_EARTHDRIVE
+    Cooldown: 0
+  - Id: 2324
+    Name: LG_HESPERUSLIT
+    Cooldown: 0
+  - Id: 2325
+    Name: LG_INSPIRATION
+    Cooldown: 0
+  - Id: 2328
+    Name: SR_EARTHSHAKER
+    Cooldown: 0
+  - Id: 2330
+    Name: SR_TIGERCANNON
+    Cooldown: 0
+  - Id: 2332
+    Name: SR_RAMPAGEBLASTER
+    Cooldown: 0
+  - Id: 2333
+    Name: SR_CRESCENTELBOW
+    Cooldown: 0
+  - Id: 2334
+    Name: SR_CURSEDCIRCLE
+    Cooldown: 0
+  - Id: 2335
+    Name: SR_LIGHTNINGWALK
+    Cooldown: 0
+  - Id: 2337
+    Name: SR_WINDMILL
+    Cooldown: 0
+  - Id: 2338
+    Name: SR_RAISINGDRAGON
+    Cooldown: 0
+  - Id: 2340
+    Name: SR_ASSIMILATEPOWER
+    Cooldown: 0
+  - Id: 2344
+    Name: SR_GENTLETOUCH_QUIET
+    Cooldown: 0
+  - Id: 2345
+    Name: SR_GENTLETOUCH_CURE
+    Cooldown: 0
+  - Id: 2347
+    Name: SR_GENTLETOUCH_CHANGE
+    Cooldown: 0
+  - Id: 2348
+    Name: SR_GENTLETOUCH_REVITALIZE
+    Cooldown: 0
+  - Id: 2517
+    Name: SR_HOWLINGOFLION
+    Cooldown: 0
+  - Id: 2518
+    Name: SR_RIDEINLIGHTNING
+    Cooldown: 0
+  - Id: 2350
+    Name: WA_SWING_DANCE
+    Cooldown: 0
+  - Id: 2351
+    Name: WA_SYMPHONY_OF_LOVER
+    Cooldown: 0
+  - Id: 2352
+    Name: WA_MOONLIT_SERENADE
+    Cooldown: 0
+  - Id: 2381
+    Name: MI_RUSH_WINDMILL
+    Cooldown: 0
+  - Id: 2383
+    Name: MI_HARMONIZE
+    Cooldown: 0
+  - Id: 2413
+    Name: WM_METALICSOUND
+    Cooldown: 0
+  - Id: 2414
+    Name: WM_REVERBERATION
+    Cooldown: 0
+  - Id: 2418
+    Name: WM_SEVERE_RAINSTORM
+    Cooldown: 0
+  - Id: 2420
+    Name: WM_VOICEOFSIREN
+    Cooldown: 0
+  - Id: 2422
+    Name: WM_LULLABY_DEEPSLEEP
+    Cooldown: 0
+  - Id: 2423
+    Name: WM_SIRCLEOFNATURE
+    Cooldown: 0
+  - Id: 2424
+    Name: WM_RANDOMIZESPELL
+    Cooldown: 0
+  - Id: 2425
+    Name: WM_GLOOMYDAY
+    Cooldown: 0
+  - Id: 2426
+    Name: WM_GREAT_ECHO
+    Cooldown: 0
+  - Id: 2427
+    Name: WM_SONG_OF_MANA
+    Cooldown: 0
+  - Id: 2428
+    Name: WM_DANCE_WITH_WUG
+    Cooldown: 0
+  - Id: 2429
+    Name: WM_SOUND_OF_DESTRUCTION
+    Cooldown: 0
+  - Id: 2430
+    Name: WM_SATURDAY_NIGHT_FEVER
+    Cooldown: 0
+  - Id: 2431
+    Name: WM_LERADS_DEW
+    Cooldown: 0
+  - Id: 2432
+    Name: WM_MELODYOFSINK
+    Cooldown: 0
+  - Id: 2433
+    Name: WM_BEYOND_OF_WARCRY
+    Cooldown: 0
+  - Id: 2434
+    Name: WM_UNLIMITED_HUMMING_VOICE
+    Cooldown: 0
+  - Id: 2446
+    Name: SO_EARTHGRAVE
+    Cooldown: 0
+  - Id: 2447
+    Name: SO_DIAMONDDUST
+    Cooldown: 0
+  - Id: 2448
+    Name: SO_POISON_BUSTER
+    Cooldown: 0
+  - Id: 2449
+    Name: SO_PSYCHIC_WAVE
+    Cooldown: 0
+  - Id: 2450
+    Name: SO_CLOUD_KILL
+    Cooldown: 0
+  - Id: 2451
+    Name: SO_STRIKING
+    Cooldown: 0
+  - Id: 2452
+    Name: SO_WARMER
+    Cooldown: 0
+  - Id: 2453
+    Name: SO_VACUUM_EXTREME
+    Cooldown: 0
+  - Id: 2454
+    Name: SO_VARETYR_SPEAR
+    Cooldown: 0
+  - Id: 2455
+    Name: SO_ARRULLO
+    Cooldown: 0
+  - Id: 2456
+    Name: SO_EL_CONTROL
+    Cooldown: 0
+  - Id: 2457
+    Name: SO_SUMMON_AGNI
+    Cooldown: 0
+  - Id: 2458
+    Name: SO_SUMMON_AQUA
+    Cooldown: 0
+  - Id: 2459
+    Name: SO_SUMMON_VENTUS
+    Cooldown: 0
+  - Id: 2460
+    Name: SO_SUMMON_TERA
+    Cooldown: 0
+  - Id: 2461
+    Name: SO_EL_ACTION
+    Cooldown: 0
+  - Id: 2465
+    Name: SO_FIRE_INSIGNIA
+    Cooldown: 0
+  - Id: 2466
+    Name: SO_WATER_INSIGNIA
+    Cooldown: 0
+  - Id: 2467
+    Name: SO_WIND_INSIGNIA
+    Cooldown: 0
+  - Id: 2468
+    Name: SO_EARTH_INSIGNIA
+    Cooldown: 0
+  - Id: 2476
+    Name: GN_CART_TORNADO
+    Cooldown: 0
+  - Id: 2480
+    Name: GN_BLOOD_SUCKER
+    Cooldown: 0
+  - Id: 2481
+    Name: GN_SPORE_EXPLOSION
+    Cooldown: 0
+  - Id: 2482
+    Name: GN_WALLOFTHORN
+    Cooldown: 0
+  - Id: 2483
+    Name: GN_CRAZYWEED
+    Cooldown: 0
+  - Id: 2485
+    Name: GN_DEMONIC_FIRE
+    Cooldown: 0
+  - Id: 2492
+    Name: GN_MANDRAGORA
+    Cooldown: 0
+  - Id: 2493
+    Name: GN_SLINGITEM
+    Cooldown: 0
+  - Id: 2534
+    Name: RETURN_TO_ELDICASTES
+    Cooldown: 0
+  - Id: 2536
+    Name: ALL_GUARDIAN_RECALL
+    Cooldown: 0
+  - Id: 2552
+    Name: RL_RICHS_COIN
+    Cooldown: 0
+  - Id: 2553
+    Name: RL_MASS_SPIRAL
+    Cooldown: 0
+  - Id: 2554
+    Name: RL_BANISHING_BUSTER
+    Cooldown: 0
+  - Id: 2555
+    Name: RL_B_TRAP
+    Cooldown: 0
+  - Id: 2557
+    Name: RL_S_STORM
+    Cooldown: 0
+  - Id: 2560
+    Name: RL_C_MARKER
+    Cooldown: 0
+  - Id: 2562
+    Name: RL_H_MINE
+    Cooldown: 0
+  - Id: 2565
+    Name: RL_R_TRIP
+    Cooldown: 0
+  - Id: 2566
+    Name: RL_D_TAIL
+    Cooldown: 0
+  - Id: 2567
+    Name: RL_FIRE_RAIN
+    Cooldown: 0
+  - Id: 2568
+    Name: RL_HEAT_BARREL
+    Cooldown: 0
+  - Id: 2569
+    Name: RL_AM_BLAST
+    Cooldown: 0
+  - Id: 2570
+    Name: RL_SLUGSHOT
+    Cooldown: 0
+  - Id: 2571
+    Name: RL_HAMMER_OF_GOD
+    Cooldown: 0
+  - Id: 2576
+    Name: SJ_FULLMOONKICK
+    Cooldown: 0
+  - Id: 2579
+    Name: SJ_NEWMOONKICK
+    Cooldown: 0
+  - Id: 2581
+    Name: SJ_STAREMPEROR
+    Cooldown: 0
+  - Id: 2582
+    Name: SJ_NOVAEXPLOSING
+    Cooldown: 0
+  - Id: 2585
+    Name: SJ_GRAVITYCONTROL
+    Cooldown: 0
+  - Id: 2586
+    Name: SJ_BOOKOFDIMENSION
+    Cooldown: 0
+  - Id: 2587
+    Name: SJ_BOOKOFCREATINGSTAR
+    Cooldown: 0
+  - Id: 2588
+    Name: SJ_DOCUMENT
+    Cooldown: 0
+  - Id: 2600
+    Name: SP_CURSEEXPLOSION
+    Cooldown: 0
+  - Id: 2601
+    Name: SP_SOULCURSE
+    Cooldown: 0
+  - Id: 2603
+    Name: SP_SHA
+    Cooldown: 0
+  - Id: 2604
+    Name: SP_SWHOO
+    Cooldown: 0
+  - Id: 2605
+    Name: SP_SOULUNITY
+    Cooldown: 0
+  - Id: 2606
+    Name: SP_SOULDIVISION
+    Cooldown: 0
+  - Id: 2607
+    Name: SP_SOULREAPER
+    Cooldown: 0
+  - Id: 2608
+    Name: SP_SOULREVOLVE
+    Cooldown: 0
+  - Id: 2610
+    Name: SP_SOULEXPLOSION
+    Cooldown: 0
+  - Id: 2612
+    Name: SP_KAUTE
+    Cooldown: 0
+  - Id: 3004
+    Name: KO_JYUMONJIKIRI
+    Cooldown: 0
+  - Id: 3005
+    Name: KO_SETSUDAN
+    Cooldown: 0
+  - Id: 3006
+    Name: KO_BAKURETSU
+    Cooldown: 0
+  - Id: 3008
+    Name: KO_MUCHANAGE
+    Cooldown: 0
+  - Id: 3009
+    Name: KO_HUUMARANKA
+    Cooldown: 0
+  - Id: 3010
+    Name: KO_MAKIBISHI
+    Cooldown: 0
+  - Id: 3011
+    Name: KO_MEIKYOUSISUI
+    Cooldown: 0
+  - Id: 3012
+    Name: KO_ZANZOU
+    Cooldown: 0
+  - Id: 3013
+    Name: KO_KYOUGAKU
+    Cooldown: 0
+  - Id: 3014
+    Name: KO_JYUSATSU
+    Cooldown: 0
+  - Id: 3021
+    Name: KO_GENWAKU
+    Cooldown: 0
+  - Id: 3022
+    Name: KO_IZAYOI
+    Cooldown: 0
+  - Id: 3024
+    Name: KG_KYOMU
+    Cooldown: 0
+  - Id: 3025
+    Name: KG_KAGEMUSYA
+    Cooldown: 0
+  - Id: 3026
+    Name: OB_ZANGETSU
+    Cooldown: 0
+  - Id: 3027
+    Name: OB_OBOROGENSOU
+    Cooldown: 0
+  - Id: 3029
+    Name: OB_AKAITSUKI
+    Cooldown: 0
+  - Id: 3031
+    Name: ECL_SNOWFLIP
+    Cooldown: 0
+  - Id: 3032
+    Name: ECL_PEONYMAMY
+    Cooldown: 0
+  - Id: 3033
+    Name: ECL_SADAGUI
+    Cooldown: 0
+  - Id: 3034
+    Name: ECL_SEQUOIADUST
+    Cooldown: 0
+  - Id: 3035
+    Name: ECLAGE_RECALL
+    Cooldown: 0
+  - Id: 3041
+    Name: ALL_NIFLHEIM_RECALL
+    Cooldown: 0
+  - Id: 3042
+    Name: ALL_PRONTERA_RECALL
+    Cooldown: 0
+  - Id: 3043
+    Name: ALL_GLASTHEIM_RECALL
+    Cooldown: 0
+  - Id: 3044
+    Name: ALL_THANATOS_RECALL
+    Cooldown: 0
+  - Id: 3045
+    Name: ALL_LIGHTHALZEN_RECALL
+    Cooldown: 0
+  - Id: 5001
+    Name: GC_DARKCROW
+    Cooldown: 0
+  - Id: 5002
+    Name: RA_UNLIMIT
+    Cooldown: 0
+  - Id: 5003
+    Name: GN_ILLUSIONDOPING
+    Cooldown: 0
+  - Id: 5006
+    Name: NC_MAGMA_ERUPTION
+    Cooldown: 0
+  - Id: 5009
+    Name: SR_FLASHCOMBO
+    Cooldown: 0
+  - Id: 5010
+    Name: SC_ESCAPE
+    Cooldown: 0
+  - Id: 5012
+    Name: WL_TELEKINESIS_INTENSE
+    Cooldown: 0
+  - Id: 5013
+    Name: LG_KINGS_GRACE
+    Cooldown: 0
+  - Id: 5014
+    Name: ALL_FULL_THROTTLE
+    Cooldown: 0
+  - Id: 5020
+    Name: SU_HIDE
+    Cooldown: 0
+  - Id: 5021
+    Name: SU_SCRATCH
+    Cooldown: 0
+  - Id: 5022
+    Name: SU_STOOP
+    Cooldown: 0
+  - Id: 5023
+    Name: SU_LOPE
+    Cooldown: 0
+  - Id: 5026
+    Name: SU_SV_STEMSPEAR
+    Cooldown: 0
+  - Id: 5027
+    Name: SU_CN_POWDERING
+    Cooldown: 0
+  - Id: 5028
+    Name: SU_CN_METEOR
+    Cooldown: 0
+  - Id: 5029
+    Name: SU_SV_ROOTTWIST
+    Cooldown: 0
+  - Id: 5032
+    Name: SU_SCAROFTAROU
+    Cooldown: 0
+  - Id: 5035
+    Name: SU_ARCLOUSEDASH
+    Cooldown: 0
+  - Id: 5036
+    Name: SU_LUNATICCARROTBEAT
+    Cooldown: 0
+  - Id: 5038
+    Name: SU_TUNABELLY
+    Cooldown: 0
+  - Id: 5039
+    Name: SU_TUNAPARTY
+    Cooldown: 0
+  - Id: 5040
+    Name: SU_BUNCHOFSHRIMP
+    Cooldown: 0
+  - Id: 5041
+    Name: SU_FRESHSHRIMP
+    Cooldown: 0
+  - Id: 5045
+    Name: SU_POWEROFFLOCK
+    Cooldown: 0
+  - Id: 5046
+    Name: SU_SVG_SPIRIT
+    Cooldown: 0
+  - Id: 5047
+    Name: SU_HISS
+    Cooldown: 0
+  - Id: 5048
+    Name: SU_NYANGGRASS
+    Cooldown: 0
+  - Id: 5049
+    Name: SU_GROOMING
+    Cooldown: 0
+  - Id: 5050
+    Name: SU_PURRING
+    Cooldown: 0
+  - Id: 5051
+    Name: SU_SHRIMPARTY
+    Cooldown: 0
+  - Id: 5053
+    Name: SU_MEOWMEOW
+    Cooldown: 0
+  - Id: 5055
+    Name: SU_CHATTERING
+    Cooldown: 0
+  - Id: 5063
+    Name: WE_CALLALLFAMILY
+    Cooldown: 0
+  - Id: 5064
+    Name: WE_ONEFOREVER
+    Cooldown: 0
+  - Id: 5065
+    Name: WE_CHEERUP
+    Cooldown: 0
+  - Id: 5067
+    Name: ALL_EQSWITCH
+    Cooldown: 0
+  - Id: 5068
+    Name: CG_SPECIALSINGER
+    Cooldown: 0
+  - Id: 5072
+    Name: AB_VITUPERATUM
+    Cooldown: 0
+  - Id: 5073
+    Name: AB_CONVENIO
+    Cooldown: 0
+  - Id: 5076
+    Name: NV_HELPANGEL
+    Cooldown: 0
+  - Id: 5201
+    Name: DK_SERVANTWEAPON
+    Cooldown: 0
+  - Id: 5204
+    Name: DK_SERVANT_W_PHANTOM
+    Cooldown: 0
+  - Id: 5205
+    Name: DK_SERVANT_W_DEMOL
+    Cooldown: 0
+  - Id: 5206
+    Name: DK_CHARGINGPIERCE
+    Cooldown: 0
+  - Id: 5208
+    Name: DK_HACKANDSLASHER
+    Cooldown: 0
+  - Id: 5210
+    Name: DK_DRAGONIC_AURA
+    Cooldown: 0
+  - Id: 5211
+    Name: DK_MADNESS_CRUSHER
+    Cooldown: 0
+  - Id: 5212
+    Name: DK_VIGOR
+    Cooldown: 0
+  - Id: 5213
+    Name: DK_STORMSLASH
+    Cooldown: 0
+  - Id: 5214
+    Name: AG_DEADLY_PROJECTION
+    Cooldown: 0
+  - Id: 5215
+    Name: AG_DESTRUCTIVE_HURRICANE
+    Cooldown: 0
+  - Id: 5216
+    Name: AG_RAIN_OF_CRYSTAL
+    Cooldown: 0
+  - Id: 5217
+    Name: AG_MYSTERY_ILLUSION
+    Cooldown: 0
+  - Id: 5218
+    Name: AG_VIOLENT_QUAKE
+    Cooldown: 0
+  - Id: 5220
+    Name: AG_SOUL_VC_STRIKE
+    Cooldown: 0
+  - Id: 5221
+    Name: AG_STRANTUM_TREMOR
+    Cooldown: 0
+  - Id: 5222
+    Name: AG_ALL_BLOOM
+    Cooldown: 0
+  - Id: 5225
+    Name: AG_CRYSTAL_IMPACT
+    Cooldown: 0
+  - Id: 5227
+    Name: AG_TORNADO_STORM
+    Cooldown: 0
+  - Id: 5229
+    Name: AG_FLORAL_FLARE_ROAD
+    Cooldown: 0
+  - Id: 5230
+    Name: AG_ASTRAL_STRIKE
+    Cooldown: 0
+  - Id: 5232
+    Name: AG_CLIMAX
+    Cooldown: 0
+  - Id: 5233
+    Name: AG_ROCK_DOWN
+    Cooldown: 0
+  - Id: 5234
+    Name: AG_STORM_CANNON
+    Cooldown: 0
+  - Id: 5235
+    Name: AG_CRIMSON_ARROW
+    Cooldown: 0
+  - Id: 5237
+    Name: AG_FROZEN_SLASH
+    Cooldown: 0
+  - Id: 5238
+    Name: IQ_POWERFUL_FAITH
+    Cooldown: 0
+  - Id: 5239
+    Name: IQ_FIRM_FAITH
+    Cooldown: 0
+  - Id: 5241
+    Name: IQ_OLEUM_SANCTUM
+    Cooldown: 0
+  - Id: 5242
+    Name: IQ_SINCERE_FAITH
+    Cooldown: 0
+  - Id: 5243
+    Name: IQ_MASSIVE_F_BLASTER
+    Cooldown: 0
+  - Id: 5244
+    Name: IQ_EXPOSION_BLASTER
+    Cooldown: 0
+  - Id: 5245
+    Name: IQ_FIRST_BRAND
+    Cooldown: 0
+  - Id: 5246
+    Name: IQ_FIRST_FAITH_POWER
+    Cooldown: 0
+  - Id: 5247
+    Name: IQ_JUDGE
+    Cooldown: 0
+  - Id: 5248
+    Name: IQ_SECOND_FLAME
+    Cooldown: 0
+  - Id: 5249
+    Name: IQ_SECOND_FAITH
+    Cooldown: 0
+  - Id: 5250
+    Name: IQ_SECOND_JUDGEMENT
+    Cooldown: 0
+  - Id: 5251
+    Name: IQ_THIRD_PUNISH
+    Cooldown: 0
+  - Id: 5252
+    Name: IQ_THIRD_FLAME_BOMB
+    Cooldown: 0
+  - Id: 5253
+    Name: IQ_THIRD_CONSECRATION
+    Cooldown: 0
+  - Id: 5254
+    Name: IQ_THIRD_EXOR_FLAME
+    Cooldown: 0
+  - Id: 5256
+    Name: IG_GUARDIAN_SHIELD
+    Cooldown: 0
+  - Id: 5257
+    Name: IG_REBOUND_SHIELD
+    Cooldown: 0
+  - Id: 5261
+    Name: IG_ULTIMATE_SACRIFICE
+    Cooldown: 0
+  - Id: 5262
+    Name: IG_HOLY_SHIELD
+    Cooldown: 0
+  - Id: 5263
+    Name: IG_GRAND_JUDGEMENT
+    Cooldown: 0
+  - Id: 5264
+    Name: IG_JUDGEMENT_CROSS
+    Cooldown: 0
+  - Id: 5265
+    Name: IG_SHIELD_SHOOTING
+    Cooldown: 0
+  - Id: 5266
+    Name: IG_OVERSLASH
+    Cooldown: 0
+  - Id: 5267
+    Name: IG_CROSS_RAIN
+    Cooldown: 0
+  - Id: 5268
+    Name: CD_REPARATIO
+    Cooldown: 0
+  - Id: 5269
+    Name: CD_MEDIALE_VOTUM
+    Cooldown: 0
+  - Id: 5273
+    Name: CD_ARBITRIUM
+    Cooldown: 0
+  - Id: 5277
+    Name: CD_EFFLIGO
+    Cooldown: 0
+  - Id: 5278
+    Name: CD_COMPETENTIA
+    Cooldown: 0
+  - Id: 5279
+    Name: CD_PNEUMATICUS_PROCELLA
+    Cooldown: 0
+  - Id: 5280
+    Name: CD_DILECTIO_HEAL
+    Cooldown: 0
+  - Id: 5281
+    Name: CD_RELIGIO
+    Cooldown: 0
+  - Id: 5282
+    Name: CD_BENEDICTUM
+    Cooldown: 0
+  - Id: 5283
+    Name: CD_PETITIO
+    Cooldown: 0
+  - Id: 5284
+    Name: CD_FRAMEN
+    Cooldown: 0
+  - Id: 5285
+    Name: SHC_SHADOW_EXCEED
+    Cooldown: 0
+  - Id: 5286
+    Name: SHC_DANCING_KNIFE
+    Cooldown: 0
+  - Id: 5287
+    Name: SHC_SAVAGE_IMPACT
+    Cooldown: 0
+  - Id: 5289
+    Name: SHC_ETERNAL_SLASH
+    Cooldown: 0
+  - Id: 5290
+    Name: SHC_POTENT_VENOM
+    Cooldown: 0
+  - Id: 5291
+    Name: SHC_SHADOW_STAB
+    Cooldown: 0
+  - Id: 5292
+    Name: SHC_IMPACT_CRATER
+    Cooldown: 0
+  - Id: 5293
+    Name: SHC_ENCHANTING_SHADOW
+    Cooldown: 0
+  - Id: 5294
+    Name: SHC_FATAL_SHADOW_CROW
+    Cooldown: 0
+  - Id: 5295
+    Name: MT_AXE_STOMP
+    Cooldown: 0
+  - Id: 5296
+    Name: MT_RUSH_QUAKE
+    Cooldown: 0
+  - Id: 5302
+    Name: MT_SUMMON_ABR_BATTLE_WARIOR
+    Cooldown: 0
+  - Id: 5303
+    Name: MT_SUMMON_ABR_DUAL_CANNON
+    Cooldown: 0
+  - Id: 5304
+    Name: MT_SUMMON_ABR_MOTHER_NET
+    Cooldown: 0
+  - Id: 5305
+    Name: MT_SUMMON_ABR_INFINITY
+    Cooldown: 0
+  - Id: 5313
+    Name: ABC_STRIP_SHADOW
+    Cooldown: 0
+  - Id: 5314
+    Name: ABC_ABYSS_DAGGER
+    Cooldown: 0
+  - Id: 5315
+    Name: ABC_UNLUCKY_RUSH
+    Cooldown: 0
+  - Id: 5316
+    Name: ABC_CHAIN_REACTION_SHOT
+    Cooldown: 0
+  - Id: 5317
+    Name: ABC_FROM_THE_ABYSS
+    Cooldown: 0
+  - Id: 5318
+    Name: ABC_ABYSS_SLAYER
+    Cooldown: 0
+  - Id: 5319
+    Name: ABC_ABYSS_STRIKE
+    Cooldown: 0
+  - Id: 5320
+    Name: ABC_DEFT_STAB
+    Cooldown: 0
+  - Id: 5321
+    Name: ABC_ABYSS_SQUARE
+    Cooldown: 0
+  - Id: 5322
+    Name: ABC_FRENZY_SHOT
+    Cooldown: 0
+  - Id: 5324
+    Name: WH_WIND_SIGN
+    Cooldown: 0
+  - Id: 5326
+    Name: WH_HAWKRUSH
+    Cooldown: 0
+  - Id: 5328
+    Name: WH_CALAMITYGALE
+    Cooldown: 0
+  - Id: 5329
+    Name: WH_HAWKBOOMERANG
+    Cooldown: 0
+  - Id: 5330
+    Name: WH_GALESTORM
+    Cooldown: 0
+  - Id: 5331
+    Name: WH_DEEPBLINDTRAP
+    Cooldown: 0
+  - Id: 5332
+    Name: WH_SOLIDTRAP
+    Cooldown: 0
+  - Id: 5333
+    Name: WH_SWIFTTRAP
+    Cooldown: 0
+  - Id: 5334
+    Name: WH_CRESCIVE_BOLT
+    Cooldown: 0
+  - Id: 5335
+    Name: WH_FLAMETRAP
+    Cooldown: 0
+  - Id: 5338
+    Name: BO_THE_WHOLE_PROTECTION
+    Cooldown: 0
+  - Id: 5340
+    Name: BO_ACIDIFIED_ZONE_WATER
+    Cooldown: 0
+  - Id: 5341
+    Name: BO_ACIDIFIED_ZONE_GROUND
+    Cooldown: 0
+  - Id: 5342
+    Name: BO_ACIDIFIED_ZONE_WIND
+    Cooldown: 0
+  - Id: 5343
+    Name: BO_ACIDIFIED_ZONE_FIRE
+    Cooldown: 0
+  - Id: 5344
+    Name: BO_WOODENWARRIOR
+    Cooldown: 0
+  - Id: 5345
+    Name: BO_WOODEN_FAIRY
+    Cooldown: 0
+  - Id: 5346
+    Name: BO_CREEPER
+    Cooldown: 0
+  - Id: 5347
+    Name: BO_RESEARCHREPORT
+    Cooldown: 0
+  - Id: 5348
+    Name: BO_HELLTREE
+    Cooldown: 0
+  - Id: 5350
+    Name: TR_RETROSPECTION
+    Cooldown: 0
+  - Id: 5351
+    Name: TR_MYSTIC_SYMPHONY
+    Cooldown: 0
+  - Id: 5352
+    Name: TR_KVASIR_SONATA
+    Cooldown: 0
+  - Id: 5353
+    Name: TR_ROSEBLOSSOM
+    Cooldown: 0
+  - Id: 5355
+    Name: TR_RHYTHMSHOOTING
+    Cooldown: 0
+  - Id: 5356
+    Name: TR_METALIC_FURY
+    Cooldown: 0
+  - Id: 5358
+    Name: TR_GEF_NOCTURN
+    Cooldown: 0
+  - Id: 5359
+    Name: TR_ROKI_CAPRICCIO
+    Cooldown: 0
+  - Id: 5360
+    Name: TR_AIN_RHAPSODY
+    Cooldown: 0
+  - Id: 5361
+    Name: TR_MUSICAL_INTERLUDE
+    Cooldown: 0
+  - Id: 5362
+    Name: TR_JAWAII_SERENADE
+    Cooldown: 0
+  - Id: 5363
+    Name: TR_NIPELHEIM_REQUIEM
+    Cooldown: 0
+  - Id: 5364
+    Name: TR_PRON_MARCH
+    Cooldown: 0
+  - Id: 5367
+    Name: EM_ACTIVITY_BURN
+    Cooldown: 0
+  - Id: 5368
+    Name: EM_INCREASING_ACTIVITY
+    Cooldown: 0
+  - Id: 5369
+    Name: EM_DIAMOND_STORM
+    Cooldown: 0
+  - Id: 5370
+    Name: EM_LIGHTNING_LAND
+    Cooldown: 0
+  - Id: 5371
+    Name: EM_VENOM_SWAMP
+    Cooldown: 0
+  - Id: 5372
+    Name: EM_CONFLAGRATION
+    Cooldown: 0
+  - Id: 5373
+    Name: EM_TERRA_DRIVE
+    Cooldown: 0
+  - Id: 5375
+    Name: EM_SUMMON_ELEMENTAL_ARDOR
+    Cooldown: 0
+  - Id: 5376
+    Name: EM_SUMMON_ELEMENTAL_DILUVIO
+    Cooldown: 0
+  - Id: 5377
+    Name: EM_SUMMON_ELEMENTAL_PROCELLA
+    Cooldown: 0
+  - Id: 5378
+    Name: EM_SUMMON_ELEMENTAL_TERREMOTUS
+    Cooldown: 0
+  - Id: 5379
+    Name: EM_SUMMON_ELEMENTAL_SERPENS
+    Cooldown: 0
+  - Id: 5380
+    Name: EM_ELEMENTAL_BUSTER
+    Cooldown: 0
+  - Id: 5381
+    Name: EM_ELEMENTAL_VEIL
+    Cooldown: 0
+  - Id: 5384
+    Name: BO_WOODEN_THROWROCK
+    Cooldown: 0
+  - Id: 5385
+    Name: BO_WOODEN_ATTACK
+    Cooldown: 0
+  - Id: 5386
+    Name: BO_HELL_HOWLING
+    Cooldown: 0
+  - Id: 5387
+    Name: BO_HELL_DUSTY
+    Cooldown: 0
+  - Id: 5388
+    Name: BO_FAIRY_DUSTY
+    Cooldown: 0
+  - Id: 5435
+    Name: SH_CHUL_HO_SONIC_CLAW
+    Cooldown: 0
+  - Id: 5436
+    Name: SH_HOWLING_OF_CHUL_HO
+    Cooldown: 0
+  - Id: 5437
+    Name: SH_HOGOGONG_STRIKE
+    Cooldown: 0
+  - Id: 5439
+    Name: SH_KI_SUL_WATER_SPRAYING
+    Cooldown: 0
+  - Id: 5440
+    Name: SH_MARINE_FESTIVAL_OF_KI_SUL
+    Cooldown: 0
+  - Id: 5441
+    Name: SH_SANDY_FESTIVAL_OF_KI_SUL
+    Cooldown: 0
+  - Id: 5442
+    Name: SH_KI_SUL_RAMPAGE
+    Cooldown: 0
+  - Id: 5445
+    Name: SH_HYUN_ROKS_BREEZE
+    Cooldown: 0
+  - Id: 5446
+    Name: SH_HYUN_ROK_CANNON
+    Cooldown: 0
+  - Id: 5447
+    Name: SH_TEMPORARY_COMMUNION
+    Cooldown: 0
+  - Id: 5448
+    Name: SH_BLESSING_OF_MYSTICAL_CREATURES
+    Cooldown: 0
+  - Id: 5403
+    Name: NW_INTENSIVE_AIM
+    Cooldown: 0
+  - Id: 5404
+    Name: NW_GRENADE_FRAGMENT
+    Cooldown: 0
+  - Id: 5405
+    Name: NW_THE_VIGILANTE_AT_NIGHT
+    Cooldown: 0
+  - Id: 5406
+    Name: NW_ONLY_ONE_BULLET
+    Cooldown: 0
+  - Id: 5407
+    Name: NW_SPIRAL_SHOOTING
+    Cooldown: 0
+  - Id: 5408
+    Name: NW_MAGAZINE_FOR_ONE
+    Cooldown: 0
+  - Id: 5409
+    Name: NW_WILD_FIRE
+    Cooldown: 0
+  - Id: 5410
+    Name: NW_BASIC_GRENADE
+    Cooldown: 0
+  - Id: 5411
+    Name: NW_HASTY_FIRE_IN_THE_HOLE
+    Cooldown: 0
+  - Id: 5412
+    Name: NW_GRENADES_DROPPING
+    Cooldown: 0
+  - Id: 5413
+    Name: NW_AUTO_FIRING_LAUNCHER
+    Cooldown: 0
+  - Id: 5414
+    Name: NW_HIDDEN_CARD
+    Cooldown: 0
+  - Id: 5415
+    Name: NW_MISSION_BOMBARD
+    Cooldown: 0
+  - Id: 5421
+    Name: SOA_SOUL_GATHERING
+    Cooldown: 0
+  - Id: 5422
+    Name: SOA_TOTEM_OF_TUTELARY
+    Cooldown: 0
+  - Id: 5424
+    Name: SOA_TALISMAN_OF_SOUL_STEALING
+    Cooldown: 0
+  - Id: 5425
+    Name: SOA_EXORCISM_OF_MALICIOUS_SOUL
+    Cooldown: 0
+  - Id: 5426
+    Name: SOA_TALISMAN_OF_BLUE_DRAGON
+    Cooldown: 0
+  - Id: 5427
+    Name: SOA_TALISMAN_OF_WHITE_TIGER
+    Cooldown: 0
+  - Id: 5428
+    Name: SOA_TALISMAN_OF_RED_PHOENIX
+    Cooldown: 0
+  - Id: 5429
+    Name: SOA_TALISMAN_OF_BLACK_TORTOISE
+    Cooldown: 0
+  - Id: 5430
+    Name: SOA_TALISMAN_OF_FOUR_BEARING_GOD
+    Cooldown: 0
+  - Id: 5431
+    Name: SOA_CIRCLE_OF_DIRECTIONS_AND_ELEMENTALS
+    Cooldown: 0
+  - Id: 5432
+    Name: SOA_SOUL_OF_HEAVEN_AND_EARTH
+    Cooldown: 0
+  - Id: 5451
+    Name: HN_DOUBLEBOWLINGBASH
+    Cooldown: 0
+  - Id: 5452
+    Name: HN_MEGA_SONIC_BLOW
+    Cooldown: 0
+  - Id: 5453
+    Name: HN_SHIELD_CHAIN_RUSH
+    Cooldown: 0
+  - Id: 5454
+    Name: HN_SPIRAL_PIERCE_MAX
+    Cooldown: 0
+  - Id: 5455
+    Name: HN_METEOR_STORM_BUSTER
+    Cooldown: 0
+  - Id: 5456
+    Name: HN_JUPITEL_THUNDER_STORM
+    Cooldown: 0
+  - Id: 5457
+    Name: HN_JACK_FROST_NOVA
+    Cooldown: 0
+  - Id: 5458
+    Name: HN_HELLS_DRIVE
+    Cooldown: 0
+  - Id: 5459
+    Name: HN_GROUND_GRAVITATION
+    Cooldown: 0
+  - Id: 5460
+    Name: HN_NAPALM_VULCAN_STRIKE
+    Cooldown: 0
+  - Id: 5461
+    Name: HN_BREAKINGLIMIT
+    Cooldown: 0
+  - Id: 5462
+    Name: HN_RULEBREAK
+    Cooldown: 0
+  - Id: 5465
+    Name: SKE_RISING_SUN
+    Cooldown: 0
+  - Id: 5466
+    Name: SKE_NOON_BLAST
+    Cooldown: 0
+  - Id: 5467
+    Name: SKE_SUNSET_BLAST
+    Cooldown: 0
+  - Id: 5468
+    Name: SKE_RISING_MOON
+    Cooldown: 0
+  - Id: 5469
+    Name: SKE_MIDNIGHT_KICK
+    Cooldown: 0
+  - Id: 5470
+    Name: SKE_DAWN_BREAK
+    Cooldown: 0
+  - Id: 5471
+    Name: SKE_TWINKLING_GALAXY
+    Cooldown: 0
+  - Id: 5472
+    Name: SKE_STAR_BURST
+    Cooldown: 0
+  - Id: 5473
+    Name: SKE_STAR_CANNON
+    Cooldown: 0
+  - Id: 5474
+    Name: SKE_ALL_IN_THE_SKY
+    Cooldown: 0
+  - Id: 5475
+    Name: SKE_ENCHANTING_SKY
+    Cooldown: 0
+  - Id: 5476
+    Name: SS_TOKEDASU
+    Cooldown: 0
+  - Id: 5477
+    Name: SS_SHIMIRU
+    Cooldown: 0
+  - Id: 5478
+    Name: SS_AKUMUKESU
+    Cooldown: 0
+  - Id: 5479
+    Name: SS_SHINKIROU
+    Cooldown: 0
+  - Id: 5480
+    Name: SS_KAGEGARI
+    Cooldown: 0
+  - Id: 5481
+    Name: SS_KAGENOMAI
+    Cooldown: 0
+  - Id: 5482
+    Name: SS_KAGEGISSEN
+    Cooldown: 0
+  - Id: 5483
+    Name: SS_FUUMASHOUAKU
+    Cooldown: 0
+  - Id: 5484
+    Name: SS_FUUMAKOUCHIKU
+    Cooldown: 0
+  - Id: 5485
+    Name: SS_KUNAIWAIKYOKU
+    Cooldown: 0
+  - Id: 5486
+    Name: SS_KUNAIKAITEN
+    Cooldown: 0
+  - Id: 5487
+    Name: SS_KUNAIKUSSETSU
+    Cooldown: 0
+  - Id: 5488
+    Name: SS_SEKIENHOU
+    Cooldown: 0
+  - Id: 5489
+    Name: SS_REIKETSUHOU
+    Cooldown: 0
+  - Id: 5490
+    Name: SS_RAIDENPOU
+    Cooldown: 0
+  - Id: 5491
+    Name: SS_KINRYUUHOU
+    Cooldown: 0
+  - Id: 5492
+    Name: SS_ANTENPOU
+    Cooldown: 0
+  - Id: 5493
+    Name: SS_KAGEAKUMU
+    Cooldown: 0
+  - Id: 5494
+    Name: SS_HITOUAKUMU
+    Cooldown: 0
+  - Id: 5495
+    Name: SS_ANKOKURYUUAKUMU
+    Cooldown: 0
+  - Id: 5499
+    Name: SS_FOUR_CHARM
+    Cooldown: 0
+  - Id: 5500
+    Name: NW_WILD_SHOT
+    Cooldown: 0
+  - Id: 5501
+    Name: NW_MIDNIGHT_FALLEN
+    Cooldown: 0
+  - Id: 5502
+    Name: SKE_SKY_SUN
+    Cooldown: 0
+  - Id: 5503
+    Name: SKE_SKY_MOON
+    Cooldown: 0
+  - Id: 5504
+    Name: SKE_STAR_LIGHT_KICK
+    Cooldown: 0
+  - Id: 5506
+    Name: SH_CHUL_HO_BATTERING
+    Cooldown: 0
+  - Id: 5507
+    Name: SH_HYUN_ROK_SPIRIT_POWER
+    Cooldown: 0
+  - Id: 5505
+    Name: HN_OVERCOMING_CRISIS
+    Cooldown: 0
+  - Id: 6001
+    Name: DK_DRAGONIC_BREATH
+    Cooldown: 0
+  - Id: 6002
+    Name: MT_SPARK_BLASTER
+    Cooldown: 0
+  - Id: 6003
+    Name: MT_TRIPLE_LASER
+    Cooldown: 0
+  - Id: 6004
+    Name: MT_MIGHTY_SMASH
+    Cooldown: 0
+  - Id: 6005
+    Name: BO_EXPLOSIVE_POWDER
+    Cooldown: 0
+  - Id: 6006
+    Name: BO_MAYHEMIC_THORNS
+    Cooldown: 0
+  - Id: 6502
+    Name: DK_DRAGONIC_PIERCE
+    Cooldown: 0
+  - Id: 6503
+    Name: IG_RADIANT_SPEAR
+    Cooldown: 0
+  - Id: 6504
+    Name: IG_IMPERIAL_CROSS
+    Cooldown: 0
+  - Id: 6505
+    Name: IG_IMPERIAL_PRESSURE
+    Cooldown: 0
+  - Id: 6506
+    Name: MT_RUSH_STRIKE
+    Cooldown: 0
+  - Id: 6507
+    Name: MT_POWERFUL_SWING
+    Cooldown: 0
+  - Id: 6508
+    Name: MT_ENERGY_CANNONADE
+    Cooldown: 0
+  - Id: 6509
+    Name: BO_MYSTERY_POWDER
+    Cooldown: 0
+  - Id: 6510
+    Name: BO_DUST_EXPLOSION
+    Cooldown: 0
+  - Id: 6512
+    Name: ABC_HIT_AND_SLIDING
+    Cooldown: 0
+  - Id: 6513
+    Name: ABC_CHASING_BREAK
+    Cooldown: 0
+  - Id: 6514
+    Name: ABC_CHASING_SHOT
+    Cooldown: 0
+  - Id: 6516
+    Name: AG_ENERGY_CONVERSION
+    Cooldown: 0
+  - Id: 6511
+    Name: SHC_CROSS_SLASH
+    Cooldown: 0
+  - Id: 6515
+    Name: ABC_ABYSS_FLAME
+    Cooldown: 0
+  - Id: 6517
+    Name: EM_PSYCHIC_STREAM
+    Cooldown: 0
+  - Id: 6518
+    Name: CD_DIVINUS_FLOS
+    Cooldown: 0
+  - Id: 6519
+    Name: IQ_BLAZING_FLAME_BLAST
+    Cooldown: 0
+  - Id: 6520
+    Name: WH_WILD_WALK
+    Cooldown: 0
+  - Id: 6521
+    Name: TR_RHYTHMICAL_WAVE
+    Cooldown: 0
+  - Id: 8001
+    Name: HLIF_HEAL
+    Cooldown: 0
+  - Id: 8002
+    Name: HLIF_AVOID
+    Cooldown: 0
+  - Id: 8004
+    Name: HLIF_CHANGE
+    Cooldown: 0
+  - Id: 8005
+    Name: HAMI_CASTLE
+    Cooldown: 0
+  - Id: 8006
+    Name: HAMI_DEFENCE
+    Cooldown: 0
+  - Id: 8007
+    Name: HAMI_SKIN
+    Cooldown: 0
+  - Id: 8008
+    Name: HAMI_BLOODLUST
+    Cooldown: 0
+  - Id: 8009
+    Name: HFLI_MOON
+    Cooldown: 0
+  - Id: 8010
+    Name: HFLI_FLEET
+    Cooldown: 0
+  - Id: 8011
+    Name: HFLI_SPEED
+    Cooldown: 0
+  - Id: 8012
+    Name: HFLI_SBR44
+    Cooldown: 0
+  - Id: 8013
+    Name: HVAN_CAPRICE
+    Cooldown: 0
+  - Id: 8014
+    Name: HVAN_CHAOTIC
+    Cooldown: 0
+  - Id: 8016
+    Name: HVAN_EXPLOSION
+    Cooldown: 0
+  - Id: 8023
+    Name: MH_OVERED_BOOST
+    Cooldown: 0
+  - Id: 8028
+    Name: MH_SONIC_CRAW
+    Cooldown: 0
+  - Id: 8029
+    Name: MH_SILVERVEIN_RUSH
+    Cooldown: 0
+  - Id: 8030
+    Name: MH_MIDNIGHT_FRENZY
+    Cooldown: 0
+  - Id: 8033
+    Name: MH_STEINWAND
+    Cooldown: 0
+  - Id: 8036
+    Name: MH_TINDER_BREAKER
+    Cooldown: 0
+  - Id: 8037
+    Name: MH_CBC
+    Cooldown: 0
+  - Id: 8038
+    Name: MH_EQC
+    Cooldown: 0
+  - Id: 8044
+    Name: MH_BLAST_FORGE
+    Cooldown: 0
+  - Id: 8045
+    Name: MH_TEMPERING
+    Cooldown: 0
+  - Id: 8047
+    Name: MH_TWISTER_CUTTER
+    Cooldown: 0
+  - Id: 8048
+    Name: MH_ABSOLUTE_ZEPHYR
+    Cooldown: 0
+  - Id: 8050
+    Name: MH_BLAZING_AND_FURIOUS
+    Cooldown: 0
+  - Id: 8051
+    Name: MH_THE_ONE_FIGHTER_RISES
+    Cooldown: 0
+  - Id: 8053
+    Name: MH_TOXIN_OF_MANDARA
+    Cooldown: 0
+  - Id: 8054
+    Name: MH_NEEDLE_STINGER
+    Cooldown: 0
+  - Id: 8056
+    Name: MH_GLANZEN_SPIES
+    Cooldown: 0
+  - Id: 8057
+    Name: MH_HEILIGE_PFERD
+    Cooldown: 0
+  - Id: 8058
+    Name: MH_GOLDENE_TONE
+    Cooldown: 0
+  - Id: 8241
+    Name: MER_INVINCIBLEOFF2
+    Cooldown: 0
+  - Id: 8445
+    Name: EM_EL_FLAMEROCK
+    Cooldown: 0
+  - Id: 8448
+    Name: EM_EL_AGE_OF_ICE
+    Cooldown: 0
+  - Id: 8451
+    Name: EM_EL_STORM_WIND
+    Cooldown: 0
+  - Id: 8454
+    Name: EM_EL_AVALANCHE
+    Cooldown: 0
+  - Id: 8457
+    Name: EM_EL_DEADLY_POISON
+    Cooldown: 0
+  - Id: 8601
+    Name: ABR_BATTLE_BUSTER
+    Cooldown: 0
+  - Id: 8602
+    Name: ABR_DUAL_CANNON_FIRE
+    Cooldown: 0
+  - Id: 8603
+    Name: ABR_NET_REPAIR
+    Cooldown: 0
+  - Id: 8604
+    Name: ABR_NET_SUPPORT
+    Cooldown: 0
+  - Id: 8605
+    Name: ABR_INFINITY_BUSTER
+    Cooldown: 0

@@ -149,3 +149,8 @@ Footer:
   - Path: db/re/skill_db.yml
     Mode: Renewal
   - Path: db/import/skill_db.yml
+  # Cooldowns auf 0 (ausser GD_*), erzeugt von tools/cooldowns/bauen.py.
+  # Steht NACH dem Hand-Import: beide patchen feldweise verschiedene
+  # Felder, aber so gewinnt bei einem kuenftigen Konflikt die
+  # erzeugte Datei sichtbar statt zufaellig.
+  - Path: db/import/skill_db_cooldowns.yml
