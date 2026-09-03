@@ -110462,7 +110462,7 @@ Body:
     Slots: 4
     Locations:
       Head_Top: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     View: 181
@@ -110482,7 +110482,7 @@ Body:
     Slots: 4
     Locations:
       Armor: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -110500,7 +110500,7 @@ Body:
     Slots: 4
     Locations:
       Garment: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -110518,7 +110518,7 @@ Body:
     Slots: 4
     Locations:
       Shoes: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -110536,7 +110536,7 @@ Body:
     Slots: 4
     Locations:
       Right_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |
@@ -110554,7 +110554,7 @@ Body:
     Slots: 4
     Locations:
       Left_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |
@@ -110889,7 +110889,7 @@ Body:
     Slots: 4
     Locations:
       Head_Top: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     View: 389
@@ -110909,7 +110909,7 @@ Body:
     Slots: 4
     Locations:
       Armor: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -110927,7 +110927,7 @@ Body:
     Slots: 4
     Locations:
       Garment: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -110945,7 +110945,7 @@ Body:
     Slots: 4
     Locations:
       Shoes: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -110964,7 +110964,7 @@ Body:
     Slots: 4
     Locations:
       Right_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |
@@ -110982,7 +110982,7 @@ Body:
     Slots: 4
     Locations:
       Left_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |
@@ -111202,6 +111202,7 @@ Body:
     Script: |
       bonus bLongAtkRate,30;
       bonus bDex,20;
+
   - Id: 46588
     AegisName: Safari_M_Crown_S4
     Name: Mirage Crown
@@ -111213,7 +111214,7 @@ Body:
     Slots: 4
     Locations:
       Head_Top: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     View: 45
@@ -111233,7 +111234,7 @@ Body:
     Slots: 4
     Locations:
       Armor: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -111251,7 +111252,7 @@ Body:
     Slots: 4
     Locations:
       Garment: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -111270,7 +111271,7 @@ Body:
     Slots: 4
     Locations:
       Shoes: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -111289,7 +111290,7 @@ Body:
     Slots: 4
     Locations:
       Right_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |
@@ -111307,7 +111308,7 @@ Body:
     Slots: 4
     Locations:
       Left_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |

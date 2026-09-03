@@ -15,6 +15,24 @@ Body:
   - Id: 28144
     AegisName: 5LvBattle_Axe
     Gradable: true
+  - Id: 30510
+    AegisName: Safari_F_Mask
+    Gradable: true
+  - Id: 30511
+    AegisName: Safari_F_Hide
+    Gradable: true
+  - Id: 30512
+    AegisName: Safari_F_Pelt
+    Gradable: true
+  - Id: 30513
+    AegisName: Safari_F_Treads
+    Gradable: true
+  - Id: 30514
+    AegisName: Safari_F_Claw
+    Gradable: true
+  - Id: 30515
+    AegisName: Safari_F_Tooth
+    Gradable: true
   - Id: 30516
     AegisName: Safari_F_Dagger
     Gradable: true
@@ -48,6 +66,24 @@ Body:
   - Id: 30526
     AegisName: Safari_F_Huuma
     Gradable: true
+  - Id: 30530
+    AegisName: Safari_L_Visor
+    Gradable: true
+  - Id: 30531
+    AegisName: Safari_L_Coat
+    Gradable: true
+  - Id: 30532
+    AegisName: Safari_L_Cloak
+    Gradable: true
+  - Id: 30533
+    AegisName: Safari_L_Boots
+    Gradable: true
+  - Id: 30534
+    AegisName: Safari_L_Ring
+    Gradable: true
+  - Id: 30535
+    AegisName: Safari_L_Lens
+    Gradable: true
   - Id: 30536
     AegisName: Safari_L_Bow
     Gradable: true
@@ -74,6 +110,24 @@ Body:
     Gradable: true
   - Id: 30544
     AegisName: Safari_L_Ducky
+    Gradable: true
+  - Id: 30550
+    AegisName: Safari_M_Crown
+    Gradable: true
+  - Id: 30551
+    AegisName: Safari_M_Robe
+    Gradable: true
+  - Id: 30552
+    AegisName: Safari_M_Shroud
+    Gradable: true
+  - Id: 30553
+    AegisName: Safari_M_Sandals
+    Gradable: true
+  - Id: 30554
+    AegisName: Safari_M_Charm
+    Gradable: true
+  - Id: 30555
+    AegisName: Safari_M_Eye
     Gradable: true
   - Id: 30556
     AegisName: Safari_M_Staff
@@ -1065,6 +1119,24 @@ Body:
   - Id: 46551
     AegisName: Hs_Gs_Launcher_S4
     Gradable: true
+  - Id: 46557
+    AegisName: Safari_F_Mask_S4
+    Gradable: true
+  - Id: 46558
+    AegisName: Safari_F_Hide_S4
+    Gradable: true
+  - Id: 46559
+    AegisName: Safari_F_Pelt_S4
+    Gradable: true
+  - Id: 46560
+    AegisName: Safari_F_Treads_S4
+    Gradable: true
+  - Id: 46561
+    AegisName: Safari_F_Claw_S4
+    Gradable: true
+  - Id: 46562
+    AegisName: Safari_F_Tooth_S4
+    Gradable: true
   - Id: 46563
     AegisName: Safari_F_Dagger_S4
     Gradable: true
@@ -1098,6 +1170,24 @@ Body:
   - Id: 46573
     AegisName: Safari_F_Huuma_S4
     Gradable: true
+  - Id: 46574
+    AegisName: Safari_L_Visor_S4
+    Gradable: true
+  - Id: 46575
+    AegisName: Safari_L_Coat_S4
+    Gradable: true
+  - Id: 46576
+    AegisName: Safari_L_Cloak_S4
+    Gradable: true
+  - Id: 46577
+    AegisName: Safari_L_Boots_S4
+    Gradable: true
+  - Id: 46578
+    AegisName: Safari_L_Ring_S4
+    Gradable: true
+  - Id: 46579
+    AegisName: Safari_L_Lens_S4
+    Gradable: true
   - Id: 46580
     AegisName: Safari_L_Bow_S4
     Gradable: true
@@ -1121,6 +1211,24 @@ Body:
     Gradable: true
   - Id: 46587
     AegisName: Safari_L_Whip_S4
+    Gradable: true
+  - Id: 46588
+    AegisName: Safari_M_Crown_S4
+    Gradable: true
+  - Id: 46589
+    AegisName: Safari_M_Robe_S4
+    Gradable: true
+  - Id: 46590
+    AegisName: Safari_M_Shroud_S4
+    Gradable: true
+  - Id: 46591
+    AegisName: Safari_M_Sandals_S4
+    Gradable: true
+  - Id: 46592
+    AegisName: Safari_M_Charm_S4
+    Gradable: true
+  - Id: 46593
+    AegisName: Safari_M_Eye_S4
     Gradable: true
   - Id: 46594
     AegisName: Safari_M_Staff_S4

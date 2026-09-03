@@ -7105,7 +7105,7 @@ Body:
     Slots: 1
     Locations:
       Head_Top: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     View: 181
@@ -7125,7 +7125,7 @@ Body:
     Slots: 1
     Locations:
       Armor: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -7143,7 +7143,7 @@ Body:
     Slots: 1
     Locations:
       Garment: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -7161,7 +7161,7 @@ Body:
     Slots: 1
     Locations:
       Shoes: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -7179,7 +7179,7 @@ Body:
     Slots: 1
     Locations:
       Right_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |
@@ -7197,7 +7197,7 @@ Body:
     Slots: 1
     Locations:
       Left_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |
@@ -7532,7 +7532,7 @@ Body:
     Slots: 1
     Locations:
       Head_Top: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     View: 389
@@ -7552,7 +7552,7 @@ Body:
     Slots: 1
     Locations:
       Armor: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -7570,7 +7570,7 @@ Body:
     Slots: 1
     Locations:
       Garment: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -7588,7 +7588,7 @@ Body:
     Slots: 1
     Locations:
       Shoes: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -7607,7 +7607,7 @@ Body:
     Slots: 1
     Locations:
       Right_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |
@@ -7625,7 +7625,7 @@ Body:
     Slots: 1
     Locations:
       Left_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |
@@ -7857,7 +7857,7 @@ Body:
     Slots: 1
     Locations:
       Head_Top: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     View: 45
@@ -7877,7 +7877,7 @@ Body:
     Slots: 1
     Locations:
       Armor: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -7895,7 +7895,7 @@ Body:
     Slots: 1
     Locations:
       Garment: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -7914,7 +7914,7 @@ Body:
     Slots: 1
     Locations:
       Shoes: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: true
     Script: |
@@ -7933,7 +7933,7 @@ Body:
     Slots: 1
     Locations:
       Right_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |
@@ -7951,7 +7951,7 @@ Body:
     Slots: 1
     Locations:
       Left_Accessory: true
-    ArmorLevel: 1
+    ArmorLevel: 2
     EquipLevelMin: 190
     Refineable: false
     Script: |
