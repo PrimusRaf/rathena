@@ -79,6 +79,7 @@ Thumbs.db
 !/db/import/exp_homun.yml
 !/db/import/item_combos.yml
 !/db/import/item_db.yml
+!/db/import/item_db_gradable.yml
 !/db/import/item_db_kartenweiser.yml
 !/db/import/item_db_slots4.yml
 !/db/import/item_randomopt_db.yml

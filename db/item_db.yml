@@ -102,3 +102,8 @@ Footer:
   # auf die Idee kommt, die erzeugte Datei von Hand zu aendern -
   # ein Nachlauf des Werkzeugs ueberschreibt sie vollstaendig.
   - Path: db/import/item_db_kartenweiser.yml
+  # Gradable-Kennzeichen fuer alle Stufe-5-Waffen und Stufe-2-
+  # Ruestungen, erzeugt von tools/grade/bauen.py. Muss NACH allen
+  # anderen Item-Importen stehen: es patcht nur dieses eine Feld und
+  # soll dabei auch Stuecke erreichen, die weiter oben erst entstehen.
+  - Path: db/import/item_db_gradable.yml

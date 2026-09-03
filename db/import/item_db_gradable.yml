@@ -1,0 +1,2219 @@
+# Erzeugt von tools/grade/bauen.py - NICHT von Hand pflegen.
+#
+# Setzt das Gradable-Kennzeichen fuer jedes Stueck, das die
+# Grade-Schmiede bedienen koennen soll. Ohne dieses Kennzeichen
+# weist clif.cpp:24011 die Auswahl WORTLOS ab - im Spiel sieht
+# es aus, als sei der Knopf kaputt.
+Header:
+  Type: ITEM_DB
+  Version: 3
+
+Body:
+  - Id: 21064
+    AegisName: Hs_Kn_Two_Hand_Sword
+    Gradable: true
+  - Id: 28144
+    AegisName: 5LvBattle_Axe
+    Gradable: true
+  - Id: 30516
+    AegisName: Safari_F_Dagger
+    Gradable: true
+  - Id: 30517
+    AegisName: Safari_F_1hSword
+    Gradable: true
+  - Id: 30518
+    AegisName: Safari_F_2hSword
+    Gradable: true
+  - Id: 30519
+    AegisName: Safari_F_1hSpear
+    Gradable: true
+  - Id: 30520
+    AegisName: Safari_F_2hSpear
+    Gradable: true
+  - Id: 30521
+    AegisName: Safari_F_1hAxe
+    Gradable: true
+  - Id: 30522
+    AegisName: Safari_F_2hAxe
+    Gradable: true
+  - Id: 30523
+    AegisName: Safari_F_Mace
+    Gradable: true
+  - Id: 30524
+    AegisName: Safari_F_Katar
+    Gradable: true
+  - Id: 30525
+    AegisName: Safari_F_Knuckle
+    Gradable: true
+  - Id: 30526
+    AegisName: Safari_F_Huuma
+    Gradable: true
+  - Id: 30536
+    AegisName: Safari_L_Bow
+    Gradable: true
+  - Id: 30537
+    AegisName: Safari_L_Revolver
+    Gradable: true
+  - Id: 30538
+    AegisName: Safari_L_Rifle
+    Gradable: true
+  - Id: 30539
+    AegisName: Safari_L_Gatling
+    Gradable: true
+  - Id: 30540
+    AegisName: Safari_L_Shotgun
+    Gradable: true
+  - Id: 30541
+    AegisName: Safari_L_Grenade
+    Gradable: true
+  - Id: 30542
+    AegisName: Safari_L_Musical
+    Gradable: true
+  - Id: 30543
+    AegisName: Safari_L_Whip
+    Gradable: true
+  - Id: 30544
+    AegisName: Safari_L_Ducky
+    Gradable: true
+  - Id: 30556
+    AegisName: Safari_M_Staff
+    Gradable: true
+  - Id: 30557
+    AegisName: Safari_M_2hStaff
+    Gradable: true
+  - Id: 30558
+    AegisName: Safari_M_Book
+    Gradable: true
+  - Id: 44148
+    AegisName: Hs_Kn_Two_Hand_Sword_S4
+    Gradable: true
+  - Id: 44883
+    AegisName: Viva_Adul_Hat_WL1_S4
+    Gradable: true
+  - Id: 44884
+    AegisName: Viva_Adul_Hat_WL2_S4
+    Gradable: true
+  - Id: 44885
+    AegisName: Viva_Adul_Hat_SR1_S4
+    Gradable: true
+  - Id: 44886
+    AegisName: Viva_Adul_Hat_SR2_S4
+    Gradable: true
+  - Id: 44887
+    AegisName: Viva_Adul_Hat_AB1_S4
+    Gradable: true
+  - Id: 44888
+    AegisName: Viva_Adul_Hat_AB2_S4
+    Gradable: true
+  - Id: 44889
+    AegisName: Viva_Adul_Hat_SC1_S4
+    Gradable: true
+  - Id: 44890
+    AegisName: Viva_Adul_Hat_SC2_S4
+    Gradable: true
+  - Id: 44892
+    AegisName: Viva_Adul_Hat_RA1_S4
+    Gradable: true
+  - Id: 44893
+    AegisName: Viva_Adul_Hat_RA2_S4
+    Gradable: true
+  - Id: 44894
+    AegisName: Viva_Adul_Hat_LG1_S4
+    Gradable: true
+  - Id: 44895
+    AegisName: Viva_Adul_Hat_LG2_S4
+    Gradable: true
+  - Id: 44897
+    AegisName: Viva_Adul_Hat_GC1_S4
+    Gradable: true
+  - Id: 44898
+    AegisName: Viva_Adul_Hat_GC2_S4
+    Gradable: true
+  - Id: 44899
+    AegisName: Viva_Adul_Hat_SO1_S4
+    Gradable: true
+  - Id: 44900
+    AegisName: Viva_Adul_Hat_SO2_S4
+    Gradable: true
+  - Id: 44901
+    AegisName: Viva_Adul_Hat_RK1_S4
+    Gradable: true
+  - Id: 44902
+    AegisName: Viva_Adul_Hat_RK2_S4
+    Gradable: true
+  - Id: 44903
+    AegisName: Viva_Adul_Hat_WM1_S4
+    Gradable: true
+  - Id: 44904
+    AegisName: Viva_Adul_Hat_WM2_S4
+    Gradable: true
+  - Id: 44905
+    AegisName: Viva_Adul_Hat_NC1_S4
+    Gradable: true
+  - Id: 44906
+    AegisName: Viva_Adul_Hat_NC2_S4
+    Gradable: true
+  - Id: 44907
+    AegisName: Viva_Adul_Hat_GN1_S4
+    Gradable: true
+  - Id: 44908
+    AegisName: Viva_Adul_Hat_GN2_S4
+    Gradable: true
+  - Id: 44909
+    AegisName: Viva_Adul_Hat_KO1_S4
+    Gradable: true
+  - Id: 44910
+    AegisName: Viva_Adul_Hat_KO2_S4
+    Gradable: true
+  - Id: 44911
+    AegisName: Viva_Adul_Hat_RL1_S4
+    Gradable: true
+  - Id: 44912
+    AegisName: Viva_Adul_Hat_RL2_S4
+    Gradable: true
+  - Id: 44913
+    AegisName: Viva_Adul_Hat_SP1_S4
+    Gradable: true
+  - Id: 44914
+    AegisName: Viva_Adul_Hat_SP2_S4
+    Gradable: true
+  - Id: 44915
+    AegisName: Viva_Adul_Hat_SJ1_S4
+    Gradable: true
+  - Id: 44916
+    AegisName: Viva_Adul_Hat_SJ2_S4
+    Gradable: true
+  - Id: 44917
+    AegisName: Viva_Adul_Hat_SU1_S4
+    Gradable: true
+  - Id: 44918
+    AegisName: Viva_Adul_Hat_SU2_S4
+    Gradable: true
+  - Id: 44921
+    AegisName: Sagittarius_DiademK_LT_S4
+    Gradable: true
+  - Id: 44922
+    AegisName: Scorpio_Diadem_K_LT_S4
+    Gradable: true
+  - Id: 44923
+    AegisName: Large_Sorcerer_Crown_LT_S4
+    Gradable: true
+  - Id: 44924
+    AegisName: Stripe_Hat_LT_S4
+    Gradable: true
+  - Id: 44925
+    AegisName: Phantom_Cap_LT_S4
+    Gradable: true
+  - Id: 44926
+    AegisName: Ignis_CapK_LT_S4
+    Gradable: true
+  - Id: 44927
+    AegisName: Clock_Casket_RD_LT_S4
+    Gradable: true
+  - Id: 44928
+    AegisName: Hs_Helm_S4
+    Gradable: true
+  - Id: 44929
+    AegisName: Hs_Apple_Of_Archer_S4
+    Gradable: true
+  - Id: 44930
+    AegisName: Hs_Wizardry_Hat_S4
+    Gradable: true
+  - Id: 44931
+    AegisName: Hs_Beret_S4
+    Gradable: true
+  - Id: 44932
+    AegisName: Hs_Biretta_S4
+    Gradable: true
+  - Id: 44934
+    AegisName: 2LvHat_S4
+    Gradable: true
+  - Id: 45046
+    AegisName: 2LvGlass_S4
+    Gradable: true
+  - Id: 45065
+    AegisName: SurviveOrb_K_LT_S4
+    Gradable: true
+  - Id: 45075
+    AegisName: 2LvMask_S4
+    Gradable: true
+  - Id: 45221
+    AegisName: MD_Geffen_Suits_S4
+    Gradable: true
+  - Id: 45222
+    AegisName: MD_Geffen_Robe_S4
+    Gradable: true
+  - Id: 45223
+    AegisName: Adv_Cotton_Shirt_S4
+    Gradable: true
+  - Id: 45226
+    AegisName: Vague_Star_Robe_S4
+    Gradable: true
+  - Id: 45227
+    AegisName: Vague_Star_Suit_S4
+    Gradable: true
+  - Id: 45228
+    AegisName: Vague_Star_Armor_S4
+    Gradable: true
+  - Id: 45245
+    AegisName: ST_Orleans_Gown_S4
+    Gradable: true
+  - Id: 45246
+    AegisName: ST_Naga_Armor_S4
+    Gradable: true
+  - Id: 45248
+    AegisName: Barmund_Armor_S4
+    Gradable: true
+  - Id: 45253
+    AegisName: Snowflower_Armor_S4
+    Gradable: true
+  - Id: 45254
+    AegisName: Snowflower_Robe_S4
+    Gradable: true
+  - Id: 45263
+    AegisName: Hs_Mail_S4
+    Gradable: true
+  - Id: 45264
+    AegisName: Hs_Tights_S4
+    Gradable: true
+  - Id: 45265
+    AegisName: Hs_Suits_S4
+    Gradable: true
+  - Id: 45266
+    AegisName: Hs_Robe_S4
+    Gradable: true
+  - Id: 45267
+    AegisName: Hs_Plate_S4
+    Gradable: true
+  - Id: 45274
+    AegisName: 2Lv_Shirt_S4
+    Gradable: true
+  - Id: 45307
+    AegisName: MD_Geffen_Shield_S4
+    Gradable: true
+  - Id: 45308
+    AegisName: MD_Geffen_Shield2_S4
+    Gradable: true
+  - Id: 45310
+    AegisName: Avd_Guard_S4
+    Gradable: true
+  - Id: 45315
+    AegisName: ST_Orleans_Server_S4
+    Gradable: true
+  - Id: 45316
+    AegisName: ST_Naga_Shield_S4
+    Gradable: true
+  - Id: 45318
+    AegisName: Hs_Brutal_Shield_S4
+    Gradable: true
+  - Id: 45319
+    AegisName: Hs_Cranial_Shield_S4
+    Gradable: true
+  - Id: 45320
+    AegisName: Hs_Brutal_Guard_S4
+    Gradable: true
+  - Id: 45321
+    AegisName: Hs_Cranial_Guard_S4
+    Gradable: true
+  - Id: 45324
+    AegisName: 2LvGuard_S4
+    Gradable: true
+  - Id: 45374
+    AegisName: Barmund_Greave_S4
+    Gradable: true
+  - Id: 45381
+    AegisName: Snowflower_Boots_S4
+    Gradable: true
+  - Id: 45382
+    AegisName: Snowflower_Shoes_S4
+    Gradable: true
+  - Id: 45387
+    AegisName: Hs_Speed_Boots_S4
+    Gradable: true
+  - Id: 45388
+    AegisName: Hs_Casting_Shoes_S4
+    Gradable: true
+  - Id: 45389
+    AegisName: Hs_Critical_Shoes_S4
+    Gradable: true
+  - Id: 45390
+    AegisName: Hs_Fix_Sandle_S4
+    Gradable: true
+  - Id: 45391
+    AegisName: Hs_Delay_Sandle_S4
+    Gradable: true
+  - Id: 45397
+    AegisName: 2LvSandals_S4
+    Gradable: true
+  - Id: 45458
+    AegisName: MD_Geffen_Hood_S4
+    Gradable: true
+  - Id: 45459
+    AegisName: MD_Geffen_Hood2_S4
+    Gradable: true
+  - Id: 45460
+    AegisName: MD_Geffen_Hood3_S4
+    Gradable: true
+  - Id: 45461
+    AegisName: MD_Geffen_Hood4_S4
+    Gradable: true
+  - Id: 45477
+    AegisName: Thanatos_Sword_S4
+    Gradable: true
+  - Id: 45478
+    AegisName: ST_Servival_Cloak_S4
+    Gradable: true
+  - Id: 45479
+    AegisName: Barmund_Manteau_S4
+    Gradable: true
+  - Id: 45485
+    AegisName: Snowflower_Manteau_S4
+    Gradable: true
+  - Id: 45486
+    AegisName: Snowflower_Muffler_S4
+    Gradable: true
+  - Id: 45491
+    AegisName: Hs_Manteau_S4
+    Gradable: true
+  - Id: 45492
+    AegisName: Hs_Muffler_S4
+    Gradable: true
+  - Id: 45493
+    AegisName: Hs_Cloak_S4
+    Gradable: true
+  - Id: 45494
+    AegisName: Hs_Hood_S4
+    Gradable: true
+  - Id: 45495
+    AegisName: Hs_Pauldron_S4
+    Gradable: true
+  - Id: 45503
+    AegisName: 2LvHood_S4
+    Gradable: true
+  - Id: 45622
+    AegisName: Signet_Of_Star_S4
+    Gradable: true
+  - Id: 45623
+    AegisName: Signet_Of_Pow_Star_S4
+    Gradable: true
+  - Id: 45624
+    AegisName: Signet_Of_Sta_Star_S4
+    Gradable: true
+  - Id: 45625
+    AegisName: Signet_Of_Con_Star_S4
+    Gradable: true
+  - Id: 45626
+    AegisName: Signet_Of_Crt_Star_S4
+    Gradable: true
+  - Id: 45627
+    AegisName: Signet_Of_Spl_Star_S4
+    Gradable: true
+  - Id: 45628
+    AegisName: Signet_Of_Wis_Star_S4
+    Gradable: true
+  - Id: 45633
+    AegisName: Hero_Token_AG_S4
+    Gradable: true
+  - Id: 45634
+    AegisName: Hero_Token_WH_S4
+    Gradable: true
+  - Id: 45635
+    AegisName: Hero_Token_IG_S4
+    Gradable: true
+  - Id: 45636
+    AegisName: Hero_Token_CD_S4
+    Gradable: true
+  - Id: 45638
+    AegisName: ST_Orleans_Glove_S4
+    Gradable: true
+  - Id: 45639
+    AegisName: ST_Pinquicula_Corsage_S4
+    Gradable: true
+  - Id: 45640
+    AegisName: ST_Waterdrop_Brooch_S4
+    Gradable: true
+  - Id: 45642
+    AegisName: Hero_Token_SHC_S4
+    Gradable: true
+  - Id: 45643
+    AegisName: Hero_Token_ABC_S4
+    Gradable: true
+  - Id: 45644
+    AegisName: Hero_Token_DK_S4
+    Gradable: true
+  - Id: 45645
+    AegisName: Hero_Token_BO_S4
+    Gradable: true
+  - Id: 45646
+    AegisName: Hero_Token_EM_S4
+    Gradable: true
+  - Id: 45647
+    AegisName: Hero_Token_TR_S4
+    Gradable: true
+  - Id: 45648
+    AegisName: Snowflower_Pendant_S4
+    Gradable: true
+  - Id: 45649
+    AegisName: Snowflower_Ring_S4
+    Gradable: true
+  - Id: 45650
+    AegisName: Snowflower_Necklace_S4
+    Gradable: true
+  - Id: 45651
+    AegisName: Snowflower_Earring_S4
+    Gradable: true
+  - Id: 45652
+    AegisName: Hero_Token_MT_S4
+    Gradable: true
+  - Id: 45653
+    AegisName: Hero_Token_IQ_S4
+    Gradable: true
+  - Id: 45655
+    AegisName: Hero_Token_SS_S4
+    Gradable: true
+  - Id: 45656
+    AegisName: Hero_Token_NW_S4
+    Gradable: true
+  - Id: 45657
+    AegisName: Hero_Token_SOA_S4
+    Gradable: true
+  - Id: 45658
+    AegisName: Hero_Token_SKE_S4
+    Gradable: true
+  - Id: 45659
+    AegisName: Hero_Token_SH_S4
+    Gradable: true
+  - Id: 45666
+    AegisName: Hero_Token_HN_S4
+    Gradable: true
+  - Id: 45670
+    AegisName: Egirnion_Gardiansword_S4
+    Gradable: true
+  - Id: 45674
+    AegisName: Hs_Ring_S4
+    Gradable: true
+  - Id: 45675
+    AegisName: Hs_Earing_S4
+    Gradable: true
+  - Id: 45676
+    AegisName: Hs_Necklace_S4
+    Gradable: true
+  - Id: 45677
+    AegisName: Hs_Critical_Ring_S4
+    Gradable: true
+  - Id: 45678
+    AegisName: Hs_Delay_Earing_S4
+    Gradable: true
+  - Id: 45679
+    AegisName: Hs_Deffend_Necklace_S4
+    Gradable: true
+  - Id: 45681
+    AegisName: Under_Seal_D_Key_S4
+    Gradable: true
+  - Id: 45682
+    AegisName: Under_Seal_D_Padlock_S4
+    Gradable: true
+  - Id: 45683
+    AegisName: Under_Seal_D_keyring_S4
+    Gradable: true
+  - Id: 45688
+    AegisName: 2LvClip_S4
+    Gradable: true
+  - Id: 45690
+    AegisName: Barmund_Ring_S4
+    Gradable: true
+  - Id: 45691
+    AegisName: Barmund_Soul_Ring_S4
+    Gradable: true
+  - Id: 45692
+    AegisName: Barmund_Venom_Ring_S4
+    Gradable: true
+  - Id: 45693
+    AegisName: Barmund_Temple_Ring_S4
+    Gradable: true
+  - Id: 45694
+    AegisName: Soul_Rune_Ring_S4
+    Gradable: true
+  - Id: 45695
+    AegisName: Venom_Rune_Ring_S4
+    Gradable: true
+  - Id: 45696
+    AegisName: Temple_Rune_Ring_S4
+    Gradable: true
+  - Id: 45697
+    AegisName: Soul_M_Ring_S4
+    Gradable: true
+  - Id: 45698
+    AegisName: Venom_M_Ring_S4
+    Gradable: true
+  - Id: 45699
+    AegisName: Temple_M_Ring_S4
+    Gradable: true
+  - Id: 45701
+    AegisName: Glacier_Ring_S4
+    Gradable: true
+  - Id: 45702
+    AegisName: Glacier_Pendant_S4
+    Gradable: true
+  - Id: 45703
+    AegisName: Glacier_Earring_S4
+    Gradable: true
+  - Id: 45704
+    AegisName: Glacier_Necklace_S4
+    Gradable: true
+  - Id: 45707
+    AegisName: SeeOtter_Fan_LT_S4
+    Gradable: true
+  - Id: 45708
+    AegisName: FurSeal_Fan_LT_S4
+    Gradable: true
+  - Id: 45711
+    AegisName: Red_Force_Pendant_LT_S4
+    Gradable: true
+  - Id: 45712
+    AegisName: Blue_Mental_Pendant_LT_S4
+    Gradable: true
+  - Id: 45716
+    AegisName: Temporal_Ring_TW_LT_S4
+    Gradable: true
+  - Id: 45725
+    AegisName: 2023Seppay_01_S4
+    Gradable: true
+  - Id: 45728
+    AegisName: Signet_Of_Spring_S4
+    Gradable: true
+  - Id: 45729
+    AegisName: Signet_Of_Summer_S4
+    Gradable: true
+  - Id: 45730
+    AegisName: Signet_Of_Autumn_S4
+    Gradable: true
+  - Id: 45731
+    AegisName: Signet_Of_Winter_S4
+    Gradable: true
+  - Id: 45732
+    AegisName: Gaebolg_Ring_S4
+    Gradable: true
+  - Id: 45733
+    AegisName: Gaebolg_Glove_S4
+    Gradable: true
+  - Id: 45734
+    AegisName: Gaebolg_Earring_S4
+    Gradable: true
+  - Id: 45735
+    AegisName: Gaebolg_Necklace_S4
+    Gradable: true
+  - Id: 45738
+    AegisName: Yorscalp_Ring_S4
+    Gradable: true
+  - Id: 45739
+    AegisName: Yorscalp_Glove_S4
+    Gradable: true
+  - Id: 45740
+    AegisName: Yorscalp_Earring_S4
+    Gradable: true
+  - Id: 45741
+    AegisName: Yorscalp_Necklace_S4
+    Gradable: true
+  - Id: 45753
+    AegisName: Fourth_1h_Sword_S4
+    Gradable: true
+  - Id: 45776
+    AegisName: Glacier_Sword_S4
+    Gradable: true
+  - Id: 45777
+    AegisName: Glacier_B_Sword_S4
+    Gradable: true
+  - Id: 45778
+    AegisName: Cannon_Rapier_AD_S4
+    Gradable: true
+  - Id: 45783
+    AegisName: Hs_Cr_Sword_S4
+    Gradable: true
+  - Id: 45784
+    AegisName: Hs_Cr_Guardian_Sword_S4
+    Gradable: true
+  - Id: 45785
+    AegisName: Hs_Am_Sword_S4
+    Gradable: true
+  - Id: 45786
+    AegisName: Hs_Nv_Sword_S4
+    Gradable: true
+  - Id: 45800
+    AegisName: Encroached_Sword_S4
+    Gradable: true
+  - Id: 45811
+    AegisName: Avd_Knife_S4
+    Gradable: true
+  - Id: 45813
+    AegisName: Fourth_1h_Dagger_S4
+    Gradable: true
+  - Id: 45831
+    AegisName: Fourth_1h_Nindo_S4
+    Gradable: true
+  - Id: 45832
+    AegisName: Fourth_1h_Edge_S4
+    Gradable: true
+  - Id: 45833
+    AegisName: Fourth_1h_Nindo2_S4
+    Gradable: true
+  - Id: 45837
+    AegisName: Glacier_R_Knife_S4
+    Gradable: true
+  - Id: 45838
+    AegisName: Glacier_B_Knife_S4
+    Gradable: true
+  - Id: 45839
+    AegisName: Kuroiro_AD_S4
+    Gradable: true
+  - Id: 45847
+    AegisName: Hs_Am_Dagger_S4
+    Gradable: true
+  - Id: 45848
+    AegisName: Hs_Asc_Dagger_S4
+    Gradable: true
+  - Id: 45849
+    AegisName: Hs_Asc_Dagger2_S4
+    Gradable: true
+  - Id: 45850
+    AegisName: Hs_Asc_Knife_S4
+    Gradable: true
+  - Id: 45851
+    AegisName: Hs_Asc_Knife2_S4
+    Gradable: true
+  - Id: 45852
+    AegisName: Hs_Rg_Knife_S4
+    Gradable: true
+  - Id: 45853
+    AegisName: Hs_Rg_Dagger_S4
+    Gradable: true
+  - Id: 45854
+    AegisName: Hs_Ht_Knife_S4
+    Gradable: true
+  - Id: 45855
+    AegisName: Hs_Nj_Dagger_S4
+    Gradable: true
+  - Id: 45856
+    AegisName: Hs_Nj_Dagger2_S4
+    Gradable: true
+  - Id: 45857
+    AegisName: Hs_Nj_Knife_S4
+    Gradable: true
+  - Id: 45858
+    AegisName: Hs_Nj_Knife2_S4
+    Gradable: true
+  - Id: 45863
+    AegisName: Mocadas_Degger_S4
+    Gradable: true
+  - Id: 45865
+    AegisName: F_Ein_1HDAGGER2_S4
+    Gradable: true
+  - Id: 45867
+    AegisName: Encroached_Dagger_S4
+    Gradable: true
+  - Id: 45884
+    AegisName: Glacier_Axe_S4
+    Gradable: true
+  - Id: 45886
+    AegisName: Hs_Bs_Axe_S4
+    Gradable: true
+  - Id: 45892
+    AegisName: Fourth_1h_Spear_S4
+    Gradable: true
+  - Id: 45902
+    AegisName: Glacier_Spear_S4
+    Gradable: true
+  - Id: 45903
+    AegisName: Boost_Lance_AD_S4
+    Gradable: true
+  - Id: 45906
+    AegisName: Hs_Cr_Spear_S4
+    Gradable: true
+  - Id: 45912
+    AegisName: Encroached_Spear_S4
+    Gradable: true
+  - Id: 45922
+    AegisName: Fourth_1h_Book_S4
+    Gradable: true
+  - Id: 45946
+    AegisName: Fourth_1h_Manual_S4
+    Gradable: true
+  - Id: 45951
+    AegisName: Glacier_Book_S4
+    Gradable: true
+  - Id: 45952
+    AegisName: Circuit_Board_AD_S4
+    Gradable: true
+  - Id: 45960
+    AegisName: Hs_Sa_Elemental_Book_S4
+    Gradable: true
+  - Id: 45961
+    AegisName: Hs_Sa_Book_S4
+    Gradable: true
+  - Id: 45962
+    AegisName: Hs_Pr_Bible_S4
+    Gradable: true
+  - Id: 45963
+    AegisName: Hs_Sg_Star_Book_S4
+    Gradable: true
+  - Id: 45964
+    AegisName: Hs_Sg_Gladiator_Book_S4
+    Gradable: true
+  - Id: 45965
+    AegisName: Hs_Sg_Book_S4
+    Gradable: true
+  - Id: 45980
+    AegisName: Encroached_Book_S4
+    Gradable: true
+  - Id: 46031
+    AegisName: Fourth_1h_Rod_S4
+    Gradable: true
+  - Id: 46032
+    AegisName: Fourth_1h_Plant_S4
+    Gradable: true
+  - Id: 46033
+    AegisName: Fourth_1h_Wand_S4
+    Gradable: true
+  - Id: 46043
+    AegisName: Glacier_Wand_S4
+    Gradable: true
+  - Id: 46044
+    AegisName: Glacier_Foxtail_S4
+    Gradable: true
+  - Id: 46045
+    AegisName: Rutilus_Stick_AD_S4
+    Gradable: true
+  - Id: 46046
+    AegisName: ElectricFox_AD_S4
+    Gradable: true
+  - Id: 46058
+    AegisName: Hs_Wz_Wand_S4
+    Gradable: true
+  - Id: 46059
+    AegisName: Hs_Sa_Wand_S4
+    Gradable: true
+  - Id: 46060
+    AegisName: Hs_Pr_Holy_Wand_S4
+    Gradable: true
+  - Id: 46061
+    AegisName: Hs_Pr_Wand_S4
+    Gradable: true
+  - Id: 46062
+    AegisName: Hs_Sl_Stick_S4
+    Gradable: true
+  - Id: 46063
+    AegisName: Hs_Sl_Wand_S4
+    Gradable: true
+  - Id: 46064
+    AegisName: Hs_Sl_Soul_Wand_S4
+    Gradable: true
+  - Id: 46065
+    AegisName: Hs_Su_Min_Puppy_Pool_S4
+    Gradable: true
+  - Id: 46066
+    AegisName: Hs_Su_Puppy_Pool_S4
+    Gradable: true
+  - Id: 46067
+    AegisName: Hs_Su_Puppy_Pool_Model_S4
+    Gradable: true
+  - Id: 46068
+    AegisName: Hs_Nv_Rod_S4
+    Gradable: true
+  - Id: 46069
+    AegisName: Hs_Nv_Wand_S4
+    Gradable: true
+  - Id: 46081
+    AegisName: Encroached_Staff_S4
+    Gradable: true
+  - Id: 46093
+    AegisName: Encroached_Foxtail_S4
+    Gradable: true
+  - Id: 46104
+    AegisName: Fourth_1h_Knuckle_S4
+    Gradable: true
+  - Id: 46119
+    AegisName: Glacier_Knuckle_S4
+    Gradable: true
+  - Id: 46120
+    AegisName: Burning_Knuckle_AD_S4
+    Gradable: true
+  - Id: 46124
+    AegisName: Hs_Mo_Knuckle_S4
+    Gradable: true
+  - Id: 46125
+    AegisName: Hs_Mo_Claw_S4
+    Gradable: true
+  - Id: 46132
+    AegisName: Encroached_Knuckle_S4
+    Gradable: true
+  - Id: 46140
+    AegisName: Fourth_Bh_Lute_S4
+    Gradable: true
+  - Id: 46153
+    AegisName: Glacier_Violin_S4
+    Gradable: true
+  - Id: 46156
+    AegisName: Hs_Ba_Violin_S4
+    Gradable: true
+  - Id: 46157
+    AegisName: Hs_Ba_Guitar_S4
+    Gradable: true
+  - Id: 46166
+    AegisName: Encroached_Instrument_S4
+    Gradable: true
+  - Id: 46174
+    AegisName: Fourth_1h_Whip_S4
+    Gradable: true
+  - Id: 46187
+    AegisName: Glacier_Whip_S4
+    Gradable: true
+  - Id: 46190
+    AegisName: Hs_Dc_Rope_S4
+    Gradable: true
+  - Id: 46191
+    AegisName: Hs_Dc_Whip_S4
+    Gradable: true
+  - Id: 46200
+    AegisName: Encroached_Whip_S4
+    Gradable: true
+  - Id: 46211
+    AegisName: Fourth_1h_Mace_S4
+    Gradable: true
+  - Id: 46227
+    AegisName: Glacier_Mace_S4
+    Gradable: true
+  - Id: 46228
+    AegisName: Glacier_M_Mace_S4
+    Gradable: true
+  - Id: 46229
+    AegisName: Saphir_Hall_AD_S4
+    Gradable: true
+  - Id: 46230
+    AegisName: Ultio_Spes_AD_S4
+    Gradable: true
+  - Id: 46236
+    AegisName: Hs_Bs_Mace_S4
+    Gradable: true
+  - Id: 46237
+    AegisName: Hs_Am_Mace_S4
+    Gradable: true
+  - Id: 46238
+    AegisName: Hs_Mo_Mace_S4
+    Gradable: true
+  - Id: 46243
+    AegisName: Encroached_Mace_S4
+    Gradable: true
+  - Id: 46253
+    AegisName: Fourth_Bh_Sword_S4
+    Gradable: true
+  - Id: 46262
+    AegisName: Glacier_T_Sword_S4
+    Gradable: true
+  - Id: 46263
+    AegisName: Beam_Claymore_AD_S4
+    Gradable: true
+  - Id: 46266
+    AegisName: Hs_Kn_Zweihander_S4
+    Gradable: true
+  - Id: 46269
+    AegisName: Encroached_T_Sword_S4
+    Gradable: true
+  - Id: 46279
+    AegisName: Fourth_Bh_Katar_S4
+    Gradable: true
+  - Id: 46294
+    AegisName: Glacier_Katar_S4
+    Gradable: true
+  - Id: 46295
+    AegisName: Meuchler_AD_S4
+    Gradable: true
+  - Id: 46298
+    AegisName: Hs_Asc_Katar_S4
+    Gradable: true
+  - Id: 46306
+    AegisName: Encroached_Katar_S4
+    Gradable: true
+  - Id: 46310
+    AegisName: Fourth_Bh_Axe_S4
+    Gradable: true
+  - Id: 46318
+    AegisName: Glacier_T_Axe_S4
+    Gradable: true
+  - Id: 46319
+    AegisName: Blasti_AD_S4
+    Gradable: true
+  - Id: 46322
+    AegisName: Hs_Bs_Giant_Axe_S4
+    Gradable: true
+  - Id: 46325
+    AegisName: Encroached_T_Axe_S4
+    Gradable: true
+  - Id: 46338
+    AegisName: Glacier_Lance_S4
+    Gradable: true
+  - Id: 46340
+    AegisName: Hs_Kn_Lance_S4
+    Gradable: true
+  - Id: 46346
+    AegisName: Encroached_T_Spear_S4
+    Gradable: true
+  - Id: 46355
+    AegisName: Fourth_Bh_Staff_S4
+    Gradable: true
+  - Id: 46370
+    AegisName: Glacier_Staff_S4
+    Gradable: true
+  - Id: 46375
+    AegisName: Hs_Wz_Staff_S4
+    Gradable: true
+  - Id: 46376
+    AegisName: Hs_Wz_Magical_Staff_S4
+    Gradable: true
+  - Id: 46380
+    AegisName: Encroached_T_Staff_S4
+    Gradable: true
+  - Id: 46397
+    AegisName: Fourth_Bh_Fuuma_S4
+    Gradable: true
+  - Id: 46401
+    AegisName: Glacier_Humma_S4
+    Gradable: true
+  - Id: 46404
+    AegisName: Hs_Nj_Humma_S4
+    Gradable: true
+  - Id: 46409
+    AegisName: Encroached_Humma_S4
+    Gradable: true
+  - Id: 46425
+    AegisName: Fourth_Bh_Bow_S4
+    Gradable: true
+  - Id: 46449
+    AegisName: Glacier_Bow_S4
+    Gradable: true
+  - Id: 46450
+    AegisName: Virtual_Bow_AD_S4
+    Gradable: true
+  - Id: 46451
+    AegisName: MH_P89_AD_S4
+    Gradable: true
+  - Id: 46452
+    AegisName: AC_B44_AD_S4
+    Gradable: true
+  - Id: 46455
+    AegisName: Hs_Rg_Bow_S4
+    Gradable: true
+  - Id: 46456
+    AegisName: Hs_Ht_Bow_S4
+    Gradable: true
+  - Id: 46457
+    AegisName: Hs_Ht_Crossbow_S4
+    Gradable: true
+  - Id: 46458
+    AegisName: Hs_Bd_Bow_S4
+    Gradable: true
+  - Id: 46468
+    AegisName: Encroached_Bow_S4
+    Gradable: true
+  - Id: 46479
+    AegisName: Fourth_Revolver_S4
+    Gradable: true
+  - Id: 46483
+    AegisName: Glacier_Revolver_S4
+    Gradable: true
+  - Id: 46486
+    AegisName: Hs_Gs_Revolver_S4
+    Gradable: true
+  - Id: 46495
+    AegisName: Fourth_Rifle_S4
+    Gradable: true
+  - Id: 46499
+    AegisName: Glacier_Rifle_S4
+    Gradable: true
+  - Id: 46500
+    AegisName: HR_S55_AD_S4
+    Gradable: true
+  - Id: 46502
+    AegisName: Hs_Gs_Rifle_S4
+    Gradable: true
+  - Id: 46508
+    AegisName: Encroached_Rifle_S4
+    Gradable: true
+  - Id: 46514
+    AegisName: Fourth_Shotgun_S4
+    Gradable: true
+  - Id: 46517
+    AegisName: Glacier_Shotgun_S4
+    Gradable: true
+  - Id: 46519
+    AegisName: Hs_Gs_Shotgun_S4
+    Gradable: true
+  - Id: 46530
+    AegisName: Fourth_Gatling_S4
+    Gradable: true
+  - Id: 46534
+    AegisName: Glacier_Gatling_S4
+    Gradable: true
+  - Id: 46536
+    AegisName: Hs_Gs_Gatling_S4
+    Gradable: true
+  - Id: 46545
+    AegisName: Fourth_Grenade_S4
+    Gradable: true
+  - Id: 46549
+    AegisName: Glacier_Launcher_S4
+    Gradable: true
+  - Id: 46551
+    AegisName: Hs_Gs_Launcher_S4
+    Gradable: true
+  - Id: 46563
+    AegisName: Safari_F_Dagger_S4
+    Gradable: true
+  - Id: 46564
+    AegisName: Safari_F_1hSword_S4
+    Gradable: true
+  - Id: 46565
+    AegisName: Safari_F_2hSword_S4
+    Gradable: true
+  - Id: 46566
+    AegisName: Safari_F_1hSpear_S4
+    Gradable: true
+  - Id: 46567
+    AegisName: Safari_F_2hSpear_S4
+    Gradable: true
+  - Id: 46568
+    AegisName: Safari_F_1hAxe_S4
+    Gradable: true
+  - Id: 46569
+    AegisName: Safari_F_2hAxe_S4
+    Gradable: true
+  - Id: 46570
+    AegisName: Safari_F_Mace_S4
+    Gradable: true
+  - Id: 46571
+    AegisName: Safari_F_Katar_S4
+    Gradable: true
+  - Id: 46572
+    AegisName: Safari_F_Knuckle_S4
+    Gradable: true
+  - Id: 46573
+    AegisName: Safari_F_Huuma_S4
+    Gradable: true
+  - Id: 46580
+    AegisName: Safari_L_Bow_S4
+    Gradable: true
+  - Id: 46581
+    AegisName: Safari_L_Revolver_S4
+    Gradable: true
+  - Id: 46582
+    AegisName: Safari_L_Rifle_S4
+    Gradable: true
+  - Id: 46583
+    AegisName: Safari_L_Gatling_S4
+    Gradable: true
+  - Id: 46584
+    AegisName: Safari_L_Shotgun_S4
+    Gradable: true
+  - Id: 46585
+    AegisName: Safari_L_Grenade_S4
+    Gradable: true
+  - Id: 46586
+    AegisName: Safari_L_Musical_S4
+    Gradable: true
+  - Id: 46587
+    AegisName: Safari_L_Whip_S4
+    Gradable: true
+  - Id: 46594
+    AegisName: Safari_M_Staff_S4
+    Gradable: true
+  - Id: 46595
+    AegisName: Safari_M_2hStaff_S4
+    Gradable: true
+  - Id: 46596
+    AegisName: Safari_M_Book_S4
+    Gradable: true
+  - Id: 46597
+    AegisName: Safari_L_Ducky_S4
+    Gradable: true
+  - Id: 400178
+    AegisName: Viva_Adul_Hat_WL1
+    Gradable: true
+  - Id: 400179
+    AegisName: Viva_Adul_Hat_WL2
+    Gradable: true
+  - Id: 400180
+    AegisName: Viva_Adul_Hat_SR1
+    Gradable: true
+  - Id: 400181
+    AegisName: Viva_Adul_Hat_SR2
+    Gradable: true
+  - Id: 400189
+    AegisName: Viva_Adul_Hat_AB1
+    Gradable: true
+  - Id: 400190
+    AegisName: Viva_Adul_Hat_AB2
+    Gradable: true
+  - Id: 400191
+    AegisName: Viva_Adul_Hat_SC1
+    Gradable: true
+  - Id: 400192
+    AegisName: Viva_Adul_Hat_SC2
+    Gradable: true
+  - Id: 400198
+    AegisName: Viva_Adul_Hat_RA1
+    Gradable: true
+  - Id: 400199
+    AegisName: Viva_Adul_Hat_RA2
+    Gradable: true
+  - Id: 400200
+    AegisName: Viva_Adul_Hat_LG1
+    Gradable: true
+  - Id: 400201
+    AegisName: Viva_Adul_Hat_LG2
+    Gradable: true
+  - Id: 400216
+    AegisName: Viva_Adul_Hat_GC1
+    Gradable: true
+  - Id: 400217
+    AegisName: Viva_Adul_Hat_GC2
+    Gradable: true
+  - Id: 400218
+    AegisName: Viva_Adul_Hat_SO1
+    Gradable: true
+  - Id: 400219
+    AegisName: Viva_Adul_Hat_SO2
+    Gradable: true
+  - Id: 400226
+    AegisName: Viva_Adul_Hat_RK1
+    Gradable: true
+  - Id: 400227
+    AegisName: Viva_Adul_Hat_RK2
+    Gradable: true
+  - Id: 400228
+    AegisName: Viva_Adul_Hat_WM1
+    Gradable: true
+  - Id: 400229
+    AegisName: Viva_Adul_Hat_WM2
+    Gradable: true
+  - Id: 400230
+    AegisName: Viva_Adul_Hat_NC1
+    Gradable: true
+  - Id: 400231
+    AegisName: Viva_Adul_Hat_NC2
+    Gradable: true
+  - Id: 400233
+    AegisName: Viva_Adul_Hat_GN1
+    Gradable: true
+  - Id: 400234
+    AegisName: Viva_Adul_Hat_GN2
+    Gradable: true
+  - Id: 400235
+    AegisName: Viva_Adul_Hat_KO1
+    Gradable: true
+  - Id: 400236
+    AegisName: Viva_Adul_Hat_KO2
+    Gradable: true
+  - Id: 400237
+    AegisName: Viva_Adul_Hat_RL1
+    Gradable: true
+  - Id: 400238
+    AegisName: Viva_Adul_Hat_RL2
+    Gradable: true
+  - Id: 400239
+    AegisName: Viva_Adul_Hat_SP1
+    Gradable: true
+  - Id: 400240
+    AegisName: Viva_Adul_Hat_SP2
+    Gradable: true
+  - Id: 400241
+    AegisName: Viva_Adul_Hat_SJ1
+    Gradable: true
+  - Id: 400242
+    AegisName: Viva_Adul_Hat_SJ2
+    Gradable: true
+  - Id: 400243
+    AegisName: Viva_Adul_Hat_SU1
+    Gradable: true
+  - Id: 400244
+    AegisName: Viva_Adul_Hat_SU2
+    Gradable: true
+  - Id: 400261
+    AegisName: Sagittarius_DiademK_LT
+    Gradable: true
+  - Id: 400262
+    AegisName: Scorpio_Diadem_K_LT
+    Gradable: true
+  - Id: 400263
+    AegisName: Large_Sorcerer_Crown_LT
+    Gradable: true
+  - Id: 400264
+    AegisName: Stripe_Hat_LT
+    Gradable: true
+  - Id: 400265
+    AegisName: Phantom_Cap_LT
+    Gradable: true
+  - Id: 400266
+    AegisName: Ignis_CapK_LT
+    Gradable: true
+  - Id: 400267
+    AegisName: Clock_Casket_RD_LT
+    Gradable: true
+  - Id: 400336
+    AegisName: Hs_Helm
+    Gradable: true
+  - Id: 400337
+    AegisName: Hs_Apple_Of_Archer
+    Gradable: true
+  - Id: 400338
+    AegisName: Hs_Wizardry_Hat
+    Gradable: true
+  - Id: 400339
+    AegisName: Hs_Beret
+    Gradable: true
+  - Id: 400340
+    AegisName: Hs_Biretta
+    Gradable: true
+  - Id: 400360
+    AegisName: 2LvHat
+    Gradable: true
+  - Id: 400699
+    AegisName: Astraea_Helm_LT
+    Gradable: true
+  - Id: 410209
+    AegisName: 2LvGlass
+    Gradable: true
+  - Id: 410256
+    AegisName: Magic_Star_TW_LT
+    Gradable: true
+  - Id: 410339
+    AegisName: Handiness_Telescope_LT
+    Gradable: true
+  - Id: 420066
+    AegisName: SurviveOrb_K_LT
+    Gradable: true
+  - Id: 420179
+    AegisName: 2LvMask
+    Gradable: true
+  - Id: 420316
+    AegisName: TwinCannon_LT_TW
+    Gradable: true
+  - Id: 420343
+    AegisName: Rescue_whistle_LT
+    Gradable: true
+  - Id: 420425
+    AegisName: Mob_Scarf_LT
+    Gradable: true
+  - Id: 450149
+    AegisName: MD_Geffen_Suits
+    Gradable: true
+  - Id: 450150
+    AegisName: MD_Geffen_Robe
+    Gradable: true
+  - Id: 450151
+    AegisName: Adv_Cotton_Shirt
+    Gradable: true
+  - Id: 450166
+    AegisName: Vague_Star_Robe
+    Gradable: true
+  - Id: 450167
+    AegisName: Vague_Star_Suit
+    Gradable: true
+  - Id: 450168
+    AegisName: Vague_Star_Armor
+    Gradable: true
+  - Id: 450191
+    AegisName: ST_Orleans_Gown
+    Gradable: true
+  - Id: 450192
+    AegisName: ST_Naga_Armor
+    Gradable: true
+  - Id: 450199
+    AegisName: Barmund_Armor
+    Gradable: true
+  - Id: 450206
+    AegisName: Snowflower_Armor
+    Gradable: true
+  - Id: 450207
+    AegisName: Snowflower_Robe
+    Gradable: true
+  - Id: 450229
+    AegisName: Hs_Mail
+    Gradable: true
+  - Id: 450230
+    AegisName: Hs_Tights
+    Gradable: true
+  - Id: 450231
+    AegisName: Hs_Suits
+    Gradable: true
+  - Id: 450232
+    AegisName: Hs_Robe
+    Gradable: true
+  - Id: 450233
+    AegisName: Hs_Plate
+    Gradable: true
+  - Id: 450250
+    AegisName: 2Lv_Shirt
+    Gradable: true
+  - Id: 450385
+    AegisName: Astraea_Armor_LT
+    Gradable: true
+  - Id: 460005
+    AegisName: MD_Geffen_Shield
+    Gradable: true
+  - Id: 460006
+    AegisName: MD_Geffen_Shield2
+    Gradable: true
+  - Id: 460012
+    AegisName: Avd_Guard
+    Gradable: true
+  - Id: 460021
+    AegisName: ST_Orleans_Server
+    Gradable: true
+  - Id: 460022
+    AegisName: ST_Naga_Shield
+    Gradable: true
+  - Id: 460034
+    AegisName: Hs_Brutal_Shield
+    Gradable: true
+  - Id: 460035
+    AegisName: Hs_Cranial_Shield
+    Gradable: true
+  - Id: 460036
+    AegisName: Hs_Brutal_Guard
+    Gradable: true
+  - Id: 460037
+    AegisName: Hs_Cranial_Guard
+    Gradable: true
+  - Id: 460049
+    AegisName: 2LvGuard
+    Gradable: true
+  - Id: 470107
+    AegisName: Barmund_Greave
+    Gradable: true
+  - Id: 470115
+    AegisName: Snowflower_Boots
+    Gradable: true
+  - Id: 470116
+    AegisName: Snowflower_Shoes
+    Gradable: true
+  - Id: 470153
+    AegisName: Hs_Speed_Boots
+    Gradable: true
+  - Id: 470154
+    AegisName: Hs_Casting_Shoes
+    Gradable: true
+  - Id: 470155
+    AegisName: Hs_Critical_Shoes
+    Gradable: true
+  - Id: 470156
+    AegisName: Hs_Fix_Sandle
+    Gradable: true
+  - Id: 470157
+    AegisName: Hs_Delay_Sandle
+    Gradable: true
+  - Id: 470179
+    AegisName: 2LvSandals
+    Gradable: true
+  - Id: 480065
+    AegisName: MD_Geffen_Hood
+    Gradable: true
+  - Id: 480066
+    AegisName: MD_Geffen_Hood2
+    Gradable: true
+  - Id: 480067
+    AegisName: MD_Geffen_Hood3
+    Gradable: true
+  - Id: 480068
+    AegisName: MD_Geffen_Hood4
+    Gradable: true
+  - Id: 480136
+    AegisName: Thanatos_Sword
+    Gradable: true
+  - Id: 480138
+    AegisName: ST_Servival_Cloak
+    Gradable: true
+  - Id: 480144
+    AegisName: Barmund_Manteau
+    Gradable: true
+  - Id: 480159
+    AegisName: Snowflower_Manteau
+    Gradable: true
+  - Id: 480160
+    AegisName: Snowflower_Muffler
+    Gradable: true
+  - Id: 480192
+    AegisName: 2022RTC_V_Coat4
+    Gradable: true
+  - Id: 480215
+    AegisName: Hs_Manteau
+    Gradable: true
+  - Id: 480216
+    AegisName: Hs_Muffler
+    Gradable: true
+  - Id: 480217
+    AegisName: Hs_Cloak
+    Gradable: true
+  - Id: 480218
+    AegisName: Hs_Hood
+    Gradable: true
+  - Id: 480219
+    AegisName: Hs_Pauldron
+    Gradable: true
+  - Id: 480250
+    AegisName: 2LvHood
+    Gradable: true
+  - Id: 490131
+    AegisName: Signet_Of_Star
+    Gradable: true
+  - Id: 490132
+    AegisName: Signet_Of_Pow_Star
+    Gradable: true
+  - Id: 490133
+    AegisName: Signet_Of_Sta_Star
+    Gradable: true
+  - Id: 490134
+    AegisName: Signet_Of_Con_Star
+    Gradable: true
+  - Id: 490135
+    AegisName: Signet_Of_Crt_Star
+    Gradable: true
+  - Id: 490136
+    AegisName: Signet_Of_Spl_Star
+    Gradable: true
+  - Id: 490137
+    AegisName: Signet_Of_Wis_Star
+    Gradable: true
+  - Id: 490152
+    AegisName: Hero_Token_AG
+    Gradable: true
+  - Id: 490153
+    AegisName: Hero_Token_WH
+    Gradable: true
+  - Id: 490155
+    AegisName: Hero_Token_IG
+    Gradable: true
+  - Id: 490156
+    AegisName: Hero_Token_CD
+    Gradable: true
+  - Id: 490160
+    AegisName: ST_Orleans_Glove
+    Gradable: true
+  - Id: 490161
+    AegisName: ST_Pinquicula_Corsage
+    Gradable: true
+  - Id: 490162
+    AegisName: ST_Waterdrop_Brooch
+    Gradable: true
+  - Id: 490164
+    AegisName: Hero_Token_SHC
+    Gradable: true
+  - Id: 490165
+    AegisName: Hero_Token_ABC
+    Gradable: true
+  - Id: 490166
+    AegisName: Hero_Token_DK
+    Gradable: true
+  - Id: 490167
+    AegisName: Hero_Token_BO
+    Gradable: true
+  - Id: 490171
+    AegisName: Hero_Token_EM
+    Gradable: true
+  - Id: 490172
+    AegisName: Hero_Token_TR
+    Gradable: true
+  - Id: 490176
+    AegisName: Snowflower_Pendant
+    Gradable: true
+  - Id: 490177
+    AegisName: Snowflower_Ring
+    Gradable: true
+  - Id: 490178
+    AegisName: Snowflower_Necklace
+    Gradable: true
+  - Id: 490179
+    AegisName: Snowflower_Earring
+    Gradable: true
+  - Id: 490180
+    AegisName: Hero_Token_MT
+    Gradable: true
+  - Id: 490181
+    AegisName: Hero_Token_IQ
+    Gradable: true
+  - Id: 490184
+    AegisName: Hero_Token_SS
+    Gradable: true
+  - Id: 490185
+    AegisName: Hero_Token_NW
+    Gradable: true
+  - Id: 490186
+    AegisName: Hero_Token_SOA
+    Gradable: true
+  - Id: 490187
+    AegisName: Hero_Token_SKE
+    Gradable: true
+  - Id: 490188
+    AegisName: Hero_Token_SH
+    Gradable: true
+  - Id: 490220
+    AegisName: Hero_Token_HN
+    Gradable: true
+  - Id: 490235
+    AegisName: Egirnion_Gardiansword
+    Gradable: true
+  - Id: 490251
+    AegisName: Hs_Ring
+    Gradable: true
+  - Id: 490252
+    AegisName: Hs_Earing
+    Gradable: true
+  - Id: 490253
+    AegisName: Hs_Necklace
+    Gradable: true
+  - Id: 490254
+    AegisName: Hs_Critical_Ring
+    Gradable: true
+  - Id: 490255
+    AegisName: Hs_Delay_Earing
+    Gradable: true
+  - Id: 490256
+    AegisName: Hs_Deffend_Necklace
+    Gradable: true
+  - Id: 490273
+    AegisName: Under_Seal_D_Key
+    Gradable: true
+  - Id: 490274
+    AegisName: Under_Seal_D_Padlock
+    Gradable: true
+  - Id: 490275
+    AegisName: Under_Seal_D_keyring
+    Gradable: true
+  - Id: 490287
+    AegisName: 2LvClip
+    Gradable: true
+  - Id: 490297
+    AegisName: Barmund_Ring
+    Gradable: true
+  - Id: 490299
+    AegisName: Barmund_Soul_Ring
+    Gradable: true
+  - Id: 490300
+    AegisName: Barmund_Venom_Ring
+    Gradable: true
+  - Id: 490301
+    AegisName: Barmund_Temple_Ring
+    Gradable: true
+  - Id: 490302
+    AegisName: Soul_Rune_Ring
+    Gradable: true
+  - Id: 490303
+    AegisName: Venom_Rune_Ring
+    Gradable: true
+  - Id: 490304
+    AegisName: Temple_Rune_Ring
+    Gradable: true
+  - Id: 490305
+    AegisName: Soul_M_Ring
+    Gradable: true
+  - Id: 490306
+    AegisName: Venom_M_Ring
+    Gradable: true
+  - Id: 490307
+    AegisName: Temple_M_Ring
+    Gradable: true
+  - Id: 490327
+    AegisName: Glacier_Ring
+    Gradable: true
+  - Id: 490328
+    AegisName: Glacier_Pendant
+    Gradable: true
+  - Id: 490329
+    AegisName: Glacier_Earring
+    Gradable: true
+  - Id: 490330
+    AegisName: Glacier_Necklace
+    Gradable: true
+  - Id: 490374
+    AegisName: SeeOtter_Fan_LT
+    Gradable: true
+  - Id: 490375
+    AegisName: FurSeal_Fan_LT
+    Gradable: true
+  - Id: 490382
+    AegisName: Red_Force_Pendant_LT
+    Gradable: true
+  - Id: 490383
+    AegisName: Blue_Mental_Pendant_LT
+    Gradable: true
+  - Id: 490404
+    AegisName: Temporal_Ring_TW_LT
+    Gradable: true
+  - Id: 490452
+    AegisName: 2023Seppay_01
+    Gradable: true
+  - Id: 490483
+    AegisName: Signet_Of_Spring
+    Gradable: true
+  - Id: 490484
+    AegisName: Signet_Of_Summer
+    Gradable: true
+  - Id: 490485
+    AegisName: Signet_Of_Autumn
+    Gradable: true
+  - Id: 490486
+    AegisName: Signet_Of_Winter
+    Gradable: true
+  - Id: 490507
+    AegisName: Gaebolg_Ring
+    Gradable: true
+  - Id: 490508
+    AegisName: Gaebolg_Glove
+    Gradable: true
+  - Id: 490509
+    AegisName: Gaebolg_Earring
+    Gradable: true
+  - Id: 490510
+    AegisName: Gaebolg_Necklace
+    Gradable: true
+  - Id: 490526
+    AegisName: Emerald_Ring_LT
+    Gradable: true
+  - Id: 490527
+    AegisName: Emerald_Earring_LT_TW
+    Gradable: true
+  - Id: 490572
+    AegisName: Infinity_Chip_EX
+    Gradable: true
+  - Id: 490595
+    AegisName: Astraea_Ring_LT
+    Gradable: true
+  - Id: 490596
+    AegisName: RingOfThought_LT
+    Gradable: true
+  - Id: 490620
+    AegisName: Yorscalp_Ring
+    Gradable: true
+  - Id: 490621
+    AegisName: Yorscalp_Glove
+    Gradable: true
+  - Id: 490622
+    AegisName: Yorscalp_Earring
+    Gradable: true
+  - Id: 490623
+    AegisName: Yorscalp_Necklace
+    Gradable: true
+  - Id: 490669
+    AegisName: Bio_S_Abbys_Ring
+    Gradable: true
+  - Id: 500018
+    AegisName: Fourth_1h_Sword
+    Gradable: true
+  - Id: 500049
+    AegisName: Glacier_Sword
+    Gradable: true
+  - Id: 500050
+    AegisName: Glacier_B_Sword
+    Gradable: true
+  - Id: 500051
+    AegisName: Cannon_Rapier_AD
+    Gradable: true
+  - Id: 500057
+    AegisName: Hs_Cr_Sword
+    Gradable: true
+  - Id: 500058
+    AegisName: Hs_Cr_Guardian_Sword
+    Gradable: true
+  - Id: 500059
+    AegisName: Hs_Am_Sword
+    Gradable: true
+  - Id: 500060
+    AegisName: Hs_Nv_Sword
+    Gradable: true
+  - Id: 500071
+    AegisName: 5LvSword
+    Gradable: true
+  - Id: 500119
+    AegisName: Encroached_Sword
+    Gradable: true
+  - Id: 510021
+    AegisName: Avd_Knife
+    Gradable: true
+  - Id: 510026
+    AegisName: Fourth_1h_Dagger
+    Gradable: true
+  - Id: 510053
+    AegisName: Fourth_1h_Nindo
+    Gradable: true
+  - Id: 510054
+    AegisName: Fourth_1h_Edge
+    Gradable: true
+  - Id: 510055
+    AegisName: Fourth_1h_Nindo2
+    Gradable: true
+  - Id: 510061
+    AegisName: Glacier_R_Knife
+    Gradable: true
+  - Id: 510062
+    AegisName: Glacier_B_Knife
+    Gradable: true
+  - Id: 510066
+    AegisName: Kuroiro_AD
+    Gradable: true
+  - Id: 510079
+    AegisName: Hs_Am_Dagger
+    Gradable: true
+  - Id: 510080
+    AegisName: Hs_Asc_Dagger
+    Gradable: true
+  - Id: 510081
+    AegisName: Hs_Asc_Dagger2
+    Gradable: true
+  - Id: 510082
+    AegisName: Hs_Asc_Knife
+    Gradable: true
+  - Id: 510083
+    AegisName: Hs_Asc_Knife2
+    Gradable: true
+  - Id: 510084
+    AegisName: Hs_Rg_Knife
+    Gradable: true
+  - Id: 510085
+    AegisName: Hs_Rg_Dagger
+    Gradable: true
+  - Id: 510086
+    AegisName: Hs_Ht_Knife
+    Gradable: true
+  - Id: 510087
+    AegisName: Hs_Nj_Dagger
+    Gradable: true
+  - Id: 510088
+    AegisName: Hs_Nj_Dagger2
+    Gradable: true
+  - Id: 510089
+    AegisName: Hs_Nj_Knife
+    Gradable: true
+  - Id: 510090
+    AegisName: Hs_Nj_Knife2
+    Gradable: true
+  - Id: 510100
+    AegisName: 5LvKnife
+    Gradable: true
+  - Id: 510104
+    AegisName: Mocadas_Degger
+    Gradable: true
+  - Id: 510106
+    AegisName: F_Ein_1HDAGGER2
+    Gradable: true
+  - Id: 510140
+    AegisName: Encroached_Dagger
+    Gradable: true
+  - Id: 520017
+    AegisName: Glacier_Axe
+    Gradable: true
+  - Id: 520022
+    AegisName: Hs_Bs_Axe
+    Gradable: true
+  - Id: 520030
+    AegisName: 5LvAxe
+    Gradable: true
+  - Id: 530009
+    AegisName: Fourth_1h_Spear
+    Gradable: true
+  - Id: 530025
+    AegisName: Glacier_Spear
+    Gradable: true
+  - Id: 530031
+    AegisName: Boost_Lance_AD
+    Gradable: true
+  - Id: 530036
+    AegisName: Hs_Cr_Spear
+    Gradable: true
+  - Id: 530044
+    AegisName: 5LvJavelin
+    Gradable: true
+  - Id: 530071
+    AegisName: Encroached_Spear
+    Gradable: true
+  - Id: 540013
+    AegisName: Fourth_1h_Book
+    Gradable: true
+  - Id: 540043
+    AegisName: Fourth_1h_Manual
+    Gradable: true
+  - Id: 540049
+    AegisName: Glacier_Book
+    Gradable: true
+  - Id: 540051
+    AegisName: Circuit_Board_AD
+    Gradable: true
+  - Id: 540061
+    AegisName: Hs_Sa_Elemental_Book
+    Gradable: true
+  - Id: 540062
+    AegisName: Hs_Sa_Book
+    Gradable: true
+  - Id: 540063
+    AegisName: Hs_Pr_Bible
+    Gradable: true
+  - Id: 540064
+    AegisName: Hs_Sg_Star_Book
+    Gradable: true
+  - Id: 540065
+    AegisName: Hs_Sg_Gladiator_Book
+    Gradable: true
+  - Id: 540066
+    AegisName: Hs_Sg_Book
+    Gradable: true
+  - Id: 540073
+    AegisName: 5LvBook
+    Gradable: true
+  - Id: 540109
+    AegisName: Encroached_Book
+    Gradable: true
+  - Id: 550057
+    AegisName: Fourth_1h_Rod
+    Gradable: true
+  - Id: 550058
+    AegisName: Fourth_1h_Plant
+    Gradable: true
+  - Id: 550059
+    AegisName: Fourth_1h_Wand
+    Gradable: true
+  - Id: 550069
+    AegisName: Glacier_Wand
+    Gradable: true
+  - Id: 550070
+    AegisName: Glacier_Foxtail
+    Gradable: true
+  - Id: 550075
+    AegisName: Rutilus_Stick_AD
+    Gradable: true
+  - Id: 550076
+    AegisName: ElectricFox_AD
+    Gradable: true
+  - Id: 550096
+    AegisName: Hs_Wz_Wand
+    Gradable: true
+  - Id: 550097
+    AegisName: Hs_Sa_Wand
+    Gradable: true
+  - Id: 550098
+    AegisName: Hs_Pr_Holy_Wand
+    Gradable: true
+  - Id: 550099
+    AegisName: Hs_Pr_Wand
+    Gradable: true
+  - Id: 550100
+    AegisName: Hs_Sl_Stick
+    Gradable: true
+  - Id: 550101
+    AegisName: Hs_Sl_Wand
+    Gradable: true
+  - Id: 550102
+    AegisName: Hs_Sl_Soul_Wand
+    Gradable: true
+  - Id: 550103
+    AegisName: Hs_Su_Min_Puppy_Pool
+    Gradable: true
+  - Id: 550104
+    AegisName: Hs_Su_Puppy_Pool
+    Gradable: true
+  - Id: 550105
+    AegisName: Hs_Su_Puppy_Pool_Model
+    Gradable: true
+  - Id: 550106
+    AegisName: Hs_Nv_Rod
+    Gradable: true
+  - Id: 550107
+    AegisName: Hs_Nv_Wand
+    Gradable: true
+  - Id: 550113
+    AegisName: 5LvRod
+    Gradable: true
+  - Id: 550137
+    AegisName: Encroached_Staff
+    Gradable: true
+  - Id: 550174
+    AegisName: Encroached_Foxtail
+    Gradable: true
+  - Id: 560011
+    AegisName: Fourth_1h_Knuckle
+    Gradable: true
+  - Id: 560032
+    AegisName: Glacier_Knuckle
+    Gradable: true
+  - Id: 560034
+    AegisName: Burning_Knuckle_AD
+    Gradable: true
+  - Id: 560039
+    AegisName: Hs_Mo_Knuckle
+    Gradable: true
+  - Id: 560040
+    AegisName: Hs_Mo_Claw
+    Gradable: true
+  - Id: 560047
+    AegisName: 5LvWaghnakh
+    Gradable: true
+  - Id: 560080
+    AegisName: Encroached_Knuckle
+    Gradable: true
+  - Id: 570012
+    AegisName: Fourth_Bh_Lute
+    Gradable: true
+  - Id: 570029
+    AegisName: Glacier_Violin
+    Gradable: true
+  - Id: 570034
+    AegisName: Hs_Ba_Violin
+    Gradable: true
+  - Id: 570035
+    AegisName: Hs_Ba_Guitar
+    Gradable: true
+  - Id: 570044
+    AegisName: 5LvViolin
+    Gradable: true
+  - Id: 570086
+    AegisName: Encroached_Instrument
+    Gradable: true
+  - Id: 580012
+    AegisName: Fourth_1h_Whip
+    Gradable: true
+  - Id: 580030
+    AegisName: Glacier_Whip
+    Gradable: true
+  - Id: 580035
+    AegisName: Hs_Dc_Rope
+    Gradable: true
+  - Id: 580036
+    AegisName: Hs_Dc_Whip
+    Gradable: true
+  - Id: 580045
+    AegisName: 5LvRope
+    Gradable: true
+  - Id: 580086
+    AegisName: Encroached_Whip
+    Gradable: true
+  - Id: 590015
+    AegisName: Fourth_1h_Mace
+    Gradable: true
+  - Id: 590038
+    AegisName: Glacier_Mace
+    Gradable: true
+  - Id: 590039
+    AegisName: Glacier_M_Mace
+    Gradable: true
+  - Id: 590043
+    AegisName: Saphir_Hall_AD
+    Gradable: true
+  - Id: 590044
+    AegisName: Ultio_Spes_AD
+    Gradable: true
+  - Id: 590050
+    AegisName: Hs_Bs_Mace
+    Gradable: true
+  - Id: 590051
+    AegisName: Hs_Am_Mace
+    Gradable: true
+  - Id: 590052
+    AegisName: Hs_Mo_Mace
+    Gradable: true
+  - Id: 590060
+    AegisName: 5LvClub
+    Gradable: true
+  - Id: 590081
+    AegisName: Encroached_Mace
+    Gradable: true
+  - Id: 600013
+    AegisName: Fourth_Bh_Sword
+    Gradable: true
+  - Id: 600027
+    AegisName: Glacier_T_Sword
+    Gradable: true
+  - Id: 600028
+    AegisName: Beam_Claymore_AD
+    Gradable: true
+  - Id: 600032
+    AegisName: Hs_Kn_Zweihander
+    Gradable: true
+  - Id: 600039
+    AegisName: 5LvKanata
+    Gradable: true
+  - Id: 600056
+    AegisName: Encroached_T_Sword
+    Gradable: true
+  - Id: 610015
+    AegisName: Fourth_Bh_Katar
+    Gradable: true
+  - Id: 610037
+    AegisName: Glacier_Katar
+    Gradable: true
+  - Id: 610039
+    AegisName: Meuchler_AD
+    Gradable: true
+  - Id: 610043
+    AegisName: Hs_Asc_Katar
+    Gradable: true
+  - Id: 610052
+    AegisName: 5LvJur
+    Gradable: true
+  - Id: 610084
+    AegisName: Encroached_Katar
+    Gradable: true
+  - Id: 620005
+    AegisName: Fourth_Bh_Axe
+    Gradable: true
+  - Id: 620017
+    AegisName: Glacier_T_Axe
+    Gradable: true
+  - Id: 620018
+    AegisName: Blasti_AD
+    Gradable: true
+  - Id: 620021
+    AegisName: Hs_Bs_Giant_Axe
+    Gradable: true
+  - Id: 620038
+    AegisName: Encroached_T_Axe
+    Gradable: true
+  - Id: 630018
+    AegisName: Glacier_Lance
+    Gradable: true
+  - Id: 630020
+    AegisName: Hs_Kn_Lance
+    Gradable: true
+  - Id: 630025
+    AegisName: 5LvGuisarme
+    Gradable: true
+  - Id: 630059
+    AegisName: Encroached_T_Spear
+    Gradable: true
+  - Id: 640013
+    AegisName: Fourth_Bh_Staff
+    Gradable: true
+  - Id: 640033
+    AegisName: Glacier_Staff
+    Gradable: true
+  - Id: 640038
+    AegisName: Hs_Wz_Staff
+    Gradable: true
+  - Id: 640039
+    AegisName: Hs_Wz_Magical_Staff
+    Gradable: true
+  - Id: 640045
+    AegisName: 5LvStaff
+    Gradable: true
+  - Id: 640051
+    AegisName: Encroached_T_Staff
+    Gradable: true
+  - Id: 650020
+    AegisName: Fourth_Bh_Fuuma
+    Gradable: true
+  - Id: 650025
+    AegisName: Glacier_Humma
+    Gradable: true
+  - Id: 650030
+    AegisName: Hs_Nj_Humma
+    Gradable: true
+  - Id: 650039
+    AegisName: 5LvHuuma
+    Gradable: true
+  - Id: 650048
+    AegisName: Encroached_Humma
+    Gradable: true
+  - Id: 700021
+    AegisName: Fourth_Bh_Bow
+    Gradable: true
+  - Id: 700052
+    AegisName: Glacier_Bow
+    Gradable: true
+  - Id: 700054
+    AegisName: Virtual_Bow_AD
+    Gradable: true
+  - Id: 700055
+    AegisName: MH_P89_AD
+    Gradable: true
+  - Id: 700056
+    AegisName: AC_B44_AD
+    Gradable: true
+  - Id: 700061
+    AegisName: Hs_Rg_Bow
+    Gradable: true
+  - Id: 700062
+    AegisName: Hs_Ht_Bow
+    Gradable: true
+  - Id: 700063
+    AegisName: Hs_Ht_Crossbow
+    Gradable: true
+  - Id: 700064
+    AegisName: Hs_Bd_Bow
+    Gradable: true
+  - Id: 700074
+    AegisName: 5LvBow
+    Gradable: true
+  - Id: 700117
+    AegisName: Encroached_Bow
+    Gradable: true
+  - Id: 800010
+    AegisName: Fourth_Revolver
+    Gradable: true
+  - Id: 800014
+    AegisName: Glacier_Revolver
+    Gradable: true
+  - Id: 800017
+    AegisName: Hs_Gs_Revolver
+    Gradable: true
+  - Id: 800033
+    AegisName: 5LvSix_Shooter
+    Gradable: true
+  - Id: 810006
+    AegisName: Fourth_Rifle
+    Gradable: true
+  - Id: 810010
+    AegisName: Glacier_Rifle
+    Gradable: true
+  - Id: 810013
+    AegisName: HR_S55_AD
+    Gradable: true
+  - Id: 810016
+    AegisName: Hs_Gs_Rifle
+    Gradable: true
+  - Id: 810033
+    AegisName: 5LvRifle
+    Gradable: true
+  - Id: 810048
+    AegisName: Encroached_Rifle
+    Gradable: true
+  - Id: 820005
+    AegisName: Fourth_Shotgun
+    Gradable: true
+  - Id: 820008
+    AegisName: Glacier_Shotgun
+    Gradable: true
+  - Id: 820012
+    AegisName: Hs_Gs_Shotgun
+    Gradable: true
+  - Id: 820027
+    AegisName: 5LvRolling_Stone
+    Gradable: true
+  - Id: 830009
+    AegisName: Fourth_Gatling
+    Gradable: true
+  - Id: 830013
+    AegisName: Glacier_Gatling
+    Gradable: true
+  - Id: 830016
+    AegisName: Hs_Gs_Gatling
+    Gradable: true
+  - Id: 830032
+    AegisName: 5LvDrifter
+    Gradable: true
+  - Id: 840005
+    AegisName: Fourth_Grenade
+    Gradable: true
+  - Id: 840009
+    AegisName: Glacier_Launcher
+    Gradable: true
+  - Id: 840011
+    AegisName: Hs_Gs_Launcher
+    Gradable: true
+  - Id: 840027
+    AegisName: 5LvDestroyer
+    Gradable: true
