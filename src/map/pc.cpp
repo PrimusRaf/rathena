@@ -5758,12 +5758,17 @@ char pc_checkadditem( const map_session_data* sd, t_itemid nameid, int32 amount 
 	for(i=0;i<MAX_INVENTORY;i++){
 		// FIXME: This does not consider the checked item's cards, thus could check a wrong slot for stackability.
 		if(sd->inventory.u.items_inventory[i].nameid == nameid){
-			if( amount > MAX_AMOUNT - sd->inventory.u.items_inventory[i].amount || ( data->stack.inventory && amount > data->stack.amount - sd->inventory.u.items_inventory[i].amount ) )
-				return CHKADDITEM_OVERAMOUNT;
 			// If the item is in the inventory already, but the player is not allowed to use that many slots anymore
 			if( i >= sd->status.inventory_slots ){
 				return CHKADDITEM_OVERAMOUNT;
 			}
+			// Item-spezifische Stapelgrenzen bleiben eine harte Besitzgrenze
+			if( data->stack.inventory && amount > data->stack.amount - sd->inventory.u.items_inventory[i].amount )
+				return CHKADDITEM_OVERAMOUNT;
+			// SafaRO: Ist dieser Haufen voll, faengt der Rest einen neuen an -
+			// dann muss nur ein freier Platz da sein (CHKADDITEM_NEW).
+			if( amount > MAX_AMOUNT - sd->inventory.u.items_inventory[i].amount )
+				continue;
 			return CHKADDITEM_EXIST;
 		}
 	}
@@ -6024,29 +6029,81 @@ enum e_additem_result pc_additem(map_session_data *sd,struct item *item,int32 am
 		item->unique_id = pc_generate_unique_id(sd);
 
 	// Stackable | Non Rental
+	bool gestapelt = false;
+
 	if( itemdb_isstackable2(id) && item->expire_time == 0 ) {
-		for( i = 0; i < MAX_INVENTORY; i++ ) {
+		// SafaRO: Volle Haufen (30k) blockieren nicht mehr - der Rest
+		// kommt auf neue Haufen. Vorab pruefen, damit nie halb
+		// eingelagert wird (sonst droht beim Aufheben ein Dupe).
+		int32 rest = amount;
+		int32 platz_gesamt = 0;
+		int32 frei = 0;
+
+		for( int16 j = 0; j < sd->status.inventory_slots; j++ ){
+			if( sd->inventory.u.items_inventory[j].nameid == 0 ){
+				frei++;
+				continue;
+			}
+			if( sd->inventory.u.items_inventory[j].nameid == item->nameid &&
+				sd->inventory.u.items_inventory[j].bound == item->bound &&
+				sd->inventory.u.items_inventory[j].expire_time == 0 &&
+				sd->inventory.u.items_inventory[j].unique_id == item->unique_id &&
+				memcmp(&sd->inventory.u.items_inventory[j].card, &item->card, sizeof(item->card)) == 0 ){
+				// Item-spezifische Stapelgrenzen bleiben eine harte Besitzgrenze
+				if( id->stack.inventory && rest > id->stack.amount - sd->inventory.u.items_inventory[j].amount )
+					return ADDITEM_OVERAMOUNT;
+				platz_gesamt += max( 0, MAX_AMOUNT - sd->inventory.u.items_inventory[j].amount );
+			}
+		}
+
+		if( rest > platz_gesamt && ( rest - platz_gesamt + MAX_AMOUNT - 1 ) / MAX_AMOUNT > frei )
+			return ADDITEM_OVERITEM;
+
+		// Vorhandene Haufen auffuellen
+		for( i = 0; i < sd->status.inventory_slots && rest > 0; i++ ) {
 			if( sd->inventory.u.items_inventory[i].nameid == item->nameid &&
 				sd->inventory.u.items_inventory[i].bound == item->bound &&
 				sd->inventory.u.items_inventory[i].expire_time == 0 &&
 				sd->inventory.u.items_inventory[i].unique_id == item->unique_id &&
 				memcmp(&sd->inventory.u.items_inventory[i].card, &item->card, sizeof(item->card)) == 0 ) {
-				if( amount > MAX_AMOUNT - sd->inventory.u.items_inventory[i].amount || ( id->stack.inventory && amount > id->stack.amount - sd->inventory.u.items_inventory[i].amount ) )
-					return ADDITEM_OVERAMOUNT;
-				// If the item is in the inventory already, but the player is not allowed to use that many slots anymore
-				if( i >= sd->status.inventory_slots ){
-					return ADDITEM_OVERAMOUNT;
-				}
-				sd->inventory.u.items_inventory[i].amount += amount;
-				clif_additem(sd,i,amount,0);
-				break;
+				int32 platz = MAX_AMOUNT - sd->inventory.u.items_inventory[i].amount;
+
+				if( platz <= 0 )
+					continue;
+
+				int32 dazu = min( platz, rest );
+
+				sd->inventory.u.items_inventory[i].amount += dazu;
+				sd->last_addeditem_index = i;
+				clif_additem( sd, i, dazu, 0 );
+				rest -= dazu;
 			}
 		}
+
+		// Rest auf neue Haufen
+		while( rest > 0 ){
+			i = pc_search_inventory( sd, 0 );
+			if( i < 0 || i >= sd->status.inventory_slots )
+				return ADDITEM_OVERITEM; // Sollte dank Vorabpruefung nie eintreten
+
+			memcpy( &sd->inventory.u.items_inventory[i], item, sizeof( sd->inventory.u.items_inventory[0] ) );
+			sd->inventory.u.items_inventory[i].equip = 0;
+			sd->inventory.u.items_inventory[i].equipSwitch = 0;
+			sd->inventory.u.items_inventory[i].amount = min( MAX_AMOUNT, rest );
+			sd->inventory.u.items_inventory[i].favorite = favorite;
+			sd->inventory_data[i] = id;
+			sd->last_addeditem_index = i;
+			clif_additem( sd, i, sd->inventory.u.items_inventory[i].amount, 0 );
+			rest -= sd->inventory.u.items_inventory[i].amount;
+		}
+
+		i = sd->last_addeditem_index;
+		gestapelt = true;
 	}else{
 		i = MAX_INVENTORY;
  	}
 
-	if (i >= MAX_INVENTORY) {
+	if (!gestapelt && i >= MAX_INVENTORY) {
 		i = pc_search_inventory(sd,0);
 		if( i < 0 )
 			return ADDITEM_OVERITEM;
@@ -6621,29 +6678,74 @@ enum e_additem_result pc_cart_additem(map_session_data *sd,struct item *item,int
 	if( (w = data->weight*amount) + sd->cart_weight > sd->cart_weight_max )
 		return ADDITEM_OVERWEIGHT;
 
-	i = MAX_CART;
 	if( itemdb_isstackable2(data) && !item->expire_time )
-	{
-		for (i = 0; i < MAX_CART; i++) {
+	{// SafaRO: vorhandene Haufen bis 30k auffuellen, Rest auf neue Haufen
+		int32 rest = amount;
+		int32 platz_gesamt = 0;
+		int32 frei = 0;
+
+		for( i = 0; i < MAX_CART; i++ ){
+			if( sd->cart.u.items_cart[i].nameid == 0 ){
+				frei++;
+				continue;
+			}
 			if (sd->cart.u.items_cart[i].nameid == item->nameid
 				&& sd->cart.u.items_cart[i].bound == item->bound
 				&& sd->cart.u.items_cart[i].unique_id == item->unique_id
 				&& memcmp(sd->cart.u.items_cart[i].card, item->card, sizeof(item->card)) == 0
-				)
-				break;
+				){
+				// Item-spezifische Stapelgrenzen bleiben eine harte Besitzgrenze
+				if( data->stack.cart && rest > data->stack.amount - sd->cart.u.items_cart[i].amount )
+					return ADDITEM_OVERAMOUNT;
+				platz_gesamt += max( 0, MAX_AMOUNT - sd->cart.u.items_cart[i].amount );
+			}
 		}
-	}
 
-	if( i < MAX_CART )
-	{// item already in cart, stack it
-		if( amount > MAX_AMOUNT - sd->cart.u.items_cart[i].amount || ( data->stack.cart && amount > data->stack.amount - sd->cart.u.items_cart[i].amount ) )
+		if( rest > platz_gesamt && ( rest - platz_gesamt + MAX_AMOUNT - 1 ) / MAX_AMOUNT > frei )
 			return ADDITEM_OVERAMOUNT; // no slot
 
-		sd->cart.u.items_cart[i].amount += amount;
-		clif_cart_additem(sd,i,amount);
+		// Auffuellen
+		for( i = 0; i < MAX_CART && rest > 0; i++ ){
+			if (sd->cart.u.items_cart[i].nameid == item->nameid
+				&& sd->cart.u.items_cart[i].bound == item->bound
+				&& sd->cart.u.items_cart[i].unique_id == item->unique_id
+				&& memcmp(sd->cart.u.items_cart[i].card, item->card, sizeof(item->card)) == 0
+				){
+				int32 platz = MAX_AMOUNT - sd->cart.u.items_cart[i].amount;
+
+				if( platz <= 0 )
+					continue;
+
+				int32 dazu = min( platz, rest );
+
+				sd->cart.u.items_cart[i].amount += dazu;
+				sd->cart.u.items_cart[i].favorite = 0; // clear
+				sd->cart.u.items_cart[i].equipSwitch = 0;
+				clif_cart_additem(sd,i,dazu);
+				log_pick_pc(sd, log_type, dazu, &sd->cart.u.items_cart[i]);
+				rest -= dazu;
+			}
+		}
+
+		// Neue Haufen
+		while( rest > 0 ){
+			ARR_FIND( 0, MAX_CART, i, sd->cart.u.items_cart[i].nameid == 0 );
+			if( i == MAX_CART )
+				return ADDITEM_OVERAMOUNT; // Sollte dank Vorabpruefung nie eintreten
+
+			memcpy(&sd->cart.u.items_cart[i],item,sizeof(sd->cart.u.items_cart[0]));
+			sd->cart.u.items_cart[i].id = 0;
+			sd->cart.u.items_cart[i].amount = min( MAX_AMOUNT, rest );
+			sd->cart.u.items_cart[i].favorite = 0; // clear
+			sd->cart.u.items_cart[i].equipSwitch = 0;
+			sd->cart_num++;
+			clif_cart_additem(sd,i,sd->cart.u.items_cart[i].amount);
+			log_pick_pc(sd, log_type, sd->cart.u.items_cart[i].amount, &sd->cart.u.items_cart[i]);
+			rest -= sd->cart.u.items_cart[i].amount;
+		}
 	}
 	else
-	{// item not stackable or not present, add it
+	{// item not stackable, add it
 		ARR_FIND( 0, MAX_CART, i, sd->cart.u.items_cart[i].nameid == 0 );
 		if( i == MAX_CART )
 			return ADDITEM_OVERAMOUNT; // no slot
@@ -6651,12 +6753,12 @@ enum e_additem_result pc_cart_additem(map_session_data *sd,struct item *item,int
 		memcpy(&sd->cart.u.items_cart[i],item,sizeof(sd->cart.u.items_cart[0]));
 		sd->cart.u.items_cart[i].id = 0;
 		sd->cart.u.items_cart[i].amount = amount;
+		sd->cart.u.items_cart[i].favorite = 0; // clear
+		sd->cart.u.items_cart[i].equipSwitch = 0;
 		sd->cart_num++;
 		clif_cart_additem(sd,i,amount);
+		log_pick_pc(sd, log_type, amount, &sd->cart.u.items_cart[i]);
 	}
-	sd->cart.u.items_cart[i].favorite = 0; // clear
-	sd->cart.u.items_cart[i].equipSwitch = 0;
-	log_pick_pc(sd, log_type, amount, &sd->cart.u.items_cart[i]);
 
 	sd->cart_weight += w;
 	clif_updatestatus(*sd,SP_CARTINFO);

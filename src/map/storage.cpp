@@ -262,18 +262,61 @@ static int32 storage_additem(map_session_data* sd, struct s_storage *stor, struc
 	}
 
 	if( itemdb_isstackable2(data) ) { // Stackable
+		// SafaRO: vorhandene Haufen bis 30k auffuellen, Rest auf neue Haufen.
+		// Vorab pruefen, damit nie halb eingelagert wird.
+		int32 rest = amount;
+		int32 platz_gesamt = 0;
+		int32 frei = 0;
+
 		for( i = 0; i < stor->max_amount; i++ ) {
-			if( compare_item(&stor->u.items_storage[i], it) ) { // existing items found, stack them
-				if( amount > MAX_AMOUNT - stor->u.items_storage[i].amount || ( data->stack.storage && amount > data->stack.amount - stor->u.items_storage[i].amount ) )
+			if( stor->u.items_storage[i].nameid == 0 ){
+				frei++;
+				continue;
+			}
+			if( compare_item(&stor->u.items_storage[i], it) ) {
+				// Item-spezifische Stapelgrenzen bleiben eine harte Besitzgrenze
+				if( data->stack.storage && rest > data->stack.amount - stor->u.items_storage[i].amount )
 					return 2;
-
-				stor->u.items_storage[i].amount += amount;
-				stor->dirty = true;
-				clif_storageitemadded(sd,&stor->u.items_storage[i],i,amount);
-
-				return 0;
+				platz_gesamt += max( 0, MAX_AMOUNT - stor->u.items_storage[i].amount );
 			}
 		}
+
+		if( rest > platz_gesamt && ( rest - platz_gesamt + MAX_AMOUNT - 1 ) / MAX_AMOUNT > frei )
+			return 2;
+
+		// Auffuellen
+		for( i = 0; i < stor->max_amount && rest > 0; i++ ) {
+			if( compare_item(&stor->u.items_storage[i], it) ) {
+				int32 platz = MAX_AMOUNT - stor->u.items_storage[i].amount;
+
+				if( platz <= 0 )
+					continue;
+
+				int32 dazu = min( platz, rest );
+
+				stor->u.items_storage[i].amount += dazu;
+				stor->dirty = true;
+				clif_storageitemadded(sd,&stor->u.items_storage[i],i,dazu);
+				rest -= dazu;
+			}
+		}
+
+		// Neue Haufen
+		while( rest > 0 ){
+			ARR_FIND( 0, stor->max_amount, i, stor->u.items_storage[i].nameid == 0 );
+			if( i >= stor->max_amount )
+				return 2; // Sollte dank Vorabpruefung nie eintreten
+
+			memcpy(&stor->u.items_storage[i],it,sizeof(stor->u.items_storage[0]));
+			stor->amount++;
+			stor->u.items_storage[i].amount = min( MAX_AMOUNT, rest );
+			stor->dirty = true;
+			clif_storageitemadded(sd,&stor->u.items_storage[i],i,stor->u.items_storage[i].amount);
+			clif_updatestorageamount(*sd, stor->amount, stor->max_amount);
+			rest -= stor->u.items_storage[i].amount;
+		}
+
+		return 0;
 	}
 
 	if( stor->amount >= stor->max_amount )
@@ -752,20 +795,63 @@ bool storage_guild_additem(map_session_data* sd, struct s_storage* stor, struct 
 	}
 
 	if(itemdb_isstackable2(id)) { //Stackable
+		// SafaRO: vorhandene Haufen bis 30k auffuellen, Rest auf neue Haufen.
+		// Vorab pruefen, damit nie halb eingelagert wird.
+		int32 rest = amount;
+		int32 platz_gesamt = 0;
+		int32 frei = 0;
+
 		for(i = 0; i < stor->max_amount; i++) {
+			if( stor->u.items_guild[i].nameid == 0 ){
+				frei++;
+				continue;
+			}
 			if(compare_item(&stor->u.items_guild[i], item_data)) {
-				if( amount > MAX_AMOUNT - stor->u.items_guild[i].amount || ( id->stack.guild_storage && amount > id->stack.amount - stor->u.items_guild[i].amount ) )
+				// Item-spezifische Stapelgrenzen bleiben eine harte Besitzgrenze
+				if( id->stack.guild_storage && rest > id->stack.amount - stor->u.items_guild[i].amount )
 					return false;
-
-				stor->u.items_guild[i].amount += amount;
-				clif_storageitemadded(sd,&stor->u.items_guild[i],i,amount);
-				stor->dirty = true;
-
-				storage_guild_log( sd, &stor->u.items_guild[i], amount );
-
-				return true;
+				platz_gesamt += max( 0, MAX_AMOUNT - stor->u.items_guild[i].amount );
 			}
 		}
+
+		if( rest > platz_gesamt && ( rest - platz_gesamt + MAX_AMOUNT - 1 ) / MAX_AMOUNT > frei )
+			return false;
+
+		// Auffuellen
+		for(i = 0; i < stor->max_amount && rest > 0; i++) {
+			if(compare_item(&stor->u.items_guild[i], item_data)) {
+				int32 platz = MAX_AMOUNT - stor->u.items_guild[i].amount;
+
+				if( platz <= 0 )
+					continue;
+
+				int32 dazu = min( platz, rest );
+
+				stor->u.items_guild[i].amount += dazu;
+				clif_storageitemadded(sd,&stor->u.items_guild[i],i,dazu);
+				stor->dirty = true;
+				storage_guild_log( sd, &stor->u.items_guild[i], dazu );
+				rest -= dazu;
+			}
+		}
+
+		// Neue Haufen
+		while( rest > 0 ){
+			for(i = 0; i < stor->max_amount && stor->u.items_guild[i].nameid; i++);
+			if(i >= stor->max_amount)
+				return false; // Sollte dank Vorabpruefung nie eintreten
+
+			memcpy(&stor->u.items_guild[i],item_data,sizeof(stor->u.items_guild[0]));
+			stor->u.items_guild[i].amount = min( MAX_AMOUNT, rest );
+			stor->amount++;
+			clif_storageitemadded(sd,&stor->u.items_guild[i],i,stor->u.items_guild[i].amount);
+			clif_updatestorageamount(*sd, stor->amount, stor->max_amount);
+			stor->dirty = true;
+			storage_guild_log( sd, &stor->u.items_guild[i], stor->u.items_guild[i].amount );
+			rest -= stor->u.items_guild[i].amount;
+		}
+
+		return true;
 	}
 
 	//Add item
