@@ -16,3 +16,8 @@
 // conf/import/battle_conf.txt, nicht hier - dann steht der Grund an
 // der Stelle, an der jemand ihn sucht.
 { "pet_autofeed_client_toggle", &battle_config.pet_autofeed_client_toggle, 1, 0, 1, },
+
+// Vorgabe 100 = rAthenas gewohntes Verhalten, also kein Deckel. Der
+// tatsaechliche Wert steht in conf/import/battle_conf.txt - dort, wo
+// jemand die Begruendung sucht.
+{ "max_damage_reduction", &battle_config.max_damage_reduction, 100, 0, 100, },

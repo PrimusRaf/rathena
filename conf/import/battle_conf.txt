@@ -406,3 +406,35 @@ feature.pet_autofeed_rate: 25
 //  Sollte je ein Client zum Einsatz kommen, der das Haekchen
 //  darstellt: hier auf 1, @reloadbattleconf, fertig.
 pet_autofeed_client_toggle: 0
+
+// --- Kein Rundumschutz ----------------------------------------------
+//
+//  Hoechste Schadensminderung, die Abwehrkarten zusammen erreichen
+//  koennen. 100 waere rAthenas Vorgabe, also gar kein Deckel.
+//
+//  WARUM UEBERHAUPT EIN DECKEL
+//
+//  battle_calc_cardfix multipliziert die Abwehrschienen Element,
+//  Rasse, Groesse, Klasse und Reichweite NACHEINANDER auf denselben
+//  Wert. Jede fuer sich darf harmlos aussehen und trotzdem gemeinsam
+//  bei null landen - drei Schienen zu je 90 Prozent lassen 0,1
+//  Prozent uebrig. Und ab 100 Prozent auf einer einzigen Schiene
+//  wird der Wert null oder negativ; APPLY_CARDFIX macht daraus mit
+//  max(0,fix) glatte Unverwundbarkeit.
+//
+//  Genau das liess sich mit Turtle General + Ominous Turtle General
+//  bauen, mit den verdichteten Karten des Kartenweisen erst recht.
+//  Ein Gegner, gegen den nichts mehr hilft, beendet jeden Kampf
+//  vorzeitig - im PvP wie im PvM.
+//
+//  90 heisst: ein Zehntel des Schadens kommt immer durch, egal wie
+//  die Karten stehen. Wer viel Widerstand traegt, gewinnt weiterhin
+//  fast alles davon; erst am aeussersten Ende greift der Deckel.
+//
+//  NUR DIE ABWEHR, NUR NACH UNTEN. Angriffskarten sind nicht
+//  betroffen, und negative Widerstaende (Deviling und Verwandte)
+//  bleiben unangetastet - sie erhoehen den Schaden, der Deckel hebt
+//  nur an, was zu weit gefallen ist.
+//
+//  Aenderbar im Betrieb mit @reloadbattleconf.
+max_damage_reduction: 90

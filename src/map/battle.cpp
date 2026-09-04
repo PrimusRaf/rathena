@@ -805,6 +805,35 @@ int32 battle_calc_cardfix(int32 attack_type, block_list *src, block_list *target
 //Official servers apply the cardfix value on a base of 1000 and round down the reduction/increase
 #define APPLY_CARDFIX(damage, fix) { (damage) = (damage) - (int64)(((damage) * (1000 - max(0, fix))) / 1000); }
 
+// --- SafaRO: kein Rundumschutz ---------------------------------------
+//
+//  Die Abwehrseite multipliziert Element, Rasse, Groesse, Klasse und
+//  Reichweite NACHEINANDER auf denselben cardfix. Jeder Faktor allein
+//  darf harmlos aussehen und trotzdem gemeinsam bei null landen:
+//  drei Schienen zu je 90 Prozent lassen 0,1 Prozent uebrig, und ab
+//  100 Prozent auf EINER Schiene wird cardfix null oder negativ -
+//  APPLY_CARDFIX macht daraus mit max(0,fix) glatte Unverwundbarkeit.
+//
+//  Genau das war mit Turtle General + Ominous Turtle General zu
+//  bauen, erst recht mit den verdichteten Karten des Kartenweisen.
+//  Deshalb bekommt die ABWEHR einen Boden: hoechstens
+//  battle_config.max_damage_reduction Prozent duerfen zusammen
+//  weggehen, der Rest kommt immer durch.
+//
+//  cardfix rechnet auf 1000 (1000 = unveraendert), also ist der
+//  Boden 1000 - Prozent*10. Nur die Abwehr wird gedeckelt, nicht der
+//  Angriff - und nur nach unten: negative Widerstaende (Deviling und
+//  Verwandte) erhoehen cardfix und bleiben unangetastet.
+//
+//  100 in der Einstellung schaltet den Deckel ab (Boden 0).
+//  do/while(0) und nicht bloss geschweifte Klammern: so bleibt der
+//  Aufruf eine einzelne Anweisung und ueberlebt auch ein if ohne
+//  Klammern, falls die Stelle je umgebaut wird.
+#define CAP_DEFENSE_CARDFIX(fix) do { \
+	int32 boden__ = 1000 - battle_config.max_damage_reduction * 10; \
+	if ((fix) < boden__) (fix) = boden__; \
+} while(0)
+
 	switch( attack_type ) {
 		case BF_MAGIC:
 			// Affected by attacker ATK bonuses
@@ -931,6 +960,7 @@ int32 battle_calc_cardfix(int32 attack_type, block_list *src, block_list *target
 
 				if( tsc->getSCE(SC_MDEF_RATE) )
 					cardfix = cardfix * (100 - tsc->getSCE(SC_MDEF_RATE)->val1) / 100;
+				CAP_DEFENSE_CARDFIX(cardfix);	// SafaRO: kein Rundumschutz
 				APPLY_CARDFIX(damage, cardfix);
 			}
 			break;
@@ -1150,6 +1180,7 @@ int32 battle_calc_cardfix(int32 attack_type, block_list *src, block_list *target
 					cardfix = cardfix * (100 - tsd->bonus.long_attack_def_rate) / 100;
 				if( tsc->getSCE(SC_DEF_RATE) )
 					cardfix = cardfix * (100 - tsc->getSCE(SC_DEF_RATE)->val1) / 100;
+				CAP_DEFENSE_CARDFIX(cardfix);	// SafaRO: kein Rundumschutz
 				APPLY_CARDFIX(damage, cardfix);
 			}
 			// Custom on BF_WEAPON to follow SC_ debuff BF_MAGIC renewal behavior
@@ -1201,6 +1232,7 @@ int32 battle_calc_cardfix(int32 attack_type, block_list *src, block_list *target
 					cardfix = cardfix * (100 - tsd->bonus.near_attack_def_rate) / 100;
 				else if (!nk[NK_IGNORELONGCARD])	// BF_LONG (there's no other choice)
 					cardfix = cardfix * (100 - tsd->bonus.long_attack_def_rate) / 100;
+				CAP_DEFENSE_CARDFIX(cardfix);	// SafaRO: kein Rundumschutz
 				APPLY_CARDFIX(damage, cardfix);
 			}
 			// Custom on BF_MISC to follow SC_ debuff BF_MAGIC renewal behavior
@@ -1213,6 +1245,7 @@ int32 battle_calc_cardfix(int32 attack_type, block_list *src, block_list *target
 	}
 
 #undef APPLY_CARDFIX
+#undef CAP_DEFENSE_CARDFIX
 
 	return (int32)cap_value(damage - original_damage, INT_MIN, INT_MAX);
 }
