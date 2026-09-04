@@ -1118,6 +1118,8 @@ Body:
     Script: |
       skill "TF_DETOXIFY",1;
       skill "TF_DETOXIFY",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"TF_DETOXIFY",50;
 
   - Id: 50063
     AegisName: Poporing_Card_S3
@@ -1135,6 +1137,8 @@ Body:
       skill "TF_DETOXIFY",1;
       skill "TF_DETOXIFY",1;
       skill "TF_DETOXIFY",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"TF_DETOXIFY",100;
 
   - Id: 50064
     AegisName: Worm_Tail_Card_S2
@@ -3242,6 +3246,8 @@ Body:
     Script: |
       skill "AL_CURE",1;
       skill "AL_CURE",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"AL_CURE",50;
 
   - Id: 50181
     AegisName: Obeaune_Card_S3
@@ -3259,6 +3265,8 @@ Body:
       skill "AL_CURE",1;
       skill "AL_CURE",1;
       skill "AL_CURE",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"AL_CURE",100;
 
   - Id: 50182
     AegisName: Archer_Skeleton_Card_S2
@@ -3622,6 +3630,8 @@ Body:
     Script: |
       skill "MG_SIGHT",1;
       skill "MG_SIGHT",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"MG_SIGHT",50;
 
   - Id: 50201
     AegisName: Horong_Card_S3
@@ -3639,6 +3649,8 @@ Body:
       skill "MG_SIGHT",1;
       skill "MG_SIGHT",1;
       skill "MG_SIGHT",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"MG_SIGHT",100;
 
   - Id: 50202
     AegisName: Requiem_Card_S2
@@ -5912,8 +5924,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,50;
-      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,50;
+      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,100;
+      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,100;
 
   - Id: 50315
     AegisName: Grand_Peco_Card_S3
@@ -5929,10 +5941,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,50;
-      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,50;
-      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,50;
-      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,50;
+      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,200;
+      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,200;
+      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,200;
+      bonus3 bAutoSpellWhenHit,"PR_GLORIA",1,200;
 
   - Id: 50316
     AegisName: Grizzly_Card_S2
@@ -5981,11 +5993,11 @@ Body:
       bonus bFlee,2;
       bonus bCritical,7;
       if (BaseClass == Job_Swordman)
-         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,10;
+         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,20;
       bonus bFlee,2;
       bonus bCritical,7;
       if (BaseClass == Job_Swordman)
-         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,10;
+         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,20;
 
   - Id: 50319
     AegisName: Gryphon_Card_S3
@@ -6002,19 +6014,19 @@ Body:
       bonus bFlee,2;
       bonus bCritical,7;
       if (BaseClass == Job_Swordman)
-         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,10;
+         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,40;
       bonus bFlee,2;
       bonus bCritical,7;
       if (BaseClass == Job_Swordman)
-         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,10;
+         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,40;
       bonus bFlee,2;
       bonus bCritical,7;
       if (BaseClass == Job_Swordman)
-         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,10;
+         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,40;
       bonus bFlee,2;
       bonus bCritical,7;
       if (BaseClass == Job_Swordman)
-         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,10;
+         bonus3 bAutoSpell,"KN_BOWLINGBASH",5,40;
 
   - Id: 50320
     AegisName: Gullinbursti_Card_S2
@@ -6168,9 +6180,9 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,300;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,300;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,300;
 
   - Id: 50329
     AegisName: Dark_Lord_Card_S3
@@ -6184,15 +6196,15 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
-      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,100;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,500;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,500;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,500;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,500;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,500;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,500;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,500;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,500;
+      bonus3 bAutoSpellWhenHit,"WZ_METEOR",5,500;
 
   - Id: 50330
     AegisName: Dark_Illusion_Card_S2
@@ -6418,9 +6430,9 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"TF_POISON",1,20;
+      bonus3 bAutoSpell,"TF_POISON",1,40;
       bonus2 bAddSkillBlow,52,5;
-      bonus3 bAutoSpell,"TF_POISON",1,20;
+      bonus3 bAutoSpell,"TF_POISON",1,40;
       bonus2 bAddSkillBlow,52,5;
 
   - Id: 50341
@@ -6435,13 +6447,13 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"TF_POISON",1,20;
+      bonus3 bAutoSpell,"TF_POISON",1,80;
       bonus2 bAddSkillBlow,52,5;
-      bonus3 bAutoSpell,"TF_POISON",1,20;
+      bonus3 bAutoSpell,"TF_POISON",1,80;
       bonus2 bAddSkillBlow,52,5;
-      bonus3 bAutoSpell,"TF_POISON",1,20;
+      bonus3 bAutoSpell,"TF_POISON",1,80;
       bonus2 bAddSkillBlow,52,5;
-      bonus3 bAutoSpell,"TF_POISON",1,20;
+      bonus3 bAutoSpell,"TF_POISON",1,80;
       bonus2 bAddSkillBlow,52,5;
 
   - Id: 50342
@@ -7014,8 +7026,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,50;
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,50;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,100;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,100;
 
   - Id: 50373
     AegisName: Loli_Ruri_Card_S3
@@ -7029,10 +7041,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,50;
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,50;
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,50;
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,50;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,200;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,200;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,200;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",3,200;
 
   - Id: 50374
     AegisName: Rotar_Zairo_Card_S2
@@ -7085,9 +7097,9 @@ Body:
       DropEffect: true
     Script: |
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,200;
+         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,400;
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,200;
+         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,400;
 
   - Id: 50377
     AegisName: Lude_Card_S3
@@ -7102,13 +7114,13 @@ Body:
       DropEffect: true
     Script: |
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,200;
+         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,500;
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,200;
+         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,500;
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,200;
+         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,500;
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,200;
+         bonus3 bAutoSpellWhenHit,"SM_ENDURE",1,500;
 
   - Id: 50378
     AegisName: Rybio_Card_S2
@@ -7407,9 +7419,9 @@ Body:
       DropEffect: true
     Script: |
       bonus bBaseAtk,15;
-      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),50;
+      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),100;
       bonus bBaseAtk,15;
-      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),50;
+      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),100;
 
   - Id: 50395
     AegisName: Mutant_Dragon_Card_S3
@@ -7424,13 +7436,13 @@ Body:
       DropEffect: true
     Script: |
       bonus bBaseAtk,15;
-      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),50;
+      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),200;
       bonus bBaseAtk,15;
-      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),50;
+      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),200;
       bonus bBaseAtk,15;
-      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),50;
+      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),200;
       bonus bBaseAtk,15;
-      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),50;
+      bonus3 bAutoSpell,"MG_FIREBALL",3+7*(getskilllv("MG_FIREBALL") == 10),200;
 
   - Id: 50396
     AegisName: Mini_Demon_Card_S2
@@ -7632,8 +7644,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),20;
-      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),20;
+      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),40;
+      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),40;
 
   - Id: 50407
     AegisName: Violy_Card_S3
@@ -7647,10 +7659,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),20;
-      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),20;
-      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),20;
-      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),20;
+      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),80;
+      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),80;
+      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),80;
+      bonus3 bAutoSpell,"BA_FROSTJOKER",1+4*(getskilllv("BA_FROSTJOKER") == 5),80;
 
   - Id: 50408
     AegisName: Wander_Man_Card_S2
@@ -7665,15 +7677,15 @@ Body:
       DropEffect: true
     Script: |
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,60;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,60;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,60;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
 
@@ -7690,39 +7702,39 @@ Body:
       DropEffect: true
     Script: |
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,180;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,180;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,180;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,180;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,180;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,180;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,180;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,180;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
       if (!isequipped(4172,4257,4230,4272))
-         bonus3 bAutoSpell,"RG_INTIMIDATE",1,20;
+         bonus3 bAutoSpell,"RG_INTIMIDATE",1,180;
       if (BaseClass == Job_Thief)
          bonus bFlee,20;
 
@@ -7770,10 +7782,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"SM_BASH",1,20;
+      bonus3 bAutoSpell,"SM_BASH",1,40;
       bonus2 bAddSkillBlow,"SM_BASH",5;
       bonus2 bAddDefMonster,1026,-100;
-      bonus3 bAutoSpell,"SM_BASH",1,20;
+      bonus3 bAutoSpell,"SM_BASH",1,40;
       bonus2 bAddSkillBlow,"SM_BASH",5;
       bonus2 bAddDefMonster,1026,-100;
 
@@ -7789,16 +7801,16 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"SM_BASH",1,20;
+      bonus3 bAutoSpell,"SM_BASH",1,80;
       bonus2 bAddSkillBlow,"SM_BASH",5;
       bonus2 bAddDefMonster,1026,-100;
-      bonus3 bAutoSpell,"SM_BASH",1,20;
+      bonus3 bAutoSpell,"SM_BASH",1,80;
       bonus2 bAddSkillBlow,"SM_BASH",5;
       bonus2 bAddDefMonster,1026,-100;
-      bonus3 bAutoSpell,"SM_BASH",1,20;
+      bonus3 bAutoSpell,"SM_BASH",1,80;
       bonus2 bAddSkillBlow,"SM_BASH",5;
       bonus2 bAddDefMonster,1026,-100;
-      bonus3 bAutoSpell,"SM_BASH",1,20;
+      bonus3 bAutoSpell,"SM_BASH",1,80;
       bonus2 bAddSkillBlow,"SM_BASH",5;
       bonus2 bAddDefMonster,1026,-100;
 
@@ -7948,8 +7960,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),20;
-      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),20;
+      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),40;
+      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),40;
 
   - Id: 50423
     AegisName: Live_Peach_Tree_Card_S3
@@ -7963,10 +7975,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),20;
-      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),20;
-      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),20;
-      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),20;
+      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),80;
+      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),80;
+      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),80;
+      bonus3 bAutoSpell,"AL_HEAL",1+9*(getskilllv("AL_HEAL") == 10),80;
 
   - Id: 50424
     AegisName: Succubus_Card_S2
@@ -8451,9 +8463,9 @@ Body:
       DropEffect: true
     Script: |
       bonus bAgi,1;
-      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,100;
+      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,200;
       bonus bAgi,1;
-      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,100;
+      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,200;
 
   - Id: 50449
     AegisName: Shinobi_Card_S3
@@ -8468,13 +8480,13 @@ Body:
       DropEffect: true
     Script: |
       bonus bAgi,1;
-      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,100;
+      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,400;
       bonus bAgi,1;
-      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,100;
+      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,400;
       bonus bAgi,1;
-      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,100;
+      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,400;
       bonus bAgi,1;
-      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,100;
+      bonus3 bAutoSpellWhenHit,"AS_CLOAKING",5,400;
 
   - Id: 50450
     AegisName: Increase_Soil_Card_S2
@@ -8644,8 +8656,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),30;
-      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),30;
+      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),60;
+      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),60;
 
   - Id: 50457
     AegisName: Anolian_Card_S3
@@ -8659,10 +8671,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),30;
-      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),30;
-      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),30;
-      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),30;
+      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),120;
+      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),120;
+      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),120;
+      bonus3 bAutoSpellWhenHit,"AC_CONCENTRATION",1+9*(getskilllv("AC_CONCENTRATION") == 10),120;
 
   - Id: 50458
     AegisName: Cookie_XMAS_Card_S2
@@ -8764,8 +8776,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"PR_IMPOSITIO",3,3;
-      bonus3 bAutoSpell,"PR_IMPOSITIO",3,3;
+      bonus3 bAutoSpell,"PR_IMPOSITIO",3,6;
+      bonus3 bAutoSpell,"PR_IMPOSITIO",3,6;
 
   - Id: 50463
     AegisName: Owl_Duke_Card_S3
@@ -8779,10 +8791,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"PR_IMPOSITIO",3,3;
-      bonus3 bAutoSpell,"PR_IMPOSITIO",3,3;
-      bonus3 bAutoSpell,"PR_IMPOSITIO",3,3;
-      bonus3 bAutoSpell,"PR_IMPOSITIO",3,3;
+      bonus3 bAutoSpell,"PR_IMPOSITIO",3,12;
+      bonus3 bAutoSpell,"PR_IMPOSITIO",3,12;
+      bonus3 bAutoSpell,"PR_IMPOSITIO",3,12;
+      bonus3 bAutoSpell,"PR_IMPOSITIO",3,12;
 
   - Id: 50464
     AegisName: Owl_Baron_Card_S2
@@ -8796,8 +8808,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"PR_LEXAETERNA",1,30;
-      bonus3 bAutoSpell,"PR_LEXAETERNA",1,30;
+      bonus3 bAutoSpell,"PR_LEXAETERNA",1,60;
+      bonus3 bAutoSpell,"PR_LEXAETERNA",1,60;
 
   - Id: 50465
     AegisName: Owl_Baron_Card_S3
@@ -8811,10 +8823,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"PR_LEXAETERNA",1,30;
-      bonus3 bAutoSpell,"PR_LEXAETERNA",1,30;
-      bonus3 bAutoSpell,"PR_LEXAETERNA",1,30;
-      bonus3 bAutoSpell,"PR_LEXAETERNA",1,30;
+      bonus3 bAutoSpell,"PR_LEXAETERNA",1,120;
+      bonus3 bAutoSpell,"PR_LEXAETERNA",1,120;
+      bonus3 bAutoSpell,"PR_LEXAETERNA",1,120;
+      bonus3 bAutoSpell,"PR_LEXAETERNA",1,120;
 
   - Id: 50466
     AegisName: Iron_Fist_Card_S2
@@ -9052,10 +9064,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,200;
+      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,400;
       bonus bMaxHP,300;
       bonus bVit,1;
-      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,200;
+      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,400;
       bonus bMaxHP,300;
       bonus bVit,1;
 
@@ -9071,16 +9083,16 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,200;
+      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,500;
       bonus bMaxHP,300;
       bonus bVit,1;
-      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,200;
+      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,500;
       bonus bMaxHP,300;
       bonus bVit,1;
-      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,200;
+      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,500;
       bonus bMaxHP,300;
       bonus bVit,1;
-      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,200;
+      bonus3 bAutoSpellWhenHit,"MG_SIGHT",1,500;
       bonus bMaxHP,300;
       bonus bVit,1;
 
@@ -9240,8 +9252,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,30;
-      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,30;
+      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,60;
+      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,60;
 
   - Id: 50485
     AegisName: Ancient_Mummy_Card_S3
@@ -9255,10 +9267,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,30;
-      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,30;
-      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,30;
-      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,30;
+      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,120;
+      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,120;
+      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,120;
+      bonus3 bAutoSpellWhenHit,"AL_CRUCIS",5,120;
 
   - Id: 50486
     AegisName: Ancient_Worm_Card_S2
@@ -9878,8 +9890,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),20;
-      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),20;
+      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),40;
+      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),40;
 
   - Id: 50517
     AegisName: Wind_Ghost_Card_S3
@@ -9893,10 +9905,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),20;
-      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),20;
-      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),20;
-      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),20;
+      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),80;
+      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),80;
+      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),80;
+      bonus3 bAutoSpell,"WZ_JUPITEL",3+7*(getskilllv("WZ_JUPITEL") == 10),80;
 
   - Id: 50518
     AegisName: Li_Me_Mang_Ryang_Card_S2
@@ -10012,8 +10024,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"AS_SONICBLOW",1,50;
-      bonus3 bAutoSpell,"AS_SONICBLOW",1,50;
+      bonus3 bAutoSpell,"AS_SONICBLOW",1,100;
+      bonus3 bAutoSpell,"AS_SONICBLOW",1,100;
 
   - Id: 50525
     AegisName: Injustice_Card_S3
@@ -10027,10 +10039,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"AS_SONICBLOW",1,50;
-      bonus3 bAutoSpell,"AS_SONICBLOW",1,50;
-      bonus3 bAutoSpell,"AS_SONICBLOW",1,50;
-      bonus3 bAutoSpell,"AS_SONICBLOW",1,50;
+      bonus3 bAutoSpell,"AS_SONICBLOW",1,200;
+      bonus3 bAutoSpell,"AS_SONICBLOW",1,200;
+      bonus3 bAutoSpell,"AS_SONICBLOW",1,200;
+      bonus3 bAutoSpell,"AS_SONICBLOW",1,200;
 
   - Id: 50526
     AegisName: Incubus_Card_S2
@@ -10534,8 +10546,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),30;
-      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),30;
+      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),60;
+      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),60;
 
   - Id: 50549
     AegisName: Geographer_Card_S3
@@ -10549,10 +10561,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),30;
-      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),30;
-      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),30;
-      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),30;
+      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),120;
+      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),120;
+      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),120;
+      bonus3 bAutoSpellWhenHit,"AL_BLESSING",2+8*(getskilllv("AL_BLESSING") == 10),120;
 
   - Id: 50550
     AegisName: Zipper_Bear_Card_S2
@@ -10686,8 +10698,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus4 bAutoSpell,"AL_HEAL",5,50,1;
-      bonus4 bAutoSpell,"AL_HEAL",5,50,1;
+      bonus4 bAutoSpell,"AL_HEAL",5,100,1;
+      bonus4 bAutoSpell,"AL_HEAL",5,100,1;
 
   - Id: 50557
     AegisName: Chepet_Card_S3
@@ -10701,10 +10713,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus4 bAutoSpell,"AL_HEAL",5,50,1;
-      bonus4 bAutoSpell,"AL_HEAL",5,50,1;
-      bonus4 bAutoSpell,"AL_HEAL",5,50,1;
-      bonus4 bAutoSpell,"AL_HEAL",5,50,1;
+      bonus4 bAutoSpell,"AL_HEAL",5,200,1;
+      bonus4 bAutoSpell,"AL_HEAL",5,200,1;
+      bonus4 bAutoSpell,"AL_HEAL",5,200,1;
+      bonus4 bAutoSpell,"AL_HEAL",5,200,1;
 
   - Id: 50558
     AegisName: Choco_Card_S2
@@ -11053,9 +11065,9 @@ Body:
       DropEffect: true
     Script: |
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
+         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,200;
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
+         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,200;
 
   - Id: 50577
     AegisName: Quve_Card_S3
@@ -11070,13 +11082,13 @@ Body:
       DropEffect: true
     Script: |
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
+         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,400;
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
+         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,400;
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
+         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,400;
       if (BaseJob == Job_Novice || BaseJob == Job_SuperNovice)
-         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
+         bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,400;
 
   - Id: 50578
     AegisName: Kraben_Card_S2
@@ -11234,8 +11246,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),30;
-      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),30;
+      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),60;
+      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),60;
 
   - Id: 50587
     AegisName: Clock_Card_S3
@@ -11249,10 +11261,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),30;
-      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),30;
-      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),30;
-      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),30;
+      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),120;
+      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),120;
+      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),120;
+      bonus3 bAutoSpellWhenHit,"CR_AUTOGUARD",3+7*(getskilllv("CR_AUTOGUARD") == 10),120;
 
   - Id: 50588
     AegisName: Chimera_Card_S2
@@ -11505,11 +11517,11 @@ Body:
       DropEffect: true
     Script: |
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,90;
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,90;
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,90;
 
   - Id: 50599
     AegisName: Turtle_General_Card_S3
@@ -11524,23 +11536,23 @@ Body:
       DropEffect: true
     Script: |
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,270;
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,270;
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,270;
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,270;
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,270;
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,270;
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,270;
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,270;
       bonus bAtkRate,20;
-      bonus3 bAutoSpell,"SM_MAGNUM",10,30;
+      bonus3 bAutoSpell,"SM_MAGNUM",10,270;
 
   - Id: 50600
     AegisName: Toad_Card_S2
@@ -11830,8 +11842,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),50,0;
-      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),50,0;
+      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),100,0;
+      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),100,0;
 
   - Id: 50615
     AegisName: Punk_Card_S3
@@ -11845,10 +11857,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),50,0;
-      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),50,0;
-      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),50,0;
-      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),50,0;
+      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),200,0;
+      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),200,0;
+      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),200,0;
+      bonus4 bAutoSpellWhenHit,"WZ_QUAGMIRE",1+4*(getskilllv("WZ_QUAGMIRE") == 5),200,0;
 
   - Id: 50616
     AegisName: Penomena_Card_S2
@@ -12002,11 +12014,11 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,60;
       bonus2 bAddEff,Eff_Freeze,2000;
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,60;
       bonus2 bAddEff,Eff_Freeze,2000;
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,60;
       bonus2 bAddEff,Eff_Freeze,2000;
 
   - Id: 50625
@@ -12021,23 +12033,23 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,180;
       bonus2 bAddEff,Eff_Freeze,2000;
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,180;
       bonus2 bAddEff,Eff_Freeze,2000;
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,180;
       bonus2 bAddEff,Eff_Freeze,2000;
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,180;
       bonus2 bAddEff,Eff_Freeze,2000;
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,180;
       bonus2 bAddEff,Eff_Freeze,2000;
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,180;
       bonus2 bAddEff,Eff_Freeze,2000;
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,180;
       bonus2 bAddEff,Eff_Freeze,2000;
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,180;
       bonus2 bAddEff,Eff_Freeze,2000;
-      bonus3 bAutoSpell,"WZ_STORMGUST",1,20;
+      bonus3 bAutoSpell,"WZ_STORMGUST",1,180;
       bonus2 bAddEff,Eff_Freeze,2000;
 
   - Id: 50626
@@ -12096,8 +12108,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"WZ_METEOR",1,20;
-      bonus3 bAutoSpell,"WZ_METEOR",1,20;
+      bonus3 bAutoSpell,"WZ_METEOR",1,40;
+      bonus3 bAutoSpell,"WZ_METEOR",1,40;
 
   - Id: 50629
     AegisName: Bloody_Knight_Card_S3
@@ -12111,10 +12123,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"WZ_METEOR",1,20;
-      bonus3 bAutoSpell,"WZ_METEOR",1,20;
-      bonus3 bAutoSpell,"WZ_METEOR",1,20;
-      bonus3 bAutoSpell,"WZ_METEOR",1,20;
+      bonus3 bAutoSpell,"WZ_METEOR",1,80;
+      bonus3 bAutoSpell,"WZ_METEOR",1,80;
+      bonus3 bAutoSpell,"WZ_METEOR",1,80;
+      bonus3 bAutoSpell,"WZ_METEOR",1,80;
 
   - Id: 50630
     AegisName: Hylozoist_Card_S2
@@ -12198,8 +12210,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"MG_FROSTDIVER",3,50;
-      bonus3 bAutoSpell,"MG_FROSTDIVER",3,50;
+      bonus3 bAutoSpell,"MG_FROSTDIVER",3,100;
+      bonus3 bAutoSpell,"MG_FROSTDIVER",3,100;
 
   - Id: 50635
     AegisName: Garm_Baby_Card_S3
@@ -12213,10 +12225,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"MG_FROSTDIVER",3,50;
-      bonus3 bAutoSpell,"MG_FROSTDIVER",3,50;
-      bonus3 bAutoSpell,"MG_FROSTDIVER",3,50;
-      bonus3 bAutoSpell,"MG_FROSTDIVER",3,50;
+      bonus3 bAutoSpell,"MG_FROSTDIVER",3,200;
+      bonus3 bAutoSpell,"MG_FROSTDIVER",3,200;
+      bonus3 bAutoSpell,"MG_FROSTDIVER",3,200;
+      bonus3 bAutoSpell,"MG_FROSTDIVER",3,200;
 
   - Id: 50636
     AegisName: Garm_Card_S2
@@ -12914,8 +12926,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,50;
-      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,50;
+      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,100;
+      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,100;
 
   - Id: 50671
     AegisName: Metaling_Card_S3
@@ -12929,10 +12941,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,50;
-      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,50;
-      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,50;
-      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,50;
+      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,200;
+      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,200;
+      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,200;
+      bonus3 bAutoSpell,"RG_STRIPWEAPON",1,200;
 
   - Id: 50672
     AegisName: Rsx_0806_Card_S2
@@ -13190,8 +13202,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"RG_STRIPARMOR",1,50;
-      bonus3 bAutoSpell,"RG_STRIPARMOR",1,50;
+      bonus3 bAutoSpell,"RG_STRIPARMOR",1,100;
+      bonus3 bAutoSpell,"RG_STRIPARMOR",1,100;
 
   - Id: 50685
     AegisName: Whikebain_Card_S3
@@ -13205,10 +13217,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"RG_STRIPARMOR",1,50;
-      bonus3 bAutoSpell,"RG_STRIPARMOR",1,50;
-      bonus3 bAutoSpell,"RG_STRIPARMOR",1,50;
-      bonus3 bAutoSpell,"RG_STRIPARMOR",1,50;
+      bonus3 bAutoSpell,"RG_STRIPARMOR",1,200;
+      bonus3 bAutoSpell,"RG_STRIPARMOR",1,200;
+      bonus3 bAutoSpell,"RG_STRIPARMOR",1,200;
+      bonus3 bAutoSpell,"RG_STRIPARMOR",1,200;
 
   - Id: 50686
     AegisName: Erend_Card_S2
@@ -13222,8 +13234,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,50,0;
-      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,50,0;
+      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,100,0;
+      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,100,0;
 
   - Id: 50687
     AegisName: Erend_Card_S3
@@ -13237,10 +13249,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,50,0;
-      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,50,0;
-      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,50,0;
-      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,50,0;
+      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,200,0;
+      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,200,0;
+      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,200,0;
+      bonus4 bAutoSpellWhenHit,"AL_PNEUMA",1,200,0;
 
   - Id: 50688
     AegisName: Rawrel_Card_S2
@@ -13622,6 +13634,8 @@ Body:
       bonus bMaxHPrate,-50;
       skill "LK_BERSERK",1;
       bonus bMaxHPrate,-50;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"LK_BERSERK",50;
 
   - Id: 50703
     AegisName: B_Seyren_Card_S3
@@ -13655,6 +13669,8 @@ Body:
       bonus bMaxHPrate,-50;
       skill "LK_BERSERK",1;
       bonus bMaxHPrate,-50;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"LK_BERSERK",100;
 
   - Id: 50704
     AegisName: Seyren_Card_S2
@@ -13868,9 +13884,9 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,150,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,150,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,150,BF_WEAPON|BF_MAGIC,0;
 
   - Id: 50715
     AegisName: B_Magaleta_Card_S3
@@ -13884,15 +13900,15 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
-      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,50,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,450,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,450,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,450,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,450,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,450,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,450,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,450,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,450,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"HP_ASSUMPTIO",5,450,BF_WEAPON|BF_MAGIC,0;
 
   - Id: 50716
     AegisName: Magaleta_Card_S2
@@ -13909,9 +13925,9 @@ Body:
       DropEffect: true
     Script: |
       bonus bInt,1;
-      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,150,BF_MAGIC,1;
+      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,300,BF_MAGIC,1;
       bonus bInt,1;
-      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,150,BF_MAGIC,1;
+      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,300,BF_MAGIC,1;
 
   - Id: 50717
     AegisName: Magaleta_Card_S3
@@ -13928,13 +13944,13 @@ Body:
       DropEffect: true
     Script: |
       bonus bInt,1;
-      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,150,BF_MAGIC,1;
+      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,500,BF_MAGIC,1;
       bonus bInt,1;
-      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,150,BF_MAGIC,1;
+      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,500,BF_MAGIC,1;
       bonus bInt,1;
-      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,150,BF_MAGIC,1;
+      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,500,BF_MAGIC,1;
       bonus bInt,1;
-      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,150,BF_MAGIC,1;
+      bonus5 bAutoSpellWhenHit,"PR_LEXDIVINA",5,500,BF_MAGIC,1;
 
   - Id: 50718
     AegisName: B_Katrinn_Card_S2
@@ -14870,8 +14886,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,100;
-      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,100;
+      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,200;
+      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,200;
 
   - Id: 50757
     AegisName: Hydro_Card_S3
@@ -14885,10 +14901,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,100;
-      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,100;
-      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,100;
-      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,100;
+      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,400;
+      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,400;
+      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,400;
+      bonus3 bAutoSpell,"SA_SPELLBREAKER",1,400;
 
   - Id: 50758
     AegisName: Dragon_Egg_Card_S2
@@ -14936,13 +14952,13 @@ Body:
     Script: |
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,210,BF_MAGIC,0;
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,210,BF_MAGIC,0;
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,210,BF_MAGIC,0;
 
   - Id: 50761
     AegisName: Detale_Card_S3
@@ -14958,31 +14974,31 @@ Body:
     Script: |
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,500,BF_MAGIC,0;
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,500,BF_MAGIC,0;
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,500,BF_MAGIC,0;
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,500,BF_MAGIC,0;
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,500,BF_MAGIC,0;
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,500,BF_MAGIC,0;
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,500,BF_MAGIC,0;
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,500,BF_MAGIC,0;
       bonus bMdef,-20;
       bonus2 bResEff,Eff_Freeze,10000;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,70,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",1,500,BF_MAGIC,0;
 
   - Id: 50762
     AegisName: Ancient_Mimic_Card_S2
@@ -15257,9 +15273,9 @@ Body:
       DropEffect: true
     Script: |
       if (BaseJob == Job_Priest)
-         bonus3 bAutoSpell,"CR_GRANDCROSS",5,20;
+         bonus3 bAutoSpell,"CR_GRANDCROSS",5,40;
       if (BaseJob == Job_Priest)
-         bonus3 bAutoSpell,"CR_GRANDCROSS",5,20;
+         bonus3 bAutoSpell,"CR_GRANDCROSS",5,40;
 
   - Id: 50777
     AegisName: Solace_Card_S3
@@ -15274,13 +15290,13 @@ Body:
       DropEffect: true
     Script: |
       if (BaseJob == Job_Priest)
-         bonus3 bAutoSpell,"CR_GRANDCROSS",5,20;
+         bonus3 bAutoSpell,"CR_GRANDCROSS",5,80;
       if (BaseJob == Job_Priest)
-         bonus3 bAutoSpell,"CR_GRANDCROSS",5,20;
+         bonus3 bAutoSpell,"CR_GRANDCROSS",5,80;
       if (BaseJob == Job_Priest)
-         bonus3 bAutoSpell,"CR_GRANDCROSS",5,20;
+         bonus3 bAutoSpell,"CR_GRANDCROSS",5,80;
       if (BaseJob == Job_Priest)
-         bonus3 bAutoSpell,"CR_GRANDCROSS",5,20;
+         bonus3 bAutoSpell,"CR_GRANDCROSS",5,80;
 
   - Id: 50778
     AegisName: Tha_Maero_Card_S2
@@ -15295,9 +15311,9 @@ Body:
       DropEffect: true
     Script: |
       bonus bBaseAtk,5;
-      bonus3 bAutoSpell,"AL_DECAGI",3,50;
+      bonus3 bAutoSpell,"AL_DECAGI",3,100;
       bonus bBaseAtk,5;
-      bonus3 bAutoSpell,"AL_DECAGI",3,50;
+      bonus3 bAutoSpell,"AL_DECAGI",3,100;
 
   - Id: 50779
     AegisName: Tha_Maero_Card_S3
@@ -15312,13 +15328,13 @@ Body:
       DropEffect: true
     Script: |
       bonus bBaseAtk,5;
-      bonus3 bAutoSpell,"AL_DECAGI",3,50;
+      bonus3 bAutoSpell,"AL_DECAGI",3,200;
       bonus bBaseAtk,5;
-      bonus3 bAutoSpell,"AL_DECAGI",3,50;
+      bonus3 bAutoSpell,"AL_DECAGI",3,200;
       bonus bBaseAtk,5;
-      bonus3 bAutoSpell,"AL_DECAGI",3,50;
+      bonus3 bAutoSpell,"AL_DECAGI",3,200;
       bonus bBaseAtk,5;
-      bonus3 bAutoSpell,"AL_DECAGI",3,50;
+      bonus3 bAutoSpell,"AL_DECAGI",3,200;
 
   - Id: 50780
     AegisName: Tha_Odium_Card_S2
@@ -15798,13 +15814,13 @@ Body:
     Script: |
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,150;
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,150;
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,150;
       // Setzer-Ausgleich fuer nicht stapelbare Boni
       bonus bMaxHPrate,3;
       bonus bMaxSPrate,3;
@@ -15823,31 +15839,31 @@ Body:
     Script: |
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,450;
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,450;
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,450;
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,450;
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,450;
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,450;
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,450;
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,450;
       bonus bUnbreakableWeapon;
       bonus bAtkRate,10;
-      bonus3 bAutoSpell,"SA_DISPELL",1,50;
+      bonus3 bAutoSpell,"SA_DISPELL",1,450;
       // Setzer-Ausgleich fuer nicht stapelbare Boni
       bonus bMaxHPrate,6;
       bonus bMaxSPrate,6;
@@ -16330,8 +16346,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"MG_COLDBOLT",2,100;
-      bonus3 bAutoSpell,"MG_COLDBOLT",2,100;
+      bonus3 bAutoSpell,"MG_COLDBOLT",2,200;
+      bonus3 bAutoSpell,"MG_COLDBOLT",2,200;
 
   - Id: 50825
     AegisName: Gazeti_Card_S3
@@ -16345,10 +16361,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"MG_COLDBOLT",2,100;
-      bonus3 bAutoSpell,"MG_COLDBOLT",2,100;
-      bonus3 bAutoSpell,"MG_COLDBOLT",2,100;
-      bonus3 bAutoSpell,"MG_COLDBOLT",2,100;
+      bonus3 bAutoSpell,"MG_COLDBOLT",2,400;
+      bonus3 bAutoSpell,"MG_COLDBOLT",2,400;
+      bonus3 bAutoSpell,"MG_COLDBOLT",2,400;
+      bonus3 bAutoSpell,"MG_COLDBOLT",2,400;
 
   - Id: 50826
     AegisName: Ktullanux_Card_S2
@@ -16363,11 +16379,11 @@ Body:
       DropEffect: true
     Script: |
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,60,BF_WEAPON|BF_MAGIC,0;
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,60,BF_WEAPON|BF_MAGIC,0;
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,60,BF_WEAPON|BF_MAGIC,0;
 
   - Id: 50827
     AegisName: Ktullanux_Card_S3
@@ -16382,23 +16398,23 @@ Body:
       DropEffect: true
     Script: |
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,180,BF_WEAPON|BF_MAGIC,0;
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,180,BF_WEAPON|BF_MAGIC,0;
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,180,BF_WEAPON|BF_MAGIC,0;
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,180,BF_WEAPON|BF_MAGIC,0;
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,180,BF_WEAPON|BF_MAGIC,0;
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,180,BF_WEAPON|BF_MAGIC,0;
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,180,BF_WEAPON|BF_MAGIC,0;
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,180,BF_WEAPON|BF_MAGIC,0;
       bonus2 bAddEle,Ele_Fire,50;
-      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,20,BF_WEAPON|BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,180,BF_WEAPON|BF_MAGIC,0;
 
   - Id: 50828
     AegisName: Muscipular_Card_S2
@@ -16412,10 +16428,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,100;
-      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,100;
-      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,200;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,200;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,200;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,200;
 
   - Id: 50829
     AegisName: Muscipular_Card_S3
@@ -16429,14 +16445,14 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,100;
-      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,100;
-      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,100;
-      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
-      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,100;
-      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,100;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,400;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,400;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,400;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,400;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,400;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,400;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",1,400;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",1,400;
 
   - Id: 50830
     AegisName: Drosera_Card_S2
@@ -16574,6 +16590,9 @@ Body:
       skill "TF_THROWSTONE",1;
       skill "TF_PICKSTONE",1;
       skill "TF_THROWSTONE",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"TF_PICKSTONE",50;
+      bonus2 bSkillUseSPrate,"TF_THROWSTONE",50;
 
   - Id: 50837
     AegisName: Stapo_Card_S3
@@ -16595,6 +16614,9 @@ Body:
       skill "TF_THROWSTONE",1;
       skill "TF_PICKSTONE",1;
       skill "TF_THROWSTONE",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"TF_PICKSTONE",100;
+      bonus2 bSkillUseSPrate,"TF_THROWSTONE",100;
 
   - Id: 50838
     AegisName: Atroce_Card_S2
@@ -16867,15 +16889,15 @@ Body:
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,30;
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,30;
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,30;
 
   - Id: 50849
     AegisName: Ifrit_Card_S3
@@ -16892,39 +16914,39 @@ Body:
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,90;
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,90;
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,90;
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,90;
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,90;
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,90;
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,90;
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,90;
       bonus bBaseAtk,(JobLevel/10);
       bonus bCritical,(JobLevel/10);
       bonus bHit,(JobLevel/10);
-      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,10;
+      bonus3 bAutoSpellWhenHit,"NPC_EARTHQUAKE",2,90;
 
   - Id: 50850
     AegisName: Kasa_Card_S2
@@ -16938,10 +16960,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"MG_FIREBALL",5,20;
-      bonus3 bAutoSpell,"MG_FIREBOLT",5,20;
-      bonus3 bAutoSpell,"MG_FIREBALL",5,20;
-      bonus3 bAutoSpell,"MG_FIREBOLT",5,20;
+      bonus3 bAutoSpell,"MG_FIREBALL",5,40;
+      bonus3 bAutoSpell,"MG_FIREBOLT",5,40;
+      bonus3 bAutoSpell,"MG_FIREBALL",5,40;
+      bonus3 bAutoSpell,"MG_FIREBOLT",5,40;
 
   - Id: 50851
     AegisName: Kasa_Card_S3
@@ -16955,14 +16977,14 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"MG_FIREBALL",5,20;
-      bonus3 bAutoSpell,"MG_FIREBOLT",5,20;
-      bonus3 bAutoSpell,"MG_FIREBALL",5,20;
-      bonus3 bAutoSpell,"MG_FIREBOLT",5,20;
-      bonus3 bAutoSpell,"MG_FIREBALL",5,20;
-      bonus3 bAutoSpell,"MG_FIREBOLT",5,20;
-      bonus3 bAutoSpell,"MG_FIREBALL",5,20;
-      bonus3 bAutoSpell,"MG_FIREBOLT",5,20;
+      bonus3 bAutoSpell,"MG_FIREBALL",5,80;
+      bonus3 bAutoSpell,"MG_FIREBOLT",5,80;
+      bonus3 bAutoSpell,"MG_FIREBALL",5,80;
+      bonus3 bAutoSpell,"MG_FIREBOLT",5,80;
+      bonus3 bAutoSpell,"MG_FIREBALL",5,80;
+      bonus3 bAutoSpell,"MG_FIREBOLT",5,80;
+      bonus3 bAutoSpell,"MG_FIREBALL",5,80;
+      bonus3 bAutoSpell,"MG_FIREBOLT",5,80;
 
   - Id: 50852
     AegisName: Magmaring_Card_S2
@@ -19322,8 +19344,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,30;
-      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,30;
+      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,60;
+      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,60;
 
   - Id: 50949
     AegisName: Miming_Card_S3
@@ -19337,10 +19359,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,30;
-      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,30;
-      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,30;
-      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,30;
+      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,120;
+      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,120;
+      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,120;
+      bonus3 bAutoSpell,"WM_LULLABY_DEEPSLEEP",1,120;
 
   - Id: 50950
     AegisName: Little_Fatum_Card_S2
@@ -19933,15 +19955,15 @@ Body:
       bonus bFlee,10;
       skill "TF_HIDING",2;
       skill "RG_RAID",2;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
       bonus bFlee,10;
       skill "TF_HIDING",2;
       skill "RG_RAID",2;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
       bonus bFlee,10;
       skill "TF_HIDING",2;
       skill "RG_RAID",2;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
 
   - Id: 50979
     AegisName: Kraken_Card_S3
@@ -19958,39 +19980,39 @@ Body:
       bonus bFlee,10;
       skill "TF_HIDING",3;
       skill "RG_RAID",3;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
       bonus bFlee,10;
       skill "TF_HIDING",3;
       skill "RG_RAID",3;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
       bonus bFlee,10;
       skill "TF_HIDING",3;
       skill "RG_RAID",3;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
       bonus bFlee,10;
       skill "TF_HIDING",3;
       skill "RG_RAID",3;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
       bonus bFlee,10;
       skill "TF_HIDING",3;
       skill "RG_RAID",3;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
       bonus bFlee,10;
       skill "TF_HIDING",3;
       skill "RG_RAID",3;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
       bonus bFlee,10;
       skill "TF_HIDING",3;
       skill "RG_RAID",3;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
       bonus bFlee,10;
       skill "TF_HIDING",3;
       skill "RG_RAID",3;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
       bonus bFlee,10;
       skill "TF_HIDING",3;
       skill "RG_RAID",3;
-      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,250,1;
+      bonus5 bAutoSpellOnSkill,"RG_RAID","NPC_WIDEBLEEDING",1,500,1;
 
   - Id: 50980
     AegisName: Odd_Coelacanth_Card_S2
@@ -20317,9 +20339,9 @@ Body:
       DropEffect: true
     Script: |
       bonus bAgi,1;
-      bonus3 bAutoSpell,"AL_INCAGI",1,50;
+      bonus3 bAutoSpell,"AL_INCAGI",1,100;
       bonus bAgi,1;
-      bonus3 bAutoSpell,"AL_INCAGI",1,50;
+      bonus3 bAutoSpell,"AL_INCAGI",1,100;
 
   - Id: 50993
     AegisName: Wild_Rider_Card_S3
@@ -20334,13 +20356,13 @@ Body:
       DropEffect: true
     Script: |
       bonus bAgi,1;
-      bonus3 bAutoSpell,"AL_INCAGI",1,50;
+      bonus3 bAutoSpell,"AL_INCAGI",1,200;
       bonus bAgi,1;
-      bonus3 bAutoSpell,"AL_INCAGI",1,50;
+      bonus3 bAutoSpell,"AL_INCAGI",1,200;
       bonus bAgi,1;
-      bonus3 bAutoSpell,"AL_INCAGI",1,50;
+      bonus3 bAutoSpell,"AL_INCAGI",1,200;
       bonus bAgi,1;
-      bonus3 bAutoSpell,"AL_INCAGI",1,50;
+      bonus3 bAutoSpell,"AL_INCAGI",1,200;
 
   - Id: 50994
     AegisName: Mini_Octopus_Card_S2
@@ -20392,6 +20414,8 @@ Body:
       skill "WZ_WATERBALL",5;
       bonus bMaxHPrate,12;
       skill "WZ_WATERBALL",5;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"WZ_WATERBALL",50;
 
   - Id: 50997
     AegisName: Giant_Octopus_Card_S3
@@ -20423,6 +20447,8 @@ Body:
       skill "WZ_WATERBALL",5;
       bonus bMaxHPrate,12;
       skill "WZ_WATERBALL",5;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"WZ_WATERBALL",100;
 
   - Id: 50998
     AegisName: Novice_Poring_Card_S2
@@ -20574,6 +20600,8 @@ Body:
       bonus bFlee,(readparam(bVit)>=110)?40:20;
       skill "BA_POEMBRAGI",10;
       bonus bFlee,(readparam(bVit)>=110)?40:20;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"BA_POEMBRAGI",50;
 
   - Id: 51005
     AegisName: Clown_Card_S3
@@ -20605,6 +20633,8 @@ Body:
       bonus bFlee,(readparam(bVit)>=110)?40:20;
       skill "BA_POEMBRAGI",10;
       bonus bFlee,(readparam(bVit)>=110)?40:20;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"BA_POEMBRAGI",100;
 
   - Id: 51006
     AegisName: Professor_Card_S2
@@ -20619,11 +20649,11 @@ Body:
       DropEffect: true
     Script: |
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,300,BF_MAGIC,0;
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,300,BF_MAGIC,0;
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,300,BF_MAGIC,0;
 
   - Id: 51007
     AegisName: Professor_Card_S3
@@ -20638,23 +20668,23 @@ Body:
       DropEffect: true
     Script: |
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,500,BF_MAGIC,0;
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,500,BF_MAGIC,0;
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,500,BF_MAGIC,0;
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,500,BF_MAGIC,0;
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,500,BF_MAGIC,0;
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,500,BF_MAGIC,0;
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,500,BF_MAGIC,0;
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,500,BF_MAGIC,0;
       bonus bMatkRate,(readparam(bDex)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,100,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SA_LANDPROTECTOR",5,500,BF_MAGIC,0;
 
   - Id: 51008
     AegisName: Champion_Card_S2
@@ -20669,11 +20699,11 @@ Body:
       DropEffect: true
     Script: |
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,300,BF_WEAPON,1;
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,300,BF_WEAPON,1;
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,300,BF_WEAPON,1;
 
   - Id: 51009
     AegisName: Champion_Card_S3
@@ -20688,23 +20718,23 @@ Body:
       DropEffect: true
     Script: |
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,500,BF_WEAPON,1;
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,500,BF_WEAPON,1;
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,500,BF_WEAPON,1;
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,500,BF_WEAPON,1;
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,500,BF_WEAPON,1;
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,500,BF_WEAPON,1;
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,500,BF_WEAPON,1;
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,500,BF_WEAPON,1;
       bonus2 bAddClass,Class_All,(readparam(bAgi)>=110)?14:7;
-      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"MO_INVESTIGATE",5,500,BF_WEAPON,1;
 
   - Id: 51010
     AegisName: Creator_Card_S2
@@ -20719,11 +20749,11 @@ Body:
       DropEffect: true
     Script: |
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,300,BF_WEAPON,1;
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,300,BF_WEAPON,1;
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,300,BF_WEAPON,1;
 
   - Id: 51011
     AegisName: Creator_Card_S3
@@ -20738,23 +20768,23 @@ Body:
       DropEffect: true
     Script: |
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,500,BF_WEAPON,1;
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,500,BF_WEAPON,1;
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,500,BF_WEAPON,1;
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,500,BF_WEAPON,1;
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,500,BF_WEAPON,1;
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,500,BF_WEAPON,1;
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,500,BF_WEAPON,1;
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,500,BF_WEAPON,1;
       bonus bCritical,(readparam(bStr)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"AM_ACIDTERROR",5,500,BF_WEAPON,1;
 
   - Id: 51012
     AegisName: Stalker_Card_S2
@@ -20769,11 +20799,11 @@ Body:
       DropEffect: true
     Script: |
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,300,BF_WEAPON,1;
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,300,BF_WEAPON,1;
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,300,BF_WEAPON,1;
 
   - Id: 51013
     AegisName: Stalker_Card_S3
@@ -20788,23 +20818,23 @@ Body:
       DropEffect: true
     Script: |
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,500,BF_WEAPON,1;
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,500,BF_WEAPON,1;
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,500,BF_WEAPON,1;
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,500,BF_WEAPON,1;
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,500,BF_WEAPON,1;
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,500,BF_WEAPON,1;
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,500,BF_WEAPON,1;
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,500,BF_WEAPON,1;
       bonus bHit,(readparam(bLuk)>=110)?40:20;
-      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,100,BF_WEAPON,1;
+      bonus5 bAutoSpellWhenHit,"ST_FULLSTRIP",1,500,BF_WEAPON,1;
 
   - Id: 51014
     AegisName: Paladin_Card_S2
@@ -20819,11 +20849,11 @@ Body:
       DropEffect: true
     Script: |
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,300,BF_WEAPON,0;
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,300,BF_WEAPON,0;
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,300,BF_WEAPON,0;
 
   - Id: 51015
     AegisName: Paladin_Card_S3
@@ -20838,23 +20868,23 @@ Body:
       DropEffect: true
     Script: |
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,500,BF_WEAPON,0;
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,500,BF_WEAPON,0;
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,500,BF_WEAPON,0;
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,500,BF_WEAPON,0;
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,500,BF_WEAPON,0;
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,500,BF_WEAPON,0;
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,500,BF_WEAPON,0;
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,500,BF_WEAPON,0;
       bonus bMaxHPrate,(readparam(bInt)>=110)?20:10;
-      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,100,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"CR_GRANDCROSS",10,500,BF_WEAPON,0;
 
   - Id: 51016
     AegisName: Gypsy_Card_S2
@@ -20874,6 +20904,8 @@ Body:
       bonus bFlee,(readparam(bVit)>=110)?40:20;
       skill "DC_FORTUNEKISS",10;
       bonus bFlee,(readparam(bVit)>=110)?40:20;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"DC_FORTUNEKISS",50;
 
   - Id: 51017
     AegisName: Gypsy_Card_S3
@@ -20905,6 +20937,8 @@ Body:
       bonus bFlee,(readparam(bVit)>=110)?40:20;
       skill "DC_FORTUNEKISS",10;
       bonus bFlee,(readparam(bVit)>=110)?40:20;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"DC_FORTUNEKISS",100;
 
   - Id: 51018
     AegisName: Alphoccio_Card_S2
@@ -21092,6 +21126,8 @@ Body:
       skill "RG_CLOSECONFINE",1;
       bonus bFlee,10;
       skill "RG_CLOSECONFINE",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"RG_CLOSECONFINE",50;
 
   - Id: 51027
     AegisName: Gertie_Card_S3
@@ -21113,6 +21149,8 @@ Body:
       skill "RG_CLOSECONFINE",1;
       bonus bFlee,10;
       skill "RG_CLOSECONFINE",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"RG_CLOSECONFINE",100;
 
   - Id: 51028
     AegisName: Randel_Card_S2
@@ -22007,9 +22045,9 @@ Body:
       DropEffect: true
     Script: |
       bonus bInt,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,40,BF_MAGIC,0;
       bonus bInt,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,40,BF_MAGIC,0;
 
   - Id: 51063
     AegisName: Bangungot_Card_S3
@@ -22024,13 +22062,13 @@ Body:
       DropEffect: true
     Script: |
       bonus bInt,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,80,BF_MAGIC,0;
       bonus bInt,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,80,BF_MAGIC,0;
       bonus bInt,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,80,BF_MAGIC,0;
       bonus bInt,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESLEEP",4,80,BF_MAGIC,0;
 
   - Id: 51064
     AegisName: Bakonawa_Card_S2
@@ -22045,9 +22083,9 @@ Body:
       DropEffect: true
     Script: |
       bonus bStr,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,20,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,40,BF_WEAPON,0;
       bonus bStr,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,20,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,40,BF_WEAPON,0;
 
   - Id: 51065
     AegisName: Bakonawa_Card_S3
@@ -22062,13 +22100,13 @@ Body:
       DropEffect: true
     Script: |
       bonus bStr,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,20,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,80,BF_WEAPON,0;
       bonus bStr,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,20,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,80,BF_WEAPON,0;
       bonus bStr,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,20,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,80,BF_WEAPON,0;
       bonus bStr,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,20,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDEBLEEDING",4,80,BF_WEAPON,0;
 
   - Id: 51066
     AegisName: Buwaya_Card_S2
@@ -22083,11 +22121,11 @@ Body:
       DropEffect: true
     Script: |
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,60,BF_MAGIC,0;
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,60,BF_MAGIC,0;
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,60,BF_MAGIC,0;
 
   - Id: 51067
     AegisName: Buwaya_Card_S3
@@ -22102,23 +22140,23 @@ Body:
       DropEffect: true
     Script: |
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,180,BF_MAGIC,0;
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,180,BF_MAGIC,0;
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,180,BF_MAGIC,0;
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,180,BF_MAGIC,0;
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,180,BF_MAGIC,0;
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,180,BF_MAGIC,0;
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,180,BF_MAGIC,0;
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,180,BF_MAGIC,0;
       bonus bVit,4;
-      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,20,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"NPC_WIDESTONE",4,180,BF_MAGIC,0;
 
   - Id: 51068
     AegisName: Menblatt_Card_S2
@@ -22503,17 +22541,17 @@ Body:
       DropEffect: true
     Script: |
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,150,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,150,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,150,BF_SHORT,0;
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,150,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,150,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,150,BF_SHORT,0;
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,150,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,150,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,150,BF_SHORT,0;
 
   - Id: 51087
     AegisName: CorruptionRoot_Card_S3
@@ -22528,41 +22566,41 @@ Body:
       DropEffect: true
     Script: |
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,450,BF_SHORT,0;
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,450,BF_SHORT,0;
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,450,BF_SHORT,0;
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,450,BF_SHORT,0;
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,450,BF_SHORT,0;
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,450,BF_SHORT,0;
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,450,BF_SHORT,0;
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,450,BF_SHORT,0;
       bonus bBaseAtk,20;
-      bonus5 bAutoSpell,"NPC_WIDESTONE",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,50,BF_SHORT,0;
-      bonus5 bAutoSpell,"NPC_WIDECURSE",1,50,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESTONE",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDESLEEP",1,450,BF_SHORT,0;
+      bonus5 bAutoSpell,"NPC_WIDECURSE",1,450,BF_SHORT,0;
 
   - Id: 51088
     AegisName: UndeadKnightM_Card_S2
@@ -22996,8 +23034,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"NPC_WIDECURSE",2,30;
-      bonus3 bAutoSpell,"NPC_WIDECURSE",2,30;
+      bonus3 bAutoSpell,"NPC_WIDECURSE",2,60;
+      bonus3 bAutoSpell,"NPC_WIDECURSE",2,60;
 
   - Id: 51107
     AegisName: Time_Keeper_Card_S3
@@ -23011,10 +23049,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus3 bAutoSpell,"NPC_WIDECURSE",2,30;
-      bonus3 bAutoSpell,"NPC_WIDECURSE",2,30;
-      bonus3 bAutoSpell,"NPC_WIDECURSE",2,30;
-      bonus3 bAutoSpell,"NPC_WIDECURSE",2,30;
+      bonus3 bAutoSpell,"NPC_WIDECURSE",2,120;
+      bonus3 bAutoSpell,"NPC_WIDECURSE",2,120;
+      bonus3 bAutoSpell,"NPC_WIDECURSE",2,120;
+      bonus3 bAutoSpell,"NPC_WIDECURSE",2,120;
 
   - Id: 51108
     AegisName: Owl_Viscount_Card_S2
@@ -23060,8 +23098,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),20,BF_WEAPON,0;
-      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),20,BF_WEAPON,0;
+      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),40,BF_WEAPON,0;
+      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),40,BF_WEAPON,0;
 
   - Id: 51111
     AegisName: Owl_Marquees_Card_S3
@@ -23075,10 +23113,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),20,BF_WEAPON,0;
-      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),20,BF_WEAPON,0;
-      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),20,BF_WEAPON,0;
-      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),20,BF_WEAPON,0;
+      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),80,BF_WEAPON,0;
+      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),80,BF_WEAPON,0;
+      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),80,BF_WEAPON,0;
+      bonus5 bAutoSpell,"SA_VIOLENTGALE",(getskilllv("SA_VIOLENTGALE") == 5?5:1),80,BF_WEAPON,0;
 
   - Id: 51112
     AegisName: P_Archer_Skeleton_Card_S2
@@ -24217,9 +24255,9 @@ Body:
       DropEffect: true
     Script: |
       /* Unofficial chance */
-      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,30;
+      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,60;
       /* Unofficial chance */
-      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,30;
+      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,60;
 
   - Id: 51159
     AegisName: Grave_Mummy_Card_S3
@@ -24234,13 +24272,13 @@ Body:
       DropEffect: true
     Script: |
       /* Unofficial chance */
-      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,30;
+      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,120;
       /* Unofficial chance */
-      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,30;
+      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,120;
       /* Unofficial chance */
-      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,30;
+      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,120;
       /* Unofficial chance */
-      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,30;
+      bonus3 bAutoSpellWhenHit,"NPC_WIDESLEEP",2,120;
 
   - Id: 51160
     AegisName: Grave_A_Mummy_Card_S2
@@ -28153,13 +28191,13 @@ Body:
       DropEffect: true
     Script: |
       if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_BOW) {
-         bonus3 bAutoSpell,"AC_DOUBLE",5,30;
+         bonus3 bAutoSpell,"AC_DOUBLE",5,60;
          if (getrefine() >= 10) {
             bonus2 bWeaponDamageRate,W_BOW,20;
          }
       }
       if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_BOW) {
-         bonus3 bAutoSpell,"AC_DOUBLE",5,30;
+         bonus3 bAutoSpell,"AC_DOUBLE",5,60;
          if (getrefine() >= 10) {
             bonus2 bWeaponDamageRate,W_BOW,20;
          }
@@ -28178,25 +28216,25 @@ Body:
       DropEffect: true
     Script: |
       if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_BOW) {
-         bonus3 bAutoSpell,"AC_DOUBLE",5,30;
+         bonus3 bAutoSpell,"AC_DOUBLE",5,120;
          if (getrefine() >= 10) {
             bonus2 bWeaponDamageRate,W_BOW,20;
          }
       }
       if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_BOW) {
-         bonus3 bAutoSpell,"AC_DOUBLE",5,30;
+         bonus3 bAutoSpell,"AC_DOUBLE",5,120;
          if (getrefine() >= 10) {
             bonus2 bWeaponDamageRate,W_BOW,20;
          }
       }
       if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_BOW) {
-         bonus3 bAutoSpell,"AC_DOUBLE",5,30;
+         bonus3 bAutoSpell,"AC_DOUBLE",5,120;
          if (getrefine() >= 10) {
             bonus2 bWeaponDamageRate,W_BOW,20;
          }
       }
       if (getiteminfo(getequipid(EQI_COMPOUND_ON), ITEMINFO_VIEW) == W_BOW) {
-         bonus3 bAutoSpell,"AC_DOUBLE",5,30;
+         bonus3 bAutoSpell,"AC_DOUBLE",5,120;
          if (getrefine() >= 10) {
             bonus2 bWeaponDamageRate,W_BOW,20;
          }
@@ -28261,9 +28299,9 @@ Body:
       DropEffect: true
     Script: |
       bonus bAtkRate,2;
-      bonus5 bAutoSpell,"SM_ENDURE",1,5,BF_SHORT,0;
+      bonus5 bAutoSpell,"SM_ENDURE",1,10,BF_SHORT,0;
       bonus bAtkRate,2;
-      bonus5 bAutoSpell,"SM_ENDURE",1,5,BF_SHORT,0;
+      bonus5 bAutoSpell,"SM_ENDURE",1,10,BF_SHORT,0;
 
   - Id: 51291
     AegisName: FuryHero_Card_S3
@@ -28280,13 +28318,13 @@ Body:
       DropEffect: true
     Script: |
       bonus bAtkRate,2;
-      bonus5 bAutoSpell,"SM_ENDURE",1,5,BF_SHORT,0;
+      bonus5 bAutoSpell,"SM_ENDURE",1,20,BF_SHORT,0;
       bonus bAtkRate,2;
-      bonus5 bAutoSpell,"SM_ENDURE",1,5,BF_SHORT,0;
+      bonus5 bAutoSpell,"SM_ENDURE",1,20,BF_SHORT,0;
       bonus bAtkRate,2;
-      bonus5 bAutoSpell,"SM_ENDURE",1,5,BF_SHORT,0;
+      bonus5 bAutoSpell,"SM_ENDURE",1,20,BF_SHORT,0;
       bonus bAtkRate,2;
-      bonus5 bAutoSpell,"SM_ENDURE",1,5,BF_SHORT,0;
+      bonus5 bAutoSpell,"SM_ENDURE",1,20,BF_SHORT,0;
 
   - Id: 51292
     AegisName: SweetNightM_Card_S2
@@ -29216,6 +29254,8 @@ Body:
     Script: |
       skill "PR_STRECOVERY",1;
       skill "PR_STRECOVERY",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"PR_STRECOVERY",50;
 
   - Id: 51331
     AegisName: Iara_Card_S3
@@ -29233,6 +29273,8 @@ Body:
       skill "PR_STRECOVERY",1;
       skill "PR_STRECOVERY",1;
       skill "PR_STRECOVERY",1;
+      // Fertigkeit schon auf Hoechststufe - dafuer guenstiger
+      bonus2 bSkillUseSPrate,"PR_STRECOVERY",100;
 
   - Id: 51332
     AegisName: Piranha_Card_S2
@@ -31677,9 +31719,9 @@ Body:
       DropEffect: true
     Script: |
       bonus bSPrecovRate,10;
-      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,10;
+      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,20;
       bonus bSPrecovRate,10;
-      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,10;
+      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,20;
 
   - Id: 51421
     AegisName: Pa_Monk_Card_S3
@@ -31694,13 +31736,13 @@ Body:
       DropEffect: true
     Script: |
       bonus bSPrecovRate,10;
-      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,10;
+      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,40;
       bonus bSPrecovRate,10;
-      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,10;
+      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,40;
       bonus bSPrecovRate,10;
-      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,10;
+      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,40;
       bonus bSPrecovRate,10;
-      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,10;
+      bonus3 bAutoSpellWhenHit,"CH_SOULCOLLECT",1,40;
 
   - Id: 51422
     AegisName: Ordre_Card_S2
@@ -33052,9 +33094,9 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,60,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,60,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,60,1;
 
   - Id: 51473
     AegisName: EL_A17T_Card_S3
@@ -33068,15 +33110,15 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
-      bonus4 bAutoSpell,"WL_HELLINFERNO",3,20,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,180,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,180,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,180,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,180,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,180,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,180,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,180,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,180,1;
+      bonus4 bAutoSpell,"WL_HELLINFERNO",3,180,1;
 
   - Id: 51474
     AegisName: Bellare_Card_S2
@@ -35483,9 +35525,9 @@ Body:
       DropEffect: true
     Script: |
       bonus bAtkRate,10;
-      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,20,BF_WEAPON,1;
+      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,40,BF_WEAPON,1;
       bonus bAtkRate,10;
-      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,20,BF_WEAPON,1;
+      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,40,BF_WEAPON,1;
 
   - Id: 51575
     AegisName: As_Bdy_Knight_Card_S3
@@ -35500,13 +35542,13 @@ Body:
       DropEffect: true
     Script: |
       bonus bAtkRate,10;
-      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,20,BF_WEAPON,1;
+      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,80,BF_WEAPON,1;
       bonus bAtkRate,10;
-      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,20,BF_WEAPON,1;
+      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,80,BF_WEAPON,1;
       bonus bAtkRate,10;
-      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,20,BF_WEAPON,1;
+      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,80,BF_WEAPON,1;
       bonus bAtkRate,10;
-      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,20,BF_WEAPON,1;
+      bonus5 bAutoSpell,"RK_IGNITIONBREAK",5,80,BF_WEAPON,1;
 
   - Id: 51576
     AegisName: As_Wind_Ghost_Card_S2
@@ -35521,9 +35563,9 @@ Body:
       DropEffect: true
     Script: |
       bonus bMatkRate,10;
-      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,10,BF_MAGIC,1;
+      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,20,BF_MAGIC,1;
       bonus bMatkRate,10;
-      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,10,BF_MAGIC,1;
+      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,20,BF_MAGIC,1;
 
   - Id: 51577
     AegisName: As_Wind_Ghost_Card_S3
@@ -35538,13 +35580,13 @@ Body:
       DropEffect: true
     Script: |
       bonus bMatkRate,10;
-      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,10,BF_MAGIC,1;
+      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,40,BF_MAGIC,1;
       bonus bMatkRate,10;
-      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,10,BF_MAGIC,1;
+      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,40,BF_MAGIC,1;
       bonus bMatkRate,10;
-      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,10,BF_MAGIC,1;
+      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,40,BF_MAGIC,1;
       bonus bMatkRate,10;
-      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,10,BF_MAGIC,1;
+      bonus5 bAutoSpell,"SO_CLOUD_KILL",5,40,BF_MAGIC,1;
 
   - Id: 51578
     AegisName: As_Ragged_Golem_Card_S2
@@ -35558,16 +35600,16 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,105,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,240,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,105,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,240,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,105,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,240,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
       // Setzer-Ausgleich fuer nicht stapelbare Boni
@@ -35586,40 +35628,40 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,315,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,500,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,315,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,500,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,315,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,500,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,315,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,500,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,315,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,500,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,315,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,500,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,315,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,500,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,315,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,500,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
-      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,35,BF_WEAPON,0;
-      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,80,BF_MAGIC,0;
+      bonus5 bAutoSpellWhenHit,"SO_FIREWALK",5,315,BF_WEAPON,0;
+      bonus5 bAutoSpellWhenHit,"SO_ELECTRICWALK",5,500,BF_MAGIC,0;
       autobonus "{ bonus bFlee,200; }",30,10000,BF_WEAPON,"{ specialeffect2 EF_TEIHIT1; }";
       autobonus "{ bonus bSpeedRate,25; }",25,10000,BF_MAGIC,"{ specialeffect2 EF_POTION_BERSERK; }";
       // Setzer-Ausgleich fuer nicht stapelbare Boni
@@ -35810,8 +35852,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,100,BF_SHORT,1;
-      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,100,BF_SHORT,1;
+      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,200,BF_SHORT,1;
+      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,200,BF_SHORT,1;
 
   - Id: 51591
     AegisName: Jeweliant_Card_S3
@@ -35825,10 +35867,10 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,100,BF_SHORT,1;
-      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,100,BF_SHORT,1;
-      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,100,BF_SHORT,1;
-      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,100,BF_SHORT,1;
+      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,400,BF_SHORT,1;
+      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,400,BF_SHORT,1;
+      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,400,BF_SHORT,1;
+      bonus5 bAutoSpell,"SO_PSYCHIC_WAVE",1,400,BF_SHORT,1;
 
   - Id: 51592
     AegisName: Jungoliant_Card_S2

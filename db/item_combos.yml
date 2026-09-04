@@ -40,3 +40,7 @@ Footer:
   - Path: db/re/item_combos.yml
     Mode: Renewal
   - Path: db/import/item_combos.yml
+  # Set-Wirkungen fuer die verdichteten Karten des Kartenweisen,
+  # erzeugt von tools/kartenweiser/bauen.py. Steht zuletzt: die Datei
+  # ergaenzt nur Kombinationen, sie aendert keine vorhandene.
+  - Path: db/import/item_combos_kartenweiser.yml
