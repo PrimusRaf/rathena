@@ -11522,6 +11522,39 @@ void clif_parse_GlobalMessage(int32 fd, map_session_data* sd)
 		return;
 	}
 
+	// SafaRO: "#world hallo" oder "!hallo" in der normalen Chatzeile geht in den Kanal,
+	// ohne dass der Spieler das Fluester-Feld benutzen muss.
+	{
+		char chname[CHAN_NAME_LENGTH + 2] = "";
+		const char* chmsg = nullptr;
+
+		if( message[0] == '!' && message[1] != '\0' ) {
+			safestrncpy(chname, "#world", sizeof(chname));
+			chmsg = message + 1;
+		} else if( message[0] == '#' ) {
+			const char* space = strchr(message, ' ');
+			if( space != nullptr && space - message > 1 && space - message < (int)sizeof(chname) ) {
+				safestrncpy(chname, message, (space - message) + 1);
+				chmsg = space + 1;
+			}
+		}
+
+		if( chmsg != nullptr ) {
+			while( *chmsg == ' ' )
+				chmsg++;
+
+			struct Channel* channel = channel_name2channel(chname, sd, 3);
+
+			if( channel != nullptr && *chmsg != '\0' && (pc_has_permission(sd, PC_PERM_CHANNEL_ADMIN) || ((channel->opt&CHAN_OPT_CAN_CHAT) && channel_pccheckgroup(channel, sd->group_id))) ) {
+				if( channel_pc_haschan(sd, channel) >= 0 || (channel->pass[0] == '\0' && channel_join(channel, sd) == 0) )
+					channel_send(channel, sd, chmsg);
+				else
+					clif_displaymessage(fd, msg_txt(sd, 1402)); // You're not in that channel, type '@join <#channel_name>'
+				return;
+			}
+		}
+	}
+
 	// send message to others (using the send buffer for temp. storage)
 	clif_GlobalMessage( *sd, output, sd->chatID ? CHAT_WOS : AREA_CHAT_WOC );
 
