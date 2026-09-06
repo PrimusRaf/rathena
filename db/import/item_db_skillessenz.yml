@@ -1,7 +1,7 @@
 # ERZEUGT VON tools/skillenh/bauen.py - NICHT VON HAND PFLEGEN.
 #
 # Skill-Essenzen: ein Etc-Item je verstaerkbarer Fertigkeit,
-# Ids ab 31000. Die Zuordnung Fertigkeit -> Id steht in
+# Ids ab 33000. Die Zuordnung Fertigkeit -> Id steht in
 # tools/skillenh/zuordnung.json und ist bindend.
 #
 # NoSell wie bei der Destiny Coin: nicht an NPC-Haendler,
@@ -13,7 +13,7 @@ Header:
   Version: 3
 
 Body:
-  - Id: 31000
+  - Id: 33000
     AegisName: Essence_SM_BASH
     Name: Bash Essence
     Type: Etc
@@ -24,7 +24,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31001
+  - Id: 33001
     AegisName: Essence_SM_MAGNUM
     Name: Magnum Break Essence
     Type: Etc
@@ -35,7 +35,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31002
+  - Id: 33002
     AegisName: Essence_MG_NAPALMBEAT
     Name: Napalm Beat Essence
     Type: Etc
@@ -46,7 +46,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31003
+  - Id: 33003
     AegisName: Essence_MG_SOULSTRIKE
     Name: Soul Strike Essence
     Type: Etc
@@ -57,7 +57,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31004
+  - Id: 33004
     AegisName: Essence_MG_COLDBOLT
     Name: Cold Bolt Essence
     Type: Etc
@@ -68,7 +68,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31005
+  - Id: 33005
     AegisName: Essence_MG_FROSTDIVER
     Name: Frost Diver Essence
     Type: Etc
@@ -79,7 +79,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31006
+  - Id: 33006
     AegisName: Essence_MG_FIREBALL
     Name: Fire Ball Essence
     Type: Etc
@@ -90,7 +90,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31007
+  - Id: 33007
     AegisName: Essence_MG_FIREWALL
     Name: Fire Wall Essence
     Type: Etc
@@ -101,7 +101,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31008
+  - Id: 33008
     AegisName: Essence_MG_FIREBOLT
     Name: Fire Bolt Essence
     Type: Etc
@@ -112,7 +112,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31009
+  - Id: 33009
     AegisName: Essence_MG_LIGHTNINGBOLT
     Name: Lightning Bolt Essence
     Type: Etc
@@ -123,7 +123,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31010
+  - Id: 33010
     AegisName: Essence_MG_THUNDERSTORM
     Name: Thunderstorm Essence
     Type: Etc
@@ -134,7 +134,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31011
+  - Id: 33011
     AegisName: Essence_AL_HEAL
     Name: Heal Essence
     Type: Etc
@@ -145,7 +145,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31012
+  - Id: 33012
     AegisName: Essence_MC_MAMMONITE
     Name: Mammonite Essence
     Type: Etc
@@ -156,7 +156,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31013
+  - Id: 33013
     AegisName: Essence_AC_DOUBLE
     Name: Double Strafe Essence
     Type: Etc
@@ -167,7 +167,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31014
+  - Id: 33014
     AegisName: Essence_AC_SHOWER
     Name: Arrow Shower Essence
     Type: Etc
@@ -178,7 +178,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31015
+  - Id: 33015
     AegisName: Essence_TF_POISON
     Name: Envenom Essence
     Type: Etc
@@ -189,7 +189,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31016
+  - Id: 33016
     AegisName: Essence_KN_PIERCE
     Name: Pierce Essence
     Type: Etc
@@ -200,7 +200,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31017
+  - Id: 33017
     AegisName: Essence_KN_BRANDISHSPEAR
     Name: Brandish Spear Essence
     Type: Etc
@@ -211,7 +211,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31018
+  - Id: 33018
     AegisName: Essence_KN_SPEARSTAB
     Name: Spear Stab Essence
     Type: Etc
@@ -222,7 +222,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31019
+  - Id: 33019
     AegisName: Essence_KN_SPEARBOOMERANG
     Name: Spear Boomerang Essence
     Type: Etc
@@ -233,7 +233,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31020
+  - Id: 33020
     AegisName: Essence_KN_AUTOCOUNTER
     Name: Counter Attack Essence
     Type: Etc
@@ -244,7 +244,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31021
+  - Id: 33021
     AegisName: Essence_KN_BOWLINGBASH
     Name: Bowling Bash Essence
     Type: Etc
@@ -255,7 +255,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31022
+  - Id: 33022
     AegisName: Essence_PR_SANCTUARY
     Name: Sanctuary Essence
     Type: Etc
@@ -266,7 +266,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31023
+  - Id: 33023
     AegisName: Essence_PR_TURNUNDEAD
     Name: Turn Undead Essence
     Type: Etc
@@ -277,7 +277,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31024
+  - Id: 33024
     AegisName: Essence_PR_MAGNUS
     Name: Magnus Exorcismus Essence
     Type: Etc
@@ -288,7 +288,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31025
+  - Id: 33025
     AegisName: Essence_WZ_FIREPILLAR
     Name: Fire Pillar Essence
     Type: Etc
@@ -299,7 +299,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31026
+  - Id: 33026
     AegisName: Essence_WZ_SIGHTRASHER
     Name: Sightrasher Essence
     Type: Etc
@@ -310,7 +310,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31027
+  - Id: 33027
     AegisName: Essence_WZ_METEOR
     Name: Meteor Storm Essence
     Type: Etc
@@ -321,7 +321,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31028
+  - Id: 33028
     AegisName: Essence_WZ_JUPITEL
     Name: Jupitel Thunder Essence
     Type: Etc
@@ -332,7 +332,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31029
+  - Id: 33029
     AegisName: Essence_WZ_VERMILION
     Name: Lord of Vermilion Essence
     Type: Etc
@@ -343,7 +343,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31030
+  - Id: 33030
     AegisName: Essence_WZ_WATERBALL
     Name: Water Ball Essence
     Type: Etc
@@ -354,7 +354,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31031
+  - Id: 33031
     AegisName: Essence_WZ_FROSTNOVA
     Name: Frost Nova Essence
     Type: Etc
@@ -365,7 +365,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31032
+  - Id: 33032
     AegisName: Essence_WZ_STORMGUST
     Name: Storm Gust Essence
     Type: Etc
@@ -376,7 +376,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31033
+  - Id: 33033
     AegisName: Essence_WZ_EARTHSPIKE
     Name: Earth Spike Essence
     Type: Etc
@@ -387,7 +387,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31034
+  - Id: 33034
     AegisName: Essence_WZ_HEAVENDRIVE
     Name: Heaven's Drive Essence
     Type: Etc
@@ -398,7 +398,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31035
+  - Id: 33035
     AegisName: Essence_HT_LANDMINE
     Name: Land Mine Essence
     Type: Etc
@@ -409,7 +409,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31036
+  - Id: 33036
     AegisName: Essence_HT_FREEZINGTRAP
     Name: Freezing Trap Essence
     Type: Etc
@@ -420,7 +420,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31037
+  - Id: 33037
     AegisName: Essence_HT_BLASTMINE
     Name: Blast Mine Essence
     Type: Etc
@@ -431,7 +431,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31038
+  - Id: 33038
     AegisName: Essence_HT_CLAYMORETRAP
     Name: Claymore Trap Essence
     Type: Etc
@@ -442,7 +442,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31039
+  - Id: 33039
     AegisName: Essence_HT_BLITZBEAT
     Name: Blitz Beat Essence
     Type: Etc
@@ -453,7 +453,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31040
+  - Id: 33040
     AegisName: Essence_AS_SONICBLOW
     Name: Sonic Blow Essence
     Type: Etc
@@ -464,7 +464,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31041
+  - Id: 33041
     AegisName: Essence_AS_GRIMTOOTH
     Name: Grimtooth Essence
     Type: Etc
@@ -475,7 +475,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31042
+  - Id: 33042
     AegisName: Essence_AS_POISONREACT
     Name: Poison React Essence
     Type: Etc
@@ -486,7 +486,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31043
+  - Id: 33043
     AegisName: Essence_AS_SPLASHER
     Name: Venom Splasher Essence
     Type: Etc
@@ -497,7 +497,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31044
+  - Id: 33044
     AegisName: Essence_AC_CHARGEARROW
     Name: Arrow Repel Essence
     Type: Etc
@@ -508,7 +508,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31045
+  - Id: 33045
     AegisName: Essence_TF_SPRINKLESAND
     Name: Sand Attack Essence
     Type: Etc
@@ -519,7 +519,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31046
+  - Id: 33046
     AegisName: Essence_TF_THROWSTONE
     Name: Stone Fling Essence
     Type: Etc
@@ -530,7 +530,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31047
+  - Id: 33047
     AegisName: Essence_MC_CARTREVOLUTION
     Name: Cart Revolution Essence
     Type: Etc
@@ -541,7 +541,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31048
+  - Id: 33048
     AegisName: Essence_AL_HOLYLIGHT
     Name: Holy Light Essence
     Type: Etc
@@ -552,7 +552,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31049
+  - Id: 33049
     AegisName: Essence_RG_BACKSTAP
     Name: Back Stab Essence
     Type: Etc
@@ -563,7 +563,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31050
+  - Id: 33050
     AegisName: Essence_RG_RAID
     Name: Sightless Mind Essence
     Type: Etc
@@ -574,7 +574,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31051
+  - Id: 33051
     AegisName: Essence_RG_INTIMIDATE
     Name: Snatch Essence
     Type: Etc
@@ -585,7 +585,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31052
+  - Id: 33052
     AegisName: Essence_AM_DEMONSTRATION
     Name: Bomb Essence
     Type: Etc
@@ -596,7 +596,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31053
+  - Id: 33053
     AegisName: Essence_AM_ACIDTERROR
     Name: Acid Terror Essence
     Type: Etc
@@ -607,7 +607,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31054
+  - Id: 33054
     AegisName: Essence_CR_SHIELDCHARGE
     Name: Smite Essence
     Type: Etc
@@ -618,7 +618,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31055
+  - Id: 33055
     AegisName: Essence_CR_SHIELDBOOMERANG
     Name: Shield Boomerang Essence
     Type: Etc
@@ -629,7 +629,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31056
+  - Id: 33056
     AegisName: Essence_CR_HOLYCROSS
     Name: Holy Cross Essence
     Type: Etc
@@ -640,7 +640,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31057
+  - Id: 33057
     AegisName: Essence_CR_GRANDCROSS
     Name: Grand Cross Essence
     Type: Etc
@@ -651,7 +651,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31058
+  - Id: 33058
     AegisName: Essence_MO_INVESTIGATE
     Name: Occult Impaction Essence
     Type: Etc
@@ -662,7 +662,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31059
+  - Id: 33059
     AegisName: Essence_MO_FINGEROFFENSIVE
     Name: Throw Spirit Sphere Essence
     Type: Etc
@@ -673,7 +673,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31060
+  - Id: 33060
     AegisName: Essence_MO_EXTREMITYFIST
     Name: Asura Strike Essence
     Type: Etc
@@ -684,7 +684,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31061
+  - Id: 33061
     AegisName: Essence_MO_CHAINCOMBO
     Name: Raging Quadruple Blow Essence
     Type: Etc
@@ -695,7 +695,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31062
+  - Id: 33062
     AegisName: Essence_MO_COMBOFINISH
     Name: Raging Thrust Essence
     Type: Etc
@@ -706,7 +706,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31063
+  - Id: 33063
     AegisName: Essence_BA_MUSICALSTRIKE
     Name: Melody Strike Essence
     Type: Etc
@@ -717,7 +717,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31064
+  - Id: 33064
     AegisName: Essence_DC_THROWARROW
     Name: Slinging Arrow Essence
     Type: Etc
@@ -728,7 +728,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31065
+  - Id: 33065
     AegisName: Essence_HW_MAGICCRASHER
     Name: Stave Crasher Essence
     Type: Etc
@@ -739,7 +739,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31066
+  - Id: 33066
     AegisName: Essence_PA_PRESSURE
     Name: Gloria Domini Essence
     Type: Etc
@@ -750,7 +750,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31067
+  - Id: 33067
     AegisName: Essence_CH_PALMSTRIKE
     Name: Raging Palm Strike Essence
     Type: Etc
@@ -761,7 +761,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31068
+  - Id: 33068
     AegisName: Essence_CH_TIGERFIST
     Name: Glacier Fist Essence
     Type: Etc
@@ -772,7 +772,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31069
+  - Id: 33069
     AegisName: Essence_CH_CHAINCRUSH
     Name: Chain Crush Combo Essence
     Type: Etc
@@ -783,7 +783,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31070
+  - Id: 33070
     AegisName: Essence_PF_SOULBURN
     Name: Soul Siphon Essence
     Type: Etc
@@ -794,7 +794,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31071
+  - Id: 33071
     AegisName: Essence_ASC_BREAKER
     Name: Soul Destroyer Essence
     Type: Etc
@@ -805,7 +805,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31072
+  - Id: 33072
     AegisName: Essence_SN_FALCONASSAULT
     Name: Falcon Assault Essence
     Type: Etc
@@ -816,7 +816,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31073
+  - Id: 33073
     AegisName: Essence_SN_SHARPSHOOTING
     Name: Focused Arrow Strike Essence
     Type: Etc
@@ -827,7 +827,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31074
+  - Id: 33074
     AegisName: Essence_CG_ARROWVULCAN
     Name: Vulcan Arrow Essence
     Type: Etc
@@ -838,7 +838,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31075
+  - Id: 33075
     AegisName: Essence_LK_SPIRALPIERCE
     Name: Spiral Pierce Essence
     Type: Etc
@@ -849,7 +849,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31076
+  - Id: 33076
     AegisName: Essence_LK_HEADCRUSH
     Name: Traumatic Blow Essence
     Type: Etc
@@ -860,7 +860,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31077
+  - Id: 33077
     AegisName: Essence_LK_JOINTBEAT
     Name: Vital Strike Essence
     Type: Etc
@@ -871,7 +871,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31078
+  - Id: 33078
     AegisName: Essence_HW_NAPALMVULCAN
     Name: Napalm Vulcan Essence
     Type: Etc
@@ -882,7 +882,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31079
+  - Id: 33079
     AegisName: Essence_ASC_METEORASSAULT
     Name: Meteor Assault Essence
     Type: Etc
@@ -893,7 +893,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31080
+  - Id: 33080
     AegisName: Essence_TK_STORMKICK
     Name: Tornado Kick Essence
     Type: Etc
@@ -904,7 +904,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31081
+  - Id: 33081
     AegisName: Essence_TK_DOWNKICK
     Name: Heel Drop Essence
     Type: Etc
@@ -915,7 +915,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31082
+  - Id: 33082
     AegisName: Essence_TK_TURNKICK
     Name: Roundhouse Kick Essence
     Type: Etc
@@ -926,7 +926,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31083
+  - Id: 33083
     AegisName: Essence_TK_COUNTER
     Name: Counter Kick Essence
     Type: Etc
@@ -937,7 +937,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31084
+  - Id: 33084
     AegisName: Essence_TK_JUMPKICK
     Name: Flying Kick Essence
     Type: Etc
@@ -948,7 +948,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31085
+  - Id: 33085
     AegisName: Essence_SL_STIN
     Name: Estin Essence
     Type: Etc
@@ -959,7 +959,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31086
+  - Id: 33086
     AegisName: Essence_SL_STUN
     Name: Estun Essence
     Type: Etc
@@ -970,7 +970,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31087
+  - Id: 33087
     AegisName: Essence_SL_SMA
     Name: Esma Essence
     Type: Etc
@@ -981,7 +981,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31088
+  - Id: 33088
     AegisName: Essence_PA_SHIELDCHAIN
     Name: Shield Chain Essence
     Type: Etc
@@ -992,7 +992,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31089
+  - Id: 33089
     AegisName: Essence_HW_GRAVITATION
     Name: Gravitation Field Essence
     Type: Etc
@@ -1003,7 +1003,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31090
+  - Id: 33090
     AegisName: Essence_WS_CARTTERMINATION
     Name: Cart Termination Essence
     Type: Etc
@@ -1014,7 +1014,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31091
+  - Id: 33091
     AegisName: Essence_CR_ACIDDEMONSTRATION
     Name: Acid Demonstration Essence
     Type: Etc
@@ -1025,7 +1025,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31092
+  - Id: 33092
     AegisName: Essence_HT_POWER
     Name: Beast Strafing Essence
     Type: Etc
@@ -1036,7 +1036,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31093
+  - Id: 33093
     AegisName: Essence_GS_FLING
     Name: Fling Essence
     Type: Etc
@@ -1047,7 +1047,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31094
+  - Id: 33094
     AegisName: Essence_GS_TRIPLEACTION
     Name: Triple Action Essence
     Type: Etc
@@ -1058,7 +1058,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31095
+  - Id: 33095
     AegisName: Essence_GS_BULLSEYE
     Name: Bulls Eye Essence
     Type: Etc
@@ -1069,7 +1069,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31096
+  - Id: 33096
     AegisName: Essence_GS_TRACKING
     Name: Tracking Essence
     Type: Etc
@@ -1080,7 +1080,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31097
+  - Id: 33097
     AegisName: Essence_GS_DISARM
     Name: Disarm Essence
     Type: Etc
@@ -1091,7 +1091,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31098
+  - Id: 33098
     AegisName: Essence_GS_PIERCINGSHOT
     Name: Piercing Shot Essence
     Type: Etc
@@ -1102,7 +1102,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31099
+  - Id: 33099
     AegisName: Essence_GS_RAPIDSHOWER
     Name: Rapid Shower Essence
     Type: Etc
@@ -1113,7 +1113,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31100
+  - Id: 33100
     AegisName: Essence_GS_DESPERADO
     Name: Desperado Essence
     Type: Etc
@@ -1124,7 +1124,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31101
+  - Id: 33101
     AegisName: Essence_GS_DUST
     Name: Dust Essence
     Type: Etc
@@ -1135,7 +1135,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31102
+  - Id: 33102
     AegisName: Essence_GS_FULLBUSTER
     Name: Full Buster Essence
     Type: Etc
@@ -1146,7 +1146,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31103
+  - Id: 33103
     AegisName: Essence_GS_SPREADATTACK
     Name: Spread Attack Essence
     Type: Etc
@@ -1157,7 +1157,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31104
+  - Id: 33104
     AegisName: Essence_GS_GROUNDDRIFT
     Name: Ground Drift Essence
     Type: Etc
@@ -1168,7 +1168,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31105
+  - Id: 33105
     AegisName: Essence_NJ_SYURIKEN
     Name: Throw Shuriken Essence
     Type: Etc
@@ -1179,7 +1179,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31106
+  - Id: 33106
     AegisName: Essence_NJ_KUNAI
     Name: Throw Kunai Essence
     Type: Etc
@@ -1190,7 +1190,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31107
+  - Id: 33107
     AegisName: Essence_NJ_HUUMA
     Name: Throw Huuma Shuriken Essence
     Type: Etc
@@ -1201,7 +1201,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31108
+  - Id: 33108
     AegisName: Essence_NJ_ZENYNAGE
     Name: Throw Zeny Essence
     Type: Etc
@@ -1212,7 +1212,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31109
+  - Id: 33109
     AegisName: Essence_NJ_TATAMIGAESHI
     Name: Improvised Defense Essence
     Type: Etc
@@ -1223,7 +1223,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31110
+  - Id: 33110
     AegisName: Essence_NJ_KASUMIKIRI
     Name: Vanishing Slash Essence
     Type: Etc
@@ -1234,7 +1234,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31111
+  - Id: 33111
     AegisName: Essence_NJ_KIRIKAGE
     Name: Shadow Slash Essence
     Type: Etc
@@ -1245,7 +1245,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31112
+  - Id: 33112
     AegisName: Essence_NJ_KOUENKA
     Name: Crimson Fire Petal Essence
     Type: Etc
@@ -1256,7 +1256,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31113
+  - Id: 33113
     AegisName: Essence_NJ_KAENSIN
     Name: Crimson Fire Formation Essence
     Type: Etc
@@ -1267,7 +1267,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31114
+  - Id: 33114
     AegisName: Essence_NJ_BAKUENRYU
     Name: Raging Fire Dragon Essence
     Type: Etc
@@ -1278,7 +1278,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31115
+  - Id: 33115
     AegisName: Essence_NJ_HYOUSENSOU
     Name: Spear of Ice Essence
     Type: Etc
@@ -1289,7 +1289,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31116
+  - Id: 33116
     AegisName: Essence_NJ_HYOUSYOURAKU
     Name: Ice Meteor Essence
     Type: Etc
@@ -1300,7 +1300,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31117
+  - Id: 33117
     AegisName: Essence_NJ_HUUJIN
     Name: Wind Blade Essence
     Type: Etc
@@ -1311,7 +1311,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31118
+  - Id: 33118
     AegisName: Essence_NJ_RAIGEKISAI
     Name: Lightning Strike of Destruction Essence
     Type: Etc
@@ -1322,7 +1322,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31119
+  - Id: 33119
     AegisName: Essence_NJ_KAMAITACHI
     Name: Kamaitachi Essence
     Type: Etc
@@ -1333,7 +1333,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31120
+  - Id: 33120
     AegisName: Essence_NJ_ISSEN
     Name: Final Strike Essence
     Type: Etc
@@ -1344,7 +1344,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31121
+  - Id: 33121
     AegisName: Essence_KN_CHARGEATK
     Name: Charge Attack Essence
     Type: Etc
@@ -1355,7 +1355,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31122
+  - Id: 33122
     AegisName: Essence_AS_VENOMKNIFE
     Name: Throw Venom Knife Essence
     Type: Etc
@@ -1366,7 +1366,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31123
+  - Id: 33123
     AegisName: Essence_WZ_SIGHTBLASTER
     Name: Sight Blaster Essence
     Type: Etc
@@ -1377,7 +1377,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31124
+  - Id: 33124
     AegisName: Essence_HT_PHANTASMIC
     Name: Phantasmic Arrow Essence
     Type: Etc
@@ -1388,7 +1388,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31125
+  - Id: 33125
     AegisName: Essence_MO_BALKYOUNG
     Name: Ki Explosion Essence
     Type: Etc
@@ -1399,7 +1399,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31126
+  - Id: 33126
     AegisName: Essence_RK_SONICWAVE
     Name: Sonic Wave Essence
     Type: Etc
@@ -1410,7 +1410,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31127
+  - Id: 33127
     AegisName: Essence_RK_HUNDREDSPEAR
     Name: Hundred Spear Essence
     Type: Etc
@@ -1421,7 +1421,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31128
+  - Id: 33128
     AegisName: Essence_RK_WINDCUTTER
     Name: Wind Cutter Essence
     Type: Etc
@@ -1432,7 +1432,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31129
+  - Id: 33129
     AegisName: Essence_RK_IGNITIONBREAK
     Name: Ignition Break Essence
     Type: Etc
@@ -1443,7 +1443,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31130
+  - Id: 33130
     AegisName: Essence_RK_DRAGONBREATH
     Name: Dragon Breath Essence
     Type: Etc
@@ -1454,7 +1454,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31131
+  - Id: 33131
     AegisName: Essence_RK_PHANTOMTHRUST
     Name: Phantom Thrust Essence
     Type: Etc
@@ -1465,7 +1465,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31132
+  - Id: 33132
     AegisName: Essence_GC_CROSSIMPACT
     Name: Cross Impact Essence
     Type: Etc
@@ -1476,7 +1476,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31133
+  - Id: 33133
     AegisName: Essence_GC_DARKILLUSION
     Name: Dark Illusion Essence
     Type: Etc
@@ -1487,7 +1487,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31134
+  - Id: 33134
     AegisName: Essence_GC_COUNTERSLASH
     Name: Counter Slash Essence
     Type: Etc
@@ -1498,7 +1498,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31135
+  - Id: 33135
     AegisName: Essence_GC_WEAPONCRUSH
     Name: Weapon Crush Essence
     Type: Etc
@@ -1509,7 +1509,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31136
+  - Id: 33136
     AegisName: Essence_GC_VENOMPRESSURE
     Name: Venom Pressure Essence
     Type: Etc
@@ -1520,7 +1520,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31137
+  - Id: 33137
     AegisName: Essence_GC_PHANTOMMENACE
     Name: Phantom Menace Essence
     Type: Etc
@@ -1531,7 +1531,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31138
+  - Id: 33138
     AegisName: Essence_GC_ROLLINGCUTTER
     Name: Rolling Cutter Essence
     Type: Etc
@@ -1542,7 +1542,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31139
+  - Id: 33139
     AegisName: Essence_GC_CROSSRIPPERSLASHER
     Name: Cross Ripper Slasher Essence
     Type: Etc
@@ -1553,7 +1553,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31140
+  - Id: 33140
     AegisName: Essence_AB_JUDEX
     Name: Judex Essence
     Type: Etc
@@ -1564,7 +1564,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31141
+  - Id: 33141
     AegisName: Essence_AB_ADORAMUS
     Name: Adoramus Essence
     Type: Etc
@@ -1575,7 +1575,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31142
+  - Id: 33142
     AegisName: Essence_AB_CHEAL
     Name: Coluceo Heal Essence
     Type: Etc
@@ -1586,7 +1586,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31143
+  - Id: 33143
     AegisName: Essence_AB_HIGHNESSHEAL
     Name: Highness Heal Essence
     Type: Etc
@@ -1597,7 +1597,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31144
+  - Id: 33144
     AegisName: Essence_WL_WHITEIMPRISON
     Name: White Imprison Essence
     Type: Etc
@@ -1608,7 +1608,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31145
+  - Id: 33145
     AegisName: Essence_WL_SOULEXPANSION
     Name: Soul Expansion Essence
     Type: Etc
@@ -1619,7 +1619,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31146
+  - Id: 33146
     AegisName: Essence_WL_FROSTMISTY
     Name: Frosty Misty Essence
     Type: Etc
@@ -1630,7 +1630,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31147
+  - Id: 33147
     AegisName: Essence_WL_JACKFROST
     Name: Jack Frost Essence
     Type: Etc
@@ -1641,7 +1641,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31148
+  - Id: 33148
     AegisName: Essence_WL_DRAINLIFE
     Name: Drain Life Essence
     Type: Etc
@@ -1652,7 +1652,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31149
+  - Id: 33149
     AegisName: Essence_WL_CRIMSONROCK
     Name: Crimson Rock Essence
     Type: Etc
@@ -1663,7 +1663,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31150
+  - Id: 33150
     AegisName: Essence_WL_HELLINFERNO
     Name: Hell Inferno Essence
     Type: Etc
@@ -1674,7 +1674,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31151
+  - Id: 33151
     AegisName: Essence_WL_COMET
     Name: Comet Essence
     Type: Etc
@@ -1685,7 +1685,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31152
+  - Id: 33152
     AegisName: Essence_WL_CHAINLIGHTNING
     Name: Chain Lightning Essence
     Type: Etc
@@ -1696,7 +1696,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31153
+  - Id: 33153
     AegisName: Essence_WL_EARTHSTRAIN
     Name: Earth Strain Essence
     Type: Etc
@@ -1707,7 +1707,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31154
+  - Id: 33154
     AegisName: Essence_WL_TETRAVORTEX
     Name: Tetra Vortex Essence
     Type: Etc
@@ -1718,7 +1718,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31155
+  - Id: 33155
     AegisName: Essence_RA_ARROWSTORM
     Name: Arrow Storm Essence
     Type: Etc
@@ -1729,7 +1729,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31156
+  - Id: 33156
     AegisName: Essence_RA_AIMEDBOLT
     Name: Aimed Bolt Essence
     Type: Etc
@@ -1740,7 +1740,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31157
+  - Id: 33157
     AegisName: Essence_RA_CLUSTERBOMB
     Name: Cluster Bomb Essence
     Type: Etc
@@ -1751,7 +1751,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31158
+  - Id: 33158
     AegisName: Essence_RA_WUGSTRIKE
     Name: Warg Strike Essence
     Type: Etc
@@ -1762,7 +1762,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31159
+  - Id: 33159
     AegisName: Essence_RA_WUGBITE
     Name: Warg Bite Essence
     Type: Etc
@@ -1773,7 +1773,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31160
+  - Id: 33160
     AegisName: Essence_RA_SENSITIVEKEEN
     Name: Sensitive Keen Essence
     Type: Etc
@@ -1784,7 +1784,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31161
+  - Id: 33161
     AegisName: Essence_RA_FIRINGTRAP
     Name: Firing Trap Essence
     Type: Etc
@@ -1795,7 +1795,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31162
+  - Id: 33162
     AegisName: Essence_RA_ICEBOUNDTRAP
     Name: Icebound Trap Essence
     Type: Etc
@@ -1806,7 +1806,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31163
+  - Id: 33163
     AegisName: Essence_NC_BOOSTKNUCKLE
     Name: Boost Knuckle Essence
     Type: Etc
@@ -1817,7 +1817,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31164
+  - Id: 33164
     AegisName: Essence_NC_PILEBUNKER
     Name: Pile Bunker Essence
     Type: Etc
@@ -1828,7 +1828,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31165
+  - Id: 33165
     AegisName: Essence_NC_VULCANARM
     Name: Vulcan Arm Essence
     Type: Etc
@@ -1839,7 +1839,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31166
+  - Id: 33166
     AegisName: Essence_NC_FLAMELAUNCHER
     Name: Flame Launcher Essence
     Type: Etc
@@ -1850,7 +1850,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31167
+  - Id: 33167
     AegisName: Essence_NC_COLDSLOWER
     Name: Cold Slower Essence
     Type: Etc
@@ -1861,7 +1861,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31168
+  - Id: 33168
     AegisName: Essence_NC_ARMSCANNON
     Name: Arm Cannon Essence
     Type: Etc
@@ -1872,7 +1872,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31169
+  - Id: 33169
     AegisName: Essence_NC_SELFDESTRUCTION
     Name: Self Destruction Essence
     Type: Etc
@@ -1883,7 +1883,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31170
+  - Id: 33170
     AegisName: Essence_NC_AXEBOOMERANG
     Name: Axe Boomerang Essence
     Type: Etc
@@ -1894,7 +1894,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31171
+  - Id: 33171
     AegisName: Essence_NC_POWERSWING
     Name: Power Swing Essence
     Type: Etc
@@ -1905,7 +1905,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31172
+  - Id: 33172
     AegisName: Essence_NC_AXETORNADO
     Name: Axe Tornado Essence
     Type: Etc
@@ -1916,7 +1916,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31173
+  - Id: 33173
     AegisName: Essence_SC_FATALMENACE
     Name: Fatal Menace Essence
     Type: Etc
@@ -1927,7 +1927,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31174
+  - Id: 33174
     AegisName: Essence_SC_TRIANGLESHOT
     Name: Triangle Shot Essence
     Type: Etc
@@ -1938,7 +1938,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31175
+  - Id: 33175
     AegisName: Essence_SC_FEINTBOMB
     Name: Feint Bomb Essence
     Type: Etc
@@ -1949,7 +1949,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31176
+  - Id: 33176
     AegisName: Essence_LG_CANNONSPEAR
     Name: Cannon Spear Essence
     Type: Etc
@@ -1960,7 +1960,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31177
+  - Id: 33177
     AegisName: Essence_LG_BANISHINGPOINT
     Name: Banishing Point Essence
     Type: Etc
@@ -1971,7 +1971,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31178
+  - Id: 33178
     AegisName: Essence_LG_SHIELDPRESS
     Name: Shield Press Essence
     Type: Etc
@@ -1982,7 +1982,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31179
+  - Id: 33179
     AegisName: Essence_LG_RAGEBURST
     Name: Rage Burst Essence
     Type: Etc
@@ -1993,7 +1993,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31180
+  - Id: 33180
     AegisName: Essence_LG_OVERBRAND
     Name: Over Brand Essence
     Type: Etc
@@ -2004,7 +2004,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31181
+  - Id: 33181
     AegisName: Essence_LG_MOONSLASHER
     Name: Moon Slasher Essence
     Type: Etc
@@ -2015,7 +2015,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31182
+  - Id: 33182
     AegisName: Essence_LG_RAYOFGENESIS
     Name: Ray of Genesis Essence
     Type: Etc
@@ -2026,7 +2026,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31183
+  - Id: 33183
     AegisName: Essence_LG_EARTHDRIVE
     Name: Earth Drive Essence
     Type: Etc
@@ -2037,7 +2037,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31184
+  - Id: 33184
     AegisName: Essence_LG_HESPERUSLIT
     Name: Hesperus Lit Essence
     Type: Etc
@@ -2048,7 +2048,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31185
+  - Id: 33185
     AegisName: Essence_SR_DRAGONCOMBO
     Name: Dragon Combo Essence
     Type: Etc
@@ -2059,7 +2059,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31186
+  - Id: 33186
     AegisName: Essence_SR_SKYNETBLOW
     Name: Sky Net Blow Essence
     Type: Etc
@@ -2070,7 +2070,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31187
+  - Id: 33187
     AegisName: Essence_SR_EARTHSHAKER
     Name: Earth Shaker Essence
     Type: Etc
@@ -2081,7 +2081,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31188
+  - Id: 33188
     AegisName: Essence_SR_FALLENEMPIRE
     Name: Fallen Empire Essence
     Type: Etc
@@ -2092,7 +2092,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31189
+  - Id: 33189
     AegisName: Essence_SR_RAMPAGEBLASTER
     Name: Rampage Blaster Essence
     Type: Etc
@@ -2103,7 +2103,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31190
+  - Id: 33190
     AegisName: Essence_SR_KNUCKLEARROW
     Name: Knuckle Arrow Essence
     Type: Etc
@@ -2114,7 +2114,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31191
+  - Id: 33191
     AegisName: Essence_SR_WINDMILL
     Name: Windmill Essence
     Type: Etc
@@ -2125,7 +2125,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31192
+  - Id: 33192
     AegisName: Essence_SR_GATEOFHELL
     Name: Gate of Hell Essence
     Type: Etc
@@ -2136,7 +2136,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31193
+  - Id: 33193
     AegisName: Essence_SR_GENTLETOUCH_QUIET
     Name: Gentle Touch - Quiet Essence
     Type: Etc
@@ -2147,7 +2147,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31194
+  - Id: 33194
     AegisName: Essence_WM_METALICSOUND
     Name: Metallic Sound Essence
     Type: Etc
@@ -2158,7 +2158,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31195
+  - Id: 33195
     AegisName: Essence_WM_REVERBERATION
     Name: Reverberation Essence
     Type: Etc
@@ -2169,7 +2169,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31196
+  - Id: 33196
     AegisName: Essence_WM_GREAT_ECHO
     Name: Great Echo Essence
     Type: Etc
@@ -2180,7 +2180,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31197
+  - Id: 33197
     AegisName: Essence_SO_FIREWALK
     Name: Fire Walk Essence
     Type: Etc
@@ -2191,7 +2191,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31198
+  - Id: 33198
     AegisName: Essence_SO_ELECTRICWALK
     Name: Electric Walk Essence
     Type: Etc
@@ -2202,7 +2202,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31199
+  - Id: 33199
     AegisName: Essence_SO_EARTHGRAVE
     Name: Earth Grave Essence
     Type: Etc
@@ -2213,7 +2213,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31200
+  - Id: 33200
     AegisName: Essence_SO_DIAMONDDUST
     Name: Diamond Dust Essence
     Type: Etc
@@ -2224,7 +2224,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31201
+  - Id: 33201
     AegisName: Essence_SO_POISON_BUSTER
     Name: Poison Buster Essence
     Type: Etc
@@ -2235,7 +2235,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31202
+  - Id: 33202
     AegisName: Essence_SO_PSYCHIC_WAVE
     Name: Psychic Wave Essence
     Type: Etc
@@ -2246,7 +2246,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31203
+  - Id: 33203
     AegisName: Essence_SO_CLOUD_KILL
     Name: Cloud Kill Essence
     Type: Etc
@@ -2257,7 +2257,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31204
+  - Id: 33204
     AegisName: Essence_SO_VARETYR_SPEAR
     Name: Varetyr Spear Essence
     Type: Etc
@@ -2268,7 +2268,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31205
+  - Id: 33205
     AegisName: Essence_GN_CART_TORNADO
     Name: Cart Tornado Essence
     Type: Etc
@@ -2279,7 +2279,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31206
+  - Id: 33206
     AegisName: Essence_GN_CARTCANNON
     Name: Cart Cannon Essence
     Type: Etc
@@ -2290,7 +2290,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31207
+  - Id: 33207
     AegisName: Essence_GN_THORNS_TRAP
     Name: Thorn Trap Essence
     Type: Etc
@@ -2301,7 +2301,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31208
+  - Id: 33208
     AegisName: Essence_GN_SPORE_EXPLOSION
     Name: Spore Explosion Essence
     Type: Etc
@@ -2312,7 +2312,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31209
+  - Id: 33209
     AegisName: Essence_GN_WALLOFTHORN
     Name: Wall of Thorns Essence
     Type: Etc
@@ -2323,7 +2323,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31210
+  - Id: 33210
     AegisName: Essence_GN_CRAZYWEED
     Name: Crazy Weed Essence
     Type: Etc
@@ -2334,7 +2334,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31211
+  - Id: 33211
     AegisName: Essence_GN_DEMONIC_FIRE
     Name: Demonic Fire Essence
     Type: Etc
@@ -2345,7 +2345,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31212
+  - Id: 33212
     AegisName: Essence_SR_HOWLINGOFLION
     Name: Howling of Lion Essence
     Type: Etc
@@ -2356,7 +2356,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31213
+  - Id: 33213
     AegisName: Essence_SR_RIDEINLIGHTNING
     Name: Ride In Lightening Essence
     Type: Etc
@@ -2367,7 +2367,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31214
+  - Id: 33214
     AegisName: Essence_RL_MASS_SPIRAL
     Name: Mass Spiral Essence
     Type: Etc
@@ -2378,7 +2378,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31215
+  - Id: 33215
     AegisName: Essence_RL_BANISHING_BUSTER
     Name: Banishing Buster Essence
     Type: Etc
@@ -2389,7 +2389,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31216
+  - Id: 33216
     AegisName: Essence_RL_S_STORM
     Name: Shatter Storm Essence
     Type: Etc
@@ -2400,7 +2400,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31217
+  - Id: 33217
     AegisName: Essence_RL_QD_SHOT
     Name: Quick Draw Shot Essence
     Type: Etc
@@ -2411,7 +2411,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31218
+  - Id: 33218
     AegisName: Essence_RL_FIREDANCE
     Name: Fire Dance Essence
     Type: Etc
@@ -2422,7 +2422,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31219
+  - Id: 33219
     AegisName: Essence_RL_H_MINE
     Name: Howling Mine Essence
     Type: Etc
@@ -2433,7 +2433,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31220
+  - Id: 33220
     AegisName: Essence_RL_R_TRIP
     Name: Round Trip Essence
     Type: Etc
@@ -2444,7 +2444,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31221
+  - Id: 33221
     AegisName: Essence_RL_D_TAIL
     Name: Dragon Tail Essence
     Type: Etc
@@ -2455,7 +2455,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31222
+  - Id: 33222
     AegisName: Essence_RL_FIRE_RAIN
     Name: Fire Rain Essence
     Type: Etc
@@ -2466,7 +2466,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31223
+  - Id: 33223
     AegisName: Essence_RL_AM_BLAST
     Name: Anti-Material Blast Essence
     Type: Etc
@@ -2477,7 +2477,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31224
+  - Id: 33224
     AegisName: Essence_RL_SLUGSHOT
     Name: Slug Shot Essence
     Type: Etc
@@ -2488,7 +2488,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31225
+  - Id: 33225
     AegisName: Essence_RL_HAMMER_OF_GOD
     Name: Hammer of God Essence
     Type: Etc
@@ -2499,7 +2499,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31226
+  - Id: 33226
     AegisName: Essence_SJ_FULLMOONKICK
     Name: Full Moon Kick Essence
     Type: Etc
@@ -2510,7 +2510,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31227
+  - Id: 33227
     AegisName: Essence_SJ_NEWMOONKICK
     Name: New Moon Kick Essence
     Type: Etc
@@ -2521,7 +2521,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31228
+  - Id: 33228
     AegisName: Essence_SJ_FLASHKICK
     Name: Flash Kick Essence
     Type: Etc
@@ -2532,7 +2532,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31229
+  - Id: 33229
     AegisName: Essence_SJ_STAREMPEROR
     Name: Star Emperor Advent Essence
     Type: Etc
@@ -2543,7 +2543,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31230
+  - Id: 33230
     AegisName: Essence_SJ_NOVAEXPLOSING
     Name: Nova Explosion Essence
     Type: Etc
@@ -2554,7 +2554,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31231
+  - Id: 33231
     AegisName: Essence_SJ_BOOKOFCREATINGSTAR
     Name: Book of Creating Star Essence
     Type: Etc
@@ -2565,7 +2565,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31232
+  - Id: 33232
     AegisName: Essence_SJ_SOLARBURST
     Name: Solar Burst Essence
     Type: Etc
@@ -2576,7 +2576,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31233
+  - Id: 33233
     AegisName: Essence_SJ_PROMINENCEKICK
     Name: Prominence Kick Essence
     Type: Etc
@@ -2587,7 +2587,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31234
+  - Id: 33234
     AegisName: Essence_SP_CURSEEXPLOSION
     Name: Curse Explosion Essence
     Type: Etc
@@ -2598,7 +2598,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31235
+  - Id: 33235
     AegisName: Essence_SP_SPA
     Name: Espa Essence
     Type: Etc
@@ -2609,7 +2609,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31236
+  - Id: 33236
     AegisName: Essence_SP_SHA
     Name: Esha Essence
     Type: Etc
@@ -2620,7 +2620,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31237
+  - Id: 33237
     AegisName: Essence_SP_SWHOO
     Name: Eswhoo Essence
     Type: Etc
@@ -2631,7 +2631,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31238
+  - Id: 33238
     AegisName: Essence_SP_SOULEXPLOSION
     Name: Soul Explosion Essence
     Type: Etc
@@ -2642,7 +2642,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31239
+  - Id: 33239
     AegisName: Essence_KO_JYUMONJIKIRI
     Name: Cross Slash Essence
     Type: Etc
@@ -2653,7 +2653,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31240
+  - Id: 33240
     AegisName: Essence_KO_SETSUDAN
     Name: Soul Cutter Essence
     Type: Etc
@@ -2664,7 +2664,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31241
+  - Id: 33241
     AegisName: Essence_KO_BAKURETSU
     Name: Kunai Explosion Essence
     Type: Etc
@@ -2675,7 +2675,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31242
+  - Id: 33242
     AegisName: Essence_KO_HAPPOKUNAI
     Name: Kunai Splash Essence
     Type: Etc
@@ -2686,7 +2686,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31243
+  - Id: 33243
     AegisName: Essence_KO_MUCHANAGE
     Name: Rapid Throw Essence
     Type: Etc
@@ -2697,7 +2697,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31244
+  - Id: 33244
     AegisName: Essence_KO_HUUMARANKA
     Name: Swirling Petal Essence
     Type: Etc
@@ -2708,7 +2708,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31245
+  - Id: 33245
     AegisName: Essence_KO_MAKIBISHI
     Name: Makibishi Essence
     Type: Etc
@@ -2719,7 +2719,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31246
+  - Id: 33246
     AegisName: Essence_KO_KAIHOU
     Name: Release Ninja Spell Essence
     Type: Etc
@@ -2730,7 +2730,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31247
+  - Id: 33247
     AegisName: Essence_KO_ZENKAI
     Name: Cast Ninja Spell Essence
     Type: Etc
@@ -2741,7 +2741,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31248
+  - Id: 33248
     AegisName: Essence_GC_DARKCROW
     Name: Dark Claw Essence
     Type: Etc
@@ -2752,7 +2752,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31249
+  - Id: 33249
     AegisName: Essence_GN_ILLUSIONDOPING
     Name: Illusion Doping Essence
     Type: Etc
@@ -2763,7 +2763,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31250
+  - Id: 33250
     AegisName: Essence_RK_DRAGONBREATH_WATER
     Name: Dragon Breath - Water Essence
     Type: Etc
@@ -2774,7 +2774,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31251
+  - Id: 33251
     AegisName: Essence_NC_MAGMA_ERUPTION
     Name: Magma Eruption Essence
     Type: Etc
@@ -2785,7 +2785,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31252
+  - Id: 33252
     AegisName: Essence_SU_BITE
     Name: Bite Essence
     Type: Etc
@@ -2796,7 +2796,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31253
+  - Id: 33253
     AegisName: Essence_SU_SCRATCH
     Name: Scratch Essence
     Type: Etc
@@ -2807,7 +2807,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31254
+  - Id: 33254
     AegisName: Essence_SU_SV_STEMSPEAR
     Name: Silvervine Stem Spear Essence
     Type: Etc
@@ -2818,7 +2818,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31255
+  - Id: 33255
     AegisName: Essence_SU_CN_METEOR
     Name: Catnip Meteor Essence
     Type: Etc
@@ -2829,7 +2829,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31256
+  - Id: 33256
     AegisName: Essence_SU_SCAROFTAROU
     Name: Scar of Tarou Essence
     Type: Etc
@@ -2840,7 +2840,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31257
+  - Id: 33257
     AegisName: Essence_SU_PICKYPECK
     Name: Picky Peck Essence
     Type: Etc
@@ -2851,7 +2851,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31258
+  - Id: 33258
     AegisName: Essence_SU_LUNATICCARROTBEAT
     Name: Lunatic Carrot Beat Essence
     Type: Etc
@@ -2862,7 +2862,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31259
+  - Id: 33259
     AegisName: Essence_SU_SVG_SPIRIT
     Name: Spirit of Savage Essence
     Type: Etc
@@ -2873,7 +2873,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31260
+  - Id: 33260
     AegisName: Essence_DK_SERVANT_W_PHANTOM
     Name: Servant Weapon Phantom Essence
     Type: Etc
@@ -2884,7 +2884,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31261
+  - Id: 33261
     AegisName: Essence_DK_SERVANT_W_DEMOL
     Name: Servant Weapon Demolition Essence
     Type: Etc
@@ -2895,7 +2895,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31262
+  - Id: 33262
     AegisName: Essence_DK_HACKANDSLASHER
     Name: Hack And Slasher Essence
     Type: Etc
@@ -2906,7 +2906,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31263
+  - Id: 33263
     AegisName: Essence_DK_DRAGONIC_AURA
     Name: Dragonic Aura Essence
     Type: Etc
@@ -2917,7 +2917,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31264
+  - Id: 33264
     AegisName: Essence_DK_MADNESS_CRUSHER
     Name: Madness Crusher Essence
     Type: Etc
@@ -2928,7 +2928,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31265
+  - Id: 33265
     AegisName: Essence_DK_STORMSLASH
     Name: Storm Slash Essence
     Type: Etc
@@ -2939,7 +2939,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31266
+  - Id: 33266
     AegisName: Essence_AG_DEADLY_PROJECTION
     Name: Deadly Projection Essence
     Type: Etc
@@ -2950,7 +2950,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31267
+  - Id: 33267
     AegisName: Essence_AG_DESTRUCTIVE_HURRICANE
     Name: Destructive Hurricane Essence
     Type: Etc
@@ -2961,7 +2961,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31268
+  - Id: 33268
     AegisName: Essence_AG_RAIN_OF_CRYSTAL
     Name: Rain Of Crystal Essence
     Type: Etc
@@ -2972,7 +2972,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31269
+  - Id: 33269
     AegisName: Essence_AG_MYSTERY_ILLUSION
     Name: Mystery Illusion Essence
     Type: Etc
@@ -2983,7 +2983,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31270
+  - Id: 33270
     AegisName: Essence_AG_VIOLENT_QUAKE
     Name: Violent Quake Essence
     Type: Etc
@@ -2994,7 +2994,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31271
+  - Id: 33271
     AegisName: Essence_AG_SOUL_VC_STRIKE
     Name: Soul Vulcan Strike Essence
     Type: Etc
@@ -3005,7 +3005,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31272
+  - Id: 33272
     AegisName: Essence_AG_STRANTUM_TREMOR
     Name: Strantum Tremor Essence
     Type: Etc
@@ -3016,7 +3016,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31273
+  - Id: 33273
     AegisName: Essence_AG_ALL_BLOOM
     Name: All Bloom Essence
     Type: Etc
@@ -3027,7 +3027,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31274
+  - Id: 33274
     AegisName: Essence_AG_CRYSTAL_IMPACT
     Name: Crystal Impact Essence
     Type: Etc
@@ -3038,7 +3038,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31275
+  - Id: 33275
     AegisName: Essence_AG_TORNADO_STORM
     Name: Tornado Storm Essence
     Type: Etc
@@ -3049,7 +3049,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31276
+  - Id: 33276
     AegisName: Essence_AG_FLORAL_FLARE_ROAD
     Name: Floral Flare Road Essence
     Type: Etc
@@ -3060,7 +3060,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31277
+  - Id: 33277
     AegisName: Essence_AG_ASTRAL_STRIKE
     Name: Astral Strike Essence
     Type: Etc
@@ -3071,7 +3071,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31278
+  - Id: 33278
     AegisName: Essence_AG_ROCK_DOWN
     Name: Rock Down Essence
     Type: Etc
@@ -3082,7 +3082,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31279
+  - Id: 33279
     AegisName: Essence_AG_STORM_CANNON
     Name: Storm Cannon Essence
     Type: Etc
@@ -3093,7 +3093,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31280
+  - Id: 33280
     AegisName: Essence_AG_CRIMSON_ARROW
     Name: Crimson Arrow Essence
     Type: Etc
@@ -3104,7 +3104,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31281
+  - Id: 33281
     AegisName: Essence_AG_FROZEN_SLASH
     Name: Frozen Slash Essence
     Type: Etc
@@ -3115,7 +3115,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31282
+  - Id: 33282
     AegisName: Essence_IQ_OLEUM_SANCTUM
     Name: Oleum Sanctum Essence
     Type: Etc
@@ -3126,7 +3126,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31283
+  - Id: 33283
     AegisName: Essence_IQ_MASSIVE_F_BLASTER
     Name: Massive Flame Blaster Essence
     Type: Etc
@@ -3137,7 +3137,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31284
+  - Id: 33284
     AegisName: Essence_IQ_EXPOSION_BLASTER
     Name: Explosion Blaster Essence
     Type: Etc
@@ -3148,7 +3148,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31285
+  - Id: 33285
     AegisName: Essence_IQ_FIRST_BRAND
     Name: First Brand Essence
     Type: Etc
@@ -3159,7 +3159,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31286
+  - Id: 33286
     AegisName: Essence_IQ_SECOND_FLAME
     Name: Second Flame Essence
     Type: Etc
@@ -3170,7 +3170,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31287
+  - Id: 33287
     AegisName: Essence_IQ_SECOND_FAITH
     Name: Second Faith Essence
     Type: Etc
@@ -3181,7 +3181,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31288
+  - Id: 33288
     AegisName: Essence_IQ_SECOND_JUDGEMENT
     Name: Second Judgement Essence
     Type: Etc
@@ -3192,7 +3192,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31289
+  - Id: 33289
     AegisName: Essence_IQ_THIRD_PUNISH
     Name: Third Punish Essence
     Type: Etc
@@ -3203,7 +3203,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31290
+  - Id: 33290
     AegisName: Essence_IQ_THIRD_FLAME_BOMB
     Name: Third Flame Bomb Essence
     Type: Etc
@@ -3214,7 +3214,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31291
+  - Id: 33291
     AegisName: Essence_IQ_THIRD_CONSECRATION
     Name: Third Consecration Essence
     Type: Etc
@@ -3225,7 +3225,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31292
+  - Id: 33292
     AegisName: Essence_IG_GRAND_JUDGEMENT
     Name: Grand Judgement Essence
     Type: Etc
@@ -3236,7 +3236,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31293
+  - Id: 33293
     AegisName: Essence_IG_JUDGEMENT_CROSS
     Name: Judgement Cross Essence
     Type: Etc
@@ -3247,7 +3247,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31294
+  - Id: 33294
     AegisName: Essence_IG_SHIELD_SHOOTING
     Name: Shield Shooting Essence
     Type: Etc
@@ -3258,7 +3258,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31295
+  - Id: 33295
     AegisName: Essence_IG_OVERSLASH
     Name: Overslash Essence
     Type: Etc
@@ -3269,7 +3269,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31296
+  - Id: 33296
     AegisName: Essence_IG_CROSS_RAIN
     Name: Cross Rain Essence
     Type: Etc
@@ -3280,7 +3280,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31297
+  - Id: 33297
     AegisName: Essence_CD_MEDIALE_VOTUM
     Name: Mediale Votum Essence
     Type: Etc
@@ -3291,7 +3291,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31298
+  - Id: 33298
     AegisName: Essence_CD_ARBITRIUM
     Name: Arbitrium Essence
     Type: Etc
@@ -3302,7 +3302,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31299
+  - Id: 33299
     AegisName: Essence_CD_EFFLIGO
     Name: Effligo Essence
     Type: Etc
@@ -3313,7 +3313,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31300
+  - Id: 33300
     AegisName: Essence_CD_PNEUMATICUS_PROCELLA
     Name: Pneumaticus Procella Essence
     Type: Etc
@@ -3324,7 +3324,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31301
+  - Id: 33301
     AegisName: Essence_CD_PETITIO
     Name: Petitio Essence
     Type: Etc
@@ -3335,7 +3335,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31302
+  - Id: 33302
     AegisName: Essence_CD_FRAMEN
     Name: Framen Essence
     Type: Etc
@@ -3346,7 +3346,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31303
+  - Id: 33303
     AegisName: Essence_SHC_DANCING_KNIFE
     Name: Dancing Knife Essence
     Type: Etc
@@ -3357,7 +3357,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31304
+  - Id: 33304
     AegisName: Essence_SHC_SAVAGE_IMPACT
     Name: Savage Impact Essence
     Type: Etc
@@ -3368,7 +3368,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31305
+  - Id: 33305
     AegisName: Essence_SHC_ETERNAL_SLASH
     Name: Eternal Slash Essence
     Type: Etc
@@ -3379,7 +3379,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31306
+  - Id: 33306
     AegisName: Essence_SHC_SHADOW_STAB
     Name: Shadow Stab Essence
     Type: Etc
@@ -3390,7 +3390,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31307
+  - Id: 33307
     AegisName: Essence_SHC_IMPACT_CRATER
     Name: Impact Crater Essence
     Type: Etc
@@ -3401,7 +3401,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31308
+  - Id: 33308
     AegisName: Essence_SHC_FATAL_SHADOW_CROW
     Name: Fatal Shadow Crow Essence
     Type: Etc
@@ -3412,7 +3412,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31309
+  - Id: 33309
     AegisName: Essence_MT_AXE_STOMP
     Name: Axe Stomp Essence
     Type: Etc
@@ -3423,7 +3423,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31310
+  - Id: 33310
     AegisName: Essence_MT_RUSH_QUAKE
     Name: Rush Quake Essence
     Type: Etc
@@ -3434,7 +3434,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31311
+  - Id: 33311
     AegisName: Essence_MT_A_MACHINE
     Name: Attack Machine Essence
     Type: Etc
@@ -3445,7 +3445,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31312
+  - Id: 33312
     AegisName: Essence_ABC_ABYSS_DAGGER
     Name: Abyss Dagger Essence
     Type: Etc
@@ -3456,7 +3456,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31313
+  - Id: 33313
     AegisName: Essence_ABC_UNLUCKY_RUSH
     Name: Unlucky Rush Essence
     Type: Etc
@@ -3467,7 +3467,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31314
+  - Id: 33314
     AegisName: Essence_ABC_CHAIN_REACTION_SHOT
     Name: Chain Reaction Shot Essence
     Type: Etc
@@ -3478,7 +3478,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31315
+  - Id: 33315
     AegisName: Essence_ABC_ABYSS_STRIKE
     Name: Omega Abyss Strike Essence
     Type: Etc
@@ -3489,7 +3489,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31316
+  - Id: 33316
     AegisName: Essence_ABC_DEFT_STAB
     Name: Deft Stab Essence
     Type: Etc
@@ -3500,7 +3500,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31317
+  - Id: 33317
     AegisName: Essence_ABC_ABYSS_SQUARE
     Name: Abyss Square Essence
     Type: Etc
@@ -3511,7 +3511,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31318
+  - Id: 33318
     AegisName: Essence_ABC_FRENZY_SHOT
     Name: Frenzy Shot Essence
     Type: Etc
@@ -3522,7 +3522,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31319
+  - Id: 33319
     AegisName: Essence_WH_HAWKRUSH
     Name: Hawk Rush Essence
     Type: Etc
@@ -3533,7 +3533,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31320
+  - Id: 33320
     AegisName: Essence_WH_HAWKBOOMERANG
     Name: Hawk Boomerang Essence
     Type: Etc
@@ -3544,7 +3544,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31321
+  - Id: 33321
     AegisName: Essence_WH_GALESTORM
     Name: Gale Storm Essence
     Type: Etc
@@ -3555,7 +3555,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31322
+  - Id: 33322
     AegisName: Essence_WH_DEEPBLINDTRAP
     Name: Deep Blind Trap Essence
     Type: Etc
@@ -3566,7 +3566,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31323
+  - Id: 33323
     AegisName: Essence_WH_SOLIDTRAP
     Name: Solid Trap Essence
     Type: Etc
@@ -3577,7 +3577,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31324
+  - Id: 33324
     AegisName: Essence_WH_SWIFTTRAP
     Name: Swift Trap Essence
     Type: Etc
@@ -3588,7 +3588,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31325
+  - Id: 33325
     AegisName: Essence_WH_CRESCIVE_BOLT
     Name: Crescive Bolt Essence
     Type: Etc
@@ -3599,7 +3599,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31326
+  - Id: 33326
     AegisName: Essence_WH_FLAMETRAP
     Name: Flame Trap Essence
     Type: Etc
@@ -3610,7 +3610,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31327
+  - Id: 33327
     AegisName: Essence_BO_ACIDIFIED_ZONE_WATER
     Name: Acidified Zone Water Essence
     Type: Etc
@@ -3621,7 +3621,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31328
+  - Id: 33328
     AegisName: Essence_BO_ACIDIFIED_ZONE_GROUND
     Name: Acidified Zone Ground Essence
     Type: Etc
@@ -3632,7 +3632,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31329
+  - Id: 33329
     AegisName: Essence_BO_ACIDIFIED_ZONE_WIND
     Name: Acidified Zone Wind Essence
     Type: Etc
@@ -3643,7 +3643,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31330
+  - Id: 33330
     AegisName: Essence_BO_ACIDIFIED_ZONE_FIRE
     Name: Acidified Zone Fire Essence
     Type: Etc
@@ -3654,7 +3654,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31331
+  - Id: 33331
     AegisName: Essence_TR_ROSEBLOSSOM
     Name: Rose Blossom Essence
     Type: Etc
@@ -3665,7 +3665,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31332
+  - Id: 33332
     AegisName: Essence_TR_RHYTHMSHOOTING
     Name: Rhythm Shooting Essence
     Type: Etc
@@ -3676,7 +3676,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31333
+  - Id: 33333
     AegisName: Essence_TR_METALIC_FURY
     Name: Metallic Fury Essence
     Type: Etc
@@ -3687,7 +3687,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31334
+  - Id: 33334
     AegisName: Essence_EM_DIAMOND_STORM
     Name: Diamond Storm Essence
     Type: Etc
@@ -3698,7 +3698,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31335
+  - Id: 33335
     AegisName: Essence_EM_LIGHTNING_LAND
     Name: Lightning Land Essence
     Type: Etc
@@ -3709,7 +3709,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31336
+  - Id: 33336
     AegisName: Essence_EM_VENOM_SWAMP
     Name: Venom Swamp Essence
     Type: Etc
@@ -3720,7 +3720,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31337
+  - Id: 33337
     AegisName: Essence_EM_CONFLAGRATION
     Name: Conflagration Essence
     Type: Etc
@@ -3731,7 +3731,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31338
+  - Id: 33338
     AegisName: Essence_EM_TERRA_DRIVE
     Name: Terra Drive Essence
     Type: Etc
@@ -3742,7 +3742,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31339
+  - Id: 33339
     AegisName: Essence_EM_ELEMENTAL_BUSTER
     Name: Elemental Buster Essence
     Type: Etc
@@ -3753,7 +3753,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31340
+  - Id: 33340
     AegisName: Essence_NW_THE_VIGILANTE_AT_NIGHT
     Name: The Vigilante at Night Essence
     Type: Etc
@@ -3764,7 +3764,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31341
+  - Id: 33341
     AegisName: Essence_NW_ONLY_ONE_BULLET
     Name: Only One Bullet Essence
     Type: Etc
@@ -3775,7 +3775,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31342
+  - Id: 33342
     AegisName: Essence_NW_SPIRAL_SHOOTING
     Name: Spiral Shooting Essence
     Type: Etc
@@ -3786,7 +3786,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31343
+  - Id: 33343
     AegisName: Essence_NW_MAGAZINE_FOR_ONE
     Name: Magazine for One Essence
     Type: Etc
@@ -3797,7 +3797,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31344
+  - Id: 33344
     AegisName: Essence_NW_WILD_FIRE
     Name: Wild Fire Essence
     Type: Etc
@@ -3808,7 +3808,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31345
+  - Id: 33345
     AegisName: Essence_NW_BASIC_GRENADE
     Name: Basic Grenade Essence
     Type: Etc
@@ -3819,7 +3819,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31346
+  - Id: 33346
     AegisName: Essence_NW_HASTY_FIRE_IN_THE_HOLE
     Name: Hasty Fire in the Hole Essence
     Type: Etc
@@ -3830,7 +3830,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31347
+  - Id: 33347
     AegisName: Essence_NW_GRENADES_DROPPING
     Name: Grenades Dropping Essence
     Type: Etc
@@ -3841,7 +3841,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31348
+  - Id: 33348
     AegisName: Essence_NW_MISSION_BOMBARD
     Name: Mission Bombard Essence
     Type: Etc
@@ -3852,7 +3852,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31349
+  - Id: 33349
     AegisName: Essence_SOA_TALISMAN_OF_SOUL_STEALING
     Name: Talisman Of Soul Stealing Essence
     Type: Etc
@@ -3863,7 +3863,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31350
+  - Id: 33350
     AegisName: Essence_SOA_EXORCISM_OF_MALICIOUS_SOUL
     Name: Exorcism Of Malicious Soul Essence
     Type: Etc
@@ -3874,7 +3874,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31351
+  - Id: 33351
     AegisName: Essence_SOA_TALISMAN_OF_BLUE_DRAGON
     Name: Talisman Of Blue Dragon Essence
     Type: Etc
@@ -3885,7 +3885,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31352
+  - Id: 33352
     AegisName: Essence_SOA_TALISMAN_OF_WHITE_TIGER
     Name: Talisman Of White Tiger Essence
     Type: Etc
@@ -3896,7 +3896,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31353
+  - Id: 33353
     AegisName: Essence_SOA_TALISMAN_OF_RED_PHOENIX
     Name: Talisman Of Red Phoenix Essence
     Type: Etc
@@ -3907,7 +3907,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31354
+  - Id: 33354
     AegisName: Essence_SOA_TALISMAN_OF_BLACK_TORTOISE
     Name: Talisman Of Black Tortoise Essence
     Type: Etc
@@ -3918,7 +3918,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31355
+  - Id: 33355
     AegisName: Essence_SOA_TALISMAN_OF_FOUR_BEARING_GOD
     Name: Talisman Of Four Bearing God Essence
     Type: Etc
@@ -3929,7 +3929,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31356
+  - Id: 33356
     AegisName: Essence_SOA_CIRCLE_OF_DIRECTIONS_AND_ELEMENTALS
     Name: Circle Of Directions And Elementals Essence
     Type: Etc
@@ -3940,7 +3940,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31357
+  - Id: 33357
     AegisName: Essence_SH_CHUL_HO_SONIC_CLAW
     Name: Chulho Sonic Claw Essence
     Type: Etc
@@ -3951,7 +3951,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31358
+  - Id: 33358
     AegisName: Essence_SH_HOWLING_OF_CHUL_HO
     Name: Howling of Chulho Essence
     Type: Etc
@@ -3962,7 +3962,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31359
+  - Id: 33359
     AegisName: Essence_SH_HOGOGONG_STRIKE
     Name: Hogogong Strike Essence
     Type: Etc
@@ -3973,7 +3973,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31360
+  - Id: 33360
     AegisName: Essence_SH_HYUN_ROKS_BREEZE
     Name: Hyunrok Breeze Essence
     Type: Etc
@@ -3984,7 +3984,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31361
+  - Id: 33361
     AegisName: Essence_SH_HYUN_ROK_CANNON
     Name: Hyunrok Cannon Essence
     Type: Etc
@@ -3995,7 +3995,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31362
+  - Id: 33362
     AegisName: Essence_HN_DOUBLEBOWLINGBASH
     Name: Double Bowling Bash Essence
     Type: Etc
@@ -4006,7 +4006,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31363
+  - Id: 33363
     AegisName: Essence_HN_MEGA_SONIC_BLOW
     Name: Mega Sonic Blow Essence
     Type: Etc
@@ -4017,7 +4017,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31364
+  - Id: 33364
     AegisName: Essence_HN_SHIELD_CHAIN_RUSH
     Name: Shield Chain Rush Essence
     Type: Etc
@@ -4028,7 +4028,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31365
+  - Id: 33365
     AegisName: Essence_HN_SPIRAL_PIERCE_MAX
     Name: Spiral Pierce Max Essence
     Type: Etc
@@ -4039,7 +4039,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31366
+  - Id: 33366
     AegisName: Essence_HN_METEOR_STORM_BUSTER
     Name: Meteor Storm Buster Essence
     Type: Etc
@@ -4050,7 +4050,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31367
+  - Id: 33367
     AegisName: Essence_HN_JUPITEL_THUNDER_STORM
     Name: Jupitel Thunderstorm Essence
     Type: Etc
@@ -4061,7 +4061,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31368
+  - Id: 33368
     AegisName: Essence_HN_JACK_FROST_NOVA
     Name: Jack Frost Nova Essence
     Type: Etc
@@ -4072,7 +4072,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31369
+  - Id: 33369
     AegisName: Essence_HN_HELLS_DRIVE
     Name: Hell's Drive Essence
     Type: Etc
@@ -4083,7 +4083,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31370
+  - Id: 33370
     AegisName: Essence_HN_GROUND_GRAVITATION
     Name: Ground Gravitation Essence
     Type: Etc
@@ -4094,7 +4094,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31371
+  - Id: 33371
     AegisName: Essence_HN_NAPALM_VULCAN_STRIKE
     Name: Napalm Vulcan Strike Essence
     Type: Etc
@@ -4105,7 +4105,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31372
+  - Id: 33372
     AegisName: Essence_SKE_RISING_SUN
     Name: Rising Sun Essence
     Type: Etc
@@ -4116,7 +4116,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31373
+  - Id: 33373
     AegisName: Essence_SKE_NOON_BLAST
     Name: Noon Blast Essence
     Type: Etc
@@ -4127,7 +4127,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31374
+  - Id: 33374
     AegisName: Essence_SKE_SUNSET_BLAST
     Name: Sunset Blast Essence
     Type: Etc
@@ -4138,7 +4138,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31375
+  - Id: 33375
     AegisName: Essence_SKE_RISING_MOON
     Name: Rising Moon Essence
     Type: Etc
@@ -4149,7 +4149,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31376
+  - Id: 33376
     AegisName: Essence_SKE_MIDNIGHT_KICK
     Name: Midnight Kick Essence
     Type: Etc
@@ -4160,7 +4160,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31377
+  - Id: 33377
     AegisName: Essence_SKE_DAWN_BREAK
     Name: Dawn Break Essence
     Type: Etc
@@ -4171,7 +4171,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31378
+  - Id: 33378
     AegisName: Essence_SKE_TWINKLING_GALAXY
     Name: Twinkling Galaxy Essence
     Type: Etc
@@ -4182,7 +4182,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31379
+  - Id: 33379
     AegisName: Essence_SKE_STAR_BURST
     Name: Star Burst Essence
     Type: Etc
@@ -4193,7 +4193,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31380
+  - Id: 33380
     AegisName: Essence_SKE_STAR_CANNON
     Name: Star Cannon Essence
     Type: Etc
@@ -4204,7 +4204,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31381
+  - Id: 33381
     AegisName: Essence_SKE_ALL_IN_THE_SKY
     Name: All in the Sky Essence
     Type: Etc
@@ -4215,7 +4215,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31382
+  - Id: 33382
     AegisName: Essence_SS_TOKEDASU
     Name: Melt Away Essence
     Type: Etc
@@ -4226,7 +4226,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31383
+  - Id: 33383
     AegisName: Essence_SS_SHIMIRU
     Name: Infiltrate Essence
     Type: Etc
@@ -4237,7 +4237,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31384
+  - Id: 33384
     AegisName: Essence_SS_KAGEGARI
     Name: Shadow Hunting Essence
     Type: Etc
@@ -4248,7 +4248,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31385
+  - Id: 33385
     AegisName: Essence_SS_KAGENOMAI
     Name: Shadow Dance Essence
     Type: Etc
@@ -4259,7 +4259,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31386
+  - Id: 33386
     AegisName: Essence_SS_KAGEGISSEN
     Name: Shadow Flash Essence
     Type: Etc
@@ -4270,7 +4270,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31387
+  - Id: 33387
     AegisName: Essence_SS_FUUMASHOUAKU
     Name: Huuma Shuriken - Grasp Essence
     Type: Etc
@@ -4281,7 +4281,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31388
+  - Id: 33388
     AegisName: Essence_SS_FUUMAKOUCHIKU
     Name: Huuma Shuriken - Construct Essence
     Type: Etc
@@ -4292,7 +4292,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31389
+  - Id: 33389
     AegisName: Essence_SS_KUNAIWAIKYOKU
     Name: Kunai - Distortion Essence
     Type: Etc
@@ -4303,7 +4303,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31390
+  - Id: 33390
     AegisName: Essence_SS_KUNAIKAITEN
     Name: Kunai - Rotation Essence
     Type: Etc
@@ -4314,7 +4314,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31391
+  - Id: 33391
     AegisName: Essence_SS_KUNAIKUSSETSU
     Name: Kunai - Refraction Essence
     Type: Etc
@@ -4325,7 +4325,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31392
+  - Id: 33392
     AegisName: Essence_SS_SEKIENHOU
     Name: Red Flame Cannon Essence
     Type: Etc
@@ -4336,7 +4336,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31393
+  - Id: 33393
     AegisName: Essence_SS_REIKETSUHOU
     Name: Cold Blooded Cannon Essence
     Type: Etc
@@ -4347,7 +4347,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31394
+  - Id: 33394
     AegisName: Essence_SS_RAIDENPOU
     Name: Thundering Cannon Essence
     Type: Etc
@@ -4358,7 +4358,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31395
+  - Id: 33395
     AegisName: Essence_SS_KINRYUUHOU
     Name: Golden Dragon Cannon Essence
     Type: Etc
@@ -4369,7 +4369,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31396
+  - Id: 33396
     AegisName: Essence_SS_ANTENPOU
     Name: Darkening Cannon Essence
     Type: Etc
@@ -4380,7 +4380,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31397
+  - Id: 33397
     AegisName: Essence_SS_KAGEAKUMU
     Name: Shadow - Nightmare Essence
     Type: Etc
@@ -4391,7 +4391,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31398
+  - Id: 33398
     AegisName: Essence_SS_HITOUAKUMU
     Name: Kunai - Nightmare Essence
     Type: Etc
@@ -4402,7 +4402,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31399
+  - Id: 33399
     AegisName: Essence_SS_ANKOKURYUUAKUMU
     Name: Dark Dragon - Nightmare Essence
     Type: Etc
@@ -4413,7 +4413,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31400
+  - Id: 33400
     AegisName: Essence_NW_WILD_SHOT
     Name: Wild Shot Essence
     Type: Etc
@@ -4424,7 +4424,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31401
+  - Id: 33401
     AegisName: Essence_NW_MIDNIGHT_FALLEN
     Name: Midnight Fallen Essence
     Type: Etc
@@ -4435,7 +4435,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31402
+  - Id: 33402
     AegisName: Essence_SKE_SKY_SUN
     Name: Sky Sun Essence
     Type: Etc
@@ -4446,7 +4446,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31403
+  - Id: 33403
     AegisName: Essence_SKE_SKY_MOON
     Name: Sky Moon Essence
     Type: Etc
@@ -4457,7 +4457,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31404
+  - Id: 33404
     AegisName: Essence_SKE_STAR_LIGHT_KICK
     Name: Star Light Kick Essence
     Type: Etc
@@ -4468,7 +4468,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31405
+  - Id: 33405
     AegisName: Essence_SH_CHUL_HO_BATTERING
     Name: Chulho Battering Essence
     Type: Etc
@@ -4479,7 +4479,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31406
+  - Id: 33406
     AegisName: Essence_SH_HYUN_ROK_SPIRIT_POWER
     Name: Hyunrok Spirit Power Essence
     Type: Etc
@@ -4490,7 +4490,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31407
+  - Id: 33407
     AegisName: Essence_DK_DRAGONIC_BREATH
     Name: Dragonic Breath Essence
     Type: Etc
@@ -4501,7 +4501,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31408
+  - Id: 33408
     AegisName: Essence_MT_SPARK_BLASTER
     Name: Spark Blaster Essence
     Type: Etc
@@ -4512,7 +4512,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31409
+  - Id: 33409
     AegisName: Essence_MT_TRIPLE_LASER
     Name: Triple Laser Essence
     Type: Etc
@@ -4523,7 +4523,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31410
+  - Id: 33410
     AegisName: Essence_MT_MIGHTY_SMASH
     Name: Mighty Smash Essence
     Type: Etc
@@ -4534,7 +4534,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31411
+  - Id: 33411
     AegisName: Essence_BO_EXPLOSIVE_POWDER
     Name: Explosive Powder Essence
     Type: Etc
@@ -4545,7 +4545,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31412
+  - Id: 33412
     AegisName: Essence_BO_MAYHEMIC_THORNS
     Name: Mayhemic Thorns Essence
     Type: Etc
@@ -4556,7 +4556,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31413
+  - Id: 33413
     AegisName: Essence_DK_DRAGONIC_PIERCE
     Name: Dragonic Pierce Essence
     Type: Etc
@@ -4567,7 +4567,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31414
+  - Id: 33414
     AegisName: Essence_IG_RADIANT_SPEAR
     Name: Radiant Spear Essence
     Type: Etc
@@ -4578,7 +4578,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31415
+  - Id: 33415
     AegisName: Essence_IG_IMPERIAL_CROSS
     Name: Imperial Cross Essence
     Type: Etc
@@ -4589,7 +4589,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31416
+  - Id: 33416
     AegisName: Essence_IG_IMPERIAL_PRESSURE
     Name: Imperial Pressure Essence
     Type: Etc
@@ -4600,7 +4600,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31417
+  - Id: 33417
     AegisName: Essence_MT_RUSH_STRIKE
     Name: Rush Strike Essence
     Type: Etc
@@ -4611,7 +4611,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31418
+  - Id: 33418
     AegisName: Essence_MT_POWERFUL_SWING
     Name: Powerful Swing Essence
     Type: Etc
@@ -4622,7 +4622,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31419
+  - Id: 33419
     AegisName: Essence_MT_ENERGY_CANNONADE
     Name: Energy Cannonade Essence
     Type: Etc
@@ -4633,7 +4633,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31420
+  - Id: 33420
     AegisName: Essence_BO_MYSTERY_POWDER
     Name: Mystery Powder Essence
     Type: Etc
@@ -4644,7 +4644,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31421
+  - Id: 33421
     AegisName: Essence_BO_DUST_EXPLOSION
     Name: Dust Explosion Essence
     Type: Etc
@@ -4655,7 +4655,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31422
+  - Id: 33422
     AegisName: Essence_SHC_CROSS_SLASH
     Name: Cross Slash Essence
     Type: Etc
@@ -4666,7 +4666,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31423
+  - Id: 33423
     AegisName: Essence_ABC_HIT_AND_SLIDING
     Name: Hit And Sliding Essence
     Type: Etc
@@ -4677,7 +4677,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31424
+  - Id: 33424
     AegisName: Essence_ABC_CHASING_BREAK
     Name: Chasing Break Essence
     Type: Etc
@@ -4688,7 +4688,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31425
+  - Id: 33425
     AegisName: Essence_ABC_CHASING_SHOT
     Name: Chasing Shot Essence
     Type: Etc
@@ -4699,7 +4699,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31426
+  - Id: 33426
     AegisName: Essence_ABC_ABYSS_FLAME
     Name: Abyss Flame Essence
     Type: Etc
@@ -4710,7 +4710,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31427
+  - Id: 33427
     AegisName: Essence_EM_PSYCHIC_STREAM
     Name: Psychic Stream Essence
     Type: Etc
@@ -4721,7 +4721,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31428
+  - Id: 33428
     AegisName: Essence_CD_DIVINUS_FLOS
     Name: Divinus Flos Essence
     Type: Etc
@@ -4732,7 +4732,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31429
+  - Id: 33429
     AegisName: Essence_IQ_BLAZING_FLAME_BLAST
     Name: Blazing Flame Blast Essence
     Type: Etc
@@ -4743,7 +4743,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31430
+  - Id: 33430
     AegisName: Essence_WH_WILD_WALK
     Name: Wild Walk Essence
     Type: Etc
@@ -4754,7 +4754,7 @@ Body:
       BuyingStore: false
     Trade:
       NoSell: true
-  - Id: 31431
+  - Id: 33431
     AegisName: Essence_TR_RHYTHMICAL_WAVE
     Name: Rhythmical Wave Essence
     Type: Etc
