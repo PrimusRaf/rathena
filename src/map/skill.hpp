@@ -40,7 +40,13 @@ extern char dir_ka;
 
 #define MAX_SKILL_PRODUCE_DB	300 /// Max Produce DB
 #define MAX_PRODUCE_RESOURCE	12 /// Max Produce requirements
-#define MAX_SKILL_LEVEL 13 /// Max Skill Level (for skill_db storage)
+// SafaRO: 13 -> 20. Skill-Enhancement (npc/custom/safa_skillenh.txt)
+// hebt Fertigkeiten bis +10 ueber ihr MaxLevel, also bis Stufe 20.
+// Alle Per-Level-Felder in s_skill_db haengen an dieser Zahl; der
+// Parser (SkillDatabase::parseNode) fuellt die Stufen 11-20 aus dem
+// linearen Trend der eingetragenen Werte. pc_skill() lehnt Stufen
+// ueber dieser Grenze ab - mit 13 konnte kein Skript je +10 setzen.
+#define MAX_SKILL_LEVEL 20 /// Max Skill Level (for skill_db storage)
 #define MAX_MOBSKILL_LEVEL 100	/// Max monster skill level (on skill usage)
 #define MAX_SKILL_CRIMSON_MARKER 3 /// Max Crimson Marker targets (RL_C_MARKER)
 #define SKILL_NAME_LENGTH 40 /// Max Skill Name length

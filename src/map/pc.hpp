@@ -1433,6 +1433,21 @@ void pc_calc_skilltree(map_session_data *sd);
 uint64 pc_calc_skilltree_normalize_job(map_session_data *sd);
 void pc_clean_skilltree(map_session_data *sd);
 
+// --- SafaRO: Skill-Enhancement (+1 bis +10 ueber das MaxLevel) ---
+//
+// Die Verstaerkung liegt als Charaktervariable skenh_<skill_id> vor
+// und wird nach jedem pc_calc_skilltree wieder auf die Fertigkeit
+// gelegt. status.skill[].lv traegt die WIRKSAME Stufe (Basis + Plus);
+// pc_skillenh_base liefert die Basis, damit Skillpunkte nie fuer
+// gekaufte Stufen erstattet werden. Details in pc.cpp.
+#define SKILLENH_VAR_PREFIX "skenh_"
+#define SKILLENH_MAX 10
+uint8 pc_skillenh_get(map_session_data *sd, uint16 skill_id);
+bool pc_skillenh_set(map_session_data *sd, uint16 skill_id, uint8 plus);
+uint8 pc_skillenh_base(map_session_data *sd, uint16 idx);
+void pc_skillenh_apply(map_session_data *sd, uint16 skill_id);
+void pc_skillenh_apply_all(map_session_data *sd);
+
 #define pc_checkoverhp(sd) ((sd)->battle_status.hp == (sd)->battle_status.max_hp)
 #define pc_checkoversp(sd) ((sd)->battle_status.sp == (sd)->battle_status.max_sp)
 

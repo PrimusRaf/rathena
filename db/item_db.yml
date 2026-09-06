@@ -102,6 +102,9 @@ Footer:
   # auf die Idee kommt, die erzeugte Datei von Hand zu aendern -
   # ein Nachlauf des Werkzeugs ueberschreibt sie vollstaendig.
   - Path: db/import/item_db_kartenweiser.yml
+  # Skill-Essenzen fuer den Essence Keeper (npc/custom/safa_skillenh.txt),
+  # erzeugt von tools/skillenh/bauen.py. Reine Etc-Items, Ids 31000+.
+  - Path: db/import/item_db_skillessenz.yml
   # Gradable-Kennzeichen fuer alle Stufe-5-Waffen und Stufe-2-
   # Ruestungen, erzeugt von tools/grade/bauen.py. Muss NACH allen
   # anderen Item-Importen stehen: es patcht nur dieses eine Feld und

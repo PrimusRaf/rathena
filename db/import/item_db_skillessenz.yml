@@ -1,0 +1,4767 @@
+# ERZEUGT VON tools/skillenh/bauen.py - NICHT VON HAND PFLEGEN.
+#
+# Skill-Essenzen: ein Etc-Item je verstaerkbarer Fertigkeit,
+# Ids ab 31000. Die Zuordnung Fertigkeit -> Id steht in
+# tools/skillenh/zuordnung.json und ist bindend.
+#
+# NoSell wie bei der Destiny Coin: nicht an NPC-Haendler,
+# Handel unter Spielern bleibt offen. Begruendung bei Id 30001
+# in item_db.yml.
+
+Header:
+  Type: ITEM_DB
+  Version: 3
+
+Body:
+  - Id: 31000
+    AegisName: Essence_SM_BASH
+    Name: Bash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31001
+    AegisName: Essence_SM_MAGNUM
+    Name: Magnum Break Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31002
+    AegisName: Essence_MG_NAPALMBEAT
+    Name: Napalm Beat Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31003
+    AegisName: Essence_MG_SOULSTRIKE
+    Name: Soul Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31004
+    AegisName: Essence_MG_COLDBOLT
+    Name: Cold Bolt Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31005
+    AegisName: Essence_MG_FROSTDIVER
+    Name: Frost Diver Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31006
+    AegisName: Essence_MG_FIREBALL
+    Name: Fire Ball Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31007
+    AegisName: Essence_MG_FIREWALL
+    Name: Fire Wall Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31008
+    AegisName: Essence_MG_FIREBOLT
+    Name: Fire Bolt Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31009
+    AegisName: Essence_MG_LIGHTNINGBOLT
+    Name: Lightning Bolt Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31010
+    AegisName: Essence_MG_THUNDERSTORM
+    Name: Thunderstorm Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31011
+    AegisName: Essence_AL_HEAL
+    Name: Heal Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31012
+    AegisName: Essence_MC_MAMMONITE
+    Name: Mammonite Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31013
+    AegisName: Essence_AC_DOUBLE
+    Name: Double Strafe Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31014
+    AegisName: Essence_AC_SHOWER
+    Name: Arrow Shower Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31015
+    AegisName: Essence_TF_POISON
+    Name: Envenom Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31016
+    AegisName: Essence_KN_PIERCE
+    Name: Pierce Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31017
+    AegisName: Essence_KN_BRANDISHSPEAR
+    Name: Brandish Spear Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31018
+    AegisName: Essence_KN_SPEARSTAB
+    Name: Spear Stab Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31019
+    AegisName: Essence_KN_SPEARBOOMERANG
+    Name: Spear Boomerang Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31020
+    AegisName: Essence_KN_AUTOCOUNTER
+    Name: Counter Attack Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31021
+    AegisName: Essence_KN_BOWLINGBASH
+    Name: Bowling Bash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31022
+    AegisName: Essence_PR_SANCTUARY
+    Name: Sanctuary Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31023
+    AegisName: Essence_PR_TURNUNDEAD
+    Name: Turn Undead Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31024
+    AegisName: Essence_PR_MAGNUS
+    Name: Magnus Exorcismus Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31025
+    AegisName: Essence_WZ_FIREPILLAR
+    Name: Fire Pillar Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31026
+    AegisName: Essence_WZ_SIGHTRASHER
+    Name: Sightrasher Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31027
+    AegisName: Essence_WZ_METEOR
+    Name: Meteor Storm Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31028
+    AegisName: Essence_WZ_JUPITEL
+    Name: Jupitel Thunder Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31029
+    AegisName: Essence_WZ_VERMILION
+    Name: Lord of Vermilion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31030
+    AegisName: Essence_WZ_WATERBALL
+    Name: Water Ball Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31031
+    AegisName: Essence_WZ_FROSTNOVA
+    Name: Frost Nova Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31032
+    AegisName: Essence_WZ_STORMGUST
+    Name: Storm Gust Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31033
+    AegisName: Essence_WZ_EARTHSPIKE
+    Name: Earth Spike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31034
+    AegisName: Essence_WZ_HEAVENDRIVE
+    Name: Heaven's Drive Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31035
+    AegisName: Essence_HT_LANDMINE
+    Name: Land Mine Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31036
+    AegisName: Essence_HT_FREEZINGTRAP
+    Name: Freezing Trap Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31037
+    AegisName: Essence_HT_BLASTMINE
+    Name: Blast Mine Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31038
+    AegisName: Essence_HT_CLAYMORETRAP
+    Name: Claymore Trap Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31039
+    AegisName: Essence_HT_BLITZBEAT
+    Name: Blitz Beat Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31040
+    AegisName: Essence_AS_SONICBLOW
+    Name: Sonic Blow Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31041
+    AegisName: Essence_AS_GRIMTOOTH
+    Name: Grimtooth Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31042
+    AegisName: Essence_AS_POISONREACT
+    Name: Poison React Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31043
+    AegisName: Essence_AS_SPLASHER
+    Name: Venom Splasher Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31044
+    AegisName: Essence_AC_CHARGEARROW
+    Name: Arrow Repel Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31045
+    AegisName: Essence_TF_SPRINKLESAND
+    Name: Sand Attack Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31046
+    AegisName: Essence_TF_THROWSTONE
+    Name: Stone Fling Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31047
+    AegisName: Essence_MC_CARTREVOLUTION
+    Name: Cart Revolution Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31048
+    AegisName: Essence_AL_HOLYLIGHT
+    Name: Holy Light Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31049
+    AegisName: Essence_RG_BACKSTAP
+    Name: Back Stab Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31050
+    AegisName: Essence_RG_RAID
+    Name: Sightless Mind Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31051
+    AegisName: Essence_RG_INTIMIDATE
+    Name: Snatch Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31052
+    AegisName: Essence_AM_DEMONSTRATION
+    Name: Bomb Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31053
+    AegisName: Essence_AM_ACIDTERROR
+    Name: Acid Terror Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31054
+    AegisName: Essence_CR_SHIELDCHARGE
+    Name: Smite Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31055
+    AegisName: Essence_CR_SHIELDBOOMERANG
+    Name: Shield Boomerang Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31056
+    AegisName: Essence_CR_HOLYCROSS
+    Name: Holy Cross Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31057
+    AegisName: Essence_CR_GRANDCROSS
+    Name: Grand Cross Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31058
+    AegisName: Essence_MO_INVESTIGATE
+    Name: Occult Impaction Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31059
+    AegisName: Essence_MO_FINGEROFFENSIVE
+    Name: Throw Spirit Sphere Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31060
+    AegisName: Essence_MO_EXTREMITYFIST
+    Name: Asura Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31061
+    AegisName: Essence_MO_CHAINCOMBO
+    Name: Raging Quadruple Blow Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31062
+    AegisName: Essence_MO_COMBOFINISH
+    Name: Raging Thrust Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31063
+    AegisName: Essence_BA_MUSICALSTRIKE
+    Name: Melody Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31064
+    AegisName: Essence_DC_THROWARROW
+    Name: Slinging Arrow Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31065
+    AegisName: Essence_HW_MAGICCRASHER
+    Name: Stave Crasher Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31066
+    AegisName: Essence_PA_PRESSURE
+    Name: Gloria Domini Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31067
+    AegisName: Essence_CH_PALMSTRIKE
+    Name: Raging Palm Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31068
+    AegisName: Essence_CH_TIGERFIST
+    Name: Glacier Fist Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31069
+    AegisName: Essence_CH_CHAINCRUSH
+    Name: Chain Crush Combo Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31070
+    AegisName: Essence_PF_SOULBURN
+    Name: Soul Siphon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31071
+    AegisName: Essence_ASC_BREAKER
+    Name: Soul Destroyer Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31072
+    AegisName: Essence_SN_FALCONASSAULT
+    Name: Falcon Assault Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31073
+    AegisName: Essence_SN_SHARPSHOOTING
+    Name: Focused Arrow Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31074
+    AegisName: Essence_CG_ARROWVULCAN
+    Name: Vulcan Arrow Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31075
+    AegisName: Essence_LK_SPIRALPIERCE
+    Name: Spiral Pierce Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31076
+    AegisName: Essence_LK_HEADCRUSH
+    Name: Traumatic Blow Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31077
+    AegisName: Essence_LK_JOINTBEAT
+    Name: Vital Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31078
+    AegisName: Essence_HW_NAPALMVULCAN
+    Name: Napalm Vulcan Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31079
+    AegisName: Essence_ASC_METEORASSAULT
+    Name: Meteor Assault Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31080
+    AegisName: Essence_TK_STORMKICK
+    Name: Tornado Kick Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31081
+    AegisName: Essence_TK_DOWNKICK
+    Name: Heel Drop Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31082
+    AegisName: Essence_TK_TURNKICK
+    Name: Roundhouse Kick Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31083
+    AegisName: Essence_TK_COUNTER
+    Name: Counter Kick Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31084
+    AegisName: Essence_TK_JUMPKICK
+    Name: Flying Kick Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31085
+    AegisName: Essence_SL_STIN
+    Name: Estin Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31086
+    AegisName: Essence_SL_STUN
+    Name: Estun Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31087
+    AegisName: Essence_SL_SMA
+    Name: Esma Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31088
+    AegisName: Essence_PA_SHIELDCHAIN
+    Name: Shield Chain Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31089
+    AegisName: Essence_HW_GRAVITATION
+    Name: Gravitation Field Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31090
+    AegisName: Essence_WS_CARTTERMINATION
+    Name: Cart Termination Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31091
+    AegisName: Essence_CR_ACIDDEMONSTRATION
+    Name: Acid Demonstration Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31092
+    AegisName: Essence_HT_POWER
+    Name: Beast Strafing Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31093
+    AegisName: Essence_GS_FLING
+    Name: Fling Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31094
+    AegisName: Essence_GS_TRIPLEACTION
+    Name: Triple Action Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31095
+    AegisName: Essence_GS_BULLSEYE
+    Name: Bulls Eye Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31096
+    AegisName: Essence_GS_TRACKING
+    Name: Tracking Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31097
+    AegisName: Essence_GS_DISARM
+    Name: Disarm Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31098
+    AegisName: Essence_GS_PIERCINGSHOT
+    Name: Piercing Shot Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31099
+    AegisName: Essence_GS_RAPIDSHOWER
+    Name: Rapid Shower Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31100
+    AegisName: Essence_GS_DESPERADO
+    Name: Desperado Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31101
+    AegisName: Essence_GS_DUST
+    Name: Dust Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31102
+    AegisName: Essence_GS_FULLBUSTER
+    Name: Full Buster Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31103
+    AegisName: Essence_GS_SPREADATTACK
+    Name: Spread Attack Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31104
+    AegisName: Essence_GS_GROUNDDRIFT
+    Name: Ground Drift Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31105
+    AegisName: Essence_NJ_SYURIKEN
+    Name: Throw Shuriken Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31106
+    AegisName: Essence_NJ_KUNAI
+    Name: Throw Kunai Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31107
+    AegisName: Essence_NJ_HUUMA
+    Name: Throw Huuma Shuriken Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31108
+    AegisName: Essence_NJ_ZENYNAGE
+    Name: Throw Zeny Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31109
+    AegisName: Essence_NJ_TATAMIGAESHI
+    Name: Improvised Defense Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31110
+    AegisName: Essence_NJ_KASUMIKIRI
+    Name: Vanishing Slash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31111
+    AegisName: Essence_NJ_KIRIKAGE
+    Name: Shadow Slash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31112
+    AegisName: Essence_NJ_KOUENKA
+    Name: Crimson Fire Petal Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31113
+    AegisName: Essence_NJ_KAENSIN
+    Name: Crimson Fire Formation Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31114
+    AegisName: Essence_NJ_BAKUENRYU
+    Name: Raging Fire Dragon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31115
+    AegisName: Essence_NJ_HYOUSENSOU
+    Name: Spear of Ice Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31116
+    AegisName: Essence_NJ_HYOUSYOURAKU
+    Name: Ice Meteor Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31117
+    AegisName: Essence_NJ_HUUJIN
+    Name: Wind Blade Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31118
+    AegisName: Essence_NJ_RAIGEKISAI
+    Name: Lightning Strike of Destruction Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31119
+    AegisName: Essence_NJ_KAMAITACHI
+    Name: Kamaitachi Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31120
+    AegisName: Essence_NJ_ISSEN
+    Name: Final Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31121
+    AegisName: Essence_KN_CHARGEATK
+    Name: Charge Attack Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31122
+    AegisName: Essence_AS_VENOMKNIFE
+    Name: Throw Venom Knife Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31123
+    AegisName: Essence_WZ_SIGHTBLASTER
+    Name: Sight Blaster Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31124
+    AegisName: Essence_HT_PHANTASMIC
+    Name: Phantasmic Arrow Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31125
+    AegisName: Essence_MO_BALKYOUNG
+    Name: Ki Explosion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31126
+    AegisName: Essence_RK_SONICWAVE
+    Name: Sonic Wave Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31127
+    AegisName: Essence_RK_HUNDREDSPEAR
+    Name: Hundred Spear Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31128
+    AegisName: Essence_RK_WINDCUTTER
+    Name: Wind Cutter Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31129
+    AegisName: Essence_RK_IGNITIONBREAK
+    Name: Ignition Break Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31130
+    AegisName: Essence_RK_DRAGONBREATH
+    Name: Dragon Breath Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31131
+    AegisName: Essence_RK_PHANTOMTHRUST
+    Name: Phantom Thrust Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31132
+    AegisName: Essence_GC_CROSSIMPACT
+    Name: Cross Impact Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31133
+    AegisName: Essence_GC_DARKILLUSION
+    Name: Dark Illusion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31134
+    AegisName: Essence_GC_COUNTERSLASH
+    Name: Counter Slash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31135
+    AegisName: Essence_GC_WEAPONCRUSH
+    Name: Weapon Crush Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31136
+    AegisName: Essence_GC_VENOMPRESSURE
+    Name: Venom Pressure Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31137
+    AegisName: Essence_GC_PHANTOMMENACE
+    Name: Phantom Menace Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31138
+    AegisName: Essence_GC_ROLLINGCUTTER
+    Name: Rolling Cutter Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31139
+    AegisName: Essence_GC_CROSSRIPPERSLASHER
+    Name: Cross Ripper Slasher Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31140
+    AegisName: Essence_AB_JUDEX
+    Name: Judex Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31141
+    AegisName: Essence_AB_ADORAMUS
+    Name: Adoramus Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31142
+    AegisName: Essence_AB_CHEAL
+    Name: Coluceo Heal Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31143
+    AegisName: Essence_AB_HIGHNESSHEAL
+    Name: Highness Heal Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31144
+    AegisName: Essence_WL_WHITEIMPRISON
+    Name: White Imprison Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31145
+    AegisName: Essence_WL_SOULEXPANSION
+    Name: Soul Expansion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31146
+    AegisName: Essence_WL_FROSTMISTY
+    Name: Frosty Misty Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31147
+    AegisName: Essence_WL_JACKFROST
+    Name: Jack Frost Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31148
+    AegisName: Essence_WL_DRAINLIFE
+    Name: Drain Life Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31149
+    AegisName: Essence_WL_CRIMSONROCK
+    Name: Crimson Rock Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31150
+    AegisName: Essence_WL_HELLINFERNO
+    Name: Hell Inferno Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31151
+    AegisName: Essence_WL_COMET
+    Name: Comet Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31152
+    AegisName: Essence_WL_CHAINLIGHTNING
+    Name: Chain Lightning Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31153
+    AegisName: Essence_WL_EARTHSTRAIN
+    Name: Earth Strain Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31154
+    AegisName: Essence_WL_TETRAVORTEX
+    Name: Tetra Vortex Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31155
+    AegisName: Essence_RA_ARROWSTORM
+    Name: Arrow Storm Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31156
+    AegisName: Essence_RA_AIMEDBOLT
+    Name: Aimed Bolt Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31157
+    AegisName: Essence_RA_CLUSTERBOMB
+    Name: Cluster Bomb Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31158
+    AegisName: Essence_RA_WUGSTRIKE
+    Name: Warg Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31159
+    AegisName: Essence_RA_WUGBITE
+    Name: Warg Bite Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31160
+    AegisName: Essence_RA_SENSITIVEKEEN
+    Name: Sensitive Keen Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31161
+    AegisName: Essence_RA_FIRINGTRAP
+    Name: Firing Trap Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31162
+    AegisName: Essence_RA_ICEBOUNDTRAP
+    Name: Icebound Trap Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31163
+    AegisName: Essence_NC_BOOSTKNUCKLE
+    Name: Boost Knuckle Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31164
+    AegisName: Essence_NC_PILEBUNKER
+    Name: Pile Bunker Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31165
+    AegisName: Essence_NC_VULCANARM
+    Name: Vulcan Arm Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31166
+    AegisName: Essence_NC_FLAMELAUNCHER
+    Name: Flame Launcher Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31167
+    AegisName: Essence_NC_COLDSLOWER
+    Name: Cold Slower Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31168
+    AegisName: Essence_NC_ARMSCANNON
+    Name: Arm Cannon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31169
+    AegisName: Essence_NC_SELFDESTRUCTION
+    Name: Self Destruction Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31170
+    AegisName: Essence_NC_AXEBOOMERANG
+    Name: Axe Boomerang Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31171
+    AegisName: Essence_NC_POWERSWING
+    Name: Power Swing Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31172
+    AegisName: Essence_NC_AXETORNADO
+    Name: Axe Tornado Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31173
+    AegisName: Essence_SC_FATALMENACE
+    Name: Fatal Menace Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31174
+    AegisName: Essence_SC_TRIANGLESHOT
+    Name: Triangle Shot Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31175
+    AegisName: Essence_SC_FEINTBOMB
+    Name: Feint Bomb Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31176
+    AegisName: Essence_LG_CANNONSPEAR
+    Name: Cannon Spear Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31177
+    AegisName: Essence_LG_BANISHINGPOINT
+    Name: Banishing Point Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31178
+    AegisName: Essence_LG_SHIELDPRESS
+    Name: Shield Press Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31179
+    AegisName: Essence_LG_RAGEBURST
+    Name: Rage Burst Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31180
+    AegisName: Essence_LG_OVERBRAND
+    Name: Over Brand Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31181
+    AegisName: Essence_LG_MOONSLASHER
+    Name: Moon Slasher Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31182
+    AegisName: Essence_LG_RAYOFGENESIS
+    Name: Ray of Genesis Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31183
+    AegisName: Essence_LG_EARTHDRIVE
+    Name: Earth Drive Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31184
+    AegisName: Essence_LG_HESPERUSLIT
+    Name: Hesperus Lit Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31185
+    AegisName: Essence_SR_DRAGONCOMBO
+    Name: Dragon Combo Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31186
+    AegisName: Essence_SR_SKYNETBLOW
+    Name: Sky Net Blow Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31187
+    AegisName: Essence_SR_EARTHSHAKER
+    Name: Earth Shaker Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31188
+    AegisName: Essence_SR_FALLENEMPIRE
+    Name: Fallen Empire Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31189
+    AegisName: Essence_SR_RAMPAGEBLASTER
+    Name: Rampage Blaster Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31190
+    AegisName: Essence_SR_KNUCKLEARROW
+    Name: Knuckle Arrow Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31191
+    AegisName: Essence_SR_WINDMILL
+    Name: Windmill Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31192
+    AegisName: Essence_SR_GATEOFHELL
+    Name: Gate of Hell Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31193
+    AegisName: Essence_SR_GENTLETOUCH_QUIET
+    Name: Gentle Touch - Quiet Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31194
+    AegisName: Essence_WM_METALICSOUND
+    Name: Metallic Sound Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31195
+    AegisName: Essence_WM_REVERBERATION
+    Name: Reverberation Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31196
+    AegisName: Essence_WM_GREAT_ECHO
+    Name: Great Echo Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31197
+    AegisName: Essence_SO_FIREWALK
+    Name: Fire Walk Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31198
+    AegisName: Essence_SO_ELECTRICWALK
+    Name: Electric Walk Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31199
+    AegisName: Essence_SO_EARTHGRAVE
+    Name: Earth Grave Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31200
+    AegisName: Essence_SO_DIAMONDDUST
+    Name: Diamond Dust Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31201
+    AegisName: Essence_SO_POISON_BUSTER
+    Name: Poison Buster Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31202
+    AegisName: Essence_SO_PSYCHIC_WAVE
+    Name: Psychic Wave Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31203
+    AegisName: Essence_SO_CLOUD_KILL
+    Name: Cloud Kill Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31204
+    AegisName: Essence_SO_VARETYR_SPEAR
+    Name: Varetyr Spear Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31205
+    AegisName: Essence_GN_CART_TORNADO
+    Name: Cart Tornado Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31206
+    AegisName: Essence_GN_CARTCANNON
+    Name: Cart Cannon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31207
+    AegisName: Essence_GN_THORNS_TRAP
+    Name: Thorn Trap Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31208
+    AegisName: Essence_GN_SPORE_EXPLOSION
+    Name: Spore Explosion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31209
+    AegisName: Essence_GN_WALLOFTHORN
+    Name: Wall of Thorns Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31210
+    AegisName: Essence_GN_CRAZYWEED
+    Name: Crazy Weed Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31211
+    AegisName: Essence_GN_DEMONIC_FIRE
+    Name: Demonic Fire Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31212
+    AegisName: Essence_SR_HOWLINGOFLION
+    Name: Howling of Lion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31213
+    AegisName: Essence_SR_RIDEINLIGHTNING
+    Name: Ride In Lightening Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31214
+    AegisName: Essence_RL_MASS_SPIRAL
+    Name: Mass Spiral Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31215
+    AegisName: Essence_RL_BANISHING_BUSTER
+    Name: Banishing Buster Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31216
+    AegisName: Essence_RL_S_STORM
+    Name: Shatter Storm Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31217
+    AegisName: Essence_RL_QD_SHOT
+    Name: Quick Draw Shot Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31218
+    AegisName: Essence_RL_FIREDANCE
+    Name: Fire Dance Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31219
+    AegisName: Essence_RL_H_MINE
+    Name: Howling Mine Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31220
+    AegisName: Essence_RL_R_TRIP
+    Name: Round Trip Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31221
+    AegisName: Essence_RL_D_TAIL
+    Name: Dragon Tail Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31222
+    AegisName: Essence_RL_FIRE_RAIN
+    Name: Fire Rain Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31223
+    AegisName: Essence_RL_AM_BLAST
+    Name: Anti-Material Blast Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31224
+    AegisName: Essence_RL_SLUGSHOT
+    Name: Slug Shot Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31225
+    AegisName: Essence_RL_HAMMER_OF_GOD
+    Name: Hammer of God Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31226
+    AegisName: Essence_SJ_FULLMOONKICK
+    Name: Full Moon Kick Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31227
+    AegisName: Essence_SJ_NEWMOONKICK
+    Name: New Moon Kick Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31228
+    AegisName: Essence_SJ_FLASHKICK
+    Name: Flash Kick Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31229
+    AegisName: Essence_SJ_STAREMPEROR
+    Name: Star Emperor Advent Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31230
+    AegisName: Essence_SJ_NOVAEXPLOSING
+    Name: Nova Explosion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31231
+    AegisName: Essence_SJ_BOOKOFCREATINGSTAR
+    Name: Book of Creating Star Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31232
+    AegisName: Essence_SJ_SOLARBURST
+    Name: Solar Burst Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31233
+    AegisName: Essence_SJ_PROMINENCEKICK
+    Name: Prominence Kick Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31234
+    AegisName: Essence_SP_CURSEEXPLOSION
+    Name: Curse Explosion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31235
+    AegisName: Essence_SP_SPA
+    Name: Espa Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31236
+    AegisName: Essence_SP_SHA
+    Name: Esha Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31237
+    AegisName: Essence_SP_SWHOO
+    Name: Eswhoo Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31238
+    AegisName: Essence_SP_SOULEXPLOSION
+    Name: Soul Explosion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31239
+    AegisName: Essence_KO_JYUMONJIKIRI
+    Name: Cross Slash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31240
+    AegisName: Essence_KO_SETSUDAN
+    Name: Soul Cutter Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31241
+    AegisName: Essence_KO_BAKURETSU
+    Name: Kunai Explosion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31242
+    AegisName: Essence_KO_HAPPOKUNAI
+    Name: Kunai Splash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31243
+    AegisName: Essence_KO_MUCHANAGE
+    Name: Rapid Throw Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31244
+    AegisName: Essence_KO_HUUMARANKA
+    Name: Swirling Petal Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31245
+    AegisName: Essence_KO_MAKIBISHI
+    Name: Makibishi Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31246
+    AegisName: Essence_KO_KAIHOU
+    Name: Release Ninja Spell Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31247
+    AegisName: Essence_KO_ZENKAI
+    Name: Cast Ninja Spell Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31248
+    AegisName: Essence_GC_DARKCROW
+    Name: Dark Claw Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31249
+    AegisName: Essence_GN_ILLUSIONDOPING
+    Name: Illusion Doping Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31250
+    AegisName: Essence_RK_DRAGONBREATH_WATER
+    Name: Dragon Breath - Water Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31251
+    AegisName: Essence_NC_MAGMA_ERUPTION
+    Name: Magma Eruption Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31252
+    AegisName: Essence_SU_BITE
+    Name: Bite Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31253
+    AegisName: Essence_SU_SCRATCH
+    Name: Scratch Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31254
+    AegisName: Essence_SU_SV_STEMSPEAR
+    Name: Silvervine Stem Spear Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31255
+    AegisName: Essence_SU_CN_METEOR
+    Name: Catnip Meteor Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31256
+    AegisName: Essence_SU_SCAROFTAROU
+    Name: Scar of Tarou Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31257
+    AegisName: Essence_SU_PICKYPECK
+    Name: Picky Peck Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31258
+    AegisName: Essence_SU_LUNATICCARROTBEAT
+    Name: Lunatic Carrot Beat Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31259
+    AegisName: Essence_SU_SVG_SPIRIT
+    Name: Spirit of Savage Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31260
+    AegisName: Essence_DK_SERVANT_W_PHANTOM
+    Name: Servant Weapon Phantom Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31261
+    AegisName: Essence_DK_SERVANT_W_DEMOL
+    Name: Servant Weapon Demolition Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31262
+    AegisName: Essence_DK_HACKANDSLASHER
+    Name: Hack And Slasher Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31263
+    AegisName: Essence_DK_DRAGONIC_AURA
+    Name: Dragonic Aura Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31264
+    AegisName: Essence_DK_MADNESS_CRUSHER
+    Name: Madness Crusher Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31265
+    AegisName: Essence_DK_STORMSLASH
+    Name: Storm Slash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31266
+    AegisName: Essence_AG_DEADLY_PROJECTION
+    Name: Deadly Projection Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31267
+    AegisName: Essence_AG_DESTRUCTIVE_HURRICANE
+    Name: Destructive Hurricane Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31268
+    AegisName: Essence_AG_RAIN_OF_CRYSTAL
+    Name: Rain Of Crystal Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31269
+    AegisName: Essence_AG_MYSTERY_ILLUSION
+    Name: Mystery Illusion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31270
+    AegisName: Essence_AG_VIOLENT_QUAKE
+    Name: Violent Quake Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31271
+    AegisName: Essence_AG_SOUL_VC_STRIKE
+    Name: Soul Vulcan Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31272
+    AegisName: Essence_AG_STRANTUM_TREMOR
+    Name: Strantum Tremor Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31273
+    AegisName: Essence_AG_ALL_BLOOM
+    Name: All Bloom Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31274
+    AegisName: Essence_AG_CRYSTAL_IMPACT
+    Name: Crystal Impact Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31275
+    AegisName: Essence_AG_TORNADO_STORM
+    Name: Tornado Storm Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31276
+    AegisName: Essence_AG_FLORAL_FLARE_ROAD
+    Name: Floral Flare Road Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31277
+    AegisName: Essence_AG_ASTRAL_STRIKE
+    Name: Astral Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31278
+    AegisName: Essence_AG_ROCK_DOWN
+    Name: Rock Down Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31279
+    AegisName: Essence_AG_STORM_CANNON
+    Name: Storm Cannon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31280
+    AegisName: Essence_AG_CRIMSON_ARROW
+    Name: Crimson Arrow Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31281
+    AegisName: Essence_AG_FROZEN_SLASH
+    Name: Frozen Slash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31282
+    AegisName: Essence_IQ_OLEUM_SANCTUM
+    Name: Oleum Sanctum Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31283
+    AegisName: Essence_IQ_MASSIVE_F_BLASTER
+    Name: Massive Flame Blaster Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31284
+    AegisName: Essence_IQ_EXPOSION_BLASTER
+    Name: Explosion Blaster Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31285
+    AegisName: Essence_IQ_FIRST_BRAND
+    Name: First Brand Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31286
+    AegisName: Essence_IQ_SECOND_FLAME
+    Name: Second Flame Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31287
+    AegisName: Essence_IQ_SECOND_FAITH
+    Name: Second Faith Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31288
+    AegisName: Essence_IQ_SECOND_JUDGEMENT
+    Name: Second Judgement Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31289
+    AegisName: Essence_IQ_THIRD_PUNISH
+    Name: Third Punish Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31290
+    AegisName: Essence_IQ_THIRD_FLAME_BOMB
+    Name: Third Flame Bomb Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31291
+    AegisName: Essence_IQ_THIRD_CONSECRATION
+    Name: Third Consecration Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31292
+    AegisName: Essence_IG_GRAND_JUDGEMENT
+    Name: Grand Judgement Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31293
+    AegisName: Essence_IG_JUDGEMENT_CROSS
+    Name: Judgement Cross Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31294
+    AegisName: Essence_IG_SHIELD_SHOOTING
+    Name: Shield Shooting Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31295
+    AegisName: Essence_IG_OVERSLASH
+    Name: Overslash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31296
+    AegisName: Essence_IG_CROSS_RAIN
+    Name: Cross Rain Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31297
+    AegisName: Essence_CD_MEDIALE_VOTUM
+    Name: Mediale Votum Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31298
+    AegisName: Essence_CD_ARBITRIUM
+    Name: Arbitrium Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31299
+    AegisName: Essence_CD_EFFLIGO
+    Name: Effligo Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31300
+    AegisName: Essence_CD_PNEUMATICUS_PROCELLA
+    Name: Pneumaticus Procella Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31301
+    AegisName: Essence_CD_PETITIO
+    Name: Petitio Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31302
+    AegisName: Essence_CD_FRAMEN
+    Name: Framen Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31303
+    AegisName: Essence_SHC_DANCING_KNIFE
+    Name: Dancing Knife Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31304
+    AegisName: Essence_SHC_SAVAGE_IMPACT
+    Name: Savage Impact Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31305
+    AegisName: Essence_SHC_ETERNAL_SLASH
+    Name: Eternal Slash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31306
+    AegisName: Essence_SHC_SHADOW_STAB
+    Name: Shadow Stab Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31307
+    AegisName: Essence_SHC_IMPACT_CRATER
+    Name: Impact Crater Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31308
+    AegisName: Essence_SHC_FATAL_SHADOW_CROW
+    Name: Fatal Shadow Crow Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31309
+    AegisName: Essence_MT_AXE_STOMP
+    Name: Axe Stomp Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31310
+    AegisName: Essence_MT_RUSH_QUAKE
+    Name: Rush Quake Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31311
+    AegisName: Essence_MT_A_MACHINE
+    Name: Attack Machine Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31312
+    AegisName: Essence_ABC_ABYSS_DAGGER
+    Name: Abyss Dagger Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31313
+    AegisName: Essence_ABC_UNLUCKY_RUSH
+    Name: Unlucky Rush Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31314
+    AegisName: Essence_ABC_CHAIN_REACTION_SHOT
+    Name: Chain Reaction Shot Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31315
+    AegisName: Essence_ABC_ABYSS_STRIKE
+    Name: Omega Abyss Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31316
+    AegisName: Essence_ABC_DEFT_STAB
+    Name: Deft Stab Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31317
+    AegisName: Essence_ABC_ABYSS_SQUARE
+    Name: Abyss Square Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31318
+    AegisName: Essence_ABC_FRENZY_SHOT
+    Name: Frenzy Shot Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31319
+    AegisName: Essence_WH_HAWKRUSH
+    Name: Hawk Rush Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31320
+    AegisName: Essence_WH_HAWKBOOMERANG
+    Name: Hawk Boomerang Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31321
+    AegisName: Essence_WH_GALESTORM
+    Name: Gale Storm Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31322
+    AegisName: Essence_WH_DEEPBLINDTRAP
+    Name: Deep Blind Trap Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31323
+    AegisName: Essence_WH_SOLIDTRAP
+    Name: Solid Trap Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31324
+    AegisName: Essence_WH_SWIFTTRAP
+    Name: Swift Trap Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31325
+    AegisName: Essence_WH_CRESCIVE_BOLT
+    Name: Crescive Bolt Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31326
+    AegisName: Essence_WH_FLAMETRAP
+    Name: Flame Trap Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31327
+    AegisName: Essence_BO_ACIDIFIED_ZONE_WATER
+    Name: Acidified Zone Water Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31328
+    AegisName: Essence_BO_ACIDIFIED_ZONE_GROUND
+    Name: Acidified Zone Ground Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31329
+    AegisName: Essence_BO_ACIDIFIED_ZONE_WIND
+    Name: Acidified Zone Wind Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31330
+    AegisName: Essence_BO_ACIDIFIED_ZONE_FIRE
+    Name: Acidified Zone Fire Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31331
+    AegisName: Essence_TR_ROSEBLOSSOM
+    Name: Rose Blossom Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31332
+    AegisName: Essence_TR_RHYTHMSHOOTING
+    Name: Rhythm Shooting Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31333
+    AegisName: Essence_TR_METALIC_FURY
+    Name: Metallic Fury Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31334
+    AegisName: Essence_EM_DIAMOND_STORM
+    Name: Diamond Storm Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31335
+    AegisName: Essence_EM_LIGHTNING_LAND
+    Name: Lightning Land Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31336
+    AegisName: Essence_EM_VENOM_SWAMP
+    Name: Venom Swamp Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31337
+    AegisName: Essence_EM_CONFLAGRATION
+    Name: Conflagration Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31338
+    AegisName: Essence_EM_TERRA_DRIVE
+    Name: Terra Drive Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31339
+    AegisName: Essence_EM_ELEMENTAL_BUSTER
+    Name: Elemental Buster Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31340
+    AegisName: Essence_NW_THE_VIGILANTE_AT_NIGHT
+    Name: The Vigilante at Night Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31341
+    AegisName: Essence_NW_ONLY_ONE_BULLET
+    Name: Only One Bullet Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31342
+    AegisName: Essence_NW_SPIRAL_SHOOTING
+    Name: Spiral Shooting Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31343
+    AegisName: Essence_NW_MAGAZINE_FOR_ONE
+    Name: Magazine for One Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31344
+    AegisName: Essence_NW_WILD_FIRE
+    Name: Wild Fire Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31345
+    AegisName: Essence_NW_BASIC_GRENADE
+    Name: Basic Grenade Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31346
+    AegisName: Essence_NW_HASTY_FIRE_IN_THE_HOLE
+    Name: Hasty Fire in the Hole Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31347
+    AegisName: Essence_NW_GRENADES_DROPPING
+    Name: Grenades Dropping Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31348
+    AegisName: Essence_NW_MISSION_BOMBARD
+    Name: Mission Bombard Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31349
+    AegisName: Essence_SOA_TALISMAN_OF_SOUL_STEALING
+    Name: Talisman Of Soul Stealing Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31350
+    AegisName: Essence_SOA_EXORCISM_OF_MALICIOUS_SOUL
+    Name: Exorcism Of Malicious Soul Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31351
+    AegisName: Essence_SOA_TALISMAN_OF_BLUE_DRAGON
+    Name: Talisman Of Blue Dragon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31352
+    AegisName: Essence_SOA_TALISMAN_OF_WHITE_TIGER
+    Name: Talisman Of White Tiger Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31353
+    AegisName: Essence_SOA_TALISMAN_OF_RED_PHOENIX
+    Name: Talisman Of Red Phoenix Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31354
+    AegisName: Essence_SOA_TALISMAN_OF_BLACK_TORTOISE
+    Name: Talisman Of Black Tortoise Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31355
+    AegisName: Essence_SOA_TALISMAN_OF_FOUR_BEARING_GOD
+    Name: Talisman Of Four Bearing God Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31356
+    AegisName: Essence_SOA_CIRCLE_OF_DIRECTIONS_AND_ELEMENTALS
+    Name: Circle Of Directions And Elementals Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31357
+    AegisName: Essence_SH_CHUL_HO_SONIC_CLAW
+    Name: Chulho Sonic Claw Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31358
+    AegisName: Essence_SH_HOWLING_OF_CHUL_HO
+    Name: Howling of Chulho Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31359
+    AegisName: Essence_SH_HOGOGONG_STRIKE
+    Name: Hogogong Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31360
+    AegisName: Essence_SH_HYUN_ROKS_BREEZE
+    Name: Hyunrok Breeze Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31361
+    AegisName: Essence_SH_HYUN_ROK_CANNON
+    Name: Hyunrok Cannon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31362
+    AegisName: Essence_HN_DOUBLEBOWLINGBASH
+    Name: Double Bowling Bash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31363
+    AegisName: Essence_HN_MEGA_SONIC_BLOW
+    Name: Mega Sonic Blow Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31364
+    AegisName: Essence_HN_SHIELD_CHAIN_RUSH
+    Name: Shield Chain Rush Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31365
+    AegisName: Essence_HN_SPIRAL_PIERCE_MAX
+    Name: Spiral Pierce Max Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31366
+    AegisName: Essence_HN_METEOR_STORM_BUSTER
+    Name: Meteor Storm Buster Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31367
+    AegisName: Essence_HN_JUPITEL_THUNDER_STORM
+    Name: Jupitel Thunderstorm Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31368
+    AegisName: Essence_HN_JACK_FROST_NOVA
+    Name: Jack Frost Nova Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31369
+    AegisName: Essence_HN_HELLS_DRIVE
+    Name: Hell's Drive Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31370
+    AegisName: Essence_HN_GROUND_GRAVITATION
+    Name: Ground Gravitation Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31371
+    AegisName: Essence_HN_NAPALM_VULCAN_STRIKE
+    Name: Napalm Vulcan Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31372
+    AegisName: Essence_SKE_RISING_SUN
+    Name: Rising Sun Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31373
+    AegisName: Essence_SKE_NOON_BLAST
+    Name: Noon Blast Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31374
+    AegisName: Essence_SKE_SUNSET_BLAST
+    Name: Sunset Blast Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31375
+    AegisName: Essence_SKE_RISING_MOON
+    Name: Rising Moon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31376
+    AegisName: Essence_SKE_MIDNIGHT_KICK
+    Name: Midnight Kick Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31377
+    AegisName: Essence_SKE_DAWN_BREAK
+    Name: Dawn Break Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31378
+    AegisName: Essence_SKE_TWINKLING_GALAXY
+    Name: Twinkling Galaxy Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31379
+    AegisName: Essence_SKE_STAR_BURST
+    Name: Star Burst Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31380
+    AegisName: Essence_SKE_STAR_CANNON
+    Name: Star Cannon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31381
+    AegisName: Essence_SKE_ALL_IN_THE_SKY
+    Name: All in the Sky Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31382
+    AegisName: Essence_SS_TOKEDASU
+    Name: Melt Away Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31383
+    AegisName: Essence_SS_SHIMIRU
+    Name: Infiltrate Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31384
+    AegisName: Essence_SS_KAGEGARI
+    Name: Shadow Hunting Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31385
+    AegisName: Essence_SS_KAGENOMAI
+    Name: Shadow Dance Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31386
+    AegisName: Essence_SS_KAGEGISSEN
+    Name: Shadow Flash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31387
+    AegisName: Essence_SS_FUUMASHOUAKU
+    Name: Huuma Shuriken - Grasp Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31388
+    AegisName: Essence_SS_FUUMAKOUCHIKU
+    Name: Huuma Shuriken - Construct Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31389
+    AegisName: Essence_SS_KUNAIWAIKYOKU
+    Name: Kunai - Distortion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31390
+    AegisName: Essence_SS_KUNAIKAITEN
+    Name: Kunai - Rotation Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31391
+    AegisName: Essence_SS_KUNAIKUSSETSU
+    Name: Kunai - Refraction Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31392
+    AegisName: Essence_SS_SEKIENHOU
+    Name: Red Flame Cannon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31393
+    AegisName: Essence_SS_REIKETSUHOU
+    Name: Cold Blooded Cannon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31394
+    AegisName: Essence_SS_RAIDENPOU
+    Name: Thundering Cannon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31395
+    AegisName: Essence_SS_KINRYUUHOU
+    Name: Golden Dragon Cannon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31396
+    AegisName: Essence_SS_ANTENPOU
+    Name: Darkening Cannon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31397
+    AegisName: Essence_SS_KAGEAKUMU
+    Name: Shadow - Nightmare Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31398
+    AegisName: Essence_SS_HITOUAKUMU
+    Name: Kunai - Nightmare Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31399
+    AegisName: Essence_SS_ANKOKURYUUAKUMU
+    Name: Dark Dragon - Nightmare Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31400
+    AegisName: Essence_NW_WILD_SHOT
+    Name: Wild Shot Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31401
+    AegisName: Essence_NW_MIDNIGHT_FALLEN
+    Name: Midnight Fallen Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31402
+    AegisName: Essence_SKE_SKY_SUN
+    Name: Sky Sun Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31403
+    AegisName: Essence_SKE_SKY_MOON
+    Name: Sky Moon Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31404
+    AegisName: Essence_SKE_STAR_LIGHT_KICK
+    Name: Star Light Kick Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31405
+    AegisName: Essence_SH_CHUL_HO_BATTERING
+    Name: Chulho Battering Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31406
+    AegisName: Essence_SH_HYUN_ROK_SPIRIT_POWER
+    Name: Hyunrok Spirit Power Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31407
+    AegisName: Essence_DK_DRAGONIC_BREATH
+    Name: Dragonic Breath Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31408
+    AegisName: Essence_MT_SPARK_BLASTER
+    Name: Spark Blaster Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31409
+    AegisName: Essence_MT_TRIPLE_LASER
+    Name: Triple Laser Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31410
+    AegisName: Essence_MT_MIGHTY_SMASH
+    Name: Mighty Smash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31411
+    AegisName: Essence_BO_EXPLOSIVE_POWDER
+    Name: Explosive Powder Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31412
+    AegisName: Essence_BO_MAYHEMIC_THORNS
+    Name: Mayhemic Thorns Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31413
+    AegisName: Essence_DK_DRAGONIC_PIERCE
+    Name: Dragonic Pierce Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31414
+    AegisName: Essence_IG_RADIANT_SPEAR
+    Name: Radiant Spear Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31415
+    AegisName: Essence_IG_IMPERIAL_CROSS
+    Name: Imperial Cross Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31416
+    AegisName: Essence_IG_IMPERIAL_PRESSURE
+    Name: Imperial Pressure Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31417
+    AegisName: Essence_MT_RUSH_STRIKE
+    Name: Rush Strike Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31418
+    AegisName: Essence_MT_POWERFUL_SWING
+    Name: Powerful Swing Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31419
+    AegisName: Essence_MT_ENERGY_CANNONADE
+    Name: Energy Cannonade Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31420
+    AegisName: Essence_BO_MYSTERY_POWDER
+    Name: Mystery Powder Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31421
+    AegisName: Essence_BO_DUST_EXPLOSION
+    Name: Dust Explosion Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31422
+    AegisName: Essence_SHC_CROSS_SLASH
+    Name: Cross Slash Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31423
+    AegisName: Essence_ABC_HIT_AND_SLIDING
+    Name: Hit And Sliding Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31424
+    AegisName: Essence_ABC_CHASING_BREAK
+    Name: Chasing Break Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31425
+    AegisName: Essence_ABC_CHASING_SHOT
+    Name: Chasing Shot Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31426
+    AegisName: Essence_ABC_ABYSS_FLAME
+    Name: Abyss Flame Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31427
+    AegisName: Essence_EM_PSYCHIC_STREAM
+    Name: Psychic Stream Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31428
+    AegisName: Essence_CD_DIVINUS_FLOS
+    Name: Divinus Flos Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31429
+    AegisName: Essence_IQ_BLAZING_FLAME_BLAST
+    Name: Blazing Flame Blast Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31430
+    AegisName: Essence_WH_WILD_WALK
+    Name: Wild Walk Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true
+  - Id: 31431
+    AegisName: Essence_TR_RHYTHMICAL_WAVE
+    Name: Rhythmical Wave Essence
+    Type: Etc
+    Buy: 0
+    Sell: 0
+    Weight: 1
+    Flags:
+      BuyingStore: false
+    Trade:
+      NoSell: true

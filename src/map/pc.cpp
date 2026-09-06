@@ -2515,6 +2515,133 @@ void pc_reg_received(map_session_data *sd)
 	channel_autojoin(sd);
 }
 
+// ==================================================================
+//  SafaRO - Skill-Enhancement
+// ==================================================================
+//
+//  WOZU
+//
+//  Ein verstecktes NPC (npc/custom/safa_skillenh.txt) hebt eine
+//  Fertigkeit gegen Skill-Essenz um bis zu +10 ueber ihr MaxLevel.
+//  Der Server rechnet ueberall mit status.skill[].lv, also traegt
+//  dieses Feld die WIRKSAME Stufe: Basis (aus dem Skillbaum) plus
+//  Verstaerkung. So laufen Schadensformeln, SP-Kosten, Reichweite und
+//  das Skillfenster ohne eine einzige weitere Aenderung.
+//
+//  WO DIE VERSTAERKUNG LEBT
+//
+//  In der Charaktervariable skenh_<skill_id>. Nicht in der Tabelle
+//  `skill`: die traegt zwar die Stufe 20, aber ein Skill-Reset setzt
+//  sie auf 0, und die Essenz waere weg. Die Variable ueberlebt Reset
+//  und Jobwechsel; sobald die Fertigkeit wieder auf ihrem MaxLevel
+//  steht, liegt das Plus automatisch wieder drauf.
+//
+//  WO DAS PLUS ABGEZOGEN WERDEN MUSS
+//
+//  Ueberall, wo Skillpunkte GEZAEHLT werden. pc_resetskill erstattet
+//  je Fertigkeit ihre Stufe - ohne Korrektur bekaeme der Spieler fuer
+//  Bash+10 zwanzig Punkte zurueck und haette zehn Skillpunkte aus dem
+//  Nichts. pc_calc_skillpoint bestimmt daraus die Klassenstufe des
+//  Baums; dort ist ein zu hoher Wert harmlos, wird aber ebenfalls
+//  korrigiert, damit beide Stellen dieselbe Wahrheit haben.
+//
+//  Der Aufstieg per Skillpunkt (pc_skillup) prueft lv < MaxLevel und
+//  ist damit auf verstaerkten Fertigkeiten von selbst gesperrt; das
+//  "upgradable"-Haekchen im Client haengt an derselben Pruefung.
+// ------------------------------------------------------------------
+
+/// Verstaerkung einer Fertigkeit aus der Charaktervariable, 0..SKILLENH_MAX.
+uint8 pc_skillenh_get(map_session_data *sd, uint16 skill_id)
+{
+	nullpo_ret(sd);
+	if (!sd->vars_ok || skill_id == 0)
+		return 0;
+
+	char var[32];
+	safesnprintf(var, sizeof(var), SKILLENH_VAR_PREFIX "%hu", skill_id);
+	int64 v = pc_readglobalreg(sd, add_str(var));
+	return static_cast<uint8>(cap_value(v, 0, SKILLENH_MAX));
+}
+
+/// Verstaerkung setzen (nur die Variable; anlegen macht pc_skillenh_apply).
+bool pc_skillenh_set(map_session_data *sd, uint16 skill_id, uint8 plus)
+{
+	nullpo_ret(sd);
+	if (!sd->vars_ok || skill_id == 0 || plus > SKILLENH_MAX)
+		return false;
+
+	char var[32];
+	safesnprintf(var, sizeof(var), SKILLENH_VAR_PREFIX "%hu", skill_id);
+	pc_setglobalreg(sd, add_str(var), plus);
+	return true;
+}
+
+/// Basisstufe ohne Verstaerkung - das, was mit Skillpunkten bezahlt wurde.
+uint8 pc_skillenh_base(map_session_data *sd, uint16 idx)
+{
+	nullpo_ret(sd);
+	uint8 lv = sd->status.skill[idx].lv;
+	uint16 skill_id = sd->status.skill[idx].id;
+
+	if (skill_id == 0 || sd->status.skill[idx].flag != SKILL_FLAG_PERMANENT)
+		return lv;
+
+	int32 max_lv = skill_tree_get_max(skill_id, sd->status.class_);
+	if (max_lv > 0 && lv > max_lv)
+		return static_cast<uint8>(max_lv);
+	return lv;
+}
+
+/**
+ * Legt die Verstaerkung einer einzelnen Fertigkeit auf status.skill.
+ *
+ * Regel: Das Plus wirkt nur, wenn die Basis auf ihrem MaxLevel steht.
+ * Eine halb gelernte Fertigkeit bleibt halb gelernt - die Essenz ist
+ * nicht verloren, sie wartet. Stufen ueber MaxLevel ohne Variable
+ * (etwa nach einem Loeschen der Variable) werden auf MaxLevel
+ * zurueckgeschnitten, damit Skillpunkte und Stufe zusammenpassen.
+ */
+void pc_skillenh_apply(map_session_data *sd, uint16 skill_id)
+{
+	nullpo_retv(sd);
+	uint16 idx = skill_get_index(skill_id);
+	if (idx == 0 || sd->status.skill[idx].id != skill_id)
+		return;
+	if (sd->status.skill[idx].flag != SKILL_FLAG_PERMANENT)
+		return;
+
+	int32 max_lv = skill_tree_get_max(skill_id, sd->status.class_);
+	if (max_lv <= 0)
+		return;
+
+	uint8 base = sd->status.skill[idx].lv;
+	if (base > max_lv)
+		base = static_cast<uint8>(max_lv);
+
+	uint8 plus = pc_skillenh_get(sd, skill_id);
+	uint8 lv = base;
+	if (plus > 0 && base == max_lv)
+		lv = static_cast<uint8>(min(max_lv + plus, MAX_SKILL_LEVEL));
+
+	sd->status.skill[idx].lv = lv;
+}
+
+/// Alle gelernten Fertigkeiten durchgehen - nach jedem pc_calc_skilltree.
+void pc_skillenh_apply_all(map_session_data *sd)
+{
+	nullpo_retv(sd);
+	if (!sd->vars_ok)
+		return;
+
+	for (uint16 i = 1; i < MAX_SKILL; i++) {
+		if (sd->status.skill[i].id == 0 || sd->status.skill[i].lv == 0)
+			continue;
+		if (sd->status.skill[i].flag != SKILL_FLAG_PERMANENT)
+			continue;
+		pc_skillenh_apply(sd, sd->status.skill[i].id);
+	}
+}
+
 static int32 pc_calc_skillpoint(map_session_data* sd)
 {
 	uint16 i, skill_point = 0;
@@ -2530,7 +2657,7 @@ static int32 pc_calc_skillpoint(map_session_data* sd)
 				)
 			{
 				if(sd->status.skill[i].flag == SKILL_FLAG_PERMANENT)
-					skill_point += sd->status.skill[i].lv;
+					skill_point += pc_skillenh_base(sd, i); // SafaRO: gekaufte Stufen sind keine Skillpunkte
 				else if(sd->status.skill[i].flag >= SKILL_FLAG_REPLACED_LV_0)
 					skill_point += (sd->status.skill[i].flag - SKILL_FLAG_REPLACED_LV_0);
 			}
@@ -2796,6 +2923,9 @@ void pc_calc_skilltree(map_session_data *sd)
 			pc_skill(sd, skill[sd->status.sex], 10, ADDSKILL_TEMP);
 		}
 	}
+
+	// SafaRO: gekaufte Stufen wieder auflegen (Reset, Jobwechsel, Login).
+	pc_skillenh_apply_all(sd);
 }
 
 //Checks if you can learn a new skill after having leveled up a skill.
@@ -9273,6 +9403,11 @@ void pc_skillup(map_session_data *sd,uint16 skill_id)
 			else
 				pc_check_skilltree(sd); // Check if a new skill can Lvlup
 
+			// SafaRO: Ist die Fertigkeit jetzt auf MaxLevel, kommt eine
+			// frueher gekaufte Verstaerkung sofort wieder drauf - sonst
+			// erst beim naechsten Login.
+			pc_skillenh_apply(sd, skill_id);
+
 			uint16 lv = sd->status.skill[idx].lv;
 			int32 range = skill_get_range2(sd, skill_id, lv, false);
 			bool upgradable = ( lv < skill_tree_get_max( sd->status.skill[idx].id, sd->status.class_ ) );
@@ -9622,7 +9757,7 @@ int32 pc_resetskill(map_session_data* sd, int32 flag)
 			continue;
 		}
 		if( sd->status.skill[idx].flag == SKILL_FLAG_PERMANENT )
-			skill_point += lv;
+			skill_point += pc_skillenh_base(sd, idx); // SafaRO: nur die bezahlte Basis erstatten
 		else
 		if( sd->status.skill[idx].flag >= SKILL_FLAG_REPLACED_LV_0 )
 			skill_point += (sd->status.skill[idx].flag - SKILL_FLAG_REPLACED_LV_0);

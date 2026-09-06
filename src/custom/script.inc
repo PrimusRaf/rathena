@@ -313,3 +313,93 @@ BUILDIN_FUNC(is_autolooting)
 		(sd->state.autoloot > 0 || pc_isautolooting(sd, nameid)) ? 1 : 0);
 	return SCRIPT_CMD_SUCCESS;
 }
+
+// ==================================================================
+//  SafaRO - Skill-Enhancement (npc/custom/safa_skillenh.txt)
+// ==================================================================
+//
+//  Der Skriptbefehl `skill` kann keine Stufe ueber MaxLevel setzen,
+//  ohne die Skillpunkt-Buchhaltung zu verderben (pc_resetskill wuerde
+//  die gekauften Stufen erstatten). Deshalb ein eigener Befehl, der
+//  die Charaktervariable schreibt und pc_skillenh_apply die Stufe
+//  bauen laesst. Die Regeln stehen in pc.cpp ueber pc_skillenh_get.
+// ------------------------------------------------------------------
+
+/**
+ * Aktuelle Verstaerkung einer Fertigkeit.
+ *
+ *	getskillenhance <skill_id>{,<char_id>};
+ *
+ * Rueckgabe: 0 bis 10.
+ */
+BUILDIN_FUNC(getskillenhance)
+{
+	map_session_data *sd;
+	uint16 skill_id = static_cast<uint16>(script_getnum(st, 2));
+
+	if (!script_charid2sd(3, sd)) {
+		script_pushint(st, 0);
+		return SCRIPT_CMD_FAILURE;
+	}
+	script_pushint(st, pc_skillenh_get(sd, skill_id));
+	return SCRIPT_CMD_SUCCESS;
+}
+
+/**
+ * Verstaerkung setzen und sofort wirksam machen.
+ *
+ *	skillenhance <skill_id>,<plus>{,<char_id>};
+ *
+ * Rueckgabe:  1  gesetzt
+ *            -1  Fertigkeit unbekannt
+ *            -2  Fertigkeit nicht gelernt oder nicht auf MaxLevel
+ *            -3  plus ausserhalb 0..10
+ *
+ * Verlangt, dass die Basis auf MaxLevel steht - sonst wuerde das Plus
+ * zwar gespeichert, aber nicht wirken, und der Spieler haette Essenz
+ * fuer nichts ausgegeben. Das NPC prueft das ebenfalls; hier ist die
+ * zweite Sperre fuer den Fall, dass ein Skript es vergisst.
+ */
+BUILDIN_FUNC(skillenhance)
+{
+	map_session_data *sd;
+	uint16 skill_id = static_cast<uint16>(script_getnum(st, 2));
+	int32 plus = script_getnum(st, 3);
+
+	if (!script_charid2sd(4, sd)) {
+		script_pushint(st, 0);
+		return SCRIPT_CMD_FAILURE;
+	}
+
+	uint16 idx = skill_get_index(skill_id);
+	if (idx == 0) {
+		ShowError("buildin_skillenhance: unknown skill id %hu.\n", skill_id);
+		script_pushint(st, -1);
+		return SCRIPT_CMD_FAILURE;
+	}
+	if (plus < 0 || plus > SKILLENH_MAX) {
+		script_pushint(st, -3);
+		return SCRIPT_CMD_SUCCESS;
+	}
+
+	int32 max_lv = skill_tree_get_max(skill_id, sd->status.class_);
+	if (sd->status.skill[idx].id != skill_id ||
+		sd->status.skill[idx].flag != SKILL_FLAG_PERMANENT ||
+		max_lv <= 0 ||
+		pc_skillenh_base(sd, idx) < max_lv) {
+		script_pushint(st, -2);
+		return SCRIPT_CMD_SUCCESS;
+	}
+
+	pc_skillenh_set(sd, skill_id, static_cast<uint8>(plus));
+	pc_skillenh_apply(sd, skill_id);
+
+	// Skillfenster und Werte nachziehen. Passive Fertigkeiten sind
+	// nicht verstaerkbar, status_calc_pc ist trotzdem billig genug
+	// und deckt Reichweiten-/SP-Anzeigen ab.
+	clif_skillinfoblock(*sd);
+	status_calc_pc(sd, SCO_NONE);
+
+	script_pushint(st, 1);
+	return SCRIPT_CMD_SUCCESS;
+}

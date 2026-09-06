@@ -34,3 +34,11 @@ BUILDIN_DEF(getfeelmap,"i?"),
 // has_autoloot kennt nur @autoloot; dieser hier auch die beiden
 // Listen. Benutzt von npc/custom/safa_beute.txt.
 BUILDIN_DEF(is_autolooting,"i?"),
+
+// --- SafaRO: Skill-Enhancement, siehe script.inc ---
+//
+// "i?"  - skill_id, dahinter wahlweise eine char_id.
+// "ii?" - skill_id, plus (0..10), dahinter wahlweise eine char_id.
+// Benutzt von npc/custom/safa_skillenh.txt.
+BUILDIN_DEF(getskillenhance,"i?"),
+BUILDIN_DEF(skillenhance,"ii?"),

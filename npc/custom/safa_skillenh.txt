@@ -1,0 +1,368 @@
+// ============================================================
+//  SafaRO - Skill-Enhancement: der Essence Keeper
+// ============================================================
+//
+//  ------------------------------------------------------------
+//  WAS DAS IST
+//  ------------------------------------------------------------
+//
+//  Eine Fertigkeit, die auf ihrem MaxLevel steht, laesst sich
+//  hier um bis zu +10 verstaerken - Bash Lv 10 wird Bash Lv 20.
+//  Der Server rechnet dann mit Stufe 20: Schaden, SP-Kosten,
+//  Reichweite, alles aus derselben Formel, nur weiter oben.
+//
+//  Bezahlt wird mit SKILL-ESSENZ, und zwar mit der Essenz genau
+//  dieser Fertigkeit. Es gibt keine allgemeine Essenz: Bash
+//  Essence hilft nur Bash. Essenzen fallen ausschliesslich bei
+//  MVPs (unten, OnNPCKillEvent), und jeder der fuenfzig MVPs des
+//  MVP-Raums traegt einen festen Satz von acht bis neun.
+//
+//    Stufe +n kostet n Essenzen. Von +0 auf +10: 55 Stueck.
+//
+//  ------------------------------------------------------------
+//  WAS VERSTAERKBAR IST - UND WAS NICHT
+//  ------------------------------------------------------------
+//
+//  Aktive Schadens- und Heilfertigkeiten, 432 Stueck, abgeleitet
+//  von tools/skillenh/bauen.py aus skill_db.yml und skill_tree.yml
+//  (dieselbe Regel wie beim Wetzstein). Keine Buffs, keine
+//  Beschwoerungen, nichts Passives: dort haengen im Server feste
+//  Fuenfer-Arrays, die bei Stufe 6 neben den Speicher lesen. Die
+//  Tabellen liegen in safa_skillenh_daten.txt - erzeugt, nicht
+//  von Hand.
+//
+//  ------------------------------------------------------------
+//  WIE ES IM SERVER STECKT
+//  ------------------------------------------------------------
+//
+//  Die Verstaerkung ist die Charaktervariable skenh_<skill_id>,
+//  gesetzt ueber den Skriptbefehl skillenhance (src/custom/
+//  script.inc). pc_calc_skilltree legt sie nach jedem Reset,
+//  Jobwechsel und Login wieder auf die Fertigkeit - Essenz geht
+//  nie verloren. Sie wirkt aber nur, wenn die Basis auf MaxLevel
+//  steht: wer nach dem Reset Bash erst auf 7 hat, spielt Bash 7,
+//  und bei 10 sind es wieder 20. pc_resetskill erstattet nur die
+//  bezahlten Punkte, nie die gekauften Stufen (pc_skillenh_base).
+//
+//  Der Client muss die Stufen kennen: skillinfolist.lub traegt
+//  fuer jede verstaerkbare Fertigkeit MaxLv 20 (bzw. MaxLevel+10)
+//  und passend lange SpAmount-/AttackRange-Arrays. Ohne das zeigt
+//  das Skillfenster 10 und der Stufenwaehler endet bei 10. Auch
+//  das schreibt bauen.py.
+//
+//  ------------------------------------------------------------
+//  WO ER STEHT
+//  ------------------------------------------------------------
+//
+//  ayo_in02 100,185 - der Schrein von Ayothaya, hinter dem
+//  Altar. Die Karte hat keinen einzigen NPC, nur den Warp am
+//  Eingang (100,148); der Schrein ist eine Kulisse ohne Nutzen,
+//  seit die Ayothaya-Quests abgeraeumt sind. Wer hierher kommt,
+//  kommt mit Absicht, und hinter den Altar geht man nur, wenn man
+//  sucht. Zelle gegen db/map_cache.dat geprueft: 100,185
+//  begehbar, 100,186 Wand - er steht mit dem Ruecken zur Wand
+//  und schaut nach Sueden ueber den Altar.
+//
+//  Versteckt heisst "unbeworben", nicht "unerreichbar" - wie
+//  Kartenweiser, Opa-Schmied, Level-Raum und Binder.
+//
+//  ------------------------------------------------------------
+//  DER DROP
+//  ------------------------------------------------------------
+//
+//  OnNPCKillEvent wie bei den Destiny Coins (safa_shops.txt):
+//  MD_MVP pruefen, sonst sofort raus - das Ereignis feuert bei
+//  jedem Poring. Dann den MVP in $@SKENH_MVP_ID suchen; wer dort
+//  nicht steht (Instanz-Fassungen, 2xxx-Doppelgaenger), laesst
+//  nichts fallen. Aus dem Pool des MVPs wird EINE Essenz gezogen,
+//  mit .zweite Prozent eine zweite dazu. Ueber F_SafaBeute, damit
+//  Autoloot greift.
+//
+//  Bei 8 bis 9 Essenzen je Pool und 100 Prozent Drop braucht eine
+//  bestimmte Essenz im Mittel gut acht Kills; +10 sind 55 Stueck,
+//  also einige hundert MVP-Kills. Der MVP-Raum macht jeden davon
+//  rufbar. Die Schrauben stehen unten in OnInit.
+// ============================================================
+
+
+ayo_in02,100,185,4	script	Essence Keeper#safa	4_M_THAIONGBAK,{
+	disable_items;
+	mes "[Essence Keeper]";
+	mes "Every skill remembers the hands that used it. Bring me its essence, and I will make it remember more than it was taught.";
+	next;
+	switch (select("Enhance a skill:Where do I find an essence?:How does it work?:Leave")) {
+	case 1:
+		break;
+	case 2:
+		callsub S_Suche;
+		close;
+	case 3:
+		mes "[Essence Keeper]";
+		mes "A skill at its ^0000CChighest level^000000 can be pushed further - up to ^990000+10^000000, so a level 10 skill becomes level ^990000" + .stufe_max + "^000000.";
+		mes "Damage, SP cost and range all follow. Nothing is capped.";
+		next;
+		mes "[Essence Keeper]";
+		mes "Each skill has its own ^0000CCessence^000000. Bash needs Bash Essence, Storm Gust needs Storm Gust Essence. There is no other coin.";
+		mes " ";
+		mes "Stage ^0000CC+n^000000 costs ^0000CCn^000000 essences: one for +1, two for +2 ... ten for +10. ^0000CC" + .gesamt + "^000000 in all.";
+		next;
+		mes "[Essence Keeper]";
+		mes "Essences are carried by ^990000MVPs^000000 only. Every MVP holds a fixed handful; ask me which one holds yours.";
+		mes " ";
+		mes "What you buy stays bought. Reset your skills, change your job - the moment the skill is back at its highest level, the enhancement is back on it.";
+		next;
+		mes "[Essence Keeper]";
+		mes "Only ^0000CCactive attack and healing skills^000000 take an essence. Buffs, summons and passives keep their limits.";
+		close;
+	case 4:
+		close;
+	}
+
+	// ---- Was dieser Charakter verstaerken koennte ---------------
+	callsub S_Eigene;
+	if (.@n == 0) {
+		mes "[Essence Keeper]";
+		mes "You know no skill I could work on. Come back when you have learned something that hurts or heals.";
+		close;
+	}
+
+	mes "[Essence Keeper]";
+	mes "Which skill?";
+	next;
+	.@i = callsub(S_Waehlen, 1);
+	if (.@i < 0) close;
+
+	.@id    = $@SKENH_ID[.@i];
+	.@item  = $@SKENH_ITEM[.@i];
+	.@max   = $@SKENH_MAX[.@i];
+	.@plus  = getskillenhance(.@id);
+	.@lv    = getskilllv(.@id);
+	.@basis = .@lv - .@plus;
+	.@decke = min(.@max + .plus_max, .stufe_max) - .@max;
+	.@kosten = (.@plus + 1) * .je_stufe;
+	.@hab   = countitem(.@item);
+
+	mes "[Essence Keeper]";
+	mes "^0000CC" + $@SKENH_NAME$[.@i] + "^000000 - level " + .@lv + ", enhanced ^0000CC+" + .@plus + "^000000 of +" + .@decke + ".";
+	mes "Essence: ^990000" + getitemname(.@item) + "^000000, carried by ^990000" + $@SKENH_MVP_NAME$[$@SKENH_MVP[.@i]] + "^000000.";
+	mes " ";
+
+	if (.@plus >= .@decke) {
+		mes "This one has nothing left to learn. It is as far as I can take it.";
+		close;
+	}
+	if (.@basis < .@max) {
+		mes "Its base is at " + .@basis + " of " + .@max + ". Learn it fully first - I build on top, not in between.";
+		if (.@plus > 0)
+			mes "Your +" + .@plus + " is not lost. It returns the moment the skill is complete.";
+		close;
+	}
+
+	mes "Next stage ^0000CC+" + (.@plus + 1) + "^000000 costs ^0000CC" + .@kosten + "^000000 essences. You carry ^0000CC" + .@hab + "^000000.";
+	next;
+	if (.@hab < .@kosten) {
+		mes "[Essence Keeper]";
+		mes "Not enough. " + (.@kosten - .@hab) + " more, and we talk.";
+		close;
+	}
+	if (select("Enhance to +" + (.@plus + 1) + " for " + .@kosten + " " + getitemname(.@item) + ":Not now") == 2)
+		close;
+
+	// ---- Bezahlen, dann setzen. Schlaegt das Setzen fehl, gibt es
+	//      die Essenz zurueck - der Spieler soll nie fuer nichts
+	//      bezahlt haben. -------------------------------------------
+	delitem .@item, .@kosten;
+	.@r = skillenhance(.@id, .@plus + 1);
+	if (.@r != 1) {
+		getitem .@item, .@kosten;
+		mes "[Essence Keeper]";
+		if (.@r == -2)
+			mes "The skill would not take it - it is not complete on you right now. Nothing spent.";
+		else
+			mes "The essence would not bind. Nothing spent. (" + .@r + ")";
+		close;
+	}
+
+	specialeffect2 EF_ENHANCE;
+	mes "[Essence Keeper]";
+	mes "Done. ^0000CC" + $@SKENH_NAME$[.@i] + "^000000 is now level ^990000" + getskilllv(.@id) + "^000000 (+" + (.@plus + 1) + ").";
+	if (.@plus + 1 >= .@decke) {
+		mes "That is the end of the road for this one.";
+		announce "[Essence Keeper] " + strcharinfo(0) + " has pushed " + $@SKENH_NAME$[.@i] + " to +" + (.@plus + 1) + ".", bc_all, "0x99CCFF";
+	}
+	close;
+
+
+// ------------------------------------------------------------
+//  Wo eine Essenz herkommt
+// ------------------------------------------------------------
+//  Zwei Wege: von der eigenen Fertigkeit zum MVP, oder vom MVP
+//  zu seinem ganzen Satz. Der zweite ist fuer Leute, die im
+//  MVP-Raum stehen und wissen wollen, ob sich der Ruf lohnt.
+S_Suche:
+	mes "[Essence Keeper]";
+	mes "Ask by skill or by MVP?";
+	next;
+	switch (select("By one of my skills:By MVP:Leave")) {
+	case 1:
+		callsub S_Eigene;
+		if (.@n == 0) {
+			mes "[Essence Keeper]";
+			mes "You know no skill I could work on.";
+			return;
+		}
+		.@i = callsub(S_Waehlen, 0);
+		if (.@i < 0) return;
+		mes "[Essence Keeper]";
+		mes "^0000CC" + $@SKENH_NAME$[.@i] + "^000000 - its essence is carried by ^990000" + $@SKENH_MVP_NAME$[$@SKENH_MVP[.@i]] + "^000000.";
+		mes "You carry " + countitem($@SKENH_ITEM[.@i]) + ".";
+		return;
+	case 2:
+		.@anz = getarraysize($@SKENH_MVP_ID);
+		.@seite = 0;
+		while (1) {
+			.@menu$ = "";
+			.@von = .@seite * .je_seite;
+			.@bis = min(.@von + .je_seite, .@anz);
+			for (.@k = .@von; .@k < .@bis; .@k++)
+				.@menu$ += $@SKENH_MVP_NAME$[.@k] + ":";
+			.@menu$ += ((.@bis < .@anz) ? "-- next page --:" : "");
+			.@menu$ += ((.@seite > 0) ? "-- previous page --:" : "");
+			.@menu$ += "-- leave --";
+			.@w = select(.@menu$) - 1;
+			.@zeilen = .@bis - .@von;
+			if (.@w < .@zeilen) { .@m = .@von + .@w; break; }
+			.@w -= .@zeilen;
+			if (.@bis < .@anz) {
+				if (.@w == 0) { .@seite++; continue; }
+				.@w--;
+			}
+			if (.@seite > 0) {
+				if (.@w == 0) { .@seite--; continue; }
+				.@w--;
+			}
+			return;
+		}
+		mes "[Essence Keeper]";
+		mes "^990000" + $@SKENH_MVP_NAME$[.@m] + "^000000 carries:";
+		for (.@p = $@SKENH_MVP_VON[.@m]; .@p < $@SKENH_MVP_VON[.@m] + $@SKENH_MVP_ANZ[.@m]; .@p++) {
+			.@i = $@SKENH_POOL[.@p];
+			mes "- " + $@SKENH_NAME$[.@i] + ((getskilllv($@SKENH_ID[.@i]) > 0) ? " ^0000CC(yours)^000000" : "");
+		}
+		return;
+	case 3:
+		return;
+	}
+	return;
+
+
+// ------------------------------------------------------------
+//  Die verstaerkbaren Fertigkeiten DIESES Charakters
+// ------------------------------------------------------------
+//  .@liste[k] = Index i in den $@SKENH-Tabellen, .@n = Anzahl.
+//  callsub teilt die .@-Variablen mit dem Rumpf, callfunc taete
+//  es nicht - deshalb Unterprogramme statt Funktionen.
+S_Eigene:
+	.@n = 0;
+	for (.@i = 0; .@i < getarraysize($@SKENH_ID); .@i++) {
+		if (getskilllv($@SKENH_ID[.@i]) < 1) continue;
+		.@liste[.@n] = .@i;
+		.@n++;
+	}
+	return;
+
+
+// ------------------------------------------------------------
+//  Seitenweise Auswahl aus .@liste
+// ------------------------------------------------------------
+//  getarg(0): 1 = Stufe und Plus hinter dem Namen zeigen.
+//  Rueckgabe: Index i, oder -1 bei Abbruch.
+//
+//  Warum Seiten: ein Charakter der vierten Klasse kennt an die
+//  vierzig Angriffsfertigkeiten, und ein select() mit vierzig
+//  langen Eintraegen sprengt das Menuepaket zum Client (siehe
+//  safa_skillwahl.txt). Zwoelf je Seite plus drei Steuerzeilen.
+S_Waehlen:
+	.@zeigen = getarg(0);
+	.@seite = 0;
+	while (1) {
+		.@menu$ = "";
+		.@von = .@seite * .je_seite;
+		.@bis = min(.@von + .je_seite, .@n);
+		for (.@k = .@von; .@k < .@bis; .@k++) {
+			.@i = .@liste[.@k];
+			.@menu$ += $@SKENH_NAME$[.@i];
+			if (.@zeigen)
+				.@menu$ += " [Lv " + getskilllv($@SKENH_ID[.@i]) + ", +" + getskillenhance($@SKENH_ID[.@i]) + "]";
+			.@menu$ += ":";
+		}
+		.@menu$ += ((.@bis < .@n) ? "-- next page --:" : "");
+		.@menu$ += ((.@seite > 0) ? "-- previous page --:" : "");
+		.@menu$ += "-- leave --";
+		.@w = select(.@menu$) - 1;
+		.@zeilen = .@bis - .@von;
+		if (.@w < .@zeilen)
+			return .@liste[.@von + .@w];
+		.@w -= .@zeilen;
+		if (.@bis < .@n) {
+			if (.@w == 0) { .@seite++; continue; }
+			.@w--;
+		}
+		if (.@seite > 0) {
+			if (.@w == 0) { .@seite--; continue; }
+			.@w--;
+		}
+		return -1;
+	}
+
+
+OnInit:
+	// Die Schrauben. .plus_max und .stufe_max muessen zu
+	// SKILLENH_MAX (pc.hpp) und MAX_SKILL_LEVEL (skill.hpp) passen -
+	// der Server ist die Grenze, das hier nur die Anzeige.
+	.plus_max  = 10;
+	.stufe_max = 20;
+	.je_stufe  = 1;     // Essenzen je Stufe: Stufe +n kostet n * .je_stufe
+	.je_seite  = 12;    // Menuezeilen je Seite
+	.gesamt = 0;
+	for (.@s = 1; .@s <= .plus_max; .@s++)
+		.gesamt += .@s * .je_stufe;
+	end;
+}
+
+
+// ============================================================
+//  Der Drop
+// ============================================================
+-	script	#safa_skillenh_drop	-1,{
+	end;
+
+OnNPCKillEvent:
+	if (killedrid == 0) end;
+
+	// getmonsterinfo liefert -1 bei unbekannter Klasse; -1 & MD_MVP
+	// waere wahr. Siehe safa_shops.txt.
+	.@mode = getmonsterinfo(killedrid, MOB_MODE);
+	if (.@mode < 0) end;
+	if (!(.@mode & MD_MVP)) end;
+
+	.@m = inarray($@SKENH_MVP_ID, killedrid);
+	if (.@m < 0) end;
+	.@anz = $@SKENH_MVP_ANZ[.@m];
+	if (.@anz < 1) end;
+
+	// rand(1) ist ein Fehler ("range (0) is too small"), siehe
+	// safa_episoden.txt - bei einem Eintrag gibt es nichts zu ziehen.
+	.@p = $@SKENH_MVP_VON[.@m] + ((.@anz > 1) ? rand(.@anz) : 0);
+	.@item = $@SKENH_ITEM[$@SKENH_POOL[.@p]];
+	.@n = 1;
+	if (rand(100) < .zweite) .@n = 2;
+
+	callfunc "F_SafaBeute", .@item, .@n;
+	dispbottom "[Essence] " + getmonsterinfo(killedrid, MOB_NAME) + " leaves behind " + .@n + "x " + getitemname(.@item) + ".";
+	end;
+
+OnInit:
+	.zweite = 25;   // Prozent: eine zweite Essenz obendrauf
+	end;
+}
