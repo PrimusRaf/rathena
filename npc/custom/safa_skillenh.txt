@@ -125,7 +125,7 @@ ayo_in02,100,185,4	script	Essence Keeper#safa	4_M_THAIONGBAK,{
 
 	// ---- Was dieser Charakter verstaerken koennte ---------------
 	callsub S_Eigene;
-	if (.@n == 0) {
+	if (@skenh_n == 0) {
 		mes "[Essence Keeper]";
 		mes "You know no skill I could work on. Come back when you have learned something that hurts or heals.";
 		close;
@@ -211,7 +211,7 @@ S_Suche:
 	switch (select("By one of my skills:By MVP:Leave")) {
 	case 1:
 		callsub S_Eigene;
-		if (.@n == 0) {
+		if (@skenh_n == 0) {
 			mes "[Essence Keeper]";
 			mes "You know no skill I could work on.";
 			return;
@@ -264,21 +264,28 @@ S_Suche:
 // ------------------------------------------------------------
 //  Die verstaerkbaren Fertigkeiten DIESES Charakters
 // ------------------------------------------------------------
-//  .@liste[k] = Index i in den $@SKENH-Tabellen, .@n = Anzahl.
-//  callsub teilt die .@-Variablen mit dem Rumpf, callfunc taete
-//  es nicht - deshalb Unterprogramme statt Funktionen.
+//  @skenh_l[k] = Index i in den $@SKENH-Tabellen, @skenh_n = Anzahl.
+//
+//  Charakter-Temporaervariablen (@), NICHT .@: callsub oeffnet in
+//  rAthena einen NEUEN .@-Scope (script.cpp, buildin_callsub legt
+//  scope.vars frisch an; doc/script_commands.txt "Calling a function
+//  with callsub/callfunc starts a new scope"). Eine .@liste aus dem
+//  Unterprogramm kaeme beim Aufrufer nie an - so war es am 06.09.2026:
+//  "You know no skill I could work on" fuer jeden. @-Variablen leben
+//  am Charakter bis zum Ausloggen und sind in jedem Scope sichtbar.
 S_Eigene:
-	.@n = 0;
+	deletearray @skenh_l[0], getarraysize(@skenh_l);
+	@skenh_n = 0;
 	for (.@i = 0; .@i < getarraysize($@SKENH_ID); .@i++) {
 		if (getskilllv($@SKENH_ID[.@i]) < 1) continue;
-		.@liste[.@n] = .@i;
-		.@n++;
+		@skenh_l[@skenh_n] = .@i;
+		@skenh_n++;
 	}
 	return;
 
 
 // ------------------------------------------------------------
-//  Seitenweise Auswahl aus .@liste
+//  Seitenweise Auswahl aus @skenh_l
 // ------------------------------------------------------------
 //  getarg(0): 1 = Stufe und Plus hinter dem Namen zeigen.
 //  Rueckgabe: Index i, oder -1 bei Abbruch.
@@ -293,23 +300,23 @@ S_Waehlen:
 	while (1) {
 		.@menu$ = "";
 		.@von = .@seite * .je_seite;
-		.@bis = min(.@von + .je_seite, .@n);
+		.@bis = min(.@von + .je_seite, @skenh_n);
 		for (.@k = .@von; .@k < .@bis; .@k++) {
-			.@i = .@liste[.@k];
+			.@i = @skenh_l[.@k];
 			.@menu$ += $@SKENH_NAME$[.@i];
 			if (.@zeigen)
 				.@menu$ += " [Lv " + getskilllv($@SKENH_ID[.@i]) + " +" + getskillenhance($@SKENH_ID[.@i]) + "]";
 			.@menu$ += ":";
 		}
-		.@menu$ += ((.@bis < .@n) ? "-- next page --:" : "");
+		.@menu$ += ((.@bis < @skenh_n) ? "-- next page --:" : "");
 		.@menu$ += ((.@seite > 0) ? "-- previous page --:" : "");
 		.@menu$ += "-- leave --";
 		.@w = select(.@menu$) - 1;
 		.@zeilen = .@bis - .@von;
 		if (.@w < .@zeilen)
-			return .@liste[.@von + .@w];
+			return @skenh_l[.@von + .@w];
 		.@w -= .@zeilen;
-		if (.@bis < .@n) {
+		if (.@bis < @skenh_n) {
 			if (.@w == 0) { .@seite++; continue; }
 			.@w--;
 		}
