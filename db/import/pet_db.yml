@@ -41,13 +41,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
-        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
-      }
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,200;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,100;
   - Mob: BAPHOMET_
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -125,13 +124,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
-        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,75;
   - Mob: CIVIL_SERVANT
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -210,13 +208,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
-      }
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,200;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,100;
   - Mob: DIABOLIC2
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -230,13 +227,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: DOKEBI
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -428,13 +424,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
-        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,75;
   - Mob: GOLEM
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -467,13 +462,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
-        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
-      }
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,200;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,100;
   - Mob: IMP
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -564,13 +558,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: LUNATIC
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -735,13 +728,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
-        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
   - Mob: PETIT
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -781,13 +773,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"TF_POISON",10,100;
-        bonus3 bAutoSpellWhenHit,"AL_CURE",1,50;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"TF_POISON",10,150;
+      bonus3 bAutoSpellWhenHit,"AL_CURE",1,75;
   - Mob: POPORING
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -814,13 +805,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
-        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FROSTDIVER",10,150;
+      bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,75;
   - Mob: ROCKER
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -933,13 +923,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
-        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,75;
   - Mob: STONE_SHOOTER
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -959,13 +948,12 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 3 * .@s;
-      bonus bMaxHPrate, .@s;
-      bonus bMaxSPrate, .@s;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: TEDDY_BEAR
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -1069,310 +1057,284 @@ Body:
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: ALIOT
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: ALIZA
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: AM_MUT
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: ANCIENT_MUMMY
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"WZ_METEOR",10,150;
-        bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WZ_METEOR",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
   - Mob: ANGELING
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"AB_JUDEX",10,150;
-        bonus3 bAutoSpellWhenHit,"AL_HEAL",10,75;
-      }
+      // Stufe 3: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 90 + 3 * .@s;
+      bonus bMaxHPrate, 30 + .@s;
+      bonus bMaxSPrate, 30 + .@s;
+      bonus3 bAutoSpell,"AB_JUDEX",10,250;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",10,125;
   - Mob: CAT_O_NINE_TAIL
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
-        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
   - Mob: CHOCO
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
-        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
   - Mob: DELETER_2
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
-        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
   - Mob: DESERT_WOLF
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
-        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
   - Mob: DR_EGGRING
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_STONECURSE",10,150;
-        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_STONECURSE",10,150;
+      bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,75;
   - Mob: DR_LUNATIC
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: EP17_2_CHILD_ADMIN2
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: FIRE_GOLEM
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
-        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
   - Mob: GRAND_PECO
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
-        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
-      }
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,200;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,100;
   - Mob: HIGH_ORC
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
-        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
   - Mob: HODREMLIN
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: HYEGUN
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"WZ_METEOR",10,150;
-        bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WZ_METEOR",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
   - Mob: LITTLE_ISIS
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: MASTERING
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FROSTDIVER",10,150;
-        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,75;
-      }
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_FROSTDIVER",10,200;
+      bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,100;
   - Mob: METALLER
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
-        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
   - Mob: NIGHTMARE_TERROR_H
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
-        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: SAVAGE
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_STONECURSE",10,150;
-        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_STONECURSE",10,150;
+      bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,75;
   - Mob: SWEETS_DROPS
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
-        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
   - Mob: WANDER_MAN_H
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,150;
-        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,75;
   - Mob: XM_TEDDY_BEAR
     AllowAutoFeed: true
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
-      bonus bAllStats, 4 * .@s;
-      bonus bMaxHPrate, (3 * .@s) / 2;
-      bonus bMaxSPrate, (3 * .@s) / 2;
-      if (.@f >= PET_INTIMATE_LOYAL) {
-        bonus3 bAutoSpell,"WZ_METEOR",10,150;
-        bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
-      }
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WZ_METEOR",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
