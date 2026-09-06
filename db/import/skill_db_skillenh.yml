@@ -1,0 +1,1744 @@
+# ERZEUGT VON tools/skillenh/bauen.py - NICHT VON HAND PFLEGEN.
+#
+# Dummy-Passivskills des Skill-Enhancements: je verstaerkbarer
+# Fertigkeit einer, Name "<NAME>_ENH" (auf 35 Zeichen gekuerzt, wie
+# pc_skillenh_dummy in src/map/pc.cpp), Ids ab 7000. Kein Type, kein
+# TargetType: passiv, tut nichts. Der Server vergibt ihn temporaer mit
+# Stufe = Plus, der Client zeigt ihn im Etc-Tab.
+#
+# MAX_SKILL in src/common/mmo.hpp muss die Zahl aller Skills tragen -
+# 1635 aus der Datenbank plus diese hier; steht auf 2200.
+
+Header:
+  Type: SKILL_DB
+  Version: 4
+
+Body:
+  - Id: 7000
+    Name: SM_BASH_ENH
+    Description: Bash +
+    MaxLevel: 10
+  - Id: 7001
+    Name: SM_MAGNUM_ENH
+    Description: Magnum Break +
+    MaxLevel: 10
+  - Id: 7002
+    Name: MG_NAPALMBEAT_ENH
+    Description: Napalm Beat +
+    MaxLevel: 10
+  - Id: 7003
+    Name: MG_SOULSTRIKE_ENH
+    Description: Soul Strike +
+    MaxLevel: 10
+  - Id: 7004
+    Name: MG_COLDBOLT_ENH
+    Description: Cold Bolt +
+    MaxLevel: 10
+  - Id: 7005
+    Name: MG_FROSTDIVER_ENH
+    Description: Frost Diver +
+    MaxLevel: 10
+  - Id: 7006
+    Name: MG_FIREBALL_ENH
+    Description: Fire Ball +
+    MaxLevel: 10
+  - Id: 7007
+    Name: MG_FIREWALL_ENH
+    Description: Fire Wall +
+    MaxLevel: 10
+  - Id: 7008
+    Name: MG_FIREBOLT_ENH
+    Description: Fire Bolt +
+    MaxLevel: 10
+  - Id: 7009
+    Name: MG_LIGHTNINGBOLT_ENH
+    Description: Lightning Bolt +
+    MaxLevel: 10
+  - Id: 7010
+    Name: MG_THUNDERSTORM_ENH
+    Description: Thunderstorm +
+    MaxLevel: 10
+  - Id: 7011
+    Name: AL_HEAL_ENH
+    Description: Heal +
+    MaxLevel: 10
+  - Id: 7012
+    Name: MC_MAMMONITE_ENH
+    Description: Mammonite +
+    MaxLevel: 10
+  - Id: 7013
+    Name: AC_DOUBLE_ENH
+    Description: Double Strafe +
+    MaxLevel: 10
+  - Id: 7014
+    Name: AC_SHOWER_ENH
+    Description: Arrow Shower +
+    MaxLevel: 10
+  - Id: 7015
+    Name: TF_POISON_ENH
+    Description: Envenom +
+    MaxLevel: 10
+  - Id: 7016
+    Name: KN_PIERCE_ENH
+    Description: Pierce +
+    MaxLevel: 10
+  - Id: 7017
+    Name: KN_BRANDISHSPEAR_ENH
+    Description: Brandish Spear +
+    MaxLevel: 10
+  - Id: 7018
+    Name: KN_SPEARSTAB_ENH
+    Description: Spear Stab +
+    MaxLevel: 10
+  - Id: 7019
+    Name: KN_SPEARBOOMERANG_ENH
+    Description: Spear Boomerang +
+    MaxLevel: 10
+  - Id: 7020
+    Name: KN_AUTOCOUNTER_ENH
+    Description: Counter Attack +
+    MaxLevel: 10
+  - Id: 7021
+    Name: KN_BOWLINGBASH_ENH
+    Description: Bowling Bash +
+    MaxLevel: 10
+  - Id: 7022
+    Name: PR_SANCTUARY_ENH
+    Description: Sanctuary +
+    MaxLevel: 10
+  - Id: 7023
+    Name: PR_TURNUNDEAD_ENH
+    Description: Turn Undead +
+    MaxLevel: 10
+  - Id: 7024
+    Name: PR_MAGNUS_ENH
+    Description: Magnus Exorcismus +
+    MaxLevel: 10
+  - Id: 7025
+    Name: WZ_FIREPILLAR_ENH
+    Description: Fire Pillar +
+    MaxLevel: 10
+  - Id: 7026
+    Name: WZ_SIGHTRASHER_ENH
+    Description: Sightrasher +
+    MaxLevel: 10
+  - Id: 7027
+    Name: WZ_METEOR_ENH
+    Description: Meteor Storm +
+    MaxLevel: 10
+  - Id: 7028
+    Name: WZ_JUPITEL_ENH
+    Description: Jupitel Thunder +
+    MaxLevel: 10
+  - Id: 7029
+    Name: WZ_VERMILION_ENH
+    Description: Lord of Vermilion +
+    MaxLevel: 10
+  - Id: 7030
+    Name: WZ_WATERBALL_ENH
+    Description: Water Ball +
+    MaxLevel: 10
+  - Id: 7031
+    Name: WZ_FROSTNOVA_ENH
+    Description: Frost Nova +
+    MaxLevel: 10
+  - Id: 7032
+    Name: WZ_STORMGUST_ENH
+    Description: Storm Gust +
+    MaxLevel: 10
+  - Id: 7033
+    Name: WZ_EARTHSPIKE_ENH
+    Description: Earth Spike +
+    MaxLevel: 10
+  - Id: 7034
+    Name: WZ_HEAVENDRIVE_ENH
+    Description: Heaven's Drive +
+    MaxLevel: 10
+  - Id: 7035
+    Name: HT_LANDMINE_ENH
+    Description: Land Mine +
+    MaxLevel: 10
+  - Id: 7036
+    Name: HT_FREEZINGTRAP_ENH
+    Description: Freezing Trap +
+    MaxLevel: 10
+  - Id: 7037
+    Name: HT_BLASTMINE_ENH
+    Description: Blast Mine +
+    MaxLevel: 10
+  - Id: 7038
+    Name: HT_CLAYMORETRAP_ENH
+    Description: Claymore Trap +
+    MaxLevel: 10
+  - Id: 7039
+    Name: HT_BLITZBEAT_ENH
+    Description: Blitz Beat +
+    MaxLevel: 10
+  - Id: 7040
+    Name: AS_SONICBLOW_ENH
+    Description: Sonic Blow +
+    MaxLevel: 10
+  - Id: 7041
+    Name: AS_GRIMTOOTH_ENH
+    Description: Grimtooth +
+    MaxLevel: 10
+  - Id: 7042
+    Name: AS_POISONREACT_ENH
+    Description: Poison React +
+    MaxLevel: 10
+  - Id: 7043
+    Name: AS_SPLASHER_ENH
+    Description: Venom Splasher +
+    MaxLevel: 10
+  - Id: 7044
+    Name: AC_CHARGEARROW_ENH
+    Description: Arrow Repel +
+    MaxLevel: 10
+  - Id: 7045
+    Name: TF_SPRINKLESAND_ENH
+    Description: Sand Attack +
+    MaxLevel: 10
+  - Id: 7046
+    Name: TF_THROWSTONE_ENH
+    Description: Stone Fling +
+    MaxLevel: 10
+  - Id: 7047
+    Name: MC_CARTREVOLUTION_ENH
+    Description: Cart Revolution +
+    MaxLevel: 10
+  - Id: 7048
+    Name: AL_HOLYLIGHT_ENH
+    Description: Holy Light +
+    MaxLevel: 10
+  - Id: 7049
+    Name: RG_BACKSTAP_ENH
+    Description: Back Stab +
+    MaxLevel: 10
+  - Id: 7050
+    Name: RG_RAID_ENH
+    Description: Sightless Mind +
+    MaxLevel: 10
+  - Id: 7051
+    Name: RG_INTIMIDATE_ENH
+    Description: Snatch +
+    MaxLevel: 10
+  - Id: 7052
+    Name: AM_DEMONSTRATION_ENH
+    Description: Bomb +
+    MaxLevel: 10
+  - Id: 7053
+    Name: AM_ACIDTERROR_ENH
+    Description: Acid Terror +
+    MaxLevel: 10
+  - Id: 7054
+    Name: CR_SHIELDCHARGE_ENH
+    Description: Smite +
+    MaxLevel: 10
+  - Id: 7055
+    Name: CR_SHIELDBOOMERANG_ENH
+    Description: Shield Boomerang +
+    MaxLevel: 10
+  - Id: 7056
+    Name: CR_HOLYCROSS_ENH
+    Description: Holy Cross +
+    MaxLevel: 10
+  - Id: 7057
+    Name: CR_GRANDCROSS_ENH
+    Description: Grand Cross +
+    MaxLevel: 10
+  - Id: 7058
+    Name: MO_INVESTIGATE_ENH
+    Description: Occult Impaction +
+    MaxLevel: 10
+  - Id: 7059
+    Name: MO_FINGEROFFENSIVE_ENH
+    Description: Throw Spirit Sphere +
+    MaxLevel: 10
+  - Id: 7060
+    Name: MO_EXTREMITYFIST_ENH
+    Description: Asura Strike +
+    MaxLevel: 10
+  - Id: 7061
+    Name: MO_CHAINCOMBO_ENH
+    Description: Raging Quadruple Blow +
+    MaxLevel: 10
+  - Id: 7062
+    Name: MO_COMBOFINISH_ENH
+    Description: Raging Thrust +
+    MaxLevel: 10
+  - Id: 7063
+    Name: BA_MUSICALSTRIKE_ENH
+    Description: Melody Strike +
+    MaxLevel: 10
+  - Id: 7064
+    Name: DC_THROWARROW_ENH
+    Description: Slinging Arrow +
+    MaxLevel: 10
+  - Id: 7065
+    Name: HW_MAGICCRASHER_ENH
+    Description: Stave Crasher +
+    MaxLevel: 10
+  - Id: 7066
+    Name: PA_PRESSURE_ENH
+    Description: Gloria Domini +
+    MaxLevel: 10
+  - Id: 7067
+    Name: CH_PALMSTRIKE_ENH
+    Description: Raging Palm Strike +
+    MaxLevel: 10
+  - Id: 7068
+    Name: CH_TIGERFIST_ENH
+    Description: Glacier Fist +
+    MaxLevel: 10
+  - Id: 7069
+    Name: CH_CHAINCRUSH_ENH
+    Description: Chain Crush Combo +
+    MaxLevel: 10
+  - Id: 7070
+    Name: PF_SOULBURN_ENH
+    Description: Soul Siphon +
+    MaxLevel: 10
+  - Id: 7071
+    Name: ASC_BREAKER_ENH
+    Description: Soul Destroyer +
+    MaxLevel: 10
+  - Id: 7072
+    Name: SN_FALCONASSAULT_ENH
+    Description: Falcon Assault +
+    MaxLevel: 10
+  - Id: 7073
+    Name: SN_SHARPSHOOTING_ENH
+    Description: Focused Arrow Strike +
+    MaxLevel: 10
+  - Id: 7074
+    Name: CG_ARROWVULCAN_ENH
+    Description: Vulcan Arrow +
+    MaxLevel: 10
+  - Id: 7075
+    Name: LK_SPIRALPIERCE_ENH
+    Description: Spiral Pierce +
+    MaxLevel: 10
+  - Id: 7076
+    Name: LK_HEADCRUSH_ENH
+    Description: Traumatic Blow +
+    MaxLevel: 10
+  - Id: 7077
+    Name: LK_JOINTBEAT_ENH
+    Description: Vital Strike +
+    MaxLevel: 10
+  - Id: 7078
+    Name: HW_NAPALMVULCAN_ENH
+    Description: Napalm Vulcan +
+    MaxLevel: 10
+  - Id: 7079
+    Name: ASC_METEORASSAULT_ENH
+    Description: Meteor Assault +
+    MaxLevel: 10
+  - Id: 7080
+    Name: TK_STORMKICK_ENH
+    Description: Tornado Kick +
+    MaxLevel: 10
+  - Id: 7081
+    Name: TK_DOWNKICK_ENH
+    Description: Heel Drop +
+    MaxLevel: 10
+  - Id: 7082
+    Name: TK_TURNKICK_ENH
+    Description: Roundhouse Kick +
+    MaxLevel: 10
+  - Id: 7083
+    Name: TK_COUNTER_ENH
+    Description: Counter Kick +
+    MaxLevel: 10
+  - Id: 7084
+    Name: TK_JUMPKICK_ENH
+    Description: Flying Kick +
+    MaxLevel: 10
+  - Id: 7085
+    Name: SL_STIN_ENH
+    Description: Estin +
+    MaxLevel: 10
+  - Id: 7086
+    Name: SL_STUN_ENH
+    Description: Estun +
+    MaxLevel: 10
+  - Id: 7087
+    Name: SL_SMA_ENH
+    Description: Esma +
+    MaxLevel: 10
+  - Id: 7088
+    Name: PA_SHIELDCHAIN_ENH
+    Description: Shield Chain +
+    MaxLevel: 10
+  - Id: 7089
+    Name: HW_GRAVITATION_ENH
+    Description: Gravitation Field +
+    MaxLevel: 10
+  - Id: 7090
+    Name: WS_CARTTERMINATION_ENH
+    Description: Cart Termination +
+    MaxLevel: 10
+  - Id: 7091
+    Name: CR_ACIDDEMONSTRATION_ENH
+    Description: Acid Demonstration +
+    MaxLevel: 10
+  - Id: 7092
+    Name: HT_POWER_ENH
+    Description: Beast Strafing +
+    MaxLevel: 10
+  - Id: 7093
+    Name: GS_FLING_ENH
+    Description: Fling +
+    MaxLevel: 10
+  - Id: 7094
+    Name: GS_TRIPLEACTION_ENH
+    Description: Triple Action +
+    MaxLevel: 10
+  - Id: 7095
+    Name: GS_BULLSEYE_ENH
+    Description: Bulls Eye +
+    MaxLevel: 10
+  - Id: 7096
+    Name: GS_TRACKING_ENH
+    Description: Tracking +
+    MaxLevel: 10
+  - Id: 7097
+    Name: GS_DISARM_ENH
+    Description: Disarm +
+    MaxLevel: 10
+  - Id: 7098
+    Name: GS_PIERCINGSHOT_ENH
+    Description: Piercing Shot +
+    MaxLevel: 10
+  - Id: 7099
+    Name: GS_RAPIDSHOWER_ENH
+    Description: Rapid Shower +
+    MaxLevel: 10
+  - Id: 7100
+    Name: GS_DESPERADO_ENH
+    Description: Desperado +
+    MaxLevel: 10
+  - Id: 7101
+    Name: GS_DUST_ENH
+    Description: Dust +
+    MaxLevel: 10
+  - Id: 7102
+    Name: GS_FULLBUSTER_ENH
+    Description: Full Buster +
+    MaxLevel: 10
+  - Id: 7103
+    Name: GS_SPREADATTACK_ENH
+    Description: Spread Attack +
+    MaxLevel: 10
+  - Id: 7104
+    Name: GS_GROUNDDRIFT_ENH
+    Description: Ground Drift +
+    MaxLevel: 10
+  - Id: 7105
+    Name: NJ_SYURIKEN_ENH
+    Description: Throw Shuriken +
+    MaxLevel: 10
+  - Id: 7106
+    Name: NJ_KUNAI_ENH
+    Description: Throw Kunai +
+    MaxLevel: 10
+  - Id: 7107
+    Name: NJ_HUUMA_ENH
+    Description: Throw Huuma Shuriken +
+    MaxLevel: 10
+  - Id: 7108
+    Name: NJ_ZENYNAGE_ENH
+    Description: Throw Zeny +
+    MaxLevel: 10
+  - Id: 7109
+    Name: NJ_TATAMIGAESHI_ENH
+    Description: Improvised Defense +
+    MaxLevel: 10
+  - Id: 7110
+    Name: NJ_KASUMIKIRI_ENH
+    Description: Vanishing Slash +
+    MaxLevel: 10
+  - Id: 7111
+    Name: NJ_KIRIKAGE_ENH
+    Description: Shadow Slash +
+    MaxLevel: 10
+  - Id: 7112
+    Name: NJ_KOUENKA_ENH
+    Description: Crimson Fire Petal +
+    MaxLevel: 10
+  - Id: 7113
+    Name: NJ_KAENSIN_ENH
+    Description: Crimson Fire Formation +
+    MaxLevel: 10
+  - Id: 7114
+    Name: NJ_BAKUENRYU_ENH
+    Description: Raging Fire Dragon +
+    MaxLevel: 10
+  - Id: 7115
+    Name: NJ_HYOUSENSOU_ENH
+    Description: Spear of Ice +
+    MaxLevel: 10
+  - Id: 7116
+    Name: NJ_HYOUSYOURAKU_ENH
+    Description: Ice Meteor +
+    MaxLevel: 10
+  - Id: 7117
+    Name: NJ_HUUJIN_ENH
+    Description: Wind Blade +
+    MaxLevel: 10
+  - Id: 7118
+    Name: NJ_RAIGEKISAI_ENH
+    Description: Lightning Strike of Destruction +
+    MaxLevel: 10
+  - Id: 7119
+    Name: NJ_KAMAITACHI_ENH
+    Description: Kamaitachi +
+    MaxLevel: 10
+  - Id: 7120
+    Name: NJ_ISSEN_ENH
+    Description: Final Strike +
+    MaxLevel: 10
+  - Id: 7121
+    Name: KN_CHARGEATK_ENH
+    Description: Charge Attack +
+    MaxLevel: 10
+  - Id: 7122
+    Name: AS_VENOMKNIFE_ENH
+    Description: Throw Venom Knife +
+    MaxLevel: 10
+  - Id: 7123
+    Name: WZ_SIGHTBLASTER_ENH
+    Description: Sight Blaster +
+    MaxLevel: 10
+  - Id: 7124
+    Name: HT_PHANTASMIC_ENH
+    Description: Phantasmic Arrow +
+    MaxLevel: 10
+  - Id: 7125
+    Name: MO_BALKYOUNG_ENH
+    Description: Ki Explosion +
+    MaxLevel: 10
+  - Id: 7126
+    Name: RK_SONICWAVE_ENH
+    Description: Sonic Wave +
+    MaxLevel: 10
+  - Id: 7127
+    Name: RK_HUNDREDSPEAR_ENH
+    Description: Hundred Spear +
+    MaxLevel: 10
+  - Id: 7128
+    Name: RK_WINDCUTTER_ENH
+    Description: Wind Cutter +
+    MaxLevel: 10
+  - Id: 7129
+    Name: RK_IGNITIONBREAK_ENH
+    Description: Ignition Break +
+    MaxLevel: 10
+  - Id: 7130
+    Name: RK_DRAGONBREATH_ENH
+    Description: Dragon Breath +
+    MaxLevel: 10
+  - Id: 7131
+    Name: RK_PHANTOMTHRUST_ENH
+    Description: Phantom Thrust +
+    MaxLevel: 10
+  - Id: 7132
+    Name: GC_CROSSIMPACT_ENH
+    Description: Cross Impact +
+    MaxLevel: 10
+  - Id: 7133
+    Name: GC_DARKILLUSION_ENH
+    Description: Dark Illusion +
+    MaxLevel: 10
+  - Id: 7134
+    Name: GC_COUNTERSLASH_ENH
+    Description: Counter Slash +
+    MaxLevel: 10
+  - Id: 7135
+    Name: GC_WEAPONCRUSH_ENH
+    Description: Weapon Crush +
+    MaxLevel: 10
+  - Id: 7136
+    Name: GC_VENOMPRESSURE_ENH
+    Description: Venom Pressure +
+    MaxLevel: 10
+  - Id: 7137
+    Name: GC_PHANTOMMENACE_ENH
+    Description: Phantom Menace +
+    MaxLevel: 10
+  - Id: 7138
+    Name: GC_ROLLINGCUTTER_ENH
+    Description: Rolling Cutter +
+    MaxLevel: 10
+  - Id: 7139
+    Name: GC_CROSSRIPPERSLASHER_ENH
+    Description: Cross Ripper Slasher +
+    MaxLevel: 10
+  - Id: 7140
+    Name: AB_JUDEX_ENH
+    Description: Judex +
+    MaxLevel: 10
+  - Id: 7141
+    Name: AB_ADORAMUS_ENH
+    Description: Adoramus +
+    MaxLevel: 10
+  - Id: 7142
+    Name: AB_CHEAL_ENH
+    Description: Coluceo Heal +
+    MaxLevel: 10
+  - Id: 7143
+    Name: AB_HIGHNESSHEAL_ENH
+    Description: Highness Heal +
+    MaxLevel: 10
+  - Id: 7144
+    Name: WL_WHITEIMPRISON_ENH
+    Description: White Imprison +
+    MaxLevel: 10
+  - Id: 7145
+    Name: WL_SOULEXPANSION_ENH
+    Description: Soul Expansion +
+    MaxLevel: 10
+  - Id: 7146
+    Name: WL_FROSTMISTY_ENH
+    Description: Frosty Misty +
+    MaxLevel: 10
+  - Id: 7147
+    Name: WL_JACKFROST_ENH
+    Description: Jack Frost +
+    MaxLevel: 10
+  - Id: 7148
+    Name: WL_DRAINLIFE_ENH
+    Description: Drain Life +
+    MaxLevel: 10
+  - Id: 7149
+    Name: WL_CRIMSONROCK_ENH
+    Description: Crimson Rock +
+    MaxLevel: 10
+  - Id: 7150
+    Name: WL_HELLINFERNO_ENH
+    Description: Hell Inferno +
+    MaxLevel: 10
+  - Id: 7151
+    Name: WL_COMET_ENH
+    Description: Comet +
+    MaxLevel: 10
+  - Id: 7152
+    Name: WL_CHAINLIGHTNING_ENH
+    Description: Chain Lightning +
+    MaxLevel: 10
+  - Id: 7153
+    Name: WL_EARTHSTRAIN_ENH
+    Description: Earth Strain +
+    MaxLevel: 10
+  - Id: 7154
+    Name: WL_TETRAVORTEX_ENH
+    Description: Tetra Vortex +
+    MaxLevel: 10
+  - Id: 7155
+    Name: RA_ARROWSTORM_ENH
+    Description: Arrow Storm +
+    MaxLevel: 10
+  - Id: 7156
+    Name: RA_AIMEDBOLT_ENH
+    Description: Aimed Bolt +
+    MaxLevel: 10
+  - Id: 7157
+    Name: RA_CLUSTERBOMB_ENH
+    Description: Cluster Bomb +
+    MaxLevel: 10
+  - Id: 7158
+    Name: RA_WUGSTRIKE_ENH
+    Description: Warg Strike +
+    MaxLevel: 10
+  - Id: 7159
+    Name: RA_WUGBITE_ENH
+    Description: Warg Bite +
+    MaxLevel: 10
+  - Id: 7160
+    Name: RA_SENSITIVEKEEN_ENH
+    Description: Sensitive Keen +
+    MaxLevel: 10
+  - Id: 7161
+    Name: RA_FIRINGTRAP_ENH
+    Description: Firing Trap +
+    MaxLevel: 10
+  - Id: 7162
+    Name: RA_ICEBOUNDTRAP_ENH
+    Description: Icebound Trap +
+    MaxLevel: 10
+  - Id: 7163
+    Name: NC_BOOSTKNUCKLE_ENH
+    Description: Boost Knuckle +
+    MaxLevel: 10
+  - Id: 7164
+    Name: NC_PILEBUNKER_ENH
+    Description: Pile Bunker +
+    MaxLevel: 10
+  - Id: 7165
+    Name: NC_VULCANARM_ENH
+    Description: Vulcan Arm +
+    MaxLevel: 10
+  - Id: 7166
+    Name: NC_FLAMELAUNCHER_ENH
+    Description: Flame Launcher +
+    MaxLevel: 10
+  - Id: 7167
+    Name: NC_COLDSLOWER_ENH
+    Description: Cold Slower +
+    MaxLevel: 10
+  - Id: 7168
+    Name: NC_ARMSCANNON_ENH
+    Description: Arm Cannon +
+    MaxLevel: 10
+  - Id: 7169
+    Name: NC_SELFDESTRUCTION_ENH
+    Description: Self Destruction +
+    MaxLevel: 10
+  - Id: 7170
+    Name: NC_AXEBOOMERANG_ENH
+    Description: Axe Boomerang +
+    MaxLevel: 10
+  - Id: 7171
+    Name: NC_POWERSWING_ENH
+    Description: Power Swing +
+    MaxLevel: 10
+  - Id: 7172
+    Name: NC_AXETORNADO_ENH
+    Description: Axe Tornado +
+    MaxLevel: 10
+  - Id: 7173
+    Name: SC_FATALMENACE_ENH
+    Description: Fatal Menace +
+    MaxLevel: 10
+  - Id: 7174
+    Name: SC_TRIANGLESHOT_ENH
+    Description: Triangle Shot +
+    MaxLevel: 10
+  - Id: 7175
+    Name: SC_FEINTBOMB_ENH
+    Description: Feint Bomb +
+    MaxLevel: 10
+  - Id: 7176
+    Name: LG_CANNONSPEAR_ENH
+    Description: Cannon Spear +
+    MaxLevel: 10
+  - Id: 7177
+    Name: LG_BANISHINGPOINT_ENH
+    Description: Banishing Point +
+    MaxLevel: 10
+  - Id: 7178
+    Name: LG_SHIELDPRESS_ENH
+    Description: Shield Press +
+    MaxLevel: 10
+  - Id: 7179
+    Name: LG_RAGEBURST_ENH
+    Description: Rage Burst +
+    MaxLevel: 10
+  - Id: 7180
+    Name: LG_OVERBRAND_ENH
+    Description: Over Brand +
+    MaxLevel: 10
+  - Id: 7181
+    Name: LG_MOONSLASHER_ENH
+    Description: Moon Slasher +
+    MaxLevel: 10
+  - Id: 7182
+    Name: LG_RAYOFGENESIS_ENH
+    Description: Ray of Genesis +
+    MaxLevel: 10
+  - Id: 7183
+    Name: LG_EARTHDRIVE_ENH
+    Description: Earth Drive +
+    MaxLevel: 10
+  - Id: 7184
+    Name: LG_HESPERUSLIT_ENH
+    Description: Hesperus Lit +
+    MaxLevel: 10
+  - Id: 7185
+    Name: SR_DRAGONCOMBO_ENH
+    Description: Dragon Combo +
+    MaxLevel: 10
+  - Id: 7186
+    Name: SR_SKYNETBLOW_ENH
+    Description: Sky Net Blow +
+    MaxLevel: 10
+  - Id: 7187
+    Name: SR_EARTHSHAKER_ENH
+    Description: Earth Shaker +
+    MaxLevel: 10
+  - Id: 7188
+    Name: SR_FALLENEMPIRE_ENH
+    Description: Fallen Empire +
+    MaxLevel: 10
+  - Id: 7189
+    Name: SR_RAMPAGEBLASTER_ENH
+    Description: Rampage Blaster +
+    MaxLevel: 10
+  - Id: 7190
+    Name: SR_KNUCKLEARROW_ENH
+    Description: Knuckle Arrow +
+    MaxLevel: 10
+  - Id: 7191
+    Name: SR_WINDMILL_ENH
+    Description: Windmill +
+    MaxLevel: 10
+  - Id: 7192
+    Name: SR_GATEOFHELL_ENH
+    Description: Gate of Hell +
+    MaxLevel: 10
+  - Id: 7193
+    Name: SR_GENTLETOUCH_QUIET_ENH
+    Description: Gentle Touch - Quiet +
+    MaxLevel: 10
+  - Id: 7194
+    Name: WM_METALICSOUND_ENH
+    Description: Metallic Sound +
+    MaxLevel: 10
+  - Id: 7195
+    Name: WM_REVERBERATION_ENH
+    Description: Reverberation +
+    MaxLevel: 10
+  - Id: 7196
+    Name: WM_GREAT_ECHO_ENH
+    Description: Great Echo +
+    MaxLevel: 10
+  - Id: 7197
+    Name: SO_FIREWALK_ENH
+    Description: Fire Walk +
+    MaxLevel: 10
+  - Id: 7198
+    Name: SO_ELECTRICWALK_ENH
+    Description: Electric Walk +
+    MaxLevel: 10
+  - Id: 7199
+    Name: SO_EARTHGRAVE_ENH
+    Description: Earth Grave +
+    MaxLevel: 10
+  - Id: 7200
+    Name: SO_DIAMONDDUST_ENH
+    Description: Diamond Dust +
+    MaxLevel: 10
+  - Id: 7201
+    Name: SO_POISON_BUSTER_ENH
+    Description: Poison Buster +
+    MaxLevel: 10
+  - Id: 7202
+    Name: SO_PSYCHIC_WAVE_ENH
+    Description: Psychic Wave +
+    MaxLevel: 10
+  - Id: 7203
+    Name: SO_CLOUD_KILL_ENH
+    Description: Cloud Kill +
+    MaxLevel: 10
+  - Id: 7204
+    Name: SO_VARETYR_SPEAR_ENH
+    Description: Varetyr Spear +
+    MaxLevel: 10
+  - Id: 7205
+    Name: GN_CART_TORNADO_ENH
+    Description: Cart Tornado +
+    MaxLevel: 10
+  - Id: 7206
+    Name: GN_CARTCANNON_ENH
+    Description: Cart Cannon +
+    MaxLevel: 10
+  - Id: 7207
+    Name: GN_THORNS_TRAP_ENH
+    Description: Thorn Trap +
+    MaxLevel: 10
+  - Id: 7208
+    Name: GN_SPORE_EXPLOSION_ENH
+    Description: Spore Explosion +
+    MaxLevel: 10
+  - Id: 7209
+    Name: GN_WALLOFTHORN_ENH
+    Description: Wall of Thorns +
+    MaxLevel: 10
+  - Id: 7210
+    Name: GN_CRAZYWEED_ENH
+    Description: Crazy Weed +
+    MaxLevel: 10
+  - Id: 7211
+    Name: GN_DEMONIC_FIRE_ENH
+    Description: Demonic Fire +
+    MaxLevel: 10
+  - Id: 7212
+    Name: SR_HOWLINGOFLION_ENH
+    Description: Howling of Lion +
+    MaxLevel: 10
+  - Id: 7213
+    Name: SR_RIDEINLIGHTNING_ENH
+    Description: Ride In Lightening +
+    MaxLevel: 10
+  - Id: 7214
+    Name: RL_MASS_SPIRAL_ENH
+    Description: Mass Spiral +
+    MaxLevel: 10
+  - Id: 7215
+    Name: RL_BANISHING_BUSTER_ENH
+    Description: Banishing Buster +
+    MaxLevel: 10
+  - Id: 7216
+    Name: RL_S_STORM_ENH
+    Description: Shatter Storm +
+    MaxLevel: 10
+  - Id: 7217
+    Name: RL_QD_SHOT_ENH
+    Description: Quick Draw Shot +
+    MaxLevel: 10
+  - Id: 7218
+    Name: RL_FIREDANCE_ENH
+    Description: Fire Dance +
+    MaxLevel: 10
+  - Id: 7219
+    Name: RL_H_MINE_ENH
+    Description: Howling Mine +
+    MaxLevel: 10
+  - Id: 7220
+    Name: RL_R_TRIP_ENH
+    Description: Round Trip +
+    MaxLevel: 10
+  - Id: 7221
+    Name: RL_D_TAIL_ENH
+    Description: Dragon Tail +
+    MaxLevel: 10
+  - Id: 7222
+    Name: RL_FIRE_RAIN_ENH
+    Description: Fire Rain +
+    MaxLevel: 10
+  - Id: 7223
+    Name: RL_AM_BLAST_ENH
+    Description: Anti-Material Blast +
+    MaxLevel: 10
+  - Id: 7224
+    Name: RL_SLUGSHOT_ENH
+    Description: Slug Shot +
+    MaxLevel: 10
+  - Id: 7225
+    Name: RL_HAMMER_OF_GOD_ENH
+    Description: Hammer of God +
+    MaxLevel: 10
+  - Id: 7226
+    Name: SJ_FULLMOONKICK_ENH
+    Description: Full Moon Kick +
+    MaxLevel: 10
+  - Id: 7227
+    Name: SJ_NEWMOONKICK_ENH
+    Description: New Moon Kick +
+    MaxLevel: 10
+  - Id: 7228
+    Name: SJ_FLASHKICK_ENH
+    Description: Flash Kick +
+    MaxLevel: 10
+  - Id: 7229
+    Name: SJ_STAREMPEROR_ENH
+    Description: Star Emperor Advent +
+    MaxLevel: 10
+  - Id: 7230
+    Name: SJ_NOVAEXPLOSING_ENH
+    Description: Nova Explosion +
+    MaxLevel: 10
+  - Id: 7231
+    Name: SJ_BOOKOFCREATINGSTAR_ENH
+    Description: Book of Creating Star +
+    MaxLevel: 10
+  - Id: 7232
+    Name: SJ_SOLARBURST_ENH
+    Description: Solar Burst +
+    MaxLevel: 10
+  - Id: 7233
+    Name: SJ_PROMINENCEKICK_ENH
+    Description: Prominence Kick +
+    MaxLevel: 10
+  - Id: 7234
+    Name: SP_CURSEEXPLOSION_ENH
+    Description: Curse Explosion +
+    MaxLevel: 10
+  - Id: 7235
+    Name: SP_SPA_ENH
+    Description: Espa +
+    MaxLevel: 10
+  - Id: 7236
+    Name: SP_SHA_ENH
+    Description: Esha +
+    MaxLevel: 10
+  - Id: 7237
+    Name: SP_SWHOO_ENH
+    Description: Eswhoo +
+    MaxLevel: 10
+  - Id: 7238
+    Name: SP_SOULEXPLOSION_ENH
+    Description: Soul Explosion +
+    MaxLevel: 10
+  - Id: 7239
+    Name: KO_JYUMONJIKIRI_ENH
+    Description: Cross Slash +
+    MaxLevel: 10
+  - Id: 7240
+    Name: KO_SETSUDAN_ENH
+    Description: Soul Cutter +
+    MaxLevel: 10
+  - Id: 7241
+    Name: KO_BAKURETSU_ENH
+    Description: Kunai Explosion +
+    MaxLevel: 10
+  - Id: 7242
+    Name: KO_HAPPOKUNAI_ENH
+    Description: Kunai Splash +
+    MaxLevel: 10
+  - Id: 7243
+    Name: KO_MUCHANAGE_ENH
+    Description: Rapid Throw +
+    MaxLevel: 10
+  - Id: 7244
+    Name: KO_HUUMARANKA_ENH
+    Description: Swirling Petal +
+    MaxLevel: 10
+  - Id: 7245
+    Name: KO_MAKIBISHI_ENH
+    Description: Makibishi +
+    MaxLevel: 10
+  - Id: 7246
+    Name: KO_KAIHOU_ENH
+    Description: Release Ninja Spell +
+    MaxLevel: 10
+  - Id: 7247
+    Name: KO_ZENKAI_ENH
+    Description: Cast Ninja Spell +
+    MaxLevel: 10
+  - Id: 7248
+    Name: GC_DARKCROW_ENH
+    Description: Dark Claw +
+    MaxLevel: 10
+  - Id: 7249
+    Name: GN_ILLUSIONDOPING_ENH
+    Description: Illusion Doping +
+    MaxLevel: 10
+  - Id: 7250
+    Name: RK_DRAGONBREATH_WATER_ENH
+    Description: Dragon Breath - Water +
+    MaxLevel: 10
+  - Id: 7251
+    Name: NC_MAGMA_ERUPTION_ENH
+    Description: Magma Eruption +
+    MaxLevel: 10
+  - Id: 7252
+    Name: SU_BITE_ENH
+    Description: Bite +
+    MaxLevel: 10
+  - Id: 7253
+    Name: SU_SCRATCH_ENH
+    Description: Scratch +
+    MaxLevel: 10
+  - Id: 7254
+    Name: SU_SV_STEMSPEAR_ENH
+    Description: Silvervine Stem Spear +
+    MaxLevel: 10
+  - Id: 7255
+    Name: SU_CN_METEOR_ENH
+    Description: Catnip Meteor +
+    MaxLevel: 10
+  - Id: 7256
+    Name: SU_SCAROFTAROU_ENH
+    Description: Scar of Tarou +
+    MaxLevel: 10
+  - Id: 7257
+    Name: SU_PICKYPECK_ENH
+    Description: Picky Peck +
+    MaxLevel: 10
+  - Id: 7258
+    Name: SU_LUNATICCARROTBEAT_ENH
+    Description: Lunatic Carrot Beat +
+    MaxLevel: 10
+  - Id: 7259
+    Name: SU_SVG_SPIRIT_ENH
+    Description: Spirit of Savage +
+    MaxLevel: 10
+  - Id: 7260
+    Name: DK_SERVANT_W_PHANTOM_ENH
+    Description: Servant Weapon Phantom +
+    MaxLevel: 10
+  - Id: 7261
+    Name: DK_SERVANT_W_DEMOL_ENH
+    Description: Servant Weapon Demolition +
+    MaxLevel: 10
+  - Id: 7262
+    Name: DK_HACKANDSLASHER_ENH
+    Description: Hack And Slasher +
+    MaxLevel: 10
+  - Id: 7263
+    Name: DK_DRAGONIC_AURA_ENH
+    Description: Dragonic Aura +
+    MaxLevel: 10
+  - Id: 7264
+    Name: DK_MADNESS_CRUSHER_ENH
+    Description: Madness Crusher +
+    MaxLevel: 10
+  - Id: 7265
+    Name: DK_STORMSLASH_ENH
+    Description: Storm Slash +
+    MaxLevel: 10
+  - Id: 7266
+    Name: AG_DEADLY_PROJECTION_ENH
+    Description: Deadly Projection +
+    MaxLevel: 10
+  - Id: 7267
+    Name: AG_DESTRUCTIVE_HURRICANE_ENH
+    Description: Destructive Hurricane +
+    MaxLevel: 10
+  - Id: 7268
+    Name: AG_RAIN_OF_CRYSTAL_ENH
+    Description: Rain Of Crystal +
+    MaxLevel: 10
+  - Id: 7269
+    Name: AG_MYSTERY_ILLUSION_ENH
+    Description: Mystery Illusion +
+    MaxLevel: 10
+  - Id: 7270
+    Name: AG_VIOLENT_QUAKE_ENH
+    Description: Violent Quake +
+    MaxLevel: 10
+  - Id: 7271
+    Name: AG_SOUL_VC_STRIKE_ENH
+    Description: Soul Vulcan Strike +
+    MaxLevel: 10
+  - Id: 7272
+    Name: AG_STRANTUM_TREMOR_ENH
+    Description: Strantum Tremor +
+    MaxLevel: 10
+  - Id: 7273
+    Name: AG_ALL_BLOOM_ENH
+    Description: All Bloom +
+    MaxLevel: 10
+  - Id: 7274
+    Name: AG_CRYSTAL_IMPACT_ENH
+    Description: Crystal Impact +
+    MaxLevel: 10
+  - Id: 7275
+    Name: AG_TORNADO_STORM_ENH
+    Description: Tornado Storm +
+    MaxLevel: 10
+  - Id: 7276
+    Name: AG_FLORAL_FLARE_ROAD_ENH
+    Description: Floral Flare Road +
+    MaxLevel: 10
+  - Id: 7277
+    Name: AG_ASTRAL_STRIKE_ENH
+    Description: Astral Strike +
+    MaxLevel: 10
+  - Id: 7278
+    Name: AG_ROCK_DOWN_ENH
+    Description: Rock Down +
+    MaxLevel: 10
+  - Id: 7279
+    Name: AG_STORM_CANNON_ENH
+    Description: Storm Cannon +
+    MaxLevel: 10
+  - Id: 7280
+    Name: AG_CRIMSON_ARROW_ENH
+    Description: Crimson Arrow +
+    MaxLevel: 10
+  - Id: 7281
+    Name: AG_FROZEN_SLASH_ENH
+    Description: Frozen Slash +
+    MaxLevel: 10
+  - Id: 7282
+    Name: IQ_OLEUM_SANCTUM_ENH
+    Description: Oleum Sanctum +
+    MaxLevel: 10
+  - Id: 7283
+    Name: IQ_MASSIVE_F_BLASTER_ENH
+    Description: Massive Flame Blaster +
+    MaxLevel: 10
+  - Id: 7284
+    Name: IQ_EXPOSION_BLASTER_ENH
+    Description: Explosion Blaster +
+    MaxLevel: 10
+  - Id: 7285
+    Name: IQ_FIRST_BRAND_ENH
+    Description: First Brand +
+    MaxLevel: 10
+  - Id: 7286
+    Name: IQ_SECOND_FLAME_ENH
+    Description: Second Flame +
+    MaxLevel: 10
+  - Id: 7287
+    Name: IQ_SECOND_FAITH_ENH
+    Description: Second Faith +
+    MaxLevel: 10
+  - Id: 7288
+    Name: IQ_SECOND_JUDGEMENT_ENH
+    Description: Second Judgement +
+    MaxLevel: 10
+  - Id: 7289
+    Name: IQ_THIRD_PUNISH_ENH
+    Description: Third Punish +
+    MaxLevel: 10
+  - Id: 7290
+    Name: IQ_THIRD_FLAME_BOMB_ENH
+    Description: Third Flame Bomb +
+    MaxLevel: 10
+  - Id: 7291
+    Name: IQ_THIRD_CONSECRATION_ENH
+    Description: Third Consecration +
+    MaxLevel: 10
+  - Id: 7292
+    Name: IG_GRAND_JUDGEMENT_ENH
+    Description: Grand Judgement +
+    MaxLevel: 10
+  - Id: 7293
+    Name: IG_JUDGEMENT_CROSS_ENH
+    Description: Judgement Cross +
+    MaxLevel: 10
+  - Id: 7294
+    Name: IG_SHIELD_SHOOTING_ENH
+    Description: Shield Shooting +
+    MaxLevel: 10
+  - Id: 7295
+    Name: IG_OVERSLASH_ENH
+    Description: Overslash +
+    MaxLevel: 10
+  - Id: 7296
+    Name: IG_CROSS_RAIN_ENH
+    Description: Cross Rain +
+    MaxLevel: 10
+  - Id: 7297
+    Name: CD_MEDIALE_VOTUM_ENH
+    Description: Mediale Votum +
+    MaxLevel: 10
+  - Id: 7298
+    Name: CD_ARBITRIUM_ENH
+    Description: Arbitrium +
+    MaxLevel: 10
+  - Id: 7299
+    Name: CD_EFFLIGO_ENH
+    Description: Effligo +
+    MaxLevel: 10
+  - Id: 7300
+    Name: CD_PNEUMATICUS_PROCELLA_ENH
+    Description: Pneumaticus Procella +
+    MaxLevel: 10
+  - Id: 7301
+    Name: CD_PETITIO_ENH
+    Description: Petitio +
+    MaxLevel: 10
+  - Id: 7302
+    Name: CD_FRAMEN_ENH
+    Description: Framen +
+    MaxLevel: 10
+  - Id: 7303
+    Name: SHC_DANCING_KNIFE_ENH
+    Description: Dancing Knife +
+    MaxLevel: 10
+  - Id: 7304
+    Name: SHC_SAVAGE_IMPACT_ENH
+    Description: Savage Impact +
+    MaxLevel: 10
+  - Id: 7305
+    Name: SHC_ETERNAL_SLASH_ENH
+    Description: Eternal Slash +
+    MaxLevel: 10
+  - Id: 7306
+    Name: SHC_SHADOW_STAB_ENH
+    Description: Shadow Stab +
+    MaxLevel: 10
+  - Id: 7307
+    Name: SHC_IMPACT_CRATER_ENH
+    Description: Impact Crater +
+    MaxLevel: 10
+  - Id: 7308
+    Name: SHC_FATAL_SHADOW_CROW_ENH
+    Description: Fatal Shadow Crow +
+    MaxLevel: 10
+  - Id: 7309
+    Name: MT_AXE_STOMP_ENH
+    Description: Axe Stomp +
+    MaxLevel: 10
+  - Id: 7310
+    Name: MT_RUSH_QUAKE_ENH
+    Description: Rush Quake +
+    MaxLevel: 10
+  - Id: 7311
+    Name: MT_A_MACHINE_ENH
+    Description: Attack Machine +
+    MaxLevel: 10
+  - Id: 7312
+    Name: ABC_ABYSS_DAGGER_ENH
+    Description: Abyss Dagger +
+    MaxLevel: 10
+  - Id: 7313
+    Name: ABC_UNLUCKY_RUSH_ENH
+    Description: Unlucky Rush +
+    MaxLevel: 10
+  - Id: 7314
+    Name: ABC_CHAIN_REACTION_SHOT_ENH
+    Description: Chain Reaction Shot +
+    MaxLevel: 10
+  - Id: 7315
+    Name: ABC_ABYSS_STRIKE_ENH
+    Description: Omega Abyss Strike +
+    MaxLevel: 10
+  - Id: 7316
+    Name: ABC_DEFT_STAB_ENH
+    Description: Deft Stab +
+    MaxLevel: 10
+  - Id: 7317
+    Name: ABC_ABYSS_SQUARE_ENH
+    Description: Abyss Square +
+    MaxLevel: 10
+  - Id: 7318
+    Name: ABC_FRENZY_SHOT_ENH
+    Description: Frenzy Shot +
+    MaxLevel: 10
+  - Id: 7319
+    Name: WH_HAWKRUSH_ENH
+    Description: Hawk Rush +
+    MaxLevel: 10
+  - Id: 7320
+    Name: WH_HAWKBOOMERANG_ENH
+    Description: Hawk Boomerang +
+    MaxLevel: 10
+  - Id: 7321
+    Name: WH_GALESTORM_ENH
+    Description: Gale Storm +
+    MaxLevel: 10
+  - Id: 7322
+    Name: WH_DEEPBLINDTRAP_ENH
+    Description: Deep Blind Trap +
+    MaxLevel: 10
+  - Id: 7323
+    Name: WH_SOLIDTRAP_ENH
+    Description: Solid Trap +
+    MaxLevel: 10
+  - Id: 7324
+    Name: WH_SWIFTTRAP_ENH
+    Description: Swift Trap +
+    MaxLevel: 10
+  - Id: 7325
+    Name: WH_CRESCIVE_BOLT_ENH
+    Description: Crescive Bolt +
+    MaxLevel: 10
+  - Id: 7326
+    Name: WH_FLAMETRAP_ENH
+    Description: Flame Trap +
+    MaxLevel: 10
+  - Id: 7327
+    Name: BO_ACIDIFIED_ZONE_WATER_ENH
+    Description: Acidified Zone Water +
+    MaxLevel: 10
+  - Id: 7328
+    Name: BO_ACIDIFIED_ZONE_GROUND_ENH
+    Description: Acidified Zone Ground +
+    MaxLevel: 10
+  - Id: 7329
+    Name: BO_ACIDIFIED_ZONE_WIND_ENH
+    Description: Acidified Zone Wind +
+    MaxLevel: 10
+  - Id: 7330
+    Name: BO_ACIDIFIED_ZONE_FIRE_ENH
+    Description: Acidified Zone Fire +
+    MaxLevel: 10
+  - Id: 7331
+    Name: TR_ROSEBLOSSOM_ENH
+    Description: Rose Blossom +
+    MaxLevel: 10
+  - Id: 7332
+    Name: TR_RHYTHMSHOOTING_ENH
+    Description: Rhythm Shooting +
+    MaxLevel: 10
+  - Id: 7333
+    Name: TR_METALIC_FURY_ENH
+    Description: Metallic Fury +
+    MaxLevel: 10
+  - Id: 7334
+    Name: EM_DIAMOND_STORM_ENH
+    Description: Diamond Storm +
+    MaxLevel: 10
+  - Id: 7335
+    Name: EM_LIGHTNING_LAND_ENH
+    Description: Lightning Land +
+    MaxLevel: 10
+  - Id: 7336
+    Name: EM_VENOM_SWAMP_ENH
+    Description: Venom Swamp +
+    MaxLevel: 10
+  - Id: 7337
+    Name: EM_CONFLAGRATION_ENH
+    Description: Conflagration +
+    MaxLevel: 10
+  - Id: 7338
+    Name: EM_TERRA_DRIVE_ENH
+    Description: Terra Drive +
+    MaxLevel: 10
+  - Id: 7339
+    Name: EM_ELEMENTAL_BUSTER_ENH
+    Description: Elemental Buster +
+    MaxLevel: 10
+  - Id: 7340
+    Name: NW_THE_VIGILANTE_AT_NIGHT_ENH
+    Description: The Vigilante at Night +
+    MaxLevel: 10
+  - Id: 7341
+    Name: NW_ONLY_ONE_BULLET_ENH
+    Description: Only One Bullet +
+    MaxLevel: 10
+  - Id: 7342
+    Name: NW_SPIRAL_SHOOTING_ENH
+    Description: Spiral Shooting +
+    MaxLevel: 10
+  - Id: 7343
+    Name: NW_MAGAZINE_FOR_ONE_ENH
+    Description: Magazine for One +
+    MaxLevel: 10
+  - Id: 7344
+    Name: NW_WILD_FIRE_ENH
+    Description: Wild Fire +
+    MaxLevel: 10
+  - Id: 7345
+    Name: NW_BASIC_GRENADE_ENH
+    Description: Basic Grenade +
+    MaxLevel: 10
+  - Id: 7346
+    Name: NW_HASTY_FIRE_IN_THE_HOLE_ENH
+    Description: Hasty Fire in the Hole +
+    MaxLevel: 10
+  - Id: 7347
+    Name: NW_GRENADES_DROPPING_ENH
+    Description: Grenades Dropping +
+    MaxLevel: 10
+  - Id: 7348
+    Name: NW_MISSION_BOMBARD_ENH
+    Description: Mission Bombard +
+    MaxLevel: 10
+  - Id: 7349
+    Name: SOA_TALISMAN_OF_SOUL_STEALING_ENH
+    Description: Talisman Of Soul Stealing +
+    MaxLevel: 10
+  - Id: 7350
+    Name: SOA_EXORCISM_OF_MALICIOUS_SOUL_ENH
+    Description: Exorcism Of Malicious Soul +
+    MaxLevel: 10
+  - Id: 7351
+    Name: SOA_TALISMAN_OF_BLUE_DRAGON_ENH
+    Description: Talisman Of Blue Dragon +
+    MaxLevel: 10
+  - Id: 7352
+    Name: SOA_TALISMAN_OF_WHITE_TIGER_ENH
+    Description: Talisman Of White Tiger +
+    MaxLevel: 10
+  - Id: 7353
+    Name: SOA_TALISMAN_OF_RED_PHOENIX_ENH
+    Description: Talisman Of Red Phoenix +
+    MaxLevel: 10
+  - Id: 7354
+    Name: SOA_TALISMAN_OF_BLACK_TORTOISE_ENH
+    Description: Talisman Of Black Tortoise +
+    MaxLevel: 10
+  - Id: 7355
+    Name: SOA_TALISMAN_OF_FOUR_BEARING_GOD_ENH
+    Description: Talisman Of Four Bearing God +
+    MaxLevel: 10
+  - Id: 7356
+    Name: SOA_CIRCLE_OF_DIRECTIONS_AND_ELEMEN_ENH
+    Description: Circle Of Directions And Elementals +
+    MaxLevel: 10
+  - Id: 7357
+    Name: SH_CHUL_HO_SONIC_CLAW_ENH
+    Description: Chulho Sonic Claw +
+    MaxLevel: 10
+  - Id: 7358
+    Name: SH_HOWLING_OF_CHUL_HO_ENH
+    Description: Howling of Chulho +
+    MaxLevel: 10
+  - Id: 7359
+    Name: SH_HOGOGONG_STRIKE_ENH
+    Description: Hogogong Strike +
+    MaxLevel: 10
+  - Id: 7360
+    Name: SH_HYUN_ROKS_BREEZE_ENH
+    Description: Hyunrok Breeze +
+    MaxLevel: 10
+  - Id: 7361
+    Name: SH_HYUN_ROK_CANNON_ENH
+    Description: Hyunrok Cannon +
+    MaxLevel: 10
+  - Id: 7362
+    Name: HN_DOUBLEBOWLINGBASH_ENH
+    Description: Double Bowling Bash +
+    MaxLevel: 10
+  - Id: 7363
+    Name: HN_MEGA_SONIC_BLOW_ENH
+    Description: Mega Sonic Blow +
+    MaxLevel: 10
+  - Id: 7364
+    Name: HN_SHIELD_CHAIN_RUSH_ENH
+    Description: Shield Chain Rush +
+    MaxLevel: 10
+  - Id: 7365
+    Name: HN_SPIRAL_PIERCE_MAX_ENH
+    Description: Spiral Pierce Max +
+    MaxLevel: 10
+  - Id: 7366
+    Name: HN_METEOR_STORM_BUSTER_ENH
+    Description: Meteor Storm Buster +
+    MaxLevel: 10
+  - Id: 7367
+    Name: HN_JUPITEL_THUNDER_STORM_ENH
+    Description: Jupitel Thunderstorm +
+    MaxLevel: 10
+  - Id: 7368
+    Name: HN_JACK_FROST_NOVA_ENH
+    Description: Jack Frost Nova +
+    MaxLevel: 10
+  - Id: 7369
+    Name: HN_HELLS_DRIVE_ENH
+    Description: Hell's Drive +
+    MaxLevel: 10
+  - Id: 7370
+    Name: HN_GROUND_GRAVITATION_ENH
+    Description: Ground Gravitation +
+    MaxLevel: 10
+  - Id: 7371
+    Name: HN_NAPALM_VULCAN_STRIKE_ENH
+    Description: Napalm Vulcan Strike +
+    MaxLevel: 10
+  - Id: 7372
+    Name: SKE_RISING_SUN_ENH
+    Description: Rising Sun +
+    MaxLevel: 10
+  - Id: 7373
+    Name: SKE_NOON_BLAST_ENH
+    Description: Noon Blast +
+    MaxLevel: 10
+  - Id: 7374
+    Name: SKE_SUNSET_BLAST_ENH
+    Description: Sunset Blast +
+    MaxLevel: 10
+  - Id: 7375
+    Name: SKE_RISING_MOON_ENH
+    Description: Rising Moon +
+    MaxLevel: 10
+  - Id: 7376
+    Name: SKE_MIDNIGHT_KICK_ENH
+    Description: Midnight Kick +
+    MaxLevel: 10
+  - Id: 7377
+    Name: SKE_DAWN_BREAK_ENH
+    Description: Dawn Break +
+    MaxLevel: 10
+  - Id: 7378
+    Name: SKE_TWINKLING_GALAXY_ENH
+    Description: Twinkling Galaxy +
+    MaxLevel: 10
+  - Id: 7379
+    Name: SKE_STAR_BURST_ENH
+    Description: Star Burst +
+    MaxLevel: 10
+  - Id: 7380
+    Name: SKE_STAR_CANNON_ENH
+    Description: Star Cannon +
+    MaxLevel: 10
+  - Id: 7381
+    Name: SKE_ALL_IN_THE_SKY_ENH
+    Description: All in the Sky +
+    MaxLevel: 10
+  - Id: 7382
+    Name: SS_TOKEDASU_ENH
+    Description: Melt Away +
+    MaxLevel: 10
+  - Id: 7383
+    Name: SS_SHIMIRU_ENH
+    Description: Infiltrate +
+    MaxLevel: 10
+  - Id: 7384
+    Name: SS_KAGEGARI_ENH
+    Description: Shadow Hunting +
+    MaxLevel: 10
+  - Id: 7385
+    Name: SS_KAGENOMAI_ENH
+    Description: Shadow Dance +
+    MaxLevel: 10
+  - Id: 7386
+    Name: SS_KAGEGISSEN_ENH
+    Description: Shadow Flash +
+    MaxLevel: 10
+  - Id: 7387
+    Name: SS_FUUMASHOUAKU_ENH
+    Description: Huuma Shuriken - Grasp +
+    MaxLevel: 10
+  - Id: 7388
+    Name: SS_FUUMAKOUCHIKU_ENH
+    Description: Huuma Shuriken - Construct +
+    MaxLevel: 10
+  - Id: 7389
+    Name: SS_KUNAIWAIKYOKU_ENH
+    Description: Kunai - Distortion +
+    MaxLevel: 10
+  - Id: 7390
+    Name: SS_KUNAIKAITEN_ENH
+    Description: Kunai - Rotation +
+    MaxLevel: 10
+  - Id: 7391
+    Name: SS_KUNAIKUSSETSU_ENH
+    Description: Kunai - Refraction +
+    MaxLevel: 10
+  - Id: 7392
+    Name: SS_SEKIENHOU_ENH
+    Description: Red Flame Cannon +
+    MaxLevel: 10
+  - Id: 7393
+    Name: SS_REIKETSUHOU_ENH
+    Description: Cold Blooded Cannon +
+    MaxLevel: 10
+  - Id: 7394
+    Name: SS_RAIDENPOU_ENH
+    Description: Thundering Cannon +
+    MaxLevel: 10
+  - Id: 7395
+    Name: SS_KINRYUUHOU_ENH
+    Description: Golden Dragon Cannon +
+    MaxLevel: 10
+  - Id: 7396
+    Name: SS_ANTENPOU_ENH
+    Description: Darkening Cannon +
+    MaxLevel: 10
+  - Id: 7397
+    Name: SS_KAGEAKUMU_ENH
+    Description: Shadow - Nightmare +
+    MaxLevel: 10
+  - Id: 7398
+    Name: SS_HITOUAKUMU_ENH
+    Description: Kunai - Nightmare +
+    MaxLevel: 10
+  - Id: 7399
+    Name: SS_ANKOKURYUUAKUMU_ENH
+    Description: Dark Dragon - Nightmare +
+    MaxLevel: 10
+  - Id: 7400
+    Name: NW_WILD_SHOT_ENH
+    Description: Wild Shot +
+    MaxLevel: 10
+  - Id: 7401
+    Name: NW_MIDNIGHT_FALLEN_ENH
+    Description: Midnight Fallen +
+    MaxLevel: 10
+  - Id: 7402
+    Name: SKE_SKY_SUN_ENH
+    Description: Sky Sun +
+    MaxLevel: 10
+  - Id: 7403
+    Name: SKE_SKY_MOON_ENH
+    Description: Sky Moon +
+    MaxLevel: 10
+  - Id: 7404
+    Name: SKE_STAR_LIGHT_KICK_ENH
+    Description: Star Light Kick +
+    MaxLevel: 10
+  - Id: 7405
+    Name: SH_CHUL_HO_BATTERING_ENH
+    Description: Chulho Battering +
+    MaxLevel: 10
+  - Id: 7406
+    Name: SH_HYUN_ROK_SPIRIT_POWER_ENH
+    Description: Hyunrok Spirit Power +
+    MaxLevel: 10
+  - Id: 7407
+    Name: DK_DRAGONIC_BREATH_ENH
+    Description: Dragonic Breath +
+    MaxLevel: 10
+  - Id: 7408
+    Name: MT_SPARK_BLASTER_ENH
+    Description: Spark Blaster +
+    MaxLevel: 10
+  - Id: 7409
+    Name: MT_TRIPLE_LASER_ENH
+    Description: Triple Laser +
+    MaxLevel: 10
+  - Id: 7410
+    Name: MT_MIGHTY_SMASH_ENH
+    Description: Mighty Smash +
+    MaxLevel: 10
+  - Id: 7411
+    Name: BO_EXPLOSIVE_POWDER_ENH
+    Description: Explosive Powder +
+    MaxLevel: 10
+  - Id: 7412
+    Name: BO_MAYHEMIC_THORNS_ENH
+    Description: Mayhemic Thorns +
+    MaxLevel: 10
+  - Id: 7413
+    Name: DK_DRAGONIC_PIERCE_ENH
+    Description: Dragonic Pierce +
+    MaxLevel: 10
+  - Id: 7414
+    Name: IG_RADIANT_SPEAR_ENH
+    Description: Radiant Spear +
+    MaxLevel: 10
+  - Id: 7415
+    Name: IG_IMPERIAL_CROSS_ENH
+    Description: Imperial Cross +
+    MaxLevel: 10
+  - Id: 7416
+    Name: IG_IMPERIAL_PRESSURE_ENH
+    Description: Imperial Pressure +
+    MaxLevel: 10
+  - Id: 7417
+    Name: MT_RUSH_STRIKE_ENH
+    Description: Rush Strike +
+    MaxLevel: 10
+  - Id: 7418
+    Name: MT_POWERFUL_SWING_ENH
+    Description: Powerful Swing +
+    MaxLevel: 10
+  - Id: 7419
+    Name: MT_ENERGY_CANNONADE_ENH
+    Description: Energy Cannonade +
+    MaxLevel: 10
+  - Id: 7420
+    Name: BO_MYSTERY_POWDER_ENH
+    Description: Mystery Powder +
+    MaxLevel: 10
+  - Id: 7421
+    Name: BO_DUST_EXPLOSION_ENH
+    Description: Dust Explosion +
+    MaxLevel: 10
+  - Id: 7422
+    Name: SHC_CROSS_SLASH_ENH
+    Description: Cross Slash +
+    MaxLevel: 10
+  - Id: 7423
+    Name: ABC_HIT_AND_SLIDING_ENH
+    Description: Hit And Sliding +
+    MaxLevel: 10
+  - Id: 7424
+    Name: ABC_CHASING_BREAK_ENH
+    Description: Chasing Break +
+    MaxLevel: 10
+  - Id: 7425
+    Name: ABC_CHASING_SHOT_ENH
+    Description: Chasing Shot +
+    MaxLevel: 10
+  - Id: 7426
+    Name: ABC_ABYSS_FLAME_ENH
+    Description: Abyss Flame +
+    MaxLevel: 10
+  - Id: 7427
+    Name: EM_PSYCHIC_STREAM_ENH
+    Description: Psychic Stream +
+    MaxLevel: 10
+  - Id: 7428
+    Name: CD_DIVINUS_FLOS_ENH
+    Description: Divinus Flos +
+    MaxLevel: 10
+  - Id: 7429
+    Name: IQ_BLAZING_FLAME_BLAST_ENH
+    Description: Blazing Flame Blast +
+    MaxLevel: 10
+  - Id: 7430
+    Name: WH_WILD_WALK_ENH
+    Description: Wild Walk +
+    MaxLevel: 10
+  - Id: 7431
+    Name: TR_RHYTHMICAL_WAVE_ENH
+    Description: Rhythmical Wave +
+    MaxLevel: 10

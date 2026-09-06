@@ -7,9 +7,10 @@
 //  ------------------------------------------------------------
 //
 //  Eine Fertigkeit, die auf ihrem MaxLevel steht, laesst sich
-//  hier um bis zu +10 verstaerken - Bash Lv 10 wird Bash Lv 20.
-//  Der Server rechnet dann mit Stufe 20: Schaden, SP-Kosten,
-//  Reichweite, alles aus derselben Formel, nur weiter oben.
+//  hier um bis zu +10 verstaerken. Wer Bash 10 mit +3 wirkt, wirkt
+//  Bash 13: Schaden, SP-Kosten, Reichweite aus derselben Formel,
+//  nur weiter oben. Das Skillfenster zeigt Bash weiter als 10/10;
+//  das Plus steht als "Bash [Enhanced] Lv 3" im Etc-Tab.
 //
 //  Bezahlt wird mit SKILL-ESSENZ, und zwar mit der Essenz genau
 //  dieser Fertigkeit. Es gibt keine allgemeine Essenz: Bash
@@ -37,18 +38,19 @@
 //
 //  Die Verstaerkung ist die Charaktervariable skenh_<skill_id>,
 //  gesetzt ueber den Skriptbefehl skillenhance (src/custom/
-//  script.inc). pc_calc_skilltree legt sie nach jedem Reset,
-//  Jobwechsel und Login wieder auf die Fertigkeit - Essenz geht
-//  nie verloren. Sie wirkt aber nur, wenn die Basis auf MaxLevel
-//  steht: wer nach dem Reset Bash erst auf 7 hat, spielt Bash 7,
-//  und bei 10 sind es wieder 20. pc_resetskill erstattet nur die
-//  bezahlten Punkte, nie die gekauften Stufen (pc_skillenh_base).
+//  script.inc). Die gespeicherte Skillstufe bleibt auf MaxLevel;
+//  das Plus rechnet unit_skilluse_id2/pos2 beim Einsatz dazu
+//  (pc_skillenh_effective) - nur, wenn die Basis auf MaxLevel
+//  steht und auf dieser hoechsten Stufe gewirkt wird. Wer nach dem
+//  Reset Bash erst auf 7 hat, spielt Bash 7; bei 10 sind es wieder
+//  13. Essenz geht nie verloren, Skillpunkte bleiben unberuehrt.
 //
-//  Der Client muss die Stufen kennen: skillinfolist.lub traegt
-//  fuer jede verstaerkbare Fertigkeit MaxLv 20 (bzw. MaxLevel+10)
-//  und passend lange SpAmount-/AttackRange-Arrays. Ohne das zeigt
-//  das Skillfenster 10 und der Stufenwaehler endet bei 10. Auch
-//  das schreibt bauen.py.
+//  Sichtbar: je Fertigkeit ein Dummy-Passivskill "<NAME>_ENH"
+//  (db/import/skill_db_skillenh.yml), den der Server temporaer mit
+//  Stufe = Plus vergibt. Er steht in keinem Klassenbaum, der Client
+//  zeigt ihn im Etc-Tab mit dem Icon der echten Fertigkeit. Die
+//  Client-Eintraege (skillid, skillinfolist, skilldescript) schreibt
+//  bauen.py.
 //
 //  ------------------------------------------------------------
 //  WO ER STEHT
@@ -98,8 +100,11 @@ ayo_in02,100,185,4	script	Essence Keeper#safa	4_M_THAIONGBAK,{
 		close;
 	case 3:
 		mes "[Essence Keeper]";
-		mes "A skill at its ^0000CChighest level^000000 can be pushed further - up to ^990000+10^000000, so a level 10 skill becomes level ^990000" + .stufe_max + "^000000.";
+		mes "A skill at its ^0000CChighest level^000000 can be pushed further - up to ^990000+10^000000. Use it at its highest level and it counts as ten levels more: Bash 10 with +3 strikes as Bash 13.";
 		mes "Damage, SP cost and range all follow. Nothing is capped.";
+		next;
+		mes "[Essence Keeper]";
+		mes "Your skill window keeps showing the level you learned. Look in the ^0000CCEtc^000000 tab instead: every enhanced skill has an entry there, and its level is your plus.";
 		next;
 		mes "[Essence Keeper]";
 		mes "Each skill has its own ^0000CCessence^000000. Bash needs Bash Essence, Storm Gust needs Storm Gust Essence. There is no other coin.";
@@ -137,7 +142,7 @@ ayo_in02,100,185,4	script	Essence Keeper#safa	4_M_THAIONGBAK,{
 	.@max   = $@SKENH_MAX[.@i];
 	.@plus  = getskillenhance(.@id);
 	.@lv    = getskilllv(.@id);
-	.@basis = .@lv - .@plus;
+	.@basis = .@lv;    // gespeicherte Stufe ist die Basis, das Plus liegt daneben
 	.@decke = min(.@max + .plus_max, .stufe_max) - .@max;
 	.@kosten = (.@plus + 1) * .je_stufe;
 	.@hab   = countitem(.@item);
@@ -185,7 +190,7 @@ ayo_in02,100,185,4	script	Essence Keeper#safa	4_M_THAIONGBAK,{
 
 	specialeffect2 EF_ENHANCE;
 	mes "[Essence Keeper]";
-	mes "Done. ^0000CC" + $@SKENH_NAME$[.@i] + "^000000 is now level ^990000" + getskilllv(.@id) + "^000000 (+" + (.@plus + 1) + ").";
+	mes "Done. ^0000CC" + $@SKENH_NAME$[.@i] + "^000000 is now ^990000+" + (.@plus + 1) + "^000000 - it strikes as level " + (.@basis + .@plus + 1) + ". See the Etc tab.";
 	if (.@plus + 1 >= .@decke) {
 		mes "That is the end of the road for this one.";
 		announce "[Essence Keeper] " + strcharinfo(0) + " has pushed " + $@SKENH_NAME$[.@i] + " to +" + (.@plus + 1) + ".", bc_all, "0x99CCFF";
@@ -293,7 +298,7 @@ S_Waehlen:
 			.@i = .@liste[.@k];
 			.@menu$ += $@SKENH_NAME$[.@i];
 			if (.@zeigen)
-				.@menu$ += " [Lv " + getskilllv($@SKENH_ID[.@i]) + ", +" + getskillenhance($@SKENH_ID[.@i]) + "]";
+				.@menu$ += " [Lv " + getskilllv($@SKENH_ID[.@i]) + " +" + getskillenhance($@SKENH_ID[.@i]) + "]";
 			.@menu$ += ":";
 		}
 		.@menu$ += ((.@bis < .@n) ? "-- next page --:" : "");

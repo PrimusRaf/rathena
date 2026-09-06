@@ -2097,6 +2097,11 @@ int32 unit_skilluse_id2(block_list *src, int32 target_id, uint16 skill_id, uint1
 	if (ud && ud->state.blockedskill)
 		return 0;
 
+	// SafaRO: Skill-Enhancement - auf der hoechsten gelernten Stufe
+	// kommt das gekaufte Plus dazu (pc.cpp, pc_skillenh_effective).
+	if (sd != nullptr)
+		skill_lv = pc_skillenh_effective(sd, skill_id, skill_lv);
+
 	sc = status_get_sc(src);
 
 	if (sc != nullptr && sc->empty())
@@ -2624,6 +2629,10 @@ int32 unit_skilluse_pos2( block_list *src, int16 skill_x, int16 skill_y, uint16 
 
 	if(ud == nullptr)
 		return 0;
+
+	// SafaRO: Skill-Enhancement, siehe unit_skilluse_id2.
+	if (sd != nullptr)
+		skill_lv = pc_skillenh_effective(sd, skill_id, skill_lv);
 
 	if (ud && ud->state.blockedskill)
 		return 0;

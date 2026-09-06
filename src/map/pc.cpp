@@ -2523,31 +2523,38 @@ void pc_reg_received(map_session_data *sd)
 //
 //  Ein verstecktes NPC (npc/custom/safa_skillenh.txt) hebt eine
 //  Fertigkeit gegen Skill-Essenz um bis zu +10 ueber ihr MaxLevel.
-//  Der Server rechnet ueberall mit status.skill[].lv, also traegt
-//  dieses Feld die WIRKSAME Stufe: Basis (aus dem Skillbaum) plus
-//  Verstaerkung. So laufen Schadensformeln, SP-Kosten, Reichweite und
-//  das Skillfenster ohne eine einzige weitere Aenderung.
+//
+//  WIE - UND WARUM NICHT UEBER DIE SKILLSTUFE
+//
+//  Die gespeicherte Stufe (status.skill[].lv) bleibt bei ihrem
+//  MaxLevel. Der Client sieht also weiter "10/10" und fragt sich
+//  nicht, warum er bis 20 leveln koennte. Das Plus kommt erst BEIM
+//  EINSATZ dazu: unit_skilluse_id2/pos2 rufen pc_skillenh_effective,
+//  und wer Bash auf seiner hoechsten Stufe wirkt, wirkt Bash 13. Ab
+//  dort rechnet der Server ganz normal mit skill_lv 13 - Schaden,
+//  SP-Kosten, Reichweite aus denselben Formeln, nur weiter oben
+//  (MAX_SKILL_LEVEL ist dafuer auf 20).
+//
+//  Wer eine niedrigere Stufe waehlt, bekommt sie unveraendert. Und
+//  das Plus wirkt nur, wenn die Basis auf MaxLevel steht - eine halb
+//  gelernte Fertigkeit bleibt halb; die Essenz wartet.
+//
+//  SICHTBAR IM ETC-TAB
+//
+//  Der Client kann pro Spieler nichts an einen Skill schreiben. Also
+//  bekommt jede verstaerkbare Fertigkeit einen Dummy-Passivskill
+//  "<NAME>_ENH" (db/import/skill_db_skillenh.yml, erzeugt von
+//  tools/skillenh/bauen.py), der mit Stufe = Plus als TEMPORAERER
+//  Skill vergeben wird. Er steht in keinem Klassenbaum, der Client
+//  legt ihn in den Etc-Tab: "Bash [Enhanced] Lv 3" heisst +3. Nicht
+//  gespeichert, nicht gezaehlt (SKILL_FLAG_TEMPORARY wird von
+//  pc_calc_skillpoint und pc_resetskill ignoriert), bei jedem
+//  pc_calc_skilltree neu vergeben.
 //
 //  WO DIE VERSTAERKUNG LEBT
 //
-//  In der Charaktervariable skenh_<skill_id>. Nicht in der Tabelle
-//  `skill`: die traegt zwar die Stufe 20, aber ein Skill-Reset setzt
-//  sie auf 0, und die Essenz waere weg. Die Variable ueberlebt Reset
-//  und Jobwechsel; sobald die Fertigkeit wieder auf ihrem MaxLevel
-//  steht, liegt das Plus automatisch wieder drauf.
-//
-//  WO DAS PLUS ABGEZOGEN WERDEN MUSS
-//
-//  Ueberall, wo Skillpunkte GEZAEHLT werden. pc_resetskill erstattet
-//  je Fertigkeit ihre Stufe - ohne Korrektur bekaeme der Spieler fuer
-//  Bash+10 zwanzig Punkte zurueck und haette zehn Skillpunkte aus dem
-//  Nichts. pc_calc_skillpoint bestimmt daraus die Klassenstufe des
-//  Baums; dort ist ein zu hoher Wert harmlos, wird aber ebenfalls
-//  korrigiert, damit beide Stellen dieselbe Wahrheit haben.
-//
-//  Der Aufstieg per Skillpunkt (pc_skillup) prueft lv < MaxLevel und
-//  ist damit auf verstaerkten Fertigkeiten von selbst gesperrt; das
-//  "upgradable"-Haekchen im Client haengt an derselben Pruefung.
+//  In der Charaktervariable skenh_<skill_id>. Sie ueberlebt Reset
+//  und Jobwechsel, nichts davon steht in der Tabelle `skill`.
 // ------------------------------------------------------------------
 
 /// Verstaerkung einer Fertigkeit aus der Charaktervariable, 0..SKILLENH_MAX.
@@ -2563,7 +2570,7 @@ uint8 pc_skillenh_get(map_session_data *sd, uint16 skill_id)
 	return static_cast<uint8>(cap_value(v, 0, SKILLENH_MAX));
 }
 
-/// Verstaerkung setzen (nur die Variable; anlegen macht pc_skillenh_apply).
+/// Verstaerkung setzen (nur die Variable; sichtbar macht sie pc_skillenh_apply).
 bool pc_skillenh_set(map_session_data *sd, uint16 skill_id, uint8 plus)
 {
 	nullpo_ret(sd);
@@ -2576,54 +2583,88 @@ bool pc_skillenh_set(map_session_data *sd, uint16 skill_id, uint8 plus)
 	return true;
 }
 
-/// Basisstufe ohne Verstaerkung - das, was mit Skillpunkten bezahlt wurde.
-uint8 pc_skillenh_base(map_session_data *sd, uint16 idx)
+/// Id des Dummy-Passivskills "<NAME>_ENH", 0 wenn es keinen gibt.
+///
+/// Der Name wird auf 35 Zeichen gekuerzt, damit "_ENH" samt Nullbyte in
+/// SKILL_NAME_LENGTH (40) passt - SOA_CIRCLE_OF_DIRECTIONS_AND_ELEMENTALS
+/// hat 39. tools/skillenh/bauen.py kuerzt genauso (DUMMY_NAME).
+uint16 pc_skillenh_dummy(uint16 skill_id)
 {
-	nullpo_ret(sd);
-	uint8 lv = sd->status.skill[idx].lv;
-	uint16 skill_id = sd->status.skill[idx].id;
+	const char *name = skill_get_name(skill_id);
+	if (name == nullptr || name[0] == '\0')
+		return 0;
 
-	if (skill_id == 0 || sd->status.skill[idx].flag != SKILL_FLAG_PERMANENT)
-		return lv;
-
-	int32 max_lv = skill_tree_get_max(skill_id, sd->status.class_);
-	if (max_lv > 0 && lv > max_lv)
-		return static_cast<uint8>(max_lv);
-	return lv;
+	char dummy[SKILL_NAME_LENGTH + 8];
+	safesnprintf(dummy, sizeof(dummy), "%.35s_ENH", name);
+	return skill_name2id(dummy);
 }
 
 /**
- * Legt die Verstaerkung einer einzelnen Fertigkeit auf status.skill.
+ * Die Stufe, mit der eine Fertigkeit tatsaechlich gewirkt wird.
  *
- * Regel: Das Plus wirkt nur, wenn die Basis auf ihrem MaxLevel steht.
- * Eine halb gelernte Fertigkeit bleibt halb gelernt - die Essenz ist
- * nicht verloren, sie wartet. Stufen ueber MaxLevel ohne Variable
- * (etwa nach einem Loeschen der Variable) werden auf MaxLevel
- * zurueckgeschnitten, damit Skillpunkte und Stufe zusammenpassen.
+ * Plus nur, wenn (a) der Spieler die Fertigkeit dauerhaft kennt,
+ * (b) sie auf ihrem MaxLevel steht und (c) er sie auf dieser
+ * hoechsten Stufe einsetzt. Sonst kommt skill_lv unveraendert zurueck.
+ */
+uint16 pc_skillenh_effective(map_session_data *sd, uint16 skill_id, uint16 skill_lv)
+{
+	nullpo_retr(skill_lv, sd);
+	if (!sd->vars_ok || skill_id == 0 || skill_lv == 0)
+		return skill_lv;
+
+	uint16 idx = skill_get_index(skill_id);
+	if (idx == 0 || sd->status.skill[idx].id != skill_id)
+		return skill_lv;
+	if (sd->status.skill[idx].flag != SKILL_FLAG_PERMANENT)
+		return skill_lv;
+
+	int32 max_lv = skill_tree_get_max(skill_id, sd->status.class_);
+	uint8 base = sd->status.skill[idx].lv;
+	if (max_lv <= 0 || base < max_lv || skill_lv < base)
+		return skill_lv;
+
+	uint8 plus = pc_skillenh_get(sd, skill_id);
+	if (plus == 0)
+		return skill_lv;
+
+	return static_cast<uint16>(min(base + plus, MAX_SKILL_LEVEL));
+}
+
+/**
+ * Dummy-Passivskill einer Fertigkeit setzen oder entfernen.
+ *
+ * Stufe = Plus, solange der Spieler die Fertigkeit ueberhaupt kennt
+ * (auch halb gelernt - man soll sehen, was man besitzt). Kennt er sie
+ * nicht mehr (Jobwechsel), verschwindet der Eintrag; die Variable
+ * bleibt.
  */
 void pc_skillenh_apply(map_session_data *sd, uint16 skill_id)
 {
 	nullpo_retv(sd);
+	uint16 dummy = pc_skillenh_dummy(skill_id);
+	if (dummy == 0)
+		return;
+	uint16 didx = skill_get_index(dummy);
 	uint16 idx = skill_get_index(skill_id);
-	if (idx == 0 || sd->status.skill[idx].id != skill_id)
-		return;
-	if (sd->status.skill[idx].flag != SKILL_FLAG_PERMANENT)
+	if (didx == 0 || idx == 0)
 		return;
 
-	int32 max_lv = skill_tree_get_max(skill_id, sd->status.class_);
-	if (max_lv <= 0)
+	uint8 plus = 0;
+	if (sd->status.skill[idx].id == skill_id && sd->status.skill[idx].flag == SKILL_FLAG_PERMANENT)
+		plus = pc_skillenh_get(sd, skill_id);
+
+	if (plus == 0) {
+		if (sd->status.skill[didx].id != 0) {
+			sd->status.skill[didx].id = 0;
+			sd->status.skill[didx].lv = 0;
+			sd->status.skill[didx].flag = SKILL_FLAG_PERMANENT;
+		}
 		return;
+	}
 
-	uint8 base = sd->status.skill[idx].lv;
-	if (base > max_lv)
-		base = static_cast<uint8>(max_lv);
-
-	uint8 plus = pc_skillenh_get(sd, skill_id);
-	uint8 lv = base;
-	if (plus > 0 && base == max_lv)
-		lv = static_cast<uint8>(min(max_lv + plus, MAX_SKILL_LEVEL));
-
-	sd->status.skill[idx].lv = lv;
+	sd->status.skill[didx].id = dummy;
+	sd->status.skill[didx].lv = plus;
+	sd->status.skill[didx].flag = SKILL_FLAG_TEMPORARY;
 }
 
 /// Alle gelernten Fertigkeiten durchgehen - nach jedem pc_calc_skilltree.
@@ -2634,7 +2675,7 @@ void pc_skillenh_apply_all(map_session_data *sd)
 		return;
 
 	for (uint16 i = 1; i < MAX_SKILL; i++) {
-		if (sd->status.skill[i].id == 0 || sd->status.skill[i].lv == 0)
+		if (sd->status.skill[i].id == 0)
 			continue;
 		if (sd->status.skill[i].flag != SKILL_FLAG_PERMANENT)
 			continue;
@@ -2657,7 +2698,7 @@ static int32 pc_calc_skillpoint(map_session_data* sd)
 				)
 			{
 				if(sd->status.skill[i].flag == SKILL_FLAG_PERMANENT)
-					skill_point += pc_skillenh_base(sd, i); // SafaRO: gekaufte Stufen sind keine Skillpunkte
+					skill_point += sd->status.skill[i].lv;
 				else if(sd->status.skill[i].flag >= SKILL_FLAG_REPLACED_LV_0)
 					skill_point += (sd->status.skill[i].flag - SKILL_FLAG_REPLACED_LV_0);
 			}
@@ -9403,11 +9444,6 @@ void pc_skillup(map_session_data *sd,uint16 skill_id)
 			else
 				pc_check_skilltree(sd); // Check if a new skill can Lvlup
 
-			// SafaRO: Ist die Fertigkeit jetzt auf MaxLevel, kommt eine
-			// frueher gekaufte Verstaerkung sofort wieder drauf - sonst
-			// erst beim naechsten Login.
-			pc_skillenh_apply(sd, skill_id);
-
 			uint16 lv = sd->status.skill[idx].lv;
 			int32 range = skill_get_range2(sd, skill_id, lv, false);
 			bool upgradable = ( lv < skill_tree_get_max( sd->status.skill[idx].id, sd->status.class_ ) );
@@ -9757,7 +9793,7 @@ int32 pc_resetskill(map_session_data* sd, int32 flag)
 			continue;
 		}
 		if( sd->status.skill[idx].flag == SKILL_FLAG_PERMANENT )
-			skill_point += pc_skillenh_base(sd, idx); // SafaRO: nur die bezahlte Basis erstatten
+			skill_point += lv;
 		else
 		if( sd->status.skill[idx].flag >= SKILL_FLAG_REPLACED_LV_0 )
 			skill_point += (sd->status.skill[idx].flag - SKILL_FLAG_REPLACED_LV_0);
@@ -9772,6 +9808,10 @@ int32 pc_resetskill(map_session_data* sd, int32 flag)
 	if( flag&2 || !skill_point ) return skill_point;
 
 	sd->status.skill_point += skill_point;
+
+	// SafaRO: die Etc-Tab-Eintraege der Verstaerkungen sind temporaer
+	// und wurden oben mit auf 0 gesetzt - wieder hinlegen.
+	pc_skillenh_apply_all(sd);
 
 	if (flag&1) {
 		clif_updatestatus(*sd,SP_SKILLPOINT);

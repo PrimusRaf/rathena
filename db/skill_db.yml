@@ -154,3 +154,7 @@ Footer:
   # Felder, aber so gewinnt bei einem kuenftigen Konflikt die
   # erzeugte Datei sichtbar statt zufaellig.
   - Path: db/import/skill_db_cooldowns.yml
+  # Dummy-Passivskills des Skill-Enhancements ("<NAME>_ENH", Ids 7000+),
+  # erzeugt von tools/skillenh/bauen.py. Neue Skills, keine Patches -
+  # die Stelle in der Reihenfolge ist gleichgueltig.
+  - Path: db/import/skill_db_skillenh.yml

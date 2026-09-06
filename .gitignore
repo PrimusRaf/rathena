@@ -99,6 +99,7 @@ Thumbs.db
 !/db/import/refine_high.yml
 !/db/import/skill_db.yml
 !/db/import/skill_db_cooldowns.yml
+!/db/import/skill_db_skillenh.yml
 !/db/import/statpoint.yml
 
 # /conf/

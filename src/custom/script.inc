@@ -318,11 +318,10 @@ BUILDIN_FUNC(is_autolooting)
 //  SafaRO - Skill-Enhancement (npc/custom/safa_skillenh.txt)
 // ==================================================================
 //
-//  Der Skriptbefehl `skill` kann keine Stufe ueber MaxLevel setzen,
-//  ohne die Skillpunkt-Buchhaltung zu verderben (pc_resetskill wuerde
-//  die gekauften Stufen erstatten). Deshalb ein eigener Befehl, der
-//  die Charaktervariable schreibt und pc_skillenh_apply die Stufe
-//  bauen laesst. Die Regeln stehen in pc.cpp ueber pc_skillenh_get.
+//  Die Verstaerkung ist eine Charaktervariable plus ein temporaerer
+//  Dummy-Passivskill im Etc-Tab; die echte Skillstufe bleibt auf
+//  MaxLevel und das Plus kommt beim Einsatz dazu. Die Regeln stehen
+//  in pc.cpp ueber pc_skillenh_get.
 // ------------------------------------------------------------------
 
 /**
@@ -386,19 +385,15 @@ BUILDIN_FUNC(skillenhance)
 	if (sd->status.skill[idx].id != skill_id ||
 		sd->status.skill[idx].flag != SKILL_FLAG_PERMANENT ||
 		max_lv <= 0 ||
-		pc_skillenh_base(sd, idx) < max_lv) {
+		sd->status.skill[idx].lv < max_lv) {
 		script_pushint(st, -2);
 		return SCRIPT_CMD_SUCCESS;
 	}
 
 	pc_skillenh_set(sd, skill_id, static_cast<uint8>(plus));
+	// Dummy-Passivskill im Etc-Tab auf die neue Stufe, Fenster neu senden.
 	pc_skillenh_apply(sd, skill_id);
-
-	// Skillfenster und Werte nachziehen. Passive Fertigkeiten sind
-	// nicht verstaerkbar, status_calc_pc ist trotzdem billig genug
-	// und deckt Reichweiten-/SP-Anzeigen ab.
 	clif_skillinfoblock(*sd);
-	status_calc_pc(sd, SCO_NONE);
 
 	script_pushint(st, 1);
 	return SCRIPT_CMD_SUCCESS;
