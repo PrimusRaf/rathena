@@ -13,6 +13,9 @@
 //= 1.1 Switched to 'getbattleflag', credits to Saithis. [Euphy]
 //= 2.0 SafaRO: 256 Farben statt 8, Auswahl ueber Farbfamilien.
 //= 2.1 Klammerung der ?: - siehe unten. Texte auf Englisch.
+//= 2.2 Doram: nur 10 Frisuren. Die fehlenden Doram-FARBEN lagen
+//=     nicht am Skript, sondern an paletten_erweitern.py (falscher
+//=     GRF-Ordner) - farben.grf neu gebaut.
 //============================================================
 //= SafaRO, Episode 22: von prontera 170,180 nach veins 238,125
 //= gezogen. Er ist der einzige der uebernommenen rAthena-Customs
@@ -209,7 +212,13 @@ S_Family:
 	}
 
 S_Hair:
-	set .@max, getbattleflag("max_hair_style");
+	// Die Doram haben eigene Kopfsprites (data\sprite\도람족\머리통),
+	// und davon gibt es genau 10 je Geschlecht - nicht 45 wie bei den
+	// Menschen. max_hair_style (42) gilt nur fuer Letztere; einem
+	// Doram Frisur 11 anzulegen ergibt einen kopflosen Charakter mit
+	// "Cannot find File" bei jedem, der ihn sieht. BaseClass ist auch
+	// beim Spirit Handler Job_Summoner.
+	set .@max, ((BaseClass == Job_Summoner) ? 10 : getbattleflag("max_hair_style"));
 	set .@original, getlook(LOOK_HAIR);
 	set .@style, 1;
 	while (1) {
