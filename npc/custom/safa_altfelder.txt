@@ -1,0 +1,265 @@
+//===== SafaRO Script ========================================
+//= Alte Felder - die mit Renewal gestrichenen Karten
+//===========================================================
+//
+//  WARUM ES DIESE DATEI GIBT
+//
+//  Mit Renewal hat Gravity 14 Feldkarten aus der Welt genommen:
+//  die Warps dorthin wurden entfernt, die Spawns gestrichen. Die
+//  Karten selbst liegen aber weiterhin in data.grf, stehen in
+//  maps_athena.conf und der Warper bietet sie an. Wer hinging,
+//  stand auf einer leeren Karte ohne Ausgang.
+//
+//  Hier bekommen sie ihre urspruenglichen Bewohner und ihre Warps
+//  zurueck. Spawns stammen 1:1 aus npc/pre-re/mobs/fields, die
+//  Warps sind die in npc/re/warps/fields auskommentierten Zeilen
+//  ("Renewal warp adjustments") - beide Richtungen.
+//
+//  Die rAthena-Dateien selbst bleiben unveraendert, damit
+//  Upstream-Merges nicht kollidieren.
+//
+//===========================================================
+
+// ------------------------------------------------------------
+//  Spawns (aus npc/pre-re/mobs/fields)
+// ------------------------------------------------------------
+
+
+// cmd_fild05 - Border of Papuchica Forest
+cmd_fild05,0,0	monster	Frilldora	1119,45
+cmd_fild05,0,0	monster	Alligator	1271,20
+cmd_fild05,0,0	monster	Stem Worm	1215,5
+cmd_fild05,0,0	monster	Poporing	1031,10
+cmd_fild05,0,0	monster	Pest	1256,5
+cmd_fild05,63,158,10,10	monster	Shining Plant	1083,1,1800000,900000
+cmd_fild05,318,277,10,10	monster	Yellow Plant	1081,3,1800000,900000
+cmd_fild05,282,49,20,20	monster	Yellow Plant	1081,3,1800000,900000
+cmd_fild05,0,0	monster	Green Plant	1080,5,1800000,900000
+
+// gef_fild12 - Kordt Forest
+gef_fild12,0,0	monster	Kobold	1133,20
+gef_fild12,0,0	monster	Kobold	1134,30
+gef_fild12,0,0	monster	Kobold	1135,30
+gef_fild12,0,0	monster	Kobold Archer	1282,40
+gef_fild12,0,0	monster	Poporing	1031,20
+gef_fild12,0,0	monster	Kobold Leader	1296,1,1800000,1200000
+
+// gef_fild14 - West Orc Village
+gef_fild14,0,0	monster	Orc Lady	1273,20
+//  Orc Hero steht in Renewal bereits auf gef_fild03 (npc/re/mobs/fields/geffen.txt).
+//  Ein zweiter MVP-Spawn wuerde die Karte verdoppeln - deshalb hier aus.
+//gef_fild14,0,0,0,0	boss_monster	Orc Hero	1087,1,3600000,600000,1
+gef_fild14,0,0	monster	Orc Warrior	1023,10
+gef_fild14,0,0	monster	Orc Archer	1189,30
+gef_fild14,0,0	monster	High Orc	1213,70
+
+// hu_fild03 - Hugel Field
+hu_fild03,0,0	monster	Grove	1687,70
+hu_fild03,0,0	monster	Novus	1715,30
+hu_fild03,0,0	monster	Poporing	1031,20
+hu_fild03,0,0	monster	Thief Bug	1051,10
+hu_fild03,40,157,3,3	monster	Red Mushroom	1085,2,300000
+hu_fild03,219,211,7,5	monster	Red Mushroom	1085,3,300000
+hu_fild03,285,230,5,4	monster	Red Mushroom	1085,2,300000
+hu_fild03,247,118,9,4	monster	Red Mushroom	1085,3,300000
+hu_fild03,96,156,5,5	monster	Black Mushroom	1084,3,300000
+hu_fild03,170,220,5,4	monster	Black Mushroom	1084,3,300000
+hu_fild03,212,328,5,4	monster	Black Mushroom	1084,2,300000
+hu_fild03,231,151,3,3	monster	Black Mushroom	1084,2,300000
+
+// hu_fild07 - Hugel Field
+hu_fild07,0,0	monster	Breeze	1692,10
+hu_fild07,0,0	monster	Deleter	1384,10,420000,24000
+hu_fild07,0,0	monster	Deleter	1385,10,420000,240000
+hu_fild07,0,0	monster	Petite	1155,60
+hu_fild07,0,0	monster	Petite	1156,20
+hu_fild07,0,0	monster	Novus	1715,10
+hu_fild07,0,0	monster	Novus	1718,10
+hu_fild07,0,0	monster	Anopheles	1627,30
+hu_fild07,0,0	monster	Grove	1687,10
+hu_fild07,0,0	monster	Geographer	1368,20
+hu_fild07,0,0	monster	Demon Pungus	1378,10
+hu_fild07,0,0	monster	Yellow Plant	1081,20
+
+// pay_fild05 - Payon Forest
+pay_fild05,0,0	monster	Dragon Tail	1321,5
+pay_fild05,0,0	monster	Poporing	1031,20
+pay_fild05,0,0	monster	Poison Spore	1077,65
+pay_fild05,95,147,5,5	monster	Green Plant	1080,4,900000,450000
+pay_fild05,86,90,5,5	monster	Green Plant	1080,4,900000,450000
+
+// pay_fild11 - Payon Forest
+pay_fild11,0,0	monster	Greatest General	1277,30
+pay_fild11,0,0	monster	Nine Tail	1180,60,180000
+pay_fild11,0,0	monster	Dragon Tail	1321,50,180000
+pay_fild11,0,0,0,0	boss_monster	Eddga	1115,1,7200000,600000,1
+pay_fild11,241,162,5,5	monster	Red Mushroom	1085,3,360000,180000
+pay_fild11,66,293,5,5	monster	Red Mushroom	1085,3,360000,180000
+
+// ra_fild02 - Rachel Field
+ra_fild02,0,0	monster	Muscipular	1780,60
+ra_fild02,0,0	monster	Drosera	1781,20
+ra_fild02,0,0	monster	Galion	1783,15
+ra_fild02,0,0,0,0	boss_monster	Atroce	1785,1,14400000,600000,1
+
+// ra_fild07 - Rachel Field
+ra_fild07,0,0	monster	Roween	1782,50
+ra_fild07,0,0	monster	Galion	1783,20
+ra_fild07,0,0	monster	Stapo	1784,10
+
+// ra_fild09 - Rachel Field
+ra_fild09,0,0	monster	Drosera	1781,60
+ra_fild09,0,0	monster	Metaling	1613,20
+ra_fild09,0,0	monster	Hill Wind	1680,10
+ra_fild09,0,0	monster	Harpy	1376,1,3600000
+
+// ra_fild13 - Rachel Field
+ra_fild13,0,0	monster	Stapo	1784,60
+ra_fild13,0,0	monster	Drops	1113,40
+ra_fild13,0,0	monster	Roween	1782,5
+
+// ve_fild05
+ve_fild05,0,0	monster	Roween	1782,15
+ve_fild05,0,0	monster	Galion	1783,5
+ve_fild05,0,0	monster	Drosera	1781,10
+ve_fild05,0,0	monster	Sandman	1165,10
+ve_fild05,130,225,46,59	monster	Sandman	1165,7,60000
+ve_fild05,270,190,95,140	monster	Sandman	1165,11,60000
+ve_fild05,123,65,50,21	monster	Sandman	1165,2,90000
+ve_fild05,0,0	monster	Sleeper	1386,10
+ve_fild05,130,225,46,59	monster	Sleeper	1386,15,90000
+ve_fild05,270,190,95,140	monster	Sleeper	1386,25,90000
+ve_fild05,123,65,50,21	monster	Sleeper	1386,5,120000
+ve_fild05,152,139,15,17	monster	White Plant	1082,5,1800000
+ve_fild05,152,139,5,5	monster	Shining Plant	1083,1,2400000
+
+// yuno_fild05 - El Mes Plateau
+yuno_fild05,0,0	monster	Rafflesia	1162,70
+yuno_fild05,0,0	monster	Dustiness	1114,30
+yuno_fild05,0,0	monster	Horn	1128,30
+yuno_fild05,0,0	monster	Beetle King	1494,10
+yuno_fild05,0,0	monster	Arc Angeling	1388,1,3600000,180000
+yuno_fild05,0,0	monster	Red Plant	1078,10,180000,90000
+yuno_fild05,0,0	monster	Green Plant	1080,10,180000,90000
+yuno_fild05,0,0	monster	Yellow Plant	1081,10,180000,90000
+yuno_fild05,176,202,8,8	monster	Blue Plant	1079,2,180000,90000
+yuno_fild05,300,280,5,5	monster	Blue Plant	1079,2,180000,90000
+
+// yuno_fild10 - Juno Field
+yuno_fild10,0,0	monster	Beetle King	1494,40
+yuno_fild10,0,0	monster	Stainer	1174,20
+yuno_fild10,0,0	monster	Dustiness	1114,20
+yuno_fild10,0,0	monster	Geographer	1368,20
+yuno_fild10,0,0	monster	Hunter Fly	1035,10
+
+// ------------------------------------------------------------
+//  Warps (aus npc/re/warps/fields, dort auskommentiert)
+// ------------------------------------------------------------
+
+// com_fild.txt
+cmd_fild03,384,165,0	warp	cmd_fild03-4	1,1,cmd_fild05,26,161
+cmd_fild05,21,163,0	warp	cmd_fild05-1	1,1,cmd_fild03,377,167
+cmd_fild05,148,19,0	warp	cmd_fild05-2	1,1,cmd_fild06,150,374
+cmd_fild06,150,380,0	warp	cmd_fild06-3	1,1,cmd_fild05,146,27
+
+// geffen_fild.txt
+gef_fild08,215,18,0	warp	geff14	1,1,gef_fild12,221,369
+gef_fild10,27,219,0	warp	geff19-1	1,1,gef_fild14,367,219
+gef_fild12,221,374,0	warp	geff14-1	1,1,gef_fild08,215,25
+gef_fild12,368,180,0	warp	geff15	1,1,gef_fild13,29,202
+gef_fild12,372,50,0	warp	geff16	1,1,gef_fild13,29,59
+gef_fild13,200,25,0	warp	geff17	1,1,gef_fild14,180,357
+gef_fild13,25,202,0	warp	geff15-1	1,1,gef_fild12,364,180
+gef_fild13,26,59,0	warp	geff16-1	1,1,gef_fild12,370,50
+gef_fild14,180,360,0	warp	geff17-1	1,1,gef_fild13,200,29
+gef_fild14,371,219,0	warp	geff19	1,1,gef_fild10,31,219
+
+// hugel_fild.txt
+ein_fild01,349,369,0	warp	hugel003	1,1,yuno_fild05,43,346
+yuno_fild05,41,350,0	warp	hugel003a	1,1,ein_fild01,345,367
+hu_fild05,284,356,0	warp	hugel010	1,1,hu_fild03,288,26
+hu_fild03,288,19,0	warp	hugel010a	1,1,hu_fild05,276,346
+hu_fild02,374,339,0	warp	hugel012	1,1,hu_fild03,24,337
+hu_fild03,20,338,0	warp	hugel012a	1,1,hu_fild02,370,339
+hu_fild02,378,162,0	warp	hugel013	1,1,hu_fild03,30,163
+hu_fild03,25,163,0	warp	hugel013a	1,1,hu_fild02,373,160
+yuno_fild09,377,184,0	warp	hugel014	1,1,yuno_fild10,44,183
+yuno_fild10,39,183,0	warp	hugel014a	1,1,yuno_fild09,371,184
+
+// morroc_fild.txt
+moc_fild03,179,16,0	warp	mocf013	4,2,pay_fild11,38,327
+
+// payon_fild.txt
+pay_fild02,134,16,0	warp	payf04	5,2,pay_fild05,127,375
+pay_fild02,16,175,0	warp	payf06	2,4,pay_fild11,294,135
+pay_fild05,127,378,0	warp	payf04-1	4,2,pay_fild02,134,19
+pay_fild05,271,284,0	warp	payf10	2,4,pay_fild06,31,288
+pay_fild06,28,288,0	warp	payf10-1	2,2,pay_fild05,268,284
+pay_fild11,297,135,0	warp	payf06-1	2,4,pay_fild02,19,175
+pay_fild11,38,330,0	warp	payf004	4,2,moc_fild03,179,19
+
+// rachel_fild.txt
+ra_fild05,27,13,0	warp	ra005	1,1,ra_fild09,30,337
+ra_fild09,29,343,0	warp	ra006	1,1,ra_fild05,31,17
+ra_fild09,27,238,0	warp	ra009	1,1,ra_fild08,360,234
+ra_fild08,368,234,0	warp	ra010	1,1,ra_fild09,35,238
+ra_fild12,303,27,0	warp	ra020	1,1,ra_fild13,295,341
+ra_fild13,295,346,0	warp	ra021	1,1,ra_fild12,303,33
+ra_fild11,202,335,0	warp	ra025a	1,1,ra_fild07,215,32
+ra_fild07,215,27,0	warp	ra025b	1,1,ra_fild11,201,329
+ra_fild07,168,353,0	warp	ra026	1,1,ra_fild02,171,45
+ra_fild02,168,36,0	warp	ra027	1,1,ra_fild07,168,349
+ra_fild02,373,275,0	warp	ra028	1,1,ra_fild03,28,294
+ra_fild03,23,294,0	warp	ra029	1,1,ra_fild02,367,270
+
+// veins_fild.txt
+ra_fild13,29,308,0	warp	ve_fild2-1	1,1,ve_fild02,380,308
+ve_fild02,385,308,0	warp	ve_fild2-2	1,1,ra_fild13,34,308
+ve_fild03,222,43,0	warp	ve_fild3-2	1,1,ve_fild05,200,325
+ve_fild05,200,330,0	warp	ve_fild5-1	1,1,ve_fild03,222,48
+ve_fild05,359,192,0	warp	ve_fild5-2	1,1,ve_fild06,80,183
+//  Rueckweg ve_fild06 -> ve_fild05 gibt es nicht: der Warp auf ve_fild06 (81,177)
+//  fuehrt in Renewal fest nach ve_fild04. ve_fild05 verlaesst man ueber ve_fild03.
+
+// yuno_fild.txt
+yuno_fild04,42,369,0	warp	newjun14	1,1,yuno_fild05,59,30
+yuno_fild05,59,28,0	warp	newjun14a	1,1,yuno_fild04,42,367
+yuno_fild05,370,321,0	warp	hu001	1,1,yuno_fild06,48,322
+yuno_fild06,41,319,0	warp	hu001a	1,1,yuno_fild05,366,319
+hu_fild05,89,43,0	warp	hu007	1,1,hu_fild07,80,365
+hu_fild07,81,370,0	warp	hu007a	1,1,hu_fild05,89,50
+hu_fild07,36,352,0	warp	hu008	1,1,yuno_fild02,378,336
+yuno_fild02,383,339,0	warp	hu008a	1,1,hu_fild07,42,351
+hu_fild07,57,37,0	warp	hu009	1,1,yuno_fild09,48,370
+yuno_fild09,48,376,0	warp	hu009a	1,1,hu_fild07,58,42
+hu_fild07,226,38,0	warp	hu010	1,1,yuno_fild09,220,368
+yuno_fild09,220,373,0	warp	hu010a	1,1,hu_fild07,224,43
+
+
+// ------------------------------------------------------------
+//  Illusion of Labyrinth (prt_mz03_i) und Abyss Lake 4 (abyss_04)
+// ------------------------------------------------------------
+//  Beide Karten haben in rAthena weder Monster noch Skripte; die
+//  Monster selbst stehen in db/import/mob_db_safa_illusion.yml.
+//  Stueckzahlen: divine-pride (kRO). Eingang bis auf Weiteres nur
+//  ueber den Warper - die amtlichen Zugangs-Quests (Ep. 17.1 bzw.
+//  16.1) gibt es in rAthena nicht.
+
+// prt_mz03_i - Illusion of Labyrinth
+prt_mz03_i	monster	Chaotic Baphomet Jr.	20525,35,5000
+prt_mz03_i	monster	Chaotic Side Winder	20526,32,5000
+prt_mz03_i	monster	Chaotic Hunter Fly	20527,32,5000
+prt_mz03_i	monster	Chaotic Mantis	20528,32,5000
+prt_mz03_i	monster	Chaotic Ghostring	20529,12,5000
+prt_mz03_i	monster	Chaotic Killer Mantis	20530,32,5000
+prt_mz03_i	monster	Chaotic Poporing	20531,32,5000
+prt_mz03_i	monster	Chaotic Stem Worm	20532,12,5000
+
+// abyss_04 - Abyss Lake 4
+abyss_04	monster	Purple Ferus	20612,25,5000
+abyss_04	monster	Treasure Mimic	20613,15,5000
+abyss_04	monster	Black Acidus	20614,35,5000
+abyss_04	monster	Silver Acidus	20615,35,5000
+abyss_04	monster	Bone Ferus	20616,50,5000
+abyss_04	monster	Bone Acidus	20617,50,5000
+abyss_04,0,0,0,0	boss_monster	Bone Detardeurus	20618,1,10800000,600000,1

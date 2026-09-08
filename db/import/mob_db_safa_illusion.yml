@@ -1,0 +1,745 @@
+# ==========================================================================
+#  SafaRO - Monster der Illusion-Karten, die rAthena nie eingebaut hat
+# ==========================================================================
+#
+#  Illusion of Labyrinth (prt_mz03_i, Chaos-Monster 20525-20532) und
+#  Abyss Lake 4 (abyss_04, Drachen 20612-20618) stehen als Karten in
+#  maps_athena.conf und im Warper, die Monster dazu fehlen aber in
+#  db/re/mob_db.yml komplett. Client-seitig ist alles da: npcidentity.lub,
+#  jobname.lub und die Sprites in data.grf kennen alle 15 Nummern -
+#  deshalb KEIN Client-Patch noetig.
+#
+#  Werte: divine-pride.net (kRO), Stand 2026-09-08.
+#    Attack   = unterer Atk-Wert, Attack2 = unterer MAtk-Wert (Renewal)
+#    WalkSpeed = 1000 / Zellen pro Sekunde
+#    AttackDelay = 1000 / Angriffe pro Sekunde
+#    Attack-/DamageMotion und Ai: vom Original-Monster (Baphomet Jr.,
+#    Side Winder, Ferus, Acidus, Detale ...) uebernommen - divine-pride
+#    zeigt diese Werte nicht.
+#    Drops: Tabelle "default"; Rate in 1/10000 (2500 = 25 %).
+#    Karten-gebundene Drops (Illusion Stone, Labyrinth Refine Box,
+#    Illusion-Waffen) stehen in db/import/map_drops.yml.
+#    Bone Detardeurus: divine-pride nennt keinen MvpExp - hier halbe
+#    BaseExp angesetzt, wie bei den meisten MVPs dieser Stufe.
+#  Skills: db/import/mob_skill_db.txt (vom jeweiligen Original kopiert).
+#  Spawns: npc/custom/safa_altfelder.txt
+# ==========================================================================
+
+Header:
+  Type: MOB_DB
+  Version: 5
+
+Body:
+  - Id: 20525
+    AegisName: ILL_BAPHOMET_J
+    Name: Chaotic Baphomet Jr.
+    Level: 177
+    Hp: 1057444
+    BaseExp: 173089
+    JobExp: 121125
+    Attack: 3636
+    Attack2: 927
+    Defense: 327
+    MagicDefense: 108
+    Str: 185
+    Agi: 101
+    Vit: 50
+    Int: 158
+    Dex: 178
+    Luk: 77
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Formless
+    Element: Dark
+    ElementLevel: 2
+    WalkSpeed: 100
+    AttackDelay: 481
+    AttackMotion: 216
+    DamageMotion: 120
+    Ai: 21
+    Drops:
+      - Item: Brigan
+        Rate: 2500
+      - Item: Evil_Horn
+        Rate: 1750
+      - Item: Yellow_Herb
+        Rate: 1750
+      - Item: Oridecon
+        Rate: 100
+      - Item: Short_Rope
+        Rate: 1250
+      - Item: Gold_Lux
+        Rate: 25
+      - Item: Chaos_Ba_Jr_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20526
+    AegisName: ILL_SIDE_WINDER
+    Name: Chaotic Side Winder
+    Level: 176
+    Hp: 1051983
+    BaseExp: 172143
+    JobExp: 120499
+    Attack: 3579
+    Attack2: 914
+    Defense: 341
+    MagicDefense: 108
+    Str: 183
+    Agi: 94
+    Vit: 55
+    Int: 156
+    Dex: 177
+    Luk: 70
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Brute
+    Element: Poison
+    ElementLevel: 2
+    WalkSpeed: 200
+    AttackDelay: 575
+    AttackMotion: 288
+    DamageMotion: 576
+    Ai: 19
+    Drops:
+      - Item: Scale_Of_Snakes
+        Rate: 2500
+      - Item: Posionous_Canine
+        Rate: 1750
+      - Item: Karvodailnirol
+        Rate: 5
+      - Item: Tsurugi
+        Rate: 25
+      - Item: White_Herb
+        Rate: 700
+      - Item: Snake_Deadly_Poison
+        Rate: 1250
+      - Item: Chaos_S_Winder_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20527
+    AegisName: ILL_HUNTER_FLY
+    Name: Chaotic Hunter Fly
+    Level: 175
+    Hp: 1045087
+    BaseExp: 171014
+    JobExp: 119710
+    Attack: 3486
+    Attack2: 900
+    Defense: 313
+    MagicDefense: 107
+    Str: 179
+    Agi: 115
+    Vit: 46
+    Int: 154
+    Dex: 189
+    Luk: 66
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Small
+    Race: Formless
+    Element: Wind
+    ElementLevel: 3
+    WalkSpeed: 150
+    AttackDelay: 575
+    AttackMotion: 288
+    DamageMotion: 480
+    Ai: 04
+    Drops:
+      - Item: Solid_Shell
+        Rate: 2500
+      - Item: Steel
+        Rate: 50
+      - Item: Zargon
+        Rate: 1750
+      - Item: Oridecon_Stone
+        Rate: 70
+      - Item: Delicious_Juice
+        Rate: 1250
+      - Item: Rough_Wind
+        Rate: 20
+      - Item: Chaos_H_Fly_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20528
+    AegisName: ILL_MANTIS
+    Name: Chaotic Mantis
+    Level: 174
+    Hp: 1039216
+    BaseExp: 170053
+    JobExp: 119037
+    Attack: 3504
+    Attack2: 900
+    Defense: 315
+    MagicDefense: 71
+    Str: 181
+    Agi: 96
+    Vit: 47
+    Int: 155
+    Dex: 184
+    Luk: 67
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Insect
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 200
+    AttackDelay: 658
+    AttackMotion: 336
+    DamageMotion: 432
+    Ai: 19
+    Drops:
+      - Item: Limb_Of_Mantis
+        Rate: 2250
+      - Item: Yellow_Live
+        Rate: 60
+      - Item: Solid_Shell
+        Rate: 1000
+      - Item: Mantis_Flower
+        Rate: 1250
+      - Item: Azure_Jewel
+        Rate: 10
+      - Item: Red_Herb
+        Rate: 500
+      - Item: Chaos_Mantis_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20529
+    AegisName: ILL_GHOSTRING
+    Name: Chaotic Ghostring
+    Level: 173
+    Hp: 1033446
+    BaseExp: 169110
+    JobExp: 118377
+    Attack: 3540
+    Attack2: 915
+    Defense: 320
+    MagicDefense: 71
+    Str: 184
+    Agi: 87
+    Vit: 49
+    Int: 159
+    Dex: 182
+    Luk: 61
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Demon
+    Element: Ghost
+    ElementLevel: 3
+    WalkSpeed: 300
+    AttackDelay: 1075
+    AttackMotion: 336
+    DamageMotion: 648
+    Ai: 21
+    Drops:
+      - Item: Transparent_Cloth
+        Rate: 2500
+      - Item: Soft_Silk_Cloth
+        Rate: 1750
+      - Item: Scell
+        Rate: 1000
+      - Item: Fragment_Of_Crystal
+        Rate: 1750
+      - Item: Soft_Scarf
+        Rate: 1250
+      - Item: Chaos_Goring_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20530
+    AegisName: ILL_KILLER_MANTIS
+    Name: Chaotic Killer Mantis
+    Level: 177
+    Hp: 1058167
+    BaseExp: 173154
+    JobExp: 121280
+    Attack: 3580
+    Attack2: 923
+    Defense: 348
+    MagicDefense: 72
+    Str: 182
+    Agi: 105
+    Vit: 57
+    Int: 157
+    Dex: 194
+    Luk: 47
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Insect
+    Element: Earth
+    ElementLevel: 2
+    WalkSpeed: 175
+    AttackDelay: 658
+    AttackMotion: 240
+    DamageMotion: 432
+    Ai: 21
+    Drops:
+      - Item: Limb_Of_Mantis
+        Rate: 2500
+      - Item: Solid_Shell
+        Rate: 1250
+      - Item: Yggdrasilberry
+        Rate: 15
+      - Item: Yellow_Live
+        Rate: 70
+      - Item: Butcher
+        Rate: 25
+      - Item: Purple_Solid_Shell
+        Rate: 1250
+      - Item: Chaos_K_Mantis_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20531
+    AegisName: ILL_POPORING
+    Name: Chaotic Poporing
+    Level: 173
+    Hp: 1032638
+    BaseExp: 168976
+    JobExp: 118283
+    Attack: 3412
+    Attack2: 882
+    Defense: 296
+    MagicDefense: 70
+    Str: 177
+    Agi: 85
+    Vit: 41
+    Int: 152
+    Dex: 172
+    Luk: 29
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Plant
+    Element: Poison
+    ElementLevel: 4
+    WalkSpeed: 300
+    AttackDelay: 671
+    AttackMotion: 288
+    DamageMotion: 480
+    Ai: 02
+    Drops:
+      - Item: Sticky_Mucus
+        Rate: 2500
+      - Item: Green_Herb
+        Rate: 1000
+      - Item: Seed_Of_Yggdrasil
+        Rate: 20
+      - Item: Fragment_Of_Crystal
+        Rate: 1750
+      - Item: Brilliant_Jelly
+        Rate: 1250
+      - Item: Elunium
+        Rate: 50
+      - Item: Chaos_Poporing_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20532
+    AegisName: ILL_STEM_WORM
+    Name: Chaotic Stem Worm
+    Level: 172
+    Hp: 1027071
+    BaseExp: 168066
+    JobExp: 117646
+    Attack: 3485
+    Attack2: 890
+    Defense: 307
+    MagicDefense: 70
+    Str: 180
+    Agi: 95
+    Vit: 45
+    Int: 156
+    Dex: 187
+    Luk: 69
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Medium
+    Race: Plant
+    Element: Wind
+    ElementLevel: 2
+    WalkSpeed: 300
+    AttackDelay: 758
+    AttackMotion: 288
+    DamageMotion: 528
+    Ai: 19
+    Drops:
+      - Item: Tough_Scalelike_Stem
+        Rate: 2500
+      - Item: White_Herb
+        Rate: 1000
+      - Item: Oridecon
+        Rate: 100
+      - Item: Great_Nature
+        Rate: 20
+      - Item: Suspicious_Sap
+        Rate: 1250
+      - Item: Seed_Of_Yggdrasil
+        Rate: 20
+      - Item: Chaos_Stem_W_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20612
+    AegisName: FERUS_P
+    Name: Purple Ferus
+    Level: 202
+    Hp: 3404262
+    BaseExp: 243162
+    JobExp: 170213
+    Attack: 5266
+    Attack2: 887
+    Defense: 275
+    MagicDefense: 78
+    Str: 220
+    Agi: 163
+    Vit: 95
+    Int: 111
+    Dex: 155
+    Luk: 83
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Dragon
+    Element: Poison
+    ElementLevel: 4
+    WalkSpeed: 120
+    AttackDelay: 575
+    AttackMotion: 384
+    DamageMotion: 432
+    Ai: 19
+    Drops:
+      - Item: Shadowdecon
+        Rate: 6
+      - Item: Dragon's_Skin
+        Rate: 750
+      - Item: Dragon_Train
+        Rate: 500
+      - Item: Posionous_Canine
+        Rate: 500
+      - Item: Abyss_itembox
+        Rate: 5
+      - Item: Dragenergy_Purple
+        Rate: 30
+      - Item: Dragenergy_Gold
+        Rate: 30
+      - Item: Ferus_P_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20613
+    AegisName: TREASURE_MIMIC
+    Name: Treasure Mimic
+    Level: 204
+    Hp: 3436608
+    BaseExp: 245472
+    JobExp: 171830
+    Attack: 5205
+    Attack2: 827
+    Defense: 234
+    MagicDefense: 77
+    Str: 215
+    Agi: 196
+    Vit: 83
+    Int: 110
+    Dex: 213
+    Luk: 96
+    AttackRange: 1
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Formless
+    Element: Neutral
+    ElementLevel: 4
+    WalkSpeed: 100
+    AttackDelay: 481
+    AttackMotion: 480
+    DamageMotion: 288
+    Ai: 19
+    Drops:
+      - Item: Old_Blue_Box
+        Rate: 15
+      - Item: Old_Violet_Box
+        Rate: 1
+      - Item: Gift_Box
+        Rate: 25
+      - Item: Treasure_Box
+        Rate: 50
+      - Item: Abyss_itembox
+        Rate: 50
+      - Item: Crystal_Jewel__
+        Rate: 50
+      - Item: Zelunium
+        Rate: 6
+      - Item: Treasure_Mimic_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20614
+    AegisName: ACIDUS_B
+    Name: Black Acidus
+    Level: 205
+    Hp: 3455504
+    BaseExp: 246822
+    JobExp: 172775
+    Attack: 5442
+    Attack2: 917
+    Defense: 249
+    MagicDefense: 80
+    Str: 225
+    Agi: 169
+    Vit: 73
+    Int: 122
+    Dex: 166
+    Luk: 73
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Dragon
+    Element: Dark
+    ElementLevel: 4
+    WalkSpeed: 180
+    AttackDelay: 769
+    AttackMotion: 528
+    DamageMotion: 300
+    Ai: 19
+    Drops:
+      - Item: Dragon_Canine
+        Rate: 1200
+      - Item: Dragon_Train
+        Rate: 500
+      - Item: Dragenergy_Green
+        Rate: 30
+      - Item: Dragenergy_Purple
+        Rate: 30
+      - Item: Abyss_itembox
+        Rate: 5
+      - Item: Dragon_Scale
+        Rate: 750
+      - Item: Shadowdecon
+        Rate: 6
+      - Item: Acidus_B_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20615
+    AegisName: ACIDUS_S
+    Name: Silver Acidus
+    Level: 205
+    Hp: 3456051
+    BaseExp: 246822
+    JobExp: 172775
+    Attack: 5421
+    Attack2: 943
+    Defense: 253
+    MagicDefense: 80
+    Str: 224
+    Agi: 163
+    Vit: 75
+    Int: 125
+    Dex: 157
+    Luk: 80
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Dragon
+    Element: Ghost
+    ElementLevel: 4
+    WalkSpeed: 180
+    AttackDelay: 769
+    AttackMotion: 528
+    DamageMotion: 300
+    Ai: 19
+    Drops:
+      - Item: Dragon_Canine
+        Rate: 1000
+      - Item: Dragon_Train
+        Rate: 500
+      - Item: Dragenergy_Silver
+        Rate: 30
+      - Item: Dragenergy_Gold
+        Rate: 30
+      - Item: Abyss_itembox
+        Rate: 5
+      - Item: Dragon_Scale
+        Rate: 750
+      - Item: Zelunium
+        Rate: 6
+      - Item: Acidus_S_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20616
+    AegisName: BONE_FERUS
+    Name: Bone Ferus
+    Level: 206
+    Hp: 3474420
+    BaseExp: 248173
+    JobExp: 173721
+    Attack: 5833
+    Attack2: 935
+    Defense: 285
+    MagicDefense: 80
+    Str: 242
+    Agi: 173
+    Vit: 75
+    Int: 122
+    Dex: 173
+    Luk: 67
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Undead
+    Element: Undead
+    ElementLevel: 4
+    WalkSpeed: 120
+    AttackDelay: 575
+    AttackMotion: 384
+    DamageMotion: 432
+    Ai: 19
+    Drops:
+      - Item: Drabone_S
+        Rate: 1250
+      - Item: Drabone_L
+        Rate: 15
+      - Item: Skel_Bone
+        Rate: 3000
+      - Item: Dragenergy_Blue
+        Rate: 40
+      - Item: Dragenergy_Green
+        Rate: 30
+      - Item: Abyss_itembox
+        Rate: 10
+      - Item: Shadowdecon
+        Rate: 6
+      - Item: Bone_Ferus_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20617
+    AegisName: BONE_ACIDUS
+    Name: Bone Acidus
+    Level: 207
+    Hp: 3491700
+    BaseExp: 249407
+    JobExp: 174585
+    Attack: 5988
+    Attack2: 936
+    Defense: 294
+    MagicDefense: 81
+    Str: 248
+    Agi: 175
+    Vit: 78
+    Int: 120
+    Dex: 175
+    Luk: 68
+    AttackRange: 2
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Undead
+    Element: Undead
+    ElementLevel: 4
+    WalkSpeed: 180
+    AttackDelay: 769
+    AttackMotion: 528
+    DamageMotion: 300
+    Ai: 19
+    Drops:
+      - Item: Drabone_S
+        Rate: 1250
+      - Item: Drabone_L
+        Rate: 15
+      - Item: Skel_Bone
+        Rate: 3000
+      - Item: Dragenergy_Red
+        Rate: 40
+      - Item: Dragenergy_Silver
+        Rate: 30
+      - Item: Abyss_itembox
+        Rate: 10
+      - Item: Zelunium
+        Rate: 6
+      - Item: Bone_Acidus_Card
+        Rate: 1
+        StealProtected: true
+
+  - Id: 20618
+    AegisName: BONE_DETALE
+    Name: Bone Detardeurus
+    Level: 209
+    Hp: 88466828
+    BaseExp: 6150908
+    JobExp: 4305636
+    MvpExp: 3075454
+    Attack: 9945
+    Attack2: 1901
+    Defense: 451
+    MagicDefense: 81
+    Str: 335
+    Agi: 194
+    Vit: 173
+    Int: 288
+    Dex: 203
+    Luk: 55
+    AttackRange: 3
+    SkillRange: 10
+    ChaseRange: 12
+    Size: Large
+    Race: Undead
+    Element: Undead
+    ElementLevel: 4
+    WalkSpeed: 200
+    AttackDelay: 935
+    AttackMotion: 240
+    DamageMotion: 360
+    Ai: 21
+    Class: Boss
+    Modes:
+      Mvp: true
+    DamageTaken: 10
+    MvpDrops:
+      - Item: Abyss_itembox
+        Rate: 5000
+      - Item: Abyss_Ddbox2
+        Rate: 4000
+      - Item: Abyss_Ddbox
+        Rate: 3000
+    Drops:
+      - Item: Drabone_L
+        Rate: 8000
+      - Item: Shadowdecon
+        Rate: 50
+      - Item: Zelunium
+        Rate: 50
+      - Item: Dragenergy_Green
+        Rate: 10000
+      - Item: Dragenergy_Silver
+        Rate: 10000
+      - Item: Dragenergy_Red
+        Rate: 10000
+      - Item: Dragenergy_Blue
+        Rate: 10000
+      - Item: Bone_Detale_Card
+        Rate: 1
+        StealProtected: true

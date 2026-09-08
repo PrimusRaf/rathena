@@ -107,3 +107,5 @@ Footer:
   # umgekehrt - Imports werden der Reihe nach angewandt, der
   # spaetere gewinnt.
   - Path: db/import/mob_db_safa_biom.yml
+  # Illusion of Labyrinth + Abyss 4 - Monster, die rAthena fehlen.
+  - Path: db/import/mob_db_safa_illusion.yml
