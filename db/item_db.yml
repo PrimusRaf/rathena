@@ -110,3 +110,8 @@ Footer:
   # anderen Item-Importen stehen: es patcht nur dieses eine Feld und
   # soll dabei auch Stuecke erreichen, die weiter oben erst entstehen.
   - Path: db/import/item_db_gradable.yml
+  # Kauf-/Verkaufspreise fuer alles, was vorher 0 Zeny wert war,
+  # erzeugt von tools/preise/bauen.py. Patcht nur Buy und Sell und
+  # steht deshalb ganz am Ende, hinter allen Stuecken, die es
+  # bepreisen soll.
+  - Path: db/import/item_db_preise.yml
