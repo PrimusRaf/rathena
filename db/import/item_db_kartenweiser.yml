@@ -4688,12 +4688,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus bSpeedRate,25;
-      bonus bSpeedRate,25;
-      bonus bSpeedRate,25;
-      // Setzer-Ausgleich fuer nicht stapelbare Boni
-      bonus bMaxHPrate,3;
-      bonus bMaxSPrate,3;
+      // Laufgeschwindigkeit: bSpeedRate stapelt nicht, deshalb bSpeedAddRate (Grundwert 25%)
+      bonus bSpeedAddRate,40;
 
   - Id: 50255
     AegisName: Moonlight_Flower_Card_S3
@@ -4707,18 +4703,8 @@ Body:
       BuyingStore: true
       DropEffect: true
     Script: |
-      bonus bSpeedRate,25;
-      bonus bSpeedRate,25;
-      bonus bSpeedRate,25;
-      bonus bSpeedRate,25;
-      bonus bSpeedRate,25;
-      bonus bSpeedRate,25;
-      bonus bSpeedRate,25;
-      bonus bSpeedRate,25;
-      bonus bSpeedRate,25;
-      // Setzer-Ausgleich fuer nicht stapelbare Boni
-      bonus bMaxHPrate,6;
-      bonus bMaxSPrate,6;
+      // Laufgeschwindigkeit: bSpeedRate stapelt nicht, deshalb bSpeedAddRate (Grundwert 25%)
+      bonus bSpeedAddRate,55;
 
   - Id: 50256
     AegisName: Mistress_Card_S2
