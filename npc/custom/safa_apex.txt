@@ -24,11 +24,15 @@
 //     stehen:
 //
 //         5 Totems   kein Schaden
-//         4 Totems   20 Prozent
-//         3 Totems   40 Prozent
-//         2 Totems   60 Prozent
-//         1 Totem    80 Prozent
-//         0 Totems   voller Schaden
+//         4 Totems   ein Fuenftel
+//         3 Totems   zwei Fuenftel
+//         2 Totems   drei Fuenftel
+//         1 Totem    vier Fuenftel
+//         0 Totems   alles, was er OFFEN annimmt
+//
+//     "Offen" heisst seit dem Umbau auf die Elephantmagon-Werte
+//     nicht mehr 100 Prozent, sondern das DamageTaken des
+//     Elephantmagon - siehe DIE ZAHLEN weiter unten.
 //
 //     Die Totems selbst tragen vier Mode-Flags:
 //
@@ -76,11 +80,16 @@
 //
 //     ACHTUNG, DAS IST DER GEFAEHRLICHE PUNKT
 //
-//     Steht keine Wand mehr, sind zehn Prozent von hundert
-//     Millionen zehn Millionen - das Neunfache des
+//     Seit der Apex mit den Elephantmagon-Werten steht, kommt
+//     deutlich weniger an: DEF 8000 und RES 3000 sind zusammen
+//     rund Faktor 24, dazu DamageTaken (bei 5: Faktor 20). Aus
+//     zwei Milliarden werden gut vier Millionen - und zehn
+//     Prozent davon sind 400.000, gut ein Drittel des
 //     Lebenspunktdeckels von 1,1 Millionen
-//     (conf/battle/player.conf:100). Im Fenster ist ein einziger
-//     grosser Schlag dann toedlich, ohne Ausnahme.
+//     (conf/battle/player.conf:100). Wer im Fenster mit
+//     Milliardenschlaegen weitermacht, ist nach drei davon tot;
+//     wer mit hundert Millionen schlaegt, spuert es kaum. Das
+//     Fenster bestraft also genau die, gegen die es gebaut ist.
 //
 //     Genau so ist es gemeint: vier Sekunden Vorwarnung, danach
 //     Finger weg. Und es ist selbstregelnd - wer kleiner
@@ -91,6 +100,51 @@
 //     @autopot ist auf diesem Server ausdruecklich erlaubt
 //     (siehe npc/scripts_custom.conf). Hier ist es zum ersten
 //     Mal nicht genug.
+//
+//
+//  DIE ZAHLEN: ELEPHANTMAGON
+//
+//  Lebenspunkte, Stufe, DEF, MDEF, RES, MRES und die sechs
+//  Grundwerte werden beim Aufstellen vom Elephantmagon (23100)
+//  gelesen - getmonsterinfo gegen db/import/mob_db_safa_biom.yml.
+//  Dort steht zu jeder Zahl die Begruendung (4,2 Mrd als
+//  uint32-Grenze, DEF 8000 als Knick der Kurve, RES 3000 als
+//  Deckel). Es gibt keinen zweiten Satz Zahlen, der abweichen
+//  koennte: wer den Biom-Boss nachschaerft, schaerft den Apex
+//  mit.
+//
+//  DamageTaken ist das gelernte $safa_biom_dt des Biom-Skripts -
+//  also das, womit der Elephantmagon gerade tatsaechlich steht -
+//  und bildet die OBERKANTE der Totem-Skala. Bei fuenf Totems ist
+//  er unantastbar, bei null nimmt er genau so viel an wie der
+//  Elephantmagon.
+//
+//  DER SCHLAG - UND WARUM ER VORHER NICHT ANKAM
+//
+//  Hier stand .atk_min 120.000 und .atk_max 200.000. setunitdata
+//  schreibt UMOB_ATKMIN/ATKMAX aber als uint16 (script.cpp:19495,
+//  status.hpp:3365 `uint16 atk, atk2`). 200.000 ist modulo 65536
+//  gleich 3.392, 120.000 gleich 54.464 - und weil min groesser
+//  als max war, nahm battle_calc_base_damage (battle.cpp:2640)
+//  das Minimum auf das Maximum herunter: der Apex schlug mit
+//  3.392. Im Enrage mit 6.784. Von aussen nicht zu sehen, nur zu
+//  spueren.
+//
+//  Ueber 65.535 kommt man am Grundwert nicht hinaus - aber ueber
+//  den Prozentregler dahinter: SC_INCATKRATE geht in Renewal als
+//  atkpercent VOR die Skillratio (battle.cpp:4457 ff., fuer jeden
+//  Schlag und jeden Skill), val1 ist der Prozentaufschlag, ohne
+//  Deckel unterhalb 65.535 Prozent. Der Apex bekommt den Grund-
+//  wert am Anschlag und darauf .wut_1 Prozent, im Enrage .wut_2.
+//  Nebenbei traegt er dadurch die Explosion-Spirits-Aura
+//  (status.cpp:14088 simuliert genau das fuer BL_MOB) - man sieht
+//  ihm also an, dass er wuetend ist.
+//
+//  Und damit das ankommt: HIT wird alle .treffer_takt Sekunden am
+//  hoechsten FLEE in der Arena ausgerichtet, plus .hit_plus.
+//  Trefferrate ist 80 + HIT - FLEE (battle.cpp:3364), gedeckelt
+//  bei 100 - der Apex trifft also jeden, Perfect Dodge (LUK)
+//  bleibt der einzige Ausweg.
 //
 //
 //  DER ABLAUF
@@ -455,42 +509,73 @@ OnWecken:
 	$@apex_gid   = .@gid;
 	$@apex_basis = .@basis;
 	$@apex_name$ = .@name$;
-	$@apex_maxhp = .hp;
 	$@apex_phase = 1;
 	$@apex_tick  = 0;
 	$@apex_heilt = 0;
 	$@apex_str       = 0;
 	$@apex_str_stand = 0;
 
-	setunitdata .@gid, UMOB_MAXHP, .hp;
-	setunitdata .@gid, UMOB_HP,    .hp;
-
-	// --- Der Angriff wird GESETZT, nicht vervielfacht ---------
-	//  Die sechs Vorlagen liegen zwischen 1.800 (Infinite Eddga)
-	//  und 12.871 (R001-Bestia) Grundangriff. Ein gemeinsamer
-	//  Faktor macht daraus einen Apex, der je nach Wuerfelwurf
-	//  siebenmal so hart zuschlaegt wie ein anderer - und die
-	//  Vorlage soll das AUSSEHEN bestimmen, nicht die
-	//  Schwierigkeit. Also ein fester Wert fuer alle.
+	// --- Die Werte: Elephantmagon ----------------------------
+	//  Siehe Dateikopf, DIE ZAHLEN. Alles hier kommt aus
+	//  db/import/mob_db_safa_biom.yml, nichts aus der Vorlage und
+	//  nichts aus einer Zahl in OnInit.
 	//
-	//  Die Hoehe ist am Deckel gemessen, nicht an den Vorlagen:
-	//  bei 1,1 Millionen Lebenspunkten sind 200.000 vor Abzuegen
-	//  rund ein Fuenftel, nach DEF und RES deutlich weniger.
-	//  Damit haelt der Apex Druck, ohne zu einem Schlag zu
-	//  toeten - und die halbierte Heilung ab Phase 3 wird zu
-	//  einem Problem statt zu einer Verzierung.
+	//  ZU DEN 4,2 MILLIARDEN
+	//
+	//  setunitdata liest seinen Wert als int32 (script.cpp:19408,
+	//  conv_num ist ein static_cast<int32>). 4.200.000.000 kommt
+	//  dort als -94.967.296 an - und wird in derselben Zeile wieder
+	//  nach uint32 geworfen (script.cpp:19448, `(uint32)value`).
+	//  Beide Umwandlungen sind modular, das Ergebnis ist exakt
+	//  4.200.000.000. Das ist eine Eigenschaft des Compilers, kein
+	//  Versprechen des Skripts - deshalb wird nachgelesen, und wenn
+	//  die Zahl den Umweg nicht ueberlebt hat, gilt .hp_notnagel,
+	//  der groesste Wert, der ohne Umweg geht.
+	.@hp = getmonsterinfo(.vorbild, MOB_MAXHP);
+	setunitdata .@gid, UMOB_MAXHP, .@hp;
+	getunitdata .@gid, .@d;
+	if (.@d[UMOB_MAXHP] != .@hp) {
+		debugmes "[Apex] MaxHP " + .@hp + " kam als " + .@d[UMOB_MAXHP]
+		         + " an - Notnagel " + .hp_notnagel;
+		.@hp = .hp_notnagel;
+		setunitdata .@gid, UMOB_MAXHP, .@hp;
+	}
+	setunitdata .@gid, UMOB_HP, .@hp;
+	$@apex_maxhp = .@hp;
+
+	setunitdata .@gid, UMOB_LEVEL, getmonsterinfo(.vorbild, MOB_LV);
+	setunitdata .@gid, UMOB_DEF,   getmonsterinfo(.vorbild, MOB_DEF);
+	setunitdata .@gid, UMOB_MDEF,  getmonsterinfo(.vorbild, MOB_MDEF);
+	setunitdata .@gid, UMOB_RES,   getmonsterinfo(.vorbild, MOB_RES);
+	setunitdata .@gid, UMOB_MRES,  getmonsterinfo(.vorbild, MOB_MRES);
+	setunitdata .@gid, UMOB_STR,   getmonsterinfo(.vorbild, MOB_STR);
+	setunitdata .@gid, UMOB_AGI,   getmonsterinfo(.vorbild, MOB_AGI);
+	setunitdata .@gid, UMOB_VIT,   getmonsterinfo(.vorbild, MOB_VIT);
+	setunitdata .@gid, UMOB_INT,   getmonsterinfo(.vorbild, MOB_INT);
+	setunitdata .@gid, UMOB_DEX,   getmonsterinfo(.vorbild, MOB_DEX);
+	setunitdata .@gid, UMOB_LUK,   getmonsterinfo(.vorbild, MOB_LUK);
+
+	// DamageTaken-Oberkante: das, womit der Elephantmagon gerade
+	// steht. Das Biom-Skript haelt $safa_biom_dt in 1..100; steht
+	// er aus irgendeinem Grund ausserhalb, gilt der DB-Wert 5.
+	.dt_offen = ($safa_biom_dt >= 1 && $safa_biom_dt <= 100)
+	            ? $safa_biom_dt : 5;
+
+	// --- Der Schlag ------------------------------------------
+	//  Grundwert am uint16-Anschlag (mehr passt nicht ins Feld,
+	//  siehe Dateikopf), Wucht ueber SC_INCATKRATE. Die alten
+	//  120.000/200.000 liefen ueber und kamen als 3.392 an.
+	setunitdata .@gid, UMOB_ATKMIN, .atk_deckel;
+	setunitdata .@gid, UMOB_ATKMAX, .atk_deckel;
+	setunitdata .@gid, UMOB_HIT,    .hit_not;
+	callsub S_Wut, .wut_1;
+
 	// getunitdata GIBT NICHTS ZURUECK, es fuellt ein Feld -
 	// doc/script_commands.txt:8885. Ein Aufruf der Form
 	// getunitdata(gid, UMOB_X) meldet im Log "Error in argument"
 	// und bricht das Skript ab. Genau daran ist das Wildlife-
 	// System haengengeblieben, bevor es hier auffiel.
 	getunitdata .@gid, .@d;
-
-	setunitdata .@gid, UMOB_ATKMIN, .atk_min;
-	setunitdata .@gid, UMOB_ATKMAX, .atk_max;
-	setunitdata .@gid, UMOB_DEF,    .@d[UMOB_DEF] + 200;
-	setunitdata .@gid, UMOB_MDEF,   .@d[UMOB_MDEF] + 200;
-	setunitdata .@gid, UMOB_LEVEL,  500;
 
 	// MD_CANATTACK ist ein eigenes Flag (mmo.hpp:249). Ohne es
 	// will das Tier angreifen und kann es nicht.
@@ -506,6 +591,7 @@ OnWecken:
 	// Die erste Wand steht sofort. Der Apex ist von der ersten
 	// Sekunde an unantastbar - genau das soll der Kampf lehren.
 	callsub S_Totems;
+	callsub S_Treffer;
 
 	initnpctimer;
 	end;
@@ -654,8 +740,8 @@ OnTotem:
 		    bc_map, "0x66CC66";
 	} else {
 		mapannounce .arena$,
-		    "A stone splits. " + $@apex_totems + " left - it is taking "
-		    + ((.totem_zahl - $@apex_totems) * .pro_totem) + "% of what you deal.",
+		    "A stone splits. " + $@apex_totems + " left - the wall still turns away "
+		    + ($@apex_totems * .pro_totem) + "% of what would get through.",
 		    bc_map, "0xFFCC00";
 	}
 
@@ -695,9 +781,20 @@ OnTotem:
 //  (battle.cpp:2082), also nach diesem Abzug. Wer gegen vier
 //  stehende Totems draufhaelt, bekommt auch nur ein Fuenftel
 //  zurueck.
+//
+//  DIE OBERKANTE IST NICHT 100
+//
+//  Sondern .dt_offen, das DamageTaken des Elephantmagon (siehe
+//  OnWecken). Die Totems teilen diesen Wert in Fuenftel. Bei
+//  .dt_offen 5 heisst das 1, 2, 3, 4, 5 - und weil DamageTaken
+//  ganzzahlig ist, sorgt die Untergrenze dafuer, dass ein
+//  gefallenes Totem nie in einer 0 verschwindet.
 S_Skalierung:
-	.@dt = (.totem_zahl - $@apex_totems) * .pro_totem;
-	if (.@dt < 0)   .@dt = 0;
+	.@weg = .totem_zahl - $@apex_totems;
+	if (.@weg < 0) .@weg = 0;
+	if (.@weg > .totem_zahl) .@weg = .totem_zahl;
+	.@dt = .dt_offen * .@weg / .totem_zahl;
+	if (.@weg > 0 && .@dt < 1) .@dt = 1;
 	if (.@dt > 100) .@dt = 100;
 
 	// DamageTaken 0 laesst rAthena trotzdem 1 Schaden je Treffer
@@ -734,6 +831,8 @@ OnTimer1000:
 		end;
 	}
 
+	if ($@apex_tick % .treffer_takt == 0) callsub S_Treffer;
+
 	getunitdata $@apex_gid, .@ad;
 	.@hp  = .@ad[UMOB_HP];
 	.@pct = .@hp * 100 / $@apex_maxhp;
@@ -764,12 +863,9 @@ OnTimer1000:
 		if (.@pct <= 15) {
 			$@apex_phase = 4;
 
-			// Verdoppeln, nicht verdreifachen. Bei mal drei
-			// stuende der Hoechstschlag bei 600.000 und damit
-			// ueber der Haelfte des Deckels - das waere kein
-			// Enrage mehr, sondern ein Wuerfelwurf auf Tod.
-			setunitdata $@apex_gid, UMOB_ATKMIN, .atk_min * 2;
-			setunitdata $@apex_gid, UMOB_ATKMAX, .atk_max * 2;
+			// Die Wut wird hochgesetzt, nicht der Grundwert -
+			// der steht am uint16-Anschlag. Siehe S_Wut.
+			callsub S_Wut, .wut_2;
 			setunitdata $@apex_gid, UMOB_SPEED, 120;
 
 			mapannounce .arena$,
@@ -867,6 +963,59 @@ S_Totemschaden:
 		setunitdata .@g, UMOB_HP, .@rest;
 		$@tot_hp[.@k] = .@rest;
 	}
+	return;
+
+
+// ------------------------------------------------------------
+//  Die Wut - der Prozentaufschlag auf jeden Schlag
+// ------------------------------------------------------------
+//  SC_INCATKRATE, val1 = Prozent obendrauf. Geht in Renewal als
+//  atkpercent vor die Skillratio (battle.cpp:4457) und wirkt
+//  damit auf Grundschlag UND jeden Skill des Apex. Der Status
+//  traegt NoRemoveOnDead, NoClearbuff, NoDispell, NoClearance
+//  (db/re/status.yml) - keine Spielerfertigkeit nimmt ihn weg.
+//
+//  status_change_start ignoriert einen Neustart mit KLEINEREM
+//  val1 (status.cpp:10838) - deshalb erst sc_end, dann sc_start.
+//  So laesst sich der Wert in beide Richtungen setzen.
+//
+//  Dauer: laenger als die Jagd. Er soll nicht vor dem Zeitlimit
+//  auslaufen und den Apex still auf ein Achtel zuruecksetzen.
+S_Wut:
+	sc_end SC_INCATKRATE, $@apex_gid;
+	sc_start SC_INCATKRATE, (.zeit + 60) * 1000, getarg(0), 10000,
+	         SCSTART_NOAVOID | SCSTART_NOTICKDEF | SCSTART_NORATEDEF,
+	         $@apex_gid;
+	return;
+
+
+// ------------------------------------------------------------
+//  Treffen - HIT am hoechsten FLEE in der Arena ausrichten
+// ------------------------------------------------------------
+//  Trefferrate ist 80 + HIT - FLEE, gedeckelt bei max_hitrate
+//  (conf/battle/battle.conf:79, 100). HIT = hoechstes FLEE plus
+//  .hit_plus trifft also jeden voll. Wer spaeter dazukommt, wird
+//  vom naechsten Takt erfasst.
+//
+//  FLEE steht nicht in der UPC-Liste von getunitdata, deshalb
+//  attachrid + readparam wie im Biom-Skript. setunitdata UMOB_HIT
+//  schreibt den ENDWERT (script.cpp:19501, danach nur SCB_BATTLE)
+//  - Level und DEX werden nicht noch einmal aufaddiert.
+//  HIT ist int16, daher der Deckel.
+S_Treffer:
+	if (!$@apex_gid || !unitexists($@apex_gid)) return;
+	.@n = getmapunits(BL_PC, .arena$, .@wer[0]);
+	.@flee = 0;
+	for (.@k = 0; .@k < .@n; .@k++) {
+		if (!attachrid(.@wer[.@k])) continue;
+		.@f = readparam(bFlee);
+		if (.@f > .@flee) .@flee = .@f;
+		detachrid;
+	}
+	if (.@flee <= 0) return;
+	.@hit = .@flee + .hit_plus;
+	if (.@hit > 32000) .@hit = 32000;
+	setunitdata $@apex_gid, UMOB_HIT, .@hit;
 	return;
 
 
@@ -1055,26 +1204,36 @@ OnInit:
 	.mat    = 30504;
 
 	// --- Der Kampf -------------------------------------------
-	//  200 Millionen. Bei voller Wand kommt gar nichts an, ohne
-	//  Wand alles - und ohne Wand waeren 100 Millionen nach zwei
-	//  Schlaegen weg. Die Zahl ist an den ueblichen Treffern
-	//  gemessen, nicht an der Spitze: bei rund 2 Millionen je
-	//  Schlag sind das hundert Treffer bei offener Wand.
-	.hp        = 200000000;
+	//  Keine Lebenspunkte und keine Ruestung hier: die kommen vom
+	//  Vorbild, siehe Dateikopf, DIE ZAHLEN.
+	.vorbild     = 23100;        // Elephantmagon, mob_db_safa_biom.yml
+	.hp_notnagel = 2000000000;   // nur falls die 4,2 Mrd den int32-
+	                             // Umweg nicht ueberleben, s. OnWecken
 
 	// --- Die Totems ------------------------------------------
 	.totem      = 1907;        // Guardian Stone, die WoE:SE-Statue
 	.totem_zahl = 5;
 	.totem_hp   = 1000000;     // eine Million
 	.wert       = 100;         // Schaden je Treffer -> 10.000 Treffer
-	.pro_totem  = 20;          // Prozentpunkte je gefallenem Totem
+	.pro_totem  = 20;          // Prozent der Oberkante je Totem (Ansage)
 
 	//  Vier Ecken und die Mitte. 99,79 waere der geometrische
 	//  Mittelpunkt, ist aber Zelltyp 5 - Abgrund. Deshalb 99,83.
 	setarray .tx[0],  91, 107,  91, 107,  99;
 	setarray .ty[0],  71,  71,  87,  87,  83;
-	.atk_min   = 120000;     // fest, nicht aus der Vorlage
-	.atk_max   = 200000;     // im Enrage verdoppelt
+	//  Der Schlag: Grundwert am uint16-Anschlag, Wucht in Prozent
+	//  obendrauf (SC_INCATKRATE, siehe S_Wut). 700 heisst das
+	//  Achtfache: rund 524.000 vor der Ruestung des Spielers, bei
+	//  DEF 300 kommen davon 61 % an, bei DEF 900 noch 38 % - also
+	//  200.000 bis 320.000 je Schlag gegen 1,1 Millionen Deckel.
+	//  Im Enrage das Sechzehnfache: zwei bis drei Schlaege, und
+	//  @autopot ist bei halbierter Heilung kein Rettungsanker mehr.
+	.atk_deckel = 65535;
+	.wut_1      = 700;       // Prozent obendrauf, Phase 1-3
+	.wut_2      = 1500;      // Enrage
+	.hit_plus   = 20;        // ueber dem hoechsten FLEE: 100 %
+	.hit_not    = 3000;      // bis der erste Takt gemessen hat
+	.treffer_takt = 5;       // Sekunden zwischen zwei Messungen
 	.zeit      = 1200;       // Sekunden, dann geht er zurueck
 
 	// --- Das Straeuben ---------------------------------------
