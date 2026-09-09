@@ -265,19 +265,11 @@ function	script	F_KafStor	{
 			for ( .@i = 0; .@i < 5; .@i++ )
 				mes "^666666Thank you.. for... using...^000000";
 		}
-		// Normal message
-		else {
-			mes "[Kafra Employee]";
-			mes "Here, let me open";
-			mes "your Storage for you.";
-			mes "Thank you for using";
-			mes "the Kafra Service.";
-		}
+		// SafaRO: Abschiedstext und openstorage uebernimmt die Lagerwahl
+		// (npc/custom/safa_lager.txt, 38 Lager a 800 Slots).
 	}
 	callfunc("F_CheckKafCode");	//check your storage password, if set
-	close2;
-	openstorage;
-	cutin "", 255;
+	callfunc "F_SafaStorage";
 	end;
 }
 

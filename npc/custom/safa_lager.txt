@@ -1,0 +1,78 @@
+//===== SafaRO ==============================================
+//= Lagerwahl an der Kafra
+//===== Beschreibung ========================================
+//= Das Hauptlager fasst 800 Slots (MAX_STORAGE, harte Grenze
+//= des Char<->Map-Protokolls, siehe src/common/mmo.hpp).
+//= 37 Zusatzlager a 800 Slots liegen in
+//= conf/import/inter_server.yml (Storage 2..38), zusammen
+//= 30400 Slots. Diese Funktion ersetzt das nackte
+//= "openstorage" in F_KafStor (npc/kafras/functions_kafras.txt)
+//= durch ein Auswahlmenue. Gebuehr, Basic-Skill-Pruefung und
+//= Lagerpasswort sind dort schon erledigt.
+//=
+//= Zuletzt benutztes Lager wird je Account gemerkt
+//= (#SAFA_LAGER, 1..38) und steht als erster Menuepunkt.
+//===========================================================
+
+function	script	F_SafaStorage	{
+	.@count = 38;
+	.@last = #SAFA_LAGER;
+	if (.@last < 1 || .@last > .@count)
+		.@last = 1;
+
+	mes "[Kafra Employee]";
+	mes "Which storage would";
+	mes "you like to open?";
+	mes "You have " + .@count + " storages";
+	mes "with 800 slots each.";
+	next;
+
+	.@menu$ = "Last used: Storage " + .@last;
+	.@menu$ += ":Storage 1 - 10";
+	.@menu$ += ":Storage 11 - 20";
+	.@menu$ += ":Storage 21 - 30";
+	.@menu$ += ":Storage 31 - " + .@count;
+	.@menu$ += ":Cancel";
+	.@sel = select(.@menu$);
+
+	if (.@sel == 1)
+		.@nr = .@last;
+	else if (.@sel == 6) {
+		mes "[Kafra Employee]";
+		mes "Come back anytime.";
+		cutin "", 255;
+		close;
+	}
+	else {
+		.@from = (.@sel - 2) * 10 + 1;
+		.@to = .@from + 9;
+		if (.@to > .@count)
+			.@to = .@count;
+		.@menu$ = "";
+		for (.@i = .@from; .@i <= .@to; .@i++)
+			.@menu$ += "Storage " + .@i + ":";
+		.@menu$ += "Cancel";
+		.@sel = select(.@menu$);
+		if (.@sel > .@to - .@from + 1) {
+			mes "[Kafra Employee]";
+			mes "Come back anytime.";
+			cutin "", 255;
+			close;
+		}
+		.@nr = .@from + .@sel - 1;
+	}
+
+	#SAFA_LAGER = .@nr;
+	mes "[Kafra Employee]";
+	mes "Here, let me open";
+	mes "Storage " + .@nr + " for you.";
+	mes "Thank you for using";
+	mes "the Kafra Service.";
+	close2;
+	cutin "", 255;
+	if (.@nr == 1)
+		openstorage;
+	else
+		openstorage2 .@nr - 1, STOR_MODE_ALL;
+	end;
+}

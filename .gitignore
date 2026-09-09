@@ -111,6 +111,7 @@ Thumbs.db
 /conf/import/*
 !/conf/import/battle_conf.txt
 !/conf/import/groups.yml
+!/conf/import/inter_server.yml
 /conf/msg_conf/import
 
 # /lib

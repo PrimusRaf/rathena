@@ -96,7 +96,11 @@ typedef uint32 t_itemid;
 #define DEFAULT_NPC_WALK_SPEED 200 ///Default NPC walk speed
 #define MIN_WALK_SPEED 20 ///Min walk speed
 #define MAX_WALK_SPEED 1000 ///Max walk speed
-#define MAX_STORAGE 600 ///Max number of storage slots a player can have
+// SafaRO: 600 -> 800. Harte Obergrenze ~850: Char- und Map-Server tauschen
+// das ganze s_storage in EINEM Paket mit 16-Bit-Laenge aus (77 Byte je Item).
+// Mehr Platz gibt es ueber die Zusatzlager in conf/import/inter_server.yml
+// (38 x 800 = 30400 Slots, Auswahl an der Kafra, npc/custom/safa_lager.txt).
+#define MAX_STORAGE 800 ///Max number of storage slots a player can have
 #define MAX_GUILD_STORAGE 600 ///Max number of storage slots a guild
 #define MAX_PARTY 12 ///Max party member
 #define MAX_GUILD 16+10*6	///Increased max guild members +6 per 1 extension levels [Lupus]
