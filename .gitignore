@@ -94,6 +94,7 @@ Thumbs.db
 !/db/import/mob_db_safa_coins.yml
 !/db/import/mob_db_safa_illusion.yml
 !/db/import/mob_db_safa_pets.yml
+!/db/import/mob_db_safa_tame.yml
 !/db/import/map_drops.yml
 !/db/import/mob_skill_db.txt
 !/db/import/mob_item_ratio.yml

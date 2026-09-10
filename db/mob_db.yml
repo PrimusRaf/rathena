@@ -114,3 +114,7 @@ Footer:
   # auskommentierte Nummern, der Client kennt sie mit Sprite. Ohne sie
   # schluepft keines dieser Eier ("pet does not exist").
   - Path: db/import/mob_db_safa_pets.yml
+  # Jedes zaehmbare Monster laesst sein Zaehmitem fallen (5 %, MVP 1 %),
+  # erzeugt von tools/pets/zaehmdrops.py. Steht NACH den Coins, weil
+  # es die Drop-Liste anhaengt und die Zaehlung sonst nicht stimmt.
+  - Path: db/import/mob_db_safa_tame.yml
