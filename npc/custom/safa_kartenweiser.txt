@@ -140,6 +140,21 @@ lhz_in02,264,283,4	script	Card Sage#safa	4_M_SAGE_C,{
 		mes "You lack the fee of " + callfunc("F_InsertComma", $@KW_GEBUEHR[.@k]) + " Zeny.";
 		close;
 	}
+	// Platz im Beutel: getitem auf ein volles Inventar wirft das
+	// Item vor die Fuesse (pc_additem ADDITEM_OVERAMOUNT ->
+	// map_addflooritem) oder verliert es ganz - nach Gebuehr und
+	// delitem waere das der Verlust dreier Karten. Also VORHER.
+	// checkweight prueft Gewicht UND freien Platz. Zwei Faelle,
+	// in denen es trotz voller Liste geht: die Zielkarte liegt
+	// schon im Beutel (stapelt), oder die drei Grundkarten sind
+	// der ganze Stapel (ihr Platz wird frei, Gewicht sinkt).
+	if (countitem($@KW_ZIEL[.@k]) == 0 && countitem($@KW_BASIS[.@k]) > 3
+	    && !checkweight($@KW_ZIEL[.@k], 1)) {
+		mes "[Card Sage]";
+		mes "Your bag has no room for the card I would hand you.";
+		mes "Make space first - I will not let a soul fall to the floor.";
+		close;
+	}
 	set Zeny, Zeny - $@KW_GEBUEHR[.@k];
 	delitem $@KW_BASIS[.@k], 3;
 	getitem $@KW_ZIEL[.@k], 1;
