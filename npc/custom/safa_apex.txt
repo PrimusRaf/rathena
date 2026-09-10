@@ -142,9 +142,13 @@
 //
 //  Und damit das ankommt: HIT wird alle .treffer_takt Sekunden am
 //  hoechsten FLEE in der Arena ausgerichtet, plus .hit_plus.
-//  Trefferrate ist 80 + HIT - FLEE (battle.cpp:3364), gedeckelt
-//  bei 100 - der Apex trifft also jeden, Perfect Dodge (LUK)
-//  bleibt der einzige Ausweg.
+//  Trefferrate ist im Renewal HIT - FLEE mit Grundwert 0
+//  (battle.cpp:3362, NICHT die 80 aus Pre-Renewal - dieser Irrtum
+//  liess ihn bis 10.09.2026 mit 20 % treffen), gedeckelt auf
+//  5..100. .hit_plus ist also direkt die Trefferrate in Prozent
+//  gegen den bestausgeruesteten Spieler in der Arena; alle mit
+//  weniger FLEE werden entsprechend oefter getroffen. Perfect
+//  Dodge (LUK) kommt obendrauf und bleibt.
 //
 //
 //  DER ABLAUF
@@ -992,10 +996,11 @@ S_Wut:
 // ------------------------------------------------------------
 //  Treffen - HIT am hoechsten FLEE in der Arena ausrichten
 // ------------------------------------------------------------
-//  Trefferrate ist 80 + HIT - FLEE, gedeckelt bei max_hitrate
-//  (conf/battle/battle.conf:79, 100). HIT = hoechstes FLEE plus
-//  .hit_plus trifft also jeden voll. Wer spaeter dazukommt, wird
-//  vom naechsten Takt erfasst.
+//  Trefferrate ist HIT - FLEE (Renewal, Grundwert 0, battle.cpp:3362),
+//  gedeckelt auf min_hitrate..max_hitrate (conf/battle/battle.conf:
+//  78-79, 5 und 100). HIT = hoechstes FLEE plus .hit_plus trifft
+//  den Bestausgeruesteten also zu .hit_plus Prozent. Wer spaeter
+//  dazukommt, wird vom naechsten Takt erfasst.
 //
 //  FLEE steht nicht in der UPC-Liste von getunitdata, deshalb
 //  attachrid + readparam wie im Biom-Skript. setunitdata UMOB_HIT
@@ -1231,7 +1236,7 @@ OnInit:
 	.atk_deckel = 65535;
 	.wut_1      = 700;       // Prozent obendrauf, Phase 1-3
 	.wut_2      = 1500;      // Enrage
-	.hit_plus   = 20;        // ueber dem hoechsten FLEE: 100 %
+	.hit_plus   = 70;        // = Trefferrate in Prozent gegen das hoechste FLEE (Renewal: HIT - FLEE)
 	.hit_not    = 3000;      // bis der erste Takt gemessen hat
 	.treffer_takt = 5;       // Sekunden zwischen zwei Messungen
 	.zeit      = 1200;       // Sekunden, dann geht er zurueck
