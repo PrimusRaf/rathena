@@ -109,3 +109,8 @@ Footer:
   - Path: db/import/mob_db_safa_biom.yml
   # Illusion of Labyrinth + Abyss 4 - Monster, die rAthena fehlen.
   - Path: db/import/mob_db_safa_illusion.yml
+  # Die Monster der Ei-Tiere (Orc Hero, Phreeoni, Zoo, Puzzle&Dragons
+  # ...), erzeugt von tools/pets/bauen.py: rAthena fuehrt sie nur als
+  # auskommentierte Nummern, der Client kennt sie mit Sprite. Ohne sie
+  # schluepft keines dieser Eier ("pet does not exist").
+  - Path: db/import/mob_db_safa_pets.yml

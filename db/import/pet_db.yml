@@ -13,8 +13,14 @@
 #  Zahl laesst rnd_chance immer fehlschlagen - der Fang waere dann
 #  unmoeglich statt sicher.
 #
-#  Aufgenommen sind nur Tiere mit einem Zaehmitem. Wer keines hat,
-#  ist nicht zum Fangen gedacht und bleibt, wie er ist.
+#  Drei Sorten Eintraege, alle mit dem SafaRO-Bonusskript:
+#    - zaehmbare Tiere (CaptureRate 10000),
+#    - Ei-Tiere, die rAthena aktiv fuehrt (Orc Lord, Mistress ...):
+#      nur Skript und Ketten, die Felder erben sie,
+#    - Ei-Tiere, die rAthena nur auskommentiert fuehrt (Orc Hero,
+#      Phreeoni, Zoo, Puzzle&Dragons ...): mit allen Feldern; ihre
+#      Monster stehen in db/import/mob_db_safa_pets.yml.
+#  Damit gehoert jedes Ei der Itemdatenbank zu einem Tier.
 # ==========================================================
 
 Header:
@@ -35,6 +41,24 @@ Body:
         bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
         bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
       }
+  - Mob: ANGELGOLT3
+    TameItem: aegis_103218
+    EggItem: aegis_9170
+    FoodItem: High_Class_Pet_food
+    Fullness: 3
+    IntimacyFed: 50
+    SpecialPerformance: false
+    CaptureRate: 10000
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"AB_JUDEX",10,150;
+      bonus3 bAutoSpellWhenHit,"AL_HEAL",10,75;
   - Mob: BACSOJIN_
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -50,6 +74,13 @@ Body:
   - Mob: BAPHOMET_
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: ILL_BAPHOMET_J
+        ItemRequirements:
+          - Item: Evil_Horn
+            Amount: 300
+          - Item: Brigan
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -143,9 +174,41 @@ Body:
         bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
         bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
       }
+  - Mob: C_TOWER_MANAGER2
+    TameItem: aegis_103219
+    EggItem: aegis_9169
+    FoodItem: High_Class_Pet_food
+    Fullness: 3
+    IntimacyFed: 50
+    SpecialPerformance: false
+    CaptureRate: 10000
+    AllowAutoFeed: true
+    Evolution:
+      - Target: TIMEHOLDER3
+        ItemRequirements:
+          - Item: Needle_Of_Alarm
+            Amount: 300
+          - Item: Bs_Making_S
+            Amount: 150
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: DARK_PRIEST
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: DARK_ILLUSION2
+        ItemRequirements:
+          - Item: Book_Of_The_Apocalypse
+            Amount: 300
+          - Item: Bone_Wand
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -278,6 +341,55 @@ Body:
       if (.@f >= PET_INTIMATE_LOYAL) {
         bonus3 bAutoSpell,"WZ_METEOR",10,100;
         bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,50;
+      }
+  - Mob: EP20_COPO
+    TameItem: Ep20_Fatty_Icegangu
+    EggItem: Copo_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 10000
+    AllowAutoFeed: true
+    Evolution:
+      - Target: EP20_ICEWIND1
+        ItemRequirements:
+          - Item: Ice_Heart
+            Amount: 450
+      - Target: EP20_ICEWIND2
+        ItemRequirements:
+          - Item: Ice_Heart
+            Amount: 450
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
+  - Mob: EP21_ICESEAHORSE
+    TameItem: Ep21_Fatty_Shrimp
+    EggItem: aegis_9157
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 10000
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
       }
   - Mob: EVENT_RICECAKE
     CaptureRate: 10000
@@ -524,6 +636,12 @@ Body:
             Amount: 300
           - Item: Puppy_Love
             Amount: 150
+      - Target: WILD_ROSE3
+        ItemRequirements:
+          - Item: Great_Leaf
+            Amount: 300
+          - Item: Cyfar
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -555,6 +673,11 @@ Body:
   - Mob: LOLI_RURI
     CaptureRate: 10000
     AllowAutoFeed: true
+    Evolution:
+      - Target: BLUEMOON_LOLI_RURI2
+        ItemRequirements:
+          - Item: Black_Kitty_Doll
+            Amount: 450
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -980,6 +1103,27 @@ Body:
         bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
         bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
       }
+  - Mob: WANDERING_DUCK
+    TameItem: E_Glittering_Doll_B
+    EggItem: E_Duckling_Egg
+    EquipItem: C_Twinkle_Star_Button
+    FoodItem: Wad_Of_Cotton
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 10000
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
   - Mob: WANDER_MAN
     CaptureRate: 10000
     AllowAutoFeed: true
@@ -1015,6 +1159,12 @@ Body:
           - Item: Limpid_Celestial_Robe
             Amount: 300
           - Item: Fruit_Of_Mastela
+            Amount: 150
+      - Target: BACSOJIN2
+        ItemRequirements:
+          - Item: Limpid_Celestial_Robe
+            Amount: 300
+          - Item: Yggdrasilberry
             Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
@@ -1065,6 +1215,13 @@ Body:
       bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
   - Mob: ALIOT
     AllowAutoFeed: true
+    Evolution:
+      - Target: KIEL_D_01_2
+        ItemRequirements:
+          - Item: Burnt_Parts
+            Amount: 300
+          - Item: Old_Violet_Box
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -1118,6 +1275,78 @@ Body:
       bonus bMaxSPrate, 30 + .@s;
       bonus3 bAutoSpell,"AB_JUDEX",10,250;
       bonus3 bAutoSpellWhenHit,"AL_HEAL",10,125;
+  - Mob: BACSOJIN2
+    EggItem: Bacsojin_Egg2
+    FoodItem: High_Class_Pet_food
+    Fullness: 7
+    IntimacyFed: 10
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,75;
+  - Mob: BAPHOMET2
+    EggItem: Baphomet_Egg
+    FoodItem: High_Class_Pet_food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,200;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,100;
+  - Mob: BLUEMOON_LOLI_RURI2
+    EggItem: Blue_Moon_Loli_Ruri_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,200;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,100;
+  - Mob: BLUE_UNICORN
+    EggItem: Blue_Unicorn_Egg
+    FoodItem: Blue_Herb
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"AB_JUDEX",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_HEAL",10,50;
+      }
   - Mob: CAT_O_NINE_TAIL
     AllowAutoFeed: true
     Script: |
@@ -1140,6 +1369,132 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
       bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+  - Mob: CLB_SS_FC
+    EggItem: CLB_SS_Egg01
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
+  - Mob: CLB_SS_TZ
+    EggItem: CLB_SS_Egg02
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
+  - Mob: CLOCK
+    AllowAutoFeed: true
+    Evolution:
+      - Target: C_TOWER_MANAGER2
+        ItemRequirements:
+          - Item: Needle_Of_Alarm
+            Amount: 450
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
+  - Mob: CWHITEKNIGHT
+    EggItem: Change_W_Knight_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Evolution:
+      - Target: KNIGHT_OF_ABYSS2
+        ItemRequirements:
+          - Item: Reins
+            Amount: 450
+      - Target: GH_WHITEKNIGHT
+        ItemRequirements:
+          - Item: Reins
+            Amount: 450
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
+  - Mob: DARK_ILLUSION2
+    EggItem: Dark_Illusion_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Evolution:
+      - Target: DARK_LORD2
+        ItemRequirements:
+          - Item: Bone_Wand
+            Amount: 300
+          - Item: Skull
+            Amount: 150
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WZ_METEOR",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
+  - Mob: DARK_LORD2
+    EggItem: Dark_Lord_Egg
+    FoodItem: High_Class_Pet_food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"WZ_METEOR",10,200;
+      bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,100;
   - Mob: DELETER_2
     AllowAutoFeed: true
     Script: |
@@ -1162,6 +1517,18 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
       bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+  - Mob: DOMOVOI
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
   - Mob: DR_EGGRING
     AllowAutoFeed: true
     Script: |
@@ -1184,6 +1551,67 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
       bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+  - Mob: ECLIPSE_P
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
+  - Mob: EDDGA3
+    EggItem: Eddga_Egg2
+    FoodItem: High_Class_Pet_food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,200;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,100;
+  - Mob: ELEPHANT
+    EggItem: Elephant_Egg
+    FoodItem: Banana_Can
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
+  - Mob: EP17_2_CHILD_ADMIN1
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: EP17_2_CHILD_ADMIN2
     AllowAutoFeed: true
     Script: |
@@ -1195,6 +1623,42 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
       bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+  - Mob: EP20_ICEWIND1
+    EggItem: Grey_Icewind_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FROSTDIVER",10,150;
+      bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,75;
+  - Mob: EP20_ICEWIND2
+    EggItem: Icewind_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_FROSTDIVER",10,150;
+      bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,75;
   - Mob: FIRE_GOLEM
     AllowAutoFeed: true
     Script: |
@@ -1206,6 +1670,86 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
       bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+  - Mob: GH_WHITEKNIGHT
+    EggItem: White_Knight_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_SOULSTRIKE",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+  - Mob: GIANT_HONET2
+    EggItem: aegis_9192
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Evolution:
+      - Target: MISTRESS3
+        ItemRequirements:
+          - Item: Royal_Jelly
+            Amount: 300
+          - Item: Bs_Making_S
+            Amount: 150
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,75;
+  - Mob: GLOOMUNDERNIGHT2
+    EggItem: Gloom_Under_Egg
+    FoodItem: High_Class_Pet_food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_NAPALMBEAT",10,200;
+      bonus3 bAutoSpellWhenHit,"WZ_QUAGMIRE",5,100;
+  - Mob: GORILLA
+    EggItem: Gorilla_Egg
+    FoodItem: Spicy_Rice_Cake
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
   - Mob: GRAND_PECO
     AllowAutoFeed: true
     Script: |
@@ -1219,6 +1763,13 @@ Body:
       bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,100;
   - Mob: HIGH_ORC
     AllowAutoFeed: true
+    Evolution:
+      - Target: ORK_HERO2
+        ItemRequirements:
+          - Item: Ogre_Tooth
+            Amount: 300
+          - Item: Red_Jewel
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -1230,6 +1781,13 @@ Body:
       bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
   - Mob: HODREMLIN
     AllowAutoFeed: true
+    Evolution:
+      - Target: GLOOMUNDERNIGHT2
+        ItemRequirements:
+          - Item: Prickly_Fruit_
+            Amount: 300
+          - Item: Old_Violet_Box
+            Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
       .@s = .@f / 100;
@@ -1239,6 +1797,25 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
       bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+  - Mob: HORNET
+    AllowAutoFeed: true
+    Evolution:
+      - Target: GIANT_HONET2
+        ItemRequirements:
+          - Item: Wind_Of_Verdure
+            Amount: 300
+          - Item: Royal_Jelly
+            Amount: 150
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: HYEGUN
     AllowAutoFeed: true
     Script: |
@@ -1250,6 +1827,117 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"WZ_METEOR",10,150;
       bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
+  - Mob: ILL_BAPHOMET_J
+    EggItem: Chaos_Bapho_Jr_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Evolution:
+      - Target: BAPHOMET2
+        ItemRequirements:
+          - Item: Brigan
+            Amount: 300
+          - Item: Bs_Making_S
+            Amount: 150
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+  - Mob: J_TAINI
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
+  - Mob: KIEL_D_01_2
+    EggItem: Kiel_Egg
+    FoodItem: High_Class_Pet_food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,200;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,100;
+  - Mob: KNIGHT_OF_ABYSS2
+    EggItem: Abyss_Knight_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+  - Mob: LARVA_VIOLET
+    EggItem: Larva_Violet_Egg
+    FoodItem: Green_Herb
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"TF_POISON",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_CURE",1,50;
+      }
+  - Mob: LION
+    EggItem: Lion_Egg
+    FoodItem: Hotdog
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
   - Mob: LITTLE_ISIS
     AllowAutoFeed: true
     Script: |
@@ -1283,6 +1971,35 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
       bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+  - Mob: MISTRESS3
+    EggItem: aegis_9193
+    FoodItem: High_Class_Pet_food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,200;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,100;
+  - Mob: MOONLIGHT
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_FIREBOLT",10,200;
+      bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,100;
   - Mob: NIGHTMARE_TERROR_H
     AllowAutoFeed: true
     Script: |
@@ -1294,6 +2011,258 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"WL_HELLINFERNO",5,150;
       bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,75;
+  - Mob: ORC_LORD
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_STONECURSE",10,200;
+      bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,100;
+  - Mob: ORK_HERO
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_STONECURSE",10,200;
+      bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,100;
+  - Mob: ORK_HERO2
+    EggItem: Ork_Hero_EGG
+    FoodItem: High_Class_Pet_food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_STONECURSE",10,200;
+      bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,100;
+  - Mob: PAD_AMELIT
+    EggItem: Amelit_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"WL_HELLINFERNO",5,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
+  - Mob: PAD_EMELIT
+    EggItem: Emelit_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
+  - Mob: PAD_MYTHLIT
+    EggItem: Mythlit_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_NAPALMBEAT",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_QUAGMIRE",5,50;
+      }
+  - Mob: PAD_RUBYLIT
+    EggItem: Rubylit_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FIREBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,50;
+      }
+  - Mob: PAD_SAPPHILIT
+    EggItem: Sapphilit_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
+  - Mob: PAD_TAMADORA
+    EggItem: Tamadora_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"AB_JUDEX",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_HEAL",10,50;
+      }
+  - Mob: PAD_TOPALIT
+    EggItem: Topalit_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"AB_JUDEX",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_HEAL",10,50;
+      }
+  - Mob: PHREEONI2
+    EggItem: Phreeoni_Egg
+    FoodItem: High_Class_Pet_food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_SOULSTRIKE",10,200;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,100;
+  - Mob: POURING
+    EggItem: Pouring_Egg
+    FoodItem: Apple_Juice
+    Fullness: 3
+    IntimacyFed: 50
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
+  - Mob: P_CHUNG_E
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
+  - Mob: RHINO
+    EggItem: Rhino_Egg
+    FoodItem: Big_Wheel_Cracker
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
+  - Mob: ROWEEN
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,50;
+      }
   - Mob: SAVAGE
     AllowAutoFeed: true
     Script: |
@@ -1305,6 +2274,69 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"MG_STONECURSE",10,150;
       bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,75;
+  - Mob: SCATLETON
+    EggItem: Scatletoncarrier
+    EquipItem: Red_Chorker_Bell
+    FoodItem: Delicious_Fish
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Evolution:
+      - Target: SKELION
+        ItemRequirements:
+          - Item: Great_Leaf
+            Amount: 300
+          - Item: Burn_Tree
+            Amount: 150
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
+  - Mob: SKEGGIOLD
+    AllowAutoFeed: true
+    Evolution:
+      - Target: ANGELGOLT3
+        ItemRequirements:
+          - Item: Rune_Of_Darkness
+            Amount: 450
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"AB_JUDEX",10,100;
+        bonus3 bAutoSpellWhenHit,"AL_HEAL",10,50;
+      }
+  - Mob: SKELION
+    EggItem: Roost_Of_Skelion
+    EquipItem: Dark_Mane
+    FoodItem: Yummy_Meat
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"WZ_METEOR",10,150;
+      bonus3 bAutoSpellWhenHit,"PR_LEXAETERNA",1,75;
   - Mob: SWEETS_DROPS
     AllowAutoFeed: true
     Script: |
@@ -1316,6 +2348,43 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"MG_FIREBOLT",10,150;
       bonus3 bAutoSpellWhenHit,"MG_FIREWALL",10,75;
+  - Mob: TIMEHOLDER3
+    EggItem: aegis_9171
+    FoodItem: High_Class_Pet_food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 2: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 60 + 3 * .@s;
+      bonus bMaxHPrate, 20 + .@s;
+      bonus bMaxSPrate, 20 + .@s;
+      bonus3 bAutoSpell,"MG_SOULSTRIKE",10,200;
+      bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,100;
+  - Mob: VR_CHAO
+    EggItem: Sonic_Chao_Egg
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_FROSTDIVER",10,100;
+        bonus3 bAutoSpellWhenHit,"WZ_FROSTNOVA",10,50;
+      }
   - Mob: WANDER_MAN_H
     AllowAutoFeed: true
     Script: |
@@ -1327,6 +2396,74 @@ Body:
       bonus bMaxSPrate, 10 + .@s;
       bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,150;
       bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,75;
+  - Mob: WILD_ROSE3
+    EggItem: Wild_Rose_Egg2
+    FoodItem: Pet_Food
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Evolution:
+      - Target: EDDGA3
+        ItemRequirements:
+          - Item: Cyfar
+            Amount: 300
+          - Item: Tiger's_Skin
+            Amount: 150
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      // Stufe 1: Sockel = Endwert der Stufe darunter
+      bonus bAllStats, 30 + 3 * .@s;
+      bonus bMaxHPrate, 10 + .@s;
+      bonus bMaxSPrate, 10 + .@s;
+      bonus3 bAutoSpell,"MG_LIGHTNINGBOLT",10,150;
+      bonus3 bAutoSpellWhenHit,"AL_INCAGI",10,75;
+  - Mob: WILOW
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
+  - Mob: WOODIE
+    EggItem: Woodie_Egg
+    FoodItem: Jade_Leaf
+    Fullness: 2
+    HungryDelay: 120
+    IntimacyFed: 15
+    SpecialPerformance: false
+    CaptureRate: 0
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_STONECURSE",10,100;
+        bonus3 bAutoSpellWhenHit,"MG_SAFETYWALL",10,50;
+      }
+  - Mob: XMAS_LUNATIC
+    AllowAutoFeed: true
+    Script: |
+      .@f = getpetinfo(PETINFO_INTIMATE);
+      .@s = .@f / 100;
+      bonus bAllStats, 3 * .@s;
+      bonus bMaxHPrate, .@s;
+      bonus bMaxSPrate, .@s;
+      if (.@f >= PET_INTIMATE_LOYAL) {
+        bonus3 bAutoSpell,"MG_SOULSTRIKE",10,100;
+        bonus3 bAutoSpellWhenHit,"PR_KYRIE",10,50;
+      }
   - Mob: XM_TEDDY_BEAR
     AllowAutoFeed: true
     Script: |

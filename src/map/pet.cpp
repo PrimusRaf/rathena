@@ -1200,8 +1200,31 @@ int32 pet_select_egg(map_session_data *sd,int16 egg_index)
 
 	if(sd->inventory.u.items_inventory[egg_index].card[0] == CARD0_PET)
 		intif_request_petdata(sd->status.account_id, sd->status.char_id, MakeDWord(sd->inventory.u.items_inventory[egg_index].card[1], sd->inventory.u.items_inventory[egg_index].card[2]) );
-	else
-		ShowError("wrong egg item inventory %d\n",egg_index);
+	else {
+		// SafaRO: Ein Ei ohne Tierdaten - per @item, aus einem Laden oder
+		// per getitem erzeugt - wurde bisher nur mit "wrong egg item
+		// inventory" in die Konsole verworfen; der Spieler sah nichts und
+		// das Ei blieb tot. Wir tauschen es gegen ein echtes: das alte
+		// Ei geht weg, pet_create_egg legt das Tier im Char-Server an,
+		// und pet_get_egg liefert das neue Ei mit Daten ins Inventar.
+		// Der Spieler benutzt es dann ein zweites Mal.
+		t_itemid nameid = sd->inventory.u.items_inventory[egg_index].nameid;
+
+		if( pc_delitem( sd, egg_index, 1, 0, 0, LOG_TYPE_OTHER ) == 0 ){
+			if( pet_create_egg( sd, nameid ) ){
+				clif_displaymessage( sd->fd, "The egg stirs. Use it once more to hatch it." );
+			}else{
+				// Inventar voll oder Monster unbekannt: das Ei zurueck,
+				// sonst waere es einfach verschwunden.
+				struct item it = {};
+
+				it.nameid = nameid;
+				it.identify = 1;
+				pc_additem( sd, &it, 1, LOG_TYPE_OTHER );
+				ShowError("pet_select_egg: egg %u has no pet data and could not be converted\n", nameid);
+			}
+		}
+	}
 
 	return 0;
 }
