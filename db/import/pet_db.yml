@@ -205,9 +205,9 @@ Body:
     Evolution:
       - Target: DARK_ILLUSION2
         ItemRequirements:
-          - Item: Book_Of_The_Apocalypse
+          - Item: Blue_Potion
             Amount: 300
-          - Item: Bone_Wand
+          - Item: Brigan
             Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
@@ -283,7 +283,7 @@ Body:
     Evolution:
       - Target: DIABOLIC
         ItemRequirements:
-          - Item: Yggdrasilberry
+          - Item: Red_Burning_Stone
             Amount: 300
           - Item: Petite_DiablOfs_Horn
             Amount: 150
@@ -634,7 +634,7 @@ Body:
         ItemRequirements:
           - Item: Great_Leaf
             Amount: 300
-          - Item: Puppy_Love
+          - Item: Silver_Knife_Of_Chaste
             Amount: 150
       - Target: WILD_ROSE3
         ItemRequirements:
@@ -910,7 +910,7 @@ Body:
         ItemRequirements:
           - Item: Sticky_Mucus
             Amount: 300
-          - Item: Angelic_Chain
+          - Item: White_Herb
             Amount: 150
     Script: |
       .@f = getpetinfo(PETINFO_INTIMATE);
@@ -1464,7 +1464,7 @@ Body:
     Evolution:
       - Target: DARK_LORD2
         ItemRequirements:
-          - Item: Bone_Wand
+          - Item: Brigan
             Amount: 300
           - Item: Skull
             Amount: 150
