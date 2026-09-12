@@ -108,7 +108,7 @@ Body:
     Element: Neutral
     CastTime: 3000
     AfterCastActDelay: 1000
-    Duration1: 120000        # PLATZHALTER - Elephant-Hymn-Stueck fehlt noch, dann beatmap.py
+    Duration1: 154400        # = con_eleph.wav (Raster: 242 Beats alle 0,64 s ab Sekunde 0)
     Cooldown: 300000
     CastTimeFlags:
       IgnoreDex: true
