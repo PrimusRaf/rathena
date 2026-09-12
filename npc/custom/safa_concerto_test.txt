@@ -25,7 +25,7 @@ valkyrie,52,83,4	script	Concerto Test#safa	4_M_MINSTREL,{
 	mes "Which test?";
 	next;
 	switch (select("Learn Concerto - Onslaught of the Hero (skill 8100):"
-	             + "Forget it again (skill 8100 lv 0):"
+	             + "Forget it again (skill 8100 lv 0, flag 3):"
 	             + "Play once - only me:"
 	             + "Play once - everyone around (area 13x13):"
 	             + "Loop - only me:"
@@ -34,11 +34,11 @@ valkyrie,52,83,4	script	Concerto Test#safa	4_M_MINSTREL,{
 	             + "Play twice in a row (dedupe test):"
 	             + "Play + stop after 10 s")) {
 	case 1:
-		skill 8100, 1, 0;
+		skill 8100, 1, 3;   // 3 = ADDSKILL_PERMANENT_GRANTED: ueberlebt pc_calc_skilltree (Kartenwechsel, Relog)
 		dispbottom "[Concerto] skill 8100 learned - check the Etc tab";
 		close;
 	case 2:
-		skill 8100, 0, 0;
+		skill 8100, 0, 3;
 		dispbottom "[Concerto] skill 8100 removed";
 		close;
 	case 3:
