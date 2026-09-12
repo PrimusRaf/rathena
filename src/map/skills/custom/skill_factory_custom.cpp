@@ -5,9 +5,21 @@
 
 #include "../swordman/bash.hpp"
 
+// SafaRO: Concerto-Skills (CONCERTO.md). Als .cpp eingebunden wie in den
+// Job-Factories - einzelne Skill-Dateien werden nicht separat uebersetzt.
+#include "concerto.cpp"
+
 class SkillCustomBash;
 
 std::unique_ptr<const SkillImpl> SkillFactoryCustom::create(const e_skill skill_id) const {
+	// SafaRO Concertos - Musikdatei relativ zu data\wav\ (musik.grf)
+	switch (static_cast<uint16>(skill_id)) {
+		case SAFA_CONCERTO_HERO:
+			return std::make_unique<SkillConcerto>(SAFA_CONCERTO_HERO, "con_hero.wav");
+		case SAFA_CONCERTO_RUSH:
+			return std::make_unique<SkillConcerto>(SAFA_CONCERTO_RUSH, "con_rush.wav");
+	}
+
 #if 0
 	switch( skill_id ){
 		case SM_BASH:

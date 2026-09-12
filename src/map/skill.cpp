@@ -49,6 +49,7 @@
 // Skill factory is compiled as separate translation units per job category
 // to reduce peak memory usage during compilation
 #include "skills/skill_factory.hpp"
+#include "skills/custom/concerto.hpp"   // SafaRO: Concerto-Sperre vor dem Cast
 
 using namespace rathena;
 
@@ -8420,6 +8421,13 @@ bool skill_check_condition_castbegin( map_session_data& sd, uint16 skill_id, uin
 			}
 			break;
 		}
+		case SAFA_CONCERTO_HERO:
+		case SAFA_CONCERTO_RUSH:
+			// SafaRO: solange das eigene Concerto spielt, kein weiteres -
+			// hier, damit weder SP noch Cooldown verbraucht werden.
+			if (!concerto_darf_wirken(sd, skill_id))
+				return false;
+			break;
 		case AL_WARP:
 			if(!battle_config.duel_allow_teleport && sd.duel_group) { // duel restriction [LuzZza]
 				char output[128];

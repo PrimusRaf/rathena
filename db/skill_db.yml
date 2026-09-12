@@ -158,3 +158,6 @@ Footer:
   # erzeugt von tools/skillenh/bauen.py. Neue Skills, keine Patches -
   # die Stelle in der Reihenfolge ist gleichgueltig.
   - Path: db/import/skill_db_skillenh.yml
+  # Concerto-Skills der Barden (Ids 8100+), von Hand gepflegt, siehe
+  # CONCERTO.md. Neue Skills, keine Patches.
+  - Path: db/import/skill_db_concerto.yml
