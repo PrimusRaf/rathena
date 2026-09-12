@@ -795,6 +795,15 @@ int32 battle_calc_cardfix(int32 attack_type, block_list *src, block_list *target
 	t_race2 = status_get_race2(target);
 	s_defele = (tsd) ? (enum e_element)status_get_element(src) : ELE_NONE;
 
+	// SafaRO: Concerto Eagles Whisper - Windschaden +100 %, physisch wie
+	// magisch (CONCERTO.md 4). Waffe: nur im Angreifer-Durchlauf (left&2),
+	// Magie wird einmal gerechnet. NK_IGNOREELEMENT-Skills bleiben aussen vor.
+	if( rh_ele == ELE_WIND && !nk[NK_IGNOREELEMENT] && ( attack_type == BF_MAGIC || ( attack_type == BF_WEAPON && ( left & 2 ) ) ) ){
+		status_change* ssc = status_get_sc( src );
+		if( ssc != nullptr && ssc->getSCE( SC_SAFA_EAGLE ) != nullptr )
+			damage *= 2;
+	}
+
 	// When the attacker is a monster, then all bonuses on BF_WEAPON will work and no bonuses on BF_MAGIC
 	// Does not impact the attack type
 	if (src && src->type == BL_MOB && battle_config.cardfix_monster_physical) {

@@ -1449,6 +1449,11 @@ enum sc_type : int16 {
 	SC_WIND_CHARM_POWER,
 	SC_GROUND_CHARM_POWER,
 
+	// SafaRO: Buff-Concertos (CONCERTO.md 4, db/import/status.yml)
+	SC_SAFA_ELEPHANT,
+	SC_SAFA_EAGLE,
+	SC_SAFA_RHINO,
+
 	SC_MAX, //Automatically updated max, used in for's to check we are within bounds.
 };
 

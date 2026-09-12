@@ -8247,6 +8247,10 @@ static uint16 status_calc_speed(block_list *bl, status_change *sc, int32 speed)
 		speed += speed * 50 / 100;
 	if( speed_rate != 100 )
 		speed = speed * speed_rate / 100;
+	// SafaRO: Concerto Eagles Whisper +55 %, multiplikativ NACH dem Bonus-Topf
+	// (stapelt mit Increase AGI/Peco statt sich zu verdraengen; CONCERTO.md 4)
+	if( sc->getSCE(SC_SAFA_EAGLE) )
+		speed = speed * 100 / 155;
 	if( sc->getSCE(SC_STEELBODY) )
 		speed = 200;
 	if( sc->getSCE(SC_DEFENDER) )

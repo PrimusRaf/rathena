@@ -24,9 +24,9 @@ valkyrie,52,83,4	script	Concerto Test#safa	4_M_MINSTREL,{
 	mes "[Concerto Test]";
 	mes "Which test?";
 	next;
-	dispbottom "[Concerto] server says getskilllv(8100) = " + getskilllv(8100) + ", getskilllv(8101) = " + getskilllv(8101);
-	switch (select("Learn both Concertos (8100 + 8101, flag 3):"
-	             + "Forget both again:"
+	dispbottom "[Concerto] lv: 8100=" + getskilllv(8100) + " 8101=" + getskilllv(8101) + " 8102=" + getskilllv(8102) + " 8103=" + getskilllv(8103) + " 8104=" + getskilllv(8104) + " 8105=" + getskilllv(8105);
+	switch (select("Learn all six Concertos (8100-8105, flag 3):"
+	             + "Forget all again:"
 	             + "Play once - only me:"
 	             + "Play once - everyone around (area 13x13):"
 	             + "Loop - only me:"
@@ -37,12 +37,20 @@ valkyrie,52,83,4	script	Concerto Test#safa	4_M_MINSTREL,{
 	case 1:
 		skill 8100, 1, 3;   // 3 = ADDSKILL_PERMANENT_GRANTED: ueberlebt pc_calc_skilltree (Kartenwechsel, Relog)
 		skill 8101, 1, 3;
-		dispbottom "[Concerto] skills 8100 + 8101 learned - check the Etc tab";
+		skill 8102, 1, 3;
+		skill 8103, 1, 3;
+		skill 8104, 1, 3;
+		skill 8105, 1, 3;
+		dispbottom "[Concerto] skills 8100-8105 learned - check the Etc tab";
 		close;
 	case 2:
 		skill 8100, 0, 3;
 		skill 8101, 0, 3;
-		dispbottom "[Concerto] skills 8100 + 8101 removed";
+		skill 8102, 0, 3;
+		skill 8103, 0, 3;
+		skill 8104, 0, 3;
+		skill 8105, 0, 3;
+		dispbottom "[Concerto] skills 8100-8105 removed";
 		close;
 	case 3:
 		soundeffect "con_hero.wav", 0;

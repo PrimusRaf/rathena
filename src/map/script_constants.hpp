@@ -2007,6 +2007,10 @@
 	export_constant(SC_WATER_CHARM_POWER);
 	export_constant(SC_WIND_CHARM_POWER);
 	export_constant(SC_GROUND_CHARM_POWER);
+	// SafaRO: Buff-Concertos
+	export_constant(SC_SAFA_ELEPHANT);
+	export_constant(SC_SAFA_EAGLE);
+	export_constant(SC_SAFA_RHINO);
 
 /// Do not modify code below this, until the end of the API hook, since it will be automatically generated again
 /// @APIHOOK_START(EFST_CONST)

@@ -91,3 +91,120 @@ Body:
       Layout: 5
       Interval: -1
       Target: Enemy
+  # ---- Buff-/Debuff-Concertos (CONCERTO.md 4, Raffael 12.09.) ----
+  # Type Misc: kein skill_attack, der Effekt kommt je Beat aus concerto.cpp
+  # (Status auf die Gruppe bzw. zufaelliger Debuff auf Gegner). Unit-Id ist
+  # wieder nur das Bild. Duration1 = Liedlaenge aus beatmap.py; Elephant
+  # bekommt seine, sobald das Stueck da ist.
+  - Id: 8102
+    Name: SAFA_CONCERTO_ELEPHANT
+    Description: Concerto - Elephant Hymn
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 120000        # PLATZHALTER - Elephant-Hymn-Stueck fehlt noch, dann beatmap.py
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 10000
+      Weapon:
+        Musical: true
+        Whip: true
+    Unit:
+      Id: Sanctuary           # goldene Kacheln; DEF +200, Max HP +50 %, 1 % HP / 3 s
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  - Id: 8103
+    Name: SAFA_CONCERTO_EAGLE
+    Description: Concerto - Eagles Whisper
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 72840        # = con_eagle.wav (Raster: 137 Beats alle 0,52 s ab Sekunde 0)
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 10000
+      Weapon:
+        Musical: true
+        Whip: true
+    Unit:
+      Id: Violentgale           # gruener Wind; Speed +55 %, Wind +100 %, Flee +200
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  - Id: 8104
+    Name: SAFA_CONCERTO_RHINO
+    Description: Concerto - Great Rhino Trial
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 219560        # = con_rhino.wav (Raster: 365 Beats alle 0,60 s)
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 10000
+      Weapon:
+        Musical: true
+        Whip: true
+    Unit:
+      Id: Landprotector           # graue Kacheln; MDEF +200, Max SP +50 %, 1 % SP / 3 s
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  - Id: 8105
+    Name: SAFA_CONCERTO_NIGHT
+    Description: Concerto - Nightfall in Midgard
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 203160        # = con_night.wav (Raster: 301 Beats alle 0,67 s)
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 10000
+      Weapon:
+        Musical: true
+        Whip: true
+    Unit:
+      Id: Gravitation           # dunkles Feld; je Beat ein zufaelliger Debuff, Bosse inklusive
+      Layout: 5
+      Interval: -1
+      Target: Friend

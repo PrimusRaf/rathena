@@ -18,6 +18,14 @@ std::unique_ptr<const SkillImpl> SkillFactoryCustom::create(const e_skill skill_
 			return std::make_unique<SkillConcerto>(SAFA_CONCERTO_HERO, "con_hero.wav");
 		case SAFA_CONCERTO_RUSH:
 			return std::make_unique<SkillConcerto>(SAFA_CONCERTO_RUSH, "con_rush.wav");
+		case SAFA_CONCERTO_ELEPHANT:
+			return std::make_unique<SkillConcerto>(SAFA_CONCERTO_ELEPHANT, "con_eleph.wav", CONCERTO_BUFF, SC_SAFA_ELEPHANT, SAFA_EFFEKT_ELEPHANT);
+		case SAFA_CONCERTO_EAGLE:
+			return std::make_unique<SkillConcerto>(SAFA_CONCERTO_EAGLE, "con_eagle.wav", CONCERTO_BUFF, SC_SAFA_EAGLE, SAFA_EFFEKT_EAGLE);
+		case SAFA_CONCERTO_RHINO:
+			return std::make_unique<SkillConcerto>(SAFA_CONCERTO_RHINO, "con_rhino.wav", CONCERTO_BUFF, SC_SAFA_RHINO, SAFA_EFFEKT_RHINO);
+		case SAFA_CONCERTO_NIGHT:
+			return std::make_unique<SkillConcerto>(SAFA_CONCERTO_NIGHT, "con_night.wav", CONCERTO_DEBUFF, SC_NONE, SAFA_EFFEKT_NIGHT);
 	}
 
 #if 0
