@@ -1,0 +1,68 @@
+//===== SafaRO ================================================
+//= Concerto - Soundpaket-Test (Testschritt 1 aus CONCERTO.md)
+//===== Beschreibung ==========================================
+//  Prueft, ob der 2025er Client eine lange WAV (2 Minuten) ueber
+//  ZC_SOUND (soundeffect / soundeffectall) vollstaendig abspielt,
+//  ob Typ 1 (Schleife) und Typ 2 (Stopp) bedient werden und ob ein
+//  zweiter Start bei gleicher Quelle doppelt spielt oder ersetzt.
+//  Die WAV liegt in client/musik.grf (tools/concerto/musik_grf.py)
+//  unter data\wav\con_hero.wav.
+//
+//  Nur fuer GMs (Gruppenstufe 99), steht in valkyrie neben der
+//  GM Workbench. Wird nach dem Test wieder entfernt - das echte
+//  Concerto spielt die Musik aus der Skill-Factory heraus.
+//=============================================================
+
+valkyrie,52,83,4	script	Concerto Test#safa	4_M_MINSTREL,{
+
+	if (getgroupid() < 99) {
+		mes "[Concerto Test]";
+		mes "Nothing to hear here.";
+		close;
+	}
+
+	mes "[Concerto Test]";
+	mes "Which test?";
+	next;
+	switch (select("Play once - only me:"
+	             + "Play once - everyone around (area 13x13):"
+	             + "Loop - only me:"
+	             + "Stop - only me:"
+	             + "Stop - everyone around:"
+	             + "Play twice in a row (dedupe test):"
+	             + "Play + stop after 10 s")) {
+	case 1:
+		soundeffect "con_hero.wav", 0;
+		dispbottom "[Concerto] type 0 sent at " + gettimestr("%H:%M:%S", 20) + " - expected end after 2:06";
+		close;
+	case 2:
+		soundeffectall "con_hero.wav", 0, "valkyrie", 52 - 6, 83 - 6, 52 + 6, 83 + 6;
+		dispbottom "[Concerto] type 0 (area) sent at " + gettimestr("%H:%M:%S", 20);
+		close;
+	case 3:
+		soundeffect "con_hero.wav", 1;
+		dispbottom "[Concerto] type 1 (loop) sent - does it repeat after 2:06?";
+		close;
+	case 4:
+		soundeffect "con_hero.wav", 2;
+		dispbottom "[Concerto] type 2 (stop) sent";
+		close;
+	case 5:
+		soundeffectall "con_hero.wav", 2, "valkyrie", 52 - 6, 83 - 6, 52 + 6, 83 + 6;
+		dispbottom "[Concerto] type 2 (stop, area) sent";
+		close;
+	case 6:
+		soundeffect "con_hero.wav", 0;
+		sleep2 2000;
+		soundeffect "con_hero.wav", 0;
+		dispbottom "[Concerto] two starts 2 s apart - double or replaced?";
+		close;
+	case 7:
+		soundeffect "con_hero.wav", 0;
+		dispbottom "[Concerto] playing, stop follows in 10 s";
+		sleep2 10000;
+		soundeffect "con_hero.wav", 2;
+		dispbottom "[Concerto] stop sent";
+		close;
+	}
+}
