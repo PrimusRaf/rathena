@@ -64,7 +64,16 @@ SkillConcerto::SkillConcerto(uint16 skill_id, const char* wav)
 	: SkillImpl(static_cast<e_skill>(skill_id)), wav_(wav) {
 }
 
+void SkillConcerto::castendNoDamageId(block_list* src, block_list* target, uint16 skill_lv, t_tick tick, int32& flag) const {
+	clif_skill_nodamage(src, *src, getSkillId(), skill_lv);
+	anstimmen(src, src->x, src->y, skill_lv);
+}
+
 void SkillConcerto::castendPos2(block_list* src, int32 x, int32 y, uint16 skill_lv, t_tick tick, int32& flag) const {
+	anstimmen(src, x, y, skill_lv);
+}
+
+void SkillConcerto::anstimmen(block_list* src, int32 x, int32 y, uint16 skill_lv) const {
 	map_session_data* sd = BL_CAST(BL_PC, src);
 	if (sd == nullptr)
 		return;

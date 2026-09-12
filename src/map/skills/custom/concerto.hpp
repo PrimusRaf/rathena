@@ -28,8 +28,13 @@ class SkillConcerto : public SkillImpl {
 public:
 	SkillConcerto(uint16 skill_id, const char* wav);
 
+	// TargetType Self: Flaeche um den Barden, wie bei den Originalsongs.
+	void castendNoDamageId(block_list* src, block_list* target, uint16 skill_lv, t_tick tick, int32& flag) const override;
+	// Falls die skill_db doch einmal auf Ground steht.
 	void castendPos2(block_list* src, int32 x, int32 y, uint16 skill_lv, t_tick tick, int32& flag) const override;
 
 private:
+	void anstimmen(block_list* src, int32 x, int32 y, uint16 skill_lv) const;
+
 	const char* wav_;   // Dateiname relativ zu data\wav\, max. 23 Zeichen
 };

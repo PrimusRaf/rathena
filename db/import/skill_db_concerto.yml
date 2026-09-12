@@ -11,6 +11,9 @@
 # 13x13. Interval -1 = keine Server-Ticks - der Schaden kommt spaeter
 # ueber die Beat-Map-Timer, nicht ueber den Unit-Tick.
 #
+# TargetType Self: die Flaeche entsteht um den Barden herum, wie bei den
+# Originalsongs (Raffael 12.09.) - kein Zielkreuz auf dem Boden.
+#
 # Stand 12.09.2026: Flaeche + Musik + Hoersperre, noch KEIN Schaden.
 
 Header:
@@ -23,8 +26,7 @@ Body:
     Description: Concerto - Onslaught of the Hero
     MaxLevel: 1
     Type: Weapon
-    TargetType: Ground
-    Range: 9
+    TargetType: Self
     Hit: Single
     HitCount: 1
     Element: Weapon
