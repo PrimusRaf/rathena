@@ -63,3 +63,31 @@ Body:
       Layout: 5
       Interval: -1
       Target: Enemy
+  - Id: 8101
+    Name: SAFA_CONCERTO_RUSH
+    Description: Concerto - Magical Rush
+    MaxLevel: 1
+    Type: Magic
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Weapon          # Element der Waffe (Endow/Elementpfeil), sonst neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 114800        # = con_rush.wav (beatmap.py, Modus dicht: 338 Ticks)
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 10000
+      Weapon:
+        Musical: true
+        Whip: true
+    Unit:
+      Id: Psychic_Wave     # einzelne Unit, blaue Wellen; Range 5 = 11x11
+      Range: 5
+      Interval: -1
+      Target: Enemy

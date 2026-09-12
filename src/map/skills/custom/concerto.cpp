@@ -152,7 +152,8 @@ static int32 concerto_schaden_sub(block_list* bl, va_list ap) {
 		return 0;
 	if (battle_check_target(mitte, bl, group->target_flag) <= 0)
 		return 0;
-	skill_attack(BF_WEAPON, src, mitte, bl, group->skill_id, group->skill_lv, tick, fak);
+	// Angriffsart aus der skill_db: Onslaught = Weapon, Magical Rush = Magic
+	skill_attack(skill_get_type(group->skill_id), src, mitte, bl, group->skill_id, group->skill_lv, tick, fak);
 	return 1;
 }
 
