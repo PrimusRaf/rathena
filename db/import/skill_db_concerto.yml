@@ -87,7 +87,7 @@ Body:
         Musical: true
         Whip: true
     Unit:
-      Id: Psychic_Wave     # einzelne Unit, blaue Wellen; Range 5 = 11x11
-      Range: 5
+      Id: Deluge           # blaues Gegenstueck zu Volcano, Layout 5 = 11x11, kein Sound (Raffael 12.09.)
+      Layout: 5
       Interval: -1
       Target: Enemy

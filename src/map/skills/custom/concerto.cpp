@@ -69,6 +69,8 @@ void concerto_mitziehen(block_list* bl, int16 dx, int16 dy) {
 
 void concerto_nachschicken(map_session_data& sd) {
 	for (uint16 id : { SAFA_CONCERTO_HERO, SAFA_CONCERTO_RUSH }) {
+		if (skill_db.find(id) == nullptr)
+			continue;   // Concerto noch nicht in der skill_db - kein Fehlerspam bei jedem Login
 		uint16 idx = skill_get_index(id);
 		if (idx == 0 || sd.status.skill[idx].id != id || sd.status.skill[idx].lv == 0)
 			continue;
