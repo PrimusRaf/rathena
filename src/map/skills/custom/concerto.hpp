@@ -24,6 +24,11 @@ bool concerto_ist_skill(uint16 skill_id);
 // Concerto des Barden noch spielt - dann weder SP noch Cooldown.
 bool concerto_darf_wirken(map_session_data& sd, uint16 skill_id);
 
+// Aus map_moveblock: laeuft der Barde, zieht seine Concerto-Flaeche mit
+// (wie SC_DANCING bei den alten Songs). Fuer alles ausser Spielern
+// mit laufendem Concerto ein No-Op.
+void concerto_mitziehen(block_list* bl, int16 dx, int16 dy);
+
 class SkillConcerto : public SkillImpl {
 public:
 	SkillConcerto(uint16 skill_id, const char* wav);

@@ -21,6 +21,7 @@ static const char* REG_BIS = "@concerto_bis";
 static const char* REG_MAP = "@concerto_map";
 static const char* REG_HOERT_BIS = "@concerto_hoert_bis";
 static const char* REG_HOERT_MAP = "@concerto_hoert_map";
+static const char* REG_GRUPPE = "@concerto_gruppe";       // group_id der laufenden Flaeche
 
 bool concerto_ist_skill(uint16 skill_id) {
 	return skill_id == SAFA_CONCERTO_HERO || skill_id == SAFA_CONCERTO_RUSH;
@@ -40,6 +41,21 @@ bool concerto_darf_wirken(map_session_data& sd, uint16 skill_id) {
 		return false;
 	}
 	return true;
+}
+
+void concerto_mitziehen(block_list* bl, int16 dx, int16 dy) {
+	if (bl == nullptr || bl->type != BL_PC || (dx == 0 && dy == 0))
+		return;
+	map_session_data* sd = BL_CAST(BL_PC, bl);
+	int64 gid = pc_readreg(sd, add_str(REG_GRUPPE));
+	if (gid == 0)
+		return;
+	std::shared_ptr<s_skill_unit_group> group = skill_id2group(static_cast<int32>(gid));
+	if (group == nullptr || group->src_id != bl->id || !concerto_ist_skill(group->skill_id)) {
+		pc_setreg(sd, add_str(REG_GRUPPE), 0);   // abgelaufen oder fremd - vergessen
+		return;
+	}
+	skill_unit_move_unit_group(group, bl->m, dx, dy);
 }
 
 // Ein Spieler im Umkreis: Musik nur, wenn er gerade nichts hoert.
@@ -87,6 +103,7 @@ void SkillConcerto::anstimmen(block_list* src, int32 x, int32 y, uint16 skill_lv
 
 	pc_setreg(sd, add_str(REG_BIS), jetzt + dauer_s);
 	pc_setreg(sd, add_str(REG_MAP), src->m);
+	pc_setreg(sd, add_str(REG_GRUPPE), group->group_id);
 
 	// Hoerweite = Sichtweite des Clients um den Wirkpunkt.
 	int32 n = map_foreachinallarea(concerto_musik_sub, src->m,

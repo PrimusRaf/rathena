@@ -8,11 +8,18 @@
 #
 # Unit: die Unit-Id bestimmt nur die ANZEIGE im Client (fest in der
 # EXE). Dissonance zeichnet der 2025er Client gar nicht (12.09.).
-# Severe_Rainstorm ist eine einzelne Unit (kein Layout) mit Range 5 =
-# 11x11, der Client malt darueber den Pfeilregen des Wanderer-Skills -
-# passend zum "Onslaught". Interval -1 = keine Server-Ticks; der Schaden
-# kommt spaeter ueber die Beat-Map-Timer (map_foreachinrange um die
-# Unit), nicht ueber den Unit-Tick.
+# Severe_Rainstorm sah gut aus, bringt aber einen eigenen Client-Sound mit
+# (12.09., verworfen). Volcano: Layout 5 = 11x11, jede Zelle zeigt das
+# Flammenbild, kein Sound. Die Betreten-/Tick-Logik fremder Unit-Ids ist
+# fuer Concertos in skill.cpp abgeschaltet (concerto_ist_skill), es wird
+# nur das Bild geliehen. Interval -1 = keine Server-Ticks; der Schaden
+# kommt spaeter ueber die Beat-Map-Timer. Die Flaeche folgt dem Barden
+# (concerto_mitziehen in map_moveblock).
+#
+# Alternativen zum Ausprobieren (nur Unit-Id/Layout tauschen, dann
+# @reloadskilldb): Deluge, Violent_Gale (gleiche Bauart), Land_Protector
+# (graue Kacheln), Sanctuary (goldene Kacheln, Layout 3), Warmer (7x7
+# Glut, Layout 3), Psychic_Wave (Range 5, blaue Wellen, einzelne Unit).
 #
 # TargetType Self: die Flaeche entsteht um den Barden herum, wie bei den
 # Originalsongs (Raffael 12.09.) - kein Zielkreuz auf dem Boden.
@@ -47,7 +54,7 @@ Body:
         Musical: true
         Whip: true
     Unit:
-      Id: Severe_Rainstorm
-      Range: 5
+      Id: Volcano
+      Layout: 5
       Interval: -1
       Target: Enemy

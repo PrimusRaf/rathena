@@ -45,6 +45,7 @@
 #include "mob.hpp"
 #include "navi.hpp"
 #include "npc.hpp"
+#include "skills/custom/concerto.hpp"   // SafaRO: concerto_mitziehen
 #include "party.hpp"
 #include "path.hpp"
 #include "pc.hpp"
@@ -579,6 +580,10 @@ int32 map_moveblock(block_list *bl, int32 x1, int32 y1, t_tick tick)
 				((TBL_PC*)bl)->shadowform_id = 0;
 			}
 		}
+
+		// SafaRO: die Concerto-Flaeche wandert mit dem Barden (CONCERTO.md),
+		// unabhaengig von Statuseffekten.
+		concerto_mitziehen(bl, x1-x0, y1-y0);
 
 		if (sc != nullptr && !sc->empty()) {
 			if (sc->getSCE(SC_DANCING))

@@ -6379,6 +6379,12 @@ static int32 skill_unit_onplace(skill_unit *unit, block_list *bl, t_tick tick)
 	if (sg == nullptr)
 		return 0;
 
+	// SafaRO: Concerto-Units leihen sich nur die ANZEIGE einer fremden
+	// Unit-Id (CONCERTO.md); deren Betreten/Verlassen/Tick-Logik darf
+	// nicht greifen. Schaden kommt ueber die Beat-Map-Timer.
+	if (concerto_ist_skill(sg->skill_id))
+		return 0;
+
 	nullpo_ret(ss = map_id2bl(sg->src_id));
 
 	status_data* tstatus = status_get_status_data(*bl);
@@ -6733,6 +6739,9 @@ int32 skill_unit_onplace_timer(skill_unit *unit, block_list *bl, t_tick tick)
 	std::shared_ptr<s_skill_unit_group> sg = unit->group;
 
 	if (sg == nullptr)
+		return 0;
+
+	if (concerto_ist_skill(sg->skill_id)) // SafaRO, siehe skill_unit_onplace
 		return 0;
 
 	nullpo_ret(ss = map_id2bl(sg->src_id));
@@ -7627,6 +7636,9 @@ int32 skill_unit_onout(skill_unit *src, block_list *bl, t_tick tick)
 	std::shared_ptr<s_skill_unit_group> sg = src->group;
 
 	if (sg == nullptr)
+		return 0;
+
+	if (concerto_ist_skill(sg->skill_id)) // SafaRO, siehe skill_unit_onplace
 		return 0;
 
 	sc = status_get_sc(bl);
