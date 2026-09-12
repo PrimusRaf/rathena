@@ -6,10 +6,13 @@
 # tools/concerto/beatmap.py (Kopfzeile dauer_ms der .beats-Datei).
 # Code: src/map/skills/custom/concerto.cpp.
 #
-# Unit: Dissonance nur fuer die Anzeige im Client (feste Unit-Ids in
-# der EXE); RangedSingleUnit zeigt nur die Mittelzelle. Layout 6 =
-# 13x13. Interval -1 = keine Server-Ticks - der Schaden kommt spaeter
-# ueber die Beat-Map-Timer, nicht ueber den Unit-Tick.
+# Unit: die Unit-Id bestimmt nur die ANZEIGE im Client (fest in der
+# EXE). Dissonance zeichnet der 2025er Client gar nicht (12.09.).
+# Severe_Rainstorm ist eine einzelne Unit (kein Layout) mit Range 5 =
+# 11x11, der Client malt darueber den Pfeilregen des Wanderer-Skills -
+# passend zum "Onslaught". Interval -1 = keine Server-Ticks; der Schaden
+# kommt spaeter ueber die Beat-Map-Timer (map_foreachinrange um die
+# Unit), nicht ueber den Unit-Tick.
 #
 # TargetType Self: die Flaeche entsteht um den Barden herum, wie bei den
 # Originalsongs (Raffael 12.09.) - kein Zielkreuz auf dem Boden.
@@ -44,10 +47,7 @@ Body:
         Musical: true
         Whip: true
     Unit:
-      Id: Dissonance
-      Layout: 6
+      Id: Severe_Rainstorm
+      Range: 5
       Interval: -1
       Target: Enemy
-      Flag:
-        NoOverlap: true
-        RangedSingleUnit: true
