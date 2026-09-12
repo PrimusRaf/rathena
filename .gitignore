@@ -105,6 +105,7 @@ Thumbs.db
 !/db/import/skill_db.yml
 !/db/import/skill_db_cooldowns.yml
 !/db/import/skill_db_skillenh.yml
+!/db/import/skill_db_concerto.yml
 !/db/import/statpoint.yml
 
 # /conf/

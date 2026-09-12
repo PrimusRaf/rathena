@@ -1,0 +1,51 @@
+# SafaRO - Concerto-Skills der Barden/Taenzer (CONCERTO.md)
+#
+# Quest-freigeschaltete Skills, eine Stufe, kein Skilltree (Etc-Tab
+# ueber "skill <id>,1,0"). Beim Wirken laeuft ein ganzes Musikstueck bei
+# allen Spielern im Umkreis; Duration1 IST die Liedlaenge und kommt aus
+# tools/concerto/beatmap.py (Kopfzeile dauer_ms der .beats-Datei).
+# Code: src/map/skills/custom/concerto.cpp.
+#
+# Unit: Dissonance nur fuer die Anzeige im Client (feste Unit-Ids in
+# der EXE); RangedSingleUnit zeigt nur die Mittelzelle. Layout 6 =
+# 13x13. Interval -1 = keine Server-Ticks - der Schaden kommt spaeter
+# ueber die Beat-Map-Timer, nicht ueber den Unit-Tick.
+#
+# Stand 12.09.2026: Flaeche + Musik + Hoersperre, noch KEIN Schaden.
+
+Header:
+  Type: SKILL_DB
+  Version: 4
+
+Body:
+  - Id: 8100
+    Name: SAFA_CONCERTO_HERO
+    Description: Concerto - Onslaught of the Hero
+    MaxLevel: 1
+    Type: Weapon
+    TargetType: Ground
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Weapon
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 126400
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 10000
+      Weapon:
+        Musical: true
+        Whip: true
+    Unit:
+      Id: Dissonance
+      Layout: 6
+      Interval: -1
+      Target: Enemy
+      Flag:
+        NoOverlap: true
+        RangedSingleUnit: true
