@@ -13,6 +13,8 @@
 // gilt die Sperre nur auf der Karte, auf der sie gesetzt wurde.
 #pragma once
 
+#include <vector>
+
 #include "../skill_impl.hpp"
 
 constexpr uint16 SAFA_CONCERTO_HERO = 8100;   // Concerto: Onslaught of the Hero
@@ -29,6 +31,12 @@ bool concerto_darf_wirken(map_session_data& sd, uint16 skill_id);
 // mit laufendem Concerto ein No-Op.
 void concerto_mitziehen(block_list* bl, int16 dx, int16 dy);
 
+// Ein Schadenstick aus der Beat-Map (db/import/concerto/<id>.beats)
+struct s_concerto_beat {
+	int32 ms;        // Offset ab Wiedergabestart
+	int32 faktor;    // Schadensfaktor x1000 (1000 = volle 35000 %)
+};
+
 class SkillConcerto : public SkillImpl {
 public:
 	SkillConcerto(uint16 skill_id, const char* wav);
@@ -38,8 +46,14 @@ public:
 	// Falls die skill_db doch einmal auf Ground steht.
 	void castendPos2(block_list* src, int32 x, int32 y, uint16 skill_lv, t_tick tick, int32& flag) const override;
 
+	// 35000 % x Tick-Faktor (der Faktor kommt als mflag aus dem Timer).
+	void calculateSkillRatio(const Damage* wd, const block_list* src, const block_list* target, uint16 skill_lv, int32& base_skillratio, int32 mflag) const override;
+
 private:
 	void anstimmen(block_list* src, int32 x, int32 y, uint16 skill_lv) const;
 
-	const char* wav_;   // Dateiname relativ zu data\wav\, max. 23 Zeichen
+	void beats_laden();
+
+	const char* wav_;                      // Dateiname relativ zu data\wav\, max. 23 Zeichen
+	std::vector<s_concerto_beat> beats_;   // leer = Fallback auf Unit.Interval
 };

@@ -24,7 +24,11 @@
 # TargetType Self: die Flaeche entsteht um den Barden herum, wie bei den
 # Originalsongs (Raffael 12.09.) - kein Zielkreuz auf dem Boden.
 #
-# Stand 12.09.2026: Flaeche + Musik + Hoersperre, noch KEIN Schaden.
+# Beat-Map: db/import/concerto/<id>.beats (aus tools/concerto/beatmap.py),
+# je Zeile "<ms> <faktor>"; die Factory legt beim Wirken je Tick einen
+# Timer an, Schaden = 35000 % x Faktor als Fernkampf-Waffenschaden.
+#
+# Stand 12.09.2026: Flaeche + Musik + Hoersperre + Beat-Map-Schaden.
 
 Header:
   Type: SKILL_DB
@@ -37,6 +41,7 @@ Body:
     MaxLevel: 1
     Type: Weapon
     TargetType: Self
+    Range: 9              # >= 5 = Fernkampf (BF_LONG), Ziel ist trotzdem der Barde selbst
     Hit: Single
     HitCount: 1
     Element: Weapon
