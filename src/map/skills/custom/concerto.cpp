@@ -67,6 +67,16 @@ void concerto_mitziehen(block_list* bl, int16 dx, int16 dy) {
 	skill_unit_move_unit_group(group, bl->m, dx, dy);
 }
 
+void concerto_nachschicken(map_session_data& sd) {
+	for (uint16 id : { SAFA_CONCERTO_HERO, SAFA_CONCERTO_RUSH }) {
+		uint16 idx = skill_get_index(id);
+		if (idx == 0 || sd.status.skill[idx].id != id || sd.status.skill[idx].lv == 0)
+			continue;
+		clif_addskill(sd, id);
+		clif_skillinfo(sd, id);
+	}
+}
+
 // Ein Spieler im Umkreis: Musik nur, wenn er gerade nichts hoert.
 static int32 concerto_musik_sub(block_list* bl, va_list ap) {
 	const char* wav = va_arg(ap, const char*);

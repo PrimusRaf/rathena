@@ -31,6 +31,12 @@ bool concerto_darf_wirken(map_session_data& sd, uint16 skill_id);
 // mit laufendem Concerto ein No-Op.
 void concerto_mitziehen(block_list* bl, int16 dx, int16 dy);
 
+// Nach dem Login (clif_parse_LoadEndAck): gelernte Concertos einzeln per
+// ZC_ADD_SKILL nachschicken. Der 2025er Client zeigt sie aus der
+// Skill-Liste (ZC_SKILLINFO_LIST) nicht an, aus ZC_ADD_SKILL schon
+// (12.09.2026: Server hatte den Skill, Etc-Tab blieb leer).
+void concerto_nachschicken(map_session_data& sd);
+
 // Ein Schadenstick aus der Beat-Map (db/import/concerto/<id>.beats)
 struct s_concerto_beat {
 	int32 ms;        // Offset ab Wiedergabestart

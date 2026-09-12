@@ -54,6 +54,7 @@
 #include "quest.hpp"
 #include "script.hpp"
 #include "skill.hpp"
+#include "skills/custom/concerto.hpp"   // SafaRO: concerto_nachschicken
 #include "status.hpp"
 #include "storage.hpp"
 #include "unit.hpp"
@@ -5721,6 +5722,18 @@ void clif_skillinfoblock( const map_session_data& sd ){
 
 			// workaround for bugreport:5348
 			if( ( p->packetLength + sizeof( data ) ) > 8192 ){
+				// SafaRO: nicht abbrechen, sondern den Rest einzeln nachschicken.
+				// Ein GM mit all_skill (oder ein Spieler mit vielen Etc-Skills)
+				// sprengt die 8 KB; die Concertos (Ids 8100+) liegen am Ende der
+				// Liste und fehlten dann nach jedem Login (12.09.2026).
+				clif_send(p,p->packetLength,&sd,SELF);
+				for( ; i < MAX_SKILL; i++ ){
+					if( sd.status.skill[i].id == 0 || sd.status.skill[i].id == WE_CALLPARTNER )
+						continue;
+					clif_addskill(sd, sd.status.skill[i].id);
+					clif_skillinfo(sd, sd.status.skill[i].id);
+				}
+				p->packetLength = 0;   // schon gesendet
 				break;
 			}
 
@@ -5747,7 +5760,8 @@ void clif_skillinfoblock( const map_session_data& sd ){
 		}
 	}
 
-	clif_send(p,p->packetLength,&sd,SELF);
+	if( p->packetLength > 0 )
+		clif_send(p,p->packetLength,&sd,SELF);
 
 	// adoption fix
 	if (haveCallPartnerSkill) {
@@ -10905,6 +10919,7 @@ void clif_parse_LoadEndAck(int32 fd,map_session_data *sd)
 		int32 lv;
 		guild_notice = true;
 		clif_skillinfoblock(*sd);
+		concerto_nachschicken(*sd);   // SafaRO: Etc-Skills aus der Liste zeigt der Client nicht, einzeln schon
 		clif_hotkeys_send(sd,0);
 #if PACKETVER_MAIN_NUM >= 20190522 || PACKETVER_RE_NUM >= 20190508 || PACKETVER_ZERO_NUM >= 20190605
 		clif_hotkeys_send(sd,1);
