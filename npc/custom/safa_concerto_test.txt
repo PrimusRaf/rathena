@@ -24,7 +24,7 @@ valkyrie,52,83,4	script	Concerto Test#safa	4_M_MINSTREL,{
 	mes "[Concerto Test]";
 	mes "Which test?";
 	next;
-	switch (select("Learn Concerto: Onslaught of the Hero (skill 8100):"
+	switch (select("Learn Concerto - Onslaught of the Hero (skill 8100):"
 	             + "Forget it again (skill 8100 lv 0):"
 	             + "Play once - only me:"
 	             + "Play once - everyone around (area 13x13):"
