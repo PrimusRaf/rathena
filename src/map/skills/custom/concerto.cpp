@@ -79,6 +79,23 @@ void concerto_nachschicken(map_session_data& sd) {
 	}
 }
 
+bool concerto_blockiert_skill(map_session_data& sd, uint16 skill_id) {
+	int64 jetzt = static_cast<int64>(time(nullptr));
+	if (!concerto_hoert_noch(sd, REG_BIS, REG_MAP, jetzt))
+		return false;
+	switch (skill_id) {
+		case BA_MUSICALSTRIKE:
+		case DC_THROWARROW:
+			return false;
+	}
+	if (concerto_ist_skill(skill_id))
+		clif_displaymessage(sd.fd, "Your concerto is still playing.");
+	else
+		clif_displaymessage(sd.fd, "You are conducting a concerto - only Musical Strike and Throw Arrow are possible.");
+	clif_skill_fail(sd, skill_id);
+	return true;
+}
+
 // Ein Spieler im Umkreis: Musik nur, wenn er gerade nichts hoert.
 static int32 concerto_musik_sub(block_list* bl, va_list ap) {
 	const char* wav = va_arg(ap, const char*);

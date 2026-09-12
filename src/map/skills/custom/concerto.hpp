@@ -26,6 +26,11 @@ bool concerto_ist_skill(uint16 skill_id);
 // Concerto des Barden noch spielt - dann weder SP noch Cooldown.
 bool concerto_darf_wirken(map_session_data& sd, uint16 skill_id);
 
+// Ganz am Anfang von skill_check_condition_castbegin: true = Skill ist
+// gesperrt, weil das eigene Concerto laeuft. Erlaubt bleiben nur Musical
+// Strike und Throw Arrow (Raffael 12.09.: "gebunden wie bei einem Song").
+bool concerto_blockiert_skill(map_session_data& sd, uint16 skill_id);
+
 // Aus map_moveblock: laeuft der Barde, zieht seine Concerto-Flaeche mit
 // (wie SC_DANCING bei den alten Songs). Fuer alles ausser Spielern
 // mit laufendem Concerto ein No-Op.

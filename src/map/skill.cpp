@@ -8284,6 +8284,12 @@ bool skill_check_condition_castbegin( map_session_data& sd, uint16 skill_id, uin
 	if (sd.chatID)
 		return false;
 
+	// SafaRO: waehrend das eigene Concerto spielt, ist der Barde gebunden wie
+	// bei einem Song: nur Musical Strike / Throw Arrow, keine anderen Lieder
+	// (CONCERTO.md). Vor dem GM-Kurzschluss, damit es auch im Test greift.
+	if (concerto_blockiert_skill(sd, skill_id))
+		return false;
+
 	if( pc_has_permission(&sd, PC_PERM_SKILL_UNCONDITIONAL) && sd.skillitem != skill_id )
 	{	//GMs don't override the skillItem check, otherwise they can use items without them being consumed! [Skotlex]
 		sd.state.arrow_atk = skill_get_ammotype(skill_id)?1:0; //Need to do arrow state check.
@@ -8433,13 +8439,6 @@ bool skill_check_condition_castbegin( map_session_data& sd, uint16 skill_id, uin
 			}
 			break;
 		}
-		case SAFA_CONCERTO_HERO:
-		case SAFA_CONCERTO_RUSH:
-			// SafaRO: solange das eigene Concerto spielt, kein weiteres -
-			// hier, damit weder SP noch Cooldown verbraucht werden.
-			if (!concerto_darf_wirken(sd, skill_id))
-				return false;
-			break;
 		case AL_WARP:
 			if(!battle_config.duel_allow_teleport && sd.duel_group) { // duel restriction [LuzZza]
 				char output[128];
