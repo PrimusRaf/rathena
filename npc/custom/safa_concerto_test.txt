@@ -24,6 +24,7 @@ valkyrie,52,83,4	script	Concerto Test#safa	4_M_MINSTREL,{
 	mes "[Concerto Test]";
 	mes "Which test?";
 	next;
+	dispbottom "[Concerto] server says getskilllv(8100) = " + getskilllv(8100);
 	switch (select("Learn Concerto - Onslaught of the Hero (skill 8100):"
 	             + "Forget it again (skill 8100 lv 0, flag 3):"
 	             + "Play once - only me:"
