@@ -164,8 +164,8 @@ static TIMER_FUNC(concerto_tick_timer) {
 	int32 reichweite = static_cast<int32>((std::sqrt(static_cast<double>(group->unit_count)) - 1) / 2);
 	if (reichweite <= 0)
 		reichweite = skill_get_unit_range(group->skill_id, group->skill_lv);
-	map_foreachinrange(concerto_schaden_sub, &mitte->bl, reichweite, BL_CHAR,
-		src, &mitte->bl, group.get(), fak, tick);
+	map_foreachinrange(concerto_schaden_sub, mitte, reichweite, BL_CHAR,
+		src, mitte, group.get(), fak, tick);
 	return 0;
 }
 
