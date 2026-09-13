@@ -409,7 +409,8 @@ static int32 concerto_tale_sub(block_list* bl, va_list ap) {
 		return 0;
 	if (battle_check_target(src, bl, BCT_NOENEMY) <= 0)
 		return 0;
-	if (con->status() != SC_NONE && con->klasse_passt(*tsd))
+	// Der Saenger selbst bekommt den Regionsbuff immer, egal welche Klasse (Raffael 13.09.)
+	if (con->status() != SC_NONE && (bl->id == src->id || con->klasse_passt(*tsd)))
 		status_change_start(src, bl, con->status(), 10000, 1, 0, 0, 0, SAFA_TALE_BUFF_MS, SCSTART_NOAVOID | SCSTART_NOTICKDEF);
 	uint16 link = concerto_soullink_fuer(*tsd);
 	if (link != 0)
@@ -421,19 +422,27 @@ static int32 concerto_tale_sub(block_list* bl, va_list ap) {
 // Originalzeile in ASCII-Umschrift als gefaerbte Chatzeile.
 static TIMER_FUNC(concerto_zeile_timer) {
 	map_session_data* sd = map_id2sd(id);
-	if (sd == nullptr || sd->prev == nullptr || status_isdead(*sd))
-		return 0;
 	int32 gid = static_cast<int32>(data / 1024);
 	size_t idx = static_cast<size_t>(data % 1024);
+	if (sd == nullptr || sd->prev == nullptr || status_isdead(*sd)) {
+		ShowDebug("Concerto-Zeile %zu: Spieler %d weg\n", idx, id);
+		return 0;
+	}
 	std::shared_ptr<s_skill_unit_group> group = skill_id2group(gid);
-	if (group == nullptr || group->src_id != id || group->unit_count <= 0)
+	if (group == nullptr || group->src_id != id || group->unit_count <= 0) {
+		ShowDebug("Concerto-Zeile %zu: Flaeche gid=%d %s\n", idx, gid, group == nullptr ? "weg" : "fremd/leer");
 		return 0;   // Concerto vorbei (Tod, Kartenwechsel) - kein Gesang mehr
+	}
 	const SkillConcerto* con = concerto_finden(group->skill_id);
 	if (con == nullptr)
 		return 0;
 	const s_concerto_fassung& f = con->fassung(*sd);
-	if (idx >= f.zeilen.size())
+	if (idx >= f.zeilen.size()) {
+		ShowDebug("Concerto-Zeile %zu: ausserhalb (%zu Zeilen)\n", idx, f.zeilen.size());
 		return 0;
+	}
+	if (battle_config.skill_log)
+		ShowInfo("Concerto-Zeile %zu @%d ms: %s\n", idx, f.zeilen[idx].ms, f.zeilen[idx].blase.c_str());
 	const s_concerto_zeile& z = f.zeilen[idx];
 	char buf[CHAT_SIZE_MAX];
 	snprintf(buf, sizeof(buf), "%s : %s", sd->status.name, z.blase.c_str());
@@ -552,6 +561,7 @@ void SkillConcerto::anstimmen(block_list* src, int32 x, int32 y, uint16 skill_lv
 		x - AREA_SIZE, y - AREA_SIZE, x + AREA_SIZE, y + AREA_SIZE, BL_PC,
 		f.wav.c_str(), jetzt, dauer_s);
 
-	if (battle_config.skill_log)
-		ShowInfo("Concerto %d von %s: Musik an %d Spieler, %lld s\n", getSkillId(), sd->status.name, n, (long long)dauer_s);
+	ShowInfo("Concerto %d von %s: Musik an %d Spieler, %lld s, Flaeche gid=%d unit_id=%d units=%d, %zu Beat-Timer, %zu Zeilen-Timer (%s)\n",
+		getSkillId(), sd->status.name, n, (long long)dauer_s, group->group_id, group->unit_id, group->unit_count,
+		f.beats.size(), f.zeilen.size(), f.wav.c_str());
 }
