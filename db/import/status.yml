@@ -1,0 +1,228 @@
+# This file is a part of rAthena.
+#   Copyright(C) 2022 rAthena Development Team
+#   https://rathena.org - https://github.com/rathena
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+###########################################################################
+# Status Change Database
+###########################################################################
+#
+# Status Change Settings
+#
+###########################################################################
+# - Status                    Status change name.
+#   Icon                      Status change icon. (Default: EFST_BLANK)
+#   DurationLookup            Default status change duration. (Default: 0)
+#   States:                   Status change state to determine player states. (Default: None)
+#   CalcFlags:                Status change calculation to indicate which stat is adjusted. (Default: None)
+#   Opt1                      Special effect when a status change is active. Non-stackable. (Default: None)
+#   Opt2:                     Special options/client effects when a status change is active. (Default: None)
+#   Opt3:                     Special options/client effects when a status change is active. (Default: Normal)
+#   Options:                  Special options/client effects when a status change is active. (Default: Nothing)
+#   Flags:                    Special flags which trigger during certain events.  (Default: None)
+#   MinRate                   Minimum rate after status change reduction (10000 = 100%). (Default: 0)
+#   MinDuration               Minimum duration in milliseconds after status change reduction. (Default: 1)
+#   Fail:                     List of Status Changes that causes the status to fail to activate. (Optional)
+#   EndOnStart:               List of Status Changes that will end when the status activates. (Optional)
+#   EndReturn:                List of Status Changes that will end when the status activates and won't give its effect. (Optional)
+#   EndOnEnd:                 List of Status Changes that will end when the status becomes inactive. (Optional)
+#   Script:                   Script to execute, when starting the status change. (Optional)
+###########################################################################
+
+Header:
+  Type: STATUS_DB
+  Version: 4
+
+Body:
+  # SafaRO - Statuseffekte der Buff-Concertos (CONCERTO.md 4).
+  # Rein ueber Script-Boni wie S_Lifepotion in db/re/status.yml. Gesetzt
+  # von src/map/skills/custom/concerto.cpp auf jedem Beat fuer alle
+  # Gruppenmitglieder in der Flaeche, Laufzeit = naechster Beat + 3 s.
+  # Eagles Whisper: Laufgeschwindigkeit +55 % (multiplikativ, ueber dem
+  # Bonus-Topf) und physischer Windbonus sitzen im C++ (status_calc_speed,
+  # battle_calc_cardfix); magischer Windbonus ueber bMagicAtkEle.
+  - Status: Safa_Elephant
+    Icon: EFST_STEELBODY
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bDef,200;
+      bonus bMaxHPrate,50;
+      bonus2 bRegenPercentHP,1,3000;
+  - Status: Safa_Eagle
+    Icon: EFST_WINDWALK
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bFlee,200;
+      bonus2 bMagicAtkEle,Ele_Wind,100;
+  - Status: Safa_Rhino
+    Icon: EFST_ENERGYCOAT
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bMdef,200;
+      bonus bMaxSPrate,50;
+      bonus2 bRegenPercentSP,1,3000;
+# ---- Tales (tales_verdrahten.py, nicht von Hand aendern) ----
+  # Tale of <Region> (13.09.2026): 30 Minuten fuer die Klassenlinie der Region,
+  # jeder Beat setzt neu (wer reinlaeuft, bekommt ihn). Werte = CONCERTO.md 5.
+  - Status: Safa_Tale_Alberta
+    Icon: EFST_OVERTHRUST
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bAtkRate,12;
+      bonus bMaxHPrate,15;
+      bonus bAddMaxWeight,2000;
+  - Status: Safa_Tale_Aldebaran
+    Icon: EFST_PLUSATTACKPOWER
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bAddItemHealRate,30;
+      bonus bMaxHPrate,15;
+      bonus bDef,50;
+  - Status: Safa_Tale_Amatsu
+    Icon: EFST_NJ_NEN
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bAtkRate,10;
+      bonus bMatkRate,10;
+      bonus bFlee,50;
+      bonus bCastrate,-20;
+  - Status: Safa_Tale_Comodo
+    Icon: EFST_PRESERVE
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bAspdRate,10;
+      bonus bFlee,50;
+      bonus bUseSPrate,-20;
+  - Status: Safa_Tale_Einbroch
+    Icon: EFST_GS_MADNESSCANCEL
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bLongAtkRate,15;
+      bonus bAspdRate,10;
+      bonus bHit,50;
+  - Status: Safa_Tale_Geffen
+    Icon: EFST_MAGICPOWER
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bMatkRate,15;
+      bonus bCastrate,-20;
+      bonus bMaxSPrate,20;
+  - Status: Safa_Tale_Hugel
+    Icon: EFST_TRUESIGHT
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bLongAtkRate,15;
+      bonus bHit,50;
+      bonus bAspdRate,10;
+  - Status: Safa_Tale_Lasagna
+    Icon: EFST_SPRITEMABLE
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bAllStats,10;
+      bonus bMaxHPrate,15;
+      bonus bMaxSPrate,15;
+  - Status: Safa_Tale_Morroc
+    Icon: EFST_EDP
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bCritical,30;
+      bonus bFlee,50;
+      bonus bAtkRate,10;
+  - Status: Safa_Tale_Payon
+    Icon: EFST_ANGELUS
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bLongAtkRate,10;
+      bonus bAtkRate,10;
+      bonus bFlee,50;
+  - Status: Safa_Tale_Prontera
+    Icon: EFST_CONCENTRATION
+    CalcFlags:
+      All: true
+    Flags:
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+    Script: |
+      bonus bMaxHPrate,20;
+      bonus bDef,100;
+      bonus bAtkRate,15;
+      bonus bHealPower,20;
+# ---- Tales Ende ----

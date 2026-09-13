@@ -33,7 +33,10 @@ valkyrie,52,83,4	script	Concerto Test#safa	4_M_MINSTREL,{
 	             + "Stop - only me:"
 	             + "Stop - everyone around:"
 	             + "Play twice in a row (dedupe test):"
-	             + "Play + stop after 10 s")) {
+	             + "Play + stop after 10 s:"
+	             + "Learn all eleven Tales (8110-8121 ohne Juno, flag 3):"
+	             + "Forget all Tales:"
+	             + "Give me 20 Protect Neck Candy")) {
 	case 1:
 		skill 8100, 1, 3;   // 3 = ADDSKILL_PERMANENT_GRANTED: ueberlebt pc_calc_skilltree (Kartenwechsel, Relog)
 		skill 8101, 1, 3;
@@ -84,6 +87,38 @@ valkyrie,52,83,4	script	Concerto Test#safa	4_M_MINSTREL,{
 		sleep2 10000;
 		soundeffect "con_hero.wav", 2;
 		dispbottom "[Concerto] stop sent";
+		close;
+	case 10:
+		skill 8110, 1, 3;
+		skill 8111, 1, 3;
+		skill 8112, 1, 3;
+		skill 8113, 1, 3;
+		skill 8114, 1, 3;
+		skill 8115, 1, 3;
+		skill 8116, 1, 3;
+		skill 8118, 1, 3;
+		skill 8119, 1, 3;
+		skill 8120, 1, 3;
+		skill 8121, 1, 3;
+		dispbottom "[Concerto] Tales 8110-8121 (except 8117 Juno) learned - check the Etc tab";
+		close;
+	case 11:
+		skill 8110, 0, 3;
+		skill 8111, 0, 3;
+		skill 8112, 0, 3;
+		skill 8113, 0, 3;
+		skill 8114, 0, 3;
+		skill 8115, 0, 3;
+		skill 8116, 0, 3;
+		skill 8118, 0, 3;
+		skill 8119, 0, 3;
+		skill 8120, 0, 3;
+		skill 8121, 0, 3;
+		dispbottom "[Concerto] Tales removed";
+		close;
+	case 12:
+		getitem 11513, 20;   // Protect_Neck_Candy - 1 je Tale
+		dispbottom "[Concerto] 20 Protect Neck Candy";
 		close;
 	}
 }

@@ -208,3 +208,379 @@ Body:
       Layout: 5
       Interval: -1
       Target: Friend
+# ---- Tales (tales_verdrahten.py, nicht von Hand aendern) ----
+  # Tale of Alberta: 30-min-Buff fuer Merchant line + Soul Link nach Klasse (CONCERTO.md 5).
+  # Duration1 = laengere der beiden Fassungen (Barde 183360 ms / Taenzerin 196320 ms);
+  # die echte Laufzeit setzt concerto.cpp aus dem Beats-Kopf der gewaehlten Fassung.
+  - Id: 8110
+    Name: SAFA_CONCERTO_TALE_ALBERTA
+    Description: Tale of Alberta
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 196320
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 500
+      Weapon:
+        Musical: true
+        Whip: true
+      ItemCost:
+        - Item: Protect_Neck_Candy
+          Amount: 1
+    Unit:
+      Id: Sanctuary
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  # Tale of Aldebaran: 30-min-Buff fuer Alchemist line + Soul Link nach Klasse (CONCERTO.md 5).
+  # Duration1 = laengere der beiden Fassungen (Barde 215560 ms / Taenzerin 219000 ms);
+  # die echte Laufzeit setzt concerto.cpp aus dem Beats-Kopf der gewaehlten Fassung.
+  - Id: 8111
+    Name: SAFA_CONCERTO_TALE_ALDEBARAN
+    Description: Tale of Aldebaran
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 219000
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 500
+      Weapon:
+        Musical: true
+        Whip: true
+      ItemCost:
+        - Item: Protect_Neck_Candy
+          Amount: 1
+    Unit:
+      Id: Sanctuary
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  # Tale of Amatsu: 30-min-Buff fuer Ninja line + Soul Link nach Klasse (CONCERTO.md 5).
+  # Duration1 = laengere der beiden Fassungen (Barde 247560 ms / Taenzerin 242800 ms);
+  # die echte Laufzeit setzt concerto.cpp aus dem Beats-Kopf der gewaehlten Fassung.
+  - Id: 8112
+    Name: SAFA_CONCERTO_TALE_AMATSU
+    Description: Tale of Amatsu
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 247560
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 500
+      Weapon:
+        Musical: true
+        Whip: true
+      ItemCost:
+        - Item: Protect_Neck_Candy
+          Amount: 1
+    Unit:
+      Id: Sanctuary
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  # Tale of Comodo: 30-min-Buff fuer Bard, Dancer and Rogue lines + Soul Link nach Klasse (CONCERTO.md 5).
+  # Duration1 = laengere der beiden Fassungen (Barde 266320 ms / Taenzerin 287600 ms);
+  # die echte Laufzeit setzt concerto.cpp aus dem Beats-Kopf der gewaehlten Fassung.
+  - Id: 8113
+    Name: SAFA_CONCERTO_TALE_COMODO
+    Description: Tale of Comodo
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 287600
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 500
+      Weapon:
+        Musical: true
+        Whip: true
+      ItemCost:
+        - Item: Protect_Neck_Candy
+          Amount: 1
+    Unit:
+      Id: Sanctuary
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  # Tale of Einbroch: 30-min-Buff fuer Gunslinger line + Soul Link nach Klasse (CONCERTO.md 5).
+  # Duration1 = laengere der beiden Fassungen (Barde 216400 ms / Taenzerin 211080 ms);
+  # die echte Laufzeit setzt concerto.cpp aus dem Beats-Kopf der gewaehlten Fassung.
+  - Id: 8114
+    Name: SAFA_CONCERTO_TALE_EINBROCH
+    Description: Tale of Einbroch
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 216400
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 500
+      Weapon:
+        Musical: true
+        Whip: true
+      ItemCost:
+        - Item: Protect_Neck_Candy
+          Amount: 1
+    Unit:
+      Id: Sanctuary
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  # Tale of Geffen: 30-min-Buff fuer Mage line (incl. Sage) + Soul Link nach Klasse (CONCERTO.md 5).
+  # Duration1 = laengere der beiden Fassungen (Barde 280000 ms / Taenzerin 267600 ms);
+  # die echte Laufzeit setzt concerto.cpp aus dem Beats-Kopf der gewaehlten Fassung.
+  - Id: 8115
+    Name: SAFA_CONCERTO_TALE_GEFFEN
+    Description: Tale of Geffen
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 280000
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 500
+      Weapon:
+        Musical: true
+        Whip: true
+      ItemCost:
+        - Item: Protect_Neck_Candy
+          Amount: 1
+    Unit:
+      Id: Sanctuary
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  # Tale of Hugel: 30-min-Buff fuer Archer line (Hunter, Sniper, Ranger) + Soul Link nach Klasse (CONCERTO.md 5).
+  # Duration1 = laengere der beiden Fassungen (Barde 278720 ms / Taenzerin 272800 ms);
+  # die echte Laufzeit setzt concerto.cpp aus dem Beats-Kopf der gewaehlten Fassung.
+  - Id: 8116
+    Name: SAFA_CONCERTO_TALE_HUGEL
+    Description: Tale of Hugel
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 278720
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 500
+      Weapon:
+        Musical: true
+        Whip: true
+      ItemCost:
+        - Item: Protect_Neck_Candy
+          Amount: 1
+    Unit:
+      Id: Sanctuary
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  # Tale of Lasagna: 30-min-Buff fuer Summoner (Doram) + Soul Link nach Klasse (CONCERTO.md 5).
+  # Duration1 = laengere der beiden Fassungen (Barde 203200 ms / Taenzerin 219400 ms);
+  # die echte Laufzeit setzt concerto.cpp aus dem Beats-Kopf der gewaehlten Fassung.
+  - Id: 8118
+    Name: SAFA_CONCERTO_TALE_LASAGNA
+    Description: Tale of Lasagna
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 219400
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 500
+      Weapon:
+        Musical: true
+        Whip: true
+      ItemCost:
+        - Item: Protect_Neck_Candy
+          Amount: 1
+    Unit:
+      Id: Sanctuary
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  # Tale of Morroc: 30-min-Buff fuer Thief line and Soul Linker + Soul Link nach Klasse (CONCERTO.md 5).
+  # Duration1 = laengere der beiden Fassungen (Barde 205600 ms / Taenzerin 207920 ms);
+  # die echte Laufzeit setzt concerto.cpp aus dem Beats-Kopf der gewaehlten Fassung.
+  - Id: 8119
+    Name: SAFA_CONCERTO_TALE_MORROC
+    Description: Tale of Morroc
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 207920
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 500
+      Weapon:
+        Musical: true
+        Whip: true
+      ItemCost:
+        - Item: Protect_Neck_Candy
+          Amount: 1
+    Unit:
+      Id: Sanctuary
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  # Tale of Payon: 30-min-Buff fuer Archer and Taekwon lines + Soul Link nach Klasse (CONCERTO.md 5).
+  # Duration1 = laengere der beiden Fassungen (Barde 262000 ms / Taenzerin 269600 ms);
+  # die echte Laufzeit setzt concerto.cpp aus dem Beats-Kopf der gewaehlten Fassung.
+  - Id: 8120
+    Name: SAFA_CONCERTO_TALE_PAYON
+    Description: Tale of Payon
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 269600
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 500
+      Weapon:
+        Musical: true
+        Whip: true
+      ItemCost:
+        - Item: Protect_Neck_Candy
+          Amount: 1
+    Unit:
+      Id: Sanctuary
+      Layout: 5
+      Interval: -1
+      Target: Friend
+  # Tale of Prontera: 30-min-Buff fuer Swordsman, Acolyte and Novice lines + Soul Link nach Klasse (CONCERTO.md 5).
+  # Duration1 = laengere der beiden Fassungen (Barde 248000 ms / Taenzerin 266400 ms);
+  # die echte Laufzeit setzt concerto.cpp aus dem Beats-Kopf der gewaehlten Fassung.
+  - Id: 8121
+    Name: SAFA_CONCERTO_TALE_PRONTERA
+    Description: Tale of Prontera
+    MaxLevel: 1
+    Type: Misc
+    TargetType: Self
+    Range: 9
+    Hit: Single
+    HitCount: 1
+    Element: Neutral
+    CastTime: 3000
+    AfterCastActDelay: 1000
+    Duration1: 266400
+    Cooldown: 300000
+    CastTimeFlags:
+      IgnoreDex: true
+      IgnoreStatus: true
+      IgnoreItemBonus: true
+    Requires:
+      SpCost: 500
+      Weapon:
+        Musical: true
+        Whip: true
+      ItemCost:
+        - Item: Protect_Neck_Candy
+          Amount: 1
+    Unit:
+      Id: Sanctuary
+      Layout: 5
+      Interval: -1
+      Target: Friend
+# ---- Tales Ende ----

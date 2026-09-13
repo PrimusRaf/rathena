@@ -1454,6 +1454,19 @@ enum sc_type : int16 {
 	SC_SAFA_EAGLE,
 	SC_SAFA_RHINO,
 
+	// SafaRO: Tale of <Region> (CONCERTO.md 5)
+	SC_SAFA_TALE_ALBERTA,
+	SC_SAFA_TALE_ALDEBARAN,
+	SC_SAFA_TALE_AMATSU,
+	SC_SAFA_TALE_COMODO,
+	SC_SAFA_TALE_EINBROCH,
+	SC_SAFA_TALE_GEFFEN,
+	SC_SAFA_TALE_HUGEL,
+	SC_SAFA_TALE_LASAGNA,
+	SC_SAFA_TALE_MORROC,
+	SC_SAFA_TALE_PAYON,
+	SC_SAFA_TALE_PRONTERA,
+
 	SC_MAX, //Automatically updated max, used in for's to check we are within bounds.
 };
 

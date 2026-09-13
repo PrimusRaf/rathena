@@ -26,6 +26,29 @@ std::unique_ptr<const SkillImpl> SkillFactoryCustom::create(const e_skill skill_
 			return std::make_unique<SkillConcerto>(SAFA_CONCERTO_RHINO, "con_rhino.wav", CONCERTO_BUFF, SC_SAFA_RHINO, SAFA_EFFEKT_RHINO);
 		case SAFA_CONCERTO_NIGHT:
 			return std::make_unique<SkillConcerto>(SAFA_CONCERTO_NIGHT, "con_night.wav", CONCERTO_DEBUFF, SC_NONE, SAFA_EFFEKT_NIGHT);
+		// Tale of <Region>: Barde/Taenzerin-Fassung, Klassenlinie der Region (tales_verdrahten.py)
+		case SAFA_TALE_ALBERTA:
+			return std::make_unique<SkillConcerto>(SAFA_TALE_ALBERTA, "con_alberta_m.wav", "con_alberta_f.wav", SC_SAFA_TALE_ALBERTA, std::vector<s_tale_klasse>{ { MAPID_FIRSTMASK, MAPID_MERCHANT } });
+		case SAFA_TALE_ALDEBARAN:
+			return std::make_unique<SkillConcerto>(SAFA_TALE_ALDEBARAN, "con_aldebaran_m.wav", "con_aldebaran_f.wav", SC_SAFA_TALE_ALDEBARAN, std::vector<s_tale_klasse>{ { MAPID_SECONDMASK, MAPID_ALCHEMIST } });
+		case SAFA_TALE_AMATSU:
+			return std::make_unique<SkillConcerto>(SAFA_TALE_AMATSU, "con_amatsu_m.wav", "con_amatsu_f.wav", SC_SAFA_TALE_AMATSU, std::vector<s_tale_klasse>{ { MAPID_FIRSTMASK, MAPID_NINJA } });
+		case SAFA_TALE_COMODO:
+			return std::make_unique<SkillConcerto>(SAFA_TALE_COMODO, "con_comodo_m.wav", "con_comodo_f.wav", SC_SAFA_TALE_COMODO, std::vector<s_tale_klasse>{ { MAPID_SECONDMASK, MAPID_BARDDANCER }, { MAPID_SECONDMASK, MAPID_ROGUE } });
+		case SAFA_TALE_EINBROCH:
+			return std::make_unique<SkillConcerto>(SAFA_TALE_EINBROCH, "con_einbroch_m.wav", "con_einbroch_f.wav", SC_SAFA_TALE_EINBROCH, std::vector<s_tale_klasse>{ { MAPID_FIRSTMASK, MAPID_GUNSLINGER } });
+		case SAFA_TALE_GEFFEN:
+			return std::make_unique<SkillConcerto>(SAFA_TALE_GEFFEN, "con_geffen_m.wav", "con_geffen_f.wav", SC_SAFA_TALE_GEFFEN, std::vector<s_tale_klasse>{ { MAPID_FIRSTMASK, MAPID_MAGE } });
+		case SAFA_TALE_HUGEL:
+			return std::make_unique<SkillConcerto>(SAFA_TALE_HUGEL, "con_hugel_m.wav", "con_hugel_f.wav", SC_SAFA_TALE_HUGEL, std::vector<s_tale_klasse>{ { MAPID_FIRSTMASK, MAPID_ARCHER } });
+		case SAFA_TALE_LASAGNA:
+			return std::make_unique<SkillConcerto>(SAFA_TALE_LASAGNA, "con_lasagna_m.wav", "con_lasagna_f.wav", SC_SAFA_TALE_LASAGNA, std::vector<s_tale_klasse>{ { MAPID_FIRSTMASK, MAPID_SUMMONER } });
+		case SAFA_TALE_MORROC:
+			return std::make_unique<SkillConcerto>(SAFA_TALE_MORROC, "con_morroc_m.wav", "con_morroc_f.wav", SC_SAFA_TALE_MORROC, std::vector<s_tale_klasse>{ { MAPID_FIRSTMASK, MAPID_THIEF }, { MAPID_SECONDMASK, MAPID_SOUL_LINKER } });
+		case SAFA_TALE_PAYON:
+			return std::make_unique<SkillConcerto>(SAFA_TALE_PAYON, "con_payon_m.wav", "con_payon_f.wav", SC_SAFA_TALE_PAYON, std::vector<s_tale_klasse>{ { MAPID_FIRSTMASK, MAPID_ARCHER }, { MAPID_FIRSTMASK, MAPID_TAEKWON } });
+		case SAFA_TALE_PRONTERA:
+			return std::make_unique<SkillConcerto>(SAFA_TALE_PRONTERA, "con_prontera_m.wav", "con_prontera_f.wav", SC_SAFA_TALE_PRONTERA, std::vector<s_tale_klasse>{ { MAPID_FIRSTMASK, MAPID_SWORDMAN }, { MAPID_FIRSTMASK, MAPID_ACOLYTE }, { MAPID_FIRSTMASK, MAPID_NOVICE } });
 	}
 
 #if 0

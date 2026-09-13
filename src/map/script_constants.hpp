@@ -2011,6 +2011,17 @@
 	export_constant(SC_SAFA_ELEPHANT);
 	export_constant(SC_SAFA_EAGLE);
 	export_constant(SC_SAFA_RHINO);
+	export_constant(SC_SAFA_TALE_ALBERTA);
+	export_constant(SC_SAFA_TALE_ALDEBARAN);
+	export_constant(SC_SAFA_TALE_AMATSU);
+	export_constant(SC_SAFA_TALE_COMODO);
+	export_constant(SC_SAFA_TALE_EINBROCH);
+	export_constant(SC_SAFA_TALE_GEFFEN);
+	export_constant(SC_SAFA_TALE_HUGEL);
+	export_constant(SC_SAFA_TALE_LASAGNA);
+	export_constant(SC_SAFA_TALE_MORROC);
+	export_constant(SC_SAFA_TALE_PAYON);
+	export_constant(SC_SAFA_TALE_PRONTERA);
 
 /// Do not modify code below this, until the end of the API hook, since it will be automatically generated again
 /// @APIHOOK_START(EFST_CONST)

@@ -9,6 +9,10 @@
 //   8103 Eagles Whisper          Buff SC_SAFA_EAGLE    je Beat
 //   8104 Great Rhino Trial       Buff SC_SAFA_RHINO    je Beat
 //   8105 Nightfall in Midgard    zufaelliger Debuff je Beat, Bosse inklusive
+//   8110-8121 Tale of <Region>  30-min-Buff fuer die Klassenlinie der Region
+//                               + Soul Link nach Klasse fuer alle, Liedtext
+//                               getaktet als Sprechblase (Frost-Joker-Art);
+//                               zwei Fassungen je Tale: Barde (_m) / Taenzerin (_f)
 //
 // Warum eine Hoersperre: der 2025er Client kennt keinen Stopp fuer
 // ZC_SOUND und mischt jedes Paket als neue Instanz (Test 12.09.). Damit
@@ -26,6 +30,7 @@
 // tools/concerto/str_bauen.py).
 #pragma once
 
+#include <string>
 #include <vector>
 
 #include "../skill_impl.hpp"
@@ -37,6 +42,23 @@ constexpr uint16 SAFA_CONCERTO_ELEPHANT = 8102;  // Concerto: Elephant Hymn
 constexpr uint16 SAFA_CONCERTO_EAGLE = 8103;     // Concerto: Eagles Whisper
 constexpr uint16 SAFA_CONCERTO_RHINO = 8104;     // Concerto: Great Rhino Trial
 constexpr uint16 SAFA_CONCERTO_NIGHT = 8105;     // Concerto: Nightfall in Midgard
+
+// Tale of <Region> (13.09.2026): Ids alphabetisch, 8117 Juno reserviert (Lied wird neu gemacht)
+constexpr uint16 SAFA_TALE_ALBERTA = 8110;
+constexpr uint16 SAFA_TALE_ALDEBARAN = 8111;
+constexpr uint16 SAFA_TALE_AMATSU = 8112;
+constexpr uint16 SAFA_TALE_COMODO = 8113;
+constexpr uint16 SAFA_TALE_EINBROCH = 8114;
+constexpr uint16 SAFA_TALE_GEFFEN = 8115;
+constexpr uint16 SAFA_TALE_HUGEL = 8116;
+constexpr uint16 SAFA_TALE_JUNO = 8117;
+constexpr uint16 SAFA_TALE_LASAGNA = 8118;
+constexpr uint16 SAFA_TALE_MORROC = 8119;
+constexpr uint16 SAFA_TALE_PAYON = 8120;
+constexpr uint16 SAFA_TALE_PRONTERA = 8121;
+
+// Tale-Buff: 30 Minuten, kein Party-Zwang (Raffael 13.09.)
+constexpr int32 SAFA_TALE_BUFF_MS = 30 * 60 * 1000;
 
 // Client-Effekte (STR-Slots, siehe CONCERTO.md 4): Mammut, Falke, Fulgor, Nightmare
 constexpr int32 SAFA_EFFEKT_ELEPHANT = 705;      // mobile_ef01.str
@@ -76,12 +98,41 @@ enum e_concerto_art : uint8 {
 	CONCERTO_SCHADEN,   // skill_attack je Tick
 	CONCERTO_BUFF,      // sc_start auf die Gruppe je Beat
 	CONCERTO_DEBUFF,    // zufaelliger Status auf Gegner je Beat
+	CONCERTO_TALE,      // 30-min-Status fuer die Klassenlinie + Soul Link, je Beat nachgesetzt
+};
+
+// Eine Liedzeile (db/import/concerto/<id>_<m|f>.lyrics): Blase = Englisch,
+// Chatzeile = Original in ASCII-Umschrift. Vocable-Zeilen (leere Blase)
+// werden nicht geladen.
+struct s_concerto_zeile {
+	int32 ms;
+	std::string blase;
+	std::string chat;
+};
+
+// Eine Musikfassung (Tales haben zwei: Barde/Taenzerin)
+struct s_concerto_fassung {
+	std::string wav;                        // relativ zu data\wav\, max. 23 Zeichen
+	int32 dauer_ms = 0;                     // aus dem Beats-Kopf (dauer_ms=...), sonst Duration1
+	std::vector<s_concerto_beat> beats;     // leer = Fallback auf Unit.Interval
+	std::vector<s_concerto_zeile> zeilen;   // nur bei Tales
+};
+
+// Klassenlinie einer Region: (Maske, Wert)-Paare auf sd->class_, z. B.
+// {MAPID_FIRSTMASK, MAPID_SWORDMAN} = ganze Schwertkaempfer-Linie inkl.
+// Trans/3./4. Klasse; {MAPID_SECONDMASK, MAPID_ALCHEMIST} = nur der Alchemist-Ast.
+struct s_tale_klasse {
+	uint64 maske;
+	uint64 wert;
 };
 
 class SkillConcerto : public SkillImpl {
 public:
 	// art/status/effekt: siehe Tabelle oben; status nur bei CONCERTO_BUFF
 	SkillConcerto(uint16 skill_id, const char* wav, e_concerto_art art = CONCERTO_SCHADEN, sc_type status = SC_NONE, int32 effekt = 0);
+	// Tale: zwei Fassungen (wav_m fuer Barden, wav_f fuer Taenzerinnen), Status
+	// fuer die Klassenlinie der Region; Beats/Lyrics aus <id>_m / <id>_f.
+	SkillConcerto(uint16 skill_id, const char* wav_m, const char* wav_f, sc_type status, std::vector<s_tale_klasse> klassen);
 
 	// TargetType Self: Flaeche um den Barden, wie bei den Originalsongs.
 	void castendNoDamageId(block_list* src, block_list* target, uint16 skill_lv, t_tick tick, int32& flag) const override;
@@ -94,18 +145,25 @@ public:
 	e_concerto_art art() const { return art_; }
 	sc_type status() const { return status_; }
 	int32 effekt() const { return effekt_; }
+	// Fassung fuer diesen Spieler (Tales: nach Geschlecht; sonst immer die erste)
+	const s_concerto_fassung& fassung(const map_session_data& sd) const;
+	// Gehoert die Klasse des Spielers zur Region des Tales? (nur CONCERTO_TALE)
+	bool klasse_passt(const map_session_data& sd) const;
 
 private:
 	void anstimmen(block_list* src, int32 x, int32 y, uint16 skill_lv) const;
 
-	void beats_laden();
+	void fassung_laden(s_concerto_fassung& f, const std::string& kurz);
 
-	const char* wav_;                      // Dateiname relativ zu data\wav\, max. 23 Zeichen
-	std::vector<s_concerto_beat> beats_;   // leer = Fallback auf Unit.Interval
+	s_concerto_fassung fassungen_[2];      // [0] = Barde/Standard, [1] = Taenzerin (nur Tales)
 	e_concerto_art art_;
 	sc_type status_;
 	int32 effekt_;
+	std::vector<s_tale_klasse> klassen_;
 };
+
+// Soul Link passend zur Klasse (SL_KNIGHT ... SL_HIGH), 0 wenn keiner passt.
+uint16 concerto_soullink_fuer(const map_session_data& sd);
 
 // Die Factory-Instanz eines Concertos (fuer den Tick-Timer), nullptr wenn keins.
 const SkillConcerto* concerto_finden(uint16 skill_id);

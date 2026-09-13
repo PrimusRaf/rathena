@@ -38,6 +38,9 @@ static const char* REG_GRUPPE = "@concerto_gruppe";       // group_id der laufen
 static const uint16 CONCERTO_IDS[] = {
 	SAFA_CONCERTO_HERO, SAFA_CONCERTO_RUSH, SAFA_CONCERTO_ELEPHANT,
 	SAFA_CONCERTO_EAGLE, SAFA_CONCERTO_RHINO, SAFA_CONCERTO_NIGHT,
+	SAFA_TALE_ALBERTA, SAFA_TALE_ALDEBARAN, SAFA_TALE_AMATSU, SAFA_TALE_COMODO,
+	SAFA_TALE_EINBROCH, SAFA_TALE_GEFFEN, SAFA_TALE_HUGEL, SAFA_TALE_JUNO,
+	SAFA_TALE_LASAGNA, SAFA_TALE_MORROC, SAFA_TALE_PAYON, SAFA_TALE_PRONTERA,
 };
 
 // Instanzen der Factory, damit der Tick-Timer Art/Status/Effekt kennt.
@@ -161,39 +164,135 @@ static void concerto_effekt(block_list* src, int32 gid, int32 effekt, t_tick tic
 // (<= 1000, passt in die 12 Bit, die skill_attack als flag weiterreicht);
 // bei Buff/Debuff der Abstand zum naechsten Beat in 10-ms-Schritten (<= 1023).
 static TIMER_FUNC(concerto_tick_timer);
+static TIMER_FUNC(concerto_zeile_timer);
 
-SkillConcerto::SkillConcerto(uint16 skill_id, const char* wav, e_concerto_art art, sc_type status, int32 effekt)
-	: SkillImpl(static_cast<e_skill>(skill_id)), wav_(wav), art_(art), status_(status), effekt_(effekt) {
+static void concerto_timer_registrieren() {
 	static bool registriert = false;
 	if (!registriert) {
 		add_timer_func_list(concerto_tick_timer, "concerto_tick_timer");
+		add_timer_func_list(concerto_zeile_timer, "concerto_zeile_timer");
 		registriert = true;
 	}
-	concerto_instanzen[skill_id] = this;
-	beats_laden();
 }
 
-void SkillConcerto::beats_laden() {
-	std::string pfad = std::string(db_path) + "/import/concerto/" + std::to_string(getSkillId()) + ".beats";
-	std::ifstream in(pfad);
+SkillConcerto::SkillConcerto(uint16 skill_id, const char* wav, e_concerto_art art, sc_type status, int32 effekt)
+	: SkillImpl(static_cast<e_skill>(skill_id)), art_(art), status_(status), effekt_(effekt) {
+	concerto_timer_registrieren();
+	concerto_instanzen[skill_id] = this;
+	fassungen_[0].wav = wav;
+	fassung_laden(fassungen_[0], std::to_string(skill_id));
+}
+
+SkillConcerto::SkillConcerto(uint16 skill_id, const char* wav_m, const char* wav_f, sc_type status, std::vector<s_tale_klasse> klassen)
+	: SkillImpl(static_cast<e_skill>(skill_id)), art_(CONCERTO_TALE), status_(status), effekt_(0), klassen_(std::move(klassen)) {
+	concerto_timer_registrieren();
+	concerto_instanzen[skill_id] = this;
+	fassungen_[0].wav = wav_m;
+	fassungen_[1].wav = wav_f;
+	fassung_laden(fassungen_[0], std::to_string(skill_id) + "_m");
+	fassung_laden(fassungen_[1], std::to_string(skill_id) + "_f");
+}
+
+// Tab-getrennte Spalte n (0-basiert) einer Zeile
+static std::string spalte(const std::string& zeile, size_t n) {
+	size_t a = 0;
+	for (size_t i = 0; i < n; ++i) {
+		a = zeile.find('\t', a);
+		if (a == std::string::npos)
+			return "";
+		++a;
+	}
+	size_t e = zeile.find('\t', a);
+	return zeile.substr(a, e == std::string::npos ? std::string::npos : e - a);
+}
+
+void SkillConcerto::fassung_laden(s_concerto_fassung& f, const std::string& kurz) {
+	std::string basis = std::string(db_path) + "/import/concerto/" + kurz;
+	std::ifstream in(basis + ".beats");
 	if (!in) {
-		ShowWarning("Concerto %d: keine Beat-Map %s - Fallback auf Unit.Interval\n", getSkillId(), pfad.c_str());
+		ShowWarning("Concerto %d: keine Beat-Map %s.beats - Fallback auf Unit.Interval\n", getSkillId(), basis.c_str());
 		return;
 	}
 	std::string zeile;
 	while (std::getline(in, zeile)) {
-		if (zeile.empty() || zeile[0] == '#')
+		if (zeile.empty())
 			continue;
+		if (zeile[0] == '#') {
+			size_t d = zeile.find("dauer_ms=");
+			if (d != std::string::npos)
+				f.dauer_ms = atoi(zeile.c_str() + d + 9);
+			continue;
+		}
 		std::istringstream z(zeile);
-		int32 ms = 0; double f = 0;
-		if (!(z >> ms >> f))
+		int32 ms = 0; double fak_d = 0;
+		if (!(z >> ms >> fak_d))
 			continue;
-		int32 fak = static_cast<int32>(std::lround(f * 1000));
+		int32 fak = static_cast<int32>(std::lround(fak_d * 1000));
 		if (ms < 0 || fak <= 0)
 			continue;
-		beats_.push_back({ ms, std::min(fak, 1000) });
+		f.beats.push_back({ ms, std::min(fak, 1000) });
 	}
-	ShowStatus("Concerto %d: %zu Ticks aus %s\n", getSkillId(), beats_.size(), pfad.c_str());
+	if (art_ != CONCERTO_TALE) {
+		ShowStatus("Concerto %d: %zu Ticks aus %s.beats\n", getSkillId(), f.beats.size(), basis.c_str());
+		return;
+	}
+	// Liedzeilen: ms<TAB>original<TAB>english<TAB>ascii - nur Zeilen mit Blase
+	std::ifstream lin(basis + ".lyrics");
+	if (lin) {
+		while (std::getline(lin, zeile)) {
+			if (zeile.empty() || zeile[0] == '#')
+				continue;
+			if (!zeile.empty() && zeile.back() == '\r')
+				zeile.pop_back();
+			std::string blase = spalte(zeile, 2), chat = spalte(zeile, 3);
+			int32 ms = atoi(spalte(zeile, 0).c_str());
+			if (blase.empty() || ms < 0)
+				continue;
+			f.zeilen.push_back({ ms, blase, chat });
+		}
+	} else {
+		ShowWarning("Concerto %d: keine Liedzeilen %s.lyrics\n", getSkillId(), basis.c_str());
+	}
+	ShowStatus("Concerto %d: %zu Beats, %zu Liedzeilen, %d ms aus %s\n", getSkillId(), f.beats.size(), f.zeilen.size(), f.dauer_ms, basis.c_str());
+}
+
+const s_concerto_fassung& SkillConcerto::fassung(const map_session_data& sd) const {
+	if (art_ == CONCERTO_TALE && sd.status.sex == SEX_FEMALE && !fassungen_[1].beats.empty())
+		return fassungen_[1];
+	return fassungen_[0];
+}
+
+bool SkillConcerto::klasse_passt(const map_session_data& sd) const {
+	for (const s_tale_klasse& k : klassen_)
+		if ((sd.class_ & k.maske) == k.wert)
+			return true;
+	return false;
+}
+
+// Soul Link nach Klasse; status.cpp prueft bei SC_SPIRIT selbst noch einmal
+// gegen MAPID_SECONDMASK, deshalb reicht hier die Vorauswahl.
+uint16 concerto_soullink_fuer(const map_session_data& sd) {
+	switch (sd.class_ & MAPID_SECONDMASK) {
+		case MAPID_KNIGHT:         return SL_KNIGHT;
+		case MAPID_CRUSADER:       return SL_CRUSADER;
+		case MAPID_WIZARD:         return SL_WIZARD;
+		case MAPID_SAGE:           return SL_SAGE;
+		case MAPID_HUNTER:         return SL_HUNTER;
+		case MAPID_BARDDANCER:     return SL_BARDDANCER;
+		case MAPID_PRIEST:         return SL_PRIEST;
+		case MAPID_MONK:           return SL_MONK;
+		case MAPID_BLACKSMITH:     return SL_BLACKSMITH;
+		case MAPID_ALCHEMIST:      return SL_ALCHEMIST;
+		case MAPID_ASSASSIN:       return SL_ASSASIN;
+		case MAPID_ROGUE:          return SL_ROGUE;
+		case MAPID_STAR_GLADIATOR: return SL_STAR;
+		case MAPID_SOUL_LINKER:    return SL_SOULLINKER;
+		case MAPID_SUPER_NOVICE:   return SL_SUPERNOVICE;
+	}
+	// Rebirth-Erstklassen unter Level 70: Spirit of the Rebirth
+	if ((sd.class_ & JOBL_UPPER) && !(sd.class_ & JOBL_2) && sd.status.base_level < 70 && (sd.class_ & MAPID_FIRSTMASK) != MAPID_NOVICE)
+		return SL_HIGH;
+	return 0;
 }
 
 void SkillConcerto::calculateSkillRatio(const Damage* wd, const block_list* src, const block_list* target, uint16 skill_lv, int32& base_skillratio, int32 mflag) const {
@@ -297,6 +396,55 @@ static int32 concerto_debuff_sub(block_list* bl, va_list ap) {
 	return 1;
 }
 
+// ---------------------------------------------------------------- Tale (30-min-Buff + Soul Link)
+
+// Jeder Spieler in der Flaeche: Klassenlinie der Region -> Regionsstatus 30 min;
+// jeder mit passendem Soul Link -> Link 30 min. Kein Party-Zwang.
+static int32 concerto_tale_sub(block_list* bl, va_list ap) {
+	block_list* src = va_arg(ap, block_list*);
+	const SkillConcerto* con = va_arg(ap, const SkillConcerto*);
+
+	map_session_data* tsd = BL_CAST(BL_PC, bl);
+	if (tsd == nullptr || bl->prev == nullptr || status_isdead(*bl))
+		return 0;
+	if (battle_check_target(src, bl, BCT_NOENEMY) <= 0)
+		return 0;
+	if (con->status() != SC_NONE && con->klasse_passt(*tsd))
+		status_change_start(src, bl, con->status(), 10000, 1, 0, 0, 0, SAFA_TALE_BUFF_MS, SCSTART_NOAVOID | SCSTART_NOTICKDEF);
+	uint16 link = concerto_soullink_fuer(*tsd);
+	if (link != 0)
+		sc_start2(src, bl, SC_SPIRIT, 100, 5, link, SAFA_TALE_BUFF_MS);
+	return 1;
+}
+
+// Liedzeile: Sprechblase (Englisch) wie beim Frost Joker, dazu die
+// Originalzeile in ASCII-Umschrift als gefaerbte Chatzeile.
+static TIMER_FUNC(concerto_zeile_timer) {
+	map_session_data* sd = map_id2sd(id);
+	if (sd == nullptr || sd->prev == nullptr || status_isdead(*sd))
+		return 0;
+	int32 gid = static_cast<int32>(data / 1024);
+	size_t idx = static_cast<size_t>(data % 1024);
+	std::shared_ptr<s_skill_unit_group> group = skill_id2group(gid);
+	if (group == nullptr || group->src_id != id || group->unit_count <= 0)
+		return 0;   // Concerto vorbei (Tod, Kartenwechsel) - kein Gesang mehr
+	const SkillConcerto* con = concerto_finden(group->skill_id);
+	if (con == nullptr)
+		return 0;
+	const s_concerto_fassung& f = con->fassung(*sd);
+	if (idx >= f.zeilen.size())
+		return 0;
+	const s_concerto_zeile& z = f.zeilen[idx];
+	char buf[CHAT_SIZE_MAX];
+	snprintf(buf, sizeof(buf), "%s : %s", sd->status.name, z.blase.c_str());
+	clif_disp_overhead(sd, buf);
+	if (!z.chat.empty()) {
+		snprintf(buf, sizeof(buf), "~ %s", z.chat.c_str());
+		clif_messagecolor(sd, color_table[COLOR_LIGHT_GREEN], buf, false, AREA);
+	}
+	return 0;
+}
+
 // ---------------------------------------------------------------- Tick
 
 static TIMER_FUNC(concerto_tick_timer) {
@@ -338,6 +486,9 @@ static TIMER_FUNC(concerto_tick_timer) {
 			map_foreachinrange(concerto_debuff_sub, mitte, reichweite, BL_CHAR,
 				src, mitte);
 			break;
+		case CONCERTO_TALE:
+			map_foreachinrange(concerto_tale_sub, mitte, reichweite, BL_PC, src, con);
+			break;
 	}
 	return 0;
 }
@@ -362,8 +513,15 @@ void SkillConcerto::anstimmen(block_list* src, int32 x, int32 y, uint16 skill_lv
 	if (group == nullptr)
 		return;
 
+	const s_concerto_fassung& f = fassung(*sd);
 	int64 jetzt = static_cast<int64>(time(nullptr));
 	int64 dauer_s = skill_get_time(getSkillId(), skill_lv) / 1000;   // Duration1 = Liedlaenge
+	if (f.dauer_ms > 0) {
+		// Tales: Barden- und Taenzerinnen-Fassung sind verschieden lang -
+		// die Flaeche lebt genau so lang wie das gewaehlte Stueck.
+		dauer_s = f.dauer_ms / 1000;
+		group->limit = f.dauer_ms;
+	}
 
 	pc_setreg(sd, add_str(REG_BIS), jetzt + dauer_s);
 	pc_setreg(sd, add_str(REG_MAP), src->m);
@@ -371,24 +529,28 @@ void SkillConcerto::anstimmen(block_list* src, int32 x, int32 y, uint16 skill_lv
 
 	// Beat-Map: ein Timer je Tick, relativ zum Start der Musik.
 	t_tick start = gettick();
-	for (size_t i = 0; i < beats_.size(); ++i) {
-		const s_concerto_beat& b = beats_[i];
+	for (size_t i = 0; i < f.beats.size(); ++i) {
+		const s_concerto_beat& b = f.beats[i];
 		int32 wert;
 		if (art_ == CONCERTO_SCHADEN) {
 			wert = b.faktor;
 		} else {
 			// Abstand zum naechsten Beat (letzter: bis zum Liedende) in 10 ms, max. 10,23 s
-			int32 naechster = (i + 1 < beats_.size()) ? beats_[i + 1].ms : static_cast<int32>(dauer_s * 1000);
+			int32 naechster = (i + 1 < f.beats.size()) ? f.beats[i + 1].ms : static_cast<int32>(dauer_s * 1000);
 			wert = std::min(1023, std::max(0, (naechster - b.ms) / 10));
 		}
 		add_timer(start + b.ms, concerto_tick_timer, src->id,
 			static_cast<intptr_t>(group->group_id) * 1024 + wert);
 	}
+	// Liedzeilen (Tales): ein Timer je Zeile mit Blase
+	for (size_t i = 0; i < f.zeilen.size() && i < 1024; ++i)
+		add_timer(start + f.zeilen[i].ms, concerto_zeile_timer, src->id,
+			static_cast<intptr_t>(group->group_id) * 1024 + static_cast<intptr_t>(i));
 
 	// Hoerweite = Sichtweite des Clients um den Wirkpunkt.
 	int32 n = map_foreachinallarea(concerto_musik_sub, src->m,
 		x - AREA_SIZE, y - AREA_SIZE, x + AREA_SIZE, y + AREA_SIZE, BL_PC,
-		wav_, jetzt, dauer_s);
+		f.wav.c_str(), jetzt, dauer_s);
 
 	if (battle_config.skill_log)
 		ShowInfo("Concerto %d von %s: Musik an %d Spieler, %lld s\n", getSkillId(), sd->status.name, n, (long long)dauer_s);
