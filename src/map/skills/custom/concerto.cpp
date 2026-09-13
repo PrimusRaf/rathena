@@ -521,6 +521,11 @@ void SkillConcerto::anstimmen(block_list* src, int32 x, int32 y, uint16 skill_lv
 	std::shared_ptr<s_skill_unit_group> group = skill_unitsetting(src, getSkillId(), skill_lv, x, y, 0);
 	if (group == nullptr)
 		return;
+	// Sanctuary-Kachel (Elephant, Rhino, Tales): skill_unit_timer_sub loescht die
+	// Flaeche, sobald val1 (= Rest-Heilungen des echten Sanctuary) <= 0 ist. Bei
+	// uns wird val1 nie gesetzt - Flaeche flackerte nur auf (13.09.2026).
+	if (group->unit_id == UNT_SANCTUARY)
+		group->val1 = 1000000;
 
 	const s_concerto_fassung& f = fassung(*sd);
 	int64 jetzt = static_cast<int64>(time(nullptr));
