@@ -74,6 +74,8 @@ bool concerto_darf_wirken(map_session_data& sd, uint16 skill_id) {
 	return true;
 }
 
+static void concerto_kacheln_auffrischen(s_skill_unit_group* group, t_tick tick, bool erzwingen = false);
+
 void concerto_mitziehen(block_list* bl, int16 dx, int16 dy) {
 	if (bl == nullptr || bl->type != BL_PC || (dx == 0 && dy == 0))
 		return;
@@ -87,6 +89,9 @@ void concerto_mitziehen(block_list* bl, int16 dx, int16 dy) {
 		return;
 	}
 	skill_unit_move_unit_group(group, bl->m, dx, dy);
+	// Wer beide Positionen sieht, bekommt vom Verschieben nichts (nur insight/outsight
+	// am Rand) - Sanctuary-Kacheln blieben deshalb am Wirkort kleben (Raffael 14.09.).
+	concerto_kacheln_auffrischen(group.get(), gettick(), true);
 }
 
 void concerto_nachschicken(map_session_data& sd) {
@@ -139,8 +144,10 @@ static int32 concerto_musik_sub(block_list* bl, va_list ap) {
 // Schadensfaktor je Tick ist als Basis x1000 gedacht; 35000 % = 100 % + 34900.
 constexpr int32 CONCERTO_RATIO_PLUS = 34900;
 
-// Buff-Laufzeit = Abstand zum naechsten Beat + Gnadenfrist
-constexpr int32 CONCERTO_BUFF_GNADE_MS = 3000;
+// Buff-Laufzeit: einmal in der Flaeche gestanden = 10 min (Raffael 14.09.); der Beat-Takt
+// dient nur noch dazu, Neuankoemmlinge einzusammeln - wer den Status schon hat, wird nicht
+// neu gesetzt (sonst blinkt das Icon jede Sekunde und der Client startet Effekte neu).
+constexpr int32 CONCERTO_BUFF_MS = 10 * 60 * 1000;
 // Debuff (Nightfall): Laufzeit je Anwendung; Wiederziehen verlaengert
 constexpr int32 CONCERTO_DEBUFF_MS = 10000;
 
@@ -166,17 +173,18 @@ static void concerto_effekt(block_list* src, int32 gid, int32 effekt, t_tick tic
 constexpr t_tick CONCERTO_KACHEL_MS = 20000;
 static std::unordered_map<int32, t_tick> concerto_kachel_zuletzt;   // group_id -> tick
 
-static void concerto_kacheln_auffrischen(s_skill_unit_group* group, t_tick tick) {
+static void concerto_kacheln_auffrischen(s_skill_unit_group* group, t_tick tick, bool erzwingen) {
 	if (group->unit_id != UNT_SANCTUARY)
 		return;
 	auto it = concerto_kachel_zuletzt.find(group->group_id);
 	if (it == concerto_kachel_zuletzt.end()) {
 		concerto_kachel_zuletzt[group->group_id] = tick;   // frisch gelegt, erst in 20 s
+		if (!erzwingen)
+			return;
+	} else if (!erzwingen && DIFF_TICK(tick, it->second) < CONCERTO_KACHEL_MS) {
 		return;
 	}
-	if (DIFF_TICK(tick, it->second) < CONCERTO_KACHEL_MS)
-		return;
-	it->second = tick;
+	concerto_kachel_zuletzt[group->group_id] = tick;
 	for (int32 i = 0; i < group->unit_count; ++i) {
 		skill_unit* u = &group->unit[i];
 		if (!u->alive || u->prev == nullptr)
@@ -359,7 +367,8 @@ static int32 concerto_buff_sub(block_list* bl, va_list ap) {
 		return 0;
 	if (bl->id != src->id && (ssd->status.party_id == 0 || tsd->status.party_id != ssd->status.party_id))
 		return 0;
-	// Neu setzen verlaengert; val1 = 1 (eine Stufe)
+	if (tsd->sc.getSCE(static_cast<sc_type>(status)) != nullptr)
+		return 0;   // hat ihn schon - nicht neu setzen
 	status_change_start(src, bl, static_cast<sc_type>(status), 10000, 1, 0, 0, 0, dauer, SCSTART_NOAVOID | SCSTART_NOTICKDEF);
 	return 1;
 }
@@ -513,7 +522,7 @@ static TIMER_FUNC(concerto_tick_timer) {
 				src, mitte, group.get(), wert, tick);
 			break;
 		case CONCERTO_BUFF: {
-			int32 dauer = wert * 10 + CONCERTO_BUFF_GNADE_MS;
+			int32 dauer = CONCERTO_BUFF_MS;
 			concerto_kacheln_auffrischen(group.get(), tick);
 			concerto_effekt(src, gid, con->effekt(), tick);
 			map_foreachinrange(concerto_buff_sub, mitte, reichweite, BL_PC,

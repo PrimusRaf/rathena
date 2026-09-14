@@ -64,7 +64,7 @@ constexpr int32 SAFA_TALE_BUFF_MS = 30 * 60 * 1000;
 constexpr int32 SAFA_EFFEKT_ELEPHANT = 705;      // mobile_ef01.str
 constexpr int32 SAFA_EFFEKT_EAGLE = 987;         // rwc2011.str
 constexpr int32 SAFA_EFFEKT_RHINO = 1031;        // invincibleoff2.str
-constexpr int32 SAFA_EFFEKT_NIGHT = 669;         // wideb.str
+constexpr int32 SAFA_EFFEKT_NIGHT = 704;         // mobile_ef02.str (669 wideb.str = EF_BLEEDING: der Client haengt an die Id einen Wunden-Effekt - Raffael 14.09.)
 
 bool concerto_ist_skill(uint16 skill_id);
 
