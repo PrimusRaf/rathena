@@ -160,6 +160,32 @@ static void concerto_effekt(block_list* src, int32 gid, int32 effekt, t_tick tic
 	clif_specialeffect(src, effekt, AREA);
 }
 
+// Sanctuary-Kacheln: der 2025er Client zeichnet den Effekt nur ~30 s (offizielle
+// Hoechstdauer), obwohl die Units stehen. Deshalb alle CONCERTO_KACHEL_MS je Zelle
+// Loeschen + Neuanlage an die Clients schicken - der Effekt laeuft dann neu an.
+constexpr t_tick CONCERTO_KACHEL_MS = 20000;
+static std::unordered_map<int32, t_tick> concerto_kachel_zuletzt;   // group_id -> tick
+
+static void concerto_kacheln_auffrischen(s_skill_unit_group* group, t_tick tick) {
+	if (group->unit_id != UNT_SANCTUARY)
+		return;
+	auto it = concerto_kachel_zuletzt.find(group->group_id);
+	if (it == concerto_kachel_zuletzt.end()) {
+		concerto_kachel_zuletzt[group->group_id] = tick;   // frisch gelegt, erst in 20 s
+		return;
+	}
+	if (DIFF_TICK(tick, it->second) < CONCERTO_KACHEL_MS)
+		return;
+	it->second = tick;
+	for (int32 i = 0; i < group->unit_count; ++i) {
+		skill_unit* u = &group->unit[i];
+		if (!u->alive || u->prev == nullptr)
+			continue;
+		clif_skill_delunit(*u);
+		clif_getareachar_skillunit(u, u, AREA, true);
+	}
+}
+
 // Timer-Daten: group_id * 1024 + wert. Bei Schaden ist wert der Faktor
 // (<= 1000, passt in die 12 Bit, die skill_attack als flag weiterreicht);
 // bei Buff/Debuff der Abstand zum naechsten Beat in 10-ms-Schritten (<= 1023).
@@ -388,6 +414,9 @@ static int32 concerto_debuff_sub(block_list* bl, va_list ap) {
 
 	if (bl->prev == nullptr || status_isdead(*bl))
 		return 0;
+	// Der Saenger selbst nie (Raffael 13.09.) - unabhaengig von @killer, PvP-Karte o.ae.
+	if (bl->id == src->id)
+		return 0;
 	if (battle_check_target(mitte, bl, BCT_ENEMY) <= 0)
 		return 0;
 	const s_nacht_debuff* d = nacht_ziehen(bl->type == BL_PC);
@@ -485,6 +514,7 @@ static TIMER_FUNC(concerto_tick_timer) {
 			break;
 		case CONCERTO_BUFF: {
 			int32 dauer = wert * 10 + CONCERTO_BUFF_GNADE_MS;
+			concerto_kacheln_auffrischen(group.get(), tick);
 			concerto_effekt(src, gid, con->effekt(), tick);
 			map_foreachinrange(concerto_buff_sub, mitte, reichweite, BL_PC,
 				src, static_cast<int32>(con->status()), dauer);
@@ -496,6 +526,7 @@ static TIMER_FUNC(concerto_tick_timer) {
 				src, mitte);
 			break;
 		case CONCERTO_TALE:
+			concerto_kacheln_auffrischen(group.get(), tick);
 			map_foreachinrange(concerto_tale_sub, mitte, reichweite, BL_PC, src, con);
 			break;
 	}

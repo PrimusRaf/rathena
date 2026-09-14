@@ -120,7 +120,7 @@ Body:
         Musical: true
         Whip: true
     Unit:
-      Id: Sanctuary           # goldene Kacheln; DEF +200, Max HP +50 %, 1 % HP / 3 s
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt (concerto.cpp), sonst zeichnet der 2025er Client sie nur ~30 s
       Layout: 5
       Interval: -1
       Target: Friend
@@ -239,7 +239,7 @@ Body:
         - Item: Protect_Neck_Candy
           Amount: 1
     Unit:
-      Id: Sanctuary
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt, sonst zeichnet der Client sie nur ~30 s (concerto.cpp)
       Layout: 5
       Interval: -1
       Target: Friend
@@ -273,7 +273,7 @@ Body:
         - Item: Protect_Neck_Candy
           Amount: 1
     Unit:
-      Id: Sanctuary
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt, sonst zeichnet der Client sie nur ~30 s (concerto.cpp)
       Layout: 5
       Interval: -1
       Target: Friend
@@ -307,7 +307,7 @@ Body:
         - Item: Protect_Neck_Candy
           Amount: 1
     Unit:
-      Id: Sanctuary
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt, sonst zeichnet der Client sie nur ~30 s (concerto.cpp)
       Layout: 5
       Interval: -1
       Target: Friend
@@ -341,7 +341,7 @@ Body:
         - Item: Protect_Neck_Candy
           Amount: 1
     Unit:
-      Id: Sanctuary
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt, sonst zeichnet der Client sie nur ~30 s (concerto.cpp)
       Layout: 5
       Interval: -1
       Target: Friend
@@ -375,7 +375,7 @@ Body:
         - Item: Protect_Neck_Candy
           Amount: 1
     Unit:
-      Id: Sanctuary
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt, sonst zeichnet der Client sie nur ~30 s (concerto.cpp)
       Layout: 5
       Interval: -1
       Target: Friend
@@ -409,7 +409,7 @@ Body:
         - Item: Protect_Neck_Candy
           Amount: 1
     Unit:
-      Id: Sanctuary
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt, sonst zeichnet der Client sie nur ~30 s (concerto.cpp)
       Layout: 5
       Interval: -1
       Target: Friend
@@ -443,7 +443,7 @@ Body:
         - Item: Protect_Neck_Candy
           Amount: 1
     Unit:
-      Id: Sanctuary
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt, sonst zeichnet der Client sie nur ~30 s (concerto.cpp)
       Layout: 5
       Interval: -1
       Target: Friend
@@ -477,7 +477,7 @@ Body:
         - Item: Protect_Neck_Candy
           Amount: 1
     Unit:
-      Id: Sanctuary
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt, sonst zeichnet der Client sie nur ~30 s (concerto.cpp)
       Layout: 5
       Interval: -1
       Target: Friend
@@ -511,7 +511,7 @@ Body:
         - Item: Protect_Neck_Candy
           Amount: 1
     Unit:
-      Id: Sanctuary
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt, sonst zeichnet der Client sie nur ~30 s (concerto.cpp)
       Layout: 5
       Interval: -1
       Target: Friend
@@ -545,7 +545,7 @@ Body:
         - Item: Protect_Neck_Candy
           Amount: 1
     Unit:
-      Id: Sanctuary
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt, sonst zeichnet der Client sie nur ~30 s (concerto.cpp)
       Layout: 5
       Interval: -1
       Target: Friend
@@ -579,7 +579,7 @@ Body:
         - Item: Protect_Neck_Candy
           Amount: 1
     Unit:
-      Id: Sanctuary
+      Id: Sanctuary            # Kacheln werden alle 20 s neu geschickt, sonst zeichnet der Client sie nur ~30 s (concerto.cpp)
       Layout: 5
       Interval: -1
       Target: Friend

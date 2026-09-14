@@ -54,7 +54,7 @@ Body:
   # Bonus-Topf) und physischer Windbonus sitzen im C++ (status_calc_speed,
   # battle_calc_cardfix); magischer Windbonus ueber bMagicAtkEle.
   - Status: Safa_Elephant
-    Icon: EFST_STEELBODY
+    Icon: EFST_ANGELUS            # kein Koerper-Effekt (Steelbody flackerte je Beat neu - Raffael 13.09.)
     CalcFlags:
       All: true
     Flags:
@@ -77,7 +77,7 @@ Body:
       bonus bFlee,200;
       bonus2 bMagicAtkEle,Ele_Wind,100;
   - Status: Safa_Rhino
-    Icon: EFST_ENERGYCOAT
+    Icon: EFST_MAGNIFICAT         # kein Koerper-Effekt (Energycoat-Blau wuerde je Beat neu starten)
     CalcFlags:
       All: true
     Flags:
@@ -99,6 +99,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoSave: false
     Script: |
       bonus bAtkRate,12;
       bonus bMaxHPrate,15;
@@ -111,6 +112,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoSave: false
     Script: |
       bonus bAddItemHealRate,30;
       bonus bMaxHPrate,15;
@@ -123,6 +125,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoSave: false
     Script: |
       bonus bAtkRate,10;
       bonus bMatkRate,10;
@@ -136,6 +139,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoSave: false
     Script: |
       bonus bAspdRate,10;
       bonus bFlee,50;
@@ -148,6 +152,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoSave: false
     Script: |
       bonus bLongAtkRate,15;
       bonus bAspdRate,10;
@@ -160,6 +165,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoSave: false
     Script: |
       bonus bMatkRate,15;
       bonus bCastrate,-20;
@@ -172,6 +178,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoSave: false
     Script: |
       bonus bLongAtkRate,15;
       bonus bHit,50;
@@ -184,6 +191,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoSave: false
     Script: |
       bonus bAllStats,10;
       bonus bMaxHPrate,15;
@@ -196,6 +204,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoSave: false
     Script: |
       bonus bCritical,30;
       bonus bFlee,50;
@@ -208,6 +217,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoSave: false
     Script: |
       bonus bLongAtkRate,10;
       bonus bAtkRate,10;
@@ -220,6 +230,7 @@ Body:
       NoDispell: true
       NoBanishingBuster: true
       NoClearance: true
+      NoSave: false
     Script: |
       bonus bMaxHPrate,20;
       bonus bDef,100;
